@@ -18,10 +18,11 @@
 # ------------------------------------------------------------------------------
 
 import bpy
-from tensorflow_graphics.viewer import interface
+from viewer import interface
+
 
 class Object3D(interface.Object3D):
-  def __init__(self, blender_object): #, name=None):
+  def __init__(self, blender_object):  # , name=None):
     super().__init__(self)
     self._blender_object = blender_object
     # if self.name: self._blender_object.name = self.name
@@ -41,47 +42,46 @@ class Object3D(interface.Object3D):
     super()._set_quaternion(value)
     self._blender_object.rotation_euler = self.quaternion.to_euler()
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-from tensorflow_graphics.viewer import interface
 
 class Scene(interface.Scene):
   pass
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
-from tensorflow_graphics.viewer import blender
 
-class Camera(interface.Camera, blender.Object3D):
+class Camera(interface.Camera, Object3D):
   def __init__(self, name=None):
-    bpy.ops.object.camera_add() # Created camera with name 'Camera'
-    blender.Object3D.__init__(self, bpy.context.object)
+    bpy.ops.object.camera_add()  # Created camera with name 'Camera'
+    Object3D.__init__(self, bpy.context.object)
 
-class OrthographicCamera(interface.OrthographicCamera, blender.Camera):
+
+class OrthographicCamera(interface.OrthographicCamera, Camera):
   def __init__(self, left=-1, right=+1, top=+1, bottom=-1, near=.1, far=2000):
-    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near, far)
-    blender.Camera.__init__(self)
+    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near,
+                                          far)
+    Camera.__init__(self)
     # --- extra things to set
     self._blender_object.data.type = 'ORTHO'
     self._blender_object.data.ortho_scale = 1.0 / self.zoom
     # TODO: integrate the changes from Derek
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
 
 class Renderer(interface.Renderer):
 
-  def __init__(self, numSamples = 128, exposure = 1.5, useBothCPUGPU = False):
+  def __init__(self, numSamples=128, exposure=1.5, useBothCPUGPU=False):
     super().__init__()
     # because blender has a default scene on load...
     self.clear_scene()
@@ -97,7 +97,7 @@ class Renderer(interface.Renderer):
     bpy.data.scenes[0].view_layers['View Layer']['cycles']['use_denoising'] = 1
 
     # set devices # TODO derek?
-    cyclePref  = bpy.context.preferences.addons['cycles'].preferences
+    cyclePref = bpy.context.preferences.addons['cycles'].preferences
     cyclePref.compute_device_type = 'CUDA'
     for dev in cyclePref.devices:
       if dev.type == "CPU" and useBothCPUGPU is False:
@@ -108,17 +108,18 @@ class Renderer(interface.Renderer):
 
     # TODO derek?
     for dev in cyclePref.devices:
-      print (dev)
-      print (dev.use)
+      print(dev)
+      print(dev.use)
 
   def clear_scene(self):
     bpy.ops.wm.read_homefile()
-    bpy.ops.object.select_all(action = 'SELECT')
+    bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete()
 
   def default_camera_view(self):
     """Changes the UI so that the default view is from the camera POW."""
-    view3d = next(area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
+    view3d = next(
+        area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
     view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
 
   def render(self, scene=None, camera=None, path=None):
@@ -126,99 +127,108 @@ class Renderer(interface.Renderer):
 
     # creates blender file
     if path.endswith(".blend"):
-      self.default_camera_view()  
+      self.default_camera_view()
       bpy.ops.wm.save_mainfile(filepath=path)
-    
+
     # renders scene directly to file
     if path.endswith(".png"):
       bpy.data.scenes['Scene'].render.filepath = path
       bpy.data.scenes['Scene'].camera = camera._blender_object
-      bpy.ops.render.render(write_still = True)
+      bpy.ops.render.render(write_still=True)
+
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
-from tensorflow_graphics.viewer import blender
 
 class AmbientLight(interface.AmbientLight):
   def __init__(self, color=0x030303, intensity=1):
-    bpy.data.scenes[0].world.use_nodes = True #< TODO: shouldn't use_nodes be moved to scene?
+    bpy.data.scenes[
+      0].world.use_nodes = True  # TODO: shouldn't use_nodes be moved to scene?
     interface.AmbientLight.__init__(self, color=color, intensity=intensity)
 
   def _set_color(self, value):
     super()._set_color(value)
-    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs['Color'].default_value = self.color
+    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs[
+      'Color'].default_value = self.color
 
   def _set_intensity(self, value):
     super()._set_intensity(value)
-    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs['Strength'].default_value = self.intensity   
+    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs[
+      'Strength'].default_value = self.intensity
+
+  # ------------------------------------------------------------------------------
+
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
-from tensorflow_graphics.viewer import blender
 
-class DirectionalLight(interface.DirectionalLight, blender.Object3D):
+class DirectionalLight(interface.DirectionalLight, Object3D):
   def __init__(self, color=0xffffff, intensity=1, shadow_softness=.1):
-    bpy.ops.object.light_add(type='SUN') # Creates light with name 'Sun'
-    blender.Object3D.__init__(self, bpy.context.object)
+    bpy.ops.object.light_add(type='SUN')  # Creates light with name 'Sun'
+    Object3D.__init__(self, bpy.context.object)
     self._blender_object.data.use_nodes = True
-    interface.DirectionalLight.__init__(self, color=color, intensity=intensity, shadow_softness=shadow_softness)
-  
+    interface.DirectionalLight.__init__(self, color=color, intensity=intensity,
+                                        shadow_softness=shadow_softness)
+
   def _set_color(self, value):
     super()._set_color(value)
-    self._blender_object.data.node_tree.nodes["Emission"].inputs['Color'].default_value = self.color
+    self._blender_object.data.node_tree.nodes["Emission"].inputs[
+      'Color'].default_value = self.color
 
   def _set_intensity(self, value):
     super()._set_intensity(value)
-    self._blender_object.data.node_tree.nodes["Emission"].inputs['Strength'].default_value = self.intensity
+    self._blender_object.data.node_tree.nodes["Emission"].inputs[
+      'Strength'].default_value = self.intensity
 
   def _set_shadow_softness(self, value):
     super()._set_shadow_softness(value)
     self._blender_object.data.angle = self.shadow_softness
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+
 class BufferAttribute(interface.BufferAttribute):
   pass
+
 
 class Float32BufferAttribute(interface.Float32BufferAttribute):
   def __init__(self, array, itemSize, normalized=None):
     self.array = array  # TODO: @property
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
-from tensorflow_graphics.viewer import blender
 
 class Geometry():
   # TODO: should this inherit Object3D or not?  
   pass
 
-class BoxGeometry(interface.BoxGeometry, blender.Object3D):
-  def __init__(self, width=1.0, height=1.0, depth=1.0):
-    assert width==height and  width==depth, "blender only creates unit cubes"
-    bpy.ops.mesh.primitive_cube_add(size=width)
-    blender.Object3D.__init__(self, bpy.context.object)
-    interface.BoxGeometry.__init__(self, width=width, height=height, depth=depth)
 
-class PlaneGeometry(interface.Geometry, blender.Object3D):
-  def __init__(self, width: float=1, height: float=1, widthSegments: int=1, heightSegments: int=1):
-    assert widthSegments==1 and  heightSegments==1, "not implemented"
+class BoxGeometry(interface.BoxGeometry, Object3D):
+  def __init__(self, width=1.0, height=1.0, depth=1.0):
+    assert width == height and width == depth, "blender only creates unit cubes"
+    bpy.ops.mesh.primitive_cube_add(size=width)
+    Object3D.__init__(self, bpy.context.object)
+    interface.BoxGeometry.__init__(self, width=width, height=height,
+                                   depth=depth)
+
+
+class PlaneGeometry(interface.Geometry, Object3D):
+  def __init__(self, width: float = 1, height: float = 1,
+      widthSegments: int = 1, heightSegments: int = 1):
+    assert widthSegments == 1 and heightSegments == 1, "not implemented"
     bpy.ops.mesh.primitive_plane_add()
-    blender.Object3D.__init__(self, bpy.context.object)
-    
+    Object3D.__init__(self, bpy.context.object)
+
+
 class BufferGeometry(interface.BufferGeometry):
   def __init__(self):
     interface.BufferGeometry.__init__(self)
@@ -229,6 +239,7 @@ class BufferGeometry(interface.BufferGeometry):
   def set_attribute(self, name, attribute: interface.BufferAttribute):
     interface.BufferGeometry.set_attribute(self, name, attribute)
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -237,6 +248,7 @@ class BufferGeometry(interface.BufferGeometry):
 #   bpy.ops.object.shade_smooth() # Option1: Gouraud shading
 #   # bpy.ops.object.shade_flat() # Option2: Flat shading
 #   # edgeNormals(mesh, angle = 10) # Option3: Edge normal shading)
+
 
 class Material(interface.Material):
   def __init__(self, specs={}):
@@ -247,14 +259,16 @@ class Material(interface.Material):
     """Used by materials that need to access the blender object."""
     pass
 
-class MeshBasicMaterial(interface.MeshBasicMaterial, blender.Material):
+
+class MeshBasicMaterial(interface.MeshBasicMaterial, Material):
   def __init__(self, specs={}):
-    blender.Material.__init__(self, specs)
+    Material.__init__(self, specs)
     interface.MeshBasicMaterial.__init__(self, specs)
 
-class MeshPhongMaterial(interface.MeshPhongMaterial, blender.Material):
+
+class MeshPhongMaterial(interface.MeshPhongMaterial, Material):
   def __init__(self, specs={}):
-    blender.Material.__init__(self, specs)
+    Material.__init__(self, specs)
     interface.Material.__init__(self, specs=specs)
     # TODO: apply specs
 
@@ -262,46 +276,46 @@ class MeshPhongMaterial(interface.MeshPhongMaterial, blender.Material):
     bpy.context.view_layer.objects.active = blender_object
     bpy.ops.object.shade_smooth()
 
-class MeshFlatMaterial(interface.MeshFlatMaterial, blender.Material):
+
+class MeshFlatMaterial(interface.MeshFlatMaterial, Material):
   def __init__(self, specs={}):
-    blender.Material.__init__(self, specs)
+    Material.__init__(self, specs)
     interface.Material.__init__(self, specs=specs)
-  
+
   def blender_apply(self, blender_object):
     bpy.context.view_layer.objects.active = blender_object
     bpy.ops.object.shade_flat()
 
-class ShadowMaterial(interface.ShadowMaterial, blender.Material):
+
+class ShadowMaterial(interface.ShadowMaterial, Material):
   def __init__(self, specs={}):
-    blender.Material.__init__(self, specs=specs)
+    Material.__init__(self, specs=specs)
     interface.ShadowMaterial.__init__(self, specs=specs)
 
   def blender_apply(self, blender_object):
     if self.receive_shadow:
       blender_object.cycles.is_shadow_catcher = True
 
+
 # ------------------------------------------------------------------------------
 # ----------------------------  mesh.py submodule  -----------------------------
 # ------------------------------------------------------------------------------
 
-import bpy
-from tensorflow_graphics.viewer import interface
-from tensorflow_graphics.viewer import blender
 
-class Mesh(interface.Mesh, blender.Object3D):
-  def __init__(self, geometry: blender.Geometry, material: blender.Material):
+class Mesh(interface.Mesh, Object3D):
+  def __init__(self, geometry: Geometry, material: Material):
     interface.Mesh.__init__(self, geometry, material)
 
     # WARNING: differently from threejs, blender creates an object when
     # primivitives are created, so we need to make sure we do not duplicate it
-    if isinstance(geometry, blender.Object3D):
-      blender.Object3D.__init__(self, geometry._blender_object)
+    if isinstance(geometry, Object3D):
+      Object3D.__init__(self, geometry._blender_object)
     else:
       bpy.ops.object.add(type="MESH")
-      blender.Object3D.__init__(self, bpy.context.object)
-    
+      Object3D.__init__(self, bpy.context.object)
+
     # TODO: is there a better way to achieve this?
-    if isinstance(self.geometry, blender.BufferGeometry):
+    if isinstance(self.geometry, BufferGeometry):
       vertices = self.geometry.attributes["position"].array.tolist()
       faces = self.geometry.index.tolist()
       self._blender_object.data.from_pydata(vertices, [], faces)

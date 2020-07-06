@@ -21,11 +21,11 @@ WARNING: this needs to be executed in either of two ways
 """
 
 # TODO: tensorflow_graphics is not installed in Blender's REPL (also this is from source)
-import os, sys
+import sys
 sys.path.append("/Users/atagliasacchi/dev/graphics")
 
 # --- note: this selects blender as the standard backend
-import tensorflow_graphics.viewer.blender as THREE
+import viewer.blender as THREE
 
 # --- renderer & scene
 renderer = THREE.Renderer()
