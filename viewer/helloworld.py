@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Helloworld for 3D visualization in Tensorflow Graphics.
+""" Helloworld for 3D visualization.
 
 Inspired by https://threejs.org/docs/#manual/en/introduction/Creating-a-scene.
 
@@ -20,20 +20,17 @@ WARNING: this needs to be executed in either of two ways
   2) Via `pip install bpy` via https://wiki.blender.org/wiki/Building_Blender/Other/BlenderAsPyModule
 """
 
-# TODO: tensorflow_graphics is not installed in Blender's REPL (also this is from source)
-import sys
-sys.path.append("/Users/atagliasacchi/dev/graphics")
-
-# --- note: this selects blender as the standard backend
-import viewer.blender as THREE
+# TODO: user proper imports once project name is defined
+import sys; sys.path.append("../")
+import viewer.blender as THREE  # selects blender as the standard backend
 
 # --- renderer & scene
 renderer = THREE.Renderer()
-renderer.set_size(640,480)
+renderer.set_size(200,200)
 scene = THREE.Scene()
 
 # --- camera
-camera = THREE.OrthographicCamera()
+camera = THREE.OrthographicCamera(left=-.5, right=+.5, top=.5, bottom=-.5)
 camera.position = (2, 2, 2)
 camera.look_at(0, 0, .25)
 
