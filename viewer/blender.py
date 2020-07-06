@@ -13,12 +13,15 @@
 # limitations under the License.
 """Implementation of blender backend."""
 
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
 
 import bpy
+import numpy as np
 from viewer import interface
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 
 class Object3D(interface.Object3D):
@@ -54,7 +57,7 @@ class Scene(interface.Scene):
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------                                       
 
 
 class Camera(interface.Camera, Object3D):
@@ -65,76 +68,11 @@ class Camera(interface.Camera, Object3D):
 
 class OrthographicCamera(interface.OrthographicCamera, Camera):
   def __init__(self, left=-1, right=+1, top=+1, bottom=-1, near=.1, far=2000):
-    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near,
-                                          far)
+    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near, far)
     Camera.__init__(self)
     # --- extra things to set
     self._blender_object.data.type = 'ORTHO'
-    self._blender_object.data.ortho_scale = 1.0 / self.zoom
-    # TODO: integrate the changes from Derek
-
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
-
-class Renderer(interface.Renderer):
-
-  def __init__(self, numSamples=128, exposure=1.5, useBothCPUGPU=False):
-    super().__init__()
-    # because blender has a default scene on load...
-    self.clear_scene()
-    # use cycle
-    bpy.context.scene.render.engine = 'CYCLES'
-    bpy.context.scene.render.resolution_x = self.width
-    bpy.context.scene.render.resolution_y = self.height
-    bpy.context.scene.render.film_transparent = True
-    # bpy.context.scene.cycles.film_transparent = True # TODO(derek) why is this necessary?
-    bpy.context.scene.cycles.samples = numSamples
-    bpy.context.scene.cycles.max_bounces = 6
-    bpy.context.scene.cycles.film_exposure = exposure
-    bpy.data.scenes[0].view_layers['View Layer']['cycles']['use_denoising'] = 1
-
-    # set devices # TODO derek?
-    cyclePref = bpy.context.preferences.addons['cycles'].preferences
-    cyclePref.compute_device_type = 'CUDA'
-    for dev in cyclePref.devices:
-      if dev.type == "CPU" and useBothCPUGPU is False:
-        dev.use = False
-      else:
-        dev.use = True
-    bpy.context.scene.cycles.device = 'GPU'
-
-    # TODO derek?
-    for dev in cyclePref.devices:
-      print(dev)
-      print(dev.use)
-
-  def clear_scene(self):
-    bpy.ops.wm.read_homefile()
-    bpy.ops.object.select_all(action='SELECT')
-    bpy.ops.object.delete()
-
-  def default_camera_view(self):
-    """Changes the UI so that the default view is from the camera POW."""
-    view3d = next(
-        area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
-    view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
-
-  def render(self, scene=None, camera=None, path=None):
-    assert path.endswith(".blend") or path.endswith(".png")
-
-    # creates blender file
-    if path.endswith(".blend"):
-      self.default_camera_view()
-      bpy.ops.wm.save_mainfile(filepath=path)
-
-    # renders scene directly to file
-    if path.endswith(".png"):
-      bpy.data.scenes['Scene'].render.filepath = path
-      bpy.data.scenes['Scene'].camera = camera._blender_object
-      bpy.ops.render.render(write_still=True)
+    self._blender_object.data.ortho_scale = (right-left)
 
 
 # ------------------------------------------------------------------------------
@@ -158,9 +96,8 @@ class AmbientLight(interface.AmbientLight):
     bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs[
       'Strength'].default_value = self.intensity
 
-  # ------------------------------------------------------------------------------
 
-
+# ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
@@ -244,11 +181,6 @@ class BufferGeometry(interface.BufferGeometry):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-#   # TODO: configure shading
-#   bpy.ops.object.shade_smooth() # Option1: Gouraud shading
-#   # bpy.ops.object.shade_flat() # Option2: Flat shading
-#   # edgeNormals(mesh, angle = 10) # Option3: Edge normal shading)
-
 
 class Material(interface.Material):
   def __init__(self, specs={}):
@@ -298,7 +230,7 @@ class ShadowMaterial(interface.ShadowMaterial, Material):
 
 
 # ------------------------------------------------------------------------------
-# ----------------------------  mesh.py submodule  -----------------------------
+# ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 
@@ -323,3 +255,73 @@ class Mesh(interface.Mesh, Object3D):
     # Adds the material to the object
     self._blender_object.data.materials.append(material._blender_material)
     self.material.blender_apply(self._blender_object)
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+
+class Renderer(interface.Renderer):
+
+  def __init__(self, numSamples=128, exposure=1.5, useBothCPUGPU=False):
+    super().__init__()
+    # because blender has a default scene on load...
+    self.clear_scene()
+    # use cycle
+    bpy.context.scene.render.engine = 'CYCLES'
+    bpy.context.scene.render.resolution_x = self.width
+    bpy.context.scene.render.resolution_y = self.height
+    bpy.context.scene.render.film_transparent = True
+    # bpy.context.scene.cycles.film_transparent = True # TODO(derek) why is this necessary?
+    bpy.context.scene.cycles.samples = numSamples
+    bpy.context.scene.cycles.max_bounces = 6
+    bpy.context.scene.cycles.film_exposure = exposure
+    bpy.data.scenes[0].view_layers['View Layer']['cycles']['use_denoising'] = 1
+
+    # set devices # TODO derek?
+    cyclePref = bpy.context.preferences.addons['cycles'].preferences
+    cyclePref.compute_device_type = 'CUDA'
+    for dev in cyclePref.devices:
+      if dev.type == "CPU" and useBothCPUGPU is False:
+        dev.use = False
+      else:
+        dev.use = True
+    bpy.context.scene.cycles.device = 'GPU'
+
+    # TODO derek?
+    for dev in cyclePref.devices:
+      print(dev)
+      print(dev.use)
+
+  def clear_scene(self):
+    bpy.ops.wm.read_homefile()
+    bpy.ops.object.select_all(action='SELECT')
+    bpy.ops.object.delete()
+
+  def default_camera_view(self):
+    """Changes the UI so that the default view is from the camera POW."""
+    view3d = next(area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
+    view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
+
+  def render(self, scene: Scene, camera: Camera, path: str):
+    assert path.endswith(".blend") or path.endswith(".png")
+
+    # --- adjusts resolution according to threejs style camera
+    if isinstance(camera, OrthographicCamera):
+      aspect = (camera.right - camera.left)*1.0 / (camera.top - camera.bottom)
+      new_y_res = int(bpy.context.scene.render.resolution_x / aspect)
+      if new_y_res != bpy.context.scene.render.resolution_y:
+        print("WARNING: blender renderer adjusted the film resolution")
+        bpy.context.scene.render.resolution_y = new_y_res
+
+    # --- creates blender file
+    if path.endswith(".blend"):
+      self.default_camera_view()
+      bpy.ops.wm.save_mainfile(filepath=path)
+
+    # renders scene directly to file
+    if path.endswith(".png"):
+      bpy.data.scenes['Scene'].render.filepath = path
+      bpy.data.scenes['Scene'].camera = camera._blender_object
+      bpy.ops.render.render(write_still=True)
