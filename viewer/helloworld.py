@@ -46,10 +46,13 @@ scene.add(dir_light)
 
 # --- instantiate object
 geometry = THREE.BoxGeometry()
-geometry.scale = (.1, .1, .1)
-geometry.position = (0, .2, .05)
 material = THREE.MeshFlatMaterial()
 cube = THREE.Mesh(geometry, material)
+cube.scale = (.1, .1, .1)
+cube.position = (0, .2, .05)
+cube.keyframe_insert("position", 0)
+cube.position = (0, .5, .05)
+cube.keyframe_insert("position", 30)
 scene.add(cube)
 
 # --- raw mesh object
@@ -73,10 +76,10 @@ scene.add(spot)
 
 # --- Invisible ground
 geometry = THREE.PlaneGeometry()
-geometry.scale = (2, 2, 2)
 material = THREE.ShadowMaterial()
 floor = THREE.Mesh(geometry, material)
+floor.scale = (2, 2, 2)
 scene.add(floor)
 
 # --- render to PNG or save .blend file (according to extension)
-renderer.render(scene, camera, path="helloworld.png")
+renderer.render(scene, camera, path="helloworld.blend")

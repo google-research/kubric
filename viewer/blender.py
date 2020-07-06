@@ -25,6 +25,12 @@ from viewer import interface
 
 
 class Object3D(interface.Object3D):
+
+  # Mapping from interface properties to blender properties (used in keyframing).
+  _member_to_blender_data_path = {
+    "position": "location"
+  }
+
   def __init__(self, blender_object):  # , name=None):
     super().__init__(self)
     self._blender_object = blender_object
@@ -45,6 +51,10 @@ class Object3D(interface.Object3D):
     super()._set_quaternion(value)
     self._blender_object.rotation_euler = self.quaternion.to_euler()
 
+  def keyframe_insert(self, member: str, frame: int):
+    assert hasattr(self, member), "cannot keyframe an undefined property"
+    data_path = Object3D._member_to_blender_data_path[member]
+    self._blender_object.keyframe_insert(data_path=data_path, frame=frame)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -52,6 +62,7 @@ class Object3D(interface.Object3D):
 
 
 class Scene(interface.Scene):
+  # TODO: look at API scene.objects.link(blender_object)
   pass
 
 
@@ -145,28 +156,27 @@ class Float32BufferAttribute(interface.Float32BufferAttribute):
 
 
 class Geometry():
-  # TODO: should this inherit Object3D or not?  
+  # NOTE: this intentionally does not inherit from Object3D!
   pass
 
 
-class BoxGeometry(interface.BoxGeometry, Object3D):
+class BoxGeometry(interface.BoxGeometry, Geometry):
   def __init__(self, width=1.0, height=1.0, depth=1.0):
     assert width == height and width == depth, "blender only creates unit cubes"
+    interface.BoxGeometry.__init__(self, width=width, height=height, depth=depth)
     bpy.ops.mesh.primitive_cube_add(size=width)
-    Object3D.__init__(self, bpy.context.object)
-    interface.BoxGeometry.__init__(self, width=width, height=height,
-                                   depth=depth)
+    self._blender_object = bpy.context.object
 
 
-class PlaneGeometry(interface.Geometry, Object3D):
+class PlaneGeometry(interface.Geometry, Geometry):
   def __init__(self, width: float = 1, height: float = 1,
       widthSegments: int = 1, heightSegments: int = 1):
     assert widthSegments == 1 and heightSegments == 1, "not implemented"
     bpy.ops.mesh.primitive_plane_add()
-    Object3D.__init__(self, bpy.context.object)
+    self._blender_object = bpy.context.object
 
 
-class BufferGeometry(interface.BufferGeometry):
+class BufferGeometry(interface.BufferGeometry, Geometry):
   def __init__(self):
     interface.BufferGeometry.__init__(self)
 
@@ -238,21 +248,24 @@ class Mesh(interface.Mesh, Object3D):
   def __init__(self, geometry: Geometry, material: Material):
     interface.Mesh.__init__(self, geometry, material)
 
+    # --- Create the blender object
     # WARNING: differently from threejs, blender creates an object when
     # primivitives are created, so we need to make sure we do not duplicate it
-    if isinstance(geometry, Object3D):
+    if hasattr(geometry, "_blender_object"):
+      # TODO: is there a better way to achieve this?
       Object3D.__init__(self, geometry._blender_object)
     else:
       bpy.ops.object.add(type="MESH")
       Object3D.__init__(self, bpy.context.object)
 
+    # --- Assigns the buffers to the object
     # TODO: is there a better way to achieve this?
     if isinstance(self.geometry, BufferGeometry):
       vertices = self.geometry.attributes["position"].array.tolist()
       faces = self.geometry.index.tolist()
       self._blender_object.data.from_pydata(vertices, [], faces)
 
-    # Adds the material to the object
+    # --- Adds the material to the object
     self._blender_object.data.materials.append(material._blender_material)
     self.material.blender_apply(self._blender_object)
 
@@ -320,7 +333,7 @@ class Renderer(interface.Renderer):
       self.default_camera_view()
       bpy.ops.wm.save_mainfile(filepath=path)
 
-    # renders scene directly to file
+    # --- renders one frame directly to file
     if path.endswith(".png"):
       bpy.data.scenes['Scene'].render.filepath = path
       bpy.data.scenes['Scene'].camera = camera._blender_object
