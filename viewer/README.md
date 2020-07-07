@@ -18,3 +18,6 @@ https://github.com/rdeits/meshcat-python
 /Applications/Blender.app/Contents/Resources/2.83/python/bin/python3.7m -m pip install webcolors
 /Applications/Blender.app/Contents/Resources/2.83/python/bin/python3.7m -m pip install tensorflow
 /Applications/Blender.app/Contents/Resources/2.83/python/bin/python3.7m -m pip install trimesh
+
+# macOS known issues with python package build
+https://devtalk.blender.org/t/undefined-symbols-when-building-blender-as-python-module/7304/4

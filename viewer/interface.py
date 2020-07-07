@@ -20,6 +20,15 @@ import mathutils
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+def hex_to_rgba(hexint: int, alpha=1.0):
+  b = hexint & 255
+  g = (hexint >> 8) & 255
+  r = (hexint >> 16) & 255
+  return [r / 255.0, g / 255.0, b / 255.0, alpha]
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # noinspection PyPropertyDefinition
 class Object3D(object):
@@ -39,17 +48,23 @@ class Object3D(object):
     self.parent = None  # TODO: parent management
     self.up = (0, 1, 0)
 
-  def _get_position(self): return self._position
+  def _get_position(self):
+    return self._position
 
-  def _set_position(self, value): self._position = mathutils.Vector(value)
+  def _set_position(self, value):
+    self._position = mathutils.Vector(value)
 
-  def _get_scale(self): return self._scale
+  def _get_scale(self):
+    return self._scale
 
-  def _set_scale(self, value): self._scale = value
+  def _set_scale(self, value):
+    self._scale = value
 
-  def _get_quaternion(self): return self._quaternion
+  def _get_quaternion(self):
+    return self._quaternion
 
-  def _set_quaternion(self, value): self._quaternion = value
+  def _set_quaternion(self, value):
+    self._quaternion = value
 
   def keyframe_insert(member: str, frame: int):
     raise NotImplementedError
@@ -65,15 +80,26 @@ class Object3D(object):
 # ------------------------------------------------------------------------------
 
 class Scene(object):
+  # TODO: environment maps https://threejs.org/docs/#api/en/scenes/Scene.background
+  frame_start = property(lambda self: self._frame_start, 
+                         lambda self, value: self._set_frame_start(value))
+  frame_end = property(lambda self: self._frame_end,
+                       lambda self, value: self._set_frame_end(value))
+
   def __init__(self):
     self._objects3d = list()
+    self.frame_start = 0
+    self.frame_end = 250 # blender's default
 
-  def add(self, obj):  # < node? check 3js API
+  def _set_frame_start(self, value):
+    self._frame_start = value
+
+  def _set_frame_end(self, value):
+    self._frame_end = value
+
+  def add(self, obj):
+    # TODO: node? check the threejs API
     self._objects3d.append(obj)
-
-  def blender(self):
-    for object3d in self._objects3d:
-      object3d.blender()
 
 
 # ------------------------------------------------------------------------------
@@ -109,12 +135,17 @@ class OrthographicCamera(Camera):
 class Renderer(object):
   """Superclass of all renderers."""
 
-  def __init__(self):
-    self.set_size()
+  # TODO: convert parameters to "specs" dictionary? (like THREEJS)
+  def __init__(self, width: int = 320, height: int = 240):
+    self.set_size(width, height)
 
-  def set_size(self, width: int = 320, height: int = 240):
+  def set_size(self, width: int, height: int):
     self.width = width
     self.height = height
+
+  def set_clear_color(self, color: int, alpha: float):
+    # https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setClearColor
+    self._clear_color = hex_to_rgba(color, alpha)
 
 
 # ------------------------------------------------------------------------------
@@ -138,12 +169,6 @@ class Light(Object3D):
     return self._color
 
   def _set_color(self, value):
-    def hex_to_rgba(hexint: int):
-      b = hexint & 255
-      g = (hexint >> 8) & 255
-      r = (hexint >> 16) & 255
-      return r / 255.0, g / 255.0, b / 255.0, 1.0
-
     self._color = hex_to_rgba(value)
 
   def _get_intensity(self):

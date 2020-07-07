@@ -28,6 +28,8 @@ import viewer.blender as THREE  # selects blender as the standard backend
 renderer = THREE.Renderer()
 renderer.set_size(200,200)
 scene = THREE.Scene()
+scene.frame_start = 0
+scene.frame_end = 10
 
 # --- camera
 camera = THREE.OrthographicCamera(left=-.5, right=+.5, top=.5, bottom=-.5)
@@ -35,7 +37,7 @@ camera.position = (2, 2, 2)
 camera.look_at(0, 0, .25)
 
 # --- ambient light
-amb_light = THREE.AmbientLight(color=0x0000FF, intensity=1)
+amb_light = THREE.AmbientLight(color=0x030303)
 scene.add(amb_light)
 
 # --- sunlight
@@ -51,8 +53,8 @@ cube = THREE.Mesh(geometry, material)
 cube.scale = (.1, .1, .1)
 cube.position = (0, .2, .05)
 cube.keyframe_insert("position", 0)
-cube.position = (0, .5, .05)
-cube.keyframe_insert("position", 30)
+cube.position = (0, .5, .25)
+cube.keyframe_insert("position", 10)
 scene.add(cube)
 
 # --- raw mesh object
@@ -82,4 +84,7 @@ floor.scale = (2, 2, 2)
 scene.add(floor)
 
 # --- render to PNG or save .blend file (according to extension)
-renderer.render(scene, camera, path="helloworld.blend")
+# renderer.render(scene, camera, path="helloworld.blend")
+renderer.render(scene, camera, path="helloworld.png")
+# renderer.render(scene, camera, path="helloworld.mov")
+# renderer.render(scene, camera, path="helloworld/frame_")

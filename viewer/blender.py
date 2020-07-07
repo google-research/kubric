@@ -24,6 +24,16 @@ from viewer import interface
 # ------------------------------------------------------------------------------
 
 
+class NotImplementableError(NotImplementedError):
+  """When a method in the interface cannot be realized in a particular implementation."""
+  pass
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+
 class Object3D(interface.Object3D):
 
   # Mapping from interface properties to blender properties (used in keyframing).
@@ -63,8 +73,20 @@ class Object3D(interface.Object3D):
 
 class Scene(interface.Scene):
   # TODO: look at API scene.objects.link(blender_object)
-  pass
+  # TODO: create a named scene, and refer via bpy.data.scenes['Scene']
+  
+  def __init__(self):
+    super().__init__()
+    bpy.context.scene.render.fps = 24
+    bpy.context.scene.render.fps_base = 1.0
 
+  def _set_frame_start(self, value):
+    super()._set_frame_start(value)
+    bpy.context.scene.frame_start = value
+
+  def _set_frame_end(self, value):
+    super()._set_frame_start(value)
+    bpy.context.scene.frame_end = value
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -93,18 +115,17 @@ class OrthographicCamera(interface.OrthographicCamera, Camera):
 
 class AmbientLight(interface.AmbientLight):
   def __init__(self, color=0x030303, intensity=1):
-    bpy.data.scenes[
-      0].world.use_nodes = True  # TODO: shouldn't use_nodes be moved to scene?
+    bpy.context.scene.world.use_nodes = True  # TODO: shouldn't use_nodes be moved to scene?
     interface.AmbientLight.__init__(self, color=color, intensity=intensity)
 
   def _set_color(self, value):
     super()._set_color(value)
-    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs[
+    bpy.context.scene.world.node_tree.nodes["Background"].inputs[
       'Color'].default_value = self.color
 
   def _set_intensity(self, value):
     super()._set_intensity(value)
-    bpy.data.scenes[0].world.node_tree.nodes["Background"].inputs[
+    bpy.context.scene.world.node_tree.nodes["Background"].inputs[
       'Strength'].default_value = self.intensity
 
 
@@ -156,7 +177,7 @@ class Float32BufferAttribute(interface.Float32BufferAttribute):
 
 
 class Geometry():
-  # NOTE: this intentionally does not inherit from Object3D!
+  # NOTE: this should not inherit from Object3D!
   pass
 
 
@@ -277,22 +298,20 @@ class Mesh(interface.Mesh, Object3D):
 
 class Renderer(interface.Renderer):
 
-  def __init__(self, numSamples=128, exposure=1.5, useBothCPUGPU=False):
+  def __init__(self, useBothCPUGPU=False):
     super().__init__()
-    # because blender has a default scene on load...
-    self.clear_scene()
-    # use cycle
+    self.clear_scene()  # as blender has a default scene on load
     bpy.context.scene.render.engine = 'CYCLES'
-    bpy.context.scene.render.resolution_x = self.width
-    bpy.context.scene.render.resolution_y = self.height
-    bpy.context.scene.render.film_transparent = True
-    # bpy.context.scene.cycles.film_transparent = True # TODO(derek) why is this necessary?
-    bpy.context.scene.cycles.samples = numSamples
+    bpy.context.scene.cycles.samples = 128
     bpy.context.scene.cycles.max_bounces = 6
-    bpy.context.scene.cycles.film_exposure = exposure
-    bpy.data.scenes[0].view_layers['View Layer']['cycles']['use_denoising'] = 1
+    bpy.context.scene.cycles.film_exposure = 1.5
+    bpy.context.scene.view_layers['View Layer']['cycles']['use_denoising'] = 1
 
-    # set devices # TODO derek?
+    # --- transparency
+    bpy.context.scene.render.film_transparent = True
+    # bpy.context.scene.cycles.film_transparent = True  # TODO: derek?
+
+    # --- compute devices # TODO derek?
     cyclePref = bpy.context.preferences.addons['cycles'].preferences
     cyclePref.compute_device_type = 'CUDA'
     for dev in cyclePref.devices:
@@ -301,11 +320,17 @@ class Renderer(interface.Renderer):
       else:
         dev.use = True
     bpy.context.scene.cycles.device = 'GPU'
-
-    # TODO derek?
     for dev in cyclePref.devices:
       print(dev)
       print(dev.use)
+
+  def set_size(self, width: int, height: int):
+    super().set_size(width, height)
+    bpy.context.scene.render.resolution_x = self.width
+    bpy.context.scene.render.resolution_y = self.height
+
+  def set_clear_color(self, color: int, alpha: float):
+    raise NotImplementableError()
 
   def clear_scene(self):
     bpy.ops.wm.read_homefile()
@@ -317,24 +342,67 @@ class Renderer(interface.Renderer):
     view3d = next(area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
     view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
 
-  def render(self, scene: Scene, camera: Camera, path: str):
-    assert path.endswith(".blend") or path.endswith(".png")
+  def postprocess_solidbackground(self, color=0xFFFFFF):
+    # TODO: why in the composited output the color is not exactly the specified one? HDR?
+    bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
+    tree = bpy.context.scene.node_tree
+    input_node = tree.nodes["Render Layers"]
+    output_node  = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    alphaover = tree.nodes.new("CompositorNodeAlphaOver") 
+    tree.links.new(input_node.outputs["Alpha"], alphaover.inputs[0]) # fac
+    alphaover.inputs[1].default_value = interface.hex_to_rgba(color, 1.0) # image 1
+    tree.links.new(input_node.outputs["Image"], alphaover.inputs[2]) # image 2
+    tree.links.new(alphaover.outputs["Image"], output_node.inputs["Image"])
 
+  def postprocess_remove_weakalpha(self, threshold=0.05): 
+    bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
+    tree = bpy.context.scene.node_tree
+    input_node = tree.nodes["Render Layers"]
+    output_node  = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    ramp = tree.nodes.new('CompositorNodeValToRGB')
+    ramp.color_ramp.elements[0].color[3] = 0
+    ramp.color_ramp.elements[0].position = threshold
+    ramp.color_ramp.interpolation = "CARDINAL"
+    tree.links.new(input_node.outputs["Alpha"], ramp.inputs["Fac"])
+    tree.links.new(ramp.outputs["Alpha"], output_node.inputs["Alpha"])
+
+  def render(self, scene: Scene, camera: Camera, path: str):
     # --- adjusts resolution according to threejs style camera
     if isinstance(camera, OrthographicCamera):
       aspect = (camera.right - camera.left)*1.0 / (camera.top - camera.bottom)
       new_y_res = int(bpy.context.scene.render.resolution_x / aspect)
       if new_y_res != bpy.context.scene.render.resolution_y:
-        print("WARNING: blender renderer adjusted the film resolution")
+        print("WARNING: blender renderer adjusted the film resolution", end="")
+        print(new_y_res, bpy.context.scene.render.resolution_y)
         bpy.context.scene.render.resolution_y = new_y_res
+
+    # --- Sets the default camera
+    bpy.context.scene.camera = camera._blender_object
+
+    if not path.endswith(".blend"):
+      bpy.context.scene.render.filepath = path
 
     # --- creates blender file
     if path.endswith(".blend"):
-      self.default_camera_view()
+      self.default_camera_view()  # TODO: not saved... why?
       bpy.ops.wm.save_mainfile(filepath=path)
+    
+    # --- renders a movie
+    elif path.endswith(".mov"):
+      assert bpy.context.scene.render.film_transparent == False
+      bpy.context.scene.render.image_settings.file_format = "FFMPEG"
+      bpy.context.scene.render.image_settings.color_mode = "RGB"
+      bpy.context.scene.render.ffmpeg.format = "QUICKTIME"
+      bpy.context.scene.render.ffmpeg.codec = "H264"
 
-    # --- renders one frame directly to file
-    if path.endswith(".png"):
-      bpy.data.scenes['Scene'].render.filepath = path
-      bpy.data.scenes['Scene'].camera = camera._blender_object
-      bpy.ops.render.render(write_still=True)
+    # --- renders one frame directly to a png file
+    elif path.endswith(".png"):
+      bpy.context.scene.render.film_transparent = True
+      self.postprocess_solidbackground(color=0xFF0000)
+      # TODO: add capability bpy.context.scene.frame_set(frame_number)
+      bpy.ops.render.render(write_still=True, animation=False)
+
+    # --- creates a movie as a image sequence {png}
+    else:      
+      # Then convert to gif with ImageMagick: `convert -delay 8 -loop 0 *.png output.gif`
+      bpy.ops.render.render(write_still=True, animation=True)  # movies do not support transparency    
