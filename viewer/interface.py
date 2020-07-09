@@ -66,7 +66,7 @@ class Object3D(object):
   def _set_quaternion(self, value):
     self._quaternion = value
 
-  def keyframe_insert(member: str, frame: int):
+  def keyframe_insert(self, member: str, frame: int):
     raise NotImplementedError
 
   def look_at(self, x, y, z):
