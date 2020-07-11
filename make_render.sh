@@ -26,12 +26,15 @@ else
   # --- Launches the job on aiplatform
   # see: https://cloud.google.com/ai-platform/training/docs/using-gpus
   docker push $TAG
+  # the first "--" separates glcoud parameters from blender parameters
+  # the second "--" separates blender parameters from script parameters
   gcloud beta ai-platform jobs submit training $JOB_NAME \
     --region $REGION \
     --master-image-uri $TAG \
-    --scale-tier "basic"
-    # -- \
-    # --job_name $JOB_NAME
+    --scale-tier "basic" \
+    -- \
+    -- \
+    --output "experiment4/frame_"
 
   # --- Streams the job logs to local terminal
   # gcloud ai-platform jobs stream-logs $JOB_NAME

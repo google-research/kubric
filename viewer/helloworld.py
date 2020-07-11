@@ -23,11 +23,21 @@ WARNING: this needs to be executed in either of two ways
 # TODO: user proper imports once project name is defined
 import sys; sys.path.append("../")
 
+import argparse
 import trimesh
 import mathutils
 import numpy as np
 from google.cloud import storage
 import viewer.blender as THREE  # selects blender as the standard backend
+
+# --- parse arguments
+import sys
+FLAGS = argparse.Namespace()
+if "--" in sys.argv:
+  parser = argparse.ArgumentParser(prog="helloworld")
+  parser.add_argument("--output", type=str, default="helloworld.png", help="output path")
+  FLAGS = parser.parse_args(sys.argv[sys.argv.index("--")+1:])
+
 
 # --- renderer & scene
 renderer = THREE.Renderer()
@@ -93,4 +103,5 @@ def on_render_write(rendered_file: str):
 # renderer.render(scene, camera, path="helloworld.blend")
 # renderer.render(scene, camera, path="helloworld.png")
 # renderer.render(scene, camera, path="helloworld.mov")
-renderer.render(scene, camera, path="experiment2/frame_", on_render_write=on_render_write)
+# renderer.render(scene, camera, path="helloworld/frame_")
+renderer.render(scene, camera, path=FLAGS.output, on_render_write=on_render_write)
