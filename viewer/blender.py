@@ -366,7 +366,7 @@ class Renderer(interface.Renderer):
     tree.links.new(input_node.outputs["Alpha"], ramp.inputs["Fac"])
     tree.links.new(ramp.outputs["Alpha"], output_node.inputs["Alpha"])
 
-  def render(self, scene: Scene, camera: Camera, path: str):
+  def render(self, scene: Scene, camera: Camera, path: str, on_render_write=None):
     # --- adjusts resolution according to threejs style camera
     if isinstance(camera, OrthographicCamera):
       aspect = (camera.right - camera.left)*1.0 / (camera.top - camera.bottom)
@@ -389,6 +389,7 @@ class Renderer(interface.Renderer):
     
     # --- renders a movie
     elif path.endswith(".mov"):
+      # WARNING: movies do not support transparency
       assert bpy.context.scene.render.film_transparent == False
       bpy.context.scene.render.image_settings.file_format = "FFMPEG"
       bpy.context.scene.render.image_settings.color_mode = "RGB"
@@ -404,5 +405,7 @@ class Renderer(interface.Renderer):
 
     # --- creates a movie as a image sequence {png}
     else:      
-      # Then convert to gif with ImageMagick: `convert -delay 8 -loop 0 *.png output.gif`
-      bpy.ops.render.render(write_still=True, animation=True)  # movies do not support transparency    
+      if on_render_write:
+        bpy.app.handlers.render_write.append(lambda scene: on_render_write(scene.render.frame_path()))
+      # Convert to gif via ImageMagick: `convert -delay 8 -loop 0 *.png output.gif`
+      bpy.ops.render.render(write_still=True, animation=True)
