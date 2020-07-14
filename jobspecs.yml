@@ -1,0 +1,16 @@
+# https://cloud.google.com/ml-engine/docs/tensorflow/using-hyperparameter-tuning
+# https://cloud.google.com/ml-engine/docs/tensorflow/monitor-training
+# https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs#traininginput
+# https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs#HyperparameterSpec
+
+trainingInput:
+  hyperparameters:
+    goal: MAXIMIZE
+    hyperparameterMetricTag: "test_accuracy"
+    maxTrials: 8
+    maxParallelTrials: 8
+    enableTrialEarlyStopping: False
+    params:
+    - parameterName: num_objects
+      type: DISCRETE
+      discreteValues: [1,2,3,4,5,6,7,8]

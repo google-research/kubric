@@ -2,7 +2,7 @@
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
-JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
+JOB_NAME="`date +"%b%d_%H%M%S"`"
 PROJECT_ID=${1:-`gcloud config get-value project`}
 TAG="gcr.io/$PROJECT_ID/kubric"
 REGION="us-central1"
@@ -21,7 +21,7 @@ docker build -f /tmp/Dockerfile -t $TAG $PWD
 # --- Run the container
 if [ "${1}" == "local" ]
 then
-  docker run $TAG
+  docker run $TAG -- --output "$JOB_NAME/#####/frame_"
 else
   # --- Launches the job on aiplatform
   # see: https://cloud.google.com/ai-platform/training/docs/using-gpus
@@ -32,9 +32,10 @@ else
     --region $REGION \
     --master-image-uri $TAG \
     --scale-tier "basic" \
+    --config jobspecs.yml \
     -- \
     -- \
-    --output "experiment4/frame_"
+    --output "$JOB_NAME/#####/frame_"
 
   # --- Streams the job logs to local terminal
   # gcloud ai-platform jobs stream-logs $JOB_NAME

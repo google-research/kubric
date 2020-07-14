@@ -23,6 +23,7 @@ WARNING: this needs to be executed in either of two ways
 # TODO: user proper imports once project name is defined
 import sys; sys.path.append("../")
 
+import os
 import argparse
 import trimesh
 import mathutils
@@ -31,13 +32,20 @@ from google.cloud import storage
 import viewer.blender as THREE  # selects blender as the standard backend
 
 # --- parse arguments
-import sys
-FLAGS = argparse.Namespace()
+parser = argparse.ArgumentParser(prog="helloworld")
+parser.add_argument("--output", type=str, default="helloworld.png", help="output path")
+parser.add_argument("--num_objects", type=int, default=3, help="numer of objects in scene")
+# --- This is necessary due to blender's REPL
 if "--" in sys.argv:
-  parser = argparse.ArgumentParser(prog="helloworld")
-  parser.add_argument("--output", type=str, default="helloworld.png", help="output path")
-  FLAGS = parser.parse_args(sys.argv[sys.argv.index("--")+1:])
+  FLAGS = parser.parse_args(args=sys.argv[sys.argv.index("--")+1:])
+else:
+  FLAGS = parser.parse_args(args=[])
 
+#--- Add the trial ID to the output folder
+CLOUD_ML_TRIAL_ID = int(os.environ.get("CLOUD_ML_TRIAL_ID", 0))
+if CLOUD_ML_TRIAL_ID != 0 and "#####" in FLAGS.output:
+  FLAGS.output = FLAGS.output.replace("#####", "{0:05d}".format(CLOUD_ML_TRIAL_ID))
+  print("writing to {} -> num_objects={}".format(FLAGS.output, FLAGS.num_objects))
 
 # --- renderer & scene
 renderer = THREE.Renderer()
@@ -96,6 +104,8 @@ floor.scale = (2, 2, 2)
 scene.add(floor)
 
 def on_render_write(rendered_file: str):
+  # TODO: the bucket path should be specified via parameters?
+  print("saving {}/{}".format("gs://kubric",rendered_file))
   bucket = storage.Client().bucket("kubric")  #< gs://kubric
   bucket.blob(rendered_file).upload_from_filename(rendered_file)
 
