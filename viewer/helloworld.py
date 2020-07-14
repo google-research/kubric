@@ -32,9 +32,9 @@ from google.cloud import storage
 import viewer.blender as THREE  # selects blender as the standard backend
 
 # --- parse arguments
-parser = argparse.ArgumentParser(prog="helloworld")
+parser = argparse.ArgumentParser()
 parser.add_argument("--output", type=str, default="helloworld.png", help="output path")
-parser.add_argument("--num_objects", type=int, default=3, help="numer of objects in scene")
+parser.add_argument("--parameter", type=int, default=3, help="example of parameter")
 # --- This is necessary due to blender's REPL
 if "--" in sys.argv:
   FLAGS = parser.parse_args(args=sys.argv[sys.argv.index("--")+1:])
@@ -45,7 +45,7 @@ else:
 CLOUD_ML_TRIAL_ID = int(os.environ.get("CLOUD_ML_TRIAL_ID", 0))
 if CLOUD_ML_TRIAL_ID != 0 and "#####" in FLAGS.output:
   FLAGS.output = FLAGS.output.replace("#####", "{0:05d}".format(CLOUD_ML_TRIAL_ID))
-  print("writing to {} -> num_objects={}".format(FLAGS.output, FLAGS.num_objects))
+  print("writing to {}".format(FLAGS.output))
 
 # --- renderer & scene
 renderer = THREE.Renderer()
@@ -115,3 +115,12 @@ def on_render_write(rendered_file: str):
 # renderer.render(scene, camera, path="helloworld.mov")
 # renderer.render(scene, camera, path="helloworld/frame_")
 renderer.render(scene, camera, path=FLAGS.output, on_render_write=on_render_write)
+
+# --- make hypertune happy, otherwise individual jobs marked as failed
+if CLOUD_ML_TRIAL_ID != 0:
+  import hypertune
+  hpt = hypertune.HyperTune()
+  hpt.report_hyperparameter_tuning_metric(
+    hyperparameter_metric_tag='generated_images',
+    metric_value=float(scene.frame_end),
+    global_step=1)

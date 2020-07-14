@@ -18,10 +18,27 @@ EOF
 # --- Build the container
 docker build -f /tmp/Dockerfile -t $TAG $PWD
 
+# --- Specify the hypertune configuration
+cat > /tmp/config.yml << EOF
+  trainingInput:
+    hyperparameters:
+      goal: MAXIMIZE
+      hyperparameterMetricTag: "generated_images"
+      maxTrials: 4
+      maxParallelTrials: 4
+      enableTrialEarlyStopping: False
+
+      # --- each of these become an argparse argument
+      params:
+      - parameterName: parameter
+        type: DISCRETE
+        discreteValues: [1,2,3,4]
+EOF
+
 # --- Run the container
-if [ "${1}" == "local" ]
-then
-  docker run $TAG -- --output "$JOB_NAME/#####/frame_"
+if [ "${1}" == "local" ]; then
+  docker run $TAG -- --output "$JOB_NAME/#####/frame_" --parameter 5
+
 else
   # --- Launches the job on aiplatform
   # see: https://cloud.google.com/ai-platform/training/docs/using-gpus
@@ -32,11 +49,12 @@ else
     --region $REGION \
     --master-image-uri $TAG \
     --scale-tier "basic" \
-    --config jobspecs.yml \
+    --config /tmp/config.yml \
     -- \
     -- \
     --output "$JOB_NAME/#####/frame_"
 
   # --- Streams the job logs to local terminal
+  # https://cloud.google.com/sdk/gcloud/reference/ai-platform/jobs/stream-logs
   # gcloud ai-platform jobs stream-logs $JOB_NAME
 fi

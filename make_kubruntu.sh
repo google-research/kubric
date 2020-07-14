@@ -23,6 +23,7 @@ cat > /tmp/Dockerfile <<EOF
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install --upgrade pip
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install trimesh
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install google.cloud.storage
+  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install cloudml-hypertune
 EOF
 
 # --- create an image for reuse
