@@ -1,9 +1,13 @@
 #!/bin/bash -x
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
-
+# 
+# See:
+#   https://cloud.google.com/ai-platform/training/docs/using-gpus
+#   https://cloud.google.com/sdk/gcloud/reference/ai-platform/jobs/stream-logs
+  
 JOB_NAME="`date +"%b%d_%H%M%S"`"
-PROJECT_ID=${1:-`gcloud config get-value project`}
+PROJECT_ID=`gcloud config get-value project`
 TAG="gcr.io/$PROJECT_ID/kubric"
 REGION="us-central1"
 
@@ -19,7 +23,7 @@ EOF
 docker build -f /tmp/Dockerfile -t $TAG $PWD
 
 # --- Specify the hypertune configuration
-cat > /tmp/config.yml << EOF
+cat > /tmp/hypertune.yml << EOF
   trainingInput:
     hyperparameters:
       goal: MAXIMIZE
@@ -35,26 +39,41 @@ cat > /tmp/config.yml << EOF
         discreteValues: [1,2,3,4]
 EOF
 
-# --- Run the container
+# --- Run the container locally (debugging)
 if [ "${1}" == "local" ]; then
-  docker run $TAG -- --output "$JOB_NAME/#####/frame_" --parameter 5
+  docker run $TAG \
+    -- \
+    --output "$JOB_NAME/#####/frame_" \
+    --parameter 5
 
-else
-  # --- Launches the job on aiplatform
-  # see: https://cloud.google.com/ai-platform/training/docs/using-gpus
+# --- Launches a single jobs on ai-platform
+elif [ "${1}" == "remote" ]; then
   docker push $TAG
-  # the first "--" separates glcoud parameters from blender parameters
-  # the second "--" separates blender parameters from script parameters
   gcloud beta ai-platform jobs submit training $JOB_NAME \
     --region $REGION \
     --master-image-uri $TAG \
     --scale-tier "basic" \
-    --config /tmp/config.yml \
+    -- \
+    -- \
+    --output "$JOB_NAME/frame_" \
+    --parameter 5
+
+# --- Launches parallel jobs on ai-platform
+# the first "--" separates glcoud parameters from blender parameters
+# the second "--" separates blender parameters from script parameters
+elif [ "${1}" == "hypertune" ]; then
+  docker push $TAG 
+  gcloud beta ai-platform jobs submit training $JOB_NAME \
+    --region $REGION \
+    --master-image-uri $TAG \
+    --scale-tier "basic" \
+    --config /tmp/hypertune.yml \
     -- \
     -- \
     --output "$JOB_NAME/#####/frame_"
 
-  # --- Streams the job logs to local terminal
-  # https://cloud.google.com/sdk/gcloud/reference/ai-platform/jobs/stream-logs
-  # gcloud ai-platform jobs stream-logs $JOB_NAME
+# --- Failure
+else
+  echo "must provide a valid parameter"
+  exit -1
 fi
