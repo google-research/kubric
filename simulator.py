@@ -147,6 +147,8 @@ class Simulator:
             'orient_quat': [],
         } for obj_id in obj_ids
     }
+
+    # TODO: why is this not a for loop?
     while current_step <= max_step:
       if current_step % steps_per_frame == 0:
         for obj_id in obj_ids:
