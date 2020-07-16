@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import math
+import logging
 from pathlib import Path
 from typing import Dict, Optional, Tuple, Union
 
@@ -61,6 +62,7 @@ class Simulator:
     Returns:
       int: the object_id of the inserted object.
     """
+    logging.info("Loading '{}' in the simulator".format(filename))
     path = Path(filename).resolve()
     if not path.exists():
       raise IOError('File "{}" does not exist.'.format(path))

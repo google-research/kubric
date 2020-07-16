@@ -26,7 +26,7 @@ class AssetSource(object):
   def copy_folder(self, source: str):
     remote_folder = self.bucket_name+"/"+source
     local_folder = os.path.join(self.tempdir, source)
-    logging.info("copying '{}' to '{}'".format(remote_folder, local_folder))
+    logging.info("Copying '{}' to '{}'".format(remote_folder, local_folder))
     remote_blobs = self.bucket.list_blobs(prefix=source)
     for remote_blob in remote_blobs:
       local_blob = os.path.join(self.tempdir, remote_blob.name)  #< where to download
