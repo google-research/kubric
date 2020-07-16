@@ -41,6 +41,9 @@ class Simulator:
       raise ValueError('step_rate has to be a multiple of frame_rate, but {} % {} != 0'
                        .format(step_rate, frame_rate))
 
+  def __del__(self):
+    pb.disconnect()
+
   @property
   def gravity(self) -> Tuple[float, float, float]:
     return self._gravity

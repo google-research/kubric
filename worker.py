@@ -60,8 +60,16 @@ class AssetSource(object):
 
 class Placer(object):
   # TODO: rename to "Initializer?"
-  def __init__(self, source: AssetSource, template: str):
+  def __init__(self, template: str=None, simulator: Simulator=None):
     assert template == "sphereworld"
+    self.simulator = simulator
+
+  def place(self, object_id: int):
+    # TODO: brutally hardcoded implementation
+    if object_id==0: self.simulator.place_object(object_id, position=(-.2, 0, 1))
+    if object_id==1: self.simulator.place_object(object_id, position=(+.0, 0, 1))
+    if object_id==2: self.simulator.place_object(object_id, position=(+.2, 0, 1))
+    # TODO: self.simlator.set_velocity(...)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -90,13 +98,18 @@ FLAGS = parser.parse_args()
 logging.basicConfig(level=FLAGS.logging_level)
 
 # --- Download a few models locally
+# TODO: improve to handle both gs:// and local folders transparently
 source = AssetSource(bucket_name="gs://kubric", path="katamari")
 urdf_paths = source.take(FLAGS.num_objects)
 
-# --- load models in the simulator
+# --- load models & place them in the simulator
 simulator = Simulator(frame_rate=FLAGS.frame_rate, step_rate=FLAGS.step_rate)
+placer = Placer(template=FLAGS.template, simulator=simulator)
 for urdf_path in urdf_paths:
-  simulator.load_object(urdf_path)
+  object_id = simulator.load_object(urdf_path)
+  placer.place(object_id)
 
-# placer = Placer(template=FLAGS.template)
+# --- run the simulation
+animation = simulator.run()
+
 # renderer = Renderer(FLAGS.frame_rate)
