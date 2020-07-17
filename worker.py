@@ -22,10 +22,10 @@ class AssetSource(object):
 
     if self.path.startswith("gs://"):
       bucket_name, prefix = re.findall("gs://(.*)/(.*)", self.path)[0]
-      self.bucket_name = bucket_name
+      self.bucket_name, self.prefix = bucket_name, prefix
       self.local_temp_folder = tempfile.mkdtemp()
       self.client = storage.Client()
-      self.bucket = self.client.get_bucket(bucket_name)
+      self.bucket = self.client.get_bucket(self.bucket_name)
       self.manifest = self.download_manifest("gs://"+bucket_name+"/"+prefix+"/manifest.txt")
       self.manifest = ["gs://"+bucket_name+"/"+prefix+"/"+line for line in self.manifest]
     else:
@@ -60,19 +60,16 @@ class AssetSource(object):
     return lines
 
   def copy_folder(self, remote_path: str):
-    raise NotImplementedError
-    print("REMOTE PATH", remote_path)
     assert remote_path.startswith("gs://")
-    folder_name = remote_path.replace(self.path+"/","")
-    print("FOLDER NAME", folder_name)
-    local_folder = os.path.join(self.local_temp_folder, folder_name)
+    remote_subfolder_name = remote_path.replace(self.path+"/","")
+    local_folder = os.path.join(self.local_temp_folder, remote_subfolder_name)
     logging.info("Copying '{}' to '{}'".format(remote_path, local_folder))
-    remote_blobs = self.bucket.list_blobs(prefix="katamari/"+remote_path)
+    remote_blobs = self.bucket.list_blobs(prefix=self.prefix+"/"+remote_subfolder_name)
     for remote_blob in remote_blobs:
-      print("REMOTE BLOB", remote_blob.name)
-      # local_blob = os.path.join(self.local_temp_folder, remote_blob.name)  #< where to download
-      # pathlib.Path(local_folder).mkdir(parents=True, exist_ok=True)  #< parents must exist 
-      # remote_blob.download_to_filename(local_blob)
+      local_blob_name = remote_blob.name.replace(self.prefix+"/","")
+      local_blob_path = os.path.join(self.local_temp_folder, local_blob_name)  #< where to download
+      pathlib.Path(local_blob_path).parent.mkdir(parents=True, exist_ok=True)  #< parents must exist 
+      remote_blob.download_to_filename(local_blob_path)
     return local_folder
 
 # ------------------------------------------------------------------------------
@@ -84,8 +81,8 @@ class Placer(object):
   def __init__(self, template: str=None, simulator: Simulator=None):
     assert template == "sphereworld"
     self.simulator = simulator
-    # TODO: where to store scenes?
-    self.simulator.load_object("urdf/plane.urdf")
+    # TODO: where to store planar geometry?
+    # self.simulator.load_object("urdf/plane.urdf")
 
   def place(self, object_id: int):
     # TODO: brutally hardcoded implementation
@@ -111,7 +108,7 @@ parser.add_argument("--template", type=str, default="sphereworld")
 parser.add_argument("--num_objects", type=int, default=3)
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
-parser.add_argument("--logging_level", type=str, default="WARNING")
+parser.add_argument("--logging_level", type=str, default="INFO")
 FLAGS = parser.parse_args()
 
 # ------------------------------------------------------------------------------
