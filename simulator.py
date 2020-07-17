@@ -33,7 +33,7 @@ class Simulator:
       gravity: Tuple[float, float, float] = (0., 0., -10.),
       step_rate: int = 240,
       frame_rate: int = 24):
-    self.physicsClient = pb.connect(pb.DIRECT)
+    self.physicsClient = pb.connect(pb.DIRECT)  #pb.GUI
     self.gravity = gravity
     self.step_rate = step_rate
     self.frame_rate = frame_rate

@@ -7,3 +7,5 @@ bazel-out
 bazel-testlogs
 bazel-graphics
 bazel-bin
+katamari/*
+urdf/*
