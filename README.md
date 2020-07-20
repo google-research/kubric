@@ -1,4 +1,4 @@
-# MOVid
+# Kubric
 
 A data generation pipeline for creating semi-realistic synthetic multi-object 
 videos with rich annotations such as instance segmentation masks, depth maps, 

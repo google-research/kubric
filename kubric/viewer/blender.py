@@ -15,8 +15,7 @@
 
 
 import bpy
-import numpy as np
-from viewer import interface
+from kubric.viewer import interface
 
 
 # ------------------------------------------------------------------------------

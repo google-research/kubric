@@ -29,7 +29,7 @@ import trimesh
 import mathutils
 import numpy as np
 from google.cloud import storage
-import viewer.blender as THREE  # selects blender as the standard backend
+import kubric.viewer.blender as THREE  # selects blender as the standard backend
 
 # --- parse arguments
 parser = argparse.ArgumentParser()
