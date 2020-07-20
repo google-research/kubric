@@ -306,6 +306,16 @@ class Renderer(interface.Renderer):
     bpy.context.scene.cycles.film_exposure = 1.5
     bpy.context.scene.view_layers['View Layer']['cycles']['use_denoising'] = 1
 
+    # activate further render passes
+    bpy.context.scene.view_layers["View Layer"].use_pass_vector = True  # flow
+    bpy.context.scene.view_layers["View Layer"].use_pass_uv = True  # UV
+    bpy.context.scene.use_pass_crypto_object = True  # segmentation
+    bpy.context.scene.pass_crypto_depth = 4
+    # another possible segmentation
+    bpy.context.scene.view_layers["View Layer"].use_pass_object_index = True
+
+
+
     # --- transparency
     bpy.context.scene.render.film_transparent = True
     # bpy.context.scene.cycles.film_transparent = True  # TODO: derek?
@@ -341,12 +351,32 @@ class Renderer(interface.Renderer):
     view3d = next(area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
     view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
 
-  def postprocess_solidbackground(self, color=0xFFFFFF):
+  def set_up_exr_output(self, path):
+    bpy.context.scene.use_nodes = True
+    tree = bpy.context.scene.node_tree
+    links = tree.links
+    render_node = tree.nodes.get('Render Layers')
+
+    # create a new FileOutput node
+    out_node = tree.nodes.new(type='CompositorNodeOutputFile')
+    # set the format to EXR (multilayer)
+    out_node.format.file_format = 'OPEN_EXR_MULTILAYER'
+    out_node.base_path = path  # output directory
+
+    layers = ['Image', 'Depth', 'Vector', 'UV', 'IndexOB', 'CryptoObject00', 'CryptoObject01']
+
+    out_node.file_slots.clear()
+    for l in layers:
+      out_node.file_slots.new(l)
+      links.new(render_node.outputs.get(l), out_node.inputs.get(l))
+
+
+def postprocess_solidbackground(self, color=0xFFFFFF):
     # TODO: why in the composited output the color is not exactly the specified one? HDR?
     bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
     tree = bpy.context.scene.node_tree
     input_node = tree.nodes["Render Layers"]
-    output_node  = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    output_node = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
     alphaover = tree.nodes.new("CompositorNodeAlphaOver") 
     tree.links.new(input_node.outputs["Alpha"], alphaover.inputs[0]) # fac
     alphaover.inputs[1].default_value = interface.hex_to_rgba(color, 1.0) # image 1
@@ -357,7 +387,7 @@ class Renderer(interface.Renderer):
     bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
     tree = bpy.context.scene.node_tree
     input_node = tree.nodes["Render Layers"]
-    output_node  = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    output_node = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
     ramp = tree.nodes.new('CompositorNodeValToRGB')
     ramp.color_ramp.elements[0].color[3] = 0
     ramp.color_ramp.elements[0].position = threshold
