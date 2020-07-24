@@ -14,10 +14,11 @@
 import argparse
 import logging
 
+import sys; sys.path.append(".")
 from kubric.asset_source import AssetSource
 from kubric.placer import Placer
 from kubric.simulator import Simulator
-
+from kubric.simulator import Object3D
 
 class Renderer(object):
   def __init__(self, framerate: int):
@@ -43,17 +44,24 @@ logging.basicConfig(level=FLAGS.logging_level)
 
 # --- Download a few models locally
 # TODO: improve to handle both gs:// and local folders transparently
-asset_source = AssetSource(path="gs://kubric/katamari")
-# asset_source = AssetSource(path="katamari")
+# asset_source = AssetSource(path="gs://kubric/katamari")
+asset_source = AssetSource(path="katamari")
 urdf_paths = asset_source.take(FLAGS.num_objects)
 
 # --- load models & place them in the simulator
 simulator = Simulator(frame_rate=FLAGS.frame_rate, step_rate=FLAGS.step_rate)
 placer = Placer(template=FLAGS.template, simulator=simulator)
+
 for urdf_path in urdf_paths:
-  object_id = simulator.load_object(urdf_path)
-  placer.place(object_id)
+  obj3d = Object3D(sim_filename=urdf_path)
+  placer.place(obj3d)
+  simulator.place_object(obj3d)
+
+# TODO: Issue #4
+# blender → bpy.ops.import_scene.obj(filepath=path, axis_forward='Y', axis_up='Z')
+# pubullet → getVisualShapeData
 
 # --- run the simulation
 animation = simulator.run(1)
+print(animation)
 # renderer = Renderer(FLAGS.frame_rate)
