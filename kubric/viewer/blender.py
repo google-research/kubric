@@ -468,6 +468,7 @@ class Renderer(interface.Renderer):
     # --- renders a movie
     elif path.endswith(".mov"):
       # WARNING: movies do not support transparency
+      # TODO: actually they do, ask @bydeng for the needed blender config.
       assert bpy.context.scene.render.film_transparent == False
       bpy.context.scene.render.image_settings.file_format = "FFMPEG"
       bpy.context.scene.render.image_settings.color_mode = "RGB"
