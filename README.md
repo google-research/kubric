@@ -4,7 +4,7 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
-NOTE: This project is pre-alpha work in progress and subject to extensive change. Use at your own risk.
+> :warning: This project is pre-alpha work in progress and subject to extensive change. Use at your own risk.
 
 ## Motivation
 We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
@@ -24,7 +24,7 @@ Mainly built on-top of pybullet for physics simulation and Blender for rendering
 But the code is kept modular to support different rendering backends.
 
 ## Contributors
-Klaus Greff (Google), Andrea Tagliasacchi (Google and University of Toronto), Derek Liu (University of Toronto)
+[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto)
 
 ## Disclaimer
 This is not an official Google Product
