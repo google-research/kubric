@@ -314,15 +314,12 @@ class Renderer(interface.Renderer):
     # another possible segmentation
     bpy.context.scene.view_layers["View Layer"].use_pass_object_index = True
 
-
-
     # --- transparency
     bpy.context.scene.render.film_transparent = True
-    # TODO: derek, why is this needed?
-    # bpy.context.scene.cycles.film_transparent = True  
 
     # --- compute devices
-    # TODO: derek, why is the rationale?
+    # derek, why is the rationale? → rendering on GPU only sometime faster than CPU+GPU
+    # TODO: modify the logic to execute on CPU, GPU, CPU+GPU
     cyclePref = bpy.context.preferences.addons['cycles'].preferences
     cyclePref.compute_device_type = 'CUDA'
     for dev in cyclePref.devices:

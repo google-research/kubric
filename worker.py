@@ -44,8 +44,8 @@ logging.basicConfig(level=FLAGS.logging_level)
 
 # --- Download a few models locally
 # TODO: improve to handle both gs:// and local folders transparently
-asset_source = AssetSource(path="gs://kubric/katamari")
-# asset_source = AssetSource(path="katamari")
+# asset_source = AssetSource(path="gs://kubric/katamari")
+asset_source = AssetSource(path="katamari")
 urdf_paths = asset_source.take(FLAGS.num_objects)
 
 # --- load models & place them in the simulator

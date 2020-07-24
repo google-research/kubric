@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from kubric.simulator import Simulator
 from kubric.simulator import Object3D
 
-_num_placed:int = 0
+_NUM_PLACED:int = 0
 
 class Placer(object):
-  # TODO: rename to "Initializer?"
+  """TODO: perhaps rename to Initializer?"""
+  
   def __init__(self, template: str = None, simulator: Simulator = None):
     assert template == "sphereworld"
     self.simulator = simulator
@@ -25,9 +27,12 @@ class Placer(object):
     # self.simulator.load_object("urdf/plane.urdf")
 
   def place(self, obj3d: Object3D):
+    global _NUM_PLACED
     # TODO: brutally hardcoded implementation
-    if _num_placed==0: obj3d.position=(-.2, 0, 1)
-    if _num_placed==1: obj3d.position=(+.0, 0, 1)
-    if _num_placed==2: obj3d.position=(+.2, 0, 1)
+    if _NUM_PLACED==0: obj3d.position=(-.2, 0, 1)
+    if _NUM_PLACED==1: obj3d.position=(+.0, 0, 1)
+    if _NUM_PLACED==2: obj3d.position=(+.2, 0, 1)
+    _NUM_PLACED=_NUM_PLACED+1
+
     # TODO: self.simlator.set_velocity(...)
 
