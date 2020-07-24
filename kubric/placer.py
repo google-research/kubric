@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from kubric.simulator import Simulator
+from kubric.simulator import Object3D
 
+_num_placed:int = 0
 
 class Placer(object):
   # TODO: rename to "Initializer?"
@@ -22,9 +24,10 @@ class Placer(object):
     # TODO: where to store planar geometry?
     # self.simulator.load_object("urdf/plane.urdf")
 
-  def place(self, object_id: int):
+  def place(self, obj3d: Object3D):
     # TODO: brutally hardcoded implementation
-    if object_id == 0: self.simulator.place_object(object_id, position=(-.2, 0, 1))
-    if object_id == 1: self.simulator.place_object(object_id, position=(+.0, 0, 1))
-    if object_id == 2: self.simulator.place_object(object_id, position=(+.2, 0, 1))
+    if _num_placed==0: obj3d.position=(-.2, 0, 1)
+    if _num_placed==1: obj3d.position=(+.0, 0, 1)
+    if _num_placed==2: obj3d.position=(+.2, 0, 1)
     # TODO: self.simlator.set_velocity(...)
+

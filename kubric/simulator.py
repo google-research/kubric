@@ -26,7 +26,8 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Object3D:
     sim_filename: str
-    vis_filename: str
+    # TODO: this filename is loaded by pybullet, and can be fetched by getVisualShapeData?
+    # vis_filename: str
 
     position: Tuple[float] = (0.0, 0.0, 0.0)
     orientation: Tuple[float] = (0.0, 0.0, 0.0, 1.0)
@@ -123,12 +124,14 @@ class Simulator:
             raise IOError('File "{}" does not exist.'.format(path))
 
         if path.suffix == ".urdf":
-            object_id = pb.loadURDF(path, useFixedBase=obj.static)
+            object_id = pb.loadURDF(str(path), useFixedBase=obj.static)
         else:
             raise IOError('Unsupported format "{}" of file "{}"'.format(path.suffix, path))
 
         if object_id < 0:
             raise IOError('Failed to load "{}".'.format(path))
+
+        obj.sim_ref = object_id
 
         return object_id
 
