@@ -5,8 +5,8 @@
 # See:
 #   https://cloud.google.com/ai-platform/training/docs/using-gpus
 #   https://cloud.google.com/sdk/gcloud/reference/ai-platform/jobs/stream-logs
-  
-JOB_NAME="`date +"%b%d_%H%M%S"`"
+
+JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
 PROJECT_ID=`gcloud config get-value project`
 TAG="gcr.io/$PROJECT_ID/kubric"
 REGION="us-central1"
