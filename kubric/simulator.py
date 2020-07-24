@@ -173,6 +173,7 @@ class Simulator:
         pb.resetBaseVelocity(obj.sim_ref, obj.linear_velocity, obj.angular_velocity)
 
     def run(self, duration: float = 1.0) -> Dict[int, Dict[str, list]]:
+        # TODO: this method is still exposing pybullet's pointer logic (objectid integer)?
         max_step = math.floor(self.step_rate * duration)
         steps_per_frame = self.step_rate // self.frame_rate
         current_step = 0

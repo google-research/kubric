@@ -55,10 +55,8 @@ class AssetSource(object):
       prefix = self.path
 
     # --- pick a few local models
-    print(random_folders)
     local_prefix = pathlib.Path(prefix).expanduser()
     local_folders = [local_prefix/folder for folder in random_folders]
-    print(local_folders)
 
     # --- fetch URDF files in the folders
     # --- TODO: unchecked assumption one URDF per folder!!!

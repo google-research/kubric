@@ -16,7 +16,7 @@ The shared renderer interface.
 
 TODO:
 - .rotation and .quaternion fields should be are coupled; see https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
-""""
+"""
 
 import mathutils
 
@@ -103,7 +103,8 @@ class Scene(object):
     # TODO: node? check the threejs API
     self._objects3d.append(obj)
 
-
+  def add_from_file(self, path):
+    raise NotImplementedError
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

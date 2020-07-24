@@ -84,8 +84,15 @@ class Scene(interface.Scene):
     bpy.context.scene.frame_start = value
 
   def _set_frame_end(self, value):
-    super()._set_frame_start(value)
+    super()._set_frame_end(value)
     bpy.context.scene.frame_end = value
+
+  def add_from_file(self, path: str) -> Object3D:
+    bpy.ops.import_scene.obj(filepath=path, axis_forward='Y', axis_up='Z')
+    # WARNING: bpy.context.object does not work here...
+    blender_objects = bpy.context.selected_objects[:]
+    assert len(blender_objects)==1
+    return Object3D(blender_objects[0])
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -176,7 +183,6 @@ class Float32BufferAttribute(interface.Float32BufferAttribute):
 
 
 class Geometry():
-  # NOTE: this should not inherit from Object3D!
   pass
 
 
@@ -309,8 +315,8 @@ class Renderer(interface.Renderer):
     # activate further render passes
     bpy.context.scene.view_layers["View Layer"].use_pass_vector = True  # flow
     bpy.context.scene.view_layers["View Layer"].use_pass_uv = True  # UV
-    bpy.context.scene.use_pass_crypto_object = True  # segmentation
-    bpy.context.scene.pass_crypto_depth = 4
+    # bpy.context.scene.use_pass_crypto_object = True  # segmentation
+    # bpy.context.scene.pass_crypto_depth = 4
     # another possible segmentation
     bpy.context.scene.view_layers["View Layer"].use_pass_object_index = True
 
