@@ -11,10 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""
+The shared renderer interface.
 
+TODO:
+- .rotation and .quaternion fields should be are coupled; see https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
+""""
 
 import mathutils
-
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -32,8 +36,7 @@ def hex_to_rgba(hexint: int, alpha=1.0):
 
 # noinspection PyPropertyDefinition
 class Object3D(object):
-  # TODO .rotation and .quaternion fields are coupled; see https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js
-  position = property(lambda self: self._get_position(),
+  position = property(lambda self: self._get_position(), 
                       lambda self, value: self._set_position(value))
   scale = property(lambda self: self._get_scale(),
                    lambda self, value: self._set_scale(value))
@@ -73,7 +76,6 @@ class Object3D(object):
     direction = mathutils.Vector((x, y, z)) - self.position
     # TODO: shouldn't we be using self.up here?
     self.quaternion = direction.to_track_quat('-Z', 'Y')
-
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

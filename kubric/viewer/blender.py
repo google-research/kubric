@@ -318,9 +318,11 @@ class Renderer(interface.Renderer):
 
     # --- transparency
     bpy.context.scene.render.film_transparent = True
-    # bpy.context.scene.cycles.film_transparent = True  # TODO: derek?
+    # TODO: derek, why is this needed?
+    # bpy.context.scene.cycles.film_transparent = True  
 
-    # --- compute devices # TODO derek?
+    # --- compute devices
+    # TODO: derek, why is the rationale?
     cyclePref = bpy.context.preferences.addons['cycles'].preferences
     cyclePref.compute_device_type = 'CUDA'
     for dev in cyclePref.devices:
