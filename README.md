@@ -4,7 +4,7 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
-> :warning: This project is pre-alpha work in progress and subject to extensive change. Use at your own risk.
+> :warning: This project is pre-alpha work in progress and subject to extensive change.
 
 ## Motivation
 We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
