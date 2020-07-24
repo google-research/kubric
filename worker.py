@@ -30,6 +30,8 @@ class Renderer(object):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--template", type=str, default="sphereworld")
+parser.add_argument("--assets", type=str, default="gs://kubric/katamari",
+                    help="e.g. '~/datasets/katamari' or 'gs://kubric/katamari'")
 parser.add_argument("--num_objects", type=int, default=3)
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
@@ -43,9 +45,7 @@ FLAGS = parser.parse_args()
 logging.basicConfig(level=FLAGS.logging_level)
 
 # --- Download a few models locally
-# TODO: improve to handle both gs:// and local folders transparently
-# asset_source = AssetSource(path="gs://kubric/katamari")
-asset_source = AssetSource(path="katamari")
+asset_source = AssetSource(path=FLAGS.assets)
 urdf_paths = asset_source.take(FLAGS.num_objects)
 
 # --- load models & place them in the simulator
