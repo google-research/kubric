@@ -15,14 +15,11 @@ import argparse
 import logging
 
 import sys; sys.path.append(".")
+import kubric.viewer.blender as THREE
 from kubric.asset_source import AssetSource
 from kubric.placer import Placer
 from kubric.simulator import Simulator
 from kubric.simulator import Object3D
-
-class Renderer(object):
-  def __init__(self, framerate: int):
-    pass
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -30,13 +27,18 @@ class Renderer(object):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--template", type=str, default="sphereworld")
-parser.add_argument("--assets", type=str, default="gs://kubric/katamari",
+parser.add_argument("--assets", type=str, default="~/datasets/katamari",
                     help="e.g. '~/datasets/katamari' or 'gs://kubric/katamari'")
 parser.add_argument("--num_objects", type=int, default=3)
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
 parser.add_argument("--logging_level", type=str, default="INFO")
-FLAGS = parser.parse_args()
+
+# --- parse argument in a way compatible with blender's REPL
+if "--" in sys.argv:
+  FLAGS = parser.parse_args(args=sys.argv[sys.argv.index("--")+1:])
+else:
+  FLAGS = parser.parse_args(args=[])
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -55,13 +57,35 @@ placer = Placer(template=FLAGS.template, simulator=simulator)
 for urdf_path in urdf_paths:
   obj3d = Object3D(sim_filename=urdf_path)
   placer.place(obj3d)
-  simulator.place_object(obj3d)
+  simulator.place_object(obj3d)  # TODO: shoudn't this method be just "add" or "insert"?
 
 # TODO: Issue #4
 # blender → bpy.ops.import_scene.obj(filepath=path, axis_forward='Y', axis_up='Z')
 # pubullet → getVisualShapeData
 
+# --- setup the renderer
+renderer = THREE.Renderer()
+renderer.set_size(200,200)
+scene = THREE.Scene()
+scene.frame_start = 0
+scene.frame_end = 10
+
+camera = THREE.OrthographicCamera(left=-.5, right=+.5, top=.5, bottom=-.5)
+camera.position = (2, 2, 2)
+camera.look_at(0, 0, .75)
+
 # --- run the simulation
-animation = simulator.run(1)
-print(animation)
-# renderer = Renderer(FLAGS.frame_rate)
+animation = simulator.run(duration=1.0)
+
+# --- dump the simulation data in the renderer
+for obj_id in animation:
+  import pybullet as pb
+  # TODO: why is the [0] needed? [4] is the position of the file path
+  mesh_filename = pb.getVisualShapeData(obj_id)[0][4].decode("utf-8")
+  obj3d = scene.add_from_file(mesh_filename)
+  for frame_id in range(scene.frame_start, scene.frame_end):
+    obj3d.position = animation[obj_id]["position"][frame_id]
+    obj3d.keyframe_insert("position", frame_id)
+
+renderer.render(scene, camera, path="output.blend")
+
