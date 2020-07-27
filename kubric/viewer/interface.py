@@ -20,6 +20,7 @@ TODO:
 
 import mathutils
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -30,13 +31,14 @@ def hex_to_rgba(hexint: int, alpha=1.0):
   r = (hexint >> 16) & 255
   return [r / 255.0, g / 255.0, b / 255.0, alpha]
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 # noinspection PyPropertyDefinition
 class Object3D(object):
-  position = property(lambda self: self._get_position(), 
+  position = property(lambda self: self._get_position(),
                       lambda self, value: self._set_position(value))
   scale = property(lambda self: self._get_scale(),
                    lambda self, value: self._set_scale(value))
@@ -77,13 +79,14 @@ class Object3D(object):
     # TODO: shouldn't we be using self.up here?
     self.quaternion = direction.to_track_quat('-Z', 'Y')
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 class Scene(object):
   # TODO: environment maps https://threejs.org/docs/#api/en/scenes/Scene.background
-  frame_start = property(lambda self: self._frame_start, 
+  frame_start = property(lambda self: self._frame_start,
                          lambda self, value: self._set_frame_start(value))
   frame_end = property(lambda self: self._frame_end,
                        lambda self, value: self._set_frame_end(value))
@@ -91,7 +94,7 @@ class Scene(object):
   def __init__(self):
     self._objects3d = list()
     self.frame_start = 0
-    self.frame_end = 250 # blender's default
+    self.frame_end = 250  # blender's default
 
   def _set_frame_start(self, value):
     self._frame_start = value
@@ -118,8 +121,8 @@ class Camera(Object3D):
 
 class OrthographicCamera(Camera):
   def __init__(self,
-               left: float=-1,right: float=+1,
-               top: float=+1, bottom: float=-1,
+               left: float = -1, right: float = +1,
+               top: float = +1, bottom: float = -1,
                near=.1, far=2000):
     Camera.__init__(self)
     assert (right > left) and (top > bottom) and (far > near) and (near > 0.0)
@@ -191,7 +194,7 @@ class AmbientLight(Light):
 class DirectionalLight(Light):
   shadow_softness = property(lambda self: self._get_shadow_softness(),
                              lambda self, value: self._set_shadow_softness(
-                               value))
+                                 value))
 
   """Slight difference from THREEJS: uses position+lookat."""
 
@@ -217,7 +220,7 @@ class BufferAttribute(object):
 
 
 class Float32BufferAttribute(BufferAttribute):
-  def __init__(self, array, itemSize, normalized=None):
+  def __init__(self, array, item_size, normalized=None):
     self.array = array  # TODO: @property
 
 
