@@ -13,7 +13,6 @@
 # limitations under the License.
 import os
 import re
-import glob
 import logging
 import pathlib
 import random
@@ -35,7 +34,8 @@ class AssetSource(object):
       self.local_temp_folder = tempfile.mkdtemp()
       self.client = storage.Client()
       self.bucket = self.client.get_bucket(self.bucket_name)
-      self.manifest = self._download_manifest("gs://"+bucket_name+"/"+prefix+"/manifest.txt")
+      self.manifest = self._download_manifest(
+        "gs://" + bucket_name + "/" + prefix + "/manifest.txt")
     else:
       localpath = pathlib.Path(path).expanduser()
 
@@ -56,7 +56,7 @@ class AssetSource(object):
 
     # --- pick a few local models
     local_prefix = pathlib.Path(prefix).expanduser()
-    local_folders = [local_prefix/folder for folder in random_folders]
+    local_folders = [local_prefix / folder for folder in random_folders]
 
     # --- fetch URDF files in the folders
     # --- TODO: unchecked assumption one URDF per folder!!!
@@ -73,12 +73,14 @@ class AssetSource(object):
     return lines
 
   def _copy_folder(self, subfolder: str):
-    remote_subfolder = ["gs://"+self.bucket_name+"/"+self.prefix+"/"+subfolder]
+    remote_subfolder = ["gs://" + self.bucket_name + "/" + self.prefix + "/" + subfolder]
     local_folder = os.path.join(self.local_temp_folder, subfolder)
     logging.info("Copying '{}' to '{}'".format(remote_subfolder, local_folder))
-    remote_blobs = self.bucket.list_blobs(prefix=self.prefix+"/"+subfolder)
+    remote_blobs = self.bucket.list_blobs(prefix=self.prefix + "/" + subfolder)
     for remote_blob in remote_blobs:
-      local_blob_name = remote_blob.name.replace(self.prefix+"/", "")
-      local_blob_path = os.path.join(self.local_temp_folder, local_blob_name)  # where to download
-      pathlib.Path(local_blob_path).parent.mkdir(parents=True, exist_ok=True)  # parents must exist
+      local_blob_name = remote_blob.name.replace(self.prefix + "/", "")
+      local_blob_path = os.path.join(self.local_temp_folder,
+                                     local_blob_name)  # where to download
+      pathlib.Path(local_blob_path).parent.mkdir(parents=True,
+                                                 exist_ok=True)  # parents must exist
       remote_blob.download_to_filename(local_blob_path)

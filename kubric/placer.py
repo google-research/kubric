@@ -15,11 +15,12 @@
 from kubric.simulator import Simulator
 from kubric.simulator import Object3D
 
-_NUM_PLACED:int = 0
+_NUM_PLACED: int = 0
+
 
 class Placer(object):
   """TODO: perhaps rename to Initializer?"""
-  
+
   def __init__(self, template: str = None, simulator: Simulator = None):
     assert template == "sphereworld"
     self.simulator = simulator
@@ -29,10 +30,9 @@ class Placer(object):
   def place(self, obj3d: Object3D):
     global _NUM_PLACED
     # TODO: brutally hardcoded implementation
-    if _NUM_PLACED==0: obj3d.position=(-.2, 0, 1)
-    if _NUM_PLACED==1: obj3d.position=(+.0, 0, 1)
-    if _NUM_PLACED==2: obj3d.position=(+.2, 0, 1)
-    _NUM_PLACED=_NUM_PLACED+1
+    if _NUM_PLACED == 0: obj3d.position = (-.2, 0, 1)
+    if _NUM_PLACED == 1: obj3d.position = (+.0, 0, 1)
+    if _NUM_PLACED == 2: obj3d.position = (+.2, 0, 1)
+    _NUM_PLACED = _NUM_PLACED + 1
 
     # TODO: self.simlator.set_velocity(...)
-

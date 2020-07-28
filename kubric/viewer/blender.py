@@ -13,7 +13,6 @@
 # limitations under the License.
 """Implementation of blender backend."""
 
-
 import bpy
 from kubric.viewer import interface
 
@@ -34,10 +33,9 @@ class NotImplementableError(NotImplementedError):
 
 
 class Object3D(interface.Object3D):
-
   # Mapping from interface properties to blender properties (used in keyframing).
   _member_to_blender_data_path = {
-    "position": "location"
+      "position": "location"
   }
 
   def __init__(self, blender_object):  # , name=None):
@@ -65,6 +63,7 @@ class Object3D(interface.Object3D):
     data_path = Object3D._member_to_blender_data_path[member]
     self._blender_object.keyframe_insert(data_path=data_path, frame=frame)
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -73,7 +72,7 @@ class Object3D(interface.Object3D):
 class Scene(interface.Scene):
   # TODO: look at API scene.objects.link(blender_object)
   # TODO: create a named scene, and refer via bpy.data.scenes['Scene']
-  
+
   def __init__(self):
     super().__init__()
     bpy.context.scene.render.fps = 24
@@ -107,11 +106,12 @@ class Camera(interface.Camera, Object3D):
 
 class OrthographicCamera(interface.OrthographicCamera, Camera):
   def __init__(self, left=-1, right=+1, top=+1, bottom=-1, near=.1, far=2000):
-    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near, far)
+    interface.OrthographicCamera.__init__(self, left, right, top, bottom, near,
+                                          far)
     Camera.__init__(self)
     # --- extra things to set
     self._blender_object.data.type = 'ORTHO'
-    self._blender_object.data.ortho_scale = (right-left)
+    self._blender_object.data.ortho_scale = (right - left)
 
 
 # ------------------------------------------------------------------------------
@@ -189,7 +189,8 @@ class Geometry():
 class BoxGeometry(interface.BoxGeometry, Geometry):
   def __init__(self, width=1.0, height=1.0, depth=1.0):
     assert width == height and width == depth, "blender only creates unit cubes"
-    interface.BoxGeometry.__init__(self, width=width, height=height, depth=depth)
+    interface.BoxGeometry.__init__(self, width=width, height=height,
+                                   depth=depth)
     bpy.ops.mesh.primitive_cube_add(size=width)
     self._blender_object = bpy.context.object
 
@@ -353,7 +354,8 @@ class Renderer(interface.Renderer):
 
   def default_camera_view(self):
     """Changes the UI so that the default view is from the camera POW."""
-    view3d = next(area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
+    view3d = next(
+        area for area in bpy.context.screen.areas if area.type == 'VIEW_3D')
     view3d.spaces[0].region_3d.view_perspective = 'CAMERA'
 
   def set_up_exr_output(self, path):
@@ -368,14 +370,16 @@ class Renderer(interface.Renderer):
     out_node.format.file_format = 'OPEN_EXR_MULTILAYER'
     out_node.base_path = path  # output directory
 
-    layers = ['Image', 'Depth', 'Vector', 'UV', 'IndexOB', 'CryptoObject00', 'CryptoObject01']
+    layers = ['Image', 'Depth', 'Vector', 'UV', 'IndexOB', 'CryptoObject00',
+              'CryptoObject01']
 
     out_node.file_slots.clear()
     for l in layers:
       out_node.file_slots.new(l)
       links.new(render_node.outputs.get(l), out_node.inputs.get(l))
 
-  def set_up_hdri_background(self, hdri_filepath, bg_color=(1.0, 1.0, 1.0), hdri_rotation=(0.0, 0.0, 0.0)):
+  def set_up_hdri_background(self, hdri_filepath, bg_color=(1.0, 1.0, 1.0),
+      hdri_rotation=(0.0, 0.0, 0.0)):
     """
     Use an HDRI file for global illumination, but render background with solid color.
 
@@ -413,36 +417,43 @@ class Renderer(interface.Renderer):
 
     # link up nodes
     links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
-    links.new(lightpath_node.outputs.get('Is Camera Ray'), mix_node.inputs.get('Fac'))
+    links.new(lightpath_node.outputs.get('Is Camera Ray'),
+              mix_node.inputs.get('Fac'))
     links.new(light_bg_node.outputs.get('Background'), mix_node.inputs[1])
     links.new(camera_bg_node.outputs.get('Background'), mix_node.inputs[2])
     links.new(hdri_node.outputs.get('Color'), light_bg_node.inputs.get('Color'))
-    links.new(mapping_node.outputs.get('Vector'), hdri_node.inputs.get('Vector'))
-    links.new(coord_node.outputs.get('Generated'), mapping_node.inputs.get('Vector'))
+    links.new(mapping_node.outputs.get('Vector'),
+              hdri_node.inputs.get('Vector'))
+    links.new(coord_node.outputs.get('Generated'),
+              mapping_node.inputs.get('Vector'))
     links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
 
     # set parameters
     hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
     camera_bg_node.inputs.get('Color').default_value = bg_color  # BG color RGBA
-    mapping_node.inputs.get('Rotation').default_value = hdri_rotation  # XYZ Euler rotation of HDRI image
+    mapping_node.inputs.get(
+      'Rotation').default_value = hdri_rotation  # XYZ Euler rotation of HDRI image
 
   def postprocess_solidbackground(self, color=0xFFFFFF):
     # TODO: why in the composited output the color is not exactly the specified one? HDR?
-    bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
+    bpy.context.scene.use_nodes = True  # TODO: should this rather be an assert?
     tree = bpy.context.scene.node_tree
     input_node = tree.nodes["Render Layers"]
-    output_node = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
-    alphaover = tree.nodes.new("CompositorNodeAlphaOver") 
-    tree.links.new(input_node.outputs["Alpha"], alphaover.inputs[0]) # fac
-    alphaover.inputs[1].default_value = interface.hex_to_rgba(color, 1.0) # image 1
-    tree.links.new(input_node.outputs["Image"], alphaover.inputs[2]) # image 2
+    output_node = tree.nodes[
+      "Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    alphaover = tree.nodes.new("CompositorNodeAlphaOver")
+    tree.links.new(input_node.outputs["Alpha"], alphaover.inputs[0])  # fac
+    alphaover.inputs[1].default_value = interface.hex_to_rgba(color,
+                                                              1.0)  # image 1
+    tree.links.new(input_node.outputs["Image"], alphaover.inputs[2])  # image 2
     tree.links.new(alphaover.outputs["Image"], output_node.inputs["Image"])
 
-  def postprocess_remove_weakalpha(self, threshold=0.05): 
-    bpy.context.scene.use_nodes = True  #TODO: should this rather be an assert?
+  def postprocess_remove_weakalpha(self, threshold=0.05):
+    bpy.context.scene.use_nodes = True  # TODO: should this rather be an assert?
     tree = bpy.context.scene.node_tree
     input_node = tree.nodes["Render Layers"]
-    output_node = tree.nodes["Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
+    output_node = tree.nodes[
+      "Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
     ramp = tree.nodes.new('CompositorNodeValToRGB')
     ramp.color_ramp.elements[0].color[3] = 0
     ramp.color_ramp.elements[0].position = threshold
@@ -450,10 +461,11 @@ class Renderer(interface.Renderer):
     tree.links.new(input_node.outputs["Alpha"], ramp.inputs["Fac"])
     tree.links.new(ramp.outputs["Alpha"], output_node.inputs["Alpha"])
 
-  def render(self, scene: Scene, camera: Camera, path: str, on_render_write=None):
+  def render(self, scene: Scene, camera: Camera, path: str,
+      on_render_write=None):
     # --- adjusts resolution according to threejs style camera
     if isinstance(camera, OrthographicCamera):
-      aspect = (camera.right - camera.left)*1.0 / (camera.top - camera.bottom)
+      aspect = (camera.right - camera.left) * 1.0 / (camera.top - camera.bottom)
       new_y_res = int(bpy.context.scene.render.resolution_x / aspect)
       if new_y_res != bpy.context.scene.render.resolution_y:
         print("WARNING: blender renderer adjusted the film resolution", end="")
@@ -470,7 +482,7 @@ class Renderer(interface.Renderer):
     if path.endswith(".blend"):
       self.default_camera_view()  # TODO: not saved... why?
       bpy.ops.wm.save_mainfile(filepath=path)
-    
+
     # --- renders a movie
     elif path.endswith(".mov"):
       # WARNING: movies do not support transparency
@@ -489,8 +501,9 @@ class Renderer(interface.Renderer):
       bpy.ops.render.render(write_still=True, animation=False)
 
     # --- creates a movie as a image sequence {png}
-    else:      
+    else:
       if on_render_write:
-        bpy.app.handlers.render_write.append(lambda scene: on_render_write(scene.render.frame_path()))
+        bpy.app.handlers.render_write.append(
+          lambda scene: on_render_write(scene.render.frame_path()))
       # Convert to gif via ImageMagick: `convert -delay 8 -loop 0 *.png output.gif`
       bpy.ops.render.render(write_still=True, animation=True)
