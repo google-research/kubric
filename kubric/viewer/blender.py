@@ -311,15 +311,16 @@ class Renderer(interface.Renderer):
     bpy.context.scene.cycles.samples = 128
     bpy.context.scene.cycles.max_bounces = 6
     bpy.context.scene.cycles.film_exposure = 1.5
-    bpy.context.scene.view_layers['View Layer']['cycles']['use_denoising'] = 1
+
 
     # activate further render passes
-    bpy.context.scene.view_layers["View Layer"].use_pass_vector = True  # flow
-    bpy.context.scene.view_layers["View Layer"].use_pass_uv = True  # UV
-    # bpy.context.scene.use_pass_crypto_object = True  # segmentation
-    # bpy.context.scene.pass_crypto_depth = 4
-    # another possible segmentation
-    bpy.context.scene.view_layers["View Layer"].use_pass_object_index = True
+    view_layer = bpy.context.scene.view_layers['View Layer']
+    view_layer.cycles.use_denoising = True
+    view_layer.use_pass_vector = True  # flow
+    view_layer.use_pass_uv = True  # UV
+    view_layer.use_pass_normal = True  # surface normals
+    view_layer.cycles.use_pass_crypto_object = True  # segmentation
+    view_layer.cycles.pass_crypto_depth = 2
 
     # --- transparency
     bpy.context.scene.render.film_transparent = True
@@ -370,8 +371,7 @@ class Renderer(interface.Renderer):
     out_node.format.file_format = 'OPEN_EXR_MULTILAYER'
     out_node.base_path = path  # output directory
 
-    layers = ['Image', 'Depth', 'Vector', 'UV', 'IndexOB', 'CryptoObject00',
-              'CryptoObject01']
+    layers = ['Image', 'Depth', 'Vector', 'UV', 'Normal', 'CryptoObject00']
 
     out_node.file_slots.clear()
     for l in layers:
