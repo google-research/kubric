@@ -58,7 +58,7 @@ placer = Placer(template=FLAGS.template, simulator=simulator)
 for urdf_path in urdf_paths:
   obj3d = Object3D(sim_filename=urdf_path)
   placer.place(obj3d)
-  simulator.place_object(obj3d)  # TODO: shoudn't this method be just "add" or "insert"?
+  simulator.add(obj3d)
 
 # TODO: Issue #4
 # blender → bpy.ops.import_scene.obj(filepath=path, axis_forward='Y', axis_up='Z')

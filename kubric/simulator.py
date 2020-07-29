@@ -16,8 +16,9 @@ import logging
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Tuple, Any
+from typing import Dict, Tuple
 
+from bidict import bidict
 import pybullet as pb
 
 logger = logging.getLogger(__name__)
@@ -26,8 +27,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Object3D:
   sim_filename: str
-  # TODO: this filename is loaded by pybullet, and can be fetched by getVisualShapeData?
-  # vis_filename: str
+  vis_filename: str
 
   position: Tuple[float] = (0.0, 0.0, 0.0)
   orientation: Tuple[float] = (0.0, 0.0, 0.0, 1.0)
@@ -45,8 +45,9 @@ class Object3D:
   linear_damping: float = field(default=None, repr=False)
   angular_damping: float = field(default=None, repr=False)
 
-  sim_ref: Any = field(default=None, repr=False, init=False, compare=False)
-  vis_ref: Any = field(default=None, repr=False, init=False, compare=False)
+  def __hash__(self):
+    # make this object hashable
+    return object.__hash__(self)
 
 
 class Simulator:
@@ -67,8 +68,9 @@ class Simulator:
   ):
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
     self.gravity = gravity
-    self.step_rate = step_rate
-    self.frame_rate = frame_rate
+    self.step_rate: int = step_rate
+    self.frame_rate: int = frame_rate
+    self.objects_by_idx = bidict()
     if step_rate % frame_rate != 0:
       raise ValueError(
           "step_rate has to be a multiple of frame_rate, but {} % {} != 0".format(
@@ -88,7 +90,7 @@ class Simulator:
     self._gravity = gravity
     pb.setGravity(*gravity)
 
-  def place_object(self, obj: Object3D) -> bool:
+  def add(self, obj: Object3D) -> bool:
     """
     Place an object to a particular place and orientation and check for any overlap.
     This may either load a new object or move an existing object.
@@ -112,7 +114,7 @@ class Simulator:
             Currently the only supported formats is URDF.
             (but MJCF and SDF are easy to add, possibly also OBJ and DAE.)
     """
-    if obj.sim_ref is not None:
+    if obj in self.objects_by_idx.inverse:
       # object already in simulation
       logger.info("Object '{}' already in the simulation".format(obj))
       return
@@ -124,24 +126,27 @@ class Simulator:
       raise IOError('File "{}" does not exist.'.format(path))
 
     if path.suffix == ".urdf":
-      object_id = pb.loadURDF(str(path), useFixedBase=obj.static)
+      object_idx = pb.loadURDF(str(path), useFixedBase=obj.static)
     else:
       raise IOError(
         'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
 
-    if object_id < 0:
+    if object_idx < 0:
       raise IOError('Failed to load "{}".'.format(path))
 
-    obj.sim_ref = object_id
+    # link objects for later mapping
+    self.objects_by_idx[object_idx] = obj
 
-    return object_id
+    return object_idx
 
   def _check_overlap(self, obj: Object3D) -> bool:
+    obj_idx = self.objects_by_idx.inverse[obj]
+
     body_ids = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
     for body_id in body_ids:
-      if body_id == obj.sim_ref:
+      if body_id == obj_idx:
         continue
-      overlap_points = pb.getClosestPoints(obj.sim_ref, body_id, distance=0)
+      overlap_points = pb.getClosestPoints(obj_idx, body_id, distance=0)
       if overlap_points:
         # TODO: we can easily get a suggested correction here
         # i = np.argmin([o[8] for o in overlap_points], axis=0)  # find the most overlapping point
@@ -150,10 +155,12 @@ class Simulator:
     return False
 
   def _set_location_and_orientation(self, obj: Object3D):
-    pb.resetBasePositionAndOrientation(obj.sim_ref, obj.position,
+    obj_idx = self.objects_by_idx.inverse[obj]
+    pb.resetBasePositionAndOrientation(obj_idx, obj.position,
                                        obj.orientation)
 
   def _change_dynamics(self, obj: Object3D):
+    obj_idx = self.objects_by_idx.inverse[obj]
     dyn = {}
     if obj.mass is not None:
       dyn["mass"] = obj.mass
@@ -169,29 +176,26 @@ class Simulator:
       dyn["linearDamping"] = obj.linear_damping
     if obj.angular_damping is not None:
       dyn["angularDamping"] = obj.angular_damping
-    pb.changeDynamics(obj.sim_ref, -1, **dyn)
+    pb.changeDynamics(obj_idx, -1, **dyn)
 
   def _set_velocity(self, obj: Object3D):
-    pb.resetBaseVelocity(obj.sim_ref, obj.linear_velocity, obj.angular_velocity)
+    obj_idx = self.objects_by_idx.inverse[obj]
+    pb.resetBaseVelocity(obj_idx, obj.linear_velocity, obj.angular_velocity)
 
-  def run(self, duration: float = 1.0) -> Dict[int, Dict[str, list]]:
-    # TODO: this method is still exposing pybullet's pointer logic (objectid integer)?max_step = math.floor(self.step_rate * duration)
+  def run(self, duration: float = 1.0) -> Dict[Object3D, Dict[str, list]]:
     max_step = math.floor(self.step_rate * duration)
     steps_per_frame = self.step_rate // self.frame_rate
-    current_step = 0
 
-    obj_ids = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
-    animation = {obj_id: {"position": [], "orient_quat": []} for obj_id in
-                 obj_ids}
+    obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
+    animation = {obj_id: {"position": [], "orient_quat": []}
+                 for obj_id in obj_idxs}
 
-    # TODO: why is this not a for loop?
-    while current_step <= max_step:
+    for current_step in range(max_step):
       if current_step % steps_per_frame == 0:
-        for obj_id in obj_ids:
-          pos, quat = pb.getBasePositionAndOrientation(obj_id)
-          animation[obj_id]["position"].append(pos)
-          animation[obj_id]["orient_quat"].append(quat)  # roll, pitch, yaw
+        for obj_idx in obj_idxs:
+          pos, quat = pb.getBasePositionAndOrientation(obj_idx)
+          animation[obj_idx]["position"].append(pos)
+          animation[obj_idx]["orient_quat"].append(quat)  # roll, pitch, yaw
 
       pb.stepSimulation()
-      current_step += 1
-    return animation
+    return {self.objects_by_idx[obj_idx]: anim for obj_idx, anim in animation.items()}
