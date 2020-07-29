@@ -1,3 +1,4 @@
+bidict
 mathutils
 trimesh
 google-cloud-storage
