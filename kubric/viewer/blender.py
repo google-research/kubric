@@ -322,9 +322,6 @@ class Renderer(interface.Renderer):
     view_layer.cycles.use_pass_crypto_object = True  # segmentation
     view_layer.cycles.pass_crypto_depth = 2
 
-    # --- transparency
-    bpy.context.scene.render.film_transparent = True
-
     # --- compute devices
     # derek, why is the rationale? → rendering on GPU only sometime faster than CPU+GPU
     # TODO: modify the logic to execute on CPU, GPU, CPU+GPU
@@ -339,6 +336,9 @@ class Renderer(interface.Renderer):
     for dev in cyclePref.devices:
       print(dev)
       print(dev.use)
+
+  def set_background_transparent(self, film_transparent: bool):
+    bpy.context.scene.render.film_transparent = film_transparent
 
   def set_size(self, width: int, height: int):
     super().set_size(width, height)
@@ -495,8 +495,6 @@ class Renderer(interface.Renderer):
 
     # --- renders one frame directly to a png file
     elif path.endswith(".png"):
-      bpy.context.scene.render.film_transparent = True
-      self.postprocess_solidbackground(color=0xFF0000)
       # TODO: add capability bpy.context.scene.frame_set(frame_number)
       bpy.ops.render.render(write_still=True, animation=False)
 
