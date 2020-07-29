@@ -378,16 +378,20 @@ class Renderer(interface.Renderer):
       out_node.file_slots.new(l)
       links.new(render_node.outputs.get(l), out_node.inputs.get(l))
 
-  def set_up_hdri_background(self, hdri_filepath, bg_color=(1.0, 1.0, 1.0),
-      hdri_rotation=(0.0, 0.0, 0.0)):
+  def set_up_background(self, hdri_filepath=None, bg_color=None,
+                             hdri_rotation=(0.0, 0.0, 0.0)):
     """
-    Use an HDRI file for global illumination, but render background with solid color.
+    Use an HDRI file for global illumination, and/or render background with solid color.
+
+
 
     Args:
       hdri_filepath (str): path to the HDRI file.
       bg_color: RGBA value of rendered background color.
       hdri_rotation: XYZ euler angles for rotating the HDRI image.
     """
+    assert hdri_filepath is not None or bg_color is not None
+
     bpy.context.scene.world.use_nodes = True
     tree = bpy.context.scene.world.node_tree
     links = tree.links
@@ -398,68 +402,52 @@ class Renderer(interface.Renderer):
 
     # create nodes
     out_node = tree.nodes.new(type='ShaderNodeOutputWorld')
-    mix_node = tree.nodes.new(type='ShaderNodeMixShader')
-    lightpath_node = tree.nodes.new(type='ShaderNodeLightPath')
-    light_bg_node = tree.nodes.new(type='ShaderNodeBackground')
-    camera_bg_node = tree.nodes.new(type='ShaderNodeBackground')
-    hdri_node = tree.nodes.new(type='ShaderNodeTexEnvironment')
-    mapping_node = tree.nodes.new(type='ShaderNodeMapping')
-    coord_node = tree.nodes.new(type='ShaderNodeTexCoord')
-
-    # just visual placement for manual editing. Has no effect on rendering
     out_node.location = 1100, 0
-    mix_node.location = 900, 0
-    light_bg_node.location = 700, 0
-    lightpath_node.location = 700, 350
-    camera_bg_node.location = 700, -120
-    hdri_node.location = 400, 0
-    mapping_node.location = 200, 0
 
-    # link up nodes
-    links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
-    links.new(lightpath_node.outputs.get('Is Camera Ray'),
-              mix_node.inputs.get('Fac'))
-    links.new(light_bg_node.outputs.get('Background'), mix_node.inputs[1])
-    links.new(camera_bg_node.outputs.get('Background'), mix_node.inputs[2])
-    links.new(hdri_node.outputs.get('Color'), light_bg_node.inputs.get('Color'))
-    links.new(mapping_node.outputs.get('Vector'),
-              hdri_node.inputs.get('Vector'))
-    links.new(coord_node.outputs.get('Generated'),
-              mapping_node.inputs.get('Vector'))
-    links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
+    if hdri_filepath is not None:
+      coord_node = tree.nodes.new(type='ShaderNodeTexCoord')
+      mapping_node = tree.nodes.new(type='ShaderNodeMapping')
+      mapping_node.location = 200, 0
+      hdri_node = tree.nodes.new(type='ShaderNodeTexEnvironment')
+      hdri_node.location = 400, 0
+      light_bg_node = tree.nodes.new(type='ShaderNodeBackground')
+      light_bg_node.location = 700, 0
 
-    # set parameters
-    hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
-    camera_bg_node.inputs.get('Color').default_value = bg_color  # BG color RGBA
-    mapping_node.inputs.get(
-      'Rotation').default_value = hdri_rotation  # XYZ Euler rotation of HDRI image
+      # link nodes
+      links.new(coord_node.outputs.get('Generated'), mapping_node.inputs.get('Vector'))
+      links.new(mapping_node.outputs.get('Vector'), hdri_node.inputs.get('Vector'))
+      links.new(hdri_node.outputs.get('Color'), light_bg_node.inputs.get('Color'))
 
-  def postprocess_solidbackground(self, color=0xFFFFFF):
-    # TODO: why in the composited output the color is not exactly the specified one? HDR?
-    bpy.context.scene.use_nodes = True  # TODO: should this rather be an assert?
-    tree = bpy.context.scene.node_tree
-    input_node = tree.nodes["Render Layers"]
-    output_node = tree.nodes[
-      "Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
-    alphaover = tree.nodes.new("CompositorNodeAlphaOver")
-    tree.links.new(input_node.outputs["Alpha"], alphaover.inputs[0])  # fac
-    alphaover.inputs[1].default_value = interface.hex_to_rgba(color,
-                                                              1.0)  # image 1
-    tree.links.new(input_node.outputs["Image"], alphaover.inputs[2])  # image 2
-    tree.links.new(alphaover.outputs["Image"], output_node.inputs["Image"])
+      # load the actual image
+      hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
+      # set the rotation
+      mapping_node.inputs.get('Rotation').default_value = hdri_rotation  # XYZ rotation of HDRI bg
 
-  def postprocess_remove_weakalpha(self, threshold=0.05):
-    bpy.context.scene.use_nodes = True  # TODO: should this rather be an assert?
-    tree = bpy.context.scene.node_tree
-    input_node = tree.nodes["Render Layers"]
-    output_node = tree.nodes[
-      "Composite"]  # output_node = tree.nodes.new("CompositorNodeComposite")
-    ramp = tree.nodes.new('CompositorNodeValToRGB')
-    ramp.color_ramp.elements[0].color[3] = 0
-    ramp.color_ramp.elements[0].position = threshold
-    ramp.color_ramp.interpolation = "CARDINAL"
-    tree.links.new(input_node.outputs["Alpha"], ramp.inputs["Fac"])
-    tree.links.new(ramp.outputs["Alpha"], output_node.inputs["Alpha"])
+      # if no background color is set, then connect to output node
+      if bg_color is None:
+        links.new(light_bg_node.outputs.get('Background'), out_node.inputs.get('Surface'))
+
+    if bg_color is not None:
+      camera_bg_node = tree.nodes.new(type='ShaderNodeBackground')
+      camera_bg_node.location = 700, -120
+      # set bg color value
+      camera_bg_node.inputs.get('Color').default_value = bg_color  # BG color RGBA
+
+      # if no HDRI image is set, then connect to output node
+      if hdri_filepath is None:
+        links.new(camera_bg_node.outputs.get('Background'), out_node.inputs.get('Surface'))
+
+    # if both are set, then use a mixing node and a lightpath input
+    if hdri_filepath is not None and bg_color is not None:
+      mix_node = tree.nodes.new(type='ShaderNodeMixShader')
+      mix_node.location = 900, 0
+      lightpath_node = tree.nodes.new(type='ShaderNodeLightPath')
+      lightpath_node.location = 700, 350
+
+      links.new(lightpath_node.outputs.get('Is Camera Ray'), mix_node.inputs.get('Fac'))
+      links.new(light_bg_node.outputs.get('Background'), mix_node.inputs[1])
+      links.new(camera_bg_node.outputs.get('Background'), mix_node.inputs[2])
+      links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
 
   def render(self, scene: Scene, camera: Camera, path: str,
       on_render_write=None):
