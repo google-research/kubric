@@ -70,7 +70,6 @@ class Object3D(interface.Object3D):
 
 
 class Scene(interface.Scene):
-  # TODO: look at API scene.objects.link(blender_object)
   # TODO: create a named scene, and refer via bpy.data.scenes['Scene']
 
   def __init__(self):
@@ -86,12 +85,15 @@ class Scene(interface.Scene):
     super()._set_frame_end(value)
     bpy.context.scene.frame_end = value
 
-  def add_from_file(self, path: str) -> Object3D:
-    bpy.ops.import_scene.obj(filepath=path, axis_forward='Y', axis_up='Z')
+  def add_from_file(self, path: str, axis_forward='Y', axis_up='Z') -> Object3D:
+    bpy.ops.import_scene.obj(filepath=str(path), axis_forward=axis_forward, axis_up=axis_up)
     # WARNING: bpy.context.object does not work here...
     blender_objects = bpy.context.selected_objects[:]
-    assert len(blender_objects)==1
+    assert len(blender_objects) == 1
     return Object3D(blender_objects[0])
+
+  def add(self, obj):
+    bpy.context.scene.collection.objects.link(obj._blender_object)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
