@@ -69,7 +69,7 @@ class Object3D(object):
     return self._quaternion
 
   def _set_quaternion(self, value):
-    self._quaternion = value
+    self._quaternion = mathutils.Quaternion(value)
 
   def keyframe_insert(self, member: str, frame: int):
     raise NotImplementedError
@@ -133,6 +133,11 @@ class OrthographicCamera(Camera):
     self.near = near
     self.far = far
 
+
+class PerspectiveCamera(Camera):
+  def __init__(self, focal_length: float = 50.):
+    Camera.__init__(self)
+    self.focal_length = focal_length
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -207,6 +212,36 @@ class DirectionalLight(Light):
 
   def _set_shadow_softness(self, value):
     self._shadow_softness = value
+
+
+# noinspection PyPropertyDefinition
+class RectAreaLight(Light):
+  width = property(lambda self: self._get_width(),
+                   lambda self, value: self._set_width(value))
+  height = property(lambda self: self._get_height(),
+                    lambda self, value: self._set_height(value))
+
+  def __init__(self, color=0xffffff, intensity=1., width=1., height=1.):
+    Light.__init__(self, color=color, intensity=intensity)
+    self.width = width
+    self.height = height
+
+  def _get_width(self):
+    return self._width
+
+  def _set_width(self, value):
+    self._width = value
+
+  def _get_height(self):
+    return self._height
+
+  def _set_height(self, value):
+    self._height = value
+
+
+
+
+
 
 
 # ------------------------------------------------------------------------------

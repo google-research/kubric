@@ -101,9 +101,19 @@ class Scene(interface.Scene):
 
 
 class Camera(interface.Camera, Object3D):
-  def __init__(self, name=None):
-    bpy.ops.object.camera_add()  # Created camera with name 'Camera'
-    Object3D.__init__(self, bpy.context.object)
+  def __init__(self, name='Camera'):
+    self.camera = bpy.data.cameras.new(name)
+    cam_obj = bpy.data.objects.new(name, self.camera)
+
+    Object3D.__init__(self, cam_obj)
+
+
+class PerspectiveCamera(interface.PerspectiveCamera, Camera):
+  def __init__(self, name='Camera', focal_length=50.):
+    Camera.__init__(self, name)
+    interface.PerspectiveCamera.__init__(self, focal_length)
+    self.camera.type = 'PERSP'
+    self.camera.lens = focal_length
 
 
 class OrthographicCamera(interface.OrthographicCamera, Camera):
@@ -112,18 +122,17 @@ class OrthographicCamera(interface.OrthographicCamera, Camera):
                                           far)
     Camera.__init__(self)
     # --- extra things to set
-    self._blender_object.data.type = 'ORTHO'
-    self._blender_object.data.ortho_scale = (right - left)
+    self.camera.type = 'ORTHO'
+    self.camera.ortho_scale = (right - left)
 
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-
+# TODO: maybe deprecate in favor of renderer.set_up_background since it does the same but better
 class AmbientLight(interface.AmbientLight):
   def __init__(self, color=0x030303, intensity=1):
-    bpy.context.scene.world.use_nodes = True  # TODO: shouldn't use_nodes be moved to scene?
     interface.AmbientLight.__init__(self, color=color, intensity=intensity)
 
   def _set_color(self, value):
@@ -144,25 +153,51 @@ class AmbientLight(interface.AmbientLight):
 
 class DirectionalLight(interface.DirectionalLight, Object3D):
   def __init__(self, color=0xffffff, intensity=1, shadow_softness=.1):
-    bpy.ops.object.light_add(type='SUN')  # Creates light with name 'Sun'
-    Object3D.__init__(self, bpy.context.object)
-    self._blender_object.data.use_nodes = True
+    self.sun = bpy.data.lights.new('Sun', 'SUN')
+    sun_obj = bpy.data.objects.new('Sun', self.sun)
+    Object3D.__init__(self, sun_obj)
+
     interface.DirectionalLight.__init__(self, color=color, intensity=intensity,
                                         shadow_softness=shadow_softness)
 
   def _set_color(self, value):
     super()._set_color(value)
-    self._blender_object.data.node_tree.nodes["Emission"].inputs[
-      'Color'].default_value = self.color
+    self.sun.color = self.color[:3]  # ignore alpha
 
   def _set_intensity(self, value):
     super()._set_intensity(value)
-    self._blender_object.data.node_tree.nodes["Emission"].inputs[
-      'Strength'].default_value = self.intensity
+    self.sun.energy = self.intensity
 
   def _set_shadow_softness(self, value):
     super()._set_shadow_softness(value)
-    self._blender_object.data.angle = self.shadow_softness
+    self.sun.angle = self.shadow_softness
+
+
+class RectAreaLight(interface.RectAreaLight, Object3D):
+  def __init__(self, color=0xffffff, intensity=1, width=.1, height=0.1):
+    self.area = bpy.data.lights.new('Area', 'AREA')
+    self.area.shape = 'RECTANGLE'
+    area_obj = bpy.data.objects.new('Area', self.area)
+    Object3D.__init__(self, area_obj)
+
+    interface.RectAreaLight.__init__(self, color=color, intensity=intensity,
+                                     width=width, height=height)
+
+  def _set_width(self, value):
+    super()._set_width(value)
+    self.area.size = value
+
+  def _set_height(self, value):
+    super()._set_height(value)
+    self.area.size_y = value
+
+  def _set_color(self, value):
+    super()._set_color(value)
+    self.area.color = self.color[:3]  # ignore alpha
+
+  def _set_intensity(self, value):
+    super()._set_intensity(value)
+    self.area.energy = self.intensity
 
 
 # ------------------------------------------------------------------------------
