@@ -79,9 +79,6 @@ def get_render_layers_from_exr(exr: OpenEXR.InputFile) -> Dict[str, np.ndarray]:
     index_channels = [n + '.' + c for n in crypto_layers for c in 'RB']
     idxs = read_channels_from_exr(exr, index_channels)
     idxs.dtype = np.uint32
-    # TODO: find out how to map these object ids to the objects in the scene...
-    obj_ids, tmp = np.unique(idxs, return_inverse=True)
-    idxs = tmp.reshape(idxs.shape)
     output['SegmentationIndex'] = idxs
     alpha_channels = [n + '.' + c for n in crypto_layers for c in 'GA']
     alphas = read_channels_from_exr(exr, alpha_channels)
