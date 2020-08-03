@@ -35,12 +35,14 @@ class NotImplementableError(NotImplementedError):
 class Object3D(interface.Object3D):
   # Mapping from interface properties to blender properties (used in keyframing).
   _member_to_blender_data_path = {
-      "position": "location"
+      "position": "location",
+      "quaternion": "rotation_quaternion"
   }
 
   def __init__(self, blender_object):  # , name=None):
     super().__init__(self)
     self._blender_object = blender_object
+    self._blender_object.rotation_mode = 'QUATERNION'
     # if self.name: self._blender_object.name = self.name
 
   def _set_position(self, value):
@@ -56,7 +58,7 @@ class Object3D(interface.Object3D):
   def _set_quaternion(self, value):
     # (UI: click mesh > Transform > Rotation)
     super()._set_quaternion(value)
-    self._blender_object.rotation_euler = self.quaternion.to_euler()
+    self._blender_object.rotation_quaternion = self.quaternion
 
   def keyframe_insert(self, member: str, frame: int):
     assert hasattr(self, member), "cannot keyframe an undefined property"
