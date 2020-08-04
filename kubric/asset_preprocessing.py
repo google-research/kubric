@@ -203,19 +203,24 @@ def kubricify(output_folder, obj=None, density=None, friction=None, center=False
     output_path = Path(output_folder) / obj.name
     print(f"Exporting to {output_path}")
     output_path.mkdir(parents=True, exist_ok=True)  # ensure path exists
-    save_properties(output_path, properties)
-    save_urdf(output_path, properties)
-    save_visual_geometry(obj, output_path)
+    urdf_path = save_urdf(output_path, properties)
+    vis_path = save_visual_geometry(obj, output_path)
 
     if tmesh.is_convex:
-      save_collision_geometry(obj, output_path)
+      coll_path = save_collision_geometry(obj, output_path)
     else:
       print("Creating collision geometry...")
       cobj = create_blender_object_from_tmesh(tmesh.convex_hull, name=obj.name + '_CVX')
       cobj.location = obj.location
       cobj.location[2] -= tmesh.extents[2] * 1.5
-      save_collision_geometry(cobj, output_path)
+      coll_path = save_collision_geometry(cobj, output_path)
 
+    properties['paths'] = {
+        'visual_geometry': [vis_path],
+        'collision_geometry': [coll_path],
+        'urdf': [urdf_path]
+    }
+    save_properties(output_path, properties)
     compress_object_dir(output_path, obj.name)
 
   print("tidying up...")
@@ -237,6 +242,7 @@ def save_collision_geometry(obj, output_path):
     bpy.ops.export_scene.obj(filepath=str(collision_path),
                              axis_forward='Y', axis_up='Z', use_selection=True,
                              use_materials=False)
+  return collision_path
 
 
 def save_visual_geometry(obj, output_path):
@@ -249,6 +255,7 @@ def save_visual_geometry(obj, output_path):
     bpy.ops.export_scene.obj(filepath=str(vis_path),
                              axis_forward='Y', axis_up='Z', use_selection=True,
                              use_materials=True)
+  return vis_path
 
 
 def save_urdf(output_path, properties):
@@ -256,6 +263,7 @@ def save_urdf(output_path, properties):
   print(urdf_path)
   with open(urdf_path, "w") as f:
     f.write(URDF_TEMPLATE.format(**properties))
+  return urdf_path
 
 
 def save_properties(output_path, properties):
@@ -263,6 +271,7 @@ def save_properties(output_path, properties):
   print(json_path)
   with open(json_path, "w") as f:
     json.dump(properties, f, indent=4, sort_keys=True)
+  return json_path
 
 
 def export_collection(collection_name, output_folder):
