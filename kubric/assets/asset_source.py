@@ -66,8 +66,8 @@ class AssetSource(object):
     del spec['id']
     # fetch the files and create an Object3D
     sim_filename, vis_filename = self.fetch(object_id)
-    return Object3D(sim_filename=sim_filename, vis_filename=vis_filename,
-                    **spec)
+    return Object3D(asset_id=object_id, sim_filename=sim_filename,
+                    vis_filename=vis_filename, **spec)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + '.tar.gz')
