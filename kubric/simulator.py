@@ -13,6 +13,7 @@
 # limitations under the License.
 import math
 import logging
+import uuid
 
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -29,8 +30,12 @@ class Object3D:
   sim_filename: str
   vis_filename: str
 
+  asset_id: str
+
+  uid: str = field(default_factory=lambda: str(uuid.uuid4()))
+
   position: Tuple[float] = (0.0, 0.0, 0.0)
-  orientation: Tuple[float] = (0.0, 0.0, 0.0, 1.0)
+  rotation: Tuple[float] = (0.0, 0.0, 0.0, 1.0)
 
   linear_velocity: Tuple[float] = (0.0, 0.0, 0.0)
   angular_velocity: Tuple[float] = (0.0, 0.0, 0.0)
@@ -157,7 +162,7 @@ class Simulator:
   def _set_location_and_orientation(self, obj: Object3D):
     obj_idx = self.objects_by_idx.inverse[obj]
     pb.resetBasePositionAndOrientation(obj_idx, obj.position,
-                                       obj.orientation)
+                                       obj.rotation)
 
   def _change_dynamics(self, obj: Object3D):
     obj_idx = self.objects_by_idx.inverse[obj]

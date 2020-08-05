@@ -87,11 +87,14 @@ class Scene(interface.Scene):
     super()._set_frame_end(value)
     bpy.context.scene.frame_end = value
 
-  def add_from_file(self, path: str, axis_forward='Y', axis_up='Z') -> Object3D:
+  def add_from_file(self, path: str, axis_forward='Y', axis_up='Z', name=None) -> Object3D:
     bpy.ops.import_scene.obj(filepath=str(path), axis_forward=axis_forward, axis_up=axis_up)
     # WARNING: bpy.context.object does not work here...
     blender_objects = bpy.context.selected_objects[:]
     assert len(blender_objects) == 1
+    blender_object = blender_objects[0]
+    if name:
+        blender_object.name = name
     return Object3D(blender_objects[0])
 
   def add(self, obj):
