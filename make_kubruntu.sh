@@ -39,6 +39,10 @@ cat > /tmp/Dockerfile <<EOF
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install google.cloud.storage
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install cloudml-hypertune
   RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install pybullet
+  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install scikit-learn
+  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install bidict
+  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install OpenEXR
+
 EOF
 
 # --- create an image for reuse

@@ -15,7 +15,6 @@
 import numpy as np
 import OpenEXR
 import Imath
-import sklearn
 from typing import Dict, Sequence
 
 
@@ -40,7 +39,8 @@ def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str])
   return np.stack(outputs, axis=-1)
 
 
-def get_render_layers_from_exr(exr: OpenEXR.InputFile) -> Dict[str, np.ndarray]:
+def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
+  exr = OpenEXR.InputFile(filename)
   layer_names = set()
   for n, v in exr.header()['channels'].items():
     layer_name, _,  channel_name = n.partition('.')
@@ -85,13 +85,3 @@ def get_render_layers_from_exr(exr: OpenEXR.InputFile) -> Dict[str, np.ndarray]:
     output['SegmentationAlpha'] = alphas
   return output
 
-
-def mm3hash(name):
-  """ Compute the uint32 hash that Blenders Cryptomatte uses.
-  https://github.com/Psyop/Cryptomatte/blob/master/specification/cryptomatte_specification.pdf
-  """
-  hash_32 = sklearn.utils.murmurhash3_32(name, positive=True)
-  exp = hash_32 >> 23 & 255
-  if (exp == 0) or (exp == 255):
-    hash_32 ^= 1 << 23
-  return hash_32
