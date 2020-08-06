@@ -16,29 +16,38 @@
 cat > /tmp/Dockerfile <<EOF
   FROM ubuntu:18.04
 
-  # --- Install system deps
-  RUN apt-get update
-  RUN apt-get install -y wget
-  RUN apt-get install -y xz-utils
-  RUN apt-get install -y blender
-  RUN apt-get remove -y blender #< we only need its dependencies
-  
-  # --- Install blender
-  WORKDIR /
-  RUN wget https://download.blender.org/release/Blender2.83/blender-2.83.2-linux64.tar.xz
-  RUN tar -xvf blender-2.83.2-linux64.tar.xz
-  RUN rm -f blender-2.83.2-linux64.tar.xz
-  
-  # --- Update path (expose blender and its integrated python3.7m python)
-  ENV PATH="/blender-2.83.2-linux64:${PATH}"
+  # --- Install system dep
+  RUN apt-get update --fix-missing
 
-  # --- Install blender REPL dependencies
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m ensurepip
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install --upgrade pip
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install trimesh
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install google.cloud.storage
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install cloudml-hypertune
-  RUN /blender-2.83.2-linux64/2.83/python/bin/python3.7m -m pip install pybullet
+  # basic dependencies
+  RUN apt-get install -y software-properties-common  # has add-apt-repository
+  RUN apt-get install -y build-essential  # needed for OpenEXR python package
+  RUN apt-get install -y zlib1g-dev       # needed for OpenEXR python package
+  RUN apt-get install -y libopenexr-dev   # needed for OpenEXR python package
+
+  # Blender 2.83 from PPA
+  # see https://launchpad.net/~thomas-schiex/+archive/ubuntu/blender
+  RUN add-apt-repository ppa:thomas-schiex/blender
+  RUN apt-get update
+  RUN apt-get install -y blender
+
+  # Blender2.83 uses the system python3.7
+  RUN apt-get install -y python3.7-dev
+  RUN apt-get install -y python3-pip
+
+  # -- Install Python package dependencies   # TODO: use requirements.txt
+  # using force-reinstall to avoid leaking pre-installed packages from python3.6
+  # such as numpy, which can lead to strange errors.
+  RUN python3.7 -m pip install --upgrade --force-reinstall pip
+  RUN python3.7 -m pip install --upgrade --force-reinstall bidict
+  RUN python3.7 -m pip install --upgrade --force-reinstall numpy
+  RUN python3.7 -m pip install --upgrade --force-reinstall pandas
+  RUN python3.7 -m pip install --upgrade --force-reinstall scikit-learn
+  RUN python3.7 -m pip install --upgrade --force-reinstall pybullet
+  RUN python3.7 -m pip install --upgrade --force-reinstall trimesh
+  RUN python3.7 -m pip install --upgrade --force-reinstall google.cloud.storage
+  RUN python3.7 -m pip install --upgrade --force-reinstall cloudml-hypertune
+  RUN python3.7 -m pip install --upgrade --force-reinstall OpenEXR
 EOF
 
 # --- create an image for reuse

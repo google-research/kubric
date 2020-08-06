@@ -16,7 +16,7 @@ cat > /tmp/Dockerfile <<EOF
   FROM kubruntu:latest
   COPY . /
   WORKDIR /
-  ENTRYPOINT ["blender", "-noaudio", "--background", "--python", "viewer/helloworld.py"]
+  ENTRYPOINT ["blender", "-noaudio", "--background", "--python", "worker.py"]
 EOF
 
 # --- Build the container
@@ -39,15 +39,19 @@ cat > /tmp/hypertune.yml << EOF
         discreteValues: [1,2,3,4]
 EOF
 
+run_mode=${1}
+shift  # this shifts all arguments left thus removing ${1} and leaving the rest in $@
+
+
 # --- Run the container locally (debugging)
-if [ "${1}" == "local" ]; then
+if [ "$run_mode" == "local" ]; then
   docker run $TAG \
     -- \
-    --output "$JOB_NAME/#####/frame_" \
-    --parameter 5
+    --output "$JOB_NAME/frame_" \
+    "$@"
 
 # --- Launches a single jobs on ai-platform
-elif [ "${1}" == "remote" ]; then
+elif [ "$run_mode" == "remote" ]; then
   docker push $TAG
   gcloud beta ai-platform jobs submit training $JOB_NAME \
     --region $REGION \
@@ -56,12 +60,12 @@ elif [ "${1}" == "remote" ]; then
     -- \
     -- \
     --output "$JOB_NAME/frame_" \
-    --parameter 5
+    "$@"
 
 # --- Launches parallel jobs on ai-platform
 # the first "--" separates glcoud parameters from blender parameters
 # the second "--" separates blender parameters from script parameters
-elif [ "${1}" == "hypertune" ]; then
+elif [ "$run_mode" == "hypertune" ]; then
   docker push $TAG 
   gcloud beta ai-platform jobs submit training $JOB_NAME \
     --region $REGION \
@@ -70,7 +74,8 @@ elif [ "${1}" == "hypertune" ]; then
     --config /tmp/hypertune.yml \
     -- \
     -- \
-    --output "$JOB_NAME/#####/frame_"
+    --output "$JOB_NAME/#####/frame_" \
+    "$@"
 
 # --- Failure
 else
