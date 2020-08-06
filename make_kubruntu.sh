@@ -25,7 +25,7 @@ cat > /tmp/Dockerfile <<EOF
   RUN apt-get install -y zlib1g-dev       # needed for OpenEXR python package
   RUN apt-get install -y libopenexr-dev   # needed for OpenEXR python package
 
-  # Blender 2.83 from the a PPA
+  # Blender 2.83 from PPA
   # see https://launchpad.net/~thomas-schiex/+archive/ubuntu/blender
   RUN add-apt-repository ppa:thomas-schiex/blender
   RUN apt-get update
@@ -36,6 +36,8 @@ cat > /tmp/Dockerfile <<EOF
   RUN apt-get install -y python3-pip
 
   # -- Install Python package dependencies   # TODO: use requirements.txt
+  # using force-reinstall to avoid leaking pre-installed packages from python3.6
+  # such as numpy, which can lead to strange errors.
   RUN python3.7 -m pip install --upgrade --force-reinstall pip
   RUN python3.7 -m pip install --upgrade --force-reinstall bidict
   RUN python3.7 -m pip install --upgrade --force-reinstall numpy

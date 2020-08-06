@@ -32,7 +32,7 @@ from kubric.post_processing import get_render_layers_from_exr
 # ------------------------------------------------------------------------------
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--assets", type=str, default="./KLEVR",
+parser.add_argument("--assets", type=str, default="gs://kubric/KLEVR",
                     help="e.g. '~/datasets/katamari' or 'gs://kubric/katamari'")
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
@@ -42,6 +42,7 @@ parser.add_argument("--logging_level", type=str, default="INFO")
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--resolution", type=int, default=512)
 parser.add_argument("--outpath", type=str, default='./output/')
+parser.add_argument("--output", type=str, default='gs://kubric/output')  # TODO: actually copy results there
 
 # --- parse argument in a way compatible with blender's REPL
 if "--" in sys.argv:
