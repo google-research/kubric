@@ -19,6 +19,20 @@ Progress is could be greatly accelerated if we had the ability to create suitabl
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
+## Getting Started
+To run locally:
+* install Blender2.83
+* install requirements in the Blender-internal python
+* extract KLEVR.zip 
+* `blender -noaudio --background --python worker.py -- --assets='/PATH/TO/KLEVR'`
+* (Results are stored in `./output/`)
+
+To run on GCP using docker:
+* `make_kubruntu.sh` to build the required docker image
+* `make_render.sh local` to run the docker container locally
+* or `make_render.sh remote` to submit a run using the ai-platform
+* or `make_render.sh hypertune` to launch parallel jobs using the ai-platform
+
 ## Design
 Mainly built on-top of pybullet for physics simulation and Blender for rendering the video.
 But the code is kept modular to support different rendering backends.
