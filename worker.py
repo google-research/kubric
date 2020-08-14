@@ -26,7 +26,6 @@ from kubric.assets.utils import mm3hash
 from kubric.simulator import Simulator
 from kubric.post_processing import get_render_layers_from_exr
 
-
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -54,7 +53,10 @@ else:
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+# --- Setup logger
 logging.basicConfig(level=FLAGS.logging_level)
+
+# --- Configures random generator
 if FLAGS.seed:
   rnd = np.random.RandomState(FLAGS.seed)
 else:
@@ -63,10 +65,10 @@ else:
 # --- Download a few models locally
 asset_source = AssetSource(uri=FLAGS.assets)
 
-# scene geometry
+# --- Scene static geometry
 floor = asset_source.create({'id': 'Floor', 'static': True})
 
-# random number of objects scattered in a given region
+# --- Scene configuration (number of objects randomly scattered in a region)
 spawn_region = ((-4, -4, 0.4), (4, 4, 0.5))
 velocity_range = ((-4, -4, 0), (4, 4, 0))
 nr_objects = rnd.randint(4, 10)
@@ -89,14 +91,9 @@ objects_list = [
 ]
 
 for i in range(nr_objects):
-  object_id = rnd.choice(objects_list)
-  position = rnd.uniform(*spawn_region)
-  velocity = rnd.uniform(*velocity_range)
-
-  objects.append(asset_source.create({'id': object_id,
-                                      'position': position,
-                                      'linear_velocity': velocity}))
-
+  objects.append(asset_source.create({'id': rnd.choice(objects_list),
+                                      'position': rnd.uniform(*spawn_region),
+                                      'linear_velocity': rnd.uniform(*velocity_range)}))
 
 # --- load models & place them in the simulator
 simulator = Simulator(frame_rate=FLAGS.frame_rate, step_rate=FLAGS.step_rate)
@@ -117,13 +114,13 @@ scene.frame_end = FLAGS.frame_end
 renderer.set_up_background(bg_color=(0., 0., 0., 0.))
 renderer.set_up_exr_output(path=FLAGS.outpath)
 
-# Camera settings from CLEVR
+# --- Camera settings from CLEVR
 camera = THREE.PerspectiveCamera(focal_length=35.)
 camera.position = (7.48113, -6.50764, 5.34367)
 camera.quaternion = (0.7816, 0.481707, 0.212922, 0.334251)
 camera.camera.sensor_width = 32
 
-# Light settings from CLEVR
+# --- Light settings from CLEVR
 sun = THREE.DirectionalLight(color=0xffffff, intensity=0.45, shadow_softness=0.2)
 sun.position = (11.6608, -6.62799, 25.8232)
 sun.quaternion = (0.971588, 0.105085, 0.210842, 0.022804)
@@ -142,7 +139,7 @@ lamp_fill.look_at(0, 0, 0)
 scene.add(lamp_fill)
 
 
-# --- dump the simulation data in the renderer
+# --- Dump the simulation data in the renderer
 room = scene.add_from_file(str(floor.vis_filename))
 
 for obj in objects:
@@ -157,11 +154,13 @@ for obj in objects:
     o.keyframe_insert("quaternion", frame_id)
 
 outpath = pathlib.Path(FLAGS.outpath)
-
 renderer.render(scene, camera, path=str(outpath / 'out'))
 
-# --- Postprocessing
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
+# --- Postprocessing
 layers = []
 for frame_id in range(scene.frame_start, scene.frame_end):
   layers.append(get_render_layers_from_exr(f'{outpath}/out{frame_id:04d}.exr'))
@@ -174,7 +173,6 @@ for obj in objects:
     'crypto_id': mm3hash(obj.uid),   # TODO: adjust segmentation maps instead
     'animation': animation[obj],
   })
-
 
 # TODO: convert to TFrecords
 with open(outpath + '/layers.pkl', 'wb') as f:
