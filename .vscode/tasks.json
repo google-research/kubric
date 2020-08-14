@@ -4,12 +4,12 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "blender → kubric/worker.py",
+      "label": "blender → kubric/worker.py → .blend",
       "type": "shell",
       "options": {
         "cwd": "${workspaceFolder}/"
       },
-      "command": "blender -noaudio --verbose 0 --background  --python worker.py",
+      "command": "blender -noaudio --verbose 0 --background  --python worker.py -- --assets ~/datasets/KLEVR --output kubric.blend && open kubric.blend",
       "problemMatcher": []
     },
     {

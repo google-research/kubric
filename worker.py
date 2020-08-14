@@ -153,28 +153,28 @@ for obj in objects:
     o.keyframe_insert("position", frame_id)
     o.keyframe_insert("quaternion", frame_id)
 
-outpath = pathlib.Path(FLAGS.outpath)
-renderer.render(scene, camera, path=str(outpath / 'out'))
-
+renderer.render(scene, camera, path=FLAGS.output)
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-# --- Postprocessing
-layers = []
-for frame_id in range(scene.frame_start, scene.frame_end):
-  layers.append(get_render_layers_from_exr(f'{outpath}/out{frame_id:04d}.exr'))
+# TODO: add option to trigger gather of data from cloud bucket (or local file system)
+if False:
+  # --- Postprocessing
+  layers = []
+  for frame_id in range(scene.frame_start, scene.frame_end):
+    layers.append(get_render_layers_from_exr(f'{outpath}/out{frame_id:04d}.exr'))
 
-gt_factors = []
-for obj in objects:
-  gt_factors.append({
-    'mass': obj.mass,
-    'asset_id': obj.asset_id,
-    'crypto_id': mm3hash(obj.uid),   # TODO: adjust segmentation maps instead
-    'animation': animation[obj],
-  })
+  gt_factors = []
+  for obj in objects:
+    gt_factors.append({
+      'mass': obj.mass,
+      'asset_id': obj.asset_id,
+      'crypto_id': mm3hash(obj.uid),   # TODO: adjust segmentation maps instead
+      'animation': animation[obj],
+    })
 
-# TODO: convert to TFrecords
-with open(outpath + '/layers.pkl', 'wb') as f:
-  pickle.dump({'layers': layers, 'factors': gt_factors}, f)
+  # TODO: convert to TFrecords
+  with open(outpath + '/layers.pkl', 'wb') as f:
+    pickle.dump({'layers': layers, 'factors': gt_factors}, f)
 
