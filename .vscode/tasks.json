@@ -1,0 +1,25 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "blender → kubric/worker.py",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/"
+      },
+      "command": "blender -noaudio --verbose 0 --background  --python worker.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "blender",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/viewer"
+      },
+      "command": "blender -noaudio --verbose 0 --background  --python helloworld.py -- --output experiment3/frame_",
+      "problemMatcher": []
+    },
+  ]
+}
