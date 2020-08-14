@@ -66,10 +66,10 @@ else:
 asset_source = AssetSource(uri=FLAGS.assets)
 
 # --- Scene static geometry
-floor = asset_source.create({'id': 'Floor', 'static': True})
+floor = asset_source.create({'id': 'Floor', 'static': True, 'position': (0, 0, -0.2)})
 
 # --- Scene configuration (number of objects randomly scattered in a region)
-spawn_region = ((-4, -4, 0.4), (4, 4, 0.5))
+spawn_region = ((-4, -4, 0.8), (4, 4, 0.9))
 velocity_range = ((-4, -4, 0), (4, 4, 0))
 nr_objects = rnd.randint(4, 10)
 objects = []
@@ -139,17 +139,26 @@ lamp_fill.look_at(0, 0, 0)
 scene.add(lamp_fill)
 
 
+def translate_quat(pb_quat):
+  """ Convert pyBullet XYZW quaternions into Blender WXYZ quaternions."""
+  x, y, z, w = pb_quat
+  return [w, x, y, z]
+
+
 # --- Dump the simulation data in the renderer
 room = scene.add_from_file(str(floor.vis_filename))
+room.position = floor.position
+room.quaternion = translate_quat(floor.rotation)
+
 
 for obj in objects:
   o = scene.add_from_file(str(obj.vis_filename), name=obj.uid)
   o.position = obj.position
-  o.quaternion = obj.rotation
+  o.quaternion = translate_quat(obj.rotation)
 
   for frame_id in range(scene.frame_start, scene.frame_end):
     o.position = animation[obj]["position"][frame_id]
-    o.quaternion = animation[obj]["orient_quat"][frame_id]
+    o.quaternion = translate_quat(animation[obj]["orient_quat"][frame_id])
     o.keyframe_insert("position", frame_id)
     o.keyframe_insert("quaternion", frame_id)
 
