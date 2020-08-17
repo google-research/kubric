@@ -67,10 +67,10 @@ else:
 asset_source = AssetSource(uri=FLAGS.assets)
 
 # --- Scene static geometry
-floor = asset_source.create({'id': 'Floor', 'static': True})
+floor = asset_source.create({'id': 'Floor', 'static': True, 'position': (0, 0, -0.2)})
 
 # --- Scene configuration (number of objects randomly scattered in a region)
-spawn_region = ((-4, -4, 0.4), (4, 4, 0.5))
+spawn_region = ((-4, -4, 0.8), (4, 4, 0.9))
 velocity_range = ((-4, -4, 0), (4, 4, 0))
 nr_objects = rnd.randint(4, 10)
 objects = []
@@ -147,7 +147,20 @@ lamp_fill.position = (-4.67112, -4.0136, 3.01122)
 lamp_fill.look_at(0, 0, 0)
 scene.add(lamp_fill)
 
+
+# TODO: this is a hack; conversion should be done automatically.
+def translate_quat(pb_quat):
+  """ Convert pyBullet XYZW quaternions into Blender WXYZ quaternions."""
+  x, y, z, w = pb_quat
+  return [w, x, y, z]
+
+
 # --- Dump the simulation data in the renderer
+floor_mesh = THREE.Mesh.from_file(str(floor.vis_filename))
+floor_mesh.position = floor.position
+floor_mesh.quaternion = translate_quat(floor.rotation)
+scene.add(floor_mesh)
+
 for obj in objects:
   # --- Load the mesh into the scene
   mesh = THREE.Mesh.from_file(str(obj.vis_filename), name=obj.uid)
@@ -164,7 +177,7 @@ for obj in objects:
   # --- Bake the simulation into keyframes
   for frame_id in range(scene.frame_start, scene.frame_end):
     mesh.position = animation[obj]["position"][frame_id]
-    mesh.quaternion = animation[obj]["orient_quat"][frame_id]
+    mesh.quaternion = translate_quat(animation[obj]["orient_quat"][frame_id])
     mesh.keyframe_insert("position", frame_id)
     mesh.keyframe_insert("quaternion", frame_id)
 

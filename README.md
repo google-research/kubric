@@ -1,5 +1,8 @@
 # Kubric
 
+![Unittests](https://github.com/google-research/kubric/workflows/Unittests/badge.svg)
+[![Coverage](https://badgen.net/codecov/c/github/google-research/kubric)](https://codecov.io/github/google-research/kubric)
+
 A data generation pipeline for creating semi-realistic synthetic multi-object 
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
