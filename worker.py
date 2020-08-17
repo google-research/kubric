@@ -139,6 +139,7 @@ lamp_fill.look_at(0, 0, 0)
 scene.add(lamp_fill)
 
 
+# TODO: this is a hack. This conversion should be done automatically and internally.
 def translate_quat(pb_quat):
   """ Convert pyBullet XYZW quaternions into Blender WXYZ quaternions."""
   x, y, z, w = pb_quat
