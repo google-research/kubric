@@ -163,7 +163,7 @@ if False:
   # --- Postprocessing
   layers = []
   for frame_id in range(scene.frame_start, scene.frame_end):
-    layers.append(get_render_layers_from_exr(f'{outpath}/out{frame_id:04d}.exr'))
+    layers.append(get_render_layers_from_exr(f'{FLAGS.outpath}/out{frame_id:04d}.exr'))
 
   gt_factors = []
   for obj in objects:
@@ -175,6 +175,6 @@ if False:
     })
 
   # TODO: convert to TFrecords
-  with open(outpath + '/layers.pkl', 'wb') as f:
+  with open(FLAGS.outpath + '/layers.pkl', 'wb') as f:
     pickle.dump({'layers': layers, 'factors': gt_factors}, f)
 
