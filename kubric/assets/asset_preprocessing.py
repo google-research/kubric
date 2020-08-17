@@ -142,6 +142,13 @@ def center_top(obj):
   obj.data.from_pydata(vertices.tolist(), [], faces.tolist())
 
 
+def center_mesh_around(obj, new_center):
+  vertices, faces = get_vertices_and_faces(obj)
+  vertices -= np.array(new_center)
+  obj.data.clear_geometry()
+  obj.data.from_pydata(vertices.tolist(), [], faces.tolist())
+
+
 @contextmanager
 def select(obj_list):
   if not isinstance(obj_list, (list, tuple)):
@@ -196,20 +203,23 @@ def create_blender_object_from_tmesh(tmesh, name):
   return bobj
 
 
-def kubricify(output_folder, obj=None, density=None, friction=None, center=False):
+def kubricify(output_folder, obj=None, density=None, friction=None):
   if obj is None:
     obj = get_active_object()
   with select(obj):
     print(f"Kubricifying {obj.name}...")
     print("Applying scale and rotation transformations...")
     apply_transformations(obj)
-    if center:
-      print("Centering the mesh ontop of its origin...")
-      center_top(obj)
     print("Converting and validating...")
+    # first convert to trimesh just for computing center of mass
+    tmesh = create_trimesh_from_obj(obj)
+    # center the mesh around its center of mass (i.e. ensure center-of-mass = [0,0,0])
+    center_mesh_around(obj, tmesh.center_mass)
+    # re-convert to trimesh for computing the properties
     tmesh = create_trimesh_from_obj(obj)
     print("Computing properties...")
     properties = get_object_properties(obj, density=density, friction=friction, tmesh=tmesh)
+
     print(properties)
     print(json.dumps(properties, indent=4, sort_keys=True))
 
@@ -230,9 +240,9 @@ def kubricify(output_folder, obj=None, density=None, friction=None, center=False
       coll_path = save_collision_geometry(cobj, output_path)
 
     properties['paths'] = {
-        'visual_geometry': [vis_path],
-        'collision_geometry': [coll_path],
-        'urdf': [urdf_path]
+        'visual_geometry': [str(vis_path)],
+        'collision_geometry': [str(coll_path)],
+        'urdf': [str(urdf_path)]
     }
     save_properties(output_path, properties)
     compress_object_dir(output_path, obj.name)
