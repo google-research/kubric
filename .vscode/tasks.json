@@ -9,7 +9,7 @@
       "options": {
         "cwd": "${workspaceFolder}/"
       },
-      "command": "rm -f kubric.blend && blender -noaudio --verbose 0 --background  --python worker.py -- --assets ~/datasets/KLEVR --output kubric.blend && open kubric.blend",
+      "command": "rm -f kubric.blend && blender -noaudio --verbose 0 --background  --python worker.py -- --assets ~/datasets/KLEVR --randomize_material True --output kubric.blend && open kubric.blend",
       "problemMatcher": []
     },
     {
