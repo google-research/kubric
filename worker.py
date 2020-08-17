@@ -149,7 +149,7 @@ for obj in objects:
   o.quaternion = obj.rotation
 
   if FLAGS.randomize_color:
-    log.warning("TODO: color randomization")
+    logging.warning("TODO: color randomization")
     pass
 
   for frame_id in range(scene.frame_start, scene.frame_end):
