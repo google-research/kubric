@@ -163,7 +163,7 @@ for obj in objects:
   # --- Load the mesh into the scene
   mesh = THREE.Mesh.from_file(str(obj.vis_filename), name=obj.uid)
   mesh.position = obj.position # TODO: why set? see keyframing below
-  mesh.quaternion = obj.rotation # TODO: why set? see keyframing below
+  mesh.quaternion = translate_quat(obj.rotation) # TODO: why set? see keyframing below
   scene.add(mesh)
 
   # --- Randomization of properties
