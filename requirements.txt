@@ -10,4 +10,3 @@ OpenEXR
 pytest
 mathutils
 dataclasses
-colorsys
