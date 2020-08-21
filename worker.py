@@ -120,8 +120,6 @@ renderer.set_up_background(bg_color=(0., 0., 0., 0.))
 renderer.set_up_exr_output(path=FLAGS.outpath)
 
 # --- Environment settings for CLEVR
-room = THREE.Mesh.from_file(str(floor.vis_filename))
-scene.add(room)
 
 # --- Camera settings from CLEVR
 camera = THREE.PerspectiveCamera(focal_length=35.)
@@ -207,4 +205,3 @@ if False:
   # TODO: convert to TFrecords
   with open(FLAGS.outpath + '/layers.pkl', 'wb') as f:
     pickle.dump({'layers': layers, 'factors': gt_factors}, f)
-
