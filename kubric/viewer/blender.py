@@ -318,7 +318,6 @@ class MeshChromeMaterial(interface.MeshBasicMaterial, Material):
     CR.color_ramp.elements[1].color = (0,0,0,1)
     GLO = tree.nodes.new('ShaderNodeBsdfGlossy')
     GLO.inputs[1].default_value = roughness
-    GLO.location.x -= 200  # TODO: ???
 
     # --- link nodes
     tree.links.new(LW.outputs[1], CR.inputs['Fac'])
@@ -362,13 +361,15 @@ class Mesh(interface.Mesh, Object3D):
       faces = self.geometry.index.tolist()
       self._blender_object.data.from_pydata(vertices, [], faces)
 
-    # --- Adds the material to the object
-    # TODO: why not just use active_material as in set_material method?
-    self._blender_object.data.materials.append(material._blender_material)
-    self.material.blender_apply(self._blender_object)
+    # --- Adds the material to the object (single materia/object)
+    self.set_material(material)
 
-  def set_material(self, mat: Material):
-    self._blender_object.active_material = mat._blender_material
+  def set_material(self, material: Material):
+    """Clears all materials, and sets active_material to the given one."""
+    self.material = material
+    self._blender_object.data.materials.clear()
+    self._blender_object.data.materials.append(material._blender_material)
+    self._blender_object.active_material = material._blender_material
 
   @classmethod
   def from_file(cls, path: str, axis_forward='Y', axis_up='Z', name=None):
