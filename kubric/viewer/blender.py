@@ -70,7 +70,6 @@ class Object3D(interface.Object3D):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-
 class Scene(interface.Scene):
   # TODO: create a named scene, and refer via bpy.data.scenes['Scene']
 
@@ -86,16 +85,6 @@ class Scene(interface.Scene):
   def _set_frame_end(self, value):
     super()._set_frame_end(value)
     bpy.context.scene.frame_end = value
-
-  def add_from_file(self, path: str, axis_forward='Y', axis_up='Z', name=None) -> Object3D:
-    bpy.ops.import_scene.obj(filepath=str(path), axis_forward=axis_forward, axis_up=axis_up)
-    # WARNING: bpy.context.object does not work here...
-    blender_objects = bpy.context.selected_objects[:]
-    assert len(blender_objects) == 1
-    blender_object = blender_objects[0]
-    if name:
-        blender_object.name = name
-    return Object3D(blender_objects[0])
 
   def add(self, obj):
     bpy.context.scene.collection.objects.link(obj._blender_object)
@@ -228,6 +217,12 @@ class Geometry():
   pass
 
 
+class DummyGeometry(interface.Geometry, Geometry):
+  """Used by Mesh.from_file to inherit Object3D from file loader."""
+  def __init__(self, blender_object):
+    self._blender_object = blender_object
+
+
 class BoxGeometry(interface.BoxGeometry, Geometry):
   def __init__(self, width=1.0, height=1.0, depth=1.0):
     assert width == height and width == depth, "blender only creates unit cubes"
@@ -267,9 +262,15 @@ class Material(interface.Material):
     self._blender_material = bpy.data.materials.new('Material')
 
   def blender_apply(self, blender_object):
-    """Used by materials that need to access the blender object."""
+    """Used by materials that need to access the blender object.
+    e.g. flat shading in blender."""
     pass
 
+
+class DummyMaterial(Material):
+  def __init__(self, blender_material):
+    self._blender_material = blender_material
+  
 
 class MeshBasicMaterial(interface.MeshBasicMaterial, Material):
   def __init__(self, specs={}):
@@ -296,6 +297,32 @@ class MeshFlatMaterial(interface.MeshFlatMaterial, Material):
   def blender_apply(self, blender_object):
     bpy.context.view_layer.objects.active = blender_object
     bpy.ops.object.shade_flat()
+
+
+class MeshChromeMaterial(interface.MeshBasicMaterial, Material):
+  def __init__(self, color_hsv=(1.0,1.0,1.0), roughness=.5):
+    color_rgba = interface.hsv_to_rgba(color_hsv)
+
+    # --- Create node-based material
+    self._blender_material = bpy.data.materials.new('Chrome')
+    self._blender_material.use_nodes = True
+    tree = self._blender_material.node_tree
+
+    # --- Specify nodes
+    LW = tree.nodes.new('ShaderNodeLayerWeight')
+    LW.inputs[0].default_value = 0.7
+    CR = tree.nodes.new('ShaderNodeValToRGB')
+    CR.color_ramp.elements[0].position = 0.9
+    CR.color_ramp.elements[0].color = color_rgba
+    CR.color_ramp.elements[1].position = 1
+    CR.color_ramp.elements[1].color = (0,0,0,1)
+    GLO = tree.nodes.new('ShaderNodeBsdfGlossy')
+    GLO.inputs[1].default_value = roughness
+
+    # --- link nodes
+    tree.links.new(LW.outputs[1], CR.inputs['Fac'])
+    tree.links.new(CR.outputs['Color'], GLO.inputs['Color'])
+    tree.links.new(GLO.outputs[0], tree.nodes['Material Output'].inputs['Surface'])
 
 
 class ShadowMaterial(interface.ShadowMaterial, Material):
@@ -334,9 +361,32 @@ class Mesh(interface.Mesh, Object3D):
       faces = self.geometry.index.tolist()
       self._blender_object.data.from_pydata(vertices, [], faces)
 
-    # --- Adds the material to the object
+    # --- Adds the material to the object (single materia/object)
+    self.set_material(material)
+
+  def set_material(self, material: Material):
+    """Clears all materials, and sets active_material to the given one."""
+    self.material = material
+    self._blender_object.data.materials.clear()
     self._blender_object.data.materials.append(material._blender_material)
-    self.material.blender_apply(self._blender_object)
+    self._blender_object.active_material = material._blender_material
+
+  @classmethod
+  def from_file(cls, path: str, axis_forward='Y', axis_up='Z', name=None):
+    bpy.ops.import_scene.obj(filepath=str(path), axis_forward=axis_forward, axis_up=axis_up)
+
+    # --- Extract blender_object from scene 
+    # WARNING: bpy.context.object does not work here...
+    blender_objects = bpy.context.selected_objects[:]
+    assert len(blender_objects) == 1
+    blender_object = blender_objects[0]
+
+    # --- Create a mesh object
+    if name: blender_object.name = name  # TODO: naming should be centralized
+    # TODO: are the dummy classes the best way to achieve this?
+    material = DummyMaterial(blender_object.active_material)
+    geometry = DummyGeometry(blender_object)
+    return cls(geometry, material)
 
 
 # ------------------------------------------------------------------------------

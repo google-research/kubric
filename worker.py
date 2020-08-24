@@ -40,7 +40,7 @@ parser.add_argument("--frame_end", type=int, default=96)  # 4 seconds
 parser.add_argument("--logging_level", type=str, default="INFO")
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--resolution", type=int, default=512)
-parser.add_argument("--randomize_color", type=bool, default=False)
+parser.add_argument("--randomize_material", type=bool, default=False)
 parser.add_argument("--outpath", type=str, default='./output/')
 parser.add_argument("--output", type=str, default='gs://kubric/output')  # TODO: actually copy results there
 
@@ -106,6 +106,10 @@ for obj in objects:
 # --- run the physics simulation
 animation = simulator.run(FLAGS.frame_end)
 
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
 # --- set up the rendering
 renderer = THREE.Renderer()
 renderer.set_size(FLAGS.resolution, FLAGS.resolution)
@@ -114,6 +118,8 @@ scene.frame_start = FLAGS.frame_start
 scene.frame_end = FLAGS.frame_end
 renderer.set_up_background(bg_color=(0., 0., 0., 0.))
 renderer.set_up_exr_output(path=FLAGS.outpath)
+
+# --- Environment settings for CLEVR
 
 # --- Camera settings from CLEVR
 camera = THREE.PerspectiveCamera(focal_length=35.)
@@ -140,7 +146,7 @@ lamp_fill.look_at(0, 0, 0)
 scene.add(lamp_fill)
 
 
-# TODO: this is a hack. This conversion should be done automatically and internally.
+# TODO: this is a hack; conversion should be done automatically.
 def translate_quat(pb_quat):
   """ Convert pyBullet XYZW quaternions into Blender WXYZ quaternions."""
   x, y, z, w = pb_quat
@@ -148,26 +154,32 @@ def translate_quat(pb_quat):
 
 
 # --- Dump the simulation data in the renderer
-room = scene.add_from_file(str(floor.vis_filename))
-room.position = floor.position
-room.quaternion = translate_quat(floor.rotation)
-
+floor_mesh = THREE.Mesh.from_file(str(floor.vis_filename))
+floor_mesh.position = floor.position
+floor_mesh.quaternion = translate_quat(floor.rotation)
+scene.add(floor_mesh)
 
 for obj in objects:
-  o = scene.add_from_file(str(obj.vis_filename), name=obj.uid)
-  o.position = obj.position
-  o.quaternion = translate_quat(obj.rotation)
+  # --- Load the mesh into the scene
+  mesh = THREE.Mesh.from_file(str(obj.vis_filename), name=obj.uid)
+  mesh.position = obj.position # TODO: why set? see keyframing below
+  mesh.quaternion = translate_quat(obj.rotation) # TODO: why set? see keyframing below
+  scene.add(mesh)
 
-  if FLAGS.randomize_color:
-    logging.warning("TODO: color randomization")
-    pass
+  # --- Randomization of properties
+  if FLAGS.randomize_material:
+    color_hsv = (rnd.random_sample(), .3, 1.0)
+    chrome = THREE.MeshChromeMaterial(color_hsv=color_hsv)
+    mesh.set_material(chrome)
 
+  # --- Bake the simulation into keyframes
   for frame_id in range(scene.frame_start, scene.frame_end):
-    o.position = animation[obj]["position"][frame_id]
-    o.quaternion = translate_quat(animation[obj]["orient_quat"][frame_id])
-    o.keyframe_insert("position", frame_id)
-    o.keyframe_insert("quaternion", frame_id)
+    mesh.position = animation[obj]["position"][frame_id]
+    mesh.quaternion = translate_quat(animation[obj]["orient_quat"][frame_id])
+    mesh.keyframe_insert("position", frame_id)
+    mesh.keyframe_insert("quaternion", frame_id)
 
+# --- Render or create the .blend file
 renderer.render(scene, camera, path=FLAGS.output)
 
 # ------------------------------------------------------------------------------
@@ -193,4 +205,3 @@ if False:
   # TODO: convert to TFrecords
   with open(FLAGS.outpath + '/layers.pkl', 'wb') as f:
     pickle.dump({'layers': layers, 'factors': gt_factors}, f)
-
