@@ -88,8 +88,7 @@ class Object3D(Asset):
 
   def look_at(self, target):
     direction = mathutils.Vector(target) - mathutils.Vector(self.position)
-    mathutils.Quaternion
-    self.quaternion = tuple(direction.to_track_quat(self.front.upper(), self.up.upper()))
+    self.quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
 
 
 class PhysicalObject(Object3D):

@@ -17,9 +17,28 @@ import traitlets as tl
 from kubric.color import Color
 
 
-# TODO: support numpy arrays
-Vector3D = lambda default_value=(0., 0., 0.): tl.Tuple(tl.Float(), tl.Float(), tl.Float(), default_value=default_value)
-Quaternion = lambda: tl.Tuple(tl.Float(), tl.Float(), tl.Float(), tl.Float(), default_value=(1.0, 0, 0, 0))
+class Vector3D(tl.TraitType):
+  default_value = (0, 0, 0)
+  info_text = "a 3D vector of floats"
+
+  def _validate(self, obj, value):
+    value = tuple([float(v) for v in value])
+    if len(value) != 3:
+      self.error(obj, value)
+    else:
+      return value
+
+
+class Quaternion(tl.TraitType):
+  default_value = (1, 0, 0, 0)
+  info_text = "a 4D vector (quaternion) of floats"
+
+  def _validate(self, obj, value):
+    value = tuple([float(v) for v in value])
+    if len(value) != 4:
+      self.error(obj, value)
+    else:
+      return value
 
 
 class RGBA(tl.TraitType):

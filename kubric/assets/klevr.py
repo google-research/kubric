@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import numpy as np
-import colorsys
 
 from kubric.assets.asset_source import AssetSource
 from kubric.core import DirectionalLight, RectAreaLight, PerspectiveCamera, PrincipledBSDFMaterial
@@ -100,7 +99,7 @@ class KLEVR(AssetSource):
     rotation = self.get_random_rotation(rnd)
     spawn_region = np.array(self.spawn_region) - bounds
     position = rnd.uniform(*spawn_region)
-    return tuple(position), rotation
+    return position, rotation
 
   def get_random_object(self, rnd):
     random_id = rnd.choice(self.objects_list)
@@ -112,5 +111,5 @@ class KLEVR(AssetSource):
     return self.create(asset_id=random_id,
                        position=position,
                        quaternion=rotation,
-                       velocity=tuple(velocity),
+                       velocity=velocity,
                        material=material)

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+import numpy as np
 import pytest
 import traitlets as tl
 
@@ -48,6 +48,9 @@ def test_set_sequence(obj):
 
   obj.position = (3, 2, 1)
   assert obj.position == (3, 2, 1)
+
+  obj.position = np.array([0.1, 0.2, 0.3])
+  assert obj.position == (0.1, 0.2, 0.3)
 
   obj.scale = [2, 2, 2]
   assert obj.scale == (2, 2, 2)
