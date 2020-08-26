@@ -68,17 +68,10 @@ scene = Scene(frame_start=FLAGS.frame_start,
 # --- Download a few models locally
 asset_source = KLEVR(uri=FLAGS.assets)
 simulator = Simulator(scene)
-renderer = Blender(scene)
 
 # --- Scene static geometry
 floor, lights, camera = asset_source.get_scene()
 simulator.add(floor)
-renderer.add(floor)
-for light in lights:
-  renderer.add(light)
-renderer.add(camera)
-
-scene.camera = camera
 
 # --- Scene configuration (number of objects randomly scattered in a region)
 nr_objects = rnd.randint(4, 10)
@@ -100,7 +93,12 @@ animation = simulator.run()
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-
+renderer = Blender(scene)
+renderer.add(floor)
+for light in lights:
+  renderer.add(light)
+renderer.add(camera)
+scene.camera = camera   # TODO: currently camera has to be added to renderer before assignment. fix!
 
 for obj in objects:
   renderer.add(obj)
