@@ -335,8 +335,8 @@ class Destructor:
           bpy.data.objects.remove(obj, do_unlink=True)
         elif isinstance(obj, bpy.types.Material):
           bpy.data.materials.remove(obj, do_unlink=True)
-      except Exception as e:
-        print(e)
+      except ReferenceError:
+        pass  # In this case the object is already gone
 
 
 class Keyframer:
