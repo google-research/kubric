@@ -141,6 +141,23 @@ objects_list = [
 ]
 
 
+def random_material(asset_id, rnd):
+  color = Color.from_hsv(rnd.rand(), .95, 1.0)
+  if 'Metal' in asset_id:
+    return core.PrincipledBSDFMaterial(
+        color=color.rgb,
+        roughness=0.2,
+        metallic=1.0,
+        ior=2.5)
+  else: # if 'Rubber' in asset_id:
+    return core.PrincipledBSDFMaterial(
+        color=color.rgb,
+        roughness=0.7,
+        specular=0.33,
+        metallic=0.,
+        ior=1.25)
+
+
 def get_random_rotation(rnd):
   """Samples a random rotation around z axis (uniformly distributed)."""
   theta = rnd.uniform(0, 2*np.pi)
@@ -149,10 +166,12 @@ def get_random_rotation(rnd):
 
 objects = []
 for i in range(nr_objects):
-  objects.append(asset_source.create(rnd.choice(objects_list),
+  asset_id = rnd.choice(objects_list)
+  objects.append(asset_source.create(asset_id,
                                      {'position': tuple(rnd.uniform(*spawn_region)),
                                       'quaternion': get_random_rotation(rnd),
-                                      'linear_velocity': tuple(rnd.uniform(*velocity_range))}))
+                                      'velocity': tuple(rnd.uniform(*velocity_range)),
+                                      'material': random_material(asset_id, rnd)}))
 
 for obj in objects:
   simulator.add(obj)
@@ -175,6 +194,7 @@ animation = simulator.run()
 
 
 for obj in objects:
+  renderer.add(obj)
   # --- Bake the simulation into keyframes
   for frame_id in range(scene.frame_start, scene.frame_end):
     obj.position = animation[obj]["position"][frame_id]

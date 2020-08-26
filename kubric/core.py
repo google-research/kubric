@@ -67,6 +67,7 @@ class PrincipledBSDFMaterial(Material):
   roughness = tl.Float(0.4)
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
+  transmission_roughness = tl.Float(0)
   emission = kt.RGBA(default_value=Color.from_name('black'))
 
 
@@ -94,7 +95,7 @@ class PhysicalObject(Object3D):
   static = tl.Bool(False)
   mass = tl.Float(1.0)
   friction = tl.Float(0.0)
-  restitution = tl.Float(1.0)
+  restitution = tl.Float(0.5)
 
   bounds = tl.Tuple(kt.Vector3D(), kt.Vector3D(),
                     default_value=((0., 0., 0.), (0., 0, 0.)))

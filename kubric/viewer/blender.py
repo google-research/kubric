@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import logging
+import pathlib
 from functools import singledispatch
+from typing import Tuple, Dict
 
 import bpy
 from bidict import bidict
 from munch import Munch
-from typing import Tuple, Dict
 
 from kubric.core import Asset, AttributeSetter
 from kubric import core
@@ -69,7 +70,9 @@ class Blender:
 
       # recursively add sub-assets
       value = getattr(obj, name)
+      print(obj, name, value)
       if isinstance(value, Asset):
+        print("HAHA: ", value, type(value), obj, name)
         value = self.add(value)
       # Initialize values
       setter(Munch(owner=obj, new=value, type='init'))
@@ -209,13 +212,12 @@ class Blender:
   def render(self, path):
     bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
     bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
+    bpy.context.scene.render.filepath = path
+
     self.activate_render_passes()
     self.set_up_exr_output(path)
 
-    print("-"*80)
-    print(bpy.context.scene.frame_start)
-    print(bpy.context.scene.frame_end)
-    print(bpy.context.scene.render.fps)
+    bpy.ops.wm.save_mainfile(filepath=str(pathlib.Path(path) / 'out.blend'))
 
     bpy.ops.render.render(animation=True, write_still=True)
 
@@ -231,7 +233,6 @@ def add_object(obj: Asset) -> Tuple[bpy.types.Object, Dict[str, AttributeSetter]
 @add_object.register(core.FileBasedObject)
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
-  # TODO: add material assignments
   bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
                            axis_forward=obj.front, axis_up=obj.up)
   assert len(bpy.context.selected_objects) == 1
@@ -240,7 +241,9 @@ def _add_object(obj: core.FileBasedObject):
   setters = {
       'position': AttributeSetter(blender_obj, 'location'),
       'quaternion': AttributeSetter(blender_obj, 'rotation_quaternion'),
-      'scale': AttributeSetter(blender_obj, 'scale')}
+      'scale': AttributeSetter(blender_obj, 'scale'),
+      'material': AttributeSetter(blender_obj, 'active_material')
+  }
   return blender_obj, setters
 
 
@@ -289,6 +292,24 @@ def _add_object(obj: core.PerspectiveCamera):
   return camera_obj, setters
 
 
+@add_object.register(core.PrincipledBSDFMaterial)
+def _add_object(obj: core.PrincipledBSDFMaterial):
+  mat = bpy.data.materials.new(obj.uid)
+  mat.use_nodes = True
+  bsdf_node = mat.node_tree.nodes['Principled BSDF']
+  setters = {
+      'color': AttributeSetter(bsdf_node.inputs['Base Color'], 'default_value'),
+      'metallic': AttributeSetter(bsdf_node.inputs['Metallic'], 'default_value'),
+      'specular': AttributeSetter(bsdf_node.inputs['Specular'], 'default_value'),
+      'specular_tint': AttributeSetter(bsdf_node.inputs['Specular Tint'], 'default_value'),
+      'ior': AttributeSetter(bsdf_node.inputs['IOR'], 'default_value'),
+      'transmission': AttributeSetter(bsdf_node.inputs['Transmission'], 'default_value'),
+      'transmission_roughness': AttributeSetter(bsdf_node.inputs['Transmission Roughness'], 'default_value'),
+      'emission': AttributeSetter(bsdf_node.inputs['Emission'], 'default_value'),
+  }
+  return mat, setters
+
+
 @add_object.register(core.Scene)
 def _add_scene(obj: core.Scene):
   blender_scene = bpy.context.scene
@@ -326,4 +347,4 @@ class Keyframer:
 
   def __call__(self, owner, member, frame):
     setter = self.setters[member]
-    setter.blender_obj.keyframe_insert(setter.blender.name, frame=frame)
+    setter.target_obj.keyframe_insert(setter.target_name, frame=frame)
