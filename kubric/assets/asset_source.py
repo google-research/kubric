@@ -11,19 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import json
 import logging
 import pathlib
-import tempfile
-
-import tarfile
 import shutil
+import tarfile
+import tempfile
 
 import pandas as pd
 from google.cloud import storage
 from google.cloud.storage.blob import Blob
 
 from urllib.parse import urlparse
-from kubric.simulator import Object3D
+from kubric.core import FileBasedObject
 
 
 logger = logging.getLogger(__name__)
@@ -58,16 +59,18 @@ class AssetSource(object):
     logger.info('removing tmp dir: "%s"', self.local_temp_folder)
     self.local_temp_folder.cleanup()
 
-  def create(self, spec: dict) -> Object3D:
-    assert 'id' in spec, spec
-    assert spec['id'] in self.db['id'].values, spec
-    # remove the id from the spec to that we can use **spec later
-    object_id = spec['id']
-    del spec['id']
-    # fetch the files and create an Object3D
-    sim_filename, vis_filename = self.fetch(object_id)
-    return Object3D(asset_id=object_id, sim_filename=sim_filename,
-                    vis_filename=vis_filename, **spec)
+  def create(self, asset_id: str, spec: dict) -> FileBasedObject:
+    assert asset_id in self.db['id'].values, spec
+    sim_filename, vis_filename, properties = self.fetch(asset_id)
+
+    for pname in ['mass', 'friction', 'restitution', 'bounds']:
+      if pname in properties and pname not in spec:
+        spec[pname] = properties[pname]
+
+    return FileBasedObject(asset_id=asset_id,
+                           simulation_filename=str(sim_filename),
+                           render_filename=str(vis_filename),
+                           **spec)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + '.tar.gz')
@@ -76,7 +79,11 @@ class AssetSource(object):
 
     urdf = self.local_path / object_id / 'object.urdf'
     vis = self.local_path / object_id / 'visual_geometry.obj'
-    return urdf, vis
+    json_path = self.local_path / object_id / 'data.json'
+
+    with open(json_path, 'r') as f:
+      properties = json.load(f)
+    return urdf, vis, properties
 
   def _download_file(self, filename):
     target_path = self.local_path / filename

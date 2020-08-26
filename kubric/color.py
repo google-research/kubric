@@ -117,4 +117,4 @@ class Color(NamedTuple):
         "teal":    cls.from_hexstr("#008080"),
         "white":   cls.from_hexstr("#ffffff"),
         "yellow":  cls.from_hexstr("#ffff00"),
-    }[name.lower]
+    }[name.lower()]

@@ -11,3 +11,4 @@ pytest
 mathutils
 dataclasses
 hypothesis
+traitlets
