@@ -15,27 +15,19 @@
 import argparse
 import logging
 import numpy as np
-import pathlib
-import pickle
 
 import sys; sys.path.append(".")
 
-import kubric.viewer.blender as THREE
-from kubric.assets.asset_source import AssetSource
-from kubric.assets.utils import mm3hash
+from kubric.assets.klevr import KLEVR
 from kubric.simulator import Simulator
-from kubric.post_processing import get_render_layers_from_exr
 from kubric.core import Scene
 from kubric.viewer.blender import Blender
-from kubric import core
-from kubric.color import Color
-
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--assets", type=str, default="gs://kubric/KLEVR",
+parser.add_argument("--assets", type=str, default="KLEVR",
                     help="e.g. '~/datasets/katamari' or 'gs://kubric/katamari'")
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
@@ -44,9 +36,7 @@ parser.add_argument("--frame_end", type=int, default=96)  # 4 seconds
 parser.add_argument("--logging_level", type=str, default="INFO")
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--resolution", type=int, default=512)
-parser.add_argument("--randomize_material", type=bool, default=False)
-parser.add_argument("--outpath", type=str, default='./output/')
-parser.add_argument("--output", type=str, default='gs://kubric/output')  # TODO: actually copy results there
+parser.add_argument("--output", type=str, default='./output/')  # TODO: actually copy results there
 
 # --- parse argument in a way compatible with blender's REPL
 if "--" in sys.argv:
@@ -76,110 +66,29 @@ scene = Scene(frame_start=FLAGS.frame_start,
 
 
 # --- Download a few models locally
-asset_source = AssetSource(uri=FLAGS.assets)
+asset_source = KLEVR(uri=FLAGS.assets)
 simulator = Simulator(scene)
 renderer = Blender(scene)
 
 # --- Scene static geometry
-floor = asset_source.create('Floor', {'static': True, 'position': (0, 0, -0.2)})
+floor, lights, camera = asset_source.get_scene()
 simulator.add(floor)
 renderer.add(floor)
-
-
-# --- Camera settings from CLEVR
-camera = core.PerspectiveCamera(focal_length=35., sensor_width=32,
-                                position=(7.48113, -6.50764, 5.34367))
-camera.look_at((0, 0, 0))
+for light in lights:
+  renderer.add(light)
 renderer.add(camera)
+
 scene.camera = camera
 
-# --- Light settings from CLEVR
-sun = core.DirectionalLight(color=Color.from_name('white'), intensity=0.45, shadow_softness=0.2,
-                            position=(11.6608, -6.62799, 25.8232))
-sun.look_at((0, 0, 0))
-renderer.add(sun)
-
-lamp_back = core.RectAreaLight(color=Color.from_name('white'), intensity=50.,
-                               position=(-1.1685, 2.64602, 5.81574))
-lamp_back.look_at((0, 0, 0))
-renderer.add(lamp_back)
-
-lamp_key = core.RectAreaLight(color=Color.from_hexint(0xffedd0), intensity=100,
-                              width=0.5, height=0.5, position=(6.44671, -2.90517, 4.2584))
-lamp_key.look_at((0, 0, 0))
-renderer.add(lamp_key)
-
-lamp_fill = core.RectAreaLight(color=Color.from_hexint(0xc2d0ff), intensity=30,
-                               width=0.5, height=0.5, position=(-4.67112, -4.0136, 3.01122))
-lamp_fill.look_at((0, 0, 0))
-renderer.add(lamp_fill)
-
-renderer.set_ambient_illumination(color=Color(0.05, 0.05, 0.05))
-renderer.set_background(color=Color(0., 0., 0.))
-
-
 # --- Scene configuration (number of objects randomly scattered in a region)
-spawn_region = ((-3.5, -3.5, 0), (3.5, 3.5, 2))
-velocity_range = ((-4, -4, 0), (4, 4, 0))
-nr_objects = rnd.randint(6, 10)
-
-objects_list = [
-    "LargeMetalCube",
-    "LargeMetalCylinder",
-    "LargeMetalSphere",
-    "LargeRubberCube",
-    "LargeRubberCylinder",
-    "LargeRubberSphere",
-    "MetalSpot",
-    "RubberSpot",
-    "SmallMetalCube",
-    "SmallMetalCylinder",
-    "SmallMetalSphere",
-    "SmallRubberCube",
-    "SmallRubberCylinder",
-    "SmallRubberSphere",
-]
-
-
-def random_material(asset_id, rnd):
-  color = Color.from_hsv(rnd.rand(), .95, 1.0)
-  if 'Metal' in asset_id:
-    return core.PrincipledBSDFMaterial(
-        color=color.rgb,
-        roughness=0.2,
-        metallic=1.0,
-        ior=2.5)
-  else: # if 'Rubber' in asset_id:
-    return core.PrincipledBSDFMaterial(
-        color=color.rgb,
-        roughness=0.7,
-        specular=0.33,
-        metallic=0.,
-        ior=1.25)
-
-
-def get_random_rotation(rnd):
-  """Samples a random rotation around z axis (uniformly distributed)."""
-  theta = rnd.uniform(0, 2*np.pi)
-  return np.cos(theta), 0, 0, np.sin(theta)
-
-
-objects = []
-for i in range(nr_objects):
-  asset_id = rnd.choice(objects_list)
-  objects.append(asset_source.create(asset_id,
-                                     {'position': tuple(rnd.uniform(*spawn_region)),
-                                      'quaternion': get_random_rotation(rnd),
-                                      'velocity': tuple(rnd.uniform(*velocity_range)),
-                                      'material': random_material(asset_id, rnd)}))
+nr_objects = rnd.randint(4, 10)
+objects = [asset_source.get_random_object(rnd) for _ in range(nr_objects)]
 
 for obj in objects:
-  simulator.add(obj)
+  collision = simulator.add(obj)
   trial = 0
-  collision = simulator.check_overlap(obj)
   while collision and trial < 100:
-    obj.position = tuple(rnd.uniform(*spawn_region))
-    obj.quaternion = get_random_rotation(rnd)
+    obj.position, obj.rotation = asset_source.get_random_object_pose(obj.name, rnd)
     collision = simulator.check_overlap(obj)
     trial += 1
   if collision:
@@ -204,27 +113,3 @@ for obj in objects:
 
 # --- Render or create the .blend file
 renderer.render(path=FLAGS.output)
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
-# TODO: add option to trigger gather of data from cloud bucket (or local file system)
-if False:
-  # --- Postprocessing
-  layers = []
-  for frame_id in range(scene.frame_start, scene.frame_end):
-    layers.append(get_render_layers_from_exr(f'{FLAGS.outpath}/out{frame_id:04d}.exr'))
-
-  gt_factors = []
-  for obj in objects:
-    gt_factors.append({
-      'mass': obj.mass,
-      'asset_id': obj.asset_id,
-      'crypto_id': mm3hash(obj.uid),   # TODO: adjust segmentation maps instead
-      'animation': animation[obj],
-    })
-
-  # TODO: convert to TFrecords
-  with open(FLAGS.outpath + '/layers.pkl', 'wb') as f:
-    pickle.dump({'layers': layers, 'factors': gt_factors}, f)

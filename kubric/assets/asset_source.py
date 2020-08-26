@@ -59,18 +59,18 @@ class AssetSource(object):
     logger.info('removing tmp dir: "%s"', self.local_temp_folder)
     self.local_temp_folder.cleanup()
 
-  def create(self, asset_id: str, spec: dict) -> FileBasedObject:
-    assert asset_id in self.db['id'].values, spec
+  def create(self, asset_id: str, **kwargs) -> FileBasedObject:
+    assert asset_id in self.db['id'].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
 
     for pname in ['mass', 'friction', 'restitution', 'bounds']:
-      if pname in properties and pname not in spec:
-        spec[pname] = properties[pname]
+      if pname in properties and pname not in kwargs:
+        kwargs[pname] = properties[pname]
 
     return FileBasedObject(asset_id=asset_id,
                            simulation_filename=str(sim_filename),
                            render_filename=str(vis_filename),
-                           **spec)
+                           **kwargs)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + '.tar.gz')

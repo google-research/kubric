@@ -70,9 +70,7 @@ class Blender:
 
       # recursively add sub-assets
       value = getattr(obj, name)
-      print(obj, name, value)
       if isinstance(value, Asset):
-        print("HAHA: ", value, type(value), obj, name)
         value = self.add(value)
       # Initialize values
       setter(Munch(owner=obj, new=value, type='init'))
