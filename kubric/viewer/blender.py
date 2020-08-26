@@ -308,6 +308,35 @@ def _add_object(obj: core.PrincipledBSDFMaterial):
   return mat, setters
 
 
+@add_object.register(core.MeshChromeMaterial)
+def _add_object(obj: core.MeshChromeMaterial):
+    # --- Create node-based material
+    mat = bpy.data.materials.new('Chrome')
+    mat.use_nodes = True
+    tree = mat.node_tree
+    tree.remove(tree.nodes['Principled BSDF'])  # remove the default shader
+
+    # --- Specify nodes
+    LW = tree.nodes.new('ShaderNodeLayerWeight')
+    LW.inputs[0].default_value = 0.7
+    CR = tree.nodes.new('ShaderNodeValToRGB')
+    CR.color_ramp.elements[0].position = 0.9
+    CR.color_ramp.elements[1].position = 1
+    CR.color_ramp.elements[1].color = (0, 0, 0, 1)
+    GLO = tree.nodes.new('ShaderNodeBsdfGlossy')
+
+    # --- link nodes
+    tree.links.new(LW.outputs[1], CR.inputs['Fac'])
+    tree.links.new(CR.outputs['Color'], GLO.inputs['Color'])
+    tree.links.new(GLO.outputs[0], tree.nodes['Material Output'].inputs['Surface'])
+
+    setters = {
+        'color': AttributeSetter(CR.color_ramp.elements[0], 'color'),
+        'roughness': AttributeSetter(GLO.inputs[1], 'default_value')
+    }
+    return mat, setters
+
+
 @add_object.register(core.Scene)
 def _add_scene(obj: core.Scene):
   blender_scene = bpy.context.scene

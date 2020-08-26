@@ -71,6 +71,10 @@ class PrincipledBSDFMaterial(Material):
   emission = kt.RGBA(default_value=Color.from_name('black'))
 
 
+class MeshChromeMaterial(Material):
+  color = kt.RGBA(default_value=Color.from_name('white'))
+  roughness = tl.Float(0.4)
+
 # ## ### ####  3D Objects  #### ### ## #
 
 
