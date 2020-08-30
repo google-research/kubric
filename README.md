@@ -41,7 +41,7 @@ Mainly built on-top of pybullet for physics simulation and Blender for rendering
 But the code is kept modular to support different rendering backends.
 
 ## Contributors
-[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto)
+[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto), Cinjon Resnick (NYU), Francis Williams (NYU), Issam Laradji (McGill and MILA), Or Litany (Stanford and NVIDIA)
 
 ## Disclaimer
 This is not an official Google Product
