@@ -14,7 +14,7 @@
 
 import traitlets as tl
 
-from kubric.color import Color
+from kubric import color
 
 
 class Vector3D(tl.TraitType):
@@ -42,25 +42,25 @@ class Quaternion(tl.TraitType):
 
 
 class RGBA(tl.TraitType):
-  default_value = Color(0., 0., 0., 1.0)
+  default_value = color.Color(0., 0., 0., 1.0)
   info_text = "an RGBA color"
 
   def _validate(self, obj, value):
-    if isinstance(value, Color):
-      color = value
+    if isinstance(value, color.Color):
+      rgba = value
     elif isinstance(value, int):
-      color = Color.from_hexint(value)
+      rgba = color.Color.from_hexint(value)
     elif isinstance(value, str):
-      color = Color.from_hexstr(value)
+      rgba = color.Color.from_hexstr(value)
     elif len(value) in [3, 4]:
-      color = Color(*value)
+      rgba = color.Color(*value)
     else:
       return self.error(obj, value)
 
-    if not all([0 <= x <= 1 for x in color]):
+    if not all([0 <= x <= 1 for x in rgba]):
       self.error(obj, value)
 
-    return color
+    return rgba
 
 
 # TODO: it is inconsistent to use Color object for RGBA and a regular tuple for RGB.
@@ -70,20 +70,18 @@ class RGB(tl.TraitType):
   info_text = "an RGB color"
 
   def _validate(self, obj, value):
-    if isinstance(value, Color):
-      color = value.rgb
+    if isinstance(value, color.Color):
+      rgb = value.rgb
     elif isinstance(value, int):
-      color = Color.from_hexint(value).rgb
+      rgb = color.Color.from_hexint(value).rgb
     elif isinstance(value, str):
-      color = Color.from_hexstr(value).rgb
+      rgb = color.Color.from_hexstr(value).rgb
     elif len(value) == 3:
-      color = value
+      rgb = color.Color(*value).rgb
     else:
       return self.error(obj, value)
 
-    if not len(color) == 3:
-      self.error(obj, value)
-    if not all([0 <= x <= 1 for x in color]):
+    if not all([0 <= x <= 1 for x in rgb]):
       self.error(obj, value)
 
     return color

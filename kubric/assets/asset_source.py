@@ -21,10 +21,9 @@ import tempfile
 
 import pandas as pd
 from google.cloud import storage
-from google.cloud.storage.blob import Blob
+import urllib.parse
 
-from urllib.parse import urlparse
-from kubric.core import FileBasedObject
+from kubric import core
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,7 @@ class AssetSource(object):
   # see: https://googleapis.dev/python/storage/latest
 
   def __init__(self, uri: str):
-    sections = urlparse(uri)
+    sections = urllib.parse.urlparse(uri)
     self.local_temp_folder = tempfile.TemporaryDirectory()
     self.local_path = pathlib.Path(self.local_temp_folder.name)
 
@@ -59,7 +58,7 @@ class AssetSource(object):
     logger.info("removing tmp dir: \"%s\"", self.local_temp_folder)
     self.local_temp_folder.cleanup()
 
-  def create(self, asset_id: str, **kwargs) -> FileBasedObject:
+  def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
 
@@ -67,10 +66,10 @@ class AssetSource(object):
       if pname in properties and pname not in kwargs:
         kwargs[pname] = properties[pname]
 
-    return FileBasedObject(asset_id=asset_id,
-                           simulation_filename=str(sim_filename),
-                           render_filename=str(vis_filename),
-                           **kwargs)
+    return core.FileBasedObject(asset_id=asset_id,
+                                simulation_filename=str(sim_filename),
+                                render_filename=str(vis_filename),
+                                **kwargs)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + ".tar.gz")
@@ -90,7 +89,7 @@ class AssetSource(object):
     if self.protocol == "gs":
       remote_path = f"gs://{self.bucket_name}{self.path}/{filename}"
       logger.info("Downloading %s to %s", remote_path, str(target_path))
-      blob = Blob.from_string(remote_path)
+      blob = storage.blob.Blob.from_string(remote_path)
       blob.download_to_filename(str(target_path), client=self.client)
     elif self.protocol == "local":
       remote_path = f"{self.path}/{filename}"

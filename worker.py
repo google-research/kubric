@@ -18,10 +18,11 @@ import numpy as np
 
 import sys; sys.path.append(".")
 
-from kubric.assets.klevr import KLEVR
-from kubric.simulator import Simulator
-from kubric.core import Scene
-from kubric.viewer.blender import Blender
+from kubric import simulator
+from kubric import core
+from kubric.assets import klevr
+from kubric.viewer import blender
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -59,16 +60,16 @@ if FLAGS.seed:
 else:
   rnd = np.random.RandomState()
 
-scene = Scene(frame_start=FLAGS.frame_start,
-              frame_end=FLAGS.frame_end,
-              frame_rate=FLAGS.frame_rate,
-              step_rate=FLAGS.step_rate,
-              resolution=(FLAGS.width, FLAGS.height))
+scene = core.Scene(frame_start=FLAGS.frame_start,
+                   frame_end=FLAGS.frame_end,
+                   frame_rate=FLAGS.frame_rate,
+                   step_rate=FLAGS.step_rate,
+                   resolution=(FLAGS.width, FLAGS.height))
 
 
 # --- Download a few models locally
-asset_source = KLEVR(uri=FLAGS.assets)
-simulator = Simulator(scene)
+asset_source = klevr.KLEVR(uri=FLAGS.assets)
+simulator = simulator.Simulator(scene)
 
 # --- Scene static geometry
 floor, lights, camera = asset_source.get_scene()
@@ -94,7 +95,7 @@ animation = simulator.run()
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-renderer = Blender(scene)
+renderer = blender.Blender(scene)
 renderer.set_ambient_light()
 renderer.add(floor)
 for light in lights:

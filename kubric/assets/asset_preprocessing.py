@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import bpy
-from trimesh import Trimesh
-import numpy as np
-from contextlib import contextmanager
-from copy import copy
-
+import contextlib
+import copy
 import json
-from pathlib import Path
+import pathlib
 import tarfile
 import shutil
+
+import bpy
+import numpy as np
+import trimesh
 
 
 URDF_TEMPLATE = """
@@ -70,12 +70,12 @@ def get_custom_property(obj, name, default):
   mat = obj.active_material
   if name in mat:
     value = mat[name]
-    print(f'Using {name}={value} from material {mat}.')
+    print(f"Using {name}={value} from material {mat}.")
   elif name in obj:
     value = obj[name]
-    print(f'Using {name}={value} from object.')
+    print(f"Using {name}={value} from object.")
   else:
-    print(f'No {name} information found. Using default {name}={default}.')
+    print(f"No {name} information found. Using default {name}={default}.")
     value = 1.0
   return value
 
@@ -83,7 +83,7 @@ def get_custom_property(obj, name, default):
 def create_trimesh_from_obj(obj):
   vertices, faces = get_vertices_and_faces(obj)
 
-  tmesh = Trimesh(vertices=vertices, faces=faces)
+  tmesh = trimesh.Trimesh(vertices=vertices, faces=faces)
 
   if tmesh.is_empty:
     raise ValueError("Mesh is empty!")
@@ -149,7 +149,7 @@ def center_mesh_around(obj, new_center):
   obj.data.from_pydata(vertices.tolist(), [], faces.tolist())
 
 
-@contextmanager
+@contextlib.contextmanager
 def select(obj_list):
   if not isinstance(obj_list, (list, tuple)):
     obj_list = [obj_list]
@@ -173,12 +173,12 @@ def select(obj_list):
     bpy.context.view_layer.objects.active = previous_active
 
 
-@contextmanager
+@contextlib.contextmanager
 def center(obj_list):
   if not isinstance(obj_list, (list, tuple)):
     obj_list = [obj_list]
 
-  prev_pos = {obj: copy(obj.location) for obj in obj_list}
+  prev_pos = {obj: copy.copy(obj.location) for obj in obj_list}
   for obj in obj_list:
     obj.location = (0, 0, 0)
 
@@ -224,7 +224,7 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
     print(json.dumps(properties, indent=4, sort_keys=True))
 
     # Export
-    output_path = Path(output_folder) / obj.name
+    output_path = pathlib.Path(output_folder) / obj.name
     print(f"Exporting to {output_path}")
     output_path.mkdir(parents=True, exist_ok=True)  # ensure path exists
     urdf_path = save_urdf(output_path, properties)
@@ -234,15 +234,15 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
       coll_path = save_collision_geometry(obj, output_path)
     else:
       print("Creating collision geometry...")
-      cobj = create_blender_object_from_tmesh(tmesh.convex_hull, name=obj.name + '_CVX')
+      cobj = create_blender_object_from_tmesh(tmesh.convex_hull, name=obj.name + "_CVX")
       cobj.location = obj.location
       cobj.location[2] -= tmesh.extents[2] * 1.5
       coll_path = save_collision_geometry(cobj, output_path)
 
-    properties['paths'] = {
-        'visual_geometry': [str(vis_path)],
-        'collision_geometry': [str(coll_path)],
-        'urdf': [str(urdf_path)]
+    properties["paths"] = {
+        "visual_geometry": [str(vis_path)],
+        "collision_geometry": [str(coll_path)],
+        "urdf": [str(urdf_path)]
     }
     save_properties(output_path, properties)
     compress_object_dir(output_path, obj.name)
@@ -254,7 +254,7 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
 
 def compress_object_dir(output_path, obj_name):
   tar_path = str(output_path) + ".tar.gz"
-  print('Zipping into', tar_path)
+  print("Zipping into", tar_path)
   with tarfile.open(tar_path, "w:gz") as tar:
     tar.add(output_path, arcname=obj_name)
 
@@ -264,7 +264,7 @@ def save_collision_geometry(obj, output_path):
   print(collision_path)
   with select(obj), center(obj):
     bpy.ops.export_scene.obj(filepath=str(collision_path),
-                             axis_forward='Y', axis_up='Z', use_selection=True,
+                             axis_forward="Y", axis_up="Z", use_selection=True,
                              use_materials=False)
   return collision_path
 
@@ -277,7 +277,7 @@ def save_visual_geometry(obj, output_path):
   print(vis_path)
   with select(obj), center(obj):
     bpy.ops.export_scene.obj(filepath=str(vis_path),
-                             axis_forward='Y', axis_up='Z', use_selection=True,
+                             axis_forward="Y", axis_up="Z", use_selection=True,
                              use_materials=True)
   return vis_path
 
@@ -300,14 +300,14 @@ def save_properties(output_path, properties):
 
 def export_collection(collection_name, output_folder):
   details_list = []
-  output_folder = Path(output_folder)
+  output_folder = pathlib.Path(output_folder)
   for obj in bpy.data.collections[collection_name].all_objects:
     details_list.append(kubricify(output_folder, obj))
 
-  with open(output_folder / 'details_list.json', 'w') as f:
+  with open(output_folder / "details_list.json", "w") as f:
     json.dump(details_list, f, indent=4, sort_keys=True)
 
 
 # filename = "/Users/klausg/Projects/kubric/kubric/assets/asset_preprocessing.py"
-# exec(compile(open(filename).read(), filename, 'exec'))
+# exec(compile(open(filename).read(), filename, "exec"))
 # export_collection("Objects", "/Users/klausg/Projects/kubric/KLEVR")

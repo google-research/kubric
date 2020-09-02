@@ -45,11 +45,11 @@ class Color(NamedTuple):
   @classmethod
   def from_hsv(cls, h: float, s: float, v: float, alpha=1.0):
     if not 0 <= h <= 1:
-      raise ValueError('Hue has to be between 0.0 and 1.0 (was {})'.format(h))
+      raise ValueError("Hue has to be between 0.0 and 1.0 (was {})".format(h))
     if not 0 <= s <= 1:
-      raise ValueError('Saturation has to be between 0.0 and 1.0 (was {})'.format(s))
+      raise ValueError("Saturation has to be between 0.0 and 1.0 (was {})".format(s))
     if not 0 <= v <= 1:
-      raise ValueError('Value has to be between 0.0 and 1.0 (was {})'.format(v))
+      raise ValueError("Value has to be between 0.0 and 1.0 (was {})".format(v))
     return cls(*colorsys.hsv_to_rgb(h, s, v), a=alpha)
 
   @classmethod
@@ -71,7 +71,7 @@ class Color(NamedTuple):
     Supports both long and short form (i.e. #ffffff is the same as #fff), and also an optional
     alpha value (e.g. #112233ff or #123f).
     """
-    if hexstr[0] == '#':  # get rid of leading #
+    if hexstr[0] == "#":  # get rid of leading #
       hexstr = hexstr[1:]
     if len(hexstr) == 3:
       r = int(hexstr[0], 16) / 15.

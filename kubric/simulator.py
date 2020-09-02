@@ -14,17 +14,17 @@
 
 import logging
 
-from functools import singledispatch
-from pathlib import Path
+import functools
+import pathlib
 from typing import Dict, Tuple, Union
 
-from munch import Munch
-from bidict import bidict
+import munch
+import bidict
 import pybullet as pb
 
-from kubric.core import Asset, FileBasedObject, PhysicalObject, Scene, AttributeSetter
 from kubric import core
 logger = logging.getLogger(__name__)
+
 
 def xyzw2wxyz(xyzw):
   """Convert quaternions from XYZW format to WXYZ."""
@@ -100,8 +100,8 @@ def set_gravity(_, gravity: Tuple[float, float, float]):
   pb.setGravity(*gravity)
 
 
-@singledispatch
-def add_object(obj: Asset) -> Tuple[int, Dict[str, Setter]]:
+@functools.singledispatch
+def add_object(obj: core.Asset) -> Tuple[int, Dict[str, Setter]]:
   raise NotImplementedError()
 
 
@@ -123,11 +123,11 @@ def _add_object(obj: core.Light):
   return -3, {}
 
 
-@add_object.register(FileBasedObject)
-def _add_object(obj: FileBasedObject):
+@add_object.register(core.FileBasedObject)
+def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
   # TODO: add material assignments
-  path = Path(obj.simulation_filename).resolve()
+  path = pathlib.Path(obj.simulation_filename).resolve()
   logger.info("Loading '{}' in the simulator".format(path))
 
   if not path.exists():
@@ -158,8 +158,8 @@ def _add_object(obj: FileBasedObject):
   return object_idx, setters
 
 
-@add_object.register(Scene)
-def _add_object(obj: Scene):
+@add_object.register(core.Scene)
+def _add_object(obj: core.Scene):
   object_idx = -2  # the scene is no object, so we use a special index
 
   setters = {
@@ -178,8 +178,8 @@ class Simulator:
                   Required because the simulator only reports positions for frames not for steps.
   """
 
-  def __init__(self, scene: Scene):
-    self.objects_to_pybullet = bidict()
+  def __init__(self, scene: core.Scene):
+    self.objects_to_pybullet = bidict.bidict()
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
 
     if scene.step_rate % scene.frame_rate != 0:
@@ -192,7 +192,7 @@ class Simulator:
   def __del__(self):
     pb.disconnect()
 
-  def add(self, obj: Asset) -> int:
+  def add(self, obj: core.Asset) -> int:
     """
     Place an object to a particular place and orientation and check for any overlap.
     This may either load a new object or move an existing object.
@@ -213,14 +213,14 @@ class Simulator:
     for name, setter in setters.items():
       # recursively add sub-assets
       value = getattr(obj, name)
-      if isinstance(value, Asset):
+      if isinstance(value, core.Asset):
         value = self.add(value)
       # Initialize values
-      setter(Munch(owner=obj, new=value, type='init'))
+      setter(munch.Munch(owner=obj, new=value, type='init'))
       # Link values
       obj.observe(setter, names=[name])
 
-  def check_overlap(self, obj: PhysicalObject) -> bool:
+  def check_overlap(self, obj: core.PhysicalObject) -> bool:
     obj_idx = self.objects_to_pybullet[obj]
 
     body_ids = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
@@ -235,8 +235,8 @@ class Simulator:
         return True
     return False
 
-  def get_position_and_rotation(self, obj: Union[int, PhysicalObject]):
-    if isinstance(obj, PhysicalObject):
+  def get_position_and_rotation(self, obj: Union[int, core.PhysicalObject]):
+    if isinstance(obj, core.PhysicalObject):
       obj_idx = self.objects_to_pybullet[obj]
     else:
       assert isinstance(obj, int), f"Invalid object {obj} of type {type(obj)}."
@@ -245,8 +245,8 @@ class Simulator:
     pos, quat = pb.getBasePositionAndOrientation(obj_idx)
     return pos, xyzw2wxyz(quat) # convert quaternion format
 
-  def get_velocities(self, obj: Union[int, PhysicalObject]):
-    if isinstance(obj, PhysicalObject):
+  def get_velocities(self, obj: Union[int, core.PhysicalObject]):
+    if isinstance(obj, core.PhysicalObject):
       obj_idx = self.objects_to_pybullet[obj]
     else:
       assert isinstance(obj, int), f"Invalid object {obj} of type {type(obj)}."
@@ -255,7 +255,7 @@ class Simulator:
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def run(self) -> Dict[PhysicalObject, Dict[str, list]]:
+  def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
     max_step = self.scene.frame_end * steps_per_frame
 
@@ -273,7 +273,6 @@ class Simulator:
           animation[obj_idx]["quaternion"].append(quaternion)
           animation[obj_idx]["velocity"].append(velocity)
           animation[obj_idx]["angular_velocity"].append(angular_velocity)
-
 
       pb.stepSimulation()
     return {self.objects_to_pybullet.inverse[obj_idx]: anim

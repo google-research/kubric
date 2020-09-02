@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import uuid
-from collections import defaultdict
+import collections
 
-import traitlets as tl
 import mathutils
+import traitlets as tl
 from traitlets import default, validate
 
 import kubric.traits as ktl
-from kubric.color import Color
+from kubric import color
 
 
 class Asset(tl.HasTraits):
@@ -29,7 +29,7 @@ class Asset(tl.HasTraits):
     super().__init__(*args, **kwargs)
     self.destruction_callbacks = []
     self.keyframe_callbacks = []
-    self.keyframes = defaultdict(dict)
+    self.keyframes = collections.defaultdict(dict)
 
   @default("uid")
   def _uid(self):
@@ -60,7 +60,7 @@ class Material(Asset):
 
 
 class PrincipledBSDFMaterial(Material):
-  color = ktl.RGBA(default_value=Color.from_name("white"))
+  color = ktl.RGBA(default_value=color.Color.from_name("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
   specular_tint = tl.Float(0.)
@@ -68,11 +68,11 @@ class PrincipledBSDFMaterial(Material):
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
   transmission_roughness = tl.Float(0)
-  emission = ktl.RGBA(default_value=Color.from_name("black"))
+  emission = ktl.RGBA(default_value=color.Color.from_name("black"))
 
 
 class MeshChromeMaterial(Material):
-  color = ktl.RGBA(default_value=Color.from_name("white"))
+  color = ktl.RGBA(default_value=color.Color.from_name("white"))
   roughness = tl.Float(0.4)
 
 # ## ### ####  3D Objects  #### ### ## #
@@ -145,7 +145,7 @@ class FileBasedObject(PhysicalObject):
 # ## ### ####  Lights  #### ### ## #
 
 class Light(Object3D):
-  color = ktl.RGB(default_value=Color.from_name("white").rgb)
+  color = ktl.RGB(default_value=color.Color.from_name("white").rgb)
   intensity = tl.Float(1.)
 
 

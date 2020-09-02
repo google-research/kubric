@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
-from kubric.assets.utils import mm3hash
+from kubric.assets import utils
 
 # a large list of cryptomatte ids that were manually extracted
-# (100 may be overkill. But I had the first 29 succeed only to fail at Object_30)
+# (100 may be overkill. But I did have the first 29 succeed only to fail at Object_30)
 name_to_crypto = [
     ("Static", 3498399415), ("Object_00", 991243257), ("Object_01", 2711523813),
     ("Object_02", 2458670877), ("Object_03", 3322849070), ("Object_04", 1185212285),
@@ -53,6 +52,7 @@ name_to_crypto = [
     ("Object_95", 1938643046), ("Object_96", 4195052494), ("Object_97", 2784341116),
     ("Object_98", 2907465629), ("Object_99", 25278216)]
 
-@pytest.mark.parametrize("name,expected", name_to_crypto)
-def test_mm3hash(name, expected):
-    assert mm3hash(name) == expected
+
+def test_mm3hash():
+    for name, expected in name_to_crypto:
+        assert utils.mm3hash(name) == expected

@@ -16,17 +16,17 @@ import numpy as np
 import pytest
 import traitlets as tl
 
-from kubric.traits import Quaternion, Vector3D, RGB, RGBA
+import kubric.traits as ktl
 
 
 @pytest.fixture
 def obj():
   class TestObject(tl.HasTraits):
-    quaternion = Quaternion()
-    position = Vector3D()
-    scale = Vector3D(default_value=(1., 1., 1.))
-    rgb = RGB()
-    rgba = RGBA()
+    quaternion = ktl.Quaternion()
+    position = ktl.Vector3D()
+    scale = ktl.Vector3D(default_value=(1., 1., 1.))
+    rgb = ktl.RGB()
+    rgba = ktl.RGBA()
 
   return TestObject()
 
