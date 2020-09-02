@@ -15,34 +15,30 @@
 import argparse
 import logging
 import numpy as np
-import pathlib
-import pickle
 
 import sys; sys.path.append(".")
 
-import kubric.viewer.blender as THREE
-from kubric.assets.asset_source import AssetSource
-from kubric.assets.utils import mm3hash
+from kubric.assets.klevr import KLEVR
 from kubric.simulator import Simulator
-from kubric.post_processing import get_render_layers_from_exr
-
+from kubric.core import Scene
+from kubric.viewer.blender import Blender
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--assets", type=str, default="gs://kubric/KLEVR",
+parser.add_argument("--assets", type=str, default="./KLEVR",
                     help="e.g. '~/datasets/katamari' or 'gs://kubric/katamari'")
 parser.add_argument("--frame_rate", type=int, default=24)
 parser.add_argument("--step_rate", type=int, default=240)
 parser.add_argument("--frame_start", type=int, default=0)
 parser.add_argument("--frame_end", type=int, default=96)  # 4 seconds 
 parser.add_argument("--logging_level", type=str, default="INFO")
+parser.add_argument("--max_placement_trials", type=int, default=100)
 parser.add_argument("--seed", type=int, default=0)
-parser.add_argument("--resolution", type=int, default=512)
-parser.add_argument("--randomize_material", type=bool, default=False)
-parser.add_argument("--outpath", type=str, default='./output/')
-parser.add_argument("--output", type=str, default='gs://kubric/output')  # TODO: actually copy results there
+parser.add_argument("--width", type=int, default=512)
+parser.add_argument("--height", type=int, default=512)
+parser.add_argument("--output", type=str, default="./output/")  # TODO: support cloud storage
 
 # --- parse argument in a way compatible with blender's REPL
 if "--" in sys.argv:
@@ -63,145 +59,57 @@ if FLAGS.seed:
 else:
   rnd = np.random.RandomState()
 
+scene = Scene(frame_start=FLAGS.frame_start,
+              frame_end=FLAGS.frame_end,
+              frame_rate=FLAGS.frame_rate,
+              step_rate=FLAGS.step_rate,
+              resolution=(FLAGS.width, FLAGS.height))
+
+
 # --- Download a few models locally
-asset_source = AssetSource(uri=FLAGS.assets)
+asset_source = KLEVR(uri=FLAGS.assets)
+simulator = Simulator(scene)
 
 # --- Scene static geometry
-floor = asset_source.create({'id': 'Floor', 'static': True, 'position': (0, 0, -0.2)})
+floor, lights, camera = asset_source.get_scene()
+simulator.add(floor)
 
 # --- Scene configuration (number of objects randomly scattered in a region)
-spawn_region = ((-4, -4, 0.8), (4, 4, 0.9))
-velocity_range = ((-4, -4, 0), (4, 4, 0))
 nr_objects = rnd.randint(4, 10)
-objects = []
-objects_list = [
-    "LargeMetalCube",
-    "LargeMetalCylinder",
-    "LargeMetalSphere",
-    "LargeRubberCube",
-    "LargeRubberCylinder",
-    "LargeRubberSphere",
-    "MetalSpot",
-    "RubberSpot",
-    "SmallMetalCube",
-    "SmallMetalCylinder",
-    "SmallMetalSphere",
-    "SmallRubberCube",
-    "SmallRubberCylinder",
-    "SmallRubberSphere",
-]
+objects = [asset_source.get_random_object(rnd) for _ in range(nr_objects)]
 
-for i in range(nr_objects):
-  objects.append(asset_source.create({'id': rnd.choice(objects_list),
-                                      'position': rnd.uniform(*spawn_region),
-                                      'linear_velocity': rnd.uniform(*velocity_range)}))
-
-# --- load models & place them in the simulator
-simulator = Simulator(frame_rate=FLAGS.frame_rate, step_rate=FLAGS.step_rate)
-simulator.add(floor)
 for obj in objects:
   collision = simulator.add(obj)
-  # TODO do something about detected collisions
+  trial = 0
+  while collision and trial < FLAGS.max_placement_trials:
+    obj.position, obj.rotation = asset_source.get_random_object_pose(obj.name, rnd)
+    collision = simulator.check_overlap(obj)
+    trial += 1
+  if collision:
+    raise RuntimeError("Failed to place", obj)
 
 # --- run the physics simulation
-animation = simulator.run(FLAGS.frame_end)
+animation = simulator.run()
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
-
-# --- set up the rendering
-renderer = THREE.Renderer()
-renderer.set_size(FLAGS.resolution, FLAGS.resolution)
-scene = THREE.Scene()
-scene.frame_start = FLAGS.frame_start
-scene.frame_end = FLAGS.frame_end
-renderer.set_up_background(bg_color=(0., 0., 0., 0.))
-renderer.set_up_exr_output(path=FLAGS.outpath)
-
-# --- Environment settings for CLEVR
-
-# --- Camera settings from CLEVR
-camera = THREE.PerspectiveCamera(focal_length=35.)
-camera.position = (7.48113, -6.50764, 5.34367)
-camera.quaternion = (0.7816, 0.481707, 0.212922, 0.334251)
-camera.camera.sensor_width = 32
-
-# --- Light settings from CLEVR
-sun = THREE.DirectionalLight(color=0xffffff, intensity=0.45, shadow_softness=0.2)
-sun.position = (11.6608, -6.62799, 25.8232)
-sun.quaternion = (0.971588, 0.105085, 0.210842, 0.022804)
-scene.add(sun)
-lamp_back = THREE.RectAreaLight(color=0xffffff, intensity=50., width=1, height=1)
-lamp_back.position = (-1.1685, 2.64602, 5.81574)
-lamp_back.look_at(0, 0, 0)
-scene.add(lamp_back)
-lamp_key = THREE.RectAreaLight(color=0xffedd0, intensity=100, width=0.5, height=0.5)
-lamp_key.position = (6.44671, -2.90517, 4.2584)
-lamp_key.look_at(0, 0, 0)
-scene.add(lamp_key)
-lamp_fill = THREE.RectAreaLight(color=0xc2d0ff, intensity=30, width=0.5, height=0.5)
-lamp_fill.position = (-4.67112, -4.0136, 3.01122)
-lamp_fill.look_at(0, 0, 0)
-scene.add(lamp_fill)
-
-
-# TODO: this is a hack; conversion should be done automatically.
-def translate_quat(pb_quat):
-  """ Convert pyBullet XYZW quaternions into Blender WXYZ quaternions."""
-  x, y, z, w = pb_quat
-  return [w, x, y, z]
-
-
-# --- Dump the simulation data in the renderer
-floor_mesh = THREE.Mesh.from_file(str(floor.vis_filename))
-floor_mesh.position = floor.position
-floor_mesh.quaternion = translate_quat(floor.rotation)
-scene.add(floor_mesh)
+renderer = Blender(scene)
+renderer.set_ambient_light()
+renderer.add(floor)
+for light in lights:
+  renderer.add(light)
+renderer.add(camera)
+scene.camera = camera   # TODO: currently camera has to be added to renderer before assignment. fix!
 
 for obj in objects:
-  # --- Load the mesh into the scene
-  mesh = THREE.Mesh.from_file(str(obj.vis_filename), name=obj.uid)
-  mesh.position = obj.position # TODO: why set? see keyframing below
-  mesh.quaternion = translate_quat(obj.rotation) # TODO: why set? see keyframing below
-  scene.add(mesh)
-
-  # --- Randomization of properties
-  if FLAGS.randomize_material:
-    color_hsv = (rnd.random_sample(), .3, 1.0)
-    chrome = THREE.MeshChromeMaterial(color_hsv=color_hsv)
-    mesh.set_material(chrome)
-
+  renderer.add(obj)
   # --- Bake the simulation into keyframes
   for frame_id in range(scene.frame_start, scene.frame_end):
-    mesh.position = animation[obj]["position"][frame_id]
-    mesh.quaternion = translate_quat(animation[obj]["orient_quat"][frame_id])
-    mesh.keyframe_insert("position", frame_id)
-    mesh.keyframe_insert("quaternion", frame_id)
+    obj.position = animation[obj]["position"][frame_id]
+    obj.quaternion = animation[obj]["quaternion"][frame_id]
+    obj.keyframe_insert("position", frame_id)
+    obj.keyframe_insert("quaternion", frame_id)
 
 # --- Render or create the .blend file
-renderer.render(scene, camera, path=FLAGS.output)
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
-# TODO: add option to trigger gather of data from cloud bucket (or local file system)
-if False:
-  # --- Postprocessing
-  layers = []
-  for frame_id in range(scene.frame_start, scene.frame_end):
-    layers.append(get_render_layers_from_exr(f'{FLAGS.outpath}/out{frame_id:04d}.exr'))
-
-  gt_factors = []
-  for obj in objects:
-    gt_factors.append({
-      'mass': obj.mass,
-      'asset_id': obj.asset_id,
-      'crypto_id': mm3hash(obj.uid),   # TODO: adjust segmentation maps instead
-      'animation': animation[obj],
-    })
-
-  # TODO: convert to TFrecords
-  with open(FLAGS.outpath + '/layers.pkl', 'wb') as f:
-    pickle.dump({'layers': layers, 'factors': gt_factors}, f)
+renderer.render(path=FLAGS.output)

@@ -11,48 +11,161 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import math
+
 import logging
-import uuid
 
-from dataclasses import dataclass, field
+from functools import singledispatch
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Union
 
+from munch import Munch
 from bidict import bidict
 import pybullet as pb
 
+from kubric.core import Asset, FileBasedObject, PhysicalObject, Scene, AttributeSetter
+from kubric import core
 logger = logging.getLogger(__name__)
 
+def xyzw2wxyz(xyzw):
+  """Convert quaternions from XYZW format to WXYZ."""
+  x, y, z, w = xyzw
+  return w, x, y, z
 
-@dataclass
-class Object3D:
-  sim_filename: str
-  vis_filename: str
 
-  asset_id: str
+def wxyz2xyzw(wxyz):
+  """Convert quaternions from WXYZ format to XYZW."""
+  w, x, y, z = wxyz
+  return x, y, z, w
 
-  uid: str = field(default_factory=lambda: str(uuid.uuid4()))
 
-  position: Tuple[float] = (0.0, 0.0, 0.0)
-  rotation: Tuple[float] = (0.0, 0.0, 0.0, 1.0)
+class Setter:
+  def __init__(self, object_idx: int, setter):
+    self.object_idx = object_idx
+    self.setter = setter
 
-  linear_velocity: Tuple[float] = (0.0, 0.0, 0.0)
-  angular_velocity: Tuple[float] = (0.0, 0.0, 0.0)
+  def __call__(self, change):
+    self.setter(self.object_idx, change.new)
 
-  static: bool = False
 
-  mass: float = field(default=None, repr=False)
-  lateral_friction: float = field(default=None, repr=False)
-  spinning_friction: float = field(default=None, repr=False)
-  rolling_friction: float = field(default=None, repr=False)
-  restitution: float = field(default=None, repr=False)
-  linear_damping: float = field(default=None, repr=False)
-  angular_damping: float = field(default=None, repr=False)
+def set_position(object_idx, position):
+  # reuse existing quaternion
+  _, quaternion = pb.getBasePositionAndOrientation(object_idx)
+  # resetBasePositionAndOrientation zeroes out velocities, but we wish to conserve them
+  velocity, angular_velocity = pb.getBaseVelocity(object_idx)
+  pb.resetBasePositionAndOrientation(object_idx, position, quaternion)
+  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
-  def __hash__(self):
-    # make this object hashable
-    return object.__hash__(self)
+
+def set_quaternion(object_idx, quaternion):
+  quaternion = wxyz2xyzw(quaternion)  # convert quaternion format
+  # reuse existing position
+  position, _ = pb.getBasePositionAndOrientation(object_idx)
+  # resetBasePositionAndOrientation zeroes out velocities, but we wish to conserve them
+  velocity, angular_velocity = pb.getBaseVelocity(object_idx)
+  pb.resetBasePositionAndOrientation(object_idx, position, quaternion)
+  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+
+
+def set_velocity(object_idx, velocity):
+  _, angular_velocity = pb.getBaseVelocity(object_idx)  # reuse existing angular velocity
+  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+
+
+def set_angular_velocity(object_idx, angular_velocity):
+  velocity, _ = pb.getBaseVelocity(object_idx)  # reuse existing velocity
+  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+
+
+def set_mass(object_idx, mass: float):
+  if mass < 0:
+    raise ValueError('mass cannot be negative ({})'.format(mass))
+  pb.changeDynamics(object_idx, -1, mass=mass)
+
+
+def set_friction(object_idx, friction: float):
+  if friction < 0:
+    raise ValueError('friction cannot be negative ({})'.format(friction))
+  pb.changeDynamics(object_idx, -1, lateralFriction=friction)
+
+
+def set_restitution(object_idx, restitution: float):
+  if restitution < 0:
+    raise ValueError('restitution cannot be negative ({})'.format(restitution))
+  if restitution > 1:
+    raise ValueError('restitution should be below 1.0 ({})'.format(restitution))
+  pb.changeDynamics(object_idx, -1, restitution=restitution)
+
+
+def set_gravity(_, gravity: Tuple[float, float, float]):
+  pb.setGravity(*gravity)
+
+
+@singledispatch
+def add_object(obj: Asset) -> Tuple[int, Dict[str, Setter]]:
+  raise NotImplementedError()
+
+
+@add_object.register(core.Camera)
+def _add_object(obj: core.Camera):
+  # Cameras are ignored
+  return -3, {}
+
+
+@add_object.register(core.Material)
+def _add_object(obj: core.Material):
+  # Materials are ignored
+  return -3, {}
+
+
+@add_object.register(core.Light)
+def _add_object(obj: core.Light):
+  # Lights are ignored
+  return -3, {}
+
+
+@add_object.register(FileBasedObject)
+def _add_object(obj: FileBasedObject):
+  # TODO: support other file-formats
+  # TODO: add material assignments
+  path = Path(obj.simulation_filename).resolve()
+  logger.info("Loading '{}' in the simulator".format(path))
+
+  if not path.exists():
+    raise IOError('File "{}" does not exist.'.format(path))
+
+  scale = obj.scale[0]
+  assert obj.scale[1] == obj.scale[2] == scale, "Pybullet does not support non-uniform scaling"
+
+  if path.suffix == ".urdf":
+    object_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale)
+  else:
+    raise IOError(
+        'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
+
+  if object_idx < 0:
+    raise IOError('Failed to load "{}".'.format(path))
+
+  setters = {
+      'position': Setter(object_idx, set_position),
+      'quaternion': Setter(object_idx, set_quaternion),
+      # TODO 'scale': Setter(object_idx, scale)  # Pybullet does not support rescaling. So we should warn
+      'velocity': Setter(object_idx, set_velocity),
+      'angular_velocity': Setter(object_idx, set_angular_velocity),
+      'mass': Setter(object_idx, set_mass),
+      'friction': Setter(object_idx, set_friction),
+      'restitution': Setter(object_idx, set_restitution),
+  }
+  return object_idx, setters
+
+
+@add_object.register(Scene)
+def _add_object(obj: Scene):
+  object_idx = -2  # the scene is no object, so we use a special index
+
+  setters = {
+      'gravity': Setter(object_idx, set_gravity),
+  }
+  return object_idx, setters
 
 
 class Simulator:
@@ -65,37 +178,21 @@ class Simulator:
                   Required because the simulator only reports positions for frames not for steps.
   """
 
-  def __init__(
-      self,
-      gravity: Tuple[float, float, float] = (0.0, 0.0, -10.0),
-      step_rate: int = 240,
-      frame_rate: int = 24,
-  ):
+  def __init__(self, scene: Scene):
+    self.objects_to_pybullet = bidict()
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
-    self.gravity = gravity
-    self.step_rate: int = step_rate
-    self.frame_rate: int = frame_rate
-    self.objects_by_idx = bidict()
-    if step_rate % frame_rate != 0:
+
+    if scene.step_rate % scene.frame_rate != 0:
       raise ValueError(
           "step_rate has to be a multiple of frame_rate, but {} % {} != 0".format(
-              step_rate, frame_rate
-          )
-      )
+              scene.step_rate, scene.frame_rate))
+    self.scene = scene
+    self.add(scene)
 
   def __del__(self):
     pb.disconnect()
 
-  @property
-  def gravity(self) -> Tuple[float, float, float]:
-    return self._gravity
-
-  @gravity.setter
-  def gravity(self, gravity: Tuple[float, float, float]):
-    self._gravity = gravity
-    pb.setGravity(*gravity)
-
-  def add(self, obj: Object3D) -> bool:
+  def add(self, obj: Asset) -> int:
     """
     Place an object to a particular place and orientation and check for any overlap.
     This may either load a new object or move an existing object.
@@ -106,46 +203,25 @@ class Simulator:
     Returns:
       True if there was a collision, False otherwise
     """
-    self._ensure_object_loaded(obj)
-    self._set_location_and_orientation(obj)
-    self._change_dynamics(obj)
-    self._set_velocity(obj)
-    return self._check_overlap(obj)
+    if obj in self.objects_to_pybullet:
+      return self.objects_to_pybullet[obj]
 
-  def _ensure_object_loaded(self, obj: Object3D):
-    """ Ensure that an object is loaded into the simulation.
-    Args:
-        obj: Has to specify a sim_filename that can be loaded.
-            Currently the only supported formats is URDF.
-            (but MJCF and SDF are easy to add, possibly also OBJ and DAE.)
-    """
-    if obj in self.objects_by_idx.inverse:
-      # object already in simulation
-      logger.info("Object '{}' already in the simulation".format(obj))
-      return
+    obj_idx, setters = add_object(obj)
 
-    path = Path(obj.sim_filename).resolve()
-    logger.info("Loading '{}' in the simulator".format(path))
+    self.objects_to_pybullet[obj] = obj_idx
 
-    if not path.exists():
-      raise IOError('File "{}" does not exist.'.format(path))
+    for name, setter in setters.items():
+      # recursively add sub-assets
+      value = getattr(obj, name)
+      if isinstance(value, Asset):
+        value = self.add(value)
+      # Initialize values
+      setter(Munch(owner=obj, new=value, type='init'))
+      # Link values
+      obj.observe(setter, names=[name])
 
-    if path.suffix == ".urdf":
-      object_idx = pb.loadURDF(str(path), useFixedBase=obj.static)
-    else:
-      raise IOError(
-        'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
-
-    if object_idx < 0:
-      raise IOError('Failed to load "{}".'.format(path))
-
-    # link objects for later mapping
-    self.objects_by_idx[object_idx] = obj
-
-    return object_idx
-
-  def _check_overlap(self, obj: Object3D) -> bool:
-    obj_idx = self.objects_by_idx.inverse[obj]
+  def check_overlap(self, obj: PhysicalObject) -> bool:
+    obj_idx = self.objects_to_pybullet[obj]
 
     body_ids = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
     for body_id in body_ids:
@@ -159,48 +235,46 @@ class Simulator:
         return True
     return False
 
-  def _set_location_and_orientation(self, obj: Object3D):
-    obj_idx = self.objects_by_idx.inverse[obj]
-    pb.resetBasePositionAndOrientation(obj_idx, obj.position,
-                                       obj.rotation)
+  def get_position_and_rotation(self, obj: Union[int, PhysicalObject]):
+    if isinstance(obj, PhysicalObject):
+      obj_idx = self.objects_to_pybullet[obj]
+    else:
+      assert isinstance(obj, int), f"Invalid object {obj} of type {type(obj)}."
+      obj_idx = obj
 
-  def _change_dynamics(self, obj: Object3D):
-    obj_idx = self.objects_by_idx.inverse[obj]
-    dyn = {}
-    if obj.mass is not None:
-      dyn["mass"] = obj.mass
-    if obj.lateral_friction is not None:
-      dyn["lateralFriction"] = obj.lateral_friction
-    if obj.spinning_friction is not None:
-      dyn["spinningFriction"] = obj.spinning_friction
-    if obj.rolling_friction is not None:
-      dyn["rollingFriction"] = obj.rolling_friction
-    if obj.restitution is not None:
-      dyn["restitution"] = obj.restitution
-    if obj.linear_damping is not None:
-      dyn["linearDamping"] = obj.linear_damping
-    if obj.angular_damping is not None:
-      dyn["angularDamping"] = obj.angular_damping
-    pb.changeDynamics(obj_idx, -1, **dyn)
+    pos, quat = pb.getBasePositionAndOrientation(obj_idx)
+    return pos, xyzw2wxyz(quat) # convert quaternion format
 
-  def _set_velocity(self, obj: Object3D):
-    obj_idx = self.objects_by_idx.inverse[obj]
-    pb.resetBaseVelocity(obj_idx, obj.linear_velocity, obj.angular_velocity)
+  def get_velocities(self, obj: Union[int, PhysicalObject]):
+    if isinstance(obj, PhysicalObject):
+      obj_idx = self.objects_to_pybullet[obj]
+    else:
+      assert isinstance(obj, int), f"Invalid object {obj} of type {type(obj)}."
+      obj_idx = obj
 
-  def run(self, duration: float = 1.0) -> Dict[Object3D, Dict[str, list]]:
-    max_step = math.floor(self.step_rate * duration)
-    steps_per_frame = self.step_rate // self.frame_rate
+    velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
+    return velocity, angular_velocity
+
+  def run(self) -> Dict[PhysicalObject, Dict[str, list]]:
+    steps_per_frame = self.scene.step_rate // self.scene.frame_rate
+    max_step = self.scene.frame_end * steps_per_frame
 
     obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
-    animation = {obj_id: {"position": [], "orient_quat": []}
+    animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
                  for obj_id in obj_idxs}
 
     for current_step in range(max_step):
       if current_step % steps_per_frame == 0:
         for obj_idx in obj_idxs:
-          pos, quat = pb.getBasePositionAndOrientation(obj_idx)
-          animation[obj_idx]["position"].append(pos)
-          animation[obj_idx]["orient_quat"].append(quat)  # roll, pitch, yaw
+          position, quaternion = self.get_position_and_rotation(obj_idx)
+          velocity, angular_velocity = self.get_velocities(obj_idx)
+
+          animation[obj_idx]["position"].append(position)
+          animation[obj_idx]["quaternion"].append(quaternion)
+          animation[obj_idx]["velocity"].append(velocity)
+          animation[obj_idx]["angular_velocity"].append(angular_velocity)
+
 
       pb.stepSimulation()
-    return {self.objects_by_idx[obj_idx]: anim for obj_idx, anim in animation.items()}
+    return {self.objects_to_pybullet.inverse[obj_idx]: anim
+            for obj_idx, anim in animation.items()}

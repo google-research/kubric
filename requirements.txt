@@ -10,3 +10,5 @@ OpenEXR
 pytest
 mathutils
 dataclasses
+hypothesis
+traitlets
