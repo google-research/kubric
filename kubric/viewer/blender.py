@@ -31,8 +31,8 @@ class Blender:
   def __init__(self, scene: core.Scene):
     self.objects_to_blend = bidict()
 
-    self.illum_node = None
-    self.illum_hdri_node = None
+    self.ambient_node = None
+    self.ambient_hdri_node = None
     self.illum_mapping_node = None
     self.bg_node = None
     self.bg_hdri_node = None
@@ -136,15 +136,15 @@ class Blender:
     mix_node.location = 900, 0
     lightpath_node = tree.nodes.new(type='ShaderNodeLightPath')
     lightpath_node.location = 700, 350
-    self.illum_node = tree.nodes.new(type='ShaderNodeBackground')
-    self.illum_node.inputs['Color'].default_value = (0., 0., 0., 1.)
-    self.illum_node.location = 700, 0
+    self.ambient_node = tree.nodes.new(type='ShaderNodeBackground')
+    self.ambient_node.inputs['Color'].default_value = (0., 0., 0., 1.)
+    self.ambient_node.location = 700, 0
     self.bg_node = tree.nodes.new(type='ShaderNodeBackground')
     self.bg_node.inputs['Color'].default_value = (0., 0., 0., 1.)
     self.bg_node.location = 700, -120
 
     links.new(lightpath_node.outputs.get('Is Camera Ray'), mix_node.inputs.get('Fac'))
-    links.new(self.illum_node.outputs.get('Background'), mix_node.inputs[1])
+    links.new(self.ambient_node.outputs.get('Background'), mix_node.inputs[1])
     links.new(self.bg_node.outputs.get('Background'), mix_node.inputs[2])
     links.new(mix_node.outputs.get('Shader'), out_node.inputs.get('Surface'))
 
@@ -161,24 +161,24 @@ class Blender:
 
     self.illum_mapping_node = tree.nodes.new(type='ShaderNodeMapping')
     self.illum_mapping_node.location = 200, -200
-    self.illum_hdri_node = tree.nodes.new(type='ShaderNodeTexEnvironment')
-    self.illum_hdri_node.location = 400, -200
+    self.ambient_hdri_node = tree.nodes.new(type='ShaderNodeTexEnvironment')
+    self.ambient_hdri_node.location = 400, -200
     links.new(coord_node.outputs.get('Generated'), self.illum_mapping_node.inputs.get('Vector'))
-    links.new(self.illum_mapping_node.outputs.get('Vector'), self.illum_hdri_node.inputs.get('Vector'))
+    links.new(self.illum_mapping_node.outputs.get('Vector'), self.ambient_hdri_node.inputs.get('Vector'))
     # links.new(illum_hdri_node.outputs.get('Color'), self.illum_node.inputs.get('Color'))
 
-  def set_ambient_illumination(self, hdri_filepath=None, color=(0., 0., 0., 1.0), hdri_rotation=(0., 0., 0.)):
+  def set_ambient_light(self, hdri_filepath=None, color=(0., 0., 0., 1.0), hdri_rotation=(0., 0., 0.)):
     tree = bpy.context.scene.world.node_tree
     links = tree.links
     if hdri_filepath is None:
       # disconnect incoming links from hdri node (if any)
-      for link in self.illum_node.inputs['Color'].links:
+      for link in self.ambient_node.inputs['Color'].links:
         links.remove(link)
-      self.illum_node.inputs['Color'].default_value = color
+      self.ambient_node.inputs['Color'].default_value = color
     else:
       # ensure hdri_node is connected
-      links.new(self.illum_hdri_node.outputs.get('Color'), self.illum_node.inputs.get('Color'))
-      self.illum_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
+      links.new(self.ambient_hdri_node.outputs.get('Color'), self.ambient_node.inputs.get('Color'))
+      self.ambient_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
       self.illum_mapping_node.inputs.get('Rotation').default_value = hdri_rotation
 
   def set_background(self, hdri_filepath=None, color=(0., 0., 0., 1.0), hdri_rotation=(0., 0., 0.)):

@@ -18,7 +18,7 @@ import traitlets as tl
 import mathutils
 from traitlets import default, validate
 
-import kubric.traits as kt
+import kubric.traits as ktl
 from kubric.color import Color
 
 
@@ -31,13 +31,13 @@ class Asset(tl.HasTraits):
     self.keyframe_callbacks = []
     self.keyframes = defaultdict(dict)
 
-  @default('uid')
+  @default("uid")
   def _uid(self):
     return str(uuid.uuid4())
 
   def keyframe_insert(self, member: str, frame: int):
     if not self.has_trait(member):
-      raise KeyError('Unknown member "{}".'.format(member))
+      raise KeyError("Unknown member \"{}\".".format(member))
     self.keyframes[member][frame] = getattr(self, member)
     for func in self.keyframe_callbacks:
       func(owner=self, member=member, frame=frame)
@@ -60,7 +60,7 @@ class Material(Asset):
 
 
 class PrincipledBSDFMaterial(Material):
-  color = kt.RGBA(default_value=Color.from_name('white'))
+  color = ktl.RGBA(default_value=Color.from_name("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
   specular_tint = tl.Float(0.)
@@ -68,23 +68,23 @@ class PrincipledBSDFMaterial(Material):
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
   transmission_roughness = tl.Float(0)
-  emission = kt.RGBA(default_value=Color.from_name('black'))
+  emission = ktl.RGBA(default_value=Color.from_name("black"))
 
 
 class MeshChromeMaterial(Material):
-  color = kt.RGBA(default_value=Color.from_name('white'))
+  color = ktl.RGBA(default_value=Color.from_name("white"))
   roughness = tl.Float(0.4)
 
 # ## ### ####  3D Objects  #### ### ## #
 
 
 class Object3D(Asset):
-  position = kt.Vector3D(default_value=(0., 0., 0.))
-  quaternion = kt.Quaternion()
-  scale = kt.Vector3D(default_value=(1., 1., 1.))
+  position = ktl.Vector3D(default_value=(0., 0., 0.))
+  quaternion = ktl.Quaternion(default_value=(1., 0., 0., 0.))
+  scale = ktl.Vector3D(default_value=(1., 1., 1.))
 
-  up = tl.CaselessStrEnum(['X', 'Y', 'Z', '-X', '-Y', '-Z'], default_value='Y')
-  front = tl.CaselessStrEnum(['X', 'Y', 'Z', '-X', '-Y', '-Z'], default_value='-Z')
+  up = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="Y")
+  front = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="-Z")
 
   def look_at(self, target):
     direction = mathutils.Vector(target) - mathutils.Vector(self.position)
@@ -92,44 +92,44 @@ class Object3D(Asset):
 
 
 class PhysicalObject(Object3D):
-  velocity = kt.Vector3D(default_value=(0., 0., 0.))
-  angular_velocity = kt.Vector3D(default_value=(0., 0., 0.))
+  velocity = ktl.Vector3D(default_value=(0., 0., 0.))
+  angular_velocity = ktl.Vector3D(default_value=(0., 0., 0.))
 
   static = tl.Bool(False)
   mass = tl.Float(1.0)
   friction = tl.Float(0.0)
   restitution = tl.Float(0.5)
 
-  bounds = tl.Tuple(kt.Vector3D(), kt.Vector3D(),
+  bounds = tl.Tuple(ktl.Vector3D(), ktl.Vector3D(),
                     default_value=((0., 0., 0.), (0., 0, 0.)))
 
-  @validate('mass')
+  @validate("mass")
   def _valid_mass(self, proposal):
-    mass = proposal['value']
+    mass = proposal["value"]
     if mass < 0:
-      raise tl.TraitError(f'mass cannot be negative ({mass})')
+      raise tl.TraitError(f"mass cannot be negative ({mass})")
     return mass
 
-  @validate('friction')
+  @validate("friction")
   def _valid_friction(self, proposal):
-    friction = proposal['value']
+    friction = proposal["value"]
     if friction < 0:
-      raise tl.TraitError(f'friction cannot be negative ({friction})')
+      raise tl.TraitError(f"friction cannot be negative ({friction})")
     return friction
 
-  @validate('friction')
+  @validate("friction")
   def _valid_friction(self, proposal):
-    friction = proposal['value']
+    friction = proposal["value"]
     if friction < 0:
-      raise tl.TraitError(f'friction cannot be negative ({friction})')
+      raise tl.TraitError(f"friction cannot be negative ({friction})")
     return friction
 
-  @validate('bounds')
+  @validate("bounds")
   def _valid_bounds(self, proposal):
-    lower, upper = proposal['value']
+    lower, upper = proposal["value"]
     for l, u in zip(lower, upper):
       if l > u:
-        raise tl.TraitError(f'lower bound cannot be larger than upper bound ({lower} !<= {upper})')
+        raise tl.TraitError(f"lower bound cannot be larger than upper bound ({lower} !<= {upper})")
     return lower, upper
 
 
@@ -145,7 +145,7 @@ class FileBasedObject(PhysicalObject):
 # ## ### ####  Lights  #### ### ## #
 
 class Light(Object3D):
-  color = kt.RGB(default_value=Color.from_name('white').rgb)
+  color = ktl.RGB(default_value=Color.from_name("white").rgb)
   intensity = tl.Float(1.)
 
 
@@ -189,7 +189,7 @@ class Scene(Asset):
   camera = tl.Instance(Camera, allow_none=True, default_value=None)
   resolution = tl.Tuple(tl.Integer(), tl.Integer(), default_value=(512, 512))
 
-  gravity = kt.Vector3D(default_value=(0, 0, -10.))
+  gravity = ktl.Vector3D(default_value=(0, 0, -10.))
 
 
 class AttributeSetter:

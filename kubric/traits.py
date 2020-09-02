@@ -31,7 +31,7 @@ class Vector3D(tl.TraitType):
 
 class Quaternion(tl.TraitType):
   default_value = (1, 0, 0, 0)
-  info_text = "a 4D vector (quaternion) of floats"
+  info_text = "a 4D vector (WXYZ quaternion) of floats"
 
   def _validate(self, obj, value):
     value = tuple([float(v) for v in value])
@@ -57,8 +57,6 @@ class RGBA(tl.TraitType):
     else:
       return self.error(obj, value)
 
-    if not len(color) == 4:
-      self.error(obj, value)
     if not all([0 <= x <= 1 for x in color]):
       self.error(obj, value)
 
