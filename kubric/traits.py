@@ -84,4 +84,4 @@ class RGB(tl.TraitType):
     if not all([0 <= x <= 1 for x in rgb]):
       self.error(obj, value)
 
-    return color
+    return rgb
