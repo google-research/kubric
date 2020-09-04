@@ -19,7 +19,7 @@ import traitlets as tl
 from traitlets import default, validate
 
 import kubric.traits as ktl
-from kubric import color
+from kubric.color import Color
 
 
 class Asset(tl.HasTraits):
@@ -60,7 +60,7 @@ class Material(Asset):
 
 
 class PrincipledBSDFMaterial(Material):
-  color = ktl.RGBA(default_value=color.Color.from_name("white"))
+  color = ktl.RGBA(default_value=Color.from_name("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
   specular_tint = tl.Float(0.)
@@ -68,11 +68,11 @@ class PrincipledBSDFMaterial(Material):
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
   transmission_roughness = tl.Float(0)
-  emission = ktl.RGBA(default_value=color.Color.from_name("black"))
+  emission = ktl.RGBA(default_value=Color.from_name("black"))
 
 
 class MeshChromeMaterial(Material):
-  color = ktl.RGBA(default_value=color.Color.from_name("white"))
+  color = ktl.RGBA(default_value=Color.from_name("white"))
   roughness = tl.Float(0.4)
 
 # ## ### ####  3D Objects  #### ### ## #
