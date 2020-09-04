@@ -145,7 +145,7 @@ class FileBasedObject(PhysicalObject):
 # ## ### ####  Lights  #### ### ## #
 
 class Light(Object3D):
-  color = ktl.RGB(default_value=color.Color.from_name("white").rgb)
+  color = ktl.RGB(default_value=Color.from_name("white").rgb)
   intensity = tl.Float(1.)
 
 
