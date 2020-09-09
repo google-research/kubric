@@ -43,7 +43,7 @@ class KLEVR(asset_source.AssetSource):
     self.ambient_light = (0.05, 0.05, 0.05)
 
   def get_scene_geometry(self):
-    return self.create(asset_id="Floor", static=True, position=(0, 0, -0.2))
+    return self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
 
   def get_lights(self):
     # --- Light settings from CLEVR
