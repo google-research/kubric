@@ -14,6 +14,8 @@
 
 import argparse
 import logging
+import pathlib
+
 import numpy as np
 
 import sys; sys.path.append(".")
@@ -113,4 +115,6 @@ for obj in objects:
     obj.keyframe_insert("quaternion", frame_id)
 
 # --- Render or create the .blend file
+output_path = pathlib.Path(FLAGS.output)
+output_path.mkdir(parents=True, exist_ok=True)
 renderer.render(path=FLAGS.output)
