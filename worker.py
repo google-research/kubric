@@ -14,6 +14,8 @@
 
 import argparse
 import logging
+import pathlib
+
 import numpy as np
 
 import sys; sys.path.append(".")
@@ -39,7 +41,8 @@ parser.add_argument("--max_placement_trials", type=int, default=100)
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--width", type=int, default=512)
 parser.add_argument("--height", type=int, default=512)
-parser.add_argument("--output", type=str, default="./output/")  # TODO: support cloud storage
+# TODO: support cloud storage
+parser.add_argument("--output", type=str, default="./output/", help="output directory")
 
 # --- parse argument in a way compatible with blender's REPL
 if "--" in sys.argv:
@@ -113,4 +116,6 @@ for obj in objects:
     obj.keyframe_insert("quaternion", frame_id)
 
 # --- Render or create the .blend file
-renderer.render(path=FLAGS.output)
+output_path = pathlib.Path(FLAGS.output)
+output_path.mkdir(parents=True, exist_ok=True)
+renderer.render(path=output_path)

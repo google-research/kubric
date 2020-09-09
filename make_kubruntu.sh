@@ -48,6 +48,8 @@ cat > /tmp/Dockerfile <<EOF
   RUN python3.7 -m pip install --upgrade --force-reinstall google.cloud.storage
   RUN python3.7 -m pip install --upgrade --force-reinstall cloudml-hypertune
   RUN python3.7 -m pip install --upgrade --force-reinstall OpenEXR
+  RUN python3.7 -m pip install --upgrade --force-reinstall munch
+  RUN python3.7 -m pip install --upgrade --force-reinstall traitlets
 EOF
 
 # --- create an image for reuse

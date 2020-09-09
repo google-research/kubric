@@ -109,7 +109,7 @@ class Blender:
     out_node = tree.nodes.new(type="CompositorNodeOutputFile")
     # set the format to EXR (multilayer)
     out_node.format.file_format = "OPEN_EXR_MULTILAYER"
-    out_node.base_path = path  # output directory
+    out_node.base_path = str(path)  # output directory
 
     layers = ["Image", "Depth", "Vector", "UV", "Normal", "CryptoObject00"]
 
@@ -207,14 +207,15 @@ class Blender:
     bpy.context.scene.render.resolution_y = height
 
   def render(self, path):
+    path = pathlib.Path(path)
     bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
     bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
-    bpy.context.scene.render.filepath = path
+    bpy.context.scene.render.filepath = str(path / "frame_")
 
     self.activate_render_passes()
-    self.set_up_exr_output(path)
+    self.set_up_exr_output(path / "frame_")
 
-    bpy.ops.wm.save_mainfile(filepath=str(pathlib.Path(path) / "out.blend"))
+    bpy.ops.wm.save_mainfile(filepath=str(path / "scene.blend"))
 
     bpy.ops.render.render(animation=True, write_still=True)
 
