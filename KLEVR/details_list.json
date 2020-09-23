@@ -1,0 +1,872 @@
+[
+    {
+        "area": 6.1501,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "LargeRubberSphere",
+        "inertia": [
+            [
+                0.3086,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.3086,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.3086
+            ]
+        ],
+        "is_convex": true,
+        "mass": 1.577,
+        "material": "Rubber",
+        "nr_faces": 5120,
+        "nr_vertices": 2562,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberSphere/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberSphere/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberSphere/visual_geometry.obj"
+            ]
+        },
+        "volume": 1.4336
+    },
+    {
+        "area": 2.8116,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "SmallRubberCube",
+        "inertia": [
+            [
+                0.0304,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0304,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0304
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.3749,
+        "material": "Rubber",
+        "nr_faces": 972,
+        "nr_vertices": 488,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCube/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCube/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCube/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.3408
+    },
+    {
+        "area": 11.2465,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "LargeRubberCube",
+        "inertia": [
+            [
+                0.9719,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.9719,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.9719
+            ]
+        ],
+        "is_convex": true,
+        "mass": 2.999,
+        "material": "Rubber",
+        "nr_faces": 972,
+        "nr_vertices": 488,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCube/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCube/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCube/visual_geometry.obj"
+            ]
+        },
+        "volume": 2.7264
+    },
+    {
+        "area": 1.5375,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "SmallRubberSphere",
+        "inertia": [
+            [
+                0.0096,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.0096,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.0096
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.1971,
+        "material": "Rubber",
+        "nr_faces": 5120,
+        "nr_vertices": 2562,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberSphere/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberSphere/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberSphere/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.1792
+    },
+    {
+        "area": 8.9586,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "LargeRubberCylinder",
+        "inertia": [
+            [
+                0.6689,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.6689,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                0.5742
+            ]
+        ],
+        "is_convex": true,
+        "mass": 2.3567,
+        "material": "Rubber",
+        "nr_faces": 2300,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCylinder/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCylinder/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeRubberCylinder/visual_geometry.obj"
+            ]
+        },
+        "volume": 2.1424
+    },
+    {
+        "area": 2.2397,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "SmallRubberCylinder",
+        "inertia": [
+            [
+                0.0209,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0209,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                0.0179
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.2946,
+        "material": "Rubber",
+        "nr_faces": 2300,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCylinder/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCylinder/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallRubberCylinder/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2678
+    },
+    {
+        "area": 11.2465,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "LargeMetalCube",
+        "inertia": [
+            [
+                7.0685,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                7.0685,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                7.0685
+            ]
+        ],
+        "is_convex": true,
+        "mass": 21.8112,
+        "material": "Metal",
+        "nr_faces": 972,
+        "nr_vertices": 488,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCube/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCube/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCube/visual_geometry.obj"
+            ]
+        },
+        "volume": 2.7264
+    },
+    {
+        "area": 2.8116,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "SmallMetalCube",
+        "inertia": [
+            [
+                0.2209,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.2209,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.2209
+            ]
+        ],
+        "is_convex": true,
+        "mass": 2.7264,
+        "material": "Metal",
+        "nr_faces": 972,
+        "nr_vertices": 488,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCube/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCube/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCube/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.3408
+    },
+    {
+        "area": 6.1501,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "LargeMetalSphere",
+        "inertia": [
+            [
+                2.2447,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                2.2447,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                2.2447
+            ]
+        ],
+        "is_convex": true,
+        "mass": 11.4692,
+        "material": "Metal",
+        "nr_faces": 5120,
+        "nr_vertices": 2562,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalSphere/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalSphere/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalSphere/visual_geometry.obj"
+            ]
+        },
+        "volume": 1.4336
+    },
+    {
+        "area": 1.5375,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "SmallMetalSphere",
+        "inertia": [
+            [
+                0.0701,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.0701,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.0701
+            ]
+        ],
+        "is_convex": true,
+        "mass": 1.4336,
+        "material": "Metal",
+        "nr_faces": 5120,
+        "nr_vertices": 2562,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalSphere/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalSphere/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalSphere/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.1792
+    },
+    {
+        "area": 8.9586,
+        "bounds": [
+            [
+                -0.7,
+                -0.7,
+                -0.7
+            ],
+            [
+                0.7,
+                0.7,
+                0.7
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "LargeMetalCylinder",
+        "inertia": [
+            [
+                4.8648,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                4.8648,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                4.1759
+            ]
+        ],
+        "is_convex": true,
+        "mass": 17.1394,
+        "material": "Metal",
+        "nr_faces": 2300,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCylinder/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCylinder/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/LargeMetalCylinder/visual_geometry.obj"
+            ]
+        },
+        "volume": 2.1424
+    },
+    {
+        "area": 2.2397,
+        "bounds": [
+            [
+                -0.35,
+                -0.35,
+                -0.35
+            ],
+            [
+                0.35,
+                0.35,
+                0.35
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "SmallMetalCylinder",
+        "inertia": [
+            [
+                0.152,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.152,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                0.1305
+            ]
+        ],
+        "is_convex": true,
+        "mass": 2.1424,
+        "material": "Metal",
+        "nr_faces": 2300,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCylinder/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCylinder/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/SmallMetalCylinder/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2678
+    },
+    {
+        "area": 4.3529,
+        "bounds": [
+            [
+                -0.4117,
+                -0.7515,
+                -0.6343
+            ],
+            [
+                0.4117,
+                0.7485,
+                0.8417
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.1,
+        "euler_number": 2,
+        "friction": 0.7,
+        "id": "RubberSpot",
+        "inertia": [
+            [
+                0.1169,
+                -0.0,
+                -0.0
+            ],
+            [
+                -0.0,
+                0.0634,
+                0.0348
+            ],
+            [
+                -0.0,
+                0.0348,
+                0.0811
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.526,
+        "material": "Rubber",
+        "nr_faces": 5856,
+        "nr_vertices": 2930,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/RubberSpot/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/RubberSpot/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/RubberSpot/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.4781
+    },
+    {
+        "area": 4.3529,
+        "bounds": [
+            [
+                -0.4117,
+                -0.7515,
+                -0.6343
+            ],
+            [
+                0.4117,
+                0.7485,
+                0.8417
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 8.0,
+        "euler_number": 2,
+        "friction": 0.2,
+        "id": "MetalSpot",
+        "inertia": [
+            [
+                0.8499,
+                -0.0,
+                -0.0
+            ],
+            [
+                -0.0,
+                0.4609,
+                0.253
+            ],
+            [
+                -0.0,
+                0.253,
+                0.5897
+            ]
+        ],
+        "is_convex": false,
+        "mass": 3.8251,
+        "material": "Metal",
+        "nr_faces": 5856,
+        "nr_vertices": 2930,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/MetalSpot/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/MetalSpot/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/MetalSpot/visual_geometry.obj"
+            ]
+        },
+        "volume": 0.4781
+    },
+    {
+        "area": 20080.0,
+        "bounds": [
+            [
+                -50.0,
+                -50.0,
+                -0.1
+            ],
+            [
+                50.0,
+                50.0,
+                0.1
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "density": 0.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Floor",
+        "inertia": [
+            [
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.0,
+        "material": "FloorMaterial",
+        "nr_faces": 12,
+        "nr_vertices": 8,
+        "paths": {
+            "collision_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/Floor/collision_geometry.obj"
+            ],
+            "urdf": [
+                "/Users/klausg/Projects/kubric/KLEVR2/Floor/object.urdf"
+            ],
+            "visual_geometry": [
+                "/Users/klausg/Projects/kubric/KLEVR2/Floor/visual_geometry.obj"
+            ]
+        },
+        "volume": 2000.0
+    }
+]

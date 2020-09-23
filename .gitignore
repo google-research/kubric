@@ -9,3 +9,4 @@ bazel-graphics
 bazel-bin
 katamari/*
 urdf/*
+output/
