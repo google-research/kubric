@@ -10,3 +10,4 @@ bazel-bin
 katamari/*
 urdf/*
 output/
+KLEVR/
