@@ -275,6 +275,20 @@ def _add_object(obj: core.RectAreaLight):
   return area_obj, setters
 
 
+@add_object.register(core.PointLight)
+def _add_object(obj: core.PointLight):
+  area = bpy.data.lights.new(obj.uid, "POINT")
+  area_obj = bpy.data.objects.new(obj.uid, area)
+
+  setters = {
+      "position": core.AttributeSetter(area_obj, "location"),
+      "quaternion": core.AttributeSetter(area_obj, "rotation_quaternion"),
+      "scale": core.AttributeSetter(area_obj, "scale"),
+      "color": core.AttributeSetter(area, "color"),
+      "intensity": core.AttributeSetter(area, "energy")}
+  return area_obj, setters
+
+
 @add_object.register(core.PerspectiveCamera)
 def _add_object(obj: core.PerspectiveCamera):
   camera = bpy.data.cameras.new(obj.uid)
@@ -297,6 +311,7 @@ def _add_object(obj: core.PrincipledBSDFMaterial):
   bsdf_node = mat.node_tree.nodes["Principled BSDF"]
   setters = {
       "color": core.AttributeSetter(bsdf_node.inputs["Base Color"], "default_value"),
+      "roughness": core.AttributeSetter(bsdf_node.inputs["Roughness"], "default_value"),
       "metallic": core.AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"),
       "specular": core.AttributeSetter(bsdf_node.inputs["Specular"], "default_value"),
       "specular_tint": core.AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"),
