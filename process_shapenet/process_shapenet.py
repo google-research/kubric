@@ -38,7 +38,9 @@ def fix_tmesh(tmesh):
     print("Scaling...")
     tmesh.apply_scale(scaling=1.0)
     print("Making the mesh watertight...")
-    trimesh.repair.fill_holes(tmesh)
+    trimesh.repair.broken_faces(tmesh, color=None)
+    flag = trimesh.repair.fill_holes(tmesh)
+    assert flag
     print("Fixing inversion and winding...")
     trimesh.repair.fix_inversion(tmesh)
     trimesh.repair.fix_winding(tmesh)
