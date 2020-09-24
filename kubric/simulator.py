@@ -123,6 +123,50 @@ def _add_object(obj: core.Light):
   return -3, {}
 
 
+@add_object.register(core.Cube)
+def _add_object(obj: core.Cube):
+  collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
+  visual_idx = -1
+  mass = 0 if obj.static else obj.mass
+  box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
+                               wxyz2xyzw(obj.quaternion))
+
+  setters = {
+      'position': Setter(box_idx, set_position),
+      'quaternion': Setter(box_idx, set_quaternion),
+      # TODO 'scale': Setter(object_idx, scale)  # Pybullet does not support rescaling. So we should warn
+      'velocity': Setter(box_idx, set_velocity),
+      'angular_velocity': Setter(box_idx, set_angular_velocity),
+      'mass': lambda x: None if obj.static else Setter(box_idx, set_mass),
+      'friction': Setter(box_idx, set_friction),
+      'restitution': Setter(box_idx, set_restitution),
+  }
+  return box_idx, setters
+
+
+@add_object.register(core.Sphere)
+def _add_object(obj: core.Cube):
+  radius = obj.scale[0]
+  assert radius == obj.scale[1] == obj.scale[2], obj.scale  # only uniform scaling
+  collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
+  visual_idx = -1
+  mass = 0 if obj.static else obj.mass
+  sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
+                                  wxyz2xyzw(obj.quaternion))
+
+  setters = {
+      'position': Setter(sphere_idx, set_position),
+      'quaternion': Setter(sphere_idx, set_quaternion),
+      # TODO 'scale': Setter(object_idx, scale)  # Pybullet does not support rescaling. So we should warn
+      'velocity': Setter(sphere_idx, set_velocity),
+      'angular_velocity': Setter(sphere_idx, set_angular_velocity),
+      'mass': lambda x: None if obj.static else Setter(sphere_idx, set_mass),
+      'friction': Setter(sphere_idx, set_friction),
+      'restitution': Setter(sphere_idx, set_restitution),
+  }
+  return sphere_idx, setters
+
+
 @add_object.register(core.FileBasedObject)
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
@@ -169,14 +213,6 @@ def _add_object(obj: core.Scene):
 
 
 class Simulator:
-  """
-  Args:
-      gravity: Direction and strength of gravity [m/s²]. Defaults to (0, 0, -10).
-      step_rate: How many simulation steps are performed per second.
-                 Has to be a multiple of the frame rate.
-      frame_rate: Number of frames per second.
-                  Required because the simulator only reports positions for frames not for steps.
-  """
 
   def __init__(self, scene: core.Scene):
     self.objects_to_pybullet = bidict.bidict()
@@ -243,7 +279,7 @@ class Simulator:
       obj_idx = obj
 
     pos, quat = pb.getBasePositionAndOrientation(obj_idx)
-    return pos, xyzw2wxyz(quat) # convert quaternion format
+    return pos, xyzw2wxyz(quat)  # convert quaternion format
 
   def get_velocities(self, obj: Union[int, core.PhysicalObject]):
     if isinstance(obj, core.PhysicalObject):

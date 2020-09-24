@@ -5,6 +5,7 @@ dataclasses
 google-cloud-storage
 hypothesis
 mathutils
+munch
 numpy
 pandas
 pybullet

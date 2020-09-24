@@ -40,7 +40,7 @@ def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str])
 
 
 def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
-  exr = OpenEXR.InputFile(filename)
+  exr = OpenEXR.InputFile(str(filename))
   layer_names = set()
   for n, v in exr.header()["channels"].items():
     layer_name, _,  channel_name = n.partition(".")

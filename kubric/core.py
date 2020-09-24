@@ -80,6 +80,19 @@ class PrincipledBSDFMaterial(Material):
   emission = ktl.RGBA(default_value=Color.from_name("black"))
 
 
+class FlatMaterial(Material):
+  """Renders the object as a uniform color without any shading.
+  If holdout is true, then the pixels of the object will be transparent in the final image (alpha=0).
+  (Note, that this is not the same as a transparent object. It still "occludes" other objects)
+
+  The indirect_visibility flag controls if the object casts shadows, can be seen in reflections and
+  emits light.
+  """
+  color = ktl.RGBA(default_value=Color.from_name('white'))
+  holdout = tl.Bool(False)
+  indirect_visibility = tl.Bool(True)
+
+
 class MeshChromeMaterial(Material):
   color = ktl.RGBA(default_value=Color.from_name("white"))
   roughness = tl.Float(0.4)
@@ -142,6 +155,14 @@ class PhysicalObject(Object3D):
     return lower, upper
 
 
+class Cube(PhysicalObject):
+  material = tl.Instance(Material, allow_none=True, default_value=None)
+
+
+class Sphere(PhysicalObject):
+  material = tl.Instance(Material, allow_none=True, default_value=None)
+
+
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
@@ -183,7 +204,7 @@ class PerspectiveCamera(Camera):
 
 
 class OrthographicCamera(Camera):
-  pass
+  orthographic_scale = tl.Float(6.0)
 
 
 # ## ### ####  Scene  #### ### ## #
