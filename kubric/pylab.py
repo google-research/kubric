@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from kubric.assets.asset_source import AssetSource
-from kubric.assets.klevr import KLEVR
+from kubric.core import *
+from kubric.color import Color
+from kubric.viewer.blender import Blender
+from kubric.simulator import Simulator
+from kubric.post_processing import get_render_layers_from_exr
+from kubric import assets
+from kubric.assets.utils import mm3hash
 

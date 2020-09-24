@@ -21,6 +21,13 @@ from traitlets import default, validate
 import kubric.traits as ktl
 from kubric.color import Color
 
+__all__ = (
+    "Asset", "Scene", "AttributeSetter",
+    "Material", "PrincipledBSDFMaterial", "MeshChromeMaterial",
+    "Object3D", "PhysicalObject", "FileBasedObject",
+    "Light", "DirectionalLight", "RectAreaLight", "PointLight",
+    "Camera", "PerspectiveCamera", "OrthographicCamera",
+)
 
 class Asset(tl.HasTraits):
   uid = tl.Unicode(read_only=True)
@@ -60,6 +67,7 @@ class Material(Asset):
 
 
 class PrincipledBSDFMaterial(Material):
+  """A physically based material suited for uniform colored plastic, rubber, metal, glass, etc..."""
   color = ktl.RGBA(default_value=Color.from_name("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
