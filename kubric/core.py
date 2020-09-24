@@ -29,6 +29,7 @@ __all__ = (
     "Camera", "PerspectiveCamera", "OrthographicCamera",
 )
 
+
 class Asset(tl.HasTraits):
   uid = tl.Unicode(read_only=True)
 
@@ -201,9 +202,10 @@ class Scene(Asset):
 
 
 class AttributeSetter:
-  def __init__(self, target_obj, target_name):
+  def __init__(self, target_obj, target_name, ignore_none=True):
     self.target_name = target_name
     self.target_obj = target_obj
+    self.ignore_none = ignore_none
     self.mapping = None  # has to be set by the add() function
 
   def __call__(self, change):
@@ -214,6 +216,8 @@ class AttributeSetter:
       self._set(self.target_name, change.new)
 
   def _set(self, name, value):
+    if value is None and self.ignore_none:
+      return
     if isinstance(value, Asset):
       value = self.mapping[value]  # convert kubric objects to blender objects before assigning
     setattr(self.target_obj, name, value)
