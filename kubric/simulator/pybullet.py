@@ -212,7 +212,7 @@ def _add_object(obj: core.Scene):
   return object_idx, setters
 
 
-class Simulator:
+class PyBullet:
 
   def __init__(self, scene: core.Scene):
     self.objects_to_pybullet = bidict.bidict()

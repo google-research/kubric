@@ -70,7 +70,7 @@ scene = kb.Scene(frame_start=FLAGS.frame_start,
 
 # --- Download a few models locally
 asset_source = kb.assets.KLEVR(uri=FLAGS.assets)
-simulator = kb.Simulator(scene)
+simulator = kb.PyBullet(scene)
 
 # --- Scene static geometry
 floor, lights, camera = asset_source.get_scene()

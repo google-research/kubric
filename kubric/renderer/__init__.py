@@ -12,6 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-TAG="kubruntu:latest"
-
-docker build -f Kubruntu.Dockerfile -t $TAG $PWD
+from kubric.renderer.blender import Blender
