@@ -293,7 +293,7 @@ class PyBullet:
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
-    max_step = self.scene.frame_end * steps_per_frame
+    max_step = (self.scene.frame_end + 1) * steps_per_frame
 
     obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
