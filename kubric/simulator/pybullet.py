@@ -244,7 +244,8 @@ class PyBullet:
 
     obj_idx, setters = add_object(obj)
 
-    self.objects_to_pybullet[obj] = obj_idx
+    if obj_idx >= 0:
+      self.objects_to_pybullet[obj] = obj_idx
 
     for name, setter in setters.items():
       # recursively add sub-assets
@@ -290,6 +291,11 @@ class PyBullet:
 
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
+
+  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.bullet"):
+    path = pathlib.Path(path)
+    path.mkdir(parents=True, exist_ok=True)
+    pb.saveBullet(str(path / filename))
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate

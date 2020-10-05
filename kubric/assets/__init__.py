@@ -14,4 +14,5 @@
 
 from kubric.assets.asset_source import AssetSource
 from kubric.assets.klevr import KLEVR
+from kubric.assets.utils import mm3hash
 

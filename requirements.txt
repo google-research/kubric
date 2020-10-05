@@ -8,6 +8,7 @@ mathutils
 munch
 numpy
 pandas
+Pillow
 pybullet
 pytest
 scikit-learn

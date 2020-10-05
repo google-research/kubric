@@ -15,7 +15,7 @@
 import logging
 import pathlib
 import functools
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Union
 
 import bidict
 import bpy
@@ -42,6 +42,9 @@ class Blender:
     bpy.context.scene.render.engine = "CYCLES"
     self.add(scene)
     self.set_up_scene_shading()
+
+    bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
+    bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
 
   def add(self, obj: core.Asset):
     if obj in self.objects_to_blend:
@@ -206,16 +209,20 @@ class Blender:
     bpy.context.scene.render.resolution_x = width
     bpy.context.scene.render.resolution_y = height
 
-  def render(self, path):
+  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
+                 pack_textures: bool = True):
     path = pathlib.Path(path)
-    bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
-    bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
-    bpy.context.scene.render.filepath = str(path / "frame_")
+    path.mkdir(parents=True, exist_ok=True)
+    if pack_textures:
+      bpy.ops.file.pack_all()  # embed all textures into the blend file
+    bpy.ops.wm.save_mainfile(filepath=str(path / filename))
 
+  def render(self, path: Union[pathlib.Path, str]):
     self.activate_render_passes()
-    self.set_up_exr_output(path / "frame_")
 
-    bpy.ops.wm.save_mainfile(filepath=str(path / "scene.blend"))
+    path = pathlib.Path(path)
+    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
+    self.set_up_exr_output(path / "exr" / "frame_")
 
     bpy.ops.render.render(animation=True, write_still=True)
 

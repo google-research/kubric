@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import colorsys
-from typing import NamedTuple
+from typing import NamedTuple, Tuple, Union
 
 
 class Color(NamedTuple):
@@ -118,3 +118,15 @@ class Color(NamedTuple):
         "white":   cls.from_hexstr("#ffffff"),
         "yellow":  cls.from_hexstr("#ffff00"),
     }[name.lower()]
+
+
+def get_color(color: Union[int, str, Tuple]):
+  if isinstance(color, str):
+    if color.startswith("#"):
+      return Color.from_hexstr(color)
+    else:
+      return Color.from_name(color)
+  elif isinstance(color, int):
+    return Color.from_hexint(color)
+  else:
+    return Color(*color)
