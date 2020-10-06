@@ -128,8 +128,11 @@ def _add_object(obj: core.Cube):
   collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
   visual_idx = -1
   mass = 0 if obj.static else obj.mass
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
   box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
-                               wxyz2xyzw(obj.quaternion))
+                               wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
+  pb.changeDynamics(box_idx, -1, contactProcessingThreshold=0)
 
   setters = {
       'position': Setter(box_idx, set_position),
@@ -151,9 +154,11 @@ def _add_object(obj: core.Cube):
   collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
   visual_idx = -1
   mass = 0 if obj.static else obj.mass
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
   sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
-                                  wxyz2xyzw(obj.quaternion))
-
+                                  wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
+  pb.changeDynamics(sphere_idx, -1, contactProcessingThreshold=0)
   setters = {
       'position': Setter(sphere_idx, set_position),
       'quaternion': Setter(sphere_idx, set_quaternion),
@@ -180,14 +185,19 @@ def _add_object(obj: core.FileBasedObject):
   scale = obj.scale[0]
   assert obj.scale[1] == obj.scale[2] == scale, "Pybullet does not support non-uniform scaling"
 
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
   if path.suffix == ".urdf":
-    object_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale)
+    object_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale,
+                             useMaximalCoordinates=True)
   else:
     raise IOError(
         'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
 
   if object_idx < 0:
     raise IOError('Failed to load "{}".'.format(path))
+
+  pb.changeDynamics(object_idx, -1, contactProcessingThreshold=0)
 
   setters = {
       'position': Setter(object_idx, set_position),
@@ -217,6 +227,11 @@ class PyBullet:
   def __init__(self, scene: core.Scene):
     self.objects_to_pybullet = bidict.bidict()
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
+    # Set some parameters to fix the sticky-walls problem
+    # (see https://github.com/bulletphysics/bullet3/issues/3094)
+    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0, warmStartingFactor=0,
+                                 useSplitImpulse=True, contactSlop=0)
+    pb.setPhysicsEngineParameter(enableConeFriction=False)
 
     if scene.step_rate % scene.frame_rate != 0:
       raise ValueError(

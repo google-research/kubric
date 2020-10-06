@@ -23,8 +23,8 @@ from kubric.color import Color
 
 __all__ = (
     "Asset", "Scene", "AttributeSetter",
-    "Material", "PrincipledBSDFMaterial", "MeshChromeMaterial",
-    "Object3D", "PhysicalObject", "FileBasedObject",
+    "Material", "PrincipledBSDFMaterial", "MeshChromeMaterial", "FlatMaterial",
+    "Object3D", "PhysicalObject", "FileBasedObject", "Sphere", "Cube",
     "Light", "DirectionalLight", "RectAreaLight", "PointLight",
     "Camera", "PerspectiveCamera", "OrthographicCamera",
 )
