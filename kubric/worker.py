@@ -60,7 +60,7 @@ class Worker:
     parser.add_argument("--width", type=int, default=512)
     parser.add_argument("--height", type=int, default=512)
     parser.add_argument("--max_placement_trials", type=int, default=100)
-    parser.add_argument("--asset_source", action="append",
+    parser.add_argument("--asset_source", action="append", default=[],
                         help="add an additonal source of assets using a URI "
                              "e.g. '.Assets/KLEVR' or 'gs://kubric/GSO'."
                              "Can be passed multiple times.")
@@ -104,9 +104,7 @@ class Worker:
     self.work_dir.mkdir(parents=True)
 
   def setup_output_dir(self):
-    self.output_dir = pathlib.Path(self.config.output_dir).absolute()
-    # ensure output_dir exists
-    self.output_dir.mkdir(parents=True, exist_ok=True)
+    self.output_dir = pathlib.Path(self.config.output_dir)
 
   def setup(self):
     self.parse_arguments()
@@ -242,10 +240,12 @@ class Worker:
     if output_path.parts[0] == "gs:":
       client = storage.Client()
       bucket = client.get_bucket(output_path.parts[1])
-      dst_blob_name = pathlib.Path(*output_path.parts[2:]) / zip_filename
+      self.log.info("Copying output to Cloud Bucket '%s', at %s", output_path.parts[1], output_path)
+      dst_blob_name = pathlib.Path(*output_path.parts[2:])
       blob = bucket.blob(str(dst_blob_name))
       blob.upload_from_filename(str(self.work_dir / zip_filename))
     else:
+      target_dir.mkdir(parents=True, exist_ok=True)
       shutil.move(str(self.work_dir / zip_filename), str(output_path))
 
 

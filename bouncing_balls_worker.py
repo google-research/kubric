@@ -16,7 +16,6 @@ import datetime
 import sys; sys.path.append(".")
 
 import kubric.pylab as kb
-import numpy as np
 
 
 class BouncingBallsWorker(kb.Worker):
@@ -24,10 +23,10 @@ class BouncingBallsWorker(kb.Worker):
     parser = super().get_argparser()
     # add additional commandline arguments
     parser.add_argument("--min_nr_balls", type=int, default=4)
-    parser.add_argument("--max_nr_balls", type=int, default=5)
+    parser.add_argument("--max_nr_balls", type=int, default=4)
     parser.add_argument("--ball_radius", type=float, default=0.2)
-    # overwrite default values
-    parser.set_defaults(asset_source=["./Assets/KLEVR", "./Assets/BouncingBalls"])
+    parser.add_argument("--restitution", type=float, default=1.)
+    parser.add_argument("--friction", type=float, default=.0)
     return parser
 
   def add_room(self):
@@ -36,8 +35,8 @@ class BouncingBallsWorker(kb.Worker):
     wall_material = kb.FlatMaterial(color=kb.get_color('white'),
                                     indirect_visibility=False)
     room_dynamics = {
-        "restitution": 0.95,
-        "friction": 0.01,
+        "restitution": self.config.restitution,
+        "friction": self.config.friction,
     }
 
     floor = kb.Cube(scale=(1, 1, 0.9), position=(0, 0, -0.9),
@@ -64,8 +63,8 @@ class BouncingBallsWorker(kb.Worker):
                                     indirect_visibility=False)
     ball = kb.Sphere(scale=[self.config.ball_radius]*3,
                      material=ball_material,
-                     friction=0.01,
-                     restitution=0.95,
+                     friction=self.config.friction,
+                     restitution=self.config.restitution,
                      velocity=self.rnd.uniform(*velocity_range))
     return ball
 
@@ -76,7 +75,7 @@ class BouncingBallsWorker(kb.Worker):
     spawn_area = (-1, -1, 0), (1, 1, 2.1*self.config.ball_radius)
     balls = []
 
-    nr_objects = self.rnd.randint(self.config.min_nr_balls, self.config.max_nr_balls)
+    nr_objects = self.rnd.randint(self.config.min_nr_balls, self.config.max_nr_balls+1)
     for i in range(nr_objects):  # random number of objects
       ball = self.get_random_ball()
       self.place_without_overlap(ball, [kb.position_sampler(spawn_area)])
@@ -87,7 +86,6 @@ class BouncingBallsWorker(kb.Worker):
     render_path = self.save_renderer_state()
     self.render()
     output = self.post_process()
-    output = {}
     # collect ground-truth factors
     output["factors"] = []
     for i, obj in enumerate(balls):
