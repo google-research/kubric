@@ -11,10 +11,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+""" This file defines the basic object hierarchy that forms the center of Kubrics interface.
+
+The root classes are Scene and Asset, which further specializes into:
+ * Material
+   - PrincipledBSDFMaterial
+   - FlatMaterial
+   - UndefinedMaterial
+ * Object3D
+   - PhysicalObject
+     > FileBasedObject
+     > Cube
+     > Sphere
+ * Light
+   - DirectionalLight
+   - RectAreaLight
+   - PointLight
+ * Camera
+   - PerspectiveCamera
+   - OrthographicCamera
+   - UndefinedCamera
+
+"""
+
+
 import uuid
 import collections
 
 import mathutils
+import munch
 import traitlets as tl
 from traitlets import default, validate
 
@@ -22,12 +47,29 @@ import kubric.traits as ktl
 from kubric.color import Color
 
 __all__ = (
-    "Asset", "Scene", "AttributeSetter",
-    "Material", "PrincipledBSDFMaterial", "MeshChromeMaterial", "FlatMaterial",
+    "Asset", "Scene", "Undefined",
+    "Material", "UndefinedMaterial", "PrincipledBSDFMaterial", "FlatMaterial",
     "Object3D", "PhysicalObject", "FileBasedObject", "Sphere", "Cube",
     "Light", "DirectionalLight", "RectAreaLight", "PointLight",
     "Camera", "PerspectiveCamera", "OrthographicCamera",
 )
+
+
+# ## ### ####  Materials  #### ### ## #
+
+class Scene:
+  frame_start = tl.Integer(default_value=1)
+  frame_end = tl.Integer(default_value=48)
+
+  frame_rate = tl.Integer(default_value=24)
+  step_rate = tl.Integer(default_value=240)
+
+  camera = tl.Instance("Camera", default_value="UndefinedCamera")
+  resolution = tl.Tuple(tl.Integer(), tl.Integer(), default_value=(512, 512))
+
+  gravity = ktl.Vector3D(default_value=(0, 0, -10.))
+
+  global_illumination = ktl.RGB(default_value=Color.from_name("black"))
 
 
 class Asset(tl.HasTraits):
@@ -35,8 +77,8 @@ class Asset(tl.HasTraits):
 
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
+    self.linked_objects = {}
     self.destruction_callbacks = []
-    self.keyframe_callbacks = []
     self.keyframes = collections.defaultdict(dict)
 
   @default("uid")
@@ -47,8 +89,12 @@ class Asset(tl.HasTraits):
     if not self.has_trait(member):
       raise KeyError("Unknown member \"{}\".".format(member))
     self.keyframes[member][frame] = getattr(self, member)
-    for func in self.keyframe_callbacks:
-      func(owner=self, member=member, frame=frame)
+
+    # use the traitlets observer system to notify all the AttributeSetters about the new keyframe
+    self.notify_change(munch.Munch(name=member,
+                                   owner=self,
+                                   frame=frame,
+                                   type='keyframe'))
 
   def __hash__(self):
     return object.__hash__(self)
@@ -61,9 +107,19 @@ class Asset(tl.HasTraits):
       func(owner=self)
 
 
+
+
+class Undefined:
+  pass
+
+
 # ## ### ####  Materials  #### ### ## #
 
 class Material(Asset):
+  pass
+
+
+class UndefinedMaterial(Material, Undefined):
   pass
 
 
@@ -93,10 +149,6 @@ class FlatMaterial(Material):
   indirect_visibility = tl.Bool(True)
 
 
-class MeshChromeMaterial(Material):
-  color = ktl.RGBA(default_value=Color.from_name("white"))
-  roughness = tl.Float(0.4)
-
 # ## ### ####  3D Objects  #### ### ## #
 
 
@@ -124,6 +176,8 @@ class PhysicalObject(Object3D):
 
   bounds = tl.Tuple(ktl.Vector3D(), ktl.Vector3D(),
                     default_value=((0., 0., 0.), (0., 0, 0.)))
+
+  material = tl.Instance(Material, default_value=UndefinedMaterial())
 
   @validate("mass")
   def _valid_mass(self, proposal):
@@ -156,11 +210,11 @@ class PhysicalObject(Object3D):
 
 
 class Cube(PhysicalObject):
-  material = tl.Instance(Material, allow_none=True, default_value=None)
+  pass
 
 
 class Sphere(PhysicalObject):
-  material = tl.Instance(Material, allow_none=True, default_value=None)
+  pass
 
 
 class FileBasedObject(PhysicalObject):
@@ -168,8 +222,6 @@ class FileBasedObject(PhysicalObject):
 
   simulation_filename = tl.Unicode()   # TODO: use pathlib.Path instead
   render_filename = tl.Unicode()       # TODO: use pathlib.Path instead
-
-  material = tl.Instance(Material, allow_none=True, default_value=None)
 
 
 # ## ### ####  Lights  #### ### ## #
@@ -208,38 +260,4 @@ class OrthographicCamera(Camera):
 
 
 # ## ### ####  Scene  #### ### ## #
-
-class Scene(Asset):
-  frame_start = tl.Integer(0)
-  frame_end = tl.Integer(48)
-
-  frame_rate = tl.Integer(24)
-  step_rate = tl.Integer(240)
-
-  camera = tl.Instance(Camera, allow_none=True, default_value=None)
-  resolution = tl.Tuple(tl.Integer(), tl.Integer(), default_value=(512, 512))
-
-  gravity = ktl.Vector3D(default_value=(0, 0, -10.))
-
-
-class AttributeSetter:
-  def __init__(self, target_obj, target_name, ignore_none=True):
-    self.target_name = target_name
-    self.target_obj = target_obj
-    self.ignore_none = ignore_none
-    self.mapping = None  # has to be set by the add() function
-
-  def __call__(self, change):
-    if isinstance(self.target_name, (list, tuple)):
-      for name, val in zip(self.target_name, change.new):
-        self._set(name, val)
-    else:
-      self._set(self.target_name, change.new)
-
-  def _set(self, name, value):
-    if value is None and self.ignore_none:
-      return
-    if isinstance(value, Asset):
-      value = self.mapping[value]  # convert kubric objects to blender objects before assigning
-    setattr(self.target_obj, name, value)
 

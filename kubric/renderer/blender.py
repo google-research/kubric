@@ -15,14 +15,18 @@
 import logging
 import pathlib
 import functools
-from typing import Tuple, Dict, Union
+import sys
+from typing import Any, Callable, Dict, Union, Tuple
+
 
 import bidict
 import bpy
 import munch
+import traitlets as tl
 
 from kubric import core
 
+__thismodule__ = sys.modules[__name__]
 logger = logging.getLogger(__name__)
 
 
@@ -230,37 +234,130 @@ class Blender:
 # ########## Functions to import kubric objects into blender ###########
 
 
+class AttributeSetter:
+  def __init__(self, blender_obj, attribute: str, converter=None):
+    self.blender_obj = blender_obj
+    self.attribute = attribute
+    self.converter = converter
+
+  def __call__(self, change):
+    # change = {'type': 'change', 'new': (1., 1., 1.), 'owner': obj}
+    # change = {'type': 'keyframe', 'frame': 15, 'owner': obj}
+
+    if change.type == 'change':
+      new_value = change.new
+
+      if isinstance(new_value, core.Undefined):
+        return  # ignore any Undefined values
+
+      if isinstance(new_value, core.Asset):
+        # Convert Assets to Blender objects before assignment
+        if __thismodule__ in new_value.linked_objects:
+          new_value = new_value.linked_objects[__thismodule__]
+        else:
+          new_value = add_object(new_value)
+
+      if self.converter:
+        # use converter if given
+        new_value = self.converter(new_value)
+
+      setattr(self.blender_obj, self.attribute, new_value)
+
+
+class KeyframeSetter:
+  def __init__(self, blender_obj, attribute_path: str):
+    self.attribute_path = attribute_path
+    self.blender_obj = blender_obj
+
+  def __call__(self, change):
+    if not change.type == 'keyframe':
+      print("Mistakes were made.", self, change)
+      return
+    self.blender_obj.keyframe_insert(self.attribute_path, frame=change.frame)
+
+
+def prepare_blender_object(func: Callable[[core.Asset], Any]) -> Callable[[core.Asset], Any]:
+
+  @functools.wraps(func)
+  def _func(obj: core.Asset):
+    # if obj has already been converted, then return the corresponding linked object
+    if __thismodule__ in obj.linked_objects:
+      return obj.linked_objects[__thismodule__]
+
+    # else use func to create a new blender object
+    blender_obj = func(obj)
+
+    # store the blender_obj in the list of linked objects
+    obj.linked_objects[__thismodule__] = blender_obj
+
+    # set the name of the object to the UID
+    blender_obj.name = obj.uid
+    # if it has a rotation mode, then make sure it is set to quaternions
+    if hasattr(blender_obj, "rotation_mode"):
+      blender_obj.rotation_mode = "QUATERNION"
+
+    # if object is an actual Object (eg. not a Scene, or a Material)
+    # then ensure that it is linked into (used by) the current scene collection
+    if isinstance(blender_obj, bpy.types.Object):
+      collection = bpy.context.scene.collection.objects
+      if blender_obj not in collection.values():
+        collection.link(blender_obj)
+
+    # trigger change notification for all fields (for initialization)
+    for trait_name in obj.trait_names():
+      value = getattr(obj, trait_name)
+      obj.notify_change(munch.Munch(owner=obj, type="change", name=trait_name,
+                                    new=value, old=value))
+
+    return blender_obj
+
+  return _func
+
+
 @functools.singledispatch
-def add_object(obj: core.Asset) -> Tuple[bpy.types.Object, Dict[str, core.AttributeSetter]]:
+def add_object(obj: core.Asset) -> Tuple[bpy.types.Object, Dict[str, AttributeSetter]]:
   raise NotImplementedError()
 
 
+def register_object3d_setters(obj, blender_obj):
+  assert isinstance(obj, core.Object3D), f"{type(obj)} is not an Object3D"
+
+  obj.observe(AttributeSetter(blender_obj, 'location'), 'position')
+  obj.observe(KeyframeSetter(blender_obj, 'location'), 'position', type="keyframe")
+
+  obj.observe(AttributeSetter(blender_obj, 'rotation_quaternion'), 'quaternion')
+  obj.observe(KeyframeSetter(blender_obj, 'rotation_quaternion'), 'quaternion', type="keyframe")
+
+  obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
+  obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
+
+
 @add_object.register(core.Cube)
+@prepare_blender_object
 def _add_object(obj: core.Cube):
   bpy.ops.mesh.primitive_cube_add()
   cube = bpy.context.active_object
-  return cube, {
-      'position': core.AttributeSetter(cube, 'location'),
-      'quaternion': core.AttributeSetter(cube, 'rotation_quaternion'),
-      'scale': core.AttributeSetter(cube, 'scale'),
-      'material': core.AttributeSetter(cube, 'active_material')
-  }
+
+  register_object3d_setters(obj, cube)
+  obj.observe(AttributeSetter(cube, 'active_material'), 'material')
+  return cube
 
 
 @add_object.register(core.Sphere)
+@prepare_blender_object
 def _add_object(obj: core.Sphere):
   bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=5)
   bpy.ops.object.shade_smooth()
-  cube = bpy.context.active_object
-  return cube, {
-      'position': core.AttributeSetter(cube, 'location'),
-      'quaternion': core.AttributeSetter(cube, 'rotation_quaternion'),
-      'scale': core.AttributeSetter(cube, 'scale'),
-      'material': core.AttributeSetter(cube, 'active_material')
-  }
+  sphere = bpy.context.active_object
+
+  register_object3d_setters(obj, sphere)
+  obj.observe(AttributeSetter(sphere, 'active_material'), 'material', type="change")
+
+  return sphere
 
 
 @add_object.register(core.FileBasedObject)
+@prepare_blender_object
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
   bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
@@ -268,138 +365,120 @@ def _add_object(obj: core.FileBasedObject):
   assert len(bpy.context.selected_objects) == 1
   blender_obj = bpy.context.selected_objects[0]
 
-  setters = {
-      "position": core.AttributeSetter(blender_obj, "location"),
-      "quaternion": core.AttributeSetter(blender_obj, "rotation_quaternion"),
-      "scale": core.AttributeSetter(blender_obj, "scale"),
-      "material": core.AttributeSetter(blender_obj, "active_material")
-  }
-  return blender_obj, setters
+  register_object3d_setters(obj, blender_obj)
+  obj.observe(AttributeSetter(blender_obj, 'active_material'), 'material')
+  # TODO: trigger error when changing filenames or asset-id after the fact
+  return blender_obj
 
 
 @add_object.register(core.DirectionalLight)
+@prepare_blender_object
 def _add_object(obj: core.DirectionalLight):
   sun = bpy.data.lights.new(obj.uid, "SUN")
   sun_obj = bpy.data.objects.new(obj.uid, sun)
 
-  setters = {
-      "position": core.AttributeSetter(sun_obj, "location"),
-      "quaternion": core.AttributeSetter(sun_obj, "rotation_quaternion"),
-      "scale": core.AttributeSetter(sun_obj, "scale"),
-      "color": core.AttributeSetter(sun, "color"),
-      "intensity": core.AttributeSetter(sun, "energy")}
-  return sun_obj, setters
+  register_object3d_setters(obj, sun_obj)
+  obj.observe(AttributeSetter(sun, 'color'), 'color')
+  obj.observe(KeyframeSetter(sun, 'color'), 'color', type="keyframe")
+  obj.observe(AttributeSetter(sun, 'energy'), 'intensity')
+  obj.observe(KeyframeSetter(sun, 'energy'), 'intensity', type="keyframe")
+  return sun_obj
 
 
 @add_object.register(core.RectAreaLight)
+@prepare_blender_object
 def _add_object(obj: core.RectAreaLight):
   area = bpy.data.lights.new(obj.uid, "AREA")
   area_obj = bpy.data.objects.new(obj.uid, area)
 
-  setters = {
-      "position": core.AttributeSetter(area_obj, "location"),
-      "quaternion": core.AttributeSetter(area_obj, "rotation_quaternion"),
-      "scale": core.AttributeSetter(area_obj, "scale"),
-      "color": core.AttributeSetter(area, "color"),
-      "intensity": core.AttributeSetter(area, "energy"),
-      "width": core.AttributeSetter(area, "size"),
-      "height": core.AttributeSetter(area, "size_y")}
-  return area_obj, setters
+  register_object3d_setters(obj, area_obj)
+  obj.observe(AttributeSetter(area, 'color'), 'color')
+  obj.observe(KeyframeSetter(area, 'color'), 'color', type="keyframe")
+  obj.observe(AttributeSetter(area, 'energy'), 'intensity')
+  obj.observe(KeyframeSetter(area, 'energy'), 'intensity', type="keyframe")
+  obj.observe(AttributeSetter(area, 'size'), 'width')
+  obj.observe(KeyframeSetter(area, 'size'), 'width', type="keyframe")
+  obj.observe(AttributeSetter(area, 'size_y'), 'height')
+  obj.observe(KeyframeSetter(area, 'size_y'), 'height', type="keyframe")
+
+  return area_obj
 
 
 @add_object.register(core.PointLight)
+@prepare_blender_object
 def _add_object(obj: core.PointLight):
-  area = bpy.data.lights.new(obj.uid, "POINT")
-  area_obj = bpy.data.objects.new(obj.uid, area)
+  point_light = bpy.data.lights.new(obj.uid, "POINT")
+  point_light_obj = bpy.data.objects.new(obj.uid, point_light)
 
-  setters = {
-      "position": core.AttributeSetter(area_obj, "location"),
-      "quaternion": core.AttributeSetter(area_obj, "rotation_quaternion"),
-      "scale": core.AttributeSetter(area_obj, "scale"),
-      "color": core.AttributeSetter(area, "color"),
-      "intensity": core.AttributeSetter(area, "energy")}
-  return area_obj, setters
+  register_object3d_setters(obj, point_light_obj)
+  obj.observe(AttributeSetter(point_light, 'color'), 'color')
+  obj.observe(KeyframeSetter(point_light, 'color'), 'color', type="keyframe")
+  obj.observe(AttributeSetter(point_light, 'energy'), 'intensity')
+  obj.observe(KeyframeSetter(point_light, 'energy'), 'intensity', type="keyframe")
+  return point_light_obj
 
 
 @add_object.register(core.PerspectiveCamera)
+@prepare_blender_object
 def _add_object(obj: core.PerspectiveCamera):
   camera = bpy.data.cameras.new(obj.uid)
   camera.type = "PERSP"
   camera_obj = bpy.data.objects.new(obj.uid, camera)
 
-  setters = {
-      "position": core.AttributeSetter(camera_obj, "location"),
-      "quaternion": core.AttributeSetter(camera_obj, "rotation_quaternion"),
-      "scale": core.AttributeSetter(camera_obj, "scale"),
-      "focal_length": core.AttributeSetter(camera, "lens"),
-      "sensor_width": core.AttributeSetter(camera, "sensor_width")}
-  return camera_obj, setters
+  register_object3d_setters(obj, camera_obj)
+  obj.observe(AttributeSetter(camera, 'lens'), 'focal_length')
+  obj.observe(KeyframeSetter(camera, 'lens'), 'focal_length', type="keyframe")
+  obj.observe(AttributeSetter(camera, 'senor_width'), 'sensor_width')
+  obj.observe(KeyframeSetter(camera, 'senor_width'), 'sensor_width', type="keyframe")
+
+  return camera_obj
 
 
 @add_object.register(core.OrthographicCamera)
+@prepare_blender_object
 def _add_object(obj: core.OrthographicCamera):
   camera = bpy.data.cameras.new(obj.uid)
   camera.type = 'ORTHO'
   camera_obj = bpy.data.objects.new(obj.uid, camera)
 
-  setters = {
-      'position': core.AttributeSetter(camera_obj, 'location'),
-      'quaternion': core.AttributeSetter(camera_obj, 'rotation_quaternion'),
-      'scale': core.AttributeSetter(camera_obj, 'scale'),
-      'orthographic_scale': core.AttributeSetter(camera, 'ortho_scale')}
-  return camera_obj, setters
+  register_object3d_setters(obj, camera_obj)
+  obj.observe(AttributeSetter(camera, 'ortho_scale'), 'orthographic_scale')
+  obj.observe(KeyframeSetter(camera, 'ortho_scale'), 'orthographic_scale', type="keyframe")
+
+  return camera_obj
 
 
 @add_object.register(core.PrincipledBSDFMaterial)
+@prepare_blender_object
 def _add_object(obj: core.PrincipledBSDFMaterial):
   mat = bpy.data.materials.new(obj.uid)
   mat.use_nodes = True
   bsdf_node = mat.node_tree.nodes["Principled BSDF"]
-  setters = {
-      "color": core.AttributeSetter(bsdf_node.inputs["Base Color"], "default_value"),
-      "roughness": core.AttributeSetter(bsdf_node.inputs["Roughness"], "default_value"),
-      "metallic": core.AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"),
-      "specular": core.AttributeSetter(bsdf_node.inputs["Specular"], "default_value"),
-      "specular_tint": core.AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"),
-      "ior": core.AttributeSetter(bsdf_node.inputs["IOR"], "default_value"),
-      "transmission": core.AttributeSetter(bsdf_node.inputs["Transmission"], "default_value"),
-      "transmission_roughness": core.AttributeSetter(bsdf_node.inputs["Transmission Roughness"], 
-                                                     "default_value"),
-      "emission": core.AttributeSetter(bsdf_node.inputs["Emission"], "default_value"),
-  }
-  return mat, setters
 
+  obj.observe(AttributeSetter(bsdf_node.inputs["Base Color"], "default_value"), "color")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Base Color"], "default_value"), "color", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Roughness"], "default_value"), "roughness")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Roughness"], "default_value"), "roughness", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"), "transmission_roughness")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"), "transmission_roughness", type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission", type="keyframe")
 
-@add_object.register(core.MeshChromeMaterial)
-def _add_object(obj: core.MeshChromeMaterial):
-    # --- Create node-based material
-    mat = bpy.data.materials.new("Chrome")
-    mat.use_nodes = True
-    tree = mat.node_tree
-    tree.remove(tree.nodes["Principled BSDF"])  # remove the default shader
-
-    # --- Specify nodes
-    LW = tree.nodes.new("ShaderNodeLayerWeight")
-    LW.inputs[0].default_value = 0.7
-    CR = tree.nodes.new("ShaderNodeValToRGB")
-    CR.color_ramp.elements[0].position = 0.9
-    CR.color_ramp.elements[1].position = 1
-    CR.color_ramp.elements[1].color = (0, 0, 0, 1)
-    GLO = tree.nodes.new("ShaderNodeBsdfGlossy")
-
-    # --- link nodes
-    tree.links.new(LW.outputs[1], CR.inputs["Fac"])
-    tree.links.new(CR.outputs["Color"], GLO.inputs["Color"])
-    tree.links.new(GLO.outputs[0], tree.nodes["Material Output"].inputs["Surface"])
-
-    setters = {
-        "color": core.AttributeSetter(CR.color_ramp.elements[0], "color"),
-        "roughness": core.AttributeSetter(GLO.inputs[1], "default_value")
-    }
-    return mat, setters
+  return mat
 
 
 @add_object.register(core.FlatMaterial)
+@prepare_blender_object
 def _add_object(obj: core.FlatMaterial):
   # --- Create node-based material
   mat = bpy.data.materials.new('Holdout')
@@ -436,14 +515,15 @@ def _add_object(obj: core.FlatMaterial):
 
   tree.links.new(overall_mix_node.outputs['Shader'], output_node.inputs['Surface'])
 
-  return mat, {
-      'color': core.AttributeSetter(emission_node.inputs['Color'], 'default_value'),
-      'holdout': core.AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'),
-      'indirect_visibility': core.AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
-  }
+  obj.observe(AttributeSetter(emission_node.inputs['Color'], 'default_value'), "color")
+  obj.observe(KeyframeSetter(emission_node.inputs['Color'], 'default_value'), "color", type="keyframe")
+
+  obj.observe(AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout")
+  obj.observe(AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'), "indirect_visibility")
 
 
 @add_object.register(core.Scene)
+@prepare_blender_object
 def _add_scene(obj: core.Scene):
   blender_scene = bpy.context.scene
 
