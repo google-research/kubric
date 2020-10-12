@@ -14,4 +14,4 @@
 
 TAG="kubruntu:latest"
 
-docker build -f Kubruntu.Dockerfile -t $TAG $PWD
+docker build -f docker/Kubruntu.Dockerfile -t $TAG $PWD
