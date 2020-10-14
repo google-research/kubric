@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import datetime
+import numpy as np
 
 import sys; sys.path.append(".")
 
@@ -27,6 +28,7 @@ class BouncingBallsWorker(kb.Worker):
     parser.add_argument("--ball_radius", type=float, default=0.2)
     parser.add_argument("--restitution", type=float, default=1.)
     parser.add_argument("--friction", type=float, default=.0)
+    parser.add_argument("--color", type=str, default="cat4")
     return parser
 
   def add_room(self):
@@ -40,7 +42,8 @@ class BouncingBallsWorker(kb.Worker):
     }
 
     floor = kb.Cube(scale=(1, 1, 0.9), position=(0, 0, -0.9),
-                    material=floor_material, static=True, **room_dynamics)
+                    material=floor_material, static=True, restitution=0.,
+                    friction=0.)
     north_wall = kb.Cube(scale=(1.2, 0.9, 1), position=(0, 1.9, 0.9),
                          material=wall_material, static=True, **room_dynamics)
     south_wall = kb.Cube(scale=(1.2, 0.9, 1), position=(0, -1.9, 0.9),
@@ -53,13 +56,32 @@ class BouncingBallsWorker(kb.Worker):
              is_background=True)
 
   def add_camera(self):
-    camera = kb.OrthographicCamera(position=(0, 0, 3), orthographic_scale=2.2)  # looks down by default
+    camera = kb.OrthographicCamera(position=(0, 0, 3), orthographic_scale=2.2)
+    # looks down by default
     self.add(camera)
     self.scene.camera = camera
 
-  def get_random_ball(self):
+  def get_colors(self, num):
+    if self.config.color == "uniform_hsv":
+      return [kb.random_hue_color(rnd=self.rnd) for _ in range(num)]
+    if self.config.color == "fixed":
+      hues = np.linspace(0, 1., num, endpoint=False)
+      return [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
+    if self.config.color.startswith("cat"):
+      num_colors = int(self.config.color[3:])
+      all_hues = np.linspace(0, 1., num_colors, endpoint=False)
+      hues = self.rnd.choice(all_hues, size=num)
+      return [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
+
+    if self.config.color.startswith("noreplace"):
+      num_colors = int(self.config.color[9:])
+      all_hues = np.linspace(0, 1., num_colors, endpoint=False)
+      hues = self.rnd.choice(all_hues, size=num, replace=False)
+      return [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
+
+  def get_random_ball(self, color):
     velocity_range = (-1, -1, 0), (1, 1, 0)
-    ball_material = kb.FlatMaterial(color=kb.random_hue_color(rnd=self.rnd),
+    ball_material = kb.FlatMaterial(color=color,
                                     indirect_visibility=False)
     ball = kb.Sphere(scale=[self.config.ball_radius]*3,
                      material=ball_material,
@@ -76,8 +98,9 @@ class BouncingBallsWorker(kb.Worker):
     balls = []
 
     nr_objects = self.rnd.randint(self.config.min_nr_balls, self.config.max_nr_balls+1)
-    for i in range(nr_objects):  # random number of objects
-      ball = self.get_random_ball()
+    colors = self.get_colors(nr_objects)
+    for color in colors:
+      ball = self.get_random_ball(color)
       self.place_without_overlap(ball, [kb.position_sampler(spawn_area)])
       balls.append(ball)
 

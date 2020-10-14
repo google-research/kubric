@@ -229,9 +229,9 @@ class PyBullet:
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
     # Set some parameters to fix the sticky-walls problem
     # (see https://github.com/bulletphysics/bullet3/issues/3094)
-    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0, warmStartingFactor=0,
-                                 useSplitImpulse=True, contactSlop=0)
-    pb.setPhysicsEngineParameter(enableConeFriction=False)
+    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0., warmStartingFactor=0.,
+                                 useSplitImpulse=True, contactSlop=0., enableConeFriction=False,
+                                 deterministicOverlappingPairs=True)
 
     if scene.step_rate % scene.frame_rate != 0:
       raise ValueError(
