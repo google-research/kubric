@@ -181,11 +181,11 @@ class Worker:
     W, H = self.scene.resolution
 
     output = {
-      "RGBA": np.zeros((T, W, H, 4), dtype=np.float32),
-      "segmentation": np.zeros((T, W, H, 1), dtype=np.uint32),
-      "flow": np.zeros((T, W, H, 3), dtype=np.float32),
-      "depth": np.zeros((T, W, H, 1), dtype=np.float32),
-      "UV": np.zeros((T, W, H, 3), dtype=np.float32),
+      "RGBA": np.zeros((T, H, W, 4), dtype=np.float32),
+      "segmentation": np.zeros((T, H, W, 1), dtype=np.uint32),
+      "flow": np.zeros((T, H, W, 3), dtype=np.float32),
+      "depth": np.zeros((T, H, W, 1), dtype=np.float32),
+      "UV": np.zeros((T, H, W, 3), dtype=np.float32),
     }
 
     for t, frame_id in enumerate(range(self.scene.frame_start, self.scene.frame_end + 1)):
@@ -201,9 +201,8 @@ class Worker:
       output["flow"][t] = layers["Vector"]
       output["depth"][t] = layers["Depth"]
       output["UV"][t] = layers["UV"]
-      # use the PNG instead of the EXR for the image, since it is already contrast normalized
-      img = np.asarray(PIL.Image.open(png_filename))
-      output["RGBA"][t] = img / 255.
+      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
+      output["RGBA"][t] = np.asarray(PIL.Image.open(png_filename))
 
     return output
 
