@@ -16,13 +16,12 @@ import logging
 import pathlib
 import functools
 import sys
-from typing import Any, Callable, Dict, Union, Tuple
+from typing import Any, Callable, Union
 
 
 import bidict
 import bpy
 import munch
-import traitlets as tl
 
 from kubric import core
 
@@ -42,46 +41,78 @@ class Blender:
     self.bg_mapping_node = None
 
     self.clear_and_reset()  # as blender has a default scene on load
+
+    self.blender_scene = bpy.context.scene
+    self.scene_observers = {
+      "frame_start": AttributeSetter(self.blender_scene, "frame_start"),
+      "frame_end": AttributeSetter(self.blender_scene, "frame_end"),
+      "frame_rate": AttributeSetter(self.blender_scene, "fps"),
+      "resolution": [AttributeSetter(self.blender_scene, "resolution_x", converter=lambda x: x[0]),
+                     AttributeSetter(self.blender_scene, "resolution_y", converter=lambda x: x[1])],
+      "camera": AttributeSetter(self.blender_scene, "camera", converter=lambda cam: cam.data),
+      "global_illumination": AttributeSetter()
+    }
+    self.scene: core.Scene = scene
+
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
-    self.add(scene)
     self.set_up_scene_shading()
 
-    bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
-    bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
+    self.adaptive_sampling = True  # speeds up rendering
+    self.use_denoising = True  # improves the output quality
+    self.samples_per_pixel = 128
+    self.background_transparency = False
+
+  @property
+  def adaptive_sampling(self) -> bool:
+    return self.blender_scene.cycles.use_adaptive_sampling
+
+  @adaptive_sampling.setter
+  def adaptive_sampling(self, value: bool):
+    self.blender_scene.cycles.use_adaptive_sampling = value
+
+  @property
+  def use_denoising(self) -> bool:
+    return self.blender_scene.view_layers[0].cycles.use_denoising
+
+  @use_denoising.setter
+  def use_denoising(self, value: bool):
+    self.blender_scene.view_layers[0].cycles.use_denoising = value
+
+  @property
+  def samples_per_pixel(self) -> int:
+    return self.blender_scene.cycles.samples
+
+  @samples_per_pixel.setter
+  def samples_per_pixel(self, nr: int):
+    self.blender_scene.cycles.samples = nr
+
+  @property
+  def background_transparency(self) -> bool:
+      return self.blender_scene.render.film_transparent
+
+  @background_transparency.setter
+  def background_transparency(self, value: bool):
+    self.blender_scene.render.film_transparent = value
+
+  @property
+  def scene(self) -> core.Scene:
+    return self.scene
+
+  @scene.setter
+  def scene(self, scene: core.Scene):
+    old_scene = self.scene
+    self.scene = scene
+    for trait_name, setters in self.scene_observers.items():
+      if not isinstance(setters, (list, tuple)):
+        setters = [setters]
+      for setter in setters:
+        if old_scene:
+          old_scene.unobserve(setter, trait_name)
+        self.scene.observe(setter, trait_name)
 
   def add(self, obj: core.Asset):
-    if obj in self.objects_to_blend:
-      return self.objects_to_blend[obj]
-    blender_obj, setters = add_object(obj)
 
-    # set the name of the object to the UID
-    blender_obj.name = obj.uid
-    # if it has a rotation mode, then make sure it is set to quaternions
-    if hasattr(blender_obj, "rotation_mode"):
-      blender_obj.rotation_mode = "QUATERNION"
-
-    # remember object association
-    self.objects_to_blend[obj] = blender_obj
-
-    # if object is an actual Object (eg. not a Scene, or a Material)
-    # then ensure that it is linked into (used by) the current scene collection
-    if isinstance(blender_obj, bpy.types.Object):
-      collection = bpy.context.scene.collection.objects
-      if blender_obj not in collection.values():
-        collection.link(blender_obj)
-
-    for name, setter in setters.items():
-      setter.mapping = self.objects_to_blend
-
-      # recursively add sub-assets
-      value = getattr(obj, name)
-      if isinstance(value, core.Asset):
-        value = self.add(value)
-      # Initialize values
-      setter(munch.Munch(owner=obj, new=value, type="init"))
-      # Link values
-      obj.observe(setter, names=[name])
 
     obj.destruction_callbacks.append(Destructor([blender_obj]))
     obj.keyframe_callbacks.append(Keyframer(setters))
@@ -101,8 +132,8 @@ class Blender:
     bpy.context.scene.world = bpy.data.worlds.new("World")
 
   def set_up_exr_output(self, path):
-    bpy.context.scene.use_nodes = True
-    tree = bpy.context.scene.node_tree
+    self.blender_scene.use_nodes = True
+    tree = self.blender_scene.node_tree
     links = tree.links
 
     # clear existing nodes
@@ -126,8 +157,8 @@ class Blender:
       links.new(render_node.outputs.get(l), out_node.inputs.get(l))
 
   def set_up_scene_shading(self):
-    bpy.context.scene.world.use_nodes = True
-    tree = bpy.context.scene.world.node_tree
+    self.blender_scene.world.use_nodes = True
+    tree = self.blender_scene.world.node_tree
     links = tree.links
 
     # clear the tree
@@ -174,7 +205,7 @@ class Blender:
     # links.new(illum_hdri_node.outputs.get("Color"), self.illum_node.inputs.get("Color"))
 
   def set_ambient_light(self, hdri_filepath=None, color=(0., 0., 0., 1.0), hdri_rotation=(0., 0., 0.)):
-    tree = bpy.context.scene.world.node_tree
+    tree = self.blender_scene.world.node_tree
     links = tree.links
     if hdri_filepath is None:
       # disconnect incoming links from hdri node (if any)
@@ -188,7 +219,7 @@ class Blender:
       self.illum_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
   def set_background(self, hdri_filepath=None, color=(0., 0., 0., 1.0), hdri_rotation=(0., 0., 0.)):
-    tree = bpy.context.scene.world.node_tree
+    tree = self.blender_scene.world.node_tree
     links = tree.links
     if hdri_filepath is None:
       # disconnect incoming links from hdri node (if any)
@@ -202,16 +233,12 @@ class Blender:
       self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
   def activate_render_passes(self):
-    view_layer = bpy.context.scene.view_layers[0]
+    view_layer = self.blender_scene.view_layers[0]
     view_layer.use_pass_vector = True  # flow
     view_layer.use_pass_uv = True  # UV
     view_layer.use_pass_normal = True  # surface normals
     view_layer.cycles.use_pass_crypto_object = True  # segmentation
     view_layer.cycles.pass_crypto_depth = 2
-
-  def set_size(self, width: int, height: int):
-    bpy.context.scene.render.resolution_x = width
-    bpy.context.scene.render.resolution_y = height
 
   def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
                  pack_textures: bool = True):
@@ -225,7 +252,7 @@ class Blender:
     self.activate_render_passes()
 
     path = pathlib.Path(path)
-    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
+    self.blender_scene.render.filepath = str(path / "images" / "frame_")
     self.set_up_exr_output(path / "exr" / "frame_")
 
     bpy.ops.render.render(animation=True, write_still=True)
@@ -315,7 +342,7 @@ def prepare_blender_object(func: Callable[[core.Asset], Any]) -> Callable[[core.
 
 
 @functools.singledispatch
-def add_object(obj: core.Asset) -> Tuple[bpy.types.Object, Dict[str, AttributeSetter]]:
+def add_object(obj: core.Asset) -> bpy.types.Object:
   raise NotImplementedError()
 
 
@@ -328,9 +355,6 @@ def register_object3d_setters(obj, blender_obj):
   obj.observe(AttributeSetter(blender_obj, 'rotation_quaternion'), 'quaternion')
   obj.observe(KeyframeSetter(blender_obj, 'rotation_quaternion'), 'quaternion', type="keyframe")
 
-  obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
-  obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
-
 
 @add_object.register(core.Cube)
 @prepare_blender_object
@@ -340,6 +364,10 @@ def _add_object(obj: core.Cube):
 
   register_object3d_setters(obj, cube)
   obj.observe(AttributeSetter(cube, 'active_material'), 'material')
+
+  obj.observe(AttributeSetter(cube, 'scale'), 'scale')
+  obj.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
+
   return cube
 
 
@@ -352,6 +380,9 @@ def _add_object(obj: core.Sphere):
 
   register_object3d_setters(obj, sphere)
   obj.observe(AttributeSetter(sphere, 'active_material'), 'material', type="change")
+
+  obj.observe(AttributeSetter(sphere, 'scale'), 'scale')
+  obj.observe(KeyframeSetter(sphere, 'scale'), 'scale', type="keyframe")
 
   return sphere
 
@@ -367,7 +398,10 @@ def _add_object(obj: core.FileBasedObject):
 
   register_object3d_setters(obj, blender_obj)
   obj.observe(AttributeSetter(blender_obj, 'active_material'), 'material')
-  # TODO: trigger error when changing filenames or asset-id after the fact
+
+  obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
+  obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
+
   return blender_obj
 
 
@@ -456,23 +490,33 @@ def _add_object(obj: core.PrincipledBSDFMaterial):
   bsdf_node = mat.node_tree.nodes["Principled BSDF"]
 
   obj.observe(AttributeSetter(bsdf_node.inputs["Base Color"], "default_value"), "color")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Base Color"], "default_value"), "color", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Base Color"], "default_value"), "color",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Roughness"], "default_value"), "roughness")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Roughness"], "default_value"), "roughness", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Roughness"], "default_value"), "roughness",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior",
+              type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission", type="keyframe")
-  obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"), "transmission_roughness")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"), "transmission_roughness", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission",
+              type="keyframe")
+  obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
+              "transmission_roughness")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
+              "transmission_roughness", type="keyframe")
   obj.observe(AttributeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission")
-  obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission", type="keyframe")
+  obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission",
+              type="keyframe")
 
   return mat
 
@@ -516,25 +560,17 @@ def _add_object(obj: core.FlatMaterial):
   tree.links.new(overall_mix_node.outputs['Shader'], output_node.inputs['Surface'])
 
   obj.observe(AttributeSetter(emission_node.inputs['Color'], 'default_value'), "color")
-  obj.observe(KeyframeSetter(emission_node.inputs['Color'], 'default_value'), "color", type="keyframe")
-
+  obj.observe(KeyframeSetter(emission_node.inputs['Color'], 'default_value'), "color",
+              type="keyframe")
   obj.observe(AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout")
-  obj.observe(AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'), "indirect_visibility")
+  obj.observe(KeyframeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout",
+              type="keyframe")
+  obj.observe(AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+              "indirect_visibility")
+  obj.observe(KeyframeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+              "indirect_visibility", type="keyframe")
 
-
-@add_object.register(core.Scene)
-@prepare_blender_object
-def _add_scene(obj: core.Scene):
-  blender_scene = bpy.context.scene
-
-  setters = {
-      "frame_start": core.AttributeSetter(blender_scene, "frame_start"),
-      "frame_end": core.AttributeSetter(blender_scene, "frame_end"),
-      "frame_rate": core.AttributeSetter(blender_scene.render, "fps"),
-      "resolution": core.AttributeSetter(blender_scene.render, ["resolution_x", "resolution_y"]),
-      "camera": core.AttributeSetter(blender_scene, "camera")
-  }
-  return blender_scene, setters
+  return mat
 
 
 # ########### ########### ########### ########### ########### ########### ########### ##########

@@ -37,6 +37,7 @@ The root classes are Scene and Asset, which further specializes into:
 
 import uuid
 import collections
+from typing import Tuple
 
 import mathutils
 import munch
@@ -57,19 +58,6 @@ __all__ = (
 
 # ## ### ####  Materials  #### ### ## #
 
-class Scene:
-  frame_start = tl.Integer(default_value=1)
-  frame_end = tl.Integer(default_value=48)
-
-  frame_rate = tl.Integer(default_value=24)
-  step_rate = tl.Integer(default_value=240)
-
-  camera = tl.Instance("Camera", default_value="UndefinedCamera")
-  resolution = tl.Tuple(tl.Integer(), tl.Integer(), default_value=(512, 512))
-
-  gravity = ktl.Vector3D(default_value=(0, 0, -10.))
-
-  global_illumination = ktl.RGB(default_value=Color.from_name("black"))
 
 
 class Asset(tl.HasTraits):
@@ -107,19 +95,20 @@ class Asset(tl.HasTraits):
       func(owner=self)
 
 
-
-
 class Undefined:
+  """Base class for all Asset types that denote properties which are not set by Kubric."""
   pass
 
 
 # ## ### ####  Materials  #### ### ## #
 
 class Material(Asset):
+  """Base class for all materials."""
   pass
 
 
 class UndefinedMaterial(Material, Undefined):
+  """Marker class to indicate that Kubric should not interfere with this material."""
   pass
 
 
@@ -155,7 +144,6 @@ class FlatMaterial(Material):
 class Object3D(Asset):
   position = ktl.Vector3D(default_value=(0., 0., 0.))
   quaternion = ktl.Quaternion(default_value=(1., 0., 0., 0.))
-  scale = ktl.Vector3D(default_value=(1., 1., 1.))
 
   up = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="Y")
   front = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="-Z")
@@ -166,6 +154,8 @@ class Object3D(Asset):
 
 
 class PhysicalObject(Object3D):
+  scale = ktl.Vector3D(default_value=(1., 1., 1.))
+
   velocity = ktl.Vector3D(default_value=(0., 0., 0.))
   angular_velocity = ktl.Vector3D(default_value=(0., 0., 0.))
 
@@ -223,6 +213,8 @@ class FileBasedObject(PhysicalObject):
   simulation_filename = tl.Unicode()   # TODO: use pathlib.Path instead
   render_filename = tl.Unicode()       # TODO: use pathlib.Path instead
 
+  # TODO: trigger error when changing filenames or asset-id after the fact
+
 
 # ## ### ####  Lights  #### ### ## #
 
@@ -250,6 +242,10 @@ class Camera(Object3D):
   pass
 
 
+class UndefinedCamera(Camera):
+  pass
+
+
 class PerspectiveCamera(Camera):
   focal_length = tl.Float(50)
   sensor_width = tl.Float(36)
@@ -259,5 +255,38 @@ class OrthographicCamera(Camera):
   orthographic_scale = tl.Float(6.0)
 
 
-# ## ### ####  Scene  #### ### ## #
+# ## ### ####  Cameras  #### ### ## #
 
+class Scene(tl.HasTraits):
+  def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,
+               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
+               gravity: Tuple[float, float, float] = (0, 0, -10.),
+               camera: Camera = UndefinedCamera(),
+               global_illumination: Color = Color.from_name("black")):
+    super().__init__(frame_start=frame_start, frame_end=frame_end, frame_rate=frame_rate,
+                     step_rate=step_rate, resolution=resolution, gravity=gravity, camera=camera,
+                     global_illumination=global_illumination)
+    self._assets = []
+
+  frame_start = tl.Integer(default_value=1)
+  frame_end = tl.Integer(default_value=48)
+
+  frame_rate = tl.Integer(default_value=24)
+  step_rate = tl.Integer(default_value=240)
+
+  camera = tl.Instance("Camera", default_value="UndefinedCamera")
+  resolution = tl.Tuple(tl.Integer(), tl.Integer(), default_value=(512, 512))
+
+  gravity = ktl.Vector3D(default_value=(0, 0, -10.))
+
+  # TODO: Union[RGB, HDRI]
+  global_illumination = ktl.RGB(default_value=Color.from_name("black"))
+  background = ktl.RGB(default_value=Color.from_name("black"))
+
+  @property
+  def assets(self):
+    return tuple(self._assets)
+
+  def add(self, *assets: Asset):
+    assert len(assets) > 0
+    pass
