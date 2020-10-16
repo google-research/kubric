@@ -181,7 +181,7 @@ class Worker:
     W, H = self.scene.resolution
 
     output = {
-      "RGBA": np.zeros((T, H, W, 4), dtype=np.float32),
+      "RGBA": np.zeros((T, H, W, 4), dtype=np.uint8),
       "segmentation": np.zeros((T, H, W, 1), dtype=np.uint32),
       "flow": np.zeros((T, H, W, 3), dtype=np.float32),
       "depth": np.zeros((T, H, W, 1), dtype=np.float32),
