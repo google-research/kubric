@@ -15,6 +15,7 @@ import uuid
 import collections
 
 import mathutils
+import numpy as np
 import traitlets as tl
 from traitlets import default, validate
 
@@ -112,6 +113,10 @@ class Object3D(Asset):
     direction = mathutils.Vector(target) - mathutils.Vector(self.position)
     self.quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
 
+  @property
+  def euler_xyz(self):
+    return np.array(mathutils.Quaternion(self.quaternion).to_euler())
+
 
 class PhysicalObject(Object3D):
   velocity = ktl.Vector3D(default_value=(0., 0., 0.))
@@ -201,6 +206,11 @@ class Camera(Object3D):
 class PerspectiveCamera(Camera):
   focal_length = tl.Float(50)
   sensor_width = tl.Float(36)
+
+  @property
+  def field_of_view(self):
+    return 2*np.arctan(self.sensor_width/2./self.focal_length)
+
 
 
 class OrthographicCamera(Camera):
