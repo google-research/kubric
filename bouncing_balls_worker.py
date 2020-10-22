@@ -29,6 +29,7 @@ class BouncingBallsWorker(kb.Worker):
     parser.add_argument("--restitution", type=float, default=1.)
     parser.add_argument("--friction", type=float, default=.0)
     parser.add_argument("--color", type=str, default="cat4")
+    parser.add_argument("--shape", type=str, default="sphere")
     return parser
 
   def add_room(self):
@@ -83,11 +84,24 @@ class BouncingBallsWorker(kb.Worker):
     velocity_range = (-1, -1, 0), (1, 1, 0)
     ball_material = kb.FlatMaterial(color=color,
                                     indirect_visibility=False)
-    ball = kb.Sphere(scale=[self.config.ball_radius]*3,
+    shape = self.config.shape
+    if shape == "mixed":
+      shape = self.rnd.choice(["cube", "sphere"])
+    if shape == "cube":
+      ball = kb.Cube(scale=[self.config.ball_radius]*3,
                      material=ball_material,
                      friction=self.config.friction,
                      restitution=self.config.restitution,
+                     quaternion=kb.random_rotation([0, 0, 1], self.rnd),
                      velocity=self.rnd.uniform(*velocity_range))
+    elif shape == "sphere":
+      ball = kb.Sphere(scale=[self.config.ball_radius]*3,
+                       material=ball_material,
+                       friction=self.config.friction,
+                       restitution=self.config.restitution,
+                       velocity=self.rnd.uniform(*velocity_range))
+    else:
+      raise ValueError(f"Unknown shape type '{shape}'")
     return ball
 
   def run(self):
