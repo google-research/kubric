@@ -15,14 +15,15 @@
 import numpy as np
 import traitlets as tl
 
-from kubric import color
+from kubric.core import color
+from kubric.core import base
 
 
 class Vector3D(tl.TraitType):
   default_value = np.zeros(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
 
-  def _validate(self, obj, value):
+  def validate(self, obj, value):
     value = np.array(value, dtype=np.float32)
     if value.shape != (3,):
       self.error(obj, value)
@@ -34,7 +35,7 @@ class Scale(tl.TraitType):
   default_value = np.ones(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
 
-  def _validate(self, obj, value):
+  def validate(self, obj, value):
     value = np.array(value, dtype=np.float32)
     if value.shape == ():  # broadcast scalar Scale to 3D
       value = np.array([value, value, value], dtype=np.float32)
@@ -49,7 +50,7 @@ class Quaternion(tl.TraitType):
   default_value = np.array([1, 0, 0, 0], dtype=np.float32)
   info_text = "a 4D vector (WXYZ quaternion) of floats"
 
-  def _validate(self, obj, value):
+  def validate(self, obj, value):
     value = np.array(value, dtype=np.float32)
     if value.shape != (4,):
       self.error(obj, value)
@@ -61,7 +62,7 @@ class RGBA(tl.TraitType):
   default_value = color.Color(0., 0., 0., 1.0)
   info_text = "an RGBA color"
 
-  def _validate(self, obj, value):
+  def validate(self, obj, value):
     if isinstance(value, color.Color):
       rgba = value
     elif isinstance(value, int):
@@ -85,7 +86,7 @@ class RGB(tl.TraitType):
   default_value = (0., 0., 0.)
   info_text = "an RGB color"
 
-  def _validate(self, obj, value):
+  def validate(self, obj, value):
     if isinstance(value, color.Color):
       rgb = value.rgb
     elif isinstance(value, int):
@@ -101,3 +102,16 @@ class RGB(tl.TraitType):
       self.error(obj, value)
 
     return rgb
+
+
+class AssetInstance(tl.Instance):
+  default_value = base.UndefinedAsset()
+
+  def validate(self, obj: base.Asset, value):
+    super().validate(obj, value)
+
+    # make sure the new asset is part of all scenes that the parent is part of
+    for scene in obj.scenes:
+      scene.add(value)
+
+    return value

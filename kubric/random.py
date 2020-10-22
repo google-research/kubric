@@ -11,11 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from kubric import color
-import numpy as np
-import mathutils
-from kubric import core
 import itertools
+import mathutils
+import numpy as np
+
+from kubric.core import color
+from kubric.core import objects
+
 
 mathutils.Quaternion()
 default_random_state = np.random.RandomState()
@@ -55,7 +57,7 @@ def random_rotation(axis=None, rnd=default_random_state):
 
 
 def rotation_sampler(axis=None):
-  def _sampler(obj: core.PhysicalObject, rnd):
+  def _sampler(obj: objects.PhysicalObject, rnd):
     obj.quaternion = random_rotation(axis=axis, rnd=rnd)
   return _sampler
 
@@ -63,7 +65,7 @@ def rotation_sampler(axis=None):
 def position_sampler(region):
   region = np.array(region, dtype=np.float)
 
-  def _sampler(obj: core.PhysicalObject, rnd):
+  def _sampler(obj: objects.PhysicalObject, rnd):
     # make a copy of the bbox points in the matutils.Vector format
     bounds = np.array(obj.bounds, dtype=np.float)
     bbox_points = [mathutils.Vector(x)

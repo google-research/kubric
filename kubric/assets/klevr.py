@@ -16,7 +16,7 @@ import numpy as np
 
 from kubric.assets import asset_source
 from kubric import core
-from kubric import color
+from kubric.core import color
 
 
 class KLEVR(asset_source.AssetSource):

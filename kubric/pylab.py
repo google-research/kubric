@@ -12,8 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from kubric.core import *
-from kubric.color import Color, get_color
+from kubric.core.base import *
+from kubric.core.cameras import *
+from kubric.core.lights import *
+from kubric.core.materials import *
+from kubric.core.objects import *
+from kubric.core.scene import Scene
+
+
+from kubric.core.color import Color, get_color
 from kubric.renderer import Blender
 from kubric.simulator import PyBullet
 from kubric.post_processing import get_render_layers_from_exr

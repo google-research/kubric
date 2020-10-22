@@ -23,7 +23,7 @@ import pandas as pd
 from google.cloud import storage
 import urllib.parse
 
-from kubric import core
+from kubric.core import objects
 
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class AssetSource(object):
     logger.info("removing tmp dir: \"%s\"", self.local_temp_folder)
     self.local_temp_folder.cleanup()
 
-  def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:
+  def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
 

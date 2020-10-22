@@ -17,7 +17,7 @@ import pytest
 import hypothesis
 from hypothesis import strategies
 
-from kubric import color
+from kubric.core import color
 
 
 @pytest.mark.parametrize("hexint, expected", [
