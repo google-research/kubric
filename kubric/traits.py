@@ -12,30 +12,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import numpy as np
 import traitlets as tl
 
 from kubric import color
 
 
 class Vector3D(tl.TraitType):
-  default_value = (0, 0, 0)
+  default_value = np.zeros(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
 
   def _validate(self, obj, value):
-    value = tuple([float(v) for v in value])
-    if len(value) != 3:
+    value = np.array(value, dtype=np.float32)
+    if value.shape != (3,):
+      self.error(obj, value)
+    else:
+      return value
+
+
+class Scale(tl.TraitType):
+  default_value = np.ones(shape=[3], dtype=np.float32)
+  info_text = "a 3D vector of floats"
+
+  def _validate(self, obj, value):
+    value = np.array(value, dtype=np.float32)
+    if value.shape == ():  # broadcast scalar Scale to 3D
+      value = np.array([value, value, value], dtype=np.float32)
+
+    if value.shape != (3,):
       self.error(obj, value)
     else:
       return value
 
 
 class Quaternion(tl.TraitType):
-  default_value = (1, 0, 0, 0)
+  default_value = np.array([1, 0, 0, 0], dtype=np.float32)
   info_text = "a 4D vector (WXYZ quaternion) of floats"
 
   def _validate(self, obj, value):
-    value = tuple([float(v) for v in value])
-    if len(value) != 4:
+    value = np.array(value, dtype=np.float32)
+    if value.shape != (4,):
       self.error(obj, value)
     else:
       return value
