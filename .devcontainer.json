@@ -9,7 +9,7 @@
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
-    "python.pythonPath": "/usr/local/bin/python",
+    "python.pythonPath": "/usr/local/bin/python3",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
