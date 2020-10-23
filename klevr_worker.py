@@ -15,19 +15,18 @@ import datetime
 
 import sys; sys.path.append(".")
 
-import kubric.pylab as kb
-
+import kubric as kb
 
 class KLEVRWorker(kb.Worker):
-  def get_argparser(self):
-    parser = super().get_argparser()
-    # add additional commandline arguments
-    parser.add_argument("--min_nr_objects", type=int, default=4)
-    parser.add_argument("--max_nr_objects", type=int, default=10)
-    # overwrite default values
-    parser.set_defaults(asset_source=['./Assets/KLEVR'])
-    return parser
-
+  # def get_argparser(self):
+  #   parser = super().get_argparser()
+  #   # add additional commandline arguments
+  #   parser.add_argument("--min_nr_objects", type=int, default=4)
+  #   parser.add_argument("--max_nr_objects", type=int, default=10)
+  #   # overwrite default values
+  #   # TODO(klausg): should we move KLEVR.zip to ./Assets too?
+  #   parser.set_defaults(asset_source=['./Assets/KLEVR'])
+  #   return parser
 
   def add_floor(self):
     floor = self.create_asset("KLEVR", asset_id="Floor", static=True,
@@ -60,6 +59,7 @@ class KLEVRWorker(kb.Worker):
     camera.look_at((0, 0, 0))
     self.add(camera)
     self.scene.camera = camera
+
 
   def get_random_object(self):
     random_id = self.rnd.choice([
@@ -114,25 +114,38 @@ class KLEVRWorker(kb.Worker):
     sim_path = self.save_simulator_state()
     self.run_simulation()
     render_path = self.save_renderer_state()
-    self.render()
-    output = self.post_process()
-    # collect ground-truth factors
-    output["factors"] = []
-    for i, obj in enumerate(objects):
-      output["factors"].append({
-          "asset_id": obj.asset_id,
-          "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
-          "mass": obj.mass,
-          "color": obj.material.color.rgb,
-          "animation": obj.keyframes,
-      })
-    out_path = self.save_output(output)
-    name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
-    self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])
 
+    # TODO: re-enable later on
+    # self.render()
+    # output = self.post_process()
+    # # --- collect ground-truth factors
+    # output["factors"] = []
+    # for i, obj in enumerate(objects):
+    #   output["factors"].append({
+    #       "asset_id": obj.asset_id,
+    #       "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
+    #       "mass": obj.mass,
+    #       "color": obj.material.color.rgb,
+    #       "animation": obj.keyframes,
+    #   })
+    # out_path = self.save_output(output)
+    # name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
+    # self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])
 
-if __name__ == '__main__':
-    worker = KLEVRWorker()
+# --- parser
+parser = kb.ArgumentParser()
+parser.add_argument("--min_nr_objects", type=int, default=4)
+parser.add_argument("--max_nr_objects", type=int, default=10)
+parser.set_defaults(asset_source=['./Assets/KLEVR'])
+FLAGS = parser.parse_args()
 
-    worker.setup()
-    worker.run()
+worker = KLEVRWorker() # TODO: to be removed
+worker.config.update(vars(FLAGS)) # TODO: why this needed?
+worker.setup()
+
+# --- camera
+# camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
+# camera.look_at((0, 0, 0))
+# worker.add(camera) # why needed?
+
+worker.run()

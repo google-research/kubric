@@ -1,3 +1,7 @@
+# Copyright 2020 The Kubric Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #    https://www.apache.org/licenses/LICENSE-2.0
@@ -34,7 +38,7 @@ from kubric import core
 
 class Worker:
   def __init__(self, config=None):
-    self.parser = self.get_argparser()
+    # self.parser = self.get_argparser()
     self.config = munch.munchify(config or {})
     self.rnd = None
     self.log = logging.getLogger(__name__)
@@ -47,24 +51,24 @@ class Worker:
     self.work_dir = None
     self.output_dir = None
 
-  def get_argparser(self):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--frame_rate", type=int, default=24)
-    parser.add_argument("--step_rate", type=int, default=240)
-    parser.add_argument("--frame_start", type=int, default=1)
-    parser.add_argument("--frame_end", type=int, default=24)  # 1 second
-    parser.add_argument("--logging_level", type=str, default="INFO")
-    parser.add_argument("--work_dir", type=str, default="./output/work_dir")
-    parser.add_argument("--output_dir", type=str, default="./output")
-    parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--width", type=int, default=512)
-    parser.add_argument("--height", type=int, default=512)
-    parser.add_argument("--max_placement_trials", type=int, default=100)
-    parser.add_argument("--asset_source", action="append", default=[],
-                        help="add an additonal source of assets using a URI "
-                             "e.g. '.Assets/KLEVR' or 'gs://kubric/GSO'."
-                             "Can be passed multiple times.")
-    return parser
+  # def get_argparser(self):
+  #   parser = argparse.ArgumentParser()
+  #   parser.add_argument("--frame_rate", type=int, default=24)
+  #   parser.add_argument("--step_rate", type=int, default=240)
+  #   parser.add_argument("--frame_start", type=int, default=1)
+  #   parser.add_argument("--frame_end", type=int, default=24)  # 1 second
+  #   parser.add_argument("--logging_level", type=str, default="INFO")
+  #   parser.add_argument("--work_dir", type=str, default="./output/work_dir")
+  #   parser.add_argument("--output_dir", type=str, default="./output")
+  #   parser.add_argument("--seed", type=int, default=0)
+  #   parser.add_argument("--width", type=int, default=512)
+  #   parser.add_argument("--height", type=int, default=512)
+  #   parser.add_argument("--max_placement_trials", type=int, default=100)
+  #   parser.add_argument("--asset_source", action="append", default=[],
+  #                       help="add an additonal source of assets using a URI "
+  #                            "e.g. '.Assets/KLEVR' or 'gs://kubric/GSO'."
+  #                            "Can be passed multiple times.")
+  #   return parser
 
   def parse_arguments(self):
     # --- parse argument in a way compatible with blender"s REPL
@@ -107,7 +111,7 @@ class Worker:
     self.output_dir = pathlib.Path(self.config.output_dir)
 
   def setup(self):
-    self.parse_arguments()
+    # self.parse_arguments()
     self.setup_logging()
     self.setup_random_state()
     self.log.info(pprint.pformat(self.config, indent=2, width=100))

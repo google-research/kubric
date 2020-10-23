@@ -12,15 +12,9 @@
     "python.pythonPath": "/usr/local/bin/python3",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-    "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-    "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-    "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-    "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-    "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-    "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-    "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-    "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+    "python.formatting.yapfPath": "/usr/local/bin/yapf",
+    "python.linting.flake8Path": "/usr/local/bin/flake8",
+    "python.linting.pylintPath": "/usr/local/bin/pylint"
   },
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [

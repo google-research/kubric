@@ -1,3 +1,4 @@
+.vscode/settings.json
 *.ply
 *.blend
 *.png
@@ -10,3 +11,5 @@ bazel-bin
 katamari/*
 urdf/*
 helloworld.py
+Assets/KLEVR/*
+output/*
