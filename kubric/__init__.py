@@ -22,4 +22,8 @@ from kubric import assets
 from kubric.assets.utils import mm3hash
 from kubric.worker import Worker
 from kubric.random import random_hue_color, random_rotation, rotation_sampler, position_sampler
-from kubric.utils import ArgumentParser
+from kubric.utils import *
+
+from kubric.assets import AssetSource
+from kubric.core import Scene
+

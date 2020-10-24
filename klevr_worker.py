@@ -28,9 +28,8 @@ class KLEVRWorker(kb.Worker):
   #   parser.set_defaults(asset_source=['./Assets/KLEVR'])
   #   return parser
 
-  def add_floor(self):
-    floor = self.create_asset("KLEVR", asset_id="Floor", static=True,
-                              position=(0, 0, -0.2), scale=(2, 2, 2))
+  def add_floor(self, asset_source):
+    floor = asset_source.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
     self.add(floor)
     return floor
 
@@ -54,15 +53,14 @@ class KLEVRWorker(kb.Worker):
     self.add(sun, lamp_back, lamp_key, lamp_fill)
 
   def add_camera(self):
-    camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
-                                  position=(7.48113, -6.50764, 5.34367))
+    camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
     camera.look_at((0, 0, 0))
     self.add(camera)
     self.scene.camera = camera
 
 
-  def get_random_object(self):
-    random_id = self.rnd.choice([
+  def get_random_object(self, rnd, asset_source):
+    random_id = rnd.choice([
         "LargeMetalCube",
         "LargeMetalCylinder",
         "LargeMetalSphere",
@@ -80,72 +78,71 @@ class KLEVRWorker(kb.Worker):
     ])
     if "Metal" in random_id:
       material = kb.PrincipledBSDFMaterial(
-            color=kb.random_hue_color(rnd=self.rnd),
+            color=kb.random_hue_color(rnd=rnd),
             roughness=0.2,
             metallic=1.0,
             ior=2.5)
     else:  # if "Rubber" in random_id:
       material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=self.rnd),
+          color=kb.random_hue_color(rnd=rnd),
           roughness=0.7,
           specular=0.33,
           metallic=0.,
           ior=1.25)
-    return self.create_asset("KLEVR", asset_id=random_id, material=material)
-
-  def run(self):
-    self.add_camera()
-    self.add_lights()
-    self.add_floor()
-
-    spawn_region = [(-4, -4, 0), (4, 4, 3)]
-    velocity_range = [(-4, -4, 0), (4, 4, 0)]
-    objects = []
-
-    nr_objects = self.rnd.randint(self.config.min_nr_objects, self.config.max_nr_objects)
-    for i in range(nr_objects):  # random number of objects
-      obj = self.get_random_object()
-      self.place_without_overlap(obj, [kb.rotation_sampler(),
-                                       kb.position_sampler(spawn_region)])
-      obj.velocity = (self.rnd.uniform(*velocity_range) -
-                      [obj.position[0], obj.position[1], 0])  # bias velocity towards center
-      objects.append(obj)
-
-    sim_path = self.save_simulator_state()
-    self.run_simulation()
-    render_path = self.save_renderer_state()
-
-    # TODO: re-enable later on
-    # self.render()
-    # output = self.post_process()
-    # # --- collect ground-truth factors
-    # output["factors"] = []
-    # for i, obj in enumerate(objects):
-    #   output["factors"].append({
-    #       "asset_id": obj.asset_id,
-    #       "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
-    #       "mass": obj.mass,
-    #       "color": obj.material.color.rgb,
-    #       "animation": obj.keyframes,
-    #   })
-    # out_path = self.save_output(output)
-    # name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
-    # self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])
+    return asset_source.create(asset_id=random_id, material=material)
 
 # --- parser
-parser = kb.ArgumentParser()
-parser.add_argument("--min_nr_objects", type=int, default=4)
-parser.add_argument("--max_nr_objects", type=int, default=10)
-parser.set_defaults(asset_source=['./Assets/KLEVR'])
-FLAGS = parser.parse_args()
+PARSER = kb.ArgumentParser()
+PARSER.add_argument("--min_nr_objects", type=int, default=4)
+PARSER.add_argument("--max_nr_objects", type=int, default=10)
+PARSER.add_argument("--max_placement_trials", type=int, default=100)
+PARSER.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
+FLAGS = PARSER.parse_args()
 
-worker = KLEVRWorker() # TODO: to be removed
+# --- common setups
+kb.setup_logging(FLAGS)
+kb.log_my_flags(FLAGS)
+RND = kb.setup_random_state(FLAGS)
+ASSET_SOURCE = kb.AssetSource(FLAGS.asset_source) # should we have this take flags too?
+SCENE = kb.Scene.factory(FLAGS)
+
+# --- TODO: to be removed
+worker = KLEVRWorker()
 worker.config.update(vars(FLAGS)) # TODO: why this needed?
-worker.setup()
+worker.setup(SCENE)
+worker.add_camera()
+worker.add_lights()
+worker.add_floor(ASSET_SOURCE)
 
-# --- camera
-# camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
-# camera.look_at((0, 0, 0))
-# worker.add(camera) # why needed?
+spawn_region = [(-4, -4, 0), (4, 4, 3)]
+velocity_range = [(-4, -4, 0), (4, 4, 0)]
+objects = []
 
-worker.run()
+# --- TODO: "run" section
+nr_objects = RND.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+for i in range(nr_objects):
+  obj = worker.get_random_object(RND, ASSET_SOURCE)
+  worker.place_without_overlap(obj, [kb.rotation_sampler(), kb.position_sampler(spawn_region)], FLAGS.max_placement_trials, rnd=RND)
+  obj.velocity = (RND.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])  # bias velocity towards center
+  objects.append(obj)
+
+sim_path = worker.save_simulator_state()
+worker.run_simulation()
+render_path = worker.save_renderer_state()
+
+# TODO: re-enable later on
+# self.render()
+# output = self.post_process()
+# # --- collect ground-truth factors
+# output["factors"] = []
+# for i, obj in enumerate(objects):
+#   output["factors"].append({
+#       "asset_id": obj.asset_id,
+#       "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
+#       "mass": obj.mass,
+#       "color": obj.material.color.rgb,
+#       "animation": obj.keyframes,
+#   })
+# out_path = self.save_output(output)
+# name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
+# self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])

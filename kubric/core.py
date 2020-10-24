@@ -231,6 +231,14 @@ class Scene(Asset):
 
   gravity = ktl.Vector3D(default_value=(0, 0, -10.))
 
+  @staticmethod
+  def factory(flags):
+    return Scene(frame_start=flags.frame_start,
+                 frame_end=flags.frame_end,
+                 frame_rate=flags.frame_rate,
+                 step_rate=flags.step_rate,
+                 resolution=(flags.width, flags.height))
+
 
 class AttributeSetter:
   def __init__(self, target_obj, target_name, ignore_none=True):

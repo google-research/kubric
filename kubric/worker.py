@@ -18,7 +18,6 @@ import logging
 import pathlib
 import pickle
 import PIL.Image
-import pprint
 import shutil
 import sys
 import tarfile
@@ -40,12 +39,12 @@ class Worker:
   def __init__(self, config=None):
     # self.parser = self.get_argparser()
     self.config = munch.munchify(config or {})
-    self.rnd = None
-    self.log = logging.getLogger(__name__)
+    # self.rnd = None
+    # self.log = logging.getLogger(__name__)
     self.scene = None
     self.simulator = None
     self.renderer = None
-    self.asset_sources = munch.Munch()
+    # self.asset_sources = munch.Munch()
     self.objects = []
     self.background_objects = []
     self.work_dir = None
@@ -70,35 +69,34 @@ class Worker:
   #                            "Can be passed multiple times.")
   #   return parser
 
-  def parse_arguments(self):
-    # --- parse argument in a way compatible with blender"s REPL
-    if "--" in sys.argv:
-      FLAGS = self.parser.parse_args(args=sys.argv[sys.argv.index("--")+1:])
-    else:
-      FLAGS = self.parser.parse_args(args=[])
+  # def parse_arguments(self):
+  #   # --- parse argument in a way compatible with blender"s REPL
+  #   if "--" in sys.argv:
+  #     FLAGS = self.parser.parse_args(args=sys.argv[sys.argv.index("--")+1:])
+  #   else:
+  #     FLAGS = self.parser.parse_args(args=[])
+  #   self.config.update(vars(FLAGS))
+  #   return self.config
 
-    self.config.update(vars(FLAGS))
-    return self.config
+  # def setup_logging(self):
+  #   logging.basicConfig(level=self.config.logging_level)
 
-  def setup_logging(self):
-    logging.basicConfig(level=self.config.logging_level)
+  # def setup_random_state(self):
+  #   self.rnd = np.random.RandomState(self.config.get("seed", None))
 
-  def setup_random_state(self):
-    self.rnd = np.random.RandomState(self.config.get("seed", None))
+  # def setup_scene(self):
+  #   self.scene = core.Scene(frame_start=self.config.frame_start,
+  #                           frame_end=self.config.frame_end,
+  #                           frame_rate=self.config.frame_rate,
+  #                           step_rate=self.config.step_rate,
+  #                           resolution=(self.config.width, self.config.height))
+  #   return self.scene
 
-  def setup_scene(self):
-    self.scene = core.Scene(frame_start=self.config.frame_start,
-                            frame_end=self.config.frame_end,
-                            frame_rate=self.config.frame_rate,
-                            step_rate=self.config.step_rate,
-                            resolution=(self.config.width, self.config.height))
-    return self.scene
-
-  def setup_asset_sources(self):
-    for uri in self.config.asset_source:
-      name = pathlib.Path(uri).name
-      self.log.info("Adding AssetSource '%s' with URI='%s'", name, uri)
-      self.asset_sources[name] = kubric.assets.AssetSource(uri)
+  # def setup_asset_sources(self):
+  #   for uri in self.config.asset_source:
+  #     name = pathlib.Path(uri).name
+  #     logging.info("Adding AssetSource '%s' with URI='%s'", name, uri)
+  #     self.asset_sources[name] = kubric.assets.AssetSource(uri)
 
   def setup_work_dir(self):
     self.work_dir = pathlib.Path(self.config.work_dir).absolute()
@@ -110,21 +108,20 @@ class Worker:
   def setup_output_dir(self):
     self.output_dir = pathlib.Path(self.config.output_dir)
 
-  def setup(self):
+  def setup(self, scene):
     # self.parse_arguments()
-    self.setup_logging()
-    self.setup_random_state()
-    self.log.info(pprint.pformat(self.config, indent=2, width=100))
+    # self.setup_logging()
+    # self.setup_random_state()
     self.setup_work_dir()
     self.setup_output_dir()
-
-    self.setup_asset_sources()
-    self.scene = self.setup_scene()
+    # self.setup_asset_sources()
+    # self.scene = self.setup_scene()
+    self.scene = scene
     self.simulator = kubric.simulator.PyBullet(self.scene)
     self.renderer = kubric.renderer.Blender(self.scene)
 
-  def create_asset(self, source, asset_id, **kwargs):
-    return self.asset_sources[source].create(asset_id, **kwargs)
+  # def create_asset(self, source, asset_id, **kwargs):
+  #   return self.asset_sources[source].create(asset_id, **kwargs)
 
   def add(self, *objects: core.Asset, is_background=False):
     for obj in objects:
@@ -132,7 +129,7 @@ class Worker:
         continue
       self.background_objects.append(obj) if is_background else self.objects.append(obj)
 
-      self.log.info("Added %s", obj)
+      logging.info("Added %s", obj)
       if self.simulator:
         self.simulator.add(obj)
       if self.renderer:
@@ -142,7 +139,8 @@ class Worker:
                             pose_samplers: Sequence[Callable[[core.PhysicalObject,
                                                               np.random.RandomState],
                                                              None]],
-                            max_trials: Optional[int] = None):
+                            max_trials: Optional[int] = None,
+                            rnd = None):
     self.add(obj)
     max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
 
@@ -150,7 +148,7 @@ class Worker:
     trial = 0
     while collision and trial < max_trials:
       for sampler in pose_samplers:
-        sampler(obj, self.rnd)
+        sampler(obj, rnd)
       collision = self.simulator.check_overlap(obj)
       trial += 1
     if collision:
@@ -243,14 +241,10 @@ class Worker:
     if output_path.parts[0] == "gs:":
       client = storage.Client()
       bucket = client.get_bucket(output_path.parts[1])
-      self.log.info("Copying output to Cloud Bucket '%s', at %s", output_path.parts[1], output_path)
+      logging.info("Copying output to Cloud Bucket '%s', at %s", output_path.parts[1], output_path)
       dst_blob_name = pathlib.Path(*output_path.parts[2:])
       blob = bucket.blob(str(dst_blob_name))
       blob.upload_from_filename(str(self.work_dir / zip_filename))
     else:
       target_dir.mkdir(parents=True, exist_ok=True)
       shutil.move(str(self.work_dir / zip_filename), str(output_path))
-
-
-  def run(self):
-    pass

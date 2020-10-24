@@ -33,6 +33,9 @@ class AssetSource(object):
   # see: https://googleapis.dev/python/storage/latest
 
   def __init__(self, uri: str):
+    name = pathlib.Path(uri).name
+    logger.info("Adding AssetSource '%s' with URI='%s'", name, uri)
+    
     sections = urllib.parse.urlparse(uri)
     self.local_temp_folder = tempfile.TemporaryDirectory()
     self.local_path = pathlib.Path(self.local_temp_folder.name)
