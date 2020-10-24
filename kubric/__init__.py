@@ -26,4 +26,6 @@ from kubric.utils import *
 
 from kubric.assets import AssetSource
 from kubric.core import Scene
+from kubric.core import Asset
+
 

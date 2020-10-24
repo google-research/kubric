@@ -34,7 +34,6 @@ import kubric.renderer
 import kubric.simulator
 from kubric import core
 
-
 class Worker:
   def __init__(self, config=None):
     # self.parser = self.get_argparser()
@@ -108,51 +107,51 @@ class Worker:
   def setup_output_dir(self):
     self.output_dir = pathlib.Path(self.config.output_dir)
 
-  def setup(self, scene):
+  def setup(self, scene, simulator, renderer):
     # self.parse_arguments()
     # self.setup_logging()
     # self.setup_random_state()
-    self.setup_work_dir()
-    self.setup_output_dir()
+    self.setup_work_dir() # TODO later
+    self.setup_output_dir() # TODO later
     # self.setup_asset_sources()
     # self.scene = self.setup_scene()
     self.scene = scene
-    self.simulator = kubric.simulator.PyBullet(self.scene)
-    self.renderer = kubric.renderer.Blender(self.scene)
+    self.simulator = simulator # kubric.simulator.PyBullet(self.scene)
+    self.renderer = renderer # kubric.renderer.Blender(self.scene)
 
   # def create_asset(self, source, asset_id, **kwargs):
   #   return self.asset_sources[source].create(asset_id, **kwargs)
 
-  def add(self, *objects: core.Asset, is_background=False):
-    for obj in objects:
-      if obj in self.objects or obj in self.background_objects:
-        continue
-      self.background_objects.append(obj) if is_background else self.objects.append(obj)
+  # def add(self, *objects: core.Asset, is_background=False):
+  #   for obj in objects:
+  #     if obj in self.objects or obj in self.background_objects:
+  #       continue
+  #     self.background_objects.append(obj) if is_background else self.objects.append(obj)
+  # 
+  #     logging.info("Added %s", obj)
+  #     if self.simulator:
+  #       self.simulator.add(obj)
+  #     if self.renderer:
+  #       self.renderer.add(obj)
 
-      logging.info("Added %s", obj)
-      if self.simulator:
-        self.simulator.add(obj)
-      if self.renderer:
-        self.renderer.add(obj)
-
-  def place_without_overlap(self, obj: core.PhysicalObject,
-                            pose_samplers: Sequence[Callable[[core.PhysicalObject,
-                                                              np.random.RandomState],
-                                                             None]],
-                            max_trials: Optional[int] = None,
-                            rnd = None):
-    self.add(obj)
-    max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
-
-    collision = True
-    trial = 0
-    while collision and trial < max_trials:
-      for sampler in pose_samplers:
-        sampler(obj, rnd)
-      collision = self.simulator.check_overlap(obj)
-      trial += 1
-    if collision:
-      raise RuntimeError("Failed to place", obj)
+  # def place_without_overlap(self, obj: core.PhysicalObject,
+  #                           pose_samplers: Sequence[Callable[[core.PhysicalObject,
+  #                                                             np.random.RandomState],
+  #                                                            None]],
+  #                           max_trials: Optional[int] = None,
+  #                           rnd = None):
+  #   self.add(obj)
+  #   max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
+  # 
+  #   collision = True
+  #   trial = 0
+  #   while collision and trial < max_trials:
+  #     for sampler in pose_samplers:
+  #       sampler(obj, rnd)
+  #     collision = self.simulator.check_overlap(obj)
+  #     trial += 1
+  #   if collision:
+  #     raise RuntimeError("Failed to place", obj)
 
   def run_simulation(self):
     # --- run the physics simulation
@@ -195,6 +194,7 @@ class Worker:
       exr_filename = self.work_dir / "exr" / f"frame_{frame_id:04d}.exr"
       png_filename = self.work_dir / "images" / f"frame_{frame_id:04d}.png"
 
+      logging.critical("refactor logic of background objects")
       print("Processing", exr_filename)
       layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
                                                                  self.background_objects,

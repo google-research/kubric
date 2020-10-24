@@ -33,6 +33,7 @@ __all__ = (
 
 class Asset(tl.HasTraits):
   uid = tl.Unicode(read_only=True)
+  background = tl.Bool(default_value=False)
 
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
