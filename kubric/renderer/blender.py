@@ -209,13 +209,13 @@ class Blender:
     bpy.context.scene.render.resolution_x = width
     bpy.context.scene.render.resolution_y = height
 
-  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
-                 pack_textures: bool = True):
+  def save_state(self, path: Union[pathlib.Path, str], pack_textures: bool = True):
     path = pathlib.Path(path)
-    path.mkdir(parents=True, exist_ok=True)
+    assert path.suffix == ".blend"
+    path.parent.mkdir(parents=True, exist_ok=True)
     if pack_textures:
       bpy.ops.file.pack_all()  # embed all textures into the blend file
-    bpy.ops.wm.save_mainfile(filepath=str(path / filename))
+    bpy.ops.wm.save_mainfile(filepath=str(path))
 
   def render(self, path: Union[pathlib.Path, str]):
     self.activate_render_passes()

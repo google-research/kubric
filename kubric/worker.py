@@ -153,26 +153,26 @@ class Worker:
   #   if collision:
   #     raise RuntimeError("Failed to place", obj)
 
-  def run_simulation(self):
-    # --- run the physics simulation
-    animation = self.simulator.run()
+  # def run_simulation(self):
+  #   # --- run the physics simulation
+  #   animation = self.simulator.run()
 
-    # --- Bake the simulation into keyframes
-    for obj in animation.keys():
-      for frame_id in range(self.scene.frame_end + 1):
-        obj.position = animation[obj]["position"][frame_id]
-        obj.quaternion = animation[obj]["quaternion"][frame_id]
-        obj.keyframe_insert("position", frame_id)
-        obj.keyframe_insert("quaternion", frame_id)
-    return animation
+  #   # --- Bake the simulation into keyframes
+  #   for obj in animation.keys():
+  #     for frame_id in range(self.scene.frame_end + 1):
+  #       obj.position = animation[obj]["position"][frame_id]
+  #       obj.quaternion = animation[obj]["quaternion"][frame_id]
+  #       obj.keyframe_insert("position", frame_id)
+  #       obj.keyframe_insert("quaternion", frame_id)
+  #   return animation
 
-  def save_simulator_state(self, filename="scene.bullet"):
-    self.simulator.save_state(self.work_dir, filename)
-    return self.work_dir / filename
+  # def save_simulator_state(self, filename="scene.bullet"):
+  #   self.simulator.save_state(self.work_dir, filename)
+  #   return self.work_dir / filename
 
-  def save_renderer_state(self, filename="scene.blend"):
-    self.renderer.save_state(self.work_dir, filename)
-    return self.work_dir / filename
+  # def save_renderer_state(self, filename="scene.blend"):
+  #   self.renderer.save_state(self.work_dir, filename)
+  #   return self.work_dir / filename
 
   def render(self):
     self.renderer.render(path=self.work_dir)

@@ -17,8 +17,9 @@ import logging
 import sys; sys.path.append(".")
 
 import kubric as kb
+from kubric.assets import KLEVR
 
-class KLEVRWorker(kb.Worker):
+# class KLEVRWorker(kb.Worker):
   # def get_argparser(self):
   #   parser = super().get_argparser()
   #   # add additional commandline arguments
@@ -60,37 +61,37 @@ class KLEVRWorker(kb.Worker):
   #   self.scene.camera = camera
 
 
-  def get_random_object(self, rnd, asset_source):
-    random_id = rnd.choice([
-        "LargeMetalCube",
-        "LargeMetalCylinder",
-        "LargeMetalSphere",
-        "LargeRubberCube",
-        "LargeRubberCylinder",
-        "LargeRubberSphere",
-        "MetalSpot",
-        "RubberSpot",
-        "SmallMetalCube",
-        "SmallMetalCylinder",
-        "SmallMetalSphere",
-        "SmallRubberCube",
-        "SmallRubberCylinder",
-        "SmallRubberSphere",
-    ])
-    if "Metal" in random_id:
-      material = kb.PrincipledBSDFMaterial(
-            color=kb.random_hue_color(rnd=rnd),
-            roughness=0.2,
-            metallic=1.0,
-            ior=2.5)
-    else:  # if "Rubber" in random_id:
-      material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=rnd),
-          roughness=0.7,
-          specular=0.33,
-          metallic=0.,
-          ior=1.25)
-    return asset_source.create(asset_id=random_id, material=material)
+  # def get_random_object(self, rnd, asset_source):
+  #   random_id = rnd.choice([
+  #       "LargeMetalCube",
+  #       "LargeMetalCylinder",
+  #       "LargeMetalSphere",
+  #       "LargeRubberCube",
+  #       "LargeRubberCylinder",
+  #       "LargeRubberSphere",
+  #       "MetalSpot",
+  #       "RubberSpot",
+  #       "SmallMetalCube",
+  #       "SmallMetalCylinder",
+  #       "SmallMetalSphere",
+  #       "SmallRubberCube",
+  #       "SmallRubberCylinder",
+  #       "SmallRubberSphere",
+  #   ])
+  #   if "Metal" in random_id:
+  #     material = kb.PrincipledBSDFMaterial(
+  #           color=kb.random_hue_color(rnd=rnd),
+  #           roughness=0.2,
+  #           metallic=1.0,
+  #           ior=2.5)
+  #   else:  # if "Rubber" in random_id:
+  #     material = kb.PrincipledBSDFMaterial(
+  #         color=kb.random_hue_color(rnd=rnd),
+  #         roughness=0.7,
+  #         specular=0.33,
+  #         metallic=0.,
+  #         ior=1.25)
+  #   return asset_source.create(asset_id=random_id, material=material)
 
 # --- parser
 PARSER = kb.ArgumentParser()
@@ -123,7 +124,7 @@ class Environment:
       self.renderer.add(asset)
 
   # WARNING renamed from place_ to add_, as it's an add with a modifier!
-  def add_without_overlap(self, pose_samplers, max_trials, rnd):
+  def add_without_overlap(self, obj, pose_samplers, max_trials, rnd):
     self.add(obj)
     max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
 
@@ -136,6 +137,18 @@ class Environment:
       trial += 1
     if collision:
       raise RuntimeError("Failed to place", obj)
+
+  def run_simulation(self):
+    animation = self.simulator.run()
+
+    # --- Bake the simulation into keyframes
+    for obj in animation.keys():
+      for frame_id in range(self.scene.frame_end + 1):
+        obj.position = animation[obj]["position"][frame_id]
+        obj.quaternion = animation[obj]["quaternion"][frame_id]
+        obj.keyframe_insert("position", frame_id)
+        obj.keyframe_insert("quaternion", frame_id)
+    return animation
 
 ENV = Environment(FLAGS)
 
@@ -174,9 +187,9 @@ ENV.add(camera)
 ENV.scene.camera = camera
 
 # --- TODO: to be removed
-worker = KLEVRWorker()
-worker.config.update(vars(FLAGS)) # TODO: why this needed?
-worker.setup(ENV.scene, ENV.simulator, ENV.renderer)
+# worker = KLEVRWorker()
+# worker.config.update(vars(FLAGS)) # TODO: why this needed?
+# worker.setup(ENV.scene, ENV.simulator, ENV.renderer)
 # worker.add_camera()
 # worker.add_lights()
 # worker.add_floor(ASSET_SOURCE)
@@ -185,17 +198,50 @@ spawn_region = [(-4, -4, 0), (4, 4, 3)]
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
 objects = []
 
-# --- TODO: "run" section
+def get_random_object(rnd):
+  asset_id = rnd.choice([
+      "LargeMetalCube",
+      "LargeMetalCylinder",
+      "LargeMetalSphere",
+      "LargeRubberCube",
+      "LargeRubberCylinder",
+      "LargeRubberSphere",
+      "MetalSpot",
+      "RubberSpot",
+      "SmallMetalCube",
+      "SmallMetalCylinder",
+      "SmallMetalSphere",
+      "SmallRubberCube",
+      "SmallRubberCylinder",
+      "SmallRubberSphere",
+  ])
+  if "Metal" in asset_id:
+    material = kb.PrincipledBSDFMaterial(
+          color=kb.random_hue_color(rnd=rnd),
+          roughness=0.2,
+          metallic=1.0,
+          ior=2.5)
+  else:  # if "Rubber" in asset_id:
+    material = kb.PrincipledBSDFMaterial(
+        color=kb.random_hue_color(rnd=rnd),
+        roughness=0.7,
+        specular=0.33,
+        metallic=0.,
+        ior=1.25)
+  return asset_id, material
+
+# --- Placer
 nr_objects = RND.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
-  obj = worker.get_random_object(RND, ASSET_SOURCE)
+  asset_id, material = get_random_object(RND)
+  obj = ASSET_SOURCE.create(asset_id=asset_id, material=material)
   ENV.add_without_overlap(obj, [kb.rotation_sampler(), kb.position_sampler(spawn_region)], FLAGS.max_placement_trials, rnd=RND)
   obj.velocity = (RND.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])  # bias velocity towards center
   objects.append(obj)
+ENV.simulator.save_state("klevr.bullet")
 
-sim_path = worker.save_simulator_state()
-worker.run_simulation()
-render_path = worker.save_renderer_state()
+ENV.run_simulation()
+ENV.renderer.save_state("klevr.blend")
 
 # TODO: re-enable later on
 # self.render()

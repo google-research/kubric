@@ -307,10 +307,11 @@ class PyBullet:
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.bullet"):
+  def save_state(self, path: Union[pathlib.Path, str]):
     path = pathlib.Path(path)
-    path.mkdir(parents=True, exist_ok=True)
-    pb.saveBullet(str(path / filename))
+    assert path.suffix == ".bullet"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pb.saveBullet(str(path))
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate

@@ -1,7 +1,9 @@
 .vscode/settings.json
 *.ply
 *.blend
+*.bullet
 *.png
+output/*
 .DS_Store
 **/__pycache__/
 bazel-out
@@ -12,4 +14,3 @@ katamari/*
 urdf/*
 helloworld.py
 Assets/KLEVR/*
-output/*
