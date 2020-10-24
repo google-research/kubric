@@ -106,13 +106,13 @@ kb.setup_logging(FLAGS)
 kb.log_my_flags(FLAGS)
 RND = kb.setup_random_state(FLAGS)
 ASSET_SOURCE = kb.AssetSource(FLAGS.asset_source) # TODO should this take flags too?
+SCENE = kb.Scene.factory(FLAGS) # TODO why couldn't use constructor?
 
 # --- Synchonizer between renderer and physics
 class Environment:
   def __init__(self, flags):
-    self.scene = kb.Scene.factory(flags) # TODO why couldn't use constructor?
-    self.simulator = kb.simulator.PyBullet(self.scene)
-    self.renderer = kb.renderer.Blender(self.scene)
+    self.simulator = kb.simulator.PyBullet(SCENE)
+    self.renderer = kb.renderer.Blender(SCENE)
     # self.background_objects = []
     # self.objects = []  #TODO: foreground objects?
 
@@ -143,7 +143,7 @@ class Environment:
 
     # --- Bake the simulation into keyframes
     for obj in animation.keys():
-      for frame_id in range(self.scene.frame_end + 1):
+      for frame_id in range(SCENE.frame_end + 1):
         obj.position = animation[obj]["position"][frame_id]
         obj.quaternion = animation[obj]["quaternion"][frame_id]
         obj.keyframe_insert("position", frame_id)
@@ -152,39 +152,13 @@ class Environment:
 
 ENV = Environment(FLAGS)
 
-# --- Setup camera
-camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
-camera.look_at((0, 0, 0))
-ENV.add(camera)
-ENV.scene.camera = camera #TODO: we shouldn't use a setter, but something more transparent here?
-
-# --- Light settings from CLEVR
-sun = kb.DirectionalLight(color=kb.get_color("white"), intensity=0.45,
-                          shadow_softness=0.2,
-                          position=(11.6608, -6.62799, 25.8232))
-sun.look_at((0, 0, 0))
-lamp_back = kb.RectAreaLight(color=kb.get_color("white"), intensity=50.,
-                              position=(-1.1685, 2.64602, 5.81574))
-lamp_back.look_at((0, 0, 0))
-lamp_key = kb.RectAreaLight(color=kb.get_color(0xffedd0), intensity=100,
-                            width=0.5, height=0.5,
-                            position=(6.44671, -2.90517, 4.2584))
-lamp_key.look_at((0, 0, 0))
-lamp_fill = kb.RectAreaLight(color=kb.get_color(0xc2d0ff), intensity=30,
-                              width=0.5, height=0.5,
-                              position=(-4.67112, -4.0136, 3.01122))
-lamp_fill.look_at((0, 0, 0))
-ENV.add(sun, lamp_back, lamp_key, lamp_fill)
-
-# --- floor
-floor = ASSET_SOURCE.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
-ENV.add(floor)
-
-# --- camera
-camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
-camera.look_at((0, 0, 0))
-ENV.add(camera)
-ENV.scene.camera = camera
+# --- Assemble the basic scene
+klevr = KLEVR(FLAGS.asset_source)
+camera = klevr.get_camera()
+lights = klevr.get_lights()
+floor = klevr.get_floor()
+ENV.add(camera, floor, *lights)
+SCENE.camera = camera #TODO: we shouldn't use a setter, but something more explicit
 
 # --- TODO: to be removed
 # worker = KLEVRWorker()

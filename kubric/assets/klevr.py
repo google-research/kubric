@@ -40,9 +40,9 @@ class KLEVR(asset_source.AssetSource):
   def __init__(self, uri: str):
     super().__init__(uri)
     self.spawn_region = ((-3.5, -3.5, 0), (3.5, 3.5, 2))
-    self.ambient_light = (0.05, 0.05, 0.05)
+    # self.ambient_light = (0.05, 0.05, 0.05)
 
-  def get_scene_geometry(self):
+  def get_floor(self):
     return self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
 
   def get_lights(self):
@@ -67,11 +67,12 @@ class KLEVR(asset_source.AssetSource):
     camera.look_at((0, 0, 0))
     return camera
 
+  # TODO: this is obsolete?
   def get_scene(self):
-    geometry = self.get_scene_geometry()
+    floor = self.get_floor()
     lights = self.get_lights()
     camera = self.get_camera()
-    return geometry, lights, camera
+    return floor, lights, camera
 
   def create_material(self, name, color_rgb):
     if name == "metal":
