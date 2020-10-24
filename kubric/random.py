@@ -17,15 +17,22 @@ import mathutils
 from kubric import core
 import itertools
 
-mathutils.Quaternion()
-default_random_state = np.random.RandomState()
+# TODO: what is this line for?
+# mathutils.Quaternion()
+# TODO: this was inconsistent across kubric
+# default_random_state = np.random.RandomState()
 
 
-def random_hue_color(saturation: float = 1., value: float = 1, rnd=default_random_state):
+"""Holds the (mutable) global random state of kubric."""
+rnd = np.random.RandomState()
+
+
+def random_hue_color(saturation: float = 1., value: float = 1, rnd=rnd):
+  print(rnd.get_state()[1][0])
   return color.Color.from_hsv(rnd.random_sample(), saturation, value)
 
 
-def random_rotation(axis=None, rnd=default_random_state):
+def random_rotation(axis=None, rnd=rnd):
   """ Compute a random rotation as a quaternion.
   If axis is None the rotation is sampled uniformly over all possible orientations.
   Otherwise it corresponds to a random rotation around the given axis."""

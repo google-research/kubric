@@ -21,35 +21,35 @@ import kubric as kb
 from kubric.assets import KLEVR
 
 # --- parser
-PARSER = kb.ArgumentParser()
-PARSER.add_argument("--min_nr_objects", type=int, default=4)
-PARSER.add_argument("--max_nr_objects", type=int, default=10)
-PARSER.add_argument("--max_placement_trials", type=int, default=100)
-PARSER.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
-FLAGS = PARSER.parse_args()
+parser = kb.ArgumentParser()
+parser.add_argument("--min_nr_objects", type=int, default=4)
+parser.add_argument("--max_nr_objects", type=int, default=10)
+parser.add_argument("--max_placement_trials", type=int, default=100)
+parser.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
+FLAGS = parser.parse_args()
 
 # --- common setups
-kb.setup_logging(FLAGS)
+kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
-RND = kb.setup_random_state(FLAGS)
-ASSET_SOURCE = kb.AssetSource(FLAGS.asset_source) # TODO should this take flags too?
+kb.rnd.seed(FLAGS.random_seed)
 
 # --- common resources
-scene = kb.Scene.factory(FLAGS) # TODO why couldn't use constructor?
+scene = kb.Scene.factory(FLAGS) # TODO: why couldn't use constructor? →traitlets...
 simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
 
 # --- adds assets to all resources
+# TODO: I assume this is the thing you assumed you could "do better"?
 def add_assets(*assets: kb.Asset, is_background=False):
   for asset in assets:
     logging.info("Added asset %s", asset)
-    asset.background = is_background
+    asset.background = is_background  #TODO: what is background used for?
     simulator.add(asset)
     renderer.add(asset)
 
 # --- transfers information between animation and scene
+# TODO: this should be moved somewhere.. perhaps util?
 def bake_keyframes(animation, scene):
-  # --- Bake the simulation into keyframes
   for obj in animation.keys():
     for frame_id in range(scene.frame_end + 1):
       obj.position = animation[obj]["position"][frame_id]
@@ -58,6 +58,7 @@ def bake_keyframes(animation, scene):
       obj.keyframe_insert("quaternion", frame_id)
 
 # --- Synchonizer between renderer and physics
+# TODO: this should be moved somewhere.. perhaps util?
 def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials, samplers = []):
   if len(samplers) == 0:
     spawn_region = [(-4, -4, 0), (4, 4, 3)]
@@ -68,7 +69,7 @@ def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials
   trial = 0
   while collision and trial < max_trials:
     for sampler in samplers:
-      sampler(obj, RND)
+      sampler(obj, kb.rnd)
     collision = simulator.check_overlap(obj)
     trial += 1
   if collision:
@@ -82,64 +83,25 @@ floor = klevr.get_floor()
 add_assets(camera, floor, *lights)
 scene.camera = camera #TODO: we shouldn't use a setter, but something more explicit
 
-# --- TODO: to be removed
-# worker = KLEVRWorker()
-# worker.config.update(vars(FLAGS)) # TODO: why this needed?
-# worker.setup(ENV.scene, ENV.simulator, ENV.renderer)
-# worker.add_camera()
-# worker.add_lights()
-# worker.add_floor(ASSET_SOURCE)
-
-def get_random_object(rnd):
-  asset_id = rnd.choice([
-      "LargeMetalCube",
-      "LargeMetalCylinder",
-      "LargeMetalSphere",
-      "LargeRubberCube",
-      "LargeRubberCylinder",
-      "LargeRubberSphere",
-      "MetalSpot",
-      "RubberSpot",
-      "SmallMetalCube",
-      "SmallMetalCylinder",
-      "SmallMetalSphere",
-      "SmallRubberCube",
-      "SmallRubberCylinder",
-      "SmallRubberSphere",
-  ])
-  if "Metal" in asset_id:
-    material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=rnd),
-          roughness=0.2,
-          metallic=1.0,
-          ior=2.5)
-  else:  # if "Rubber" in asset_id:
-    material = kb.PrincipledBSDFMaterial(
-        color=kb.random_hue_color(rnd=rnd),
-        roughness=0.7,
-        specular=0.33,
-        metallic=0.,
-        ior=1.25)
-  return asset_id, material
-
 # --- Placer
-objects = []
+objects = [] # TODO: shouldn't the list of objects be a property of scene?
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
-nr_objects = RND.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+nr_objects = kb.rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
-  asset_id, material = get_random_object(RND)
-  obj = ASSET_SOURCE.create(asset_id=asset_id, material=material)
+  obj = klevr.create_random_object(kb.rnd)
   add_assets(obj)
   move_till_no_overlap(simulator, obj)
-  obj.velocity = (RND.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])  # bias velocity towards center
+  # bias velocity towards center
+  obj.velocity = (kb.rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
   objects.append(obj)
 
+# --- Simulation
 simulator.save_state("klevr.bullet")
 animation = simulator.run()
 bake_keyframes(animation, scene)  #< shouldn't 2nd argument locally be "renderer"?
 renderer.save_state("klevr.blend")
 
-# TODO: re-enable later on
+# TODO: WILL CONTINUE HERE ONCE CODE ABOVE REVIEWED
 # self.render()
 # output = self.post_process()
 # # --- collect ground-truth factors

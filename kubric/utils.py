@@ -31,7 +31,7 @@ class ArgumentParser(argparse.ArgumentParser):
     self.add_argument("--logging_level", type=str, default="INFO")
     self.add_argument("--work_dir", type=str, default="./output/work_dir")
     self.add_argument("--output_dir", type=str, default="./output")
-    self.add_argument("--seed", type=int, default=0)
+    self.add_argument("--random_seed", type=int, default=0)
     self.add_argument("--width", type=int, default=512)
     self.add_argument("--height", type=int, default=512)
 
@@ -43,24 +43,15 @@ class ArgumentParser(argparse.ArgumentParser):
       flags = super(ArgumentParser, self).parse_args(args=[])
     return flags
 
-
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
 
 import logging
-def setup_logging(flags):
-  logging.basicConfig(level=flags.logging_level)
+def setup_logging(logging_level):
+  logging.basicConfig(level=logging_level)
   # log = logging.getLogger(__name__)  #TODO: why is this necessary?
 
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
   logging.info(flags_string)
-
-# --------------------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------------------
-
-
-def setup_random_state(flags):
-  return np.random.RandomState(flags.seed)
