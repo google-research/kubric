@@ -212,6 +212,10 @@ class Blender:
   def save_state(self, path: Union[pathlib.Path, str], pack_textures: bool = True):
     path = pathlib.Path(path)
     assert path.suffix == ".blend"
+    # blender auto-renames saves otherwise
+    if path.is_file():
+      path.unlink()  
+      logger.info(f"deleted {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     if pack_textures:
       bpy.ops.file.pack_all()  # embed all textures into the blend file

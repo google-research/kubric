@@ -16,82 +16,9 @@ import logging
 
 import sys; sys.path.append(".")
 
+# --- klevr imports
 import kubric as kb
 from kubric.assets import KLEVR
-
-# class KLEVRWorker(kb.Worker):
-  # def get_argparser(self):
-  #   parser = super().get_argparser()
-  #   # add additional commandline arguments
-  #   parser.add_argument("--min_nr_objects", type=int, default=4)
-  #   parser.add_argument("--max_nr_objects", type=int, default=10)
-  #   # overwrite default values
-  #   # TODO(klausg): should we move KLEVR.zip to ./Assets too?
-  #   parser.set_defaults(asset_source=['./Assets/KLEVR'])
-  #   return parser
-
-  # def add_floor(self, asset_source):
-  #   floor = asset_source.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
-  #   self.add(floor)
-  #   return floor
-
-  # def add_lights(self):
-  #   # --- Light settings from CLEVR
-  #   sun = kb.DirectionalLight(color=kb.get_color("white"), intensity=0.45,
-  #                             shadow_softness=0.2,
-  #                             position=(11.6608, -6.62799, 25.8232))
-  #   sun.look_at((0, 0, 0))
-  #   lamp_back = kb.RectAreaLight(color=kb.get_color("white"), intensity=50.,
-  #                                position=(-1.1685, 2.64602, 5.81574))
-  #   lamp_back.look_at((0, 0, 0))
-  #   lamp_key = kb.RectAreaLight(color=kb.get_color(0xffedd0), intensity=100,
-  #                               width=0.5, height=0.5,
-  #                               position=(6.44671, -2.90517, 4.2584))
-  #   lamp_key.look_at((0, 0, 0))
-  #   lamp_fill = kb.RectAreaLight(color=kb.get_color(0xc2d0ff), intensity=30,
-  #                                width=0.5, height=0.5,
-  #                                position=(-4.67112, -4.0136, 3.01122))
-  #   lamp_fill.look_at((0, 0, 0))
-  #   self.add(sun, lamp_back, lamp_key, lamp_fill)
-
-  # def add_camera(self):
-  #   camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32, position=(7.48113, -6.50764, 5.34367))
-  #   camera.look_at((0, 0, 0))
-  #   self.add(camera)
-  #   self.scene.camera = camera
-
-
-  # def get_random_object(self, rnd, asset_source):
-  #   random_id = rnd.choice([
-  #       "LargeMetalCube",
-  #       "LargeMetalCylinder",
-  #       "LargeMetalSphere",
-  #       "LargeRubberCube",
-  #       "LargeRubberCylinder",
-  #       "LargeRubberSphere",
-  #       "MetalSpot",
-  #       "RubberSpot",
-  #       "SmallMetalCube",
-  #       "SmallMetalCylinder",
-  #       "SmallMetalSphere",
-  #       "SmallRubberCube",
-  #       "SmallRubberCylinder",
-  #       "SmallRubberSphere",
-  #   ])
-  #   if "Metal" in random_id:
-  #     material = kb.PrincipledBSDFMaterial(
-  #           color=kb.random_hue_color(rnd=rnd),
-  #           roughness=0.2,
-  #           metallic=1.0,
-  #           ior=2.5)
-  #   else:  # if "Rubber" in random_id:
-  #     material = kb.PrincipledBSDFMaterial(
-  #         color=kb.random_hue_color(rnd=rnd),
-  #         roughness=0.7,
-  #         specular=0.33,
-  #         metallic=0.,
-  #         ior=1.25)
-  #   return asset_source.create(asset_id=random_id, material=material)
 
 # --- parser
 PARSER = kb.ArgumentParser()
@@ -106,59 +33,54 @@ kb.setup_logging(FLAGS)
 kb.log_my_flags(FLAGS)
 RND = kb.setup_random_state(FLAGS)
 ASSET_SOURCE = kb.AssetSource(FLAGS.asset_source) # TODO should this take flags too?
-SCENE = kb.Scene.factory(FLAGS) # TODO why couldn't use constructor?
+
+# --- common resources
+scene = kb.Scene.factory(FLAGS) # TODO why couldn't use constructor?
+simulator = kb.simulator.PyBullet(scene)
+renderer = kb.renderer.Blender(scene)
+
+# --- adds assets to all resources
+def add_assets(*assets: kb.Asset, is_background=False):
+  for asset in assets:
+    logging.info("Added asset %s", asset)
+    asset.background = is_background
+    simulator.add(asset)
+    renderer.add(asset)
+
+# --- transfers information between animation and scene
+def bake_keyframes(animation, scene):
+  # --- Bake the simulation into keyframes
+  for obj in animation.keys():
+    for frame_id in range(scene.frame_end + 1):
+      obj.position = animation[obj]["position"][frame_id]
+      obj.quaternion = animation[obj]["quaternion"][frame_id]
+      obj.keyframe_insert("position", frame_id)
+      obj.keyframe_insert("quaternion", frame_id)
 
 # --- Synchonizer between renderer and physics
-class Environment:
-  def __init__(self, flags):
-    self.simulator = kb.simulator.PyBullet(SCENE)
-    self.renderer = kb.renderer.Blender(SCENE)
-    # self.background_objects = []
-    # self.objects = []  #TODO: foreground objects?
+def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials, samplers = []):
+  if len(samplers) == 0:
+    spawn_region = [(-4, -4, 0), (4, 4, 3)]
+    samplers.append(kb.rotation_sampler())
+    samplers.append(kb.position_sampler(spawn_region))
 
-  def add(self, *assets: kb.Asset, is_background=False):
-    for asset in assets:
-      logging.info("Added asset %s", asset)
-      asset.background = is_background
-      self.simulator.add(asset)
-      self.renderer.add(asset)
-
-  # WARNING renamed from place_ to add_, as it's an add with a modifier!
-  def add_without_overlap(self, obj, pose_samplers, max_trials, rnd):
-    self.add(obj)
-    max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
-
-    collision = True
-    trial = 0
-    while collision and trial < max_trials:
-      for sampler in pose_samplers:
-        sampler(obj, rnd)
-      collision = self.simulator.check_overlap(obj)
-      trial += 1
-    if collision:
-      raise RuntimeError("Failed to place", obj)
-
-  def run_simulation(self):
-    animation = self.simulator.run()
-
-    # --- Bake the simulation into keyframes
-    for obj in animation.keys():
-      for frame_id in range(SCENE.frame_end + 1):
-        obj.position = animation[obj]["position"][frame_id]
-        obj.quaternion = animation[obj]["quaternion"][frame_id]
-        obj.keyframe_insert("position", frame_id)
-        obj.keyframe_insert("quaternion", frame_id)
-    return animation
-
-ENV = Environment(FLAGS)
+  collision = True
+  trial = 0
+  while collision and trial < max_trials:
+    for sampler in samplers:
+      sampler(obj, RND)
+    collision = simulator.check_overlap(obj)
+    trial += 1
+  if collision:
+    raise RuntimeError("Failed to place", obj)
 
 # --- Assemble the basic scene
 klevr = KLEVR(FLAGS.asset_source)
 camera = klevr.get_camera()
 lights = klevr.get_lights()
 floor = klevr.get_floor()
-ENV.add(camera, floor, *lights)
-SCENE.camera = camera #TODO: we shouldn't use a setter, but something more explicit
+add_assets(camera, floor, *lights)
+scene.camera = camera #TODO: we shouldn't use a setter, but something more explicit
 
 # --- TODO: to be removed
 # worker = KLEVRWorker()
@@ -167,10 +89,6 @@ SCENE.camera = camera #TODO: we shouldn't use a setter, but something more expli
 # worker.add_camera()
 # worker.add_lights()
 # worker.add_floor(ASSET_SOURCE)
-
-spawn_region = [(-4, -4, 0), (4, 4, 3)]
-velocity_range = [(-4, -4, 0), (4, 4, 0)]
-objects = []
 
 def get_random_object(rnd):
   asset_id = rnd.choice([
@@ -205,17 +123,21 @@ def get_random_object(rnd):
   return asset_id, material
 
 # --- Placer
+objects = []
+velocity_range = [(-4, -4, 0), (4, 4, 0)]
 nr_objects = RND.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
   asset_id, material = get_random_object(RND)
   obj = ASSET_SOURCE.create(asset_id=asset_id, material=material)
-  ENV.add_without_overlap(obj, [kb.rotation_sampler(), kb.position_sampler(spawn_region)], FLAGS.max_placement_trials, rnd=RND)
+  add_assets(obj)
+  move_till_no_overlap(simulator, obj)
   obj.velocity = (RND.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])  # bias velocity towards center
   objects.append(obj)
-ENV.simulator.save_state("klevr.bullet")
 
-ENV.run_simulation()
-ENV.renderer.save_state("klevr.blend")
+simulator.save_state("klevr.bullet")
+animation = simulator.run()
+bake_keyframes(animation, scene)  #< shouldn't 2nd argument locally be "renderer"?
+renderer.save_state("klevr.blend")
 
 # TODO: re-enable later on
 # self.render()
