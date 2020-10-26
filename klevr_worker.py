@@ -13,6 +13,7 @@
 # limitations under the License.
 import datetime
 import logging
+import numpy as np
 
 import sys; sys.path.append(".")
 
@@ -28,12 +29,10 @@ parser.add_argument("--max_placement_trials", type=int, default=100)
 parser.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
 FLAGS = parser.parse_args()
 
-# --- common setups
+# --- common setups & resources
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
-kb.rnd.seed(FLAGS.random_seed)
-
-# --- common resources
+rnd = np.random.RandomState(seed=FLAGS.random_seed)
 scene = kb.Scene.factory(FLAGS) # TODO: why couldn't use constructor? →traitlets...
 simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
@@ -59,7 +58,7 @@ def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials
   trial = 0
   while collision and trial < max_trials:
     for sampler in samplers:
-      sampler(obj, kb.rnd)
+      sampler(obj, rnd)
     collision = simulator.check_overlap(obj)
     trial += 1
   if collision:
@@ -76,13 +75,13 @@ scene.camera = camera #TODO: we shouldn't use a setter, but something more expli
 # --- Placer
 objects = [] # TODO: shouldn't the list of objects be a property of scene?
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
-nr_objects = kb.rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+nr_objects = rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
-  obj = klevr.create_random_object(kb.rnd)
+  obj = klevr.create_random_object(rnd)
   add_assets(obj)
   move_till_no_overlap(simulator, obj)
   # bias velocity towards center
-  obj.velocity = (kb.rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
+  obj.velocity = (rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
   objects.append(obj)
 
 # --- Simulation
@@ -100,9 +99,13 @@ for obj in animation.keys():
 # --- Save a copy of the keyframed scene
 renderer.save_state("klevr.blend")
 
+# --- Rendering
+if FLAGS.norender: 
+  logging.info("Termination execution (--norender)");
+  exit(0)
+renderer.render(path=FLAGS.output_dir)
 
 # TODO: WILL CONTINUE HERE ONCE CODE ABOVE REVIEWED
-# self.render()
 # output = self.post_process()
 # # --- collect ground-truth factors
 # output["factors"] = []

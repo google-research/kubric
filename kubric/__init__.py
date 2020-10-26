@@ -24,15 +24,10 @@ from kubric.simulator import PyBullet
 from kubric.post_processing import get_render_layers_from_exr
 from kubric.worker import Worker
 
-
 from kubric import assets
 from kubric.assets import AssetSource
 from kubric.assets.utils import mm3hash
 
-
-
-
-from kubric.random import rnd
 from kubric.random import random_hue_color
 from kubric.random import random_rotation
 from kubric.random import rotation_sampler

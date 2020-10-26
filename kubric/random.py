@@ -23,16 +23,12 @@ import itertools
 # default_random_state = np.random.RandomState()
 
 
-"""Holds the (mutable) global random state of kubric."""
-rnd = np.random.RandomState()
-
-
-def random_hue_color(saturation: float = 1., value: float = 1, rnd=rnd):
+def random_hue_color(saturation: float = 1., value: float = 1, rnd=np.random.RandomState()):
   print(rnd.get_state()[1][0])
   return color.Color.from_hsv(rnd.random_sample(), saturation, value)
 
 
-def random_rotation(axis=None, rnd=rnd):
+def random_rotation(axis=None, rnd=np.random.RandomState()):
   """ Compute a random rotation as a quaternion.
   If axis is None the rotation is sampled uniformly over all possible orientations.
   Otherwise it corresponds to a random rotation around the given axis."""

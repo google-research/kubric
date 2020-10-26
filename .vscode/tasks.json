@@ -21,5 +21,21 @@
       "command": "blender -noaudio --verbose 0 --background  --python helloworld.py -- --output experiment3/frame_",
       "problemMatcher": []
     },
+    {
+      "label": "klevr",
+      "type": "shell", 
+      "command": "python3 klevr_worker.py --norender",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+      },
+      "runOptions": {
+        "reevaluateOnRerun": true
+      }
+    }
   ]
 }

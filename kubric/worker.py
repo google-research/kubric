@@ -208,15 +208,16 @@ class Worker:
 
     return output
 
-  def get_gt_factors(self, objects):
-    factors = []
-    for i, obj in enumerate(objects):
-      factors.append({
-          "mass": obj.mass,
-          "color": obj.material.color.rgb,
-          "animation": obj.keyframes,
-      })
-    return factors
+  # TODO: seems unused?
+  # def get_gt_factors(self, objects):
+  #   factors = []
+  #   for i, obj in enumerate(objects):
+  #     factors.append({
+  #         "mass": obj.mass,
+  #         "color": obj.material.color.rgb,
+  #         "animation": obj.keyframes,
+  #     })
+  #   return factors
 
   def save_output(self, output, filename="output.pkl.bz2"):
     # pickle and bz2 the output

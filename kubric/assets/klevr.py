@@ -45,7 +45,7 @@ class KLEVR(asset_source.AssetSource):
     # self.ambient_light = (0.05, 0.05, 0.05)
 
   # NOTE: moved from worker
-  def create_random_object(self, rnd=None):
+  def create_random_object(self, rnd=np.random.RandomState()):
     asset_id = rnd.choice(KLEVR_ASSETS_IDs)
 
     if "Metal" in asset_id:
