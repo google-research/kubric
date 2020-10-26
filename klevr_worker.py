@@ -39,23 +39,13 @@ simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
 
 # --- adds assets to all resources
-# TODO: I assume this is the thing you assumed you could "do better"?
+# TODO(klausg): apply refactor
 def add_assets(*assets: kb.Asset, is_background=False):
   for asset in assets:
     logging.info("Added asset %s", asset)
     asset.background = is_background  #TODO: what is background used for?
     simulator.add(asset)
     renderer.add(asset)
-
-# --- transfers information between animation and scene
-# TODO: this should be moved somewhere.. perhaps util?
-def bake_keyframes(animation, scene):
-  for obj in animation.keys():
-    for frame_id in range(scene.frame_end + 1):
-      obj.position = animation[obj]["position"][frame_id]
-      obj.quaternion = animation[obj]["quaternion"][frame_id]
-      obj.keyframe_insert("position", frame_id)
-      obj.keyframe_insert("quaternion", frame_id)
 
 # --- Synchonizer between renderer and physics
 # TODO: this should be moved somewhere.. perhaps util?
@@ -98,8 +88,18 @@ for i in range(nr_objects):
 # --- Simulation
 simulator.save_state("klevr.bullet")
 animation = simulator.run()
-bake_keyframes(animation, scene)  #< shouldn't 2nd argument locally be "renderer"?
+
+# --- Transfer simulation to keyframes
+for obj in animation.keys():
+  for frame_id in range(scene.frame_end + 1): 
+    obj.position = animation[obj]["position"][frame_id]
+    obj.quaternion = animation[obj]["quaternion"][frame_id]
+    obj.keyframe_insert("position", frame_id)
+    obj.keyframe_insert("quaternion", frame_id)
+
+# --- Save a copy of the keyframed scene
 renderer.save_state("klevr.blend")
+
 
 # TODO: WILL CONTINUE HERE ONCE CODE ABOVE REVIEWED
 # self.render()
