@@ -4,27 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "blender → kubric/worker.py → .blend",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/"
-      },
-      "command": "rm -f kubric.blend && blender -noaudio --verbose 0 --background  --python worker.py -- --assets ~/datasets/KLEVR --randomize_material True --output kubric.blend && open kubric.blend",
-      "problemMatcher": []
-    },
-    {
-      "label": "blender",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/viewer"
-      },
-      "command": "blender -noaudio --verbose 0 --background  --python helloworld.py -- --output experiment3/frame_",
-      "problemMatcher": []
-    },
-    {
       "label": "klevr",
-      "type": "shell", 
-      "command": "python3 klevr_worker.py --norender",
+      "type": "shell",
+      "command": "python3 klevr_worker.py --output_dir='' --frame_end=2",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -37,5 +19,14 @@
         "reevaluateOnRerun": true
       }
     }
+    // {
+    //   "label": "blender → kubric/worker.py → .blend",
+    //   "type": "shell",
+    //   "options": {
+    //     "cwd": "${workspaceFolder}/"
+    //   },
+    //   "command": "rm -f kubric.blend && blender -noaudio --verbose 0 --background  --python worker.py -- --assets ~/datasets/KLEVR --randomize_material True --output kubric.blend && open kubric.blend",
+    //   "problemMatcher": []
+    // },
   ]
 }

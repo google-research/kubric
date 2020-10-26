@@ -26,6 +26,9 @@ parser = kb.ArgumentParser()
 parser.add_argument("--min_nr_objects", type=int, default=4)
 parser.add_argument("--max_nr_objects", type=int, default=10)
 parser.add_argument("--max_placement_trials", type=int, default=100)
+parser.add_argument("--output_dir", type=str, default="output/")
+parser.add_argument("--output_bullet", type=str, default="output/klevr.bullet")
+parser.add_argument("--output_blend", type=str, default="output/klevr.blend")
 parser.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
 FLAGS = parser.parse_args()
 
@@ -85,7 +88,8 @@ for i in range(nr_objects):
   objects.append(obj)
 
 # --- Simulation
-simulator.save_state("klevr.bullet")
+if FLAGS.output_bullet:
+  simulator.save_state(FLAGS.output_bullet)
 animation = simulator.run()
 
 # --- Transfer simulation to keyframes
@@ -97,13 +101,12 @@ for obj in animation.keys():
     obj.keyframe_insert("quaternion", frame_id)
 
 # --- Save a copy of the keyframed scene
-renderer.save_state("klevr.blend")
+if FLAGS.output_blend:
+  renderer.save_state(path=FLAGS.output_blend)
 
 # --- Rendering
-if FLAGS.norender: 
-  logging.info("Termination execution (--norender)");
-  exit(0)
-renderer.render(path=FLAGS.output_dir)
+if FLAGS.output_dir:
+  renderer.render(path=FLAGS.output_dir)
 
 # TODO: WILL CONTINUE HERE ONCE CODE ABOVE REVIEWED
 # output = self.post_process()

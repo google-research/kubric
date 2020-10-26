@@ -29,18 +29,17 @@ class ArgumentParser(argparse.ArgumentParser):
     self.add_argument("--frame_start", type=int, default=1)
     self.add_argument("--frame_end", type=int, default=24)  # 1 second
     self.add_argument("--logging_level", type=str, default="INFO")
-    self.add_argument("--output_dir", type=str, default="./output")
     self.add_argument("--random_seed", type=int, default=0)
     self.add_argument("--width", type=int, default=512)
     self.add_argument("--height", type=int, default=512)
-    self.add_argument("--norender", type=int, default=240)
 
-  def parse_args(self):
+  def parse_args(self, args=None, namespace=None):
     # --- parse argument in a way compatible with blender's REPL
-    if "--" in sys.argv:
-      flags = super(ArgumentParser, self).parse_args(args=sys.argv[sys.argv.index("--")+1:])
+    if args is not None and "--" in sys.argv:
+      args=sys.argv[sys.argv.index("--")+1:]
+      flags = super(ArgumentParser, self).parse_args(args=args, namespace=namespace)
     else:
-      flags = super(ArgumentParser, self).parse_args(args=[])
+      flags = super(ArgumentParser, self).parse_args(args=args)
     return flags
 
 # --------------------------------------------------------------------------------------------------
