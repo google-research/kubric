@@ -50,7 +50,7 @@ class Scene(tl.HasTraits):
   frame_rate = tl.Integer()
   step_rate = tl.Integer()
 
-  camera = tl.Instance("Camera")
+  camera = tl.Instance(cameras.Camera)
   resolution = tl.Tuple(tl.Integer(), tl.Integer())
 
   gravity = ktl.Vector3D()
@@ -59,21 +59,21 @@ class Scene(tl.HasTraits):
   global_illumination = ktl.RGB()
   background = ktl.RGB()
 
-  def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,
-               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
+  def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
                gravity: Tuple[float, float, float] = (0, 0, -10.),
                camera: cameras.Camera = cameras.UndefinedCamera(),
                global_illumination: color.Color = color.get_color("black"),
                background: color.Color = color.get_color("black")):
+    self._assets = []
+    self._views = []
     super().__init__(frame_start=frame_start, frame_end=frame_end, frame_rate=frame_rate,
                      step_rate=step_rate, resolution=resolution, gravity=gravity, camera=camera,
                      global_illumination=global_illumination, background=background)
-    self._assets = []
-    self._views = []
 
   @tl.default("uid")
   def _uid(self):
-    return f"{base.next_global_count():03d}:{self.__class__.__name__}"
+    name = self.__class__.__name__
+    return f"{name}:{base.next_global_count(name):02d}"
 
   @property
   def assets(self):
@@ -89,7 +89,8 @@ class Scene(tl.HasTraits):
     self._views.append(view)
 
     for asset in self._assets:
-      view.add(asset)
+      if not isinstance(asset, base.Undefined):
+        view.add(asset)
 
   def unlink_view(self, view: base.View):
     if view not in self._views:
@@ -100,13 +101,16 @@ class Scene(tl.HasTraits):
       view.remove(asset)
 
   def add(self, asset: base.Asset):
+    if isinstance(asset, base.Undefined):
+      return
+
     if asset not in self._assets:
       self._assets.append(asset)
       assert self not in asset.scenes
       asset.scenes.append(self)
 
     for view in self._views:
-      view.add(asset)
+        view.add(asset)
 
   def remove(self, asset: base.Asset):
     if asset not in self._assets:

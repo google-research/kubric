@@ -24,12 +24,14 @@ import bpy
 import munch
 
 from kubric import core
+from kubric.core import base
+
 
 __thismodule__ = sys.modules[__name__]
 logger = logging.getLogger(__name__)
 
 
-class Blender:
+class Blender(base.View):
   def __init__(self, scene: core.Scene):
     self.objects_to_blend = bidict.bidict()
 
@@ -50,7 +52,8 @@ class Blender:
       "resolution": [AttributeSetter(self.blender_scene, "resolution_x", converter=lambda x: x[0]),
                      AttributeSetter(self.blender_scene, "resolution_y", converter=lambda x: x[1])],
       "camera": AttributeSetter(self.blender_scene, "camera", converter=lambda cam: cam.data),
-      "global_illumination": AttributeSetter()
+      # TODO "global_illumination"
+      # TODO "background"
     }
     self.scene: core.Scene = scene
 
@@ -110,22 +113,6 @@ class Blender:
         if old_scene:
           old_scene.unobserve(setter, trait_name)
         self.scene.observe(setter, trait_name)
-
-  def add(self, obj: core.Asset):
-
-
-    obj.destruction_callbacks.append(Destructor([blender_obj]))
-    obj.keyframe_callbacks.append(Keyframer(setters))
-
-    return blender_obj
-
-  def get_blender_object(self, obj: core.Object3D) -> bpy.types.Object:
-    if isinstance(obj, bpy.types.Object):
-      return obj
-    elif isinstance(obj, core.Object3D):
-      return self.objects_to_blend[obj]
-    else:
-      raise ValueError("Not a valid object {}".format(obj))
 
   def clear_and_reset(self):
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -306,19 +293,13 @@ class KeyframeSetter:
 def prepare_blender_object(func: Callable[[core.Asset], Any]) -> Callable[[core.Asset], Any]:
 
   @functools.wraps(func)
-  def _func(obj: core.Asset):
-    # if obj has already been converted, then return the corresponding linked object
-    if __thismodule__ in obj.linked_objects:
-      return obj.linked_objects[__thismodule__]
-
+  def _func(asset: core.Asset):
     # else use func to create a new blender object
-    blender_obj = func(obj)
+    blender_obj = func(asset)
 
-    # store the blender_obj in the list of linked objects
-    obj.linked_objects[__thismodule__] = blender_obj
+    # link the name of the object to the UID
+    blender_obj.name = asset.uid
 
-    # set the name of the object to the UID
-    blender_obj.name = obj.uid
     # if it has a rotation mode, then make sure it is set to quaternions
     if hasattr(blender_obj, "rotation_mode"):
       blender_obj.rotation_mode = "QUATERNION"
@@ -329,12 +310,6 @@ def prepare_blender_object(func: Callable[[core.Asset], Any]) -> Callable[[core.
       collection = bpy.context.scene.collection.objects
       if blender_obj not in collection.values():
         collection.link(blender_obj)
-
-    # trigger change notification for all fields (for initialization)
-    for trait_name in obj.trait_names():
-      value = getattr(obj, trait_name)
-      obj.notify_change(munch.Munch(owner=obj, type="change", name=trait_name,
-                                    new=value, old=value))
 
     return blender_obj
 

@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import numpy as np
 import traitlets as tl
 
 from kubric.core import base
@@ -31,10 +33,23 @@ class PerspectiveCamera(Camera):
   focal_length = tl.Float(50)
   sensor_width = tl.Float(36)
 
+  def __init__(self, focal_length=50, sensor_width=36, position=(0., 0., 0.),
+               quaternion=None, up="Y", front="-Z", look_at=None, euler=None, **kwargs):
+    super().__init__(focal_length=focal_length, sensor_width=sensor_width, position=position,
+                     quaternion=quaternion, up=up, front=front, look_at=look_at, euler=euler,
+                     **kwargs)
+
   @property
   def field_of_view(self):
-    return 2*np.arctan(self.sensor_width/2./self.focal_length)
+    """ The (horizontal) field of view in radians. """
+    return 2 * np.arctan(self.sensor_width / 2 / self.focal_length)
 
 
 class OrthographicCamera(Camera):
   orthographic_scale = tl.Float(6.0)
+
+  def __init__(self, orthographic_scale=6.0, position=(0., 0., 0.),
+               quaternion=None, up="Y", front="-Z", look_at=None, euler=None, **kwargs):
+    super().__init__(orthographic_scale=orthographic_scale, position=position,
+                     quaternion=quaternion, up=up, front=front, look_at=look_at, euler=euler,
+                     **kwargs)

@@ -39,7 +39,8 @@ class Scale(tl.TraitType):
     value = np.array(value, dtype=np.float32)
     if value.shape == ():  # broadcast scalar Scale to 3D
       value = np.array([value, value, value], dtype=np.float32)
-
+    elif value.shape == (1,):  # broadcast scalar Scale to 3D
+      value = np.array([value[0], value[0], value[0]], dtype=np.float32)
     if value.shape != (3,):
       self.error(obj, value)
     else:

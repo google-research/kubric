@@ -24,8 +24,8 @@ __all__ = ("Object3D", "PhysicalObject", "Sphere", "Cube", "FileBasedObject")
 
 
 class Object3D(base.Asset):
-  position = ktl.Vector3D(default_value=(0., 0., 0.))
-  quaternion = ktl.Quaternion(default_value=(1., 0., 0., 0.))
+  position = ktl.Vector3D()
+  quaternion = ktl.Quaternion()
 
   up = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="Y")
   front = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="-Z")
@@ -51,14 +51,14 @@ class Object3D(base.Asset):
 
   @property
   def euler_xyz(self):
-    return np.array(mathutils.Quaternion(self.quaternion).to_euler())
+    return np.array(mathutils.Quaternion(self.quaternion).to_euler(order="XYZ"))
 
 
 class PhysicalObject(Object3D):
-  scale = ktl.Vector3D(default_value=(1., 1., 1.))
+  scale = ktl.Scale()
 
-  velocity = ktl.Vector3D(default_value=(0., 0., 0.))
-  angular_velocity = ktl.Vector3D(default_value=(0., 0., 0.))
+  velocity = ktl.Vector3D()
+  angular_velocity = ktl.Vector3D()
 
   static = tl.Bool(False)
   mass = tl.Float(1.0)
