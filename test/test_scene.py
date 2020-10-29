@@ -30,15 +30,15 @@ def test_scene_constructor():
   blue = get_color("blue")
   scene = Scene(frame_start=6, frame_end=8, frame_rate=27, step_rate=333,
                 resolution=(123, 456), gravity=(1, 2, 3), camera=cam,
-                global_illumination=red, background=blue)
+                ambient_illumination=red, background=blue)
   assert scene.frame_start == 6
   assert scene.frame_end == 8
   assert scene.step_rate == 333
   assert scene.resolution == (123, 456)
   assert all(scene.gravity == (1, 2, 3))
   assert scene.camera == cam
-  assert scene.global_illumination == red.rgb
-  assert scene.background == blue.rgb
+  assert scene.ambient_illumination == red
+  assert scene.background == blue
 
   assert scene.assets == (cam,)
   assert scene.views == ()

@@ -56,19 +56,19 @@ class Scene(tl.HasTraits):
   gravity = ktl.Vector3D()
 
   # TODO: Union[RGB, HDRI]
-  global_illumination = ktl.RGB()
-  background = ktl.RGB()
+  ambient_illumination = ktl.RGBA()
+  background = ktl.RGBA()
 
   def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
                gravity: Tuple[float, float, float] = (0, 0, -10.),
                camera: cameras.Camera = cameras.UndefinedCamera(),
-               global_illumination: color.Color = color.get_color("black"),
+               ambient_illumination: color.Color = color.get_color("black"),
                background: color.Color = color.get_color("black")):
     self._assets = []
     self._views = []
     super().__init__(frame_start=frame_start, frame_end=frame_end, frame_rate=frame_rate,
                      step_rate=step_rate, resolution=resolution, gravity=gravity, camera=camera,
-                     global_illumination=global_illumination, background=background)
+                     ambient_illumination=ambient_illumination, background=background)
 
   @tl.default("uid")
   def _uid(self):
@@ -132,6 +132,6 @@ class Scene(tl.HasTraits):
     return hash(self.uid)
 
   def __eq__(self, other):
-    if not isinstance(other, base.Asset):
+    if not isinstance(other, Scene):
       return False
     return self.uid == other.uid

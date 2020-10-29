@@ -19,6 +19,9 @@ from kubric.core import color
 from kubric.core import base
 
 
+__all__ = ("Vector3D", "Scale", "Quaternion", "RGB", "RGBA", "AssetInstance")
+
+
 class Vector3D(tl.TraitType):
   default_value = np.zeros(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
