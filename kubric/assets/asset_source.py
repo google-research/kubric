@@ -58,7 +58,7 @@ class AssetSource(object):
     self.db = pd.read_json(manifest)
 
   def __del__(self):
-    logger.info("removing tmp dir: \"%s\"", self.local_temp_folder)
+    logger.info("removing tmp dir: \"%s\"", self.local_temp_folder.name)
     self.local_temp_folder.cleanup()
 
   def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:

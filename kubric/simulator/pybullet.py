@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import sys
 
 import functools
 import pathlib
@@ -20,11 +21,17 @@ from typing import Dict, Tuple, Union
 
 import munch
 import bidict
+import tempfile
 
-import pybullet as pb   
+logger = logging.getLogger(__name__)
+
+from kubric.utils import RedirectStream
+_pybullet_logs = tempfile.mkstemp(suffix="_bullet.txt")[1]
+logger.info("PyBullet logs stored in {}".format(_pybullet_logs))
+with RedirectStream(stream=sys.stdout, filename=_pybullet_logs):
+  import pybullet as pb   
 
 from kubric import core
-logger = logging.getLogger(__name__)
 
 
 def xyzw2wxyz(xyzw):

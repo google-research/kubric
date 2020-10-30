@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 import logging
 import pathlib
+import tempfile
 import functools
 from typing import Tuple, Dict, Union
 
@@ -24,6 +26,10 @@ import munch
 from kubric import core
 
 logger = logging.getLogger(__name__)
+
+from kubric.utils import RedirectStream
+_blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
+logger.info("Blender logs stored in {}".format(_blender_logs))
 
 
 class Blender:
@@ -93,8 +99,9 @@ class Blender:
       raise ValueError("Not a valid object {}".format(obj))
 
   def clear_and_reset(self):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.context.scene.world = bpy.data.worlds.new("World")
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.wm.read_factory_settings(use_empty=True)
+      bpy.context.scene.world = bpy.data.worlds.new("World")
 
   def set_up_exr_output(self, path):
     bpy.context.scene.use_nodes = True
@@ -216,12 +223,15 @@ class Blender:
     # blender auto-renames saves otherwise  
     if path.is_file():
       path.unlink()  
-      logger.info(f"deleted {path}")
+      logger.info(f"Deleting {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     if pack_textures:
-      bpy.ops.file.pack_all()  # embed all textures into the blend file
+      with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+        bpy.ops.file.pack_all()  # embed all textures into the blend file
     logger.info(f"Saving {path}")
-    bpy.ops.wm.save_mainfile(filepath=str(path))
+
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.wm.save_mainfile(filepath=str(path))
 
   def render(self, path: Union[pathlib.Path, str]):
     self.activate_render_passes()
@@ -230,7 +240,8 @@ class Blender:
     bpy.context.scene.render.filepath = str(path / "images" / "frame_")
     self.set_up_exr_output(path / "exr" / "frame_")
 
-    bpy.ops.render.render(animation=True, write_still=True)
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.render.render(animation=True, write_still=True)
 
 
 # ########## Functions to import kubric objects into blender ###########
@@ -269,8 +280,11 @@ def _add_object(obj: core.Sphere):
 @add_object.register(core.FileBasedObject)
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
-  bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
-                           axis_forward=obj.front, axis_up=obj.up)
+  with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+   bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
+                           axis_forward=obj.front,
+                           axis_up=obj.up)
+ 
   assert len(bpy.context.selected_objects) == 1
   blender_obj = bpy.context.selected_objects[0]
 

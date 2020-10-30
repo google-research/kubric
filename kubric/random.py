@@ -24,7 +24,6 @@ import itertools
 
 
 def random_hue_color(saturation: float = 1., value: float = 1, rnd=np.random.RandomState()):
-  print(rnd.get_state()[1][0])
   return color.Color.from_hsv(rnd.random_sample(), saturation, value)
 
 
