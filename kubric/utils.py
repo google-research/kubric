@@ -14,10 +14,12 @@
 
 import sys
 import argparse
-import pprint
 import logging
+import pprint
+import pathlib
 import numpy as np
 
+logger = logging.getLogger(__name__)
 
 class ArgumentParser(argparse.ArgumentParser):
   def __init__(self, *args, **kwargs):
@@ -46,14 +48,12 @@ class ArgumentParser(argparse.ArgumentParser):
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
 
-import logging
 def setup_logging(logging_level):
   logging.basicConfig(level=logging_level)
-  # log = logging.getLogger(__name__)  #TODO: why is this necessary?
 
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
-  logging.info(flags_string)
+  logger.info(flags_string)
 
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------

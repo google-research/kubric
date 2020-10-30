@@ -20,7 +20,8 @@ from typing import Dict, Tuple, Union
 
 import munch
 import bidict
-import pybullet as pb
+
+import pybullet as pb   
 
 from kubric import core
 logger = logging.getLogger(__name__)
@@ -308,8 +309,9 @@ class PyBullet:
     return velocity, angular_velocity
 
   def save_state(self, path: Union[pathlib.Path, str]):
+    """Receives a folder path as input."""
     path = pathlib.Path(path)
-    assert path.suffix == ".bullet"
+    path = path / "scene.bullet"
     path.parent.mkdir(parents=True, exist_ok=True)
     pb.saveBullet(str(path))
 

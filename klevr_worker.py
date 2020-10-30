@@ -13,6 +13,7 @@
 # limitations under the License.
 import datetime
 import logging
+import tempfile
 import numpy as np
 
 import sys; sys.path.append(".")
@@ -26,9 +27,8 @@ parser = kb.ArgumentParser()
 parser.add_argument("--min_nr_objects", type=int, default=4)
 parser.add_argument("--max_nr_objects", type=int, default=10)
 parser.add_argument("--max_placement_trials", type=int, default=100)
+parser.add_argument("--render_dir", type=str, default=tempfile.mkdtemp())
 parser.add_argument("--output_dir", type=str, default="output/")
-parser.add_argument("--output_bullet", type=str, default="output/klevr.bullet")
-parser.add_argument("--output_blend", type=str, default="output/klevr.blend")
 parser.add_argument("--asset_source", type=str, default="./Assets/KLEVR")
 FLAGS = parser.parse_args()
 
@@ -88,8 +88,8 @@ for i in range(nr_objects):
   objects.append(obj)
 
 # --- Simulation
-if FLAGS.output_bullet:
-  simulator.save_state(FLAGS.output_bullet)
+if FLAGS.output_dir:
+  simulator.save_state(FLAGS.output_dir)
 animation = simulator.run()
 
 # --- Transfer simulation to keyframes
@@ -101,25 +101,9 @@ for obj in animation.keys():
     obj.keyframe_insert("quaternion", frame_id)
 
 # --- Save a copy of the keyframed scene
-if FLAGS.output_blend:
-  renderer.save_state(path=FLAGS.output_blend)
-
-# --- Rendering
 if FLAGS.output_dir:
-  renderer.render(path=FLAGS.output_dir)
+  renderer.save_state(path=FLAGS.output_dir)
 
-# TODO: WILL CONTINUE HERE ONCE CODE ABOVE REVIEWED
-# output = self.post_process()
-# # --- collect ground-truth factors
-# output["factors"] = []
-# for i, obj in enumerate(objects):
-#   output["factors"].append({
-#       "asset_id": obj.asset_id,
-#       "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
-#       "mass": obj.mass,
-#       "color": obj.material.color.rgb,
-#       "animation": obj.keyframes,
-#   })
-# out_path = self.save_output(output)
-# name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
-# self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])
+# # --- Rendering
+if FLAGS.render_dir:
+  renderer.render(path=FLAGS.render_dir)

@@ -174,8 +174,8 @@ class Worker:
   #   self.renderer.save_state(self.work_dir, filename)
   #   return self.work_dir / filename
 
-  def render(self):
-    self.renderer.render(path=self.work_dir)
+  # def render(self):
+  #   self.renderer.render(path=self.work_dir)
 
   def post_process(self):
     T = self.scene.frame_end - self.scene.frame_start + 1
