@@ -104,6 +104,6 @@ for obj in animation.keys():
 if FLAGS.output_dir:
   renderer.save_state(path=FLAGS.output_dir)
 
-# # --- Rendering
+# --- Rendering
 if FLAGS.render_dir:
   renderer.render(path=FLAGS.render_dir)

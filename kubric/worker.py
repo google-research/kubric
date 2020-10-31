@@ -233,11 +233,11 @@ class Worker:
 
     output_path = pathlib.Path(target_dir) / zip_filename
 
-    with tarfile.open(self.work_dir / zip_filename, "w:gz") as tar:
-      for file in files_list:
-        file = pathlib.Path(file)
-        assert file.exists(), file
-        tar.add(str(file), f"{name}/{file.name}")
+    # with tarfile.open(self.work_dir / zip_filename, "w:gz") as tar:
+    #   for file in files_list:
+    #     file = pathlib.Path(file)
+    #     assert file.exists(), file
+    #     tar.add(str(file), f"{name}/{file.name}")
 
     if output_path.parts[0] == "gs:":
       client = storage.Client()

@@ -14,12 +14,14 @@
 
 import sys
 import os
-import ctypes
 import argparse
 import logging
 import pprint
 import pathlib
 import numpy as np
+
+from kubric.simulator.pybullet import _pybullet_logs
+from kubric.renderer.blender import _blender_logs
 
 logger = logging.getLogger(__name__)
 
@@ -52,39 +54,9 @@ class ArgumentParser(argparse.ArgumentParser):
 
 def setup_logging(logging_level):
   logging.basicConfig(level=logging_level)
+  logger.info(f"PyBullet stdout redirected to: {_pybullet_logs}")
+  logger.info(f"Blender stdout redirected to:  {_blender_logs}")
 
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
   logger.info(flags_string)
-
-# --------------------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------------------
-
-class RedirectStream(object):
-  """Usage:
-  with RedirectStream(sys.stdout, filename="stdout.txt"):
-    print("commands will have stdout directed to file")
-  """
-
-  @staticmethod
-  def _flush_c_stream(stream):
-    streamname = stream.name[1:-1]
-    libc = ctypes.CDLL(None)
-    libc.fflush(ctypes.c_void_p.in_dll(libc, streamname))
-
-  def __init__(self, stream=sys.stdout, filename=os.devnull):
-    self.stream = stream
-    self.filename = filename
-
-  def __enter__(self):
-    self.stream.flush()  # ensures python stream unaffected 
-    self.fd = open(self.filename, "w+")
-    self.dup_stream = os.dup(self.stream.fileno())
-    os.dup2(self.fd.fileno(), self.stream.fileno()) # replaces stream
-  
-  def __exit__(self, type, value, traceback):
-    RedirectStream._flush_c_stream(self.stream)  # ensures C stream buffer empty
-    os.dup2(self.dup_stream, self.stream.fileno()) # restores stream
-    os.close(self.dup_stream)
-    self.fd.close()

@@ -27,9 +27,8 @@ from kubric import core
 
 logger = logging.getLogger(__name__)
 
-from kubric.utils import RedirectStream
+from kubric.io import RedirectStream
 _blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
-logger.info("Blender logs stored in {}".format(_blender_logs))
 
 
 class Blender:

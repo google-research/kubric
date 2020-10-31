@@ -23,15 +23,14 @@ import munch
 import bidict
 import tempfile
 
-logger = logging.getLogger(__name__)
+from kubric.io import RedirectStream
+from kubric import core
 
-from kubric.utils import RedirectStream
+logger = logging.getLogger(__name__)
 _pybullet_logs = tempfile.mkstemp(suffix="_bullet.txt")[1]
-logger.info("PyBullet logs stored in {}".format(_pybullet_logs))
+
 with RedirectStream(stream=sys.stdout, filename=_pybullet_logs):
   import pybullet as pb   
-
-from kubric import core
 
 
 def xyzw2wxyz(xyzw):
