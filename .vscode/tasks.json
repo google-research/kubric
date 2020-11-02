@@ -6,7 +6,7 @@
     {
       "label": "klevr",
       "type": "shell",
-      "command": "python3 klevr_worker.py --frame_end=2",
+      "command": "python3 klevr_worker.py --render_dir=render_dir --frame_end=2",
       "presentation": {
         "echo": true,
         "reveal": "always",

@@ -1,11 +1,12 @@
-.vscode/settings.json
+.DS_Store
+**/__pycache__/
 *.ply
 *.blend
 *.bullet
 *.png
+*.exr
+.vscode/settings.json
 output/*
-.DS_Store
-**/__pycache__/
 bazel-out
 bazel-testlogs
 bazel-graphics

@@ -58,7 +58,7 @@ class AssetSource(object):
     self.db = pd.read_json(manifest)
 
   def __del__(self):
-    logger.info("removing tmp dir: \"%s\"", self.local_temp_folder.name)
+    logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
     self.local_temp_folder.cleanup()
 
   def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:
@@ -96,7 +96,7 @@ class AssetSource(object):
       blob.download_to_filename(str(target_path), client=self.client)
     elif self.protocol == "local":
       remote_path = f"{self.path}/{filename}"
-      logger.info("Copying %s to %s", remote_path, str(target_path))
+      logger.debug("Copying %s to %s", remote_path, str(target_path))
       shutil.copyfile(remote_path, target_path)
 
     return pathlib.Path(target_path)

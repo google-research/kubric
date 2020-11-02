@@ -59,4 +59,4 @@ def setup_logging(logging_level):
 
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
-  logger.info(flags_string)
+  logger.debug(flags_string)

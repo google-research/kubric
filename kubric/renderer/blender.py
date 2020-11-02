@@ -22,8 +22,13 @@ from typing import Tuple, Dict, Union
 import bidict
 import bpy
 import munch
+import numpy as np
+import pickle
+import PIL.Image
+import shutil
 
 from kubric import core
+import kubric.post_processing
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +40,7 @@ class Blender:
   def __init__(self, scene: core.Scene):
     self.objects_to_blend = bidict.bidict()
 
+    self.scene = scene
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
@@ -219,17 +225,19 @@ class Blender:
     path = pathlib.Path(path)
     path = path / "scene.blend"
     
-    # blender auto-renames saves otherwise  
+    # delete first, as blender auto-renames savefiles otherwise  
     if path.is_file():
-      path.unlink()  
-      logger.info(f"Deleting {path}")
-    path.parent.mkdir(parents=True, exist_ok=True)
+      logger.info(f"Overwriting {path}")
+      path.unlink()
+    else:
+      logger.info(f"Saving {path}")
+
     if pack_textures:
       with RedirectStream(stream=sys.stdout, filename=_blender_logs):
         bpy.ops.file.pack_all()  # embed all textures into the blend file
-    logger.info(f"Saving {path}")
-
+    
     with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      path.parent.mkdir(parents=True, exist_ok=True)
       bpy.ops.wm.save_mainfile(filepath=str(path))
 
   def render(self, path: Union[pathlib.Path, str]):
@@ -239,9 +247,54 @@ class Blender:
     bpy.context.scene.render.filepath = str(path / "images" / "frame_")
     self.set_up_exr_output(path / "exr" / "frame_")
 
+    # --- remove stale output if exists
+    if path.exists() and path.is_dir():
+      logger.info(f"Deleting stale directory {str(path)}")
+      shutil.rmtree(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    # --- starts rendering
     with RedirectStream(stream=sys.stdout, filename=_blender_logs):
       bpy.ops.render.render(animation=True, write_still=True)
 
+  def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
+    from_dir = pathlib.Path(from_dir)
+    to_dir = pathlib.Path(to_dir)
+    W, H = self.scene.resolution
+
+    # --- split objects into foreground and background sets
+    fg_objects = [obj for obj in self.scene.objects if obj.background == False]
+    bg_objects = [obj for obj in self.scene.objects if obj.background == True]
+
+    # --- output one file per frame of data
+    for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
+      data = {
+        "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
+        "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
+        "flow": np.zeros((H, W, 3), dtype=np.float32),
+        "depth": np.zeros((H, W, 1), dtype=np.float32),
+        "UV": np.zeros((H, W, 3), dtype=np.float32),
+      }
+
+      exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
+      png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
+
+      # TODO(klausg): this is blender specific, should not be IN the blender module?
+      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+                                                                 bg_objects,
+                                                                 fg_objects)
+
+      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
+      data["RGBA"] = np.asarray(PIL.Image.open(png_filename))
+      data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
+      data["flow"] = layers["Vector"]
+      data["depth"] = layers["Depth"]
+      data["UV"] = layers["UV"]
+
+      # Save to file
+      with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
+        logger.info(f"writing {fp.name}")
+        pickle.dump(data, fp)
 
 # ########## Functions to import kubric objects into blender ###########
 

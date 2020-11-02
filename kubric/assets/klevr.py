@@ -66,7 +66,9 @@ class KLEVR(asset_source.AssetSource):
     return obj
 
   def get_floor(self):
-    return self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
+    asset = self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
+    asset.background = True  #TODO: should .create have an argument for this?
+    return asset
 
   def get_lights(self):
     # --- Light settings from CLEVR

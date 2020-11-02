@@ -36,18 +36,19 @@ from kubric import core
 
 class Worker:
   def __init__(self, config=None):
+    pass
     # self.parser = self.get_argparser()
-    self.config = munch.munchify(config or {})
+    # self.config = munch.munchify(config or {})
     # self.rnd = None
     # self.log = logging.getLogger(__name__)
-    self.scene = None
-    self.simulator = None
-    self.renderer = None
+    # self.scene = None
+    # self.simulator = None
+    # self.renderer = None
     # self.asset_sources = munch.Munch()
-    self.objects = []
-    self.background_objects = []
-    self.work_dir = None
-    self.output_dir = None
+    # self.objects = []
+    # self.background_objects = []
+    # self.work_dir = None
+    # self.output_dir = None
 
   # def get_argparser(self):
   #   parser = argparse.ArgumentParser()
@@ -97,27 +98,27 @@ class Worker:
   #     logging.info("Adding AssetSource '%s' with URI='%s'", name, uri)
   #     self.asset_sources[name] = kubric.assets.AssetSource(uri)
 
-  def setup_work_dir(self):
-    self.work_dir = pathlib.Path(self.config.work_dir).absolute()
-    # clear workdir and create anew
-    if self.work_dir.exists():
-     shutil.rmtree(self.work_dir)
-    self.work_dir.mkdir(parents=True)
+  # def setup_work_dir(self):
+  #   self.work_dir = pathlib.Path(self.config.work_dir).absolute()
+  #   # clear workdir and create anew
+  #   if self.work_dir.exists():
+  #    shutil.rmtree(self.work_dir)
+  #   self.work_dir.mkdir(parents=True)
 
-  def setup_output_dir(self):
-    self.output_dir = pathlib.Path(self.config.output_dir)
+  # def setup_output_dir(self):
+  #   self.output_dir = pathlib.Path(self.config.output_dir)
 
-  def setup(self, scene, simulator, renderer):
+  # def setup(self, scene, simulator, renderer):
     # self.parse_arguments()
     # self.setup_logging()
     # self.setup_random_state()
-    self.setup_work_dir() # TODO later
-    self.setup_output_dir() # TODO later
+    # self.setup_work_dir() # TODO later
+    # self.setup_output_dir() # TODO later
     # self.setup_asset_sources()
     # self.scene = self.setup_scene()
-    self.scene = scene
-    self.simulator = simulator # kubric.simulator.PyBullet(self.scene)
-    self.renderer = renderer # kubric.renderer.Blender(self.scene)
+    # self.scene = scene
+    # self.simulator = simulator # kubric.simulator.PyBullet(self.scene)
+    # self.renderer = renderer # kubric.renderer.Blender(self.scene)
 
   # def create_asset(self, source, asset_id, **kwargs):
   #   return self.asset_sources[source].create(asset_id, **kwargs)
@@ -177,36 +178,36 @@ class Worker:
   # def render(self):
   #   self.renderer.render(path=self.work_dir)
 
-  def post_process(self):
-    T = self.scene.frame_end - self.scene.frame_start + 1
-    W, H = self.scene.resolution
+  # def post_process(self):
+  #   T = self.scene.frame_end - self.scene.frame_start + 1
+  #   W, H = self.scene.resolution
 
-    output = {
-      "RGBA": np.zeros((T, H, W, 4), dtype=np.uint8),
-      "segmentation": np.zeros((T, H, W, 1), dtype=np.uint32),
-      "flow": np.zeros((T, H, W, 3), dtype=np.float32),
-      "depth": np.zeros((T, H, W, 1), dtype=np.float32),
-      "UV": np.zeros((T, H, W, 3), dtype=np.float32),
-    }
+  #   output = {
+  #     "RGBA": np.zeros((T, H, W, 4), dtype=np.uint8),
+  #     "segmentation": np.zeros((T, H, W, 1), dtype=np.uint32),
+  #     "flow": np.zeros((T, H, W, 3), dtype=np.float32),
+  #     "depth": np.zeros((T, H, W, 1), dtype=np.float32),
+  #     "UV": np.zeros((T, H, W, 3), dtype=np.float32),
+  #   }
 
-    for t, frame_id in enumerate(range(self.scene.frame_start, self.scene.frame_end + 1)):
+  #   for t, frame_id in enumerate(range(self.scene.frame_start, self.scene.frame_end + 1)):
 
-      exr_filename = self.work_dir / "exr" / f"frame_{frame_id:04d}.exr"
-      png_filename = self.work_dir / "images" / f"frame_{frame_id:04d}.png"
+  #     exr_filename = self.work_dir / "exr" / f"frame_{frame_id:04d}.exr"
+  #     png_filename = self.work_dir / "images" / f"frame_{frame_id:04d}.png"
 
-      logging.critical("refactor logic of background objects")
-      print("Processing", exr_filename)
-      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
-                                                                 self.background_objects,
-                                                                 self.objects)
-      output["segmentation"][t, :, :, 0] = layers["SegmentationIndex"][:, :, 0]
-      output["flow"][t] = layers["Vector"]
-      output["depth"][t] = layers["Depth"]
-      output["UV"][t] = layers["UV"]
-      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
-      output["RGBA"][t] = np.asarray(PIL.Image.open(png_filename))
+  #     logging.critical("refactor logic of background objects")
+  #     print("Processing", exr_filename)
+  #     layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+  #                                                                self.background_objects,
+  #                                                                self.objects)
+  #     output["segmentation"][t, :, :, 0] = layers["SegmentationIndex"][:, :, 0]
+  #     output["flow"][t] = layers["Vector"]
+  #     output["depth"][t] = layers["Depth"]
+  #     output["UV"][t] = layers["UV"]
+  #     # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
+  #     output["RGBA"][t] = np.asarray(PIL.Image.open(png_filename))
 
-    return output
+  #   return output
 
   # TODO: seems unused?
   # def get_gt_factors(self, objects):
@@ -219,19 +220,17 @@ class Worker:
   #     })
   #   return factors
 
-  def save_output(self, output, filename="output.pkl.bz2"):
-    # pickle and bz2 the output
-    path = self.work_dir / filename
-    with bz2.BZ2File(path, "w") as f:
-      pickle.dump(output, f)
-    return path
+  # def save_output(self, output, filename="output.pkl.bz2"):
+  #   # pickle and bz2 the output
+  #   path = self.work_dir / filename
+  #   with bz2.BZ2File(path, "w") as f:
+  #     pickle.dump(output, f)
+  #   return path
 
-  def export(self, target_dir, name, files_list=("output.pkl.bz2", "scene.blend", "scene.bullet")):
-
-    zip_filename = name + '.tar.gz'
-    target_dir = pathlib.Path(target_dir)
-
-    output_path = pathlib.Path(target_dir) / zip_filename
+  # def export(self, target_dir, name, files_list=("output.pkl.bz2", "scene.blend", "scene.bullet")):
+    # zip_filename = name + '.tar.gz'
+    # target_dir = pathlib.Path(target_dir)
+    # output_path = pathlib.Path(target_dir) / zip_filename
 
     # with tarfile.open(self.work_dir / zip_filename, "w:gz") as tar:
     #   for file in files_list:
@@ -239,13 +238,13 @@ class Worker:
     #     assert file.exists(), file
     #     tar.add(str(file), f"{name}/{file.name}")
 
-    if output_path.parts[0] == "gs:":
-      client = storage.Client()
-      bucket = client.get_bucket(output_path.parts[1])
-      logging.info("Copying output to Cloud Bucket '%s', at %s", output_path.parts[1], output_path)
-      dst_blob_name = pathlib.Path(*output_path.parts[2:])
-      blob = bucket.blob(str(dst_blob_name))
-      blob.upload_from_filename(str(self.work_dir / zip_filename))
-    else:
-      target_dir.mkdir(parents=True, exist_ok=True)
-      shutil.move(str(self.work_dir / zip_filename), str(output_path))
+    # if output_path.parts[0] == "gs:":
+    #   client = storage.Client()
+    #   bucket = client.get_bucket(output_path.parts[1])
+    #   logging.info("Copying output to Cloud Bucket '%s', at %s", output_path.parts[1], output_path)
+    #   dst_blob_name = pathlib.Path(*output_path.parts[2:])
+    #   blob = bucket.blob(str(dst_blob_name))
+    #   blob.upload_from_filename(str(self.work_dir / zip_filename))
+    # else:
+    #   target_dir.mkdir(parents=True, exist_ok=True)
+    #   shutil.move(str(self.work_dir / zip_filename), str(output_path))

@@ -184,7 +184,7 @@ def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
   # TODO: add material assignments
   path = pathlib.Path(obj.simulation_filename).resolve()
-  logger.info("Loading '{}' in the simulator".format(path))
+  logger.debug("Loading '{}' in the simulator".format(path))
 
   if not path.exists():
     raise IOError('File "{}" does not exist.'.format(path))
