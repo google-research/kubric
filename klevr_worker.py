@@ -52,7 +52,7 @@ def add_objects(*objects: kb.Object3D):
     renderer.add(obj)
 
 # --- Synchonizer between renderer and physics
-# TODO: this should be moved somewhere.. perhaps util?
+# TODO(taiya): this should be moved somewhere.. perhaps util?
 def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials, samplers = []):
   if len(samplers) == 0:
     spawn_region = [(-4, -4, 0), (4, 4, 3)]
