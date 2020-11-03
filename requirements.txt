@@ -14,3 +14,5 @@ pytest
 scikit-learn
 traitlets
 trimesh
+tensorflow
+tensorflow_datasets
