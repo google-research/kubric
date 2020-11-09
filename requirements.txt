@@ -15,4 +15,4 @@ scikit-learn
 traitlets
 trimesh
 tensorflow
-tensorflow_datasets
+tensorflow_datasets >= 4.1.0

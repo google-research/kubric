@@ -126,3 +126,6 @@ if FLAGS.output_dir and FLAGS.render_dir:
   with open(pathlib.Path(FLAGS.output_dir) / "metadata.pkl", "wb") as fp:
     logging.info(f"Writing {fp.name}")
     pickle.dump(metadata, fp)
+
+# TODO: should this be managed externally, or as an invoked shell command in python?
+# gsutil -m cp -r ./output/* gs://kubric/tfds/klevr/HASHKEY
