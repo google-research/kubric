@@ -39,5 +39,6 @@ from kubric.core.objects import *
 from kubric.core.materials import *
 from kubric.core.lights import *
 from kubric.core.cameras import *
-from kubric.core.scene import *
+from kubric.core.scene import Scene
+from kubric.core.view import View
 

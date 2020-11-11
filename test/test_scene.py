@@ -20,6 +20,7 @@ from kubric.core.cameras import PerspectiveCamera
 from kubric.core import base
 from kubric.core import objects
 from kubric.core import materials
+from kubric.core import view
 
 from kubric.core.color import get_color
 
@@ -28,12 +29,12 @@ def test_scene_constructor():
   cam = PerspectiveCamera()
   red = get_color("red")
   blue = get_color("blue")
-  scene = Scene(frame_start=6, frame_end=8, frame_rate=27, step_rate=333,
+  scene = Scene(frame_start=6, frame_end=8, frame_rate=27, step_rate=270,
                 resolution=(123, 456), gravity=(1, 2, 3), camera=cam,
                 ambient_illumination=red, background=blue)
   assert scene.frame_start == 6
   assert scene.frame_end == 8
-  assert scene.step_rate == 333
+  assert scene.step_rate == 270
   assert scene.resolution == (123, 456)
   assert all(scene.gravity == (1, 2, 3))
   assert scene.camera == cam
@@ -47,8 +48,8 @@ def test_scene_constructor():
 def test_add_asset_after_linking_views():
   scene = Scene()
   asset = base.Asset()
-  view1 = mock.Mock(base.View)
-  view2 = mock.Mock(base.View)
+  view1 = mock.Mock(view.View)
+  view2 = mock.Mock(view.View)
   scene.link_view(view1)
   scene.link_view(view2)
 
@@ -72,8 +73,8 @@ def test_add_asset_before_linking_views():
   assert asset in scene.assets
   assert scene in asset.scenes
 
-  view1 = mock.Mock(base.View)
-  view2 = mock.Mock(base.View)
+  view1 = mock.Mock(view.View)
+  view2 = mock.Mock(view.View)
   scene.link_view(view1)
   scene.link_view(view2)
 
@@ -81,6 +82,23 @@ def test_add_asset_before_linking_views():
   assert view2 in scene.views
   view1.add.assert_called_once_with(asset)
   view2.add.assert_called_once_with(asset)
+
+
+def test_add_asset_multiple_times_ignored():
+  scene = Scene()
+  view1 = mock.Mock(view.View)
+  scene.link_view(view1)
+  asset = base.Asset()
+
+  # call three times
+  scene.add(asset)
+  scene.add(asset)
+  scene.add(asset)
+
+  # but make sure it is only added once
+  assert scene.assets == (asset,)
+  assert asset.scenes == [scene]
+  view1.add.assert_called_once_with(asset)
 
 
 def test_add_asset_multi_scene():
@@ -100,15 +118,15 @@ def test_add_asset_multi_scene():
 def test_recursive_asset_adding():
   scene1 = Scene()
   scene2 = Scene()
-  view = mock.Mock(base.View)
-  scene1.link_view(view)
+  view1 = mock.Mock(view.View)
+  scene1.link_view(view1)
 
   asset = objects.PhysicalObject()
   scene1.add(asset)
   scene2.add(asset)
 
-  view.add.assert_called_once_with(asset)
-  view.add.reset_mock()
+  view1.add.assert_called_once_with(asset)
+  view1.add.reset_mock()
 
   mat = materials.FlatMaterial()
   asset.material = mat
@@ -116,5 +134,4 @@ def test_recursive_asset_adding():
   assert asset.material == mat
   assert mat in scene1.assets
   assert mat in scene2.assets
-  view.add.assert_called_once_with(mat)
-
+  view1.add.assert_called_once_with(mat)

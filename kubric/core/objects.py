@@ -31,7 +31,7 @@ class Object3D(base.Asset):
   front = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="-Z")
 
   def __init__(self, position=(0., 0., 0.), quaternion=None,
-      up="Y", front="-Z", look_at=None, euler=None, **kwargs):
+               up="Y", front="-Z", look_at=None, euler=None, **kwargs):
     if look_at is not None:
       assert quaternion is None and euler is None
       direction = mathutils.Vector(look_at) - mathutils.Vector(self.position)
@@ -51,7 +51,7 @@ class Object3D(base.Asset):
 
   @property
   def euler_xyz(self):
-    return np.array(mathutils.Quaternion(self.quaternion).to_euler(order="XYZ"))
+    return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
 
 class PhysicalObject(Object3D):
@@ -83,14 +83,18 @@ class PhysicalObject(Object3D):
     friction = proposal["value"]
     if friction < 0:
       raise tl.TraitError(f"friction cannot be negative ({friction})")
+    if friction > 1.0:
+      raise tl.TraitError(f"friction cannot be larger than 1.0 ({friction})")
     return friction
 
-  @tl.validate("friction")
-  def _valid_friction(self, proposal):
-    friction = proposal["value"]
-    if friction < 0:
-      raise tl.TraitError(f"friction cannot be negative ({friction})")
-    return friction
+  @tl.validate("restitution")
+  def _valid_restitution(self, proposal):
+    restitution = proposal["value"]
+    if restitution < 0:
+      raise tl.TraitError(f"restitution cannot be negative ({restitution})")
+    if restitution > 1.0:
+      raise tl.TraitError(f"restitution cannot be larger than 1.0 ({restitution})")
+    return restitution
 
   @tl.validate("bounds")
   def _valid_bounds(self, proposal):

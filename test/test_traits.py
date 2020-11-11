@@ -25,7 +25,7 @@ def obj():
   class TestObject(tl.HasTraits):
     quaternion = ktl.Quaternion()
     position = ktl.Vector3D()
-    scale = ktl.Vector3D(default_value=(1., 1., 1.))
+    scale = ktl.Scale()
     rgb = ktl.RGB()
     rgba = ktl.RGBA()
 
@@ -86,3 +86,12 @@ def test_raises_on_invalid_sequence_length(obj):
     obj.rgba = (1, 1)
 
 
+def test_scale_coversion(obj):
+  obj.scale = 2.7
+  assert_allclose(obj.scale, [2.7, 2.7, 2.7])
+
+  obj.scale = (1.3, )
+  assert_allclose(obj.scale, [1.3, 1.3, 1.3])
+
+  with pytest.raises(tl.TraitError):
+    obj.scale = (1.2, 1.1)

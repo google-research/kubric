@@ -139,7 +139,7 @@ class Worker:
                                                               np.random.RandomState],
                                                              None]],
                             max_trials: Optional[int] = None):
-    self.add(obj)
+    self.scene.add(obj)
     max_trials = max_trials if max_trials is not None else self.config.max_placement_trials
 
     collision = True

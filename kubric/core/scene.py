@@ -73,7 +73,29 @@ class Scene(tl.HasTraits):
   @tl.default("uid")
   def _uid(self):
     name = self.__class__.__name__
-    return f"{name}:{base.next_global_count(name):02d}"
+    return f"{name}.{base.next_global_count(name):03d}"
+
+  @tl.validate("step_rate")
+  def _valid_step_rate(self, proposal):
+    proposed_step_rate = proposal["value"]
+    if proposed_step_rate <= 0:
+      raise tl.TraitError(f"step_rate should be > 0, but was {proposed_step_rate}")
+    if proposed_step_rate % self.frame_rate != 0:
+      raise tl.TraitError(
+          "step_rate should be a multiple of frame_rate, but {} % {} != 0".format(
+              proposed_step_rate, self.frame_rate))
+    return proposed_step_rate
+
+  @tl.validate("frame_rate")
+  def _valid_frame_rate(self, proposal):
+    proposed_frame_rate = proposal["value"]
+    if proposed_frame_rate <= 0:
+      raise tl.TraitError(f"frame_rate should be > 0, but was {proposed_frame_rate}")
+    if self.step_rate % proposed_frame_rate != 0:
+      raise tl.TraitError(
+          "step_rate should be a multiple of frame_rate, but {} % {} != 0".format(
+              self.step_rate, proposed_frame_rate))
+    return proposed_frame_rate
 
   @property
   def assets(self):
@@ -83,7 +105,7 @@ class Scene(tl.HasTraits):
   def views(self):
     return tuple(self._views)
 
-  def link_view(self, view: base.View):
+  def link_view(self, view: "kubric.core.view.View"):
     if view in self._views:
       raise ValueError("View already registered")
     self._views.append(view)
@@ -92,7 +114,7 @@ class Scene(tl.HasTraits):
       if not isinstance(asset, base.Undefined):
         view.add(asset)
 
-  def unlink_view(self, view: base.View):
+  def unlink_view(self, view: "kubric.core.view.View"):
     if view not in self._views:
       raise ValueError("View not linked")
 
@@ -104,13 +126,15 @@ class Scene(tl.HasTraits):
     if isinstance(asset, base.Undefined):
       return
 
-    if asset not in self._assets:
-      self._assets.append(asset)
-      assert self not in asset.scenes
-      asset.scenes.append(self)
+    if asset in self._assets:
+      return
+
+    self._assets.append(asset)
+    assert self not in asset.scenes
+    asset.scenes.append(self)
 
     for view in self._views:
-        view.add(asset)
+      view.add(asset)
 
   def remove(self, asset: base.Asset):
     if asset not in self._assets:
@@ -133,5 +157,5 @@ class Scene(tl.HasTraits):
 
   def __eq__(self, other):
     if not isinstance(other, Scene):
-      return False
+      return NotImplemented
     return self.uid == other.uid

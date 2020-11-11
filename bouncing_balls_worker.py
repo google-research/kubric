@@ -53,8 +53,11 @@ class BouncingBallsWorker(kb.Worker):
                         material=wall_material, static=True, **room_dynamics)
     west_wall = kb.Cube(scale=(0.9, 1, 1), position=(-1.9, 0, 0.9),
                         material=wall_material, static=True, **room_dynamics)
-    self.add(floor, north_wall, south_wall, east_wall, west_wall,
-             is_background=True)
+    self.scene.add(floor)
+    self.scene.add(north_wall)
+    self.scene.add(south_wall)
+    self.scene.add(east_wall)
+    self.scene.add(west_wall)
 
   def add_camera(self):
     camera = kb.OrthographicCamera(position=(0, 0, 3), orthographic_scale=2.2)

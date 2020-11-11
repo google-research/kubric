@@ -16,8 +16,6 @@ import functools
 import pathlib
 from typing import Any, Union, Callable
 
-import bidict
-import munch
 import bpy
 from singledispatchmethod import singledispatchmethod
 
@@ -49,16 +47,13 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
 
 class Blender(core.View):
   def __init__(self, scene: core.Scene, adaptive_sampling=True, use_denoising=True,
-      samples_per_pixel=128, background_transparency=False):
-    self.objects_to_blend = bidict.bidict()
-
+               samples_per_pixel=128, background_transparency=False):
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
     self.bg_node = None
     self.bg_hdri_node = None
     self.bg_mapping_node = None
-    self._scene = None
 
     self._clear_and_reset()  # as blender has a default scene on load
     self.blender_scene = bpy.context.scene
@@ -72,20 +67,21 @@ class Blender(core.View):
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
 
-    self.scene_observers = {
-        "frame_start": AttributeSetter(self.blender_scene, "frame_start"),
-        "frame_end": AttributeSetter(self.blender_scene, "frame_end"),
-        "frame_rate": AttributeSetter(self.blender_scene.render, "fps"),
+    super().__init__(scene, scene_observers={
+        "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
+        "frame_end": [AttributeSetter(self.blender_scene, "frame_end")],
+        "frame_rate": [AttributeSetter(self.blender_scene.render, "fps")],
         "resolution": [AttributeSetter(self.blender_scene.render, "resolution_x",
                                        converter=lambda x: x[0]),
                        AttributeSetter(self.blender_scene.render, "resolution_y",
                                        converter=lambda x: x[1])],
-        "camera": AttributeSetter(self.blender_scene, "camera",
-                                  converter=self._convert_to_blender_object),
-        "ambient_illumination": lambda change: self._set_ambient_light_color(change.new),
-        "background": lambda change: self._set_background_color(change.new),
-    }
-    self.scene: core.Scene = scene
+        "camera": [AttributeSetter(self.blender_scene, "camera",
+                                   converter=self._convert_to_blender_object)],
+        "ambient_illumination": [lambda change: self._set_ambient_light_color(change.new)],
+        "background": [lambda change: self._set_background_color(change.new)],
+    })
+
+
 
   @property
   def adaptive_sampling(self) -> bool:
@@ -119,33 +115,8 @@ class Blender(core.View):
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
 
-  @property
-  def scene(self) -> core.Scene:
-    return self._scene
-
-  @scene.setter
-  def scene(self, scene: core.Scene):
-    old_scene = self._scene
-    if old_scene:
-      old_scene.unlink_view(self)
-
-    self._scene = scene
-    scene.link_view(self)
-
-    for trait_name, setters in self.scene_observers.items():
-      if not isinstance(setters, (list, tuple)):
-        setters = [setters]
-      for setter in setters:
-        if old_scene:
-          old_scene.unobserve(setter, trait_name)
-        self._scene.observe(setter, trait_name)
-        setter(munch.Munch(new=getattr(scene, trait_name),
-                           name=trait_name,
-                           owner=scene,
-                           type="change"))
-
   def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
-      pack_textures: bool = True):
+                 pack_textures: bool = True):
     path = pathlib.Path(path)
     path.mkdir(parents=True, exist_ok=True)
     if pack_textures:
@@ -186,7 +157,8 @@ class Blender(core.View):
     cube = bpy.context.active_object
 
     register_object3d_setters(asset, cube)
-    asset.observe(AttributeSetter(cube, 'active_material'), 'material')
+    asset.observe(AttributeSetter(cube, 'active_material',
+                                  converter=self._convert_to_blender_object), 'material')
     asset.observe(AttributeSetter(cube, 'scale'), 'scale')
     asset.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
     return cube
@@ -199,7 +171,8 @@ class Blender(core.View):
     sphere = bpy.context.active_object
 
     register_object3d_setters(obj, sphere)
-    obj.observe(AttributeSetter(sphere, 'active_material'), 'material', type="change")
+    obj.observe(AttributeSetter(sphere, 'active_material',
+                                converter=self._convert_to_blender_object), 'material')
     obj.observe(AttributeSetter(sphere, 'scale'), 'scale')
     obj.observe(KeyframeSetter(sphere, 'scale'), 'scale', type="keyframe")
     return sphere
@@ -214,7 +187,8 @@ class Blender(core.View):
     blender_obj = bpy.context.selected_objects[0]
 
     register_object3d_setters(obj, blender_obj)
-    obj.observe(AttributeSetter(blender_obj, 'active_material'), 'material')
+    obj.observe(AttributeSetter(blender_obj, 'active_material',
+                                converter=self._convert_to_blender_object), 'material')
     obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
     obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
     return blender_obj
@@ -518,7 +492,7 @@ class KeyframeSetter:
 
 
 def register_object3d_setters(obj, blender_obj):
-  assert isinstance(obj, core.Object3D), f"{type(obj)} is not an Object3D"
+  assert isinstance(obj, core.Object3D), f"{obj!r} is not an Object3D"
 
   obj.observe(AttributeSetter(blender_obj, 'location'), 'position')
   obj.observe(KeyframeSetter(blender_obj, 'location'), 'position', type="keyframe")
