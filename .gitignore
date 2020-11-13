@@ -9,6 +9,7 @@ bazel-graphics
 bazel-bin
 katamari/*
 urdf/*
+helloworld.py
 output/
 KLEVR/
 .tmp/

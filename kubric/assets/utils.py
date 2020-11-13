@@ -27,18 +27,4 @@ def mm3hash(name):
   return hash_32
 
 
-def random_rotation(rnd=np.random.RandomState()):
-  """ Compute a random rotation as a quaternion that is uniform over orientations."""
 
-  z = 2
-  while z > 1:
-    x, y = rnd.rand(2)
-    z = x*x + y*y
-
-  w = 2
-  while w > 1:
-    u, v = rnd.rand(2)
-    w = u*u + v*v
-
-  s = np.sqrt((1-z) / w)
-  return x, y, s*u, s*v

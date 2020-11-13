@@ -14,13 +14,11 @@ REGION="us-central1"
 # --- The container configuration
 cat > /tmp/Dockerfile <<EOF
   FROM kubruntu:latest
-  COPY . /
-  WORKDIR /
-  ENTRYPOINT ["blender", "-noaudio", "--background", "--python", "worker.py"]
+  WORKDIR /kubric
+  COPY . /kubric/
+  ENTRYPOINT ["python3", "worker.py"]
 EOF
 
-# --- Build the container
-docker build -f /tmp/Dockerfile -t $TAG $PWD
 
 # --- Specify the hypertune configuration
 cat > /tmp/hypertune.yml << EOF
@@ -45,13 +43,14 @@ shift  # this shifts all arguments left thus removing ${1} and leaving the rest 
 
 # --- Run the container locally (debugging)
 if [ "$run_mode" == "local" ]; then
-  docker run $TAG \
-    -- \
-    --output "$JOB_NAME/frame_" \
+  docker run -v "`pwd`:/kubric/" -w "/kubric" --rm  kubruntu:latest \
+    python3 worker.py --output "./output/$JOB_NAME/" \
     "$@"
 
 # --- Launches a single jobs on ai-platform
 elif [ "$run_mode" == "remote" ]; then
+  # --- Build the container
+  docker build -f /tmp/Dockerfile -t $TAG $PWD
   docker push $TAG
   gcloud beta ai-platform jobs submit training $JOB_NAME \
     --region $REGION \

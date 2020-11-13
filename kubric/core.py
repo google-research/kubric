@@ -15,11 +15,20 @@ import uuid
 import collections
 
 import mathutils
+import numpy as np
 import traitlets as tl
 from traitlets import default, validate
 
 import kubric.traits as ktl
 from kubric.color import Color
+
+__all__ = (
+    "Asset", "Scene", "AttributeSetter",
+    "Material", "PrincipledBSDFMaterial", "MeshChromeMaterial", "FlatMaterial",
+    "Object3D", "PhysicalObject", "FileBasedObject", "Sphere", "Cube",
+    "Light", "DirectionalLight", "RectAreaLight", "PointLight",
+    "Camera", "PerspectiveCamera", "OrthographicCamera",
+)
 
 
 class Asset(tl.HasTraits):
@@ -60,6 +69,7 @@ class Material(Asset):
 
 
 class PrincipledBSDFMaterial(Material):
+  """A physically based material suited for uniform colored plastic, rubber, metal, glass, etc..."""
   color = ktl.RGBA(default_value=Color.from_name("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
@@ -69,6 +79,19 @@ class PrincipledBSDFMaterial(Material):
   transmission = tl.Float(0)
   transmission_roughness = tl.Float(0)
   emission = ktl.RGBA(default_value=Color.from_name("black"))
+
+
+class FlatMaterial(Material):
+  """Renders the object as a uniform color without any shading.
+  If holdout is true, then the pixels of the object will be transparent in the final image (alpha=0).
+  (Note, that this is not the same as a transparent object. It still "occludes" other objects)
+
+  The indirect_visibility flag controls if the object casts shadows, can be seen in reflections and
+  emits light.
+  """
+  color = ktl.RGBA(default_value=Color.from_name('white'))
+  holdout = tl.Bool(False)
+  indirect_visibility = tl.Bool(True)
 
 
 class MeshChromeMaterial(Material):
@@ -89,6 +112,10 @@ class Object3D(Asset):
   def look_at(self, target):
     direction = mathutils.Vector(target) - mathutils.Vector(self.position)
     self.quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
+
+  @property
+  def euler_xyz(self):
+    return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
 
 class PhysicalObject(Object3D):
@@ -133,6 +160,14 @@ class PhysicalObject(Object3D):
     return lower, upper
 
 
+class Cube(PhysicalObject):
+  material = tl.Instance(Material, allow_none=True, default_value=None)
+
+
+class Sphere(PhysicalObject):
+  material = tl.Instance(Material, allow_none=True, default_value=None)
+
+
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
@@ -172,9 +207,14 @@ class PerspectiveCamera(Camera):
   focal_length = tl.Float(50)
   sensor_width = tl.Float(36)
 
+  @property
+  def field_of_view(self):
+    return 2*np.arctan(self.sensor_width/2./self.focal_length)
+
+
 
 class OrthographicCamera(Camera):
-  pass
+  orthographic_scale = tl.Float(6.0)
 
 
 # ## ### ####  Scene  #### ### ## #
@@ -193,9 +233,10 @@ class Scene(Asset):
 
 
 class AttributeSetter:
-  def __init__(self, target_obj, target_name):
+  def __init__(self, target_obj, target_name, ignore_none=True):
     self.target_name = target_name
     self.target_obj = target_obj
+    self.ignore_none = ignore_none
     self.mapping = None  # has to be set by the add() function
 
   def __call__(self, change):
@@ -206,6 +247,8 @@ class AttributeSetter:
       self._set(self.target_name, change.new)
 
   def _set(self, name, value):
+    if value is None and self.ignore_none:
+      return
     if isinstance(value, Asset):
       value = self.mapping[value]  # convert kubric objects to blender objects before assigning
     setattr(self.target_obj, name, value)

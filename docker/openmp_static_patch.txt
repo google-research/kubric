@@ -1,0 +1,14 @@
+--- a/build_files/cmake/platform/platform_unix.cmake	2020-09-25 09:50:38.000000000 +0200
++++ b/build_files/cmake/platform/platform_unix.cmake	2020-09-25 09:53:58.000000000 +0200
+@@ -52,7 +52,10 @@
+   # do need to use the official one.
+   set(CMAKE_PREFIX_PATH ${LIBDIR}/zlib ${LIB_SUBDIRS})
+   set(WITH_STATIC_LIBS ON)
+-  set(WITH_OPENMP_STATIC ON)
++  if(NOT WITH_PYTHON_MODULE)
++    set(WITH_OPENMP_STATIC ON)
++  endif()
++  set(WITH_MEM_JEMALLOC OFF CACHE BOOL "" FORCE)
+   set(Boost_NO_BOOST_CMAKE ON)
+   set(BOOST_ROOT ${LIBDIR}/boost)
+   set(BOOST_LIBRARYDIR ${LIBDIR}/boost/lib)

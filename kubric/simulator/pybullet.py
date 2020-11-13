@@ -123,6 +123,55 @@ def _add_object(obj: core.Light):
   return -3, {}
 
 
+@add_object.register(core.Cube)
+def _add_object(obj: core.Cube):
+  collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
+  visual_idx = -1
+  mass = 0 if obj.static else obj.mass
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
+  box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
+                               wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
+  pb.changeDynamics(box_idx, -1, contactProcessingThreshold=0)
+
+  setters = {
+      'position': Setter(box_idx, set_position),
+      'quaternion': Setter(box_idx, set_quaternion),
+      # TODO 'scale': Setter(object_idx, scale)  # Pybullet does not support rescaling. So we should warn
+      'velocity': Setter(box_idx, set_velocity),
+      'angular_velocity': Setter(box_idx, set_angular_velocity),
+      'mass': lambda x: None if obj.static else Setter(box_idx, set_mass),
+      'friction': Setter(box_idx, set_friction),
+      'restitution': Setter(box_idx, set_restitution),
+  }
+  return box_idx, setters
+
+
+@add_object.register(core.Sphere)
+def _add_object(obj: core.Cube):
+  radius = obj.scale[0]
+  assert radius == obj.scale[1] == obj.scale[2], obj.scale  # only uniform scaling
+  collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
+  visual_idx = -1
+  mass = 0 if obj.static else obj.mass
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
+  sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
+                                  wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
+  pb.changeDynamics(sphere_idx, -1, contactProcessingThreshold=0)
+  setters = {
+      'position': Setter(sphere_idx, set_position),
+      'quaternion': Setter(sphere_idx, set_quaternion),
+      # TODO 'scale': Setter(object_idx, scale)  # Pybullet does not support rescaling. So we should warn
+      'velocity': Setter(sphere_idx, set_velocity),
+      'angular_velocity': Setter(sphere_idx, set_angular_velocity),
+      'mass': lambda x: None if obj.static else Setter(sphere_idx, set_mass),
+      'friction': Setter(sphere_idx, set_friction),
+      'restitution': Setter(sphere_idx, set_restitution),
+  }
+  return sphere_idx, setters
+
+
 @add_object.register(core.FileBasedObject)
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
@@ -136,14 +185,19 @@ def _add_object(obj: core.FileBasedObject):
   scale = obj.scale[0]
   assert obj.scale[1] == obj.scale[2] == scale, "Pybullet does not support non-uniform scaling"
 
+  # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
+  # see https://github.com/bulletphysics/bullet3/issues/3094
   if path.suffix == ".urdf":
-    object_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale)
+    object_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale,
+                             useMaximalCoordinates=True)
   else:
     raise IOError(
         'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
 
   if object_idx < 0:
     raise IOError('Failed to load "{}".'.format(path))
+
+  pb.changeDynamics(object_idx, -1, contactProcessingThreshold=0)
 
   setters = {
       'position': Setter(object_idx, set_position),
@@ -168,19 +222,16 @@ def _add_object(obj: core.Scene):
   return object_idx, setters
 
 
-class Simulator:
-  """
-  Args:
-      gravity: Direction and strength of gravity [m/s²]. Defaults to (0, 0, -10).
-      step_rate: How many simulation steps are performed per second.
-                 Has to be a multiple of the frame rate.
-      frame_rate: Number of frames per second.
-                  Required because the simulator only reports positions for frames not for steps.
-  """
+class PyBullet:
 
   def __init__(self, scene: core.Scene):
     self.objects_to_pybullet = bidict.bidict()
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
+    # Set some parameters to fix the sticky-walls problem
+    # (see https://github.com/bulletphysics/bullet3/issues/3094)
+    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0., warmStartingFactor=0.,
+                                 useSplitImpulse=True, contactSlop=0., enableConeFriction=False,
+                                 deterministicOverlappingPairs=True)
 
     if scene.step_rate % scene.frame_rate != 0:
       raise ValueError(
@@ -208,7 +259,8 @@ class Simulator:
 
     obj_idx, setters = add_object(obj)
 
-    self.objects_to_pybullet[obj] = obj_idx
+    if obj_idx >= 0:
+      self.objects_to_pybullet[obj] = obj_idx
 
     for name, setter in setters.items():
       # recursively add sub-assets
@@ -243,7 +295,7 @@ class Simulator:
       obj_idx = obj
 
     pos, quat = pb.getBasePositionAndOrientation(obj_idx)
-    return pos, xyzw2wxyz(quat) # convert quaternion format
+    return pos, xyzw2wxyz(quat)  # convert quaternion format
 
   def get_velocities(self, obj: Union[int, core.PhysicalObject]):
     if isinstance(obj, core.PhysicalObject):
@@ -255,9 +307,14 @@ class Simulator:
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
+  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.bullet"):
+    path = pathlib.Path(path)
+    path.mkdir(parents=True, exist_ok=True)
+    pb.saveBullet(str(path / filename))
+
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
-    max_step = self.scene.frame_end * steps_per_frame
+    max_step = (self.scene.frame_end + 1) * steps_per_frame
 
     obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}

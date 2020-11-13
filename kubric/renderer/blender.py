@@ -15,7 +15,7 @@
 import logging
 import pathlib
 import functools
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Union
 
 import bidict
 import bpy
@@ -42,6 +42,9 @@ class Blender:
     bpy.context.scene.render.engine = "CYCLES"
     self.add(scene)
     self.set_up_scene_shading()
+
+    bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
+    bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
 
   def add(self, obj: core.Asset):
     if obj in self.objects_to_blend:
@@ -206,16 +209,20 @@ class Blender:
     bpy.context.scene.render.resolution_x = width
     bpy.context.scene.render.resolution_y = height
 
-  def render(self, path):
+  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
+                 pack_textures: bool = True):
     path = pathlib.Path(path)
-    bpy.context.scene.cycles.use_adaptive_sampling = True  # speeds up rendering
-    bpy.context.scene.view_layers[0].cycles.use_denoising = True  # improves the output quality
-    bpy.context.scene.render.filepath = str(path / "frame_")
+    path.mkdir(parents=True, exist_ok=True)
+    if pack_textures:
+      bpy.ops.file.pack_all()  # embed all textures into the blend file
+    bpy.ops.wm.save_mainfile(filepath=str(path / filename))
 
+  def render(self, path: Union[pathlib.Path, str]):
     self.activate_render_passes()
-    self.set_up_exr_output(path / "frame_")
 
-    bpy.ops.wm.save_mainfile(filepath=str(path / "scene.blend"))
+    path = pathlib.Path(path)
+    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
+    self.set_up_exr_output(path / "exr" / "frame_")
 
     bpy.ops.render.render(animation=True, write_still=True)
 
@@ -226,6 +233,31 @@ class Blender:
 @functools.singledispatch
 def add_object(obj: core.Asset) -> Tuple[bpy.types.Object, Dict[str, core.AttributeSetter]]:
   raise NotImplementedError()
+
+
+@add_object.register(core.Cube)
+def _add_object(obj: core.Cube):
+  bpy.ops.mesh.primitive_cube_add()
+  cube = bpy.context.active_object
+  return cube, {
+      'position': core.AttributeSetter(cube, 'location'),
+      'quaternion': core.AttributeSetter(cube, 'rotation_quaternion'),
+      'scale': core.AttributeSetter(cube, 'scale'),
+      'material': core.AttributeSetter(cube, 'active_material')
+  }
+
+
+@add_object.register(core.Sphere)
+def _add_object(obj: core.Sphere):
+  bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=5)
+  bpy.ops.object.shade_smooth()
+  cube = bpy.context.active_object
+  return cube, {
+      'position': core.AttributeSetter(cube, 'location'),
+      'quaternion': core.AttributeSetter(cube, 'rotation_quaternion'),
+      'scale': core.AttributeSetter(cube, 'scale'),
+      'material': core.AttributeSetter(cube, 'active_material')
+  }
 
 
 @add_object.register(core.FileBasedObject)
@@ -275,6 +307,20 @@ def _add_object(obj: core.RectAreaLight):
   return area_obj, setters
 
 
+@add_object.register(core.PointLight)
+def _add_object(obj: core.PointLight):
+  area = bpy.data.lights.new(obj.uid, "POINT")
+  area_obj = bpy.data.objects.new(obj.uid, area)
+
+  setters = {
+      "position": core.AttributeSetter(area_obj, "location"),
+      "quaternion": core.AttributeSetter(area_obj, "rotation_quaternion"),
+      "scale": core.AttributeSetter(area_obj, "scale"),
+      "color": core.AttributeSetter(area, "color"),
+      "intensity": core.AttributeSetter(area, "energy")}
+  return area_obj, setters
+
+
 @add_object.register(core.PerspectiveCamera)
 def _add_object(obj: core.PerspectiveCamera):
   camera = bpy.data.cameras.new(obj.uid)
@@ -290,6 +336,20 @@ def _add_object(obj: core.PerspectiveCamera):
   return camera_obj, setters
 
 
+@add_object.register(core.OrthographicCamera)
+def _add_object(obj: core.OrthographicCamera):
+  camera = bpy.data.cameras.new(obj.uid)
+  camera.type = 'ORTHO'
+  camera_obj = bpy.data.objects.new(obj.uid, camera)
+
+  setters = {
+      'position': core.AttributeSetter(camera_obj, 'location'),
+      'quaternion': core.AttributeSetter(camera_obj, 'rotation_quaternion'),
+      'scale': core.AttributeSetter(camera_obj, 'scale'),
+      'orthographic_scale': core.AttributeSetter(camera, 'ortho_scale')}
+  return camera_obj, setters
+
+
 @add_object.register(core.PrincipledBSDFMaterial)
 def _add_object(obj: core.PrincipledBSDFMaterial):
   mat = bpy.data.materials.new(obj.uid)
@@ -297,6 +357,7 @@ def _add_object(obj: core.PrincipledBSDFMaterial):
   bsdf_node = mat.node_tree.nodes["Principled BSDF"]
   setters = {
       "color": core.AttributeSetter(bsdf_node.inputs["Base Color"], "default_value"),
+      "roughness": core.AttributeSetter(bsdf_node.inputs["Roughness"], "default_value"),
       "metallic": core.AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"),
       "specular": core.AttributeSetter(bsdf_node.inputs["Specular"], "default_value"),
       "specular_tint": core.AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"),
@@ -336,6 +397,50 @@ def _add_object(obj: core.MeshChromeMaterial):
         "roughness": core.AttributeSetter(GLO.inputs[1], "default_value")
     }
     return mat, setters
+
+
+@add_object.register(core.FlatMaterial)
+def _add_object(obj: core.FlatMaterial):
+  # --- Create node-based material
+  mat = bpy.data.materials.new('Holdout')
+  mat.use_nodes = True
+  tree = mat.node_tree
+  tree.nodes.remove(tree.nodes['Principled BSDF'])  # remove the default shader
+
+  output_node = tree.nodes['Material Output']
+
+  # This material is constructed from three different shaders:
+  #  1. if holdout=False then emission_node is responsible for giving the object a uniform color
+  #  2. if holdout=True, then the holdout_node is responsible for making the object transparent
+  #  3. if indirect_visibility=False then transparent_node makes the node invisible for indirect
+  #     effects such as shadows or reflections
+
+  light_path_node = tree.nodes.new(type="ShaderNodeLightPath")
+  holdout_node = tree.nodes.new(type="ShaderNodeHoldout")
+  transparent_node = tree.nodes.new(type="ShaderNodeBsdfTransparent")
+  holdout_mix_node = tree.nodes.new(type="ShaderNodeMixShader")
+  indirect_mix_node = tree.nodes.new(type="ShaderNodeMixShader")
+  overall_mix_node = tree.nodes.new(type="ShaderNodeMixShader")
+
+  emission_node = tree.nodes.new(type="ShaderNodeEmission")
+
+  tree.links.new(transparent_node.outputs['BSDF'], indirect_mix_node.inputs[1])
+  tree.links.new(emission_node.outputs['Emission'], indirect_mix_node.inputs[2])
+
+  tree.links.new(emission_node.outputs['Emission'], holdout_mix_node.inputs[1])
+  tree.links.new(holdout_node.outputs['Holdout'], holdout_mix_node.inputs[2])
+
+  tree.links.new(light_path_node.outputs['Is Camera Ray'], overall_mix_node.inputs['Fac'])
+  tree.links.new(indirect_mix_node.outputs['Shader'], overall_mix_node.inputs[1])
+  tree.links.new(holdout_mix_node.outputs['Shader'], overall_mix_node.inputs[2])
+
+  tree.links.new(overall_mix_node.outputs['Shader'], output_node.inputs['Surface'])
+
+  return mat, {
+      'color': core.AttributeSetter(emission_node.inputs['Color'], 'default_value'),
+      'holdout': core.AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'),
+      'indirect_visibility': core.AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+  }
 
 
 @add_object.register(core.Scene)
