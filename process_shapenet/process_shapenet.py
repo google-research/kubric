@@ -2,13 +2,16 @@ import os
 import trimesh
 import glob
 import numpy as np
-
-import os
+import trimesh.exchange.obj as tri_obj
+import os, re, json
 import subprocess
 import time
+import shutil
 import pprint
 import pybullet as pb
 from subprocess import PIPE, Popen
+import trimesh.exchange.obj as tri_obj
+import tarfile
 
 def clean_stdout(stdout):
     return stdout.split(' ')[0].replace('\n', '')
@@ -50,52 +53,102 @@ def get_object_properties(tmesh, name, density=None, friction=None):
     }
     return properties
 
-def get_tmesh(obj_path, which_mesh=0):
-  # 1. use the whole scene as a single mesh
-  # 1.1 use meshlab to view the scene
-  # obj_path = "/mnt/home/projects/kubric/.tmp/shapenet_1.obj"
+URDF_TEMPLATE = """
+<robot name="{id}">
+    <link name="base">
+        <contact>
+            <lateral_friction value="{friction}" />  
+        </contact>
+        <inertial>
+            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
+            <mass value="{mass}" />
+            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
+                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
+                     iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="visual_geometry.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="collision_geometry.obj" />
+            </geometry>
+        </collision>
+    </link>
+</robot>
+"""
+
+def get_tmesh(obj_path, obj_hash, which_mesh=0, target_dir='.tmp'):
+  name = obj_hash
+  # Use ManifoldPlus to water fill 
+  # ------------------------------
   dst = obj_path.replace('.obj', '_ManifoldPlus.obj')
   if not os.path.exists(dst):
     command = './ManifoldPlus/build/manifold --input %s --output %s --depth 8' % (obj_path, dst)
     subprocess_call(command)
-    
-  scene_or_mesh = trimesh.load_mesh(dst, process=False)
   
+  # SOURCE PATHS
+  # ------------
+  texture_path = obj_path.replace('.obj', '.png')
+  mat_path = obj_path.replace('.obj', '.mtl')
+  obj_path = dst
+  
+  # TARGET PATHS
+  # ------------
+  target_asset_dir = os.path.join(target_dir, name)
+  if os.path.exists(target_asset_dir):
+        shutil.rmtree(target_asset_dir)
+  os.makedirs(target_asset_dir,exist_ok=True)
+
+  vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
+  coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
+  urdf_path = os.path.join(target_asset_dir, 'object.urdf')
+  tex_path = os.path.join(target_asset_dir, 'texture.png')
+  json_path = os.path.join(target_asset_dir, 'data.json')
+  tar_path = os.path.join(target_dir, name + ".tar.gz")
+
+  # Load the mesh
+  # -------------
+  scene_or_mesh = trimesh.load_mesh(obj_path, process=False)
   if isinstance(scene_or_mesh, trimesh.Scene):
-    # convert scene into a list of meshes
+   
     mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)
                         for g in scene_or_mesh.geometry.values()]
     tmesh = merge_meshes(mesh_list)
   else:
     tmesh = scene_or_mesh
 
+  # make sure tmesh is suitable
   verify_tmesh(tmesh)
-  tmesh.apply_translation(-tmesh.center_mass)
-  # export to obj again
-  import trimesh.exchange.obj as tri_obj
-  # obj_content = tri_obj.export_obj(tmesh)
-  # # obj_content = re.sub('mtllib material0.mtl\nusemtl material0\n', 'mtllib visual_geometry.mtl\nusemtl material_0\n', obj_content)
-  
-  # with open('visual_geometry.obj', 'w') as f:
-  #     f.write(obj_content)
 
-  # pb.vhacd('visual_geometry.obj', 'collision_geometry.obj', 'logs.txt')
+  # center the tmesh
+  tmesh.apply_translation(-tmesh.center_mass)
+  obj_content = tri_obj.export_obj(tmesh)
+  obj_content = re.sub('mtllib material0.mtl\nusemtl material0\n', 'mtllib visual_geometry.mtl\nusemtl material_0\n', obj_content)
+  with open(vis_path, 'w') as f:
+    f.write(obj_content)
+
+  # compute a collision mesh using pybullets VHACD
+  pb.vhacd(str(vis_path), 
+            str(coll_path), 
+            str(os.path.join(target_asset_dir, 'pybullet_logs.txt')))
 
   # move material and texture
-  mat_path = obj_path.replace('.obj', '.mtl')
-  import shutil
-  shutil.move(mat_path, 'visual_geometry.mtl')
+  if os.path.exists(mat_path):
+    shutil.copy(mat_path, os.path.join(target_asset_dir, 'visual_geometry.mtl'))
+  if os.path.exists(texture_path):
+    shutil.copy(texture_path, tex_path)
 
-  # check if there is a texture file.
-  shutil.move(texture_path, tex_path)
-  urdf_path = 'object.urdf'
-  # todo get unique name
-  name = 'custom'
-  properties = get_object_properties(tmesh, name=name)
+  properties = get_object_properties(tmesh, name)
 
   with open(urdf_path, 'w') as f:
-        f.write(URDF_TEMPLATE.format(**properties))
+    f.write(URDF_TEMPLATE.format(**properties))
 
+  # save properties
   properties["paths"] = {
           "visual_geometry": [str(vis_path)],
           "collision_geometry": [str(coll_path)],
@@ -106,12 +159,14 @@ def get_tmesh(obj_path, which_mesh=0):
   with open(json_path, "w") as f:
       json.dump(properties, f, indent=4, sort_keys=True)
 
-  tar_path = name + ".tar.gz"
+  # save zip
   print("          saving as", tar_path)
   with tarfile.open(tar_path, "w:gz") as tar:
       tar.add(target_asset_dir, arcname=name)
 
-  return tmesh 
+  shutil.rmtree(target_asset_dir)
+  return properties  
+
 
 def verify_tmesh(tmesh):
   # Sanity checks
@@ -181,7 +236,7 @@ if __name__ == "__main__":
     obj_hash_list = os.listdir(datadir)
     for i, obj_hash in enumerate(obj_hash_list):
         obj_path = os.path.join(datadir, obj_hash, 'models', 'model_normalized.obj')
-        tmesh = get_tmesh(obj_path)
+        tmesh = get_tmesh(obj_path, obj_hash)
 
         # save png for visualization
         # src_fname = '.tmp/%s.stl' % obj_hash
