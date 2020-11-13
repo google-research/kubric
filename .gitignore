@@ -12,3 +12,4 @@ urdf/*
 output/
 KLEVR/
 .tmp/
+ManifoldPlus
