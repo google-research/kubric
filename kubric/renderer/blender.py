@@ -12,16 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+import logging
+import pathlib
+import tempfile
 import functools
 import pathlib
 from typing import Any, Union, Callable
 
 import bpy
 from singledispatchmethod import singledispatchmethod
+import munch
+import numpy as np
+import pickle
+import PIL.Image
+import shutil
 
 from kubric import core
+import kubric.post_processing
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
+logger = logging.getLogger(__name__)
+
+from kubric.io import RedirectStream
+_blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
+
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
@@ -115,22 +130,82 @@ class Blender(core.View):
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
 
-  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
-                 pack_textures: bool = True):
+  def save_state(self, path: Union[pathlib.Path, str], pack_textures: bool = True):
     path = pathlib.Path(path)
-    path.mkdir(parents=True, exist_ok=True)
+    path = path / "scene.blend"
+
+    # delete first, as blender auto-renames savefiles otherwise
+    if path.is_file():
+      logger.info(f"Overwriting {path}")
+      path.unlink()
+    else:
+      logger.info(f"Saving {path}")
+
     if pack_textures:
-      bpy.ops.file.pack_all()  # embed all textures into the blend file
-    bpy.ops.wm.save_mainfile(filepath=str(path / filename))
+      with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+        bpy.ops.file.pack_all()  # embed all textures into the blend file
+
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      path.parent.mkdir(parents=True, exist_ok=True)
+      bpy.ops.wm.save_mainfile(filepath=str(path))
+
 
   def render(self, path: Union[pathlib.Path, str]):
-    self._activate_render_passes()
+    self.activate_render_passes()
 
     path = pathlib.Path(path)
-    self.blender_scene.render.filepath = str(path / "images" / "frame_")
-    self._set_up_exr_output(path / "exr" / "frame_")
+    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
+    self.set_up_exr_output(path / "exr" / "frame_")
 
-    bpy.ops.render.render(animation=True, write_still=True)
+    # --- remove stale output if exists
+    if path.exists() and path.is_dir():
+      logger.info(f"Deleting stale directory {str(path)}")
+      shutil.rmtree(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    # --- starts rendering
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.render.render(animation=True, write_still=True)
+
+  def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
+    from_dir = pathlib.Path(from_dir)
+    to_dir = pathlib.Path(to_dir)
+    W, H = self.scene.resolution
+
+    # --- split objects into foreground and background sets
+    fg_objects = [obj for obj in self.scene.objects if obj.background == False]
+    bg_objects = [obj for obj in self.scene.objects if obj.background == True]
+
+    # --- output one file per frame of data
+    for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
+      data = {
+          "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
+          "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
+          "flow": np.zeros((H, W, 3), dtype=np.float32),
+          "depth": np.zeros((H, W, 1), dtype=np.float32),
+          "UV": np.zeros((H, W, 3), dtype=np.float32),
+      }
+
+      exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
+      png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
+
+      # TODO(klausg): this is blender specific, should not be IN the blender module?
+      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+                                                                 bg_objects,
+                                                                 fg_objects)
+
+      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
+      data["RGBA"] = np.asarray(PIL.Image.open(png_filename))
+      data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
+      data["flow"] = layers["Vector"]
+      data["depth"] = layers["Depth"]
+      data["UV"] = layers["UV"]
+
+      # Save to file
+      with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
+        logger.info(f"writing {fp.name}")
+        pickle.dump(data, fp)
+
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
@@ -181,8 +256,9 @@ class Blender(core.View):
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
     # TODO: support other file-formats
-    bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
-                             axis_forward=obj.front, axis_up=obj.up)
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
+                               axis_forward=obj.front, axis_up=obj.up)
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
 
@@ -347,8 +423,9 @@ class Blender(core.View):
     return mat
 
   def _clear_and_reset(self):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.context.scene.world = bpy.data.worlds.new("World")
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.wm.read_factory_settings(use_empty=True)
+      bpy.context.scene.world = bpy.data.worlds.new("World")
 
   def _set_up_exr_output(self, path):
     self.blender_scene.use_nodes = True
