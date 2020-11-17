@@ -2,6 +2,7 @@ import ctypes
 import os
 import sys
 
+
 class RedirectStream(object):
   """Usage:
   with RedirectStream(sys.stdout, filename="stdout.txt"):
@@ -9,10 +10,9 @@ class RedirectStream(object):
   """
 
   @staticmethod
-  def _flush_c_stream(stream):
-    streamname = stream.name[1:-1]
+  def _flush_c_stream():
     libc = ctypes.CDLL(None)
-    libc.fflush(ctypes.c_void_p.in_dll(libc, streamname))
+    libc.fflush(None)
 
   def __init__(self, stream=sys.stdout, filename=os.devnull):
     self.stream = stream
@@ -25,7 +25,7 @@ class RedirectStream(object):
     os.dup2(self.fd.fileno(), self.stream.fileno()) # replaces stream
   
   def __exit__(self, type, value, traceback):
-    RedirectStream._flush_c_stream(self.stream)  # ensures C stream buffer empty
+    RedirectStream._flush_c_stream()  # ensures C stream buffer empty
     os.dup2(self.dup_stream, self.stream.fileno()) # restores stream
     os.close(self.dup_stream)
     self.fd.close()

@@ -7,6 +7,7 @@ from typing import Any, Callable, Union
 
 
 import bidict
+from singledispatchmethod import singledispatchmethod
 
 import munch
 import trimesh
@@ -18,13 +19,38 @@ __thismodule__ = sys.modules[__name__]
 logger = logging.getLogger(__name__)
 
 
-class Trimesh:
+class Trimesh(core.View):
   def __init__(self, scene):
     self.trimesh_scene = trimesh.Scene()
-    self.scene = scene
+    super().__init__(scene, scene_observers={})
 
   def show(self):
     return self.trimesh_scene.show()
+
+  @singledispatchmethod
+  def add_asset(self, asset: Asset) -> Any:
+    raise NotImplementedError()
+
+  @add_asset.register(core.Cube)
+  @prepare_trimesh_object
+  def _add_asset(self, obj: core.Cube):
+    trimesh.creation.box(extents=obj.scale)
+
+    bpy.ops.mesh.primitive_cube_add()
+    cube = bpy.context.active_object
+
+    register_object3d_setters(obj, cube)
+    obj.observe(AttributeSetter(cube, 'active_material'), 'material')
+
+    obj.observe(AttributeSetter(cube, 'scale'), 'scale')
+    obj.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
+
+    return cube
+
+
+  @singledispatchmethod
+  def remove_asset(self, asset: Asset) -> None:
+    pass
 
 
 def prepare_trimesh_object(func: Callable[[core.Asset], Any]) -> Callable[[core.Asset], Any]:
@@ -52,10 +78,6 @@ def prepare_trimesh_object(func: Callable[[core.Asset], Any]) -> Callable[[core.
   return _func
 
 
-@functools.singledispatch
-def add_object(obj: core.Asset):
-  raise NotImplementedError()
-
 def register_object3d_setters(obj, blender_obj):
   assert isinstance(obj, core.Object3D), f"{type(obj)} is not an Object3D"
 
@@ -66,27 +88,10 @@ def register_object3d_setters(obj, blender_obj):
   obj.observe(KeyframeSetter(blender_obj, 'rotation_quaternion'), 'quaternion', type="keyframe")
 
 
-@add_object.register(core.Cube)
-@prepare_trimesh_object
-def _add_object(obj: core.Cube):
-  trimesh.creation.box(extents=obj.scale)
-
-
-  bpy.ops.mesh.primitive_cube_add()
-  cube = bpy.context.active_object
-
-  register_object3d_setters(obj, cube)
-  obj.observe(AttributeSetter(cube, 'active_material'), 'material')
-
-  obj.observe(AttributeSetter(cube, 'scale'), 'scale')
-  obj.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
-
-  return cube
-
-
-def translate()
-
-
 class AttributeSetter:
-  def __init__(self, trimesh_obj, ):
-  pass
+  def __init__(self, trimesh_obj, property_name):
+    self.trimesh_obj = trimesh_obj
+    self.pname = property_name
+
+  def __call__(self, change):
+    setattr(self.trimesh_obj, self.pname, change.new)

@@ -22,7 +22,10 @@ __all__ = ("Camera", "UndefinedCamera", "PerspectiveCamera", "OrthographicCamera
 
 
 class Camera(objects.Object3D):
-  pass
+
+  @tl.default("background")
+  def get_background_default(self):
+    return True
 
 
 class UndefinedCamera(Camera, base.Undefined):

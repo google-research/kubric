@@ -27,6 +27,10 @@ class Light(objects.Object3D):
   color = ktl.RGB(default_value=color.get_color("white").rgb)
   intensity = tl.Float(1.)
 
+  @tl.default("background")
+  def get_background_default(self):
+    return True
+
 
 class UndefinedLight(Light, base.Undefined):
   pass

@@ -63,7 +63,7 @@ def test_asset_hash_and_eq():
 
 def test_asset_repr():
   a = base.Asset()
-  assert re.match(r"^<Asset.[0-9][0-9][0-9]>$", repr(a)) is not None
+  assert re.match(r"^<Asset.[0-9][0-9][0-9].*>$", repr(a)) is not None
 
 
 def test_object3d_constructor_default_args():

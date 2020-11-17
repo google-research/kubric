@@ -146,6 +146,14 @@ class Scene(tl.HasTraits):
     for view in self._views:
       view.remove(asset)
 
+  @staticmethod
+  def from_flags(flags):
+    return Scene(frame_start=flags.frame_start,
+                 frame_end=flags.frame_end,
+                 frame_rate=flags.frame_rate,
+                 step_rate=flags.step_rate,
+                 resolution=(flags.width, flags.height))
+
   @tl.observe("camera", type="change")
   def _observe_camera(self, change):
     new_camera = change.new

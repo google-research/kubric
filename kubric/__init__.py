@@ -14,11 +14,8 @@
 """Root of the kubric module."""
 
 from kubric.core import *
-# TODO: unnecessary considering * above? (also violates google import rules)
-# from kubric.core import Scene
-# from kubric.core import Asset
 
-from kubric.color import Color, get_color
+from kubric.core.color import Color, get_color
 from kubric.renderer import Blender
 from kubric.simulator import PyBullet
 from kubric.post_processing import get_render_layers_from_exr
