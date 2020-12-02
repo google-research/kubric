@@ -42,18 +42,10 @@ scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
 
-# --- adds assets to all resources
-# TODO(klausg): apply refactor
-def add_objects(*objects: kb.Object3D):
-  for obj in objects:
-    logging.info(f"Added object of type {type(obj).__name__}")
-    scene.add(obj)
-    simulator.add(obj)
-    renderer.add(obj)
 
 # --- Synchonizer between renderer and physics
 # TODO(taiya): this should be moved somewhere.. perhaps util?
-def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials, samplers = []):
+def move_till_no_overlap(simulator, obj, max_trials=FLAGS.max_placement_trials, samplers=[]):
   if len(samplers) == 0:
     spawn_region = [(-4, -4, 0), (4, 4, 3)]
     samplers.append(kb.rotation_sampler())
@@ -69,20 +61,23 @@ def move_till_no_overlap(simulator, obj, max_trials = FLAGS.max_placement_trials
   if collision:
     raise RuntimeError("Failed to place", obj)
 
+
 # --- Assemble the basic scene
 klevr = KLEVR(FLAGS.asset_source)
-camera = klevr.get_camera()
+
+scene.camera = klevr.get_camera()
 lights = klevr.get_lights()
 floor = klevr.get_floor()
-add_objects(camera, floor, *lights)
-scene.camera = camera #TODO: we shouldn't use a setter, but something more explicit
+for asset in [floor] + lights:
+  scene.add(asset)
+
 
 # --- Placer
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
 nr_objects = rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
   obj = klevr.create_random_object(rnd)
-  add_objects(obj)
+  scene.add(obj)
   move_till_no_overlap(simulator, obj)
   # bias velocity towards center
   obj.velocity = (rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
@@ -115,7 +110,7 @@ if FLAGS.output_dir and FLAGS.render_dir:
 
   # Extracting metadata.pkl from the simulation
   metadata = list()
-  for obj in [obj for obj in scene.objects if obj.background == False]:
+  for obj in [obj for obj in scene.assets if obj.background is False]:
     metadata.append({
         "asset_id": obj.asset_id,
         "material": "Metal" if "Metal" in obj.asset_id else "Rubber",

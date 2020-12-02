@@ -19,12 +19,6 @@ from kubric.core import color
 from kubric.core import objects
 
 
-# TODO: what is this line for?
-# mathutils.Quaternion()
-# TODO: this was inconsistent across kubric
-# default_random_state = np.random.RandomState()
-
-
 def random_hue_color(saturation: float = 1., value: float = 1, rnd=np.random.RandomState()):
   return color.Color.from_hsv(rnd.random_sample(), saturation, value)
 
@@ -82,3 +76,22 @@ def position_sampler(region):
     obj.position = rnd.uniform(*effective_region)
 
   return _sampler
+
+
+def resample_while(asset, samplers, condition, max_trials=100, rnd=np.random.RandomState()):
+  for trial in range(max_trials):
+    for sampler in samplers:
+      sampler(asset, rnd)
+    if not condition(asset):
+      return
+  else:
+    raise RuntimeError("Failed to place", asset)
+
+
+def move_until_no_overlap(asset, simulator, spawn_region=((-1, -1, -1), (1, 1, 1)), max_trials=100,
+                          rnd=np.random.RandomState()):
+  return resample_while(asset,
+                        samplers=[rotation_sampler(), position_sampler(spawn_region)],
+                        condition=simulator.check_overlap,
+                        max_trials=max_trials,
+                        rnd=rnd)

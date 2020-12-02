@@ -18,7 +18,7 @@ from types import MappingProxyType
 import munch
 
 from kubric.core.scene import Scene
-from kubric.core.base import Asset
+from kubric.core.base import Asset, Undefined
 
 __all__ = ("View",)
 
@@ -61,6 +61,9 @@ class View(abc.ABC):
   def add(self, asset: Asset) -> None:
     # if asset has already been converted, then do nothing
     if self in asset.linked_objects:
+      return
+
+    if isinstance(asset, Undefined):
       return
 
     # else use add_asset to create a new view-object and store it

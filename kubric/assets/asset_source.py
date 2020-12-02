@@ -69,10 +69,10 @@ class AssetSource(object):
       if pname in properties and pname not in kwargs:
         kwargs[pname] = properties[pname]
 
-    return core.FileBasedObject(asset_id=asset_id,
-                                simulation_filename=str(sim_filename),
-                                render_filename=str(vis_filename),
-                                **kwargs)
+    return objects.FileBasedObject(asset_id=asset_id,
+                                   simulation_filename=str(sim_filename),
+                                   render_filename=str(vis_filename),
+                                   **kwargs)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + ".tar.gz")

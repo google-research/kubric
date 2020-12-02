@@ -102,6 +102,14 @@ class Scene(tl.HasTraits):
     return tuple(self._assets)
 
   @property
+  def foreground_assets(self):
+    return tuple(a for a in self._assets if not a.background)
+
+  @property
+  def background_assets(self):
+    return tuple(a for a in self._assets if a.background)
+
+  @property
   def views(self):
     return tuple(self._views)
 
@@ -135,6 +143,10 @@ class Scene(tl.HasTraits):
 
     for view in self._views:
       view.add(asset)
+
+  def add_all(self, *assets: base.Asset):
+    for asset in assets:
+      self.add(asset)
 
   def remove(self, asset: base.Asset):
     if asset not in self._assets:

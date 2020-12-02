@@ -189,8 +189,18 @@ class PyBullet(core.View):
 
       pb.stepSimulation()
 
-    return {asset: animation[asset.linked_objects[self]] for asset in self.scene.assets
-            if asset.linked_objects.get(self) in obj_idxs}
+    animation = {asset: animation[asset.linked_objects[self]] for asset in self.scene.assets
+                 if asset.linked_objects.get(self) in obj_idxs}
+
+    # --- Transfer simulation to renderer keyframes
+    for obj in animation.keys():
+      for frame_id in range(self.scene.frame_end + 1):
+        obj.position = animation[obj]["position"][frame_id]
+        obj.quaternion = animation[obj]["quaternion"][frame_id]
+        obj.keyframe_insert("position", frame_id)
+        obj.keyframe_insert("quaternion", frame_id)
+
+    return animation
 
 
 def xyzw2wxyz(xyzw):

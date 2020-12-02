@@ -28,6 +28,9 @@ from kubric.random import random_hue_color
 from kubric.random import random_rotation
 from kubric.random import rotation_sampler
 from kubric.random import position_sampler
+from kubric.random import resample_while
+from kubric.random import move_until_no_overlap
+
 
 from kubric.utils import ArgumentParser
 from kubric.utils import setup_logging

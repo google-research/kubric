@@ -149,13 +149,12 @@ class Blender(core.View):
       path.parent.mkdir(parents=True, exist_ok=True)
       bpy.ops.wm.save_mainfile(filepath=str(path))
 
-
   def render(self, path: Union[pathlib.Path, str]):
-    self.activate_render_passes()
+    self._activate_render_passes()
 
     path = pathlib.Path(path)
     bpy.context.scene.render.filepath = str(path / "images" / "frame_")
-    self.set_up_exr_output(path / "exr" / "frame_")
+    self._set_up_exr_output(path / "exr" / "frame_")
 
     # --- remove stale output if exists
     if path.exists() and path.is_dir():
@@ -173,8 +172,8 @@ class Blender(core.View):
     W, H = self.scene.resolution
 
     # --- split objects into foreground and background sets
-    fg_objects = [obj for obj in self.scene.objects if obj.background == False]
-    bg_objects = [obj for obj in self.scene.objects if obj.background == True]
+    fg_objects = [obj for obj in self.scene.assets if obj.background is False]
+    bg_objects = [obj for obj in self.scene.assets if obj.background is True]
 
     # --- output one file per frame of data
     for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
@@ -205,7 +204,6 @@ class Blender(core.View):
       with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
         logger.info(f"writing {fp.name}")
         pickle.dump(data, fp)
-
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
