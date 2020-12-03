@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import sys
 
 import functools
 import pathlib
@@ -20,10 +21,16 @@ from typing import Dict, Tuple, Union
 
 import munch
 import bidict
-import pybullet as pb
+import tempfile
 
+from kubric.io import RedirectStream
 from kubric import core
+
 logger = logging.getLogger(__name__)
+_pybullet_logs = tempfile.mkstemp(suffix="_bullet.txt")[1]
+
+with RedirectStream(stream=sys.stdout, filename=_pybullet_logs):
+  import pybullet as pb   
 
 
 def xyzw2wxyz(xyzw):
@@ -177,7 +184,7 @@ def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
   # TODO: add material assignments
   path = pathlib.Path(obj.simulation_filename).resolve()
-  logger.info("Loading '{}' in the simulator".format(path))
+  logger.debug("Loading '{}' in the simulator".format(path))
 
   if not path.exists():
     raise IOError('File "{}" does not exist.'.format(path))
@@ -307,10 +314,12 @@ class PyBullet:
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.bullet"):
+  def save_state(self, path: Union[pathlib.Path, str]):
+    """Receives a folder path as input."""
     path = pathlib.Path(path)
-    path.mkdir(parents=True, exist_ok=True)
-    pb.saveBullet(str(path / filename))
+    path = path / "scene.bullet"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    pb.saveBullet(str(path))
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate

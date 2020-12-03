@@ -12,24 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 import logging
 import pathlib
+import tempfile
 import functools
 from typing import Tuple, Dict, Union
 
 import bidict
 import bpy
 import munch
+import numpy as np
+import pickle
+import PIL.Image
+import shutil
 
 from kubric import core
+import kubric.post_processing
 
 logger = logging.getLogger(__name__)
+
+from kubric.io import RedirectStream
+_blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
 
 
 class Blender:
   def __init__(self, scene: core.Scene):
     self.objects_to_blend = bidict.bidict()
 
+    self.scene = scene
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
@@ -93,8 +104,9 @@ class Blender:
       raise ValueError("Not a valid object {}".format(obj))
 
   def clear_and_reset(self):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.context.scene.world = bpy.data.worlds.new("World")
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.wm.read_factory_settings(use_empty=True)
+      bpy.context.scene.world = bpy.data.worlds.new("World")
 
   def set_up_exr_output(self, path):
     bpy.context.scene.use_nodes = True
@@ -209,13 +221,24 @@ class Blender:
     bpy.context.scene.render.resolution_x = width
     bpy.context.scene.render.resolution_y = height
 
-  def save_state(self, path: Union[pathlib.Path, str], filename: str = "scene.blend",
-                 pack_textures: bool = True):
+  def save_state(self, path: Union[pathlib.Path, str], pack_textures: bool = True):
     path = pathlib.Path(path)
-    path.mkdir(parents=True, exist_ok=True)
+    path = path / "scene.blend"
+    
+    # delete first, as blender auto-renames savefiles otherwise  
+    if path.is_file():
+      logger.info(f"Overwriting {path}")
+      path.unlink()
+    else:
+      logger.info(f"Saving {path}")
+
     if pack_textures:
-      bpy.ops.file.pack_all()  # embed all textures into the blend file
-    bpy.ops.wm.save_mainfile(filepath=str(path / filename))
+      with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+        bpy.ops.file.pack_all()  # embed all textures into the blend file
+    
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      path.parent.mkdir(parents=True, exist_ok=True)
+      bpy.ops.wm.save_mainfile(filepath=str(path))
 
   def render(self, path: Union[pathlib.Path, str]):
     self.activate_render_passes()
@@ -224,8 +247,54 @@ class Blender:
     bpy.context.scene.render.filepath = str(path / "images" / "frame_")
     self.set_up_exr_output(path / "exr" / "frame_")
 
-    bpy.ops.render.render(animation=True, write_still=True)
+    # --- remove stale output if exists
+    if path.exists() and path.is_dir():
+      logger.info(f"Deleting stale directory {str(path)}")
+      shutil.rmtree(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
 
+    # --- starts rendering
+    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+      bpy.ops.render.render(animation=True, write_still=True)
+
+  def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
+    from_dir = pathlib.Path(from_dir)
+    to_dir = pathlib.Path(to_dir)
+    W, H = self.scene.resolution
+
+    # --- split objects into foreground and background sets
+    fg_objects = [obj for obj in self.scene.objects if obj.background == False]
+    bg_objects = [obj for obj in self.scene.objects if obj.background == True]
+
+    # --- output one file per frame of data
+    for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
+      data = {
+        "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
+        "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
+        "flow": np.zeros((H, W, 3), dtype=np.float32),
+        "depth": np.zeros((H, W, 1), dtype=np.float32),
+        "UV": np.zeros((H, W, 3), dtype=np.float32),
+      }
+
+      exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
+      png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
+
+      # TODO(klausg): this is blender specific, should not be IN the blender module?
+      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+                                                                 bg_objects,
+                                                                 fg_objects)
+
+      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
+      data["RGBA"] = np.asarray(PIL.Image.open(png_filename))
+      data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
+      data["flow"] = layers["Vector"]
+      data["depth"] = layers["Depth"]
+      data["UV"] = layers["UV"]
+
+      # Save to file
+      with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
+        logger.info(f"writing {fp.name}")
+        pickle.dump(data, fp)
 
 # ########## Functions to import kubric objects into blender ###########
 
@@ -263,8 +332,11 @@ def _add_object(obj: core.Sphere):
 @add_object.register(core.FileBasedObject)
 def _add_object(obj: core.FileBasedObject):
   # TODO: support other file-formats
-  bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
-                           axis_forward=obj.front, axis_up=obj.up)
+  with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+   bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
+                           axis_forward=obj.front,
+                           axis_up=obj.up)
+ 
   assert len(bpy.context.selected_objects) == 1
   blender_obj = bpy.context.selected_objects[0]
 

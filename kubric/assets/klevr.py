@@ -14,36 +14,61 @@
 
 import numpy as np
 
+import kubric as kb
 from kubric.assets import asset_source
 from kubric import core
 from kubric import color
 
+KLEVR_ASSETS_IDs = [
+  "LargeMetalCube",
+  "LargeMetalCylinder",
+  "LargeMetalSphere",
+  "LargeRubberCube",
+  "LargeRubberCylinder",
+  "LargeRubberSphere",
+  "MetalSpot",
+  "RubberSpot",
+  "SmallMetalCube",
+  "SmallMetalCylinder",
+  "SmallMetalSphere",
+  "SmallRubberCube",
+  "SmallRubberCylinder",
+  "SmallRubberSphere",
+]
 
 class KLEVR(asset_source.AssetSource):
-  objects_list = [
-      "LargeMetalCube",
-      "LargeMetalCylinder",
-      "LargeMetalSphere",
-      "LargeRubberCube",
-      "LargeRubberCylinder",
-      "LargeRubberSphere",
-      "MetalSpot",
-      "RubberSpot",
-      "SmallMetalCube",
-      "SmallMetalCylinder",
-      "SmallMetalSphere",
-      "SmallRubberCube",
-      "SmallRubberCylinder",
-      "SmallRubberSphere",
-  ]
-
   def __init__(self, uri: str):
     super().__init__(uri)
-    self.spawn_region = ((-3.5, -3.5, 0), (3.5, 3.5, 2))
-    self.ambient_light = (0.05, 0.05, 0.05)
+    #TODO: this seems obsolete?
+    # self.spawn_region = ((-3.5, -3.5, 0), (3.5, 3.5, 2))
+    #TODO: this seems obsolete?
+    # self.ambient_light = (0.05, 0.05, 0.05)
 
-  def get_scene_geometry(self):
-    return self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
+  # NOTE: moved from worker
+  def create_random_object(self, rnd=np.random.RandomState()):
+    asset_id = rnd.choice(KLEVR_ASSETS_IDs)
+
+    if "Metal" in asset_id:
+      material = kb.PrincipledBSDFMaterial(
+            color=kb.random_hue_color(rnd=rnd),
+            roughness=0.2,
+            metallic=1.0,
+            ior=2.5)
+    else:  # if "Rubber" in asset_id:
+      material = kb.PrincipledBSDFMaterial(
+          color=kb.random_hue_color(rnd=rnd),
+          roughness=0.7,
+          specular=0.33,
+          metallic=0.,
+          ior=1.25)
+
+    obj = self.create(asset_id=asset_id, material=material)   
+    return obj
+
+  def get_floor(self):
+    asset = self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
+    asset.background = True  #TODO: should .create have an argument for this?
+    return asset
 
   def get_lights(self):
     # --- Light settings from CLEVR
@@ -67,55 +92,67 @@ class KLEVR(asset_source.AssetSource):
     camera.look_at((0, 0, 0))
     return camera
 
-  def get_scene(self):
-    geometry = self.get_scene_geometry()
-    lights = self.get_lights()
-    camera = self.get_camera()
-    return geometry, lights, camera
 
-  def create_material(self, name, color_rgb):
-    if name == "metal":
-      return core.PrincipledBSDFMaterial(
-          color=color_rgb,
-          roughness=0.2,
-          metallic=1.0,
-          ior=2.5)
-    elif name == "rubber":
-      return core.PrincipledBSDFMaterial(
-          color=color_rgb,
-          roughness=0.7,
-          specular=0.33,
-          metallic=0.,
-          ior=1.25)
 
-  def get_random_rotation(self, rnd=None):
-    """Samples a random rotation around z axis (uniformly distributed)."""
-    if rnd is None:
-      rnd = np.random.RandomState()
-    theta = rnd.uniform(0, 2*np.pi)
-    return np.cos(theta), 0, 0, np.sin(theta)
 
-  def get_random_object_pose(self, asset_id, rnd=None):
-    if rnd is None:
-      rnd = np.random.RandomState()
-    properties = self.db[self.db["id"] == asset_id].iloc[0]   # there has to be a better way!
-    bounds = np.array(properties.get("bounds", [[0, 0, 0], [0, 0, 0]]))
-    rotation = self.get_random_rotation(rnd)
-    spawn_region = np.array(self.spawn_region) - bounds
-    position = rnd.uniform(*spawn_region)
-    return position, rotation
 
-  def get_random_object(self, rnd=None):
-    if rnd is None:
-      rnd = np.random.RandomState()
-    random_id = rnd.choice(self.objects_list)
-    position, rotation = self.get_random_object_pose(random_id, rnd)
-    velocity = rnd.uniform((-4, -4, 0), (4, 4, 0)) - [position[0], position[1], 0]  # bias towards center
-    rgba = color.Color.from_hsv(rnd.random_sample(), .95, 1.0)
-    material_type = "metal" if "Metal" in random_id else "rubber"
-    material = self.create_material(material_type, rgba)
-    return self.create(asset_id=random_id,
-                       position=position,
-                       quaternion=rotation,
-                       velocity=velocity,
-                       material=material)
+
+  # TODO: this is obsolete?
+  # def get_scene(self):
+  #   floor = self.get_floor()
+  #   lights = self.get_lights()
+  #   camera = self.get_camera()
+  #   return floor, lights, camera
+
+  # TODO: this seems obsolete?
+  # def create_material(self, name, color_rgb):
+  #   if name == "metal":
+  #     return core.PrincipledBSDFMaterial(
+  #         color=color_rgb,
+  #         roughness=0.2,
+  #         metallic=1.0,
+  #         ior=2.5)
+  #   elif name == "rubber":
+  #     return core.PrincipledBSDFMaterial(
+  #         color=color_rgb,
+  #         roughness=0.7,
+  #         specular=0.33,
+  #         metallic=0.,
+  #         ior=1.25)
+
+  # TODO: this seems obsolete?
+  # def get_random_rotation(self, rnd=None):
+  #   """Samples a random rotation around z axis (uniformly distributed)."""
+  #   if rnd is None:
+  #     rnd = np.random.RandomState()
+  #   theta = rnd.uniform(0, 2*np.pi)
+  #   return np.cos(theta), 0, 0, np.sin(theta)
+
+  # TODO: this seems obsolete?
+  # def get_random_object_pose(self, asset_id, rnd=None):
+  #   if rnd is None:
+  #     rnd = np.random.RandomState()
+  #   properties = self.db[self.db["id"] == asset_id].iloc[0]   # there has to be a better way!
+  #   bounds = np.array(properties.get("bounds", [[0, 0, 0], [0, 0, 0]]))
+  #   rotation = self.get_random_rotation(rnd)
+  #   spawn_region = np.array(self.spawn_region) - bounds
+  #   position = rnd.uniform(*spawn_region)
+  #   return position, rotation
+
+  # TODO: this seems obsolete?
+  # def get_random_object(self, rnd=None):
+  #   if rnd is None:
+  #     rnd = np.random.RandomState()
+  #   random_id = rnd.choice(self.objects_list)
+  #   position, rotation = self.get_random_object_pose(random_id, rnd)
+  #   velocity = rnd.uniform((-4, -4, 0), (4, 4, 0)) - [position[0], position[1], 0]  # bias towards center
+  #   rgba = color.Color.from_hsv(rnd.random_sample(), .95, 1.0)
+  #   material_type = "metal" if "Metal" in random_id else "rubber"
+  #   material = self.create_material(material_type, rgba)
+  #   return self.create(asset_id=random_id,
+  #                      position=position,
+  #                      quaternion=rotation,
+  #                      velocity=velocity,
+  #                      material=material)
+
+

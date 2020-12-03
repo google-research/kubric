@@ -33,6 +33,7 @@ __all__ = (
 
 class Asset(tl.HasTraits):
   uid = tl.Unicode(read_only=True)
+  background = tl.Bool(default_value=False)
 
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
@@ -183,6 +184,10 @@ class Light(Object3D):
   color = ktl.RGB(default_value=Color.from_name("white").rgb)
   intensity = tl.Float(1.)
 
+  @default("background")
+  def get_background_default(self):
+    return True
+
 
 class DirectionalLight(Light):
   shadow_softness = tl.Float(0.2)
@@ -200,7 +205,10 @@ class PointLight(Light):
 # ## ### ####  Cameras  #### ### ## #
 
 class Camera(Object3D):
-  pass
+  
+  @default("background")
+  def get_background_default(self):
+    return True
 
 
 class PerspectiveCamera(Camera):
@@ -220,6 +228,8 @@ class OrthographicCamera(Camera):
 # ## ### ####  Scene  #### ### ## #
 
 class Scene(Asset):
+  objects = tl.List() # trait=Object3D
+
   frame_start = tl.Integer(0)
   frame_end = tl.Integer(48)
 
@@ -231,6 +241,16 @@ class Scene(Asset):
 
   gravity = ktl.Vector3D(default_value=(0, 0, -10.))
 
+  @staticmethod
+  def from_flags(flags):
+    return Scene(frame_start=flags.frame_start,
+                 frame_end=flags.frame_end,
+                 frame_rate=flags.frame_rate,
+                 step_rate=flags.step_rate,
+                 resolution=(flags.width, flags.height))
+
+  def add(self, object: Object3D):
+    self.objects.append(object)
 
 class AttributeSetter:
   def __init__(self, target_obj, target_name, ignore_none=True):

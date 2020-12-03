@@ -33,6 +33,9 @@ class AssetSource(object):
   # see: https://googleapis.dev/python/storage/latest
 
   def __init__(self, uri: str):
+    name = pathlib.Path(uri).name
+    logger.info("Adding AssetSource '%s' with URI='%s'", name, uri)
+    
     sections = urllib.parse.urlparse(uri)
     self.local_temp_folder = tempfile.TemporaryDirectory()
     self.local_path = pathlib.Path(self.local_temp_folder.name)
@@ -55,7 +58,7 @@ class AssetSource(object):
     self.db = pd.read_json(manifest)
 
   def __del__(self):
-    logger.info("removing tmp dir: \"%s\"", self.local_temp_folder)
+    logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
     self.local_temp_folder.cleanup()
 
   def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:
@@ -93,7 +96,7 @@ class AssetSource(object):
       blob.download_to_filename(str(target_path), client=self.client)
     elif self.protocol == "local":
       remote_path = f"{self.path}/{filename}"
-      logger.info("Copying %s to %s", remote_path, str(target_path))
+      logger.debug("Copying %s to %s", remote_path, str(target_path))
       shutil.copyfile(remote_path, target_path)
 
     return pathlib.Path(target_path)

@@ -12,3 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Root of the kubric module."""
+
+from kubric.core import *
+# TODO: unnecessary considering * above? (also violates google import rules)
+# from kubric.core import Scene
+# from kubric.core import Asset
+
+from kubric.color import Color, get_color
+from kubric.renderer import Blender
+from kubric.simulator import PyBullet
+from kubric.post_processing import get_render_layers_from_exr
+
+from kubric import assets
+from kubric.assets import AssetSource
+from kubric.assets.utils import mm3hash
+
+from kubric.random import random_hue_color
+from kubric.random import random_rotation
+from kubric.random import rotation_sampler
+from kubric.random import position_sampler
+
+from kubric.utils import ArgumentParser
+from kubric.utils import setup_logging
+from kubric.utils import log_my_flags
