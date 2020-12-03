@@ -24,11 +24,10 @@ import kubric as kb
 
 # --- parser
 parser = kb.ArgumentParser()
-parser.add_argument("--min_nr_objects", type=int, default=1)
-parser.add_argument("--max_nr_objects", type=int, default=3)
+parser.add_argument("--min_nr_objects", type=int, default=4)
+parser.add_argument("--max_nr_objects", type=int, default=10)
 parser.add_argument("--render_dir", type=str, default=tempfile.mkdtemp())
 parser.add_argument("--output_dir", type=str, default="output/")
-parser.add_argument("--asset_source", type=str, default="./assets/GSO")
 FLAGS = parser.parse_args()
 
 # --- common setups & resources
@@ -42,19 +41,20 @@ scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
 klevr = kb.assets.KLEVR("./assets/KLEVR")
-gso = kb.AssetSource(FLAGS.asset_source)
+gso = kb.AssetSource("./assets/GSO")
 
 
-scene.camera = kb.PerspectiveCamera(position=(7.48113, -6.50764, 5.34367))
-scene.camera.look_at((0, 0, 0))
+scene.camera = kb.PerspectiveCamera(position=(7.5, -6.5, 5.3),
+                                    look_at=(0, 0, 0))
 
-floor_material = kb.PrincipledBSDFMaterial(color=kb.get_color('gray'), roughness=0.9)
-scene.add(kb.Cube(scale=(10, 10, 1), position=(0, 0, -1),
-                  material=floor_material, friction=0.3,
-                  static=True, background=True))
+floor_material = kb.PrincipledBSDFMaterial(color=kb.get_color('gray'),
+                                           roughness=1., specular=0.)
+floor = kb.Cube(scale=(10, 10, 1), position=(0, 0, -1),
+                material=floor_material, friction=0.3,
+                static=True, background=True)
+scene.add(floor)
 
 scene.add_all(*klevr.get_lights())
-
 
 # --- place random objects
 spawn_region = [(-4, -4, 0), (4, 4, 3)]

@@ -12,31 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
+import functools
 import logging
 import pathlib
+import pickle
+import shutil
+import sys
 import tempfile
-import functools
-import pathlib
 from typing import Any, Union, Callable
 
 import bpy
-from singledispatchmethod import singledispatchmethod
-import munch
 import numpy as np
-import pickle
 import PIL.Image
-import shutil
+from singledispatchmethod import singledispatchmethod
 
-from kubric import core
 import kubric.post_processing
+from kubric import core
+from kubric.io import RedirectStream
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
 
-from kubric.io import RedirectStream
 _blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
-
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:

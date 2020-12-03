@@ -34,7 +34,7 @@ class Object3D(base.Asset):
                up="Y", front="-Z", look_at=None, euler=None, **kwargs):
     if look_at is not None:
       assert quaternion is None and euler is None
-      direction = mathutils.Vector(look_at) - mathutils.Vector(self.position)
+      direction = mathutils.Vector(look_at) - mathutils.Vector(position)
       quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
     elif euler is not None:
       assert look_at is None and quaternion is None
