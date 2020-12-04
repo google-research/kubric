@@ -89,46 +89,11 @@ URDF_TEMPLATE = """
 </robot>
 """
 
-
-def get_tmesh(asset_path, which_mesh=0, target_dir='.tmp'):
-    obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
-    name = os.path.split(asset_path)[-1]
-    # Use ManifoldPlus to water fill
-    # ------------------------------
-    dst = obj_path.replace('.obj', '_ManifoldPlus.obj')
-    if not os.path.exists(dst):
-        command = './ManifoldPlus/build/manifold --input %s --output %s --depth 8' % (
-            obj_path, dst)
-        subprocess_call(command)
-
-    # SOURCE PATHS
-    # ------------
-    texture_path_list = glob.glob(os.path.join(asset_path, 'images', '*'))
-    mat_path = obj_path.replace('.obj', '.mtl')
-    if not os.path.exists(mat_path):
-      return
-    
-    obj_path = dst
-
-    # TARGET PATHS
-    # ------------
-    target_asset_dir = os.path.join(target_dir, name)
-    if os.path.exists(target_asset_dir):
-        shutil.rmtree(target_asset_dir)
-    os.makedirs(target_asset_dir, exist_ok=True)
-
-    vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
-    coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
-    urdf_path = os.path.join(target_asset_dir, 'object.urdf')
-    tex_path = os.path.join(target_asset_dir, 'texture.png')
-    json_path = os.path.join(target_asset_dir, 'data.json')
-    tar_path = os.path.join(target_dir, name + ".tar.gz")
-
+def get_tmesh(src_fname):
     # Load the mesh
     # -------------
-    scene_or_mesh = trimesh.load_mesh(obj_path, process=False)
+    scene_or_mesh = trimesh.load_mesh(src_fname, process=False)
     if isinstance(scene_or_mesh, trimesh.Scene):
-
         mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)
                      for g in scene_or_mesh.geometry.values()]
         tmesh = merge_meshes(mesh_list)
@@ -136,48 +101,99 @@ def get_tmesh(asset_path, which_mesh=0, target_dir='.tmp'):
         tmesh = scene_or_mesh
 
     # make sure tmesh is suitable
-    verify_tmesh(tmesh)
+    # verify_tmesh(tmesh)
 
     # center the tmesh
     tmesh.apply_translation(-tmesh.center_mass)
+    # properties = get_object_properties(tmesh, name)
+    return tmesh
+
+def save_tmesh(fname, tmesh):
+    # rename content
     obj_content = tri_obj.export_obj(tmesh)
     obj_content = re.sub('mtllib material0.mtl\nusemtl material0\n',
                          'mtllib visual_geometry.mtl\nusemtl material_0\n', obj_content)
-    with open(vis_path, 'w') as f:
+    with open(fname, 'w') as f:
         f.write(obj_content)
 
+def get_waterfilled_obj(obj_path):
+    dst = obj_path.replace('.obj', '_manifold_plus.obj')
+    if not os.path.exists(dst):
+        command = './ManifoldPlus/build/manifold --input %s --output %s --depth 8' % (
+            obj_path, dst)
+        subprocess_call(command)
+    return dst 
+
+def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
+    obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
+
+    # ignore if there is no material
+    if not os.path.exists(obj_path.replace('.obj', '.mtl')):
+      return
+    name = os.path.split(asset_path)[-1]
+
+    # Create target dir
+    target_asset_dir = os.path.join(target_dir, name)
+    if os.path.exists(target_asset_dir):
+        shutil.rmtree(target_asset_dir)
+    os.makedirs(target_asset_dir, exist_ok=True)
+
+    # waterfilled object
+    tmesh_waterfilled = get_tmesh(get_waterfilled_obj(obj_path))
+    save_tmesh(os.path.join(target_asset_dir, 'visual_geometry_manifold_plus.obj'), tmesh_waterfilled)
+
+    # original object
+    vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
+    tmesh = get_tmesh(obj_path)
+    save_tmesh(vis_path, tmesh)
+
     # compute a collision mesh using pybullets VHACD
+    coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
     pb.vhacd(str(vis_path),
              str(coll_path),
              str(os.path.join(target_asset_dir, 'pybullet_logs.txt')))
 
-    # move material and texture
+    # save material
+    mat_path = obj_path.replace('.obj', '.mtl')
+    mtl_path = os.path.join(target_asset_dir, 'visual_geometry.mtl')
     if os.path.exists(mat_path):
-        shutil.copy(mat_path, os.path.join(
-            target_asset_dir, 'visual_geometry.mtl'))
+        with open(mat_path, 'r') as f:
+            mat_str = f.read()
+        with open(mtl_path, 'w') as f:
+            f.write(mat_str.replace('../images/', ''))
+
+    # save textures
+    tex_path = os.path.join(target_asset_dir, 'texture.png')
     tex_path_list = []
-    for texture_path in texture_path_list:
+    for texture_path in glob.glob(os.path.join(asset_path, 'images', '*')):
         tex_path = os.path.join(target_asset_dir,  os.path.split(texture_path)[-1])
         shutil.copy(texture_path, tex_path)
         tex_path_list += [tex_path]
 
+    
+
+    # get properties
     properties = get_object_properties(tmesh, name)
 
+    # save properties as urdf template
+    urdf_path = os.path.join(target_asset_dir, 'object.urdf')
     with open(urdf_path, 'w') as f:
         f.write(URDF_TEMPLATE.format(**properties))
 
-    # save properties
+    # save properties as json
     properties["paths"] = {
-        "visual_geometry": [str(vis_path)],
-        "collision_geometry": [str(coll_path)],
-        "urdf": [str(urdf_path)],
-        "texture": tex_path_list,
+        "visual_geometry": [str(vis_path).replace(target_asset_dir, '')],
+        "collision_geometry": [str(coll_path).replace(target_asset_dir, '')],
+        "urdf": [str(urdf_path).replace(target_asset_dir, '')],
+        "texture": [t.replace(target_asset_dir, '') for t in tex_path_list],
     }
 
+    json_path = os.path.join(target_asset_dir, 'data.json')
     with open(json_path, "w") as f:
         json.dump(properties, f, indent=4, sort_keys=True)
 
     # save zip
+    tar_path = os.path.join(target_dir, name + ".tar.gz")
     print("          saving as", tar_path)
     with tarfile.open(tar_path, "w:gz") as tar:
         tar.add(target_asset_dir, arcname=name)
@@ -260,7 +276,7 @@ if __name__ == "__main__":
     obj_hash_list = os.listdir(datadir)
     for i, obj_hash in enumerate(obj_hash_list):
         obj_path = os.path.join(datadir, obj_hash)
-        tmesh = get_tmesh(obj_path)
+        save_asset(obj_path)
 
         # save png for visualization
         # src_fname = '.tmp/%s.stl' % obj_hash
