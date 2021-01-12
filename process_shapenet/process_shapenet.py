@@ -164,7 +164,7 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
                 f.write(l)
     # compute a collision mesh using pybullets VHACD
     coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
-    pb.vhacd(str(vis_path),
+    pb.vhacd(str(waterfilled_path),
              str(coll_path),
              str(os.path.join(target_asset_dir, 'pybullet_logs.txt')))
 
