@@ -89,7 +89,7 @@ URDF_TEMPLATE = """
 </robot>
 """
 
-def get_tmesh(src_fname):
+def get_tmesh(src_fname, return_center_mass=False):
     # Load the mesh
     # -------------
     scene_or_mesh = trimesh.load_mesh(src_fname, process=False)
@@ -104,8 +104,12 @@ def get_tmesh(src_fname):
     # verify_tmesh(tmesh)
 
     # center the tmesh
-    tmesh.apply_translation(-tmesh.center_mass)
+    center_mass = tmesh.center_mass
+    tmesh.apply_translation(-center_mass)
     # properties = get_object_properties(tmesh, name)
+    if return_center_mass:
+        return tmesh, center_mass
+
     return tmesh
 
 def save_tmesh(fname, tmesh):
@@ -139,14 +143,25 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
     os.makedirs(target_asset_dir, exist_ok=True)
 
     # waterfilled object
-    tmesh_waterfilled = get_tmesh(get_waterfilled_obj(obj_path))
-    save_tmesh(os.path.join(target_asset_dir, 'visual_geometry_manifold_plus.obj'), tmesh_waterfilled)
+    tmesh_waterfilled, tmesh_center = get_tmesh(get_waterfilled_obj(obj_path), return_center_mass=True)
+    waterfilled_path = os.path.join(target_asset_dir, 'visual_geometry_manifold_plus.obj')
+    save_tmesh(waterfilled_path, tmesh_waterfilled)
 
     # original object
+    shutil.copy(obj_path, os.path.join(target_asset_dir, 'visual_geometry_original.obj'))
     vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
-    tmesh = get_tmesh(obj_path)
-    save_tmesh(vis_path, tmesh)
-
+    tmesh, tmesh_center  = get_tmesh(obj_path, return_center_mass=True)
+    # save_tmesh(vis_path, tmesh)
+    with open(obj_path, 'r') as f:
+        lines = f.readlines()
+    with open(vis_path, 'a') as f:
+        for l in lines:
+            if 'v ' == l[:2] and len(l.split(' ')) == 4:
+                r_list = l.split(' ')[-3:]
+                r_new = [str(float(r_list[i]) -tmesh_center[i]) for i in range(3)]
+                f.write('v ' + ' '.join(r_new) + '\n')
+            else:
+                f.write(l)
     # compute a collision mesh using pybullets VHACD
     coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
     pb.vhacd(str(vis_path),
