@@ -25,6 +25,7 @@ from kubric.renderer.blender import _blender_logs
 
 logger = logging.getLogger(__name__)
 
+
 class ArgumentParser(argparse.ArgumentParser):
   def __init__(self, *args, **kwargs):
     argparse.ArgumentParser.__init__(self, *args, **kwargs)
@@ -48,6 +49,7 @@ class ArgumentParser(argparse.ArgumentParser):
       flags = super(ArgumentParser, self).parse_args(args=args)
     return flags
 
+
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------
@@ -57,6 +59,9 @@ def setup_logging(logging_level):
   logger.info(f"PyBullet stdout redirected to: {_pybullet_logs}")
   logger.info(f"Blender stdout redirected to:  {_blender_logs}")
 
+
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
   logger.debug(flags_string)
+
+

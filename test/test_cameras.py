@@ -11,15 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Integration tests."""
+
 import pytest
 
+from kubric.core import cameras
 
-@pytest.mark.skip
-def test_upload():
-  # TODO: figure out how to properly test cloud storage access
-  # example: writes frame.png → gs://kubric/subfolder/target.png
-  from google.cloud import storage
-  bucket = storage.Client().bucket("kubric") #< gs://kubric
-  blob = bucket.blob("subfolder/target.png")  #< position on bucket
-  blob.upload_from_filename("frame.png") #< position on local system
+
+def test_orthographic_camera_constructor():
+  cam = cameras.OrthographicCamera(orthographic_scale=7)
+  assert cam.orthographic_scale == 7
+
+
+def test_perspective_camera_constructor():
+  cam = cameras.PerspectiveCamera(focal_length=22, sensor_width=33)
+  assert cam.focal_length == 22
+  assert cam.sensor_width == 33
+
+
+def test_perspective_camera_field_of_view():
+  cam = cameras.PerspectiveCamera(focal_length=28, sensor_width=36)
+  assert cam.field_of_view == pytest.approx(1.1427, abs=1e-4)  # ca 65.5°
+
+

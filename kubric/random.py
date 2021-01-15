@@ -11,16 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from kubric import color
-import numpy as np
-import mathutils
-from kubric import core
 import itertools
+import mathutils
+import numpy as np
 
-# TODO: what is this line for?
-# mathutils.Quaternion()
-# TODO: this was inconsistent across kubric
-# default_random_state = np.random.RandomState()
+from kubric.core import color
+from kubric.core import objects
 
 
 def random_hue_color(saturation: float = 1., value: float = 1, rnd=np.random.RandomState()):
@@ -57,7 +53,7 @@ def random_rotation(axis=None, rnd=np.random.RandomState()):
 
 
 def rotation_sampler(axis=None):
-  def _sampler(obj: core.PhysicalObject, rnd):
+  def _sampler(obj: objects.PhysicalObject, rnd):
     obj.quaternion = random_rotation(axis=axis, rnd=rnd)
   return _sampler
 
@@ -65,7 +61,7 @@ def rotation_sampler(axis=None):
 def position_sampler(region):
   region = np.array(region, dtype=np.float)
 
-  def _sampler(obj: core.PhysicalObject, rnd):
+  def _sampler(obj: objects.PhysicalObject, rnd):
     # make a copy of the bbox points in the matutils.Vector format
     bounds = np.array(obj.bounds, dtype=np.float)
     bbox_points = [mathutils.Vector(x)
@@ -80,3 +76,22 @@ def position_sampler(region):
     obj.position = rnd.uniform(*effective_region)
 
   return _sampler
+
+
+def resample_while(asset, samplers, condition, max_trials=100, rnd=np.random.RandomState()):
+  for trial in range(max_trials):
+    for sampler in samplers:
+      sampler(asset, rnd)
+    if not condition(asset):
+      return
+  else:
+    raise RuntimeError("Failed to place", asset)
+
+
+def move_until_no_overlap(asset, simulator, spawn_region=((-1, -1, -1), (1, 1, 1)), max_trials=100,
+                          rnd=np.random.RandomState()):
+  return resample_while(asset,
+                        samplers=[rotation_sampler(), position_sampler(spawn_region)],
+                        condition=simulator.check_overlap,
+                        max_trials=max_trials,
+                        rnd=rnd)

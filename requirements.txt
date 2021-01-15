@@ -11,6 +11,7 @@ pandas
 Pillow
 pybullet
 pytest
+singledispatchmethod
 scikit-learn
 traitlets
 trimesh
