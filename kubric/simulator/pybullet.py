@@ -19,10 +19,7 @@ import sys
 import pathlib
 from typing import Dict, Union, Optional
 
-import pybullet as pb
 from singledispatchmethod import singledispatchmethod
-import munch
-import bidict
 import tempfile
 
 from kubric.redirect_io import RedirectStream
