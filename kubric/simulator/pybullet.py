@@ -25,7 +25,7 @@ import munch
 import bidict
 import tempfile
 
-from kubric.io import RedirectStream
+from kubric.redirect_io import RedirectStream
 from kubric import core
 
 logger = logging.getLogger(__name__)

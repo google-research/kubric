@@ -24,12 +24,12 @@ from kubric import assets
 from kubric.assets import AssetSource
 from kubric.assets.utils import mm3hash
 
-from kubric.random import random_hue_color
-from kubric.random import random_rotation
-from kubric.random import rotation_sampler
-from kubric.random import position_sampler
-from kubric.random import resample_while
-from kubric.random import move_until_no_overlap
+from kubric.randomness import random_hue_color
+from kubric.randomness import random_rotation
+from kubric.randomness import rotation_sampler
+from kubric.randomness import position_sampler
+from kubric.randomness import resample_while
+from kubric.randomness import move_until_no_overlap
 
 
 from kubric.utils import ArgumentParser
