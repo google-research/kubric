@@ -57,9 +57,9 @@ class AssetSource(object):
     manifest = self._download_file("details_list.json")
     self.db = pd.read_json(manifest)
 
-  # def __del__(self):
-  #   logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
-  #   self.local_temp_folder.cleanup()
+  def __del__(self):
+    logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
+    self.local_temp_folder.cleanup()
 
   def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs

@@ -66,7 +66,7 @@ RUN wget -nv https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz -O Pyth
 # --- Clone and compile Blender
 
 # RUN git clone https://git.blender.org/blender.git
-RUN git clone https://github.com/blender/blender.git --branch blender-v2.83-release --depth 1
+RUN git clone https://github.com/blender/blender.git --branch blender-v2.91-release --depth 1
 
 RUN mkdir lib && \
     cd lib && \
@@ -79,8 +79,16 @@ RUN cd blender && \
 # https://devtalk.blender.org/t/centos-7-manylinux-build-difficulties/15007/5
 # and to disable
 # https://devtalk.blender.org/t/problem-with-running-blender-as-a-python-module/7367/8
-COPY ./docker/openmp_static_patch.txt /blenderpy/blender
-RUN cd blender && patch -p1 < openmp_static_patch.txt
+# COPY ./docker/openmp_static_patch.txt /blenderpy/blender
+# RUN cd blender && patch -p1 < openmp_static_patch.txt
+
+# Patch to disable fix segfault on exit problem
+# https://developer.blender.org/T82675
+COPY ./docker/segfault_bug_patch.txt /blenderpy/blender
+RUN cd blender && patch -p1 < segfault_bug_patch.txt
+
+
+
 
 RUN cd blender && make -j8 bpy
 
@@ -129,7 +137,7 @@ RUN dpkg -i python_3.7.9-1_amd64.deb && \
     rm /python_3.7.9-1_amd64.deb
 
 COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.7/site-packages
-COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-packages/2.83 /usr/local/lib/python3.7/site-packages/2.83
+COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-packages/2.91 /usr/local/lib/python3.7/site-packages/2.91
 
 # # --- Install Python dependencies
 COPY requirements.txt .
