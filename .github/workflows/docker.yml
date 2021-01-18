@@ -58,9 +58,6 @@ jobs:
     container: klausgreff/kubruntu:latest
 
     steps:
-      - name: Update CA certificates
-        run: update-ca-certificates
-
       - name: Check out Repository
         uses: actions/checkout@v2
 

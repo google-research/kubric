@@ -103,6 +103,7 @@ RUN apt-get update --yes --fix-missing && \
       # OpenEXR
       libopenexr-dev \
       git \
+      ca-certificates \
       libffi-dev \
       libssl-dev \
       libx11-dev \
