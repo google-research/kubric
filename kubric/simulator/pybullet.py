@@ -19,13 +19,10 @@ import sys
 import pathlib
 from typing import Dict, Union, Optional
 
-import pybullet as pb
 from singledispatchmethod import singledispatchmethod
-import munch
-import bidict
 import tempfile
 
-from kubric.io import RedirectStream
+from kubric.redirect_io import RedirectStream
 from kubric import core
 
 logger = logging.getLogger(__name__)

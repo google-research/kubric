@@ -1,0 +1,85 @@
+# This workflow is triggered for every push and every PR to the main branch.
+# It consists two jobs:
+#  1. A build job that builds the kubruntu docker image and uploads it to dockerhub.
+#  2. A test job that uses that container to run the linter and the tests and
+#     upload the coverage report to codecov.io.
+
+name: Build container and run tests
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker Layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and Push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: docker/Kubruntu.Dockerfile
+          push: true
+          # using the fake ternary expression ${{ condition && 'true' || 'false' }}
+          tags: |
+            klausgreff/kubruntu:${{ github.sha }}
+            klausgreff/kubruntu:${{ github.event_name == 'push' && 'latest' || github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+      
+      - name: Image Digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+        
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    container: klausgreff/kubruntu:${{ github.sha }}
+
+    steps:
+      - name: Check out Repository
+        uses: actions/checkout@v2
+
+      - name: Install Test Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install flake8 pytest pytest-cov
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. We agreed on a line-length of 100 chars
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+
+      - name: Test with pytest
+        run: |
+          pytest --cov=./ --cov-report=xml
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.12

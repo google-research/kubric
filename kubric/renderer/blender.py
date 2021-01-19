@@ -28,7 +28,7 @@ from singledispatchmethod import singledispatchmethod
 
 import kubric.post_processing
 from kubric import core
-from kubric.io import RedirectStream
+from kubric.redirect_io import RedirectStream
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)

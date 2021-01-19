@@ -1,6 +1,5 @@
 import ctypes
 import os
-import sys
 
 
 class RedirectStream(object):
@@ -14,7 +13,7 @@ class RedirectStream(object):
     libc = ctypes.CDLL(None)
     libc.fflush(None)
 
-  def __init__(self, stream=sys.stdout, filename=os.devnull):
+  def __init__(self, stream, filename=os.devnull):
     self.stream = stream
     self.filename = filename
 
