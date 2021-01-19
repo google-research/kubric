@@ -1,16 +1,17 @@
+# This workflow is triggered for every push and every PR to the main branch.
+# It consists two jobs:
+#  1. A build job that builds the kubruntu docker image and uploads it to dockerhub.
+#  2. A test job that uses that container to run the linter and the tests and
+#     upload the coverage report to codecov.io.
+
 name: Build container and run tests
 
-# Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-    description: 'Manually trigger tests'
 
 jobs:
   build:
@@ -45,6 +46,7 @@ jobs:
           context: ./
           file: docker/Kubruntu.Dockerfile
           push: true
+          # using the fake ternary expression ${{ condition && 'true' || 'false' }}
           tags: |
             klausgreff/kubruntu:${{ github.sha }}
             klausgreff/kubruntu:${{ github.event_name == 'push' && 'latest' || github.sha }}
