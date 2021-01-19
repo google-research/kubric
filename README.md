@@ -1,6 +1,6 @@
 # Kubric
 
-![Unittests](https://github.com/google-research/kubric/workflows/Unittests/badge.svg)
+![Build container and run tests](https://github.com/google-research/kubric/workflows/Build%20container%20and%20run%20tests/badge.svg)
 [![Coverage](https://badgen.net/codecov/c/github/google-research/kubric)](https://codecov.io/github/google-research/kubric)
 
 A data generation pipeline for creating semi-realistic synthetic multi-object 
