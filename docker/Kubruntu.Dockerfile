@@ -75,13 +75,6 @@ RUN mkdir lib && \
 RUN cd blender && \
     make update
 
-# Patch to disable statically linking OpenMP when building as a python module
-# https://devtalk.blender.org/t/centos-7-manylinux-build-difficulties/15007/5
-# and to disable
-# https://devtalk.blender.org/t/problem-with-running-blender-as-a-python-module/7367/8
-# COPY ./docker/openmp_static_patch.txt /blenderpy/blender
-# RUN cd blender && patch -p1 < openmp_static_patch.txt
-
 # Patch to disable fix segfault on exit problem
 # https://developer.blender.org/T82675
 COPY ./docker/segfault_bug_patch.txt /blenderpy/blender
