@@ -1,15 +1,14 @@
-FROM ubuntu:20.04 as build
+# #################################################################################################
+# 1. Build Stage
+# Compiles python and blender from source
+# #################################################################################################
 
-# LABEL Author="Klaus Greff <klausg@google.com>"
-# LABEL Title="Kubruntu"
+FROM ubuntu:20.04 as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-# TODO: make a multi-stage build to separate dependencies needed for
-#       compiling from those needed for running kubric
-#       (would make for a smaller / more tidy docker image)
 
 WORKDIR /blenderpy
 
@@ -62,7 +61,6 @@ RUN wget -nv https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz -O Pyth
     checkinstall --default
 
 
-
 # --- Clone and compile Blender
 
 # RUN git clone https://git.blender.org/blender.git
@@ -81,12 +79,21 @@ COPY ./docker/segfault_bug_patch.txt /blenderpy/blender
 RUN cd blender && patch -p1 < segfault_bug_patch.txt
 
 
-
-
 RUN cd blender && make -j8 bpy
 
 
+# #################################################################################################
+# Final Stage
+# Installs previously built python and bpy module along with other dependencies in a fresh image.
+# This two stage process makes the final image much smaller because it doesn't include the files
+# and dependencies of the build process.
+# #################################################################################################
+
+
 FROM ubuntu:20.04
+
+LABEL Author="Klaus Greff <klausg@google.com>"
+LABEL Title="Kubruntu"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
@@ -103,8 +110,9 @@ RUN apt-get update --yes --fix-missing && \
       imagemagick \
       # OpenEXR
       libopenexr-dev \
-      git \
+      curl \
       ca-certificates \
+      git \
       libffi-dev \
       libssl-dev \
       libx11-dev \
