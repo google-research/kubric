@@ -29,7 +29,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ hashfiles('docker/Kubruntu.Dockerfile',
+                                                     'docker/*.txt',
+                                                     'requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
@@ -67,8 +69,6 @@ jobs:
 
       - name: Install Test Dependencies
         run: |
-          apt-get install --yes --no-install-recommends curl
-          python3 -m pip install --upgrade pip
           pip install -r requirements_dev.txt
 
       - name: Lint with flake8
@@ -83,4 +83,6 @@ jobs:
           pytest --cov=./ --cov-report=xml
 
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.12
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
