@@ -99,7 +99,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-WORKDIR /
+WORKDIR /kubric
 
 # --- Install package dependencies
 # TODO: probably do not need all of them, or at least not in their dev version
@@ -135,7 +135,7 @@ RUN apt-get update --yes --fix-missing && \
 
 COPY --from=build /blenderpy/Python-3.7.9/python_3.7.9-1_amd64.deb .
 RUN dpkg -i python_3.7.9-1_amd64.deb && \
-    rm /python_3.7.9-1_amd64.deb
+    rm -f python_3.7.9-1_amd64.deb
 
 COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.7/site-packages
 COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-packages/2.91 /usr/local/lib/python3.7/site-packages/2.91
@@ -143,5 +143,11 @@ COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-
 # # --- Install Python dependencies
 COPY requirements.txt .
 RUN python3 -m ensurepip && \
-    pip3 install --upgrade pip && \
-    pip3 install --upgrade --force-reinstall -r requirements.txt
+    pip3 install --upgrade pip wheel && \
+    pip3 install --upgrade --force-reinstall -r requirements.txt && \
+    rm -f requirements.txt
+
+# # --- Install Kubric
+COPY dist/kubric*.whl .
+RUN pip3 install `ls kubric*.whl` && \
+    rm -f kubric*.whl
