@@ -21,8 +21,18 @@ jobs:
       - name: Check out Repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+
       - name: Build Package Wheel
-        run: python3 setup.py bdist_wheel
+        run: python setup.py bdist_wheel
 
       - name: Set up Docker Buildx
         id: buildx
