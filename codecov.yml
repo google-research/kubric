@@ -13,3 +13,7 @@ coverage:
         threshold: 1%  # allow a drop of 1%
         branches:
         - main
+    patch:
+      default:
+        target: 0%
+        threshold: 1%
