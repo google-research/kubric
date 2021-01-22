@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Package Wheel
-        run: python setup.py bdist_wheel
+        run: python3 setup.py bdist_wheel
 
       - name: Set up Docker Buildx
         id: buildx
@@ -71,7 +71,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Test Dependencies
-        run: pip install -r requirements_dev.txt
+        run: pip3 install -r requirements_dev.txt
 
       - name: Lint with flake8
         run: |
