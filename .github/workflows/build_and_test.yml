@@ -21,6 +21,19 @@ jobs:
       - name: Check out Repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+
+      - name: Build Package Wheel
+        run: python setup.py bdist_wheel
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -41,7 +54,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and Push
+      - name: Build and Push Container
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -68,8 +81,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Test Dependencies
-        run: |
-          pip install -r requirements_dev.txt
+        run: pip3 install -r requirements_dev.txt
 
       - name: Lint with flake8
         run: |
@@ -79,8 +91,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
 
       - name: Test with pytest
-        run: |
-          pytest --cov=./ --cov-report=xml
+        run: pytest --cov=./ --cov-report=xml
 
       - name: Codecov
         uses: codecov/codecov-action@v1
