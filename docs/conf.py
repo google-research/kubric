@@ -10,20 +10,28 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
 
 import sphinx_rtd_theme
 
+sys.path.insert(0, os.path.abspath('..'))
+
+
+__version__ = "None"
+
+# read version without importing kubric (to avoid missing bpy dependency problems)
+with open('../kubric/version.py') as f:
+  exec(f.read(), globals())
+
 # -- Project information -----------------------------------------------------
 
-project = 'Kubric'
-copyright = '2021, Klaus Greff, Andrea Tagliasacchi'
-author = 'Klaus Greff, Andrea Tagliasacchi'
+project = "Kubric"
+copyright = "2021 The Kubric Authors"
+author = 'The Kubric Authors'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -33,6 +41,10 @@ release = '0.1'
 # ones.
 extensions = [
     "sphinx_rtd_theme",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.coverage",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.linkcode",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -43,6 +55,43 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+
+# -- Autodoc ----------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+autodoc_mock_imports = ["bpy", "OpenEXR"]
+
+
+# -- Napoleon ----------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+napoleon_include_init_with_doc = True
+
+
+# -- Linkcode ----------------------------
+
+def linkcode_resolve(domain, info):
+  # try to create a corresponding github link for each source-file
+  # adapted from Lasagne https://github.com/Lasagne/Lasagne/blob/master/docs/conf.py#L114
+  def find_source():
+    obj = sys.modules[info['module']]
+    for part in info['fullname'].split('.'):
+      obj = getattr(obj, part)
+    import inspect
+    import os
+    fn = inspect.getsourcefile(obj)
+    fn = os.path.relpath(fn, start="..")
+    source, lineno = inspect.getsourcelines(obj)
+    return fn, lineno, lineno + len(source) - 1
+
+  if domain != 'py' or not info['module']:
+    return None
+  try:
+    filename = '%s#L%d-L%d' % find_source()
+  except Exception:
+    filename = info['module'].replace('.', '/') + '.py'
+  tag = 'main' if 'dev' in release else ('v' + release)
+  return "https://github.com/google-research/kubric/blob/%s/%s" % (tag, filename)
 
 # -- Options for HTML output -------------------------------------------------
 

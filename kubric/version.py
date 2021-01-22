@@ -12,23 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This package defines the basic object hierarchy that forms the center of Kubrics interface.
-
-The root classes are Scene and Asset, which further specializes into:
-
-* Materials
-* Objects
-* Lights
-* Cameras
-"""
-
-from kubric.core.color import *
-from kubric.core.base import *
-# from kubric.core.traits import *
-from kubric.core.objects import *
-from kubric.core.materials import *
-from kubric.core.lights import *
-from kubric.core.cameras import *
-from kubric.core.scene import Scene
-from kubric.core.view import View
-
+__version__ = "0.1.0-dev"

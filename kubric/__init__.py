@@ -31,7 +31,8 @@ from kubric.randomness import position_sampler
 from kubric.randomness import resample_while
 from kubric.randomness import move_until_no_overlap
 
-
 from kubric.utils import ArgumentParser
 from kubric.utils import setup_logging
 from kubric.utils import log_my_flags
+
+from kubric.version import __version__
