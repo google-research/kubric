@@ -10,6 +10,7 @@ import subprocess
 import time
 import shutil
 import pprint
+import argparse
 import pybullet as pb
 from subprocess import PIPE, Popen
 import trimesh.exchange.obj as tri_obj
@@ -148,20 +149,32 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
     save_tmesh(waterfilled_path, tmesh_waterfilled)
 
     # original object
-    shutil.copy(obj_path, os.path.join(target_asset_dir, 'visual_geometry_original.obj'))
+    # shutil.copy(obj_path, os.path.join(target_asset_dir, 'visual_geometry_original.obj'))
     vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
-    tmesh, tmesh_center  = get_tmesh(obj_path, return_center_mass=True)
+    tmesh, _  = get_tmesh(obj_path, return_center_mass=True)
     # save_tmesh(vis_path, tmesh)
-    with open(obj_path, 'r') as f:
-        lines = f.readlines()
-    with open(vis_path, 'a') as f:
-        for l in lines:
-            if 'v ' == l[:2] and len(l.split(' ')) == 4:
-                r_list = l.split(' ')[-3:]
-                r_new = [str(float(r_list[i]) -tmesh_center[i]) for i in range(3)]
-                f.write('v ' + ' '.join(r_new) + '\n')
-            else:
-                f.write(l)
+    if 1:
+        with open(obj_path, 'r') as f:
+            lines = f.readlines()
+        with open(vis_path, 'a') as f:
+            j = 0
+            for l in lines:
+                if 'v ' == l[:2] and len(l.split(' ')) == 4:
+                    r_list = l.split(' ')[-3:]
+                    r_list_new = []
+                    for i in range(3):
+                        shifted = float(r_list[i]) - tmesh_center[i]
+                        r_list_new += [str(shifted)]
+
+                    # print(r_list)
+                    # print(r_list_new)
+                    # print()
+                    # if j > 5:
+                    #     break
+                    # j += 1
+                    f.write('v ' + ' '.join(r_list_new) + '\n')
+                else:
+                    f.write(l)
     # compute a collision mesh using pybullets VHACD
     coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
     pb.vhacd(str(waterfilled_path),
@@ -285,10 +298,17 @@ def save_image(fname, src_fname):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
 
-    datadir = '/mnt/public/datasets/ShapeNetCore.v2/02691156'
+    parser.add_argument('-d', '--datadir', required=True,
+                        help='Define the dataset directory.')
+    parser.add_argument("-o", "--obj_id",  default=None,
+                        help='Reset or resume the experiment.')
 
-    obj_hash_list = os.listdir(datadir)
+    args = parser.parse_args()
+
+
+    obj_hash_list = os.listdir(os.path.join(f'{args.datadir}', f'{args.obj_id}'))
     for i, obj_hash in enumerate(obj_hash_list):
         obj_path = os.path.join(datadir, obj_hash)
         save_asset(obj_path)

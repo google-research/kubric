@@ -11,128 +11,87 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import datetime
+
+import logging
+import tempfile
+import numpy as np
+import pickle
+import pathlib
 
 import sys; sys.path.append(".")
 
-import kubric.pylab as kb
+# --- klevr imports
+import kubric as kb
 
+# --- parser
+parser = kb.ArgumentParser()
+parser.add_argument("--min_nr_objects", type=int, default=4)
+parser.add_argument("--max_nr_objects", type=int, default=10)
+parser.add_argument("--max_placement_trials", type=int, default=100)
+parser.add_argument("--render_dir", type=str, default=tempfile.mkdtemp())
+parser.add_argument("--output_dir", type=str, default="output/")
+parser.add_argument("--asset_source", type=str, default="./assets/KLEVR")
+FLAGS = parser.parse_args()
 
-class KLEVRWorker(kb.Worker):
-  def get_argparser(self):
-    parser = super().get_argparser()
-    # add additional commandline arguments
-    parser.add_argument("--min_nr_objects", type=int, default=4)
-    parser.add_argument("--max_nr_objects", type=int, default=10)
-    # overwrite default values
-    parser.set_defaults(asset_source=['./Assets/KLEVR'])
-    return parser
+# --- common setups & resources
+kb.setup_logging(FLAGS.logging_level)
+kb.log_my_flags(FLAGS)
+rnd = np.random.RandomState(seed=FLAGS.random_seed)
+scene = kb.Scene.from_flags(FLAGS)
+simulator = kb.simulator.PyBullet(scene)
+renderer = kb.renderer.Blender(scene)
 
+# --- Assemble the basic scene
+klevr = kb.assets.KLEVR(FLAGS.asset_source)
 
-  def add_floor(self):
-    floor = self.create_asset("KLEVR", asset_id="Floor", static=True,
-                              position=(0, 0, -0.2), scale=(2, 2, 2))
-    self.add(floor)
-    return floor
+scene.camera = klevr.get_camera()
+scene.add_all(*klevr.get_lights())
+scene.add(klevr.get_floor())
 
-  def add_lights(self):
-    # --- Light settings from CLEVR
-    sun = kb.DirectionalLight(color=kb.get_color("white"), intensity=0.45,
-                              shadow_softness=0.2,
-                              position=(11.6608, -6.62799, 25.8232))
-    sun.look_at((0, 0, 0))
-    lamp_back = kb.RectAreaLight(color=kb.get_color("white"), intensity=50.,
-                                 position=(-1.1685, 2.64602, 5.81574))
-    lamp_back.look_at((0, 0, 0))
-    lamp_key = kb.RectAreaLight(color=kb.get_color(0xffedd0), intensity=100,
-                                width=0.5, height=0.5,
-                                position=(6.44671, -2.90517, 4.2584))
-    lamp_key.look_at((0, 0, 0))
-    lamp_fill = kb.RectAreaLight(color=kb.get_color(0xc2d0ff), intensity=30,
-                                 width=0.5, height=0.5,
-                                 position=(-4.67112, -4.0136, 3.01122))
-    lamp_fill.look_at((0, 0, 0))
-    self.add(sun, lamp_back, lamp_key, lamp_fill)
+# --- Placer
+velocity_range = [(-4, -4, 0), (4, 4, 0)]
+nr_objects = rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+for i in range(nr_objects):
+  obj = klevr.create_random_object(rnd)
+  scene.add(obj)
+  kb.move_until_no_overlap(obj, simulator, spawn_region=[(-4, -4, 0), (4, 4, 3)])
+  # bias velocity towards center
+  obj.velocity = (rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
 
-  def add_camera(self):
-    camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
-                                  position=(7.48113, -6.50764, 5.34367))
-    camera.look_at((0, 0, 0))
-    self.add(camera)
-    self.scene.camera = camera
+# --- Simulation
+if FLAGS.output_dir:
+  simulator.save_state(FLAGS.output_dir)
+animation = simulator.run()
 
-  def get_random_object(self):
-    random_id = self.rnd.choice([
-        "LargeMetalCube",
-        "LargeMetalCylinder",
-        "LargeMetalSphere",
-        "LargeRubberCube",
-        "LargeRubberCylinder",
-        "LargeRubberSphere",
-        "MetalSpot",
-        "RubberSpot",
-        "SmallMetalCube",
-        "SmallMetalCylinder",
-        "SmallMetalSphere",
-        "SmallRubberCube",
-        "SmallRubberCylinder",
-        "SmallRubberSphere",
-    ])
-    if "Metal" in random_id:
-      material = kb.PrincipledBSDFMaterial(
-            color=kb.random_hue_color(rnd=self.rnd),
-            roughness=0.2,
-            metallic=1.0,
-            ior=2.5)
-    else:  # if "Rubber" in random_id:
-      material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=self.rnd),
-          roughness=0.7,
-          specular=0.33,
-          metallic=0.,
-          ior=1.25)
-    return self.create_asset("KLEVR", asset_id=random_id, material=material)
+# --- Transfer simulation to renderer keyframes
+for obj in animation.keys():
+  for frame_id in range(scene.frame_end + 1): 
+    obj.position = animation[obj]["position"][frame_id]
+    obj.quaternion = animation[obj]["quaternion"][frame_id]
+    obj.keyframe_insert("position", frame_id)
+    obj.keyframe_insert("quaternion", frame_id)
 
-  def run(self):
-    self.add_camera()
-    self.add_lights()
-    self.add_floor()
+# --- Save a copy of the keyframed scene
+if FLAGS.output_dir:
+  renderer.save_state(path=FLAGS.output_dir)
 
-    spawn_region = [(-4, -4, 0), (4, 4, 3)]
-    velocity_range = [(-4, -4, 0), (4, 4, 0)]
-    objects = []
+# --- Rendering
+if FLAGS.render_dir:
+  renderer.render(path=FLAGS.render_dir)
 
-    nr_objects = self.rnd.randint(self.config.min_nr_objects, self.config.max_nr_objects)
-    for i in range(nr_objects):  # random number of objects
-      obj = self.get_random_object()
-      self.place_without_overlap(obj, [kb.rotation_sampler(),
-                                       kb.position_sampler(spawn_region)])
-      obj.velocity = (self.rnd.uniform(*velocity_range) -
-                      [obj.position[0], obj.position[1], 0])  # bias velocity towards center
-      objects.append(obj)
+# --- Post-process renderer output
+if FLAGS.output_dir and FLAGS.render_dir: 
+  # Parse renderer-specific output into per-frame numpy pickles
+  renderer.postprocess(from_dir=FLAGS.render_dir, to_dir=FLAGS.output_dir)
 
-    sim_path = self.save_simulator_state()
-    self.run_simulation()
-    render_path = self.save_renderer_state()
-    self.render()
-    output = self.post_process()
-    # collect ground-truth factors
-    output["factors"] = []
-    for i, obj in enumerate(objects):
-      output["factors"].append({
-          "asset_id": obj.asset_id,
-          "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
-          "mass": obj.mass,
-          "color": obj.material.color.rgb,
-          "animation": obj.keyframes,
-      })
-    out_path = self.save_output(output)
-    name = datetime.datetime.now().strftime("%b%d_%H-%M-%S")
-    self.export(self.output_dir, name, files_list=[sim_path, render_path, out_path])
-
-
-if __name__ == '__main__':
-    worker = KLEVRWorker()
-
-    worker.setup()
-    worker.run()
+  # Extracting metadata.pkl from the simulation
+  metadata = [{
+      "asset_id": obj.asset_id,
+      "material": "Metal" if "Metal" in obj.asset_id else "Rubber",
+      "mass": obj.mass,
+      "color": obj.material.color.rgb,
+      "animation": obj.keyframes,
+  } for obj in scene.foreground_assets]
+  with open(pathlib.Path(FLAGS.output_dir) / "metadata.pkl", "wb") as fp:
+    logging.info(f"Writing {fp.name}")
+    pickle.dump(metadata, fp)

@@ -1,0 +1,19 @@
+codecov:
+  branch: main
+
+coverage:
+  precision: 1
+  round: down
+  range: "70...100"  # green range
+  status:
+    project:
+      default:
+        # basic
+        target: auto   # use the coverage from the base commit coverage to compare against.
+        threshold: 1%  # allow a drop of 1%
+        branches:
+        - main
+    patch:
+      default:
+        target: 0%
+        threshold: 1%

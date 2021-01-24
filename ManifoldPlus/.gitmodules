@@ -1,0 +1,6 @@
+[submodule "3rd_party/eigen"]
+	path = 3rd_party/eigen
+	url = https://gitlab.com/libeigen/eigen.git
+[submodule "3rd_party/libigl"]
+	path = 3rd_party/libigl
+	url = https://github.com/libigl/libigl
