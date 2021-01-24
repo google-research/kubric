@@ -12,3 +12,4 @@ docs/_build
 **/.ipynb_checkpoints
 .hypothesis
 .vscode
+__MACOSX/
