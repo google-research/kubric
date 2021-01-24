@@ -5,7 +5,6 @@
 - Install Manifold Plus
 
 ```
-cd process_shapenet
 git clone git@github.com:hjwdzh/ManifoldPlus.git
 cd ManifoldPlus
 mkdir build
