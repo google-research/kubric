@@ -298,7 +298,7 @@ def save_tmesh(fname, tmesh):
 def get_waterfilled_obj(obj_path):
     dst = obj_path.replace('.obj', '_manifold_plus.obj')
     if not os.path.exists(dst):
-        command = f'./process_shapenet/ManifoldPlus/build/manifold --input {obj_path} --output {dst} --depth 8'
+        command = f'./ManifoldPlus/build/manifold --input {obj_path} --output {dst} --depth 8'
         subprocess_call(command)
     return dst
 
