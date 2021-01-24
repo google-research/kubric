@@ -6,11 +6,11 @@
 *.png
 *.exr
 .vscode/settings.json
+.vscode/launch.json
 output/*
 docs/_build
 .idea
 **/.ipynb_checkpoints
 .hypothesis
-.vscode
 __MACOSX/
 ManifoldPlus/
