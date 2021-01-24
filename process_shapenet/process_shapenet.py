@@ -17,124 +17,13 @@ import trimesh.exchange.obj as tri_obj
 import tarfile
 
 
-def clean_stdout(stdout):
-    return stdout.split(' ')[0].replace('\n', '')
-
-
-def subprocess_call(command):
-    p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p.communicate()
-
-    # get outputs
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-
-    # if stdout is None or stdout == '':
-    #     raise ValueError(stderr)
-    return stdout, stderr
-
-
-def get_object_properties(tmesh, name, density=None, friction=None):
-    if density is None:
-        tmesh.density = 1000.0
-    friction = 0.0
-
-    def rounda(x): return np.round(x, decimals=6).tolist()
-    def roundf(x): return float(np.round(x, decimals=6))
-
-    properties = {
-        "id": name,
-        "density": roundf(tmesh.density),
-        "friction": roundf(friction),
-        "nr_vertices": len(tmesh.vertices),
-        "nr_faces": len(tmesh.faces),
-        "bounds": rounda(tmesh.bounds),
-        "area": roundf(tmesh.area),
-        "volume": roundf(tmesh.volume),
-        "mass": roundf(tmesh.mass),
-        "center_mass": rounda(tmesh.center_mass),
-        "inertia": rounda(tmesh.moment_inertia),
-        "is_convex": tmesh.is_convex,
-        # used for topological analysis (see: http://max-limper.de/publications/Euler/index.html),
-        "euler_number": tmesh.euler_number,
-    }
-    return properties
-
-
-URDF_TEMPLATE = """
-<robot name="{id}">
-    <link name="base">
-        <contact>
-            <lateral_friction value="{friction}" />  
-        </contact>
-        <inertial>
-            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
-            <mass value="{mass}" />
-            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
-                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
-                     iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
-        </inertial>
-        <visual>
-            <origin xyz="0 0 0" />
-            <geometry>
-                <mesh filename="visual_geometry.obj" />
-            </geometry>
-        </visual>
-        <collision>
-            <origin xyz="0 0 0" />
-            <geometry>
-                <mesh filename="collision_geometry.obj" />
-            </geometry>
-        </collision>
-    </link>
-</robot>
-"""
-
-def get_tmesh(src_fname, return_center_mass=False):
-    # Load the mesh
-    # -------------
-    scene_or_mesh = trimesh.load_mesh(src_fname, process=False)
-    if isinstance(scene_or_mesh, trimesh.Scene):
-        mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)
-                     for g in scene_or_mesh.geometry.values()]
-        tmesh = merge_meshes(mesh_list)
-    else:
-        tmesh = scene_or_mesh
-
-    # make sure tmesh is suitable
-    # verify_tmesh(tmesh)
-
-    # center the tmesh
-    center_mass = tmesh.center_mass
-    tmesh.apply_translation(-center_mass)
-    # properties = get_object_properties(tmesh, name)
-    if return_center_mass:
-        return tmesh, center_mass
-
-    return tmesh
-
-def save_tmesh(fname, tmesh):
-    # rename content
-    obj_content = tri_obj.export_obj(tmesh)
-    obj_content = re.sub('mtllib material0.mtl\nusemtl material0\n',
-                         'mtllib visual_geometry.mtl\nusemtl material_0\n', obj_content)
-    with open(fname, 'w') as f:
-        f.write(obj_content)
-
-def get_waterfilled_obj(obj_path):
-    dst = obj_path.replace('.obj', '_manifold_plus.obj')
-    if not os.path.exists(dst):
-        command = './ManifoldPlus/build/manifold --input %s --output %s --depth 8' % (
-            obj_path, dst)
-        subprocess_call(command)
-    return dst 
-
-def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
+def save_asset(asset_path, which_mesh=0, target_dir='output'):
     obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
 
-    # ignore if there is no material
+    # Ignore asset if there is no material
+    assert os.path.exists(asset_path)
     if not os.path.exists(obj_path.replace('.obj', '.mtl')):
-      return
+        return
     name = os.path.split(asset_path)[-1]
 
     # Create target dir
@@ -143,45 +32,49 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
         shutil.rmtree(target_asset_dir)
     os.makedirs(target_asset_dir, exist_ok=True)
 
-    # waterfilled object
-    tmesh_waterfilled, tmesh_center = get_tmesh(get_waterfilled_obj(obj_path), return_center_mass=True)
-    waterfilled_path = os.path.join(target_asset_dir, 'visual_geometry_manifold_plus.obj')
+    # Use Manifold Plus to created waterfilled object
+    tmesh_waterfilled, tmesh_center = get_tmesh(
+        get_waterfilled_obj(obj_path), return_center_mass=True)
+    waterfilled_path = os.path.join(
+        target_asset_dir, 'visual_geometry_manifold_plus.obj')
     save_tmesh(waterfilled_path, tmesh_waterfilled)
 
-    # original object
-    # shutil.copy(obj_path, os.path.join(target_asset_dir, 'visual_geometry_original.obj'))
-    vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
-    tmesh, _  = get_tmesh(obj_path, return_center_mass=True)
-    # save_tmesh(vis_path, tmesh)
-    if 1:
-        with open(obj_path, 'r') as f:
-            lines = f.readlines()
-        with open(vis_path, 'a') as f:
-            j = 0
-            for l in lines:
-                if 'v ' == l[:2] and len(l.split(' ')) == 4:
-                    r_list = l.split(' ')[-3:]
-                    r_list_new = []
-                    for i in range(3):
-                        shifted = float(r_list[i]) - tmesh_center[i]
-                        r_list_new += [str(shifted)]
-
-                    # print(r_list)
-                    # print(r_list_new)
-                    # print()
-                    # if j > 5:
-                    #     break
-                    # j += 1
-                    f.write('v ' + ' '.join(r_list_new) + '\n')
-                else:
-                    f.write(l)
-    # compute a collision mesh using pybullets VHACD
+    # Create collision mesh using pybullets VHACD
     coll_path = os.path.join(target_asset_dir, 'collision_geometry.obj')
     pb.vhacd(str(waterfilled_path),
              str(coll_path),
              str(os.path.join(target_asset_dir, 'pybullet_logs.txt')))
 
-    # save material
+    # Translate original object using waterfilled object center
+    tmesh, _ = get_tmesh(obj_path, return_center_mass=True)
+
+    with open(obj_path, 'r') as f:
+        lines = f.readlines()
+    
+    ## Save translated original object
+    vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
+    with open(vis_path, 'a') as f:
+        j = 0
+        for l in lines:
+            if 'v ' == l[:2] and len(l.split(' ')) == 4:
+                r_list = l.split(' ')[-3:]
+                r_list_new = []
+                for i in range(3):
+                    shifted = float(r_list[i]) - tmesh_center[i]
+                    r_list_new += [str(shifted)]
+                    
+                f.write('v ' + ' '.join(r_list_new) + '\n')
+            else:
+                f.write(l)
+
+    # Save gltf object
+    stdout, stderr = subprocess_call(f'obj2gltf -i {vis_path} -o {vis_path.replace(".obj", "gltf")}')
+    if stderr != '':
+        print(f'warning .gltf was not saved, {stderr}')
+
+    # Save material, textures, and properties
+
+    ## material
     mat_path = obj_path.replace('.obj', '.mtl')
     mtl_path = os.path.join(target_asset_dir, 'visual_geometry.mtl')
     if os.path.exists(mat_path):
@@ -190,25 +83,23 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
         with open(mtl_path, 'w') as f:
             f.write(mat_str.replace('../images/', ''))
 
-    # save textures
+    ## textures
     tex_path = os.path.join(target_asset_dir, 'texture.png')
     tex_path_list = []
     for texture_path in glob.glob(os.path.join(asset_path, 'images', '*')):
-        tex_path = os.path.join(target_asset_dir,  os.path.split(texture_path)[-1])
+        tex_path = os.path.join(
+            target_asset_dir,  os.path.split(texture_path)[-1])
         shutil.copy(texture_path, tex_path)
         tex_path_list += [tex_path]
 
-    
-
-    # get properties
+    ## properties as urdf
     properties = get_object_properties(tmesh, name)
 
-    # save properties as urdf template
     urdf_path = os.path.join(target_asset_dir, 'object.urdf')
     with open(urdf_path, 'w') as f:
         f.write(URDF_TEMPLATE.format(**properties))
 
-    # save properties as json
+    ## properties as json
     properties["paths"] = {
         "visual_geometry": [str(vis_path).replace(target_asset_dir, '')],
         "collision_geometry": [str(coll_path).replace(target_asset_dir, '')],
@@ -220,7 +111,7 @@ def save_asset(asset_path, which_mesh=0, target_dir='.tmp'):
     with open(json_path, "w") as f:
         json.dump(properties, f, indent=4, sort_keys=True)
 
-    # save zip
+    # Save asset at zip
     tar_path = os.path.join(target_dir, name + ".tar.gz")
     print("          saving as", tar_path)
     with tarfile.open(tar_path, "w:gz") as tar:
@@ -297,31 +188,133 @@ def save_image(fname, src_fname):
     print('Saved')
 
 
+def clean_stdout(stdout):
+    return stdout.split(' ')[0].replace('\n', '')
+
+
+def subprocess_call(command):
+    p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
+    stdout, stderr = p.communicate()
+
+    # get outputs
+    stdout = stdout.decode('utf-8')
+    stderr = stderr.decode('utf-8')
+
+    # if stdout is None or stdout == '':
+    #     raise ValueError(stderr)
+    return stdout, stderr
+
+
+def get_object_properties(tmesh, name, density=None, friction=None):
+    if density is None:
+        tmesh.density = 1000.0
+    friction = 0.0
+
+    def rounda(x): return np.round(x, decimals=6).tolist()
+    def roundf(x): return float(np.round(x, decimals=6))
+
+    properties = {
+        "id": name,
+        "density": roundf(tmesh.density),
+        "friction": roundf(friction),
+        "nr_vertices": len(tmesh.vertices),
+        "nr_faces": len(tmesh.faces),
+        "bounds": rounda(tmesh.bounds),
+        "area": roundf(tmesh.area),
+        "volume": roundf(tmesh.volume),
+        "mass": roundf(tmesh.mass),
+        "center_mass": rounda(tmesh.center_mass),
+        "inertia": rounda(tmesh.moment_inertia),
+        "is_convex": tmesh.is_convex,
+        # used for topological analysis (see: http://max-limper.de/publications/Euler/index.html),
+        "euler_number": tmesh.euler_number,
+    }
+    return properties
+
+
+URDF_TEMPLATE = """
+<robot name="{id}">
+    <link name="base">
+        <contact>
+            <lateral_friction value="{friction}" />  
+        </contact>
+        <inertial>
+            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
+            <mass value="{mass}" />
+            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
+                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
+                     iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="visual_geometry.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="collision_geometry.obj" />
+            </geometry>
+        </collision>
+    </link>
+</robot>
+"""
+
+
+def get_tmesh(src_fname, return_center_mass=False):
+    # Load the mesh
+    # -------------
+    scene_or_mesh = trimesh.load_mesh(src_fname, process=False)
+    if isinstance(scene_or_mesh, trimesh.Scene):
+        mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)
+                     for g in scene_or_mesh.geometry.values()]
+        tmesh = merge_meshes(mesh_list)
+    else:
+        tmesh = scene_or_mesh
+
+    # make sure tmesh is suitable
+    # verify_tmesh(tmesh)
+
+    # center the tmesh
+    center_mass = tmesh.center_mass
+    tmesh.apply_translation(-center_mass)
+    # properties = get_object_properties(tmesh, name)
+    if return_center_mass:
+        return tmesh, center_mass
+
+    return tmesh
+
+
+def save_tmesh(fname, tmesh):
+    # rename content
+    obj_content = tri_obj.export_obj(tmesh)
+    obj_content = re.sub('mtllib material0.mtl\nusemtl material0\n',
+                         'mtllib visual_geometry.mtl\nusemtl material_0\n', obj_content)
+    with open(fname, 'w') as f:
+        f.write(obj_content)
+
+
+def get_waterfilled_obj(obj_path):
+    dst = obj_path.replace('.obj', '_manifold_plus.obj')
+    if not os.path.exists(dst):
+        command = f'./process_shapenet/ManifoldPlus/build/manifold --input {obj_path} --output {dst} --depth 8'
+        subprocess_call(command)
+    return dst
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-d', '--datadir', required=True,
                         help='Define the dataset directory.')
-    parser.add_argument("-o", "--obj_id",  default=None,
+    parser.add_argument("-c", "--cat_id",  default=None,
                         help='Reset or resume the experiment.')
 
     args = parser.parse_args()
 
-
-    obj_hash_list = os.listdir(os.path.join(f'{args.datadir}', f'{args.obj_id}'))
-    for i, obj_hash in enumerate(obj_hash_list):
-        obj_path = os.path.join(datadir, obj_hash)
+    cat_dir = os.path.join(args.datadir, args.cat_id)
+    obj_id_list = os.listdir(cat_dir)
+    for i, obj_id in enumerate(obj_id_list):
+        obj_path = os.path.join(cat_dir, obj_id)
         save_asset(obj_path)
-
-        # save png for visualization
-        # src_fname = '.tmp/%s.stl' % obj_hash
-        # out_fname = '.tmp/%s.png' % obj_hash
-        # tmesh.export(src_fname)
-        # save_image(out_fname, src_fname)
-
-        # fix_tmesh(tmesh)
-        # try:
-        #     verify_tmesh(tmesh)
-        #     print(i, '- good')
-        # except ValueError as e:
-        #     print(i, '-', e)
