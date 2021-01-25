@@ -3,9 +3,10 @@ import os
 
 
 class RedirectStream(object):
-  """Usage:
-  with RedirectStream(sys.stdout, filename="stdout.txt"):
-    print("commands will have stdout directed to file")
+  """
+  Usage:
+    with RedirectStream(sys.stdout, filename="stdout.txt"):
+      print("commands will have stdout directed to file")
   """
 
   @staticmethod
