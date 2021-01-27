@@ -14,13 +14,10 @@
 
 import logging
 import tempfile
-import numpy as np
 import pickle
 import pathlib
 
-import sys; sys.path.append(".")
-
-# --- klevr imports
+import numpy as np
 import kubric as kb
 
 # --- parser
