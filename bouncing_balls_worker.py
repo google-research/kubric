@@ -37,7 +37,7 @@ FLAGS = parser.parse_args()
 # --- common setups & resources
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
-rnd = np.random.RandomState(seed=FLAGS.random_seed)
+rng = np.random.default_rng(seed=FLAGS.random_seed)
 
 
 # --- setup scene, simulator, renderer and asset source
@@ -73,22 +73,22 @@ scene.add_all(floor, north_wall, south_wall, east_wall, west_wall)
 scene.camera = kb.OrthographicCamera(position=(0, 0, 3), orthographic_scale=2.2)
 
 # --- Balls
-nr_objects = rnd.randint(FLAGS.min_nr_balls, FLAGS.max_nr_balls+1)
+nr_objects = rng.integers(FLAGS.min_nr_balls, FLAGS.max_nr_balls+1)
 
 if FLAGS.color == "uniform_hsv":
-  colors = [kb.random_hue_color(rnd=rnd) for _ in range(nr_objects)]
+  colors = [kb.random_hue_color(rng=rng) for _ in range(nr_objects)]
 if FLAGS.color == "fixed":
   hues = np.linspace(0, 1., nr_objects, endpoint=False)
   colors = [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
 if FLAGS.color.startswith("cat"):
   num_colors = int(FLAGS.color[3:])
   all_hues = np.linspace(0, 1., num_colors, endpoint=False)
-  hues = rnd.choice(all_hues, size=nr_objects)
+  hues = rng.choice(all_hues, size=nr_objects)
   colors = [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
 if FLAGS.color.startswith("noreplace"):
   num_colors = int(FLAGS.color[9:])
   all_hues = np.linspace(0, 1., num_colors, endpoint=False)
-  hues = rnd.choice(all_hues, size=nr_objects, replace=False)
+  hues = rng.choice(all_hues, size=nr_objects, replace=False)
   colors = [kb.Color.from_hsv(hue, 1., 1.) for hue in hues]
 else:
   raise ValueError(f"Unknown color directive --color={FLAGS.color}")
@@ -100,20 +100,20 @@ def get_random_ball(color):
                                   indirect_visibility=False)
   shape = FLAGS.shape
   if shape == "mixed":
-    shape = rnd.choice(["cube", "sphere"])
+    shape = rng.choice(["cube", "sphere"])
   if shape == "cube":
     ball = kb.Cube(scale=[FLAGS.ball_radius]*3,
                    material=ball_material,
                    friction=FLAGS.friction,
                    restitution=FLAGS.restitution,
-                   quaternion=kb.random_rotation([0, 0, 1], rnd),
-                   velocity=rnd.uniform(*velocity_range))
+                   quaternion=kb.random_rotation([0, 0, 1], rng),
+                   velocity=rng.uniform(*velocity_range))
   elif shape == "sphere":
     ball = kb.Sphere(scale=[FLAGS.ball_radius]*3,
                      material=ball_material,
                      friction=FLAGS.friction,
                      restitution=FLAGS.restitution,
-                     velocity=rnd.uniform(*velocity_range))
+                     velocity=rng.uniform(*velocity_range))
   else:
     raise ValueError(f"Unknown shape type '{shape}'")
   return ball
@@ -125,7 +125,7 @@ samplers = [
 for color in colors:
   ball = get_random_ball(color)
   scene.add(ball)
-  kb.resample_while(ball, samplers, simulator.check_overlap, rnd=rnd)
+  kb.resample_while(ball, samplers, simulator.check_overlap, rng=rng)
 
 # --- simulation
 simulator.save_state(FLAGS.output_dir)

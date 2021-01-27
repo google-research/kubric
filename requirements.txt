@@ -6,7 +6,7 @@ dataclasses
 google-cloud-storage
 mathutils
 munch
-numpy
+numpy>=1.17
 pandas
 pybullet
 scikit-learn
