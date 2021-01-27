@@ -33,7 +33,7 @@ FLAGS = parser.parse_args()
 # --- common setups & resources
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
-rnd = np.random.RandomState(seed=FLAGS.random_seed)
+rng = np.random.default_rng(seed=FLAGS.random_seed)
 
 
 # --- setup scene, simulator, renderer and asset source
@@ -59,13 +59,13 @@ scene.add_all(*klevr.get_lights())
 # --- place random objects
 spawn_region = [(-4, -4, 0), (4, 4, 3)]
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
-nr_objects = rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+nr_objects = rng.integers(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
-  obj = gso.create(asset_id=gso.db.sample(random_state=rnd).iloc[0]['id'],
+  obj = gso.create(asset_id=gso.db.sample(random_state=rng).iloc[0]['id'],
                    scale=8)
   scene.add(obj)
-  kb.move_until_no_overlap(obj, simulator, spawn_region=spawn_region, rnd=rnd)
-  obj.velocity = rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0]
+  kb.move_until_no_overlap(obj, simulator, spawn_region=spawn_region, rng=rng)
+  obj.velocity = rng.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0]
 
 # --- simulation
 simulator.save_state(FLAGS.output_dir)

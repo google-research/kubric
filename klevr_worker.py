@@ -36,7 +36,7 @@ FLAGS = parser.parse_args()
 # --- common setups & resources
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
-rnd = np.random.RandomState(seed=FLAGS.random_seed)
+rng = np.random.default_rng(seed=FLAGS.random_seed)
 scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
@@ -50,13 +50,13 @@ scene.add(klevr.get_floor())
 
 # --- Placer
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
-nr_objects = rnd.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+nr_objects = rng.integers(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 for i in range(nr_objects):
-  obj = klevr.create_random_object(rnd)
+  obj = klevr.create_random_object(rng)
   scene.add(obj)
   kb.move_until_no_overlap(obj, simulator, spawn_region=[(-4, -4, 0), (4, 4, 3)])
   # bias velocity towards center
-  obj.velocity = (rnd.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
+  obj.velocity = (rng.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0])
 
 # --- Simulation
 if FLAGS.output_dir:
