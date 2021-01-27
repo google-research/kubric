@@ -1,11 +1,12 @@
-Welcome to Kubric's documentation!
-==================================
+Kubric
+======
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    source/getting_started
+   source/installing
    source/kubric
 
 
