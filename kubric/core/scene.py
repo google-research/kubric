@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from typing import Tuple
+from typing import Tuple, Union, List
 
 import traitlets as tl
 
@@ -131,7 +131,12 @@ class Scene(tl.HasTraits):
     for asset in self._assets:
       view.remove(asset)
 
-  def add(self, asset: base.Asset):
+  def add(self, asset: Union[base.Asset, List[base.Asset]]):
+    if isinstance(asset, (list, tuple)):
+      for a in asset:
+        self.add(a)
+      return
+
     if isinstance(asset, base.Undefined):
       return
 
@@ -144,10 +149,6 @@ class Scene(tl.HasTraits):
 
     for view in self._views:
       view.add(asset)
-
-  def add_all(self, *assets: base.Asset):
-    for asset in assets:
-      self.add(asset)
 
   def remove(self, asset: base.Asset):
     if asset not in self._assets:
