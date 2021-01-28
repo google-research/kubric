@@ -18,6 +18,7 @@ import Imath
 from typing import Dict, Sequence
 import kubric.assets
 
+
 def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str]) -> np.ndarray:
   """Reads a single channel from an EXR file and returns it as a numpy array."""
   channels_header = exr.header()["channels"]

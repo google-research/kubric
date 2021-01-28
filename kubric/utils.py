@@ -13,12 +13,9 @@
 # limitations under the License.
 
 import sys
-import os
 import argparse
 import logging
 import pprint
-import pathlib
-import numpy as np
 
 from kubric.simulator.pybullet import _pybullet_logs
 from kubric.renderer.blender import _blender_logs
@@ -43,7 +40,7 @@ class ArgumentParser(argparse.ArgumentParser):
   def parse_args(self, args=None, namespace=None):
     # --- parse argument in a way compatible with blender's REPL
     if args is not None and "--" in sys.argv:
-      args=sys.argv[sys.argv.index("--")+1:]
+      args = sys.argv[sys.argv.index("--")+1:]
       flags = super(ArgumentParser, self).parse_args(args=args, namespace=namespace)
     else:
       flags = super(ArgumentParser, self).parse_args(args=args)

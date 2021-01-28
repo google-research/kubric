@@ -93,8 +93,6 @@ class Blender(core.View):
         "background": [lambda change: self._set_background_color(change.new)],
     })
 
-
-
   @property
   def adaptive_sampling(self) -> bool:
     return self.blender_scene.cycles.use_adaptive_sampling
@@ -109,7 +107,8 @@ class Blender(core.View):
 
   @use_denoising.setter
   def use_denoising(self, value: bool):
-    self.blender_scene.view_layers[0].cycles.use_denoising = value
+    self.blender_scene.cycles.use_denoising = value
+    self.blender_scene.cycles.denoiser = "NLM"
 
   @property
   def samples_per_pixel(self) -> int:
@@ -256,6 +255,10 @@ class Blender(core.View):
                                axis_forward=obj.front, axis_up=obj.up)
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
+
+    # deactivate auto_smooth because for some reason it lead to no smoothing at all
+    # TODO: make smoothing configurable
+    blender_obj.data.use_auto_smooth = False
 
     register_object3d_setters(obj, blender_obj)
     obj.observe(AttributeSetter(blender_obj, 'active_material',
@@ -485,7 +488,6 @@ class Blender(core.View):
     self.bg_hdri_node.location = 400, 200
     links.new(coord_node.outputs.get("Generated"), self.bg_mapping_node.inputs.get("Vector"))
     links.new(self.bg_mapping_node.outputs.get("Vector"), self.bg_hdri_node.inputs.get("Vector"))
-    #links.new(bg_hdri_node.outputs.get("Color"), self.bg_node.inputs.get("Color"))
 
     self.illum_mapping_node = tree.nodes.new(type="ShaderNodeMapping")
     self.illum_mapping_node.location = 200, -200
@@ -493,7 +495,6 @@ class Blender(core.View):
     self.ambient_hdri_node.location = 400, -200
     links.new(coord_node.outputs.get("Generated"), self.illum_mapping_node.inputs.get("Vector"))
     links.new(self.illum_mapping_node.outputs.get("Vector"), self.ambient_hdri_node.inputs.get("Vector"))
-    # links.new(illum_hdri_node.outputs.get("Color"), self.illum_node.inputs.get("Color"))
 
   def _set_ambient_light_color(self, color=(0., 0., 0., 1.0)):
     # disconnect incoming links from hdri node (if any)
