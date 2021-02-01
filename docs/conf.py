@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import inspect
 import os
 import sys
 
@@ -45,6 +46,7 @@ extensions = [
     "sphinx.ext.coverage",
     "sphinx.ext.napoleon",
     "sphinx.ext.linkcode",
+    "sphinx.ext.mathjax",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -59,12 +61,12 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # -- Autodoc ----------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
 autodoc_mock_imports = ["bpy", "OpenEXR"]
-
+autoclass_content = 'both'
 
 # -- Napoleon ----------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
 napoleon_google_docstring = True
-napoleon_numpy_docstring = False
+napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = True
 
 
@@ -75,23 +77,33 @@ def linkcode_resolve(domain, info):
   # adapted from Lasagne https://github.com/Lasagne/Lasagne/blob/master/docs/conf.py#L114
   def find_source():
     obj = sys.modules[info['module']]
-    for part in info['fullname'].split('.'):
-      obj = getattr(obj, part)
-    import inspect
-    import os
     fn = inspect.getsourcefile(obj)
     fn = os.path.relpath(fn, start="..")
     source, lineno = inspect.getsourcelines(obj)
+
+    for part in info['fullname'].split('.'):
+      obj = getattr(obj, part)
+      try:
+        fn = inspect.getsourcefile(obj)
+        fn = os.path.relpath(fn, start="..")
+        source, lineno = inspect.getsourcelines(obj)
+      except TypeError:
+        break
     return fn, lineno, lineno + len(source) - 1
 
   if domain != 'py' or not info['module']:
     return None
-  try:
-    filename = '%s#L%d-L%d' % find_source()
-  except Exception:
-    filename = info['module'].replace('.', '/') + '.py'
+
+  fn, line_start, line_end = find_source()
+  if line_start is None:
+    filename = fn
+  else:
+    filename = f"{fn}#L{line_start}-L{line_end}"
+
+  # except Exception:
+  #   filename = info['module'].replace('.', '/') + '.py'
   tag = 'main' if 'dev' in release else ('v' + release)
-  return "https://github.com/google-research/kubric/blob/%s/%s" % (tag, filename)
+  return f"https://github.com/google-research/kubric/blob/{tag}/{filename}"
 
 # -- Options for HTML output -------------------------------------------------
 

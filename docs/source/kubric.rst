@@ -14,6 +14,12 @@ Kubric API Reference
    kubric.simulator
 
 
+Assets
+------
+
+
+
+
 kubric.post\_processing module
 ------------------------------
 

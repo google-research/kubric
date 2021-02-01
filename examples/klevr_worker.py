@@ -71,15 +71,24 @@ spawn_region = [(-4, -4, 0), (4, 4, 3)]
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
 
 for i in range(nr_objects):
-  obj = klevr.create(asset_id=rng.choice(["Cube", "Cylinder", "Sphere", "Cone", "Torus", "Spot", "Sponge", "TorusKnot", "Gear", "Teapot", "Suzanne"]),
-                     scale=rng.choice([1.4, 0.7]),
-                     material=rng.choice([
-                         kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng), metallic=1.0,
-                                                   roughness=0.2, ior=2.5),
-                         kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng), metallic=0.,
-                                                   roughness=0.7, specular=0.33, ior=1.25)
-                     ]),
-                     friction=0.3)
+  shape = rng.choice(["Cube", "Cylinder", "Sphere"])
+  # "Cone", "Torus", "Spot", "Sponge", "TorusKnot", "Gear", "Teapot", "Suzanne"])
+  size = rng.choice([1.4, 0.7])
+  color = kb.random_hue_color(rng=rng)
+  material = rng.choice(["Metal", "Rubber"])
+  obj = klevr.create(asset_id=shape, scale=size)
+  if material == "Metal":
+    obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
+    obj.friction = 0.4
+    obj.restitution = 0.3
+    obj.mass *= 2.7
+  else:  # material == "Rubber"
+    obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=0., ior=1.25, roughness=0.7,
+                                             specular=0.33)
+    obj.friction = 0.8
+    obj.restitution = 0.7
+    obj.mass *= 1.1
+
   scene.add(obj)
   kb.move_until_no_overlap(obj, simulator, spawn_region=spawn_region,
                            max_trials=FLAGS.max_placement_trials)
@@ -90,14 +99,14 @@ for i in range(nr_objects):
 
 # --- Simulation
 logging.info("Saving the simulator state to '%s' before starting the simulation.", output_dir)
-simulator.save_state(output_dir)
+simulator.save_state(output_dir / "scene.bullet")
 logging.info("Running the Simulation...")
 animation = simulator.run()
 
 
 # --- Rendering
 logging.info("Saving the renderer state to '%s' before starting the rendering.", FLAGS.output_dir)
-renderer.save_state(output_dir)
+renderer.save_state(output_dir / "scene.blend")
 render_dir = output_dir / "render"
 logging.info("Rendering the scene and saving results in '%s'", render_dir)
 renderer.render(render_dir)

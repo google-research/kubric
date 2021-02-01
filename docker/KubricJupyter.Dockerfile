@@ -1,4 +1,7 @@
-FROM kubruntu:latest
+# This docker image starts a jupyterlab server and exposes it to the outside.
+
+
+FROM klausgreff/kubruntu:latest
 
 EXPOSE 8888
 WORKDIR /kubric

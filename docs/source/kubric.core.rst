@@ -3,7 +3,7 @@ kubric.core
 
 .. automodule:: kubric.core
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.base
@@ -11,7 +11,7 @@ kubric.core.base
 
 .. automodule:: kubric.core.base
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.cameras
@@ -20,6 +20,7 @@ kubric.core.cameras
 .. automodule:: kubric.core.cameras
    :members:
    :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.color
@@ -27,7 +28,6 @@ kubric.core.color
 
 .. automodule:: kubric.core.color
    :members:
-   :undoc-members:
    :show-inheritance:
 
 kubric.core.lights
@@ -35,7 +35,7 @@ kubric.core.lights
 
 .. automodule:: kubric.core.lights
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.materials
@@ -43,7 +43,7 @@ kubric.core.materials
 
 .. automodule:: kubric.core.materials
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.objects
@@ -51,7 +51,7 @@ kubric.core.objects
 
 .. automodule:: kubric.core.objects
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.scene
@@ -59,7 +59,7 @@ kubric.core.scene
 
 .. automodule:: kubric.core.scene
    :members:
-   :undoc-members:
+   :inherited-members: HasTraits
    :show-inheritance:
 
 kubric.core.traits

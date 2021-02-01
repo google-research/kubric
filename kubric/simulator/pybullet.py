@@ -158,10 +158,9 @@ class PyBullet(core.View):
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def save_state(self, path: Union[pathlib.Path, str]):
+  def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
     path = pathlib.Path(path)
-    path = path / "scene.bullet"
     path.parent.mkdir(parents=True, exist_ok=True)
     pb.saveBullet(str(path))
 
