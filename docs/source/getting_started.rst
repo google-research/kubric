@@ -15,6 +15,8 @@ To run a ``worker.py`` file use:
 
     docker run  -v "`pwd`:/kubric" -it --rm  klausgreff/kubruntu python3 worker.py
 
+In the following we will create a series of simple workers that highlight different aspects of Kubric.
+The code for these examples can also be found in the `examples directory <https://github.com/google-research/kubric/tree/main/examples>`_.
 
 A Simple Worker
 ---------------
