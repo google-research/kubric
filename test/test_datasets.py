@@ -27,13 +27,14 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
   SPLITS = {
       tfds.Split.TRAIN: 4,  # Number of fake train example
   }
+  EXAMPLE_DIR = pathlib.Path(__file__).parent / "dummy_data"
 
   @classmethod
   def setUpClass(cls):
     klevr.Klevr.BUILDER_CONFIGS = [klevr.KlevrConfig(
         name='test',
         description='Dummy test.',
-        path=pathlib.Path(__file__).parent / "dummy_data",
+        path=cls.EXAMPLE_DIR,
         is_master=True,
         height=28,
         width=28)]
