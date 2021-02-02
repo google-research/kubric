@@ -13,9 +13,11 @@
 # limitations under the License.
 
 import pathlib
+
 import tensorflow as tf
-from kubric.datasets import klevr
 import tensorflow_datasets.public_api as tfds
+
+from kubric.datasets import klevr
 
 
 class KlevrTest(tfds.testing.DatasetBuilderTestCase):
