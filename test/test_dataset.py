@@ -14,7 +14,7 @@
 
 import pathlib
 import tensorflow as tf
-from kubric.datasets.klevr import klevr
+from kubric.datasets import klevr
 import tensorflow_datasets.public_api as tfds
 
 
