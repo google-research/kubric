@@ -11,15 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Integration tests."""
-import pytest
 
+""" This package defines the basic object hierarchy that forms the center of Kubrics interface.
 
-@pytest.mark.skip
-def test_upload():
-  # TODO: figure out how to properly test cloud storage access
-  # example: writes frame.png → gs://kubric/subfolder/target.png
-  from google.cloud import storage
-  bucket = storage.Client().bucket("kubric") #< gs://kubric
-  blob = bucket.blob("subfolder/target.png")  #< position on bucket
-  blob.upload_from_filename("frame.png") #< position on local system
+The root classes are Scene and Asset, which further specializes into:
+
+* Materials
+* Objects
+* Lights
+* Cameras
+"""
+
+from kubric.core.color import *
+from kubric.core.base import *
+# from kubric.core.traits import *
+from kubric.core.objects import *
+from kubric.core.materials import *
+from kubric.core.lights import *
+from kubric.core.cameras import *
+from kubric.core.scene import Scene
+from kubric.core.view import View
+

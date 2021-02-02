@@ -7,11 +7,7 @@
 *.exr
 .vscode/settings.json
 output/*
-bazel-out
-bazel-testlogs
-bazel-graphics
-bazel-bin
-katamari/*
-urdf/*
-helloworld.py
-Assets/KLEVR/*
+docs/_build
+.idea
+**/.ipynb_checkpoints
+.hypothesis

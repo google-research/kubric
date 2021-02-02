@@ -1,7 +1,8 @@
 # Kubric
 
-![Unittests](https://github.com/google-research/kubric/workflows/Unittests/badge.svg)
+![Build container and run tests](https://github.com/google-research/kubric/workflows/Build%20container%20and%20run%20tests/badge.svg)
 [![Coverage](https://badgen.net/codecov/c/github/google-research/kubric)](https://codecov.io/github/google-research/kubric)
+[![Docs](https://readthedocs.org/projects/kubric/badge/?version=latest)](https://kubric.readthedocs.io/en/latest/)
 
 A data generation pipeline for creating semi-realistic synthetic multi-object 
 videos with rich annotations such as instance segmentation masks, depth maps, 
@@ -41,7 +42,7 @@ Mainly built on-top of pybullet for physics simulation and Blender for rendering
 But the code is kept modular to support different rendering backends.
 
 ## Contributors
-[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto), Cinjon Resnick (NYU), Francis Williams (NYU), Issam Laradji (McGill and MILA), Or Litany (Stanford and NVIDIA), Luca Prasso (Google)
+[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto), Issam Laradji (McGill and MILA), Or Litany (Stanford and NVIDIA), Luca Prasso (Google)
 
 ## Disclaimer
 This is not an official Google Product

@@ -23,7 +23,7 @@ import pandas as pd
 from google.cloud import storage
 import urllib.parse
 
-from kubric import core
+from kubric.core import objects
 
 
 logger = logging.getLogger(__name__)
@@ -61,7 +61,7 @@ class AssetSource(object):
     logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
     self.local_temp_folder.cleanup()
 
-  def create(self, asset_id: str, **kwargs) -> core.FileBasedObject:
+  def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
 
@@ -69,10 +69,10 @@ class AssetSource(object):
       if pname in properties and pname not in kwargs:
         kwargs[pname] = properties[pname]
 
-    return core.FileBasedObject(asset_id=asset_id,
-                                simulation_filename=str(sim_filename),
-                                render_filename=str(vis_filename),
-                                **kwargs)
+    return objects.FileBasedObject(asset_id=asset_id,
+                                   simulation_filename=str(sim_filename),
+                                   render_filename=str(vis_filename),
+                                   **kwargs)
 
   def fetch(self, object_id):
     object_path = self._download_file(object_id + ".tar.gz")

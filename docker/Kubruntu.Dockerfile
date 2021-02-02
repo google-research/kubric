@@ -1,15 +1,14 @@
-FROM ubuntu:20.04 as build
+# #################################################################################################
+# 1. Build Stage
+# Compiles python and blender from source
+# #################################################################################################
 
-# LABEL Author="Klaus Greff <klausg@google.com>"
-# LABEL Title="Kubruntu"
+FROM ubuntu:20.04 as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-# TODO: make a multi-stage build to separate dependencies needed for
-#       compiling from those needed for running kubric
-#       (would make for a smaller / more tidy docker image)
 
 WORKDIR /blenderpy
 
@@ -62,11 +61,10 @@ RUN wget -nv https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz -O Pyth
     checkinstall --default
 
 
-
 # --- Clone and compile Blender
 
 # RUN git clone https://git.blender.org/blender.git
-RUN git clone https://github.com/blender/blender.git --branch blender-v2.83-release --depth 1
+RUN git clone https://github.com/blender/blender.git --branch blender-v2.91-release --depth 1
 
 RUN mkdir lib && \
     cd lib && \
@@ -75,23 +73,33 @@ RUN mkdir lib && \
 RUN cd blender && \
     make update
 
-# Patch to disable statically linking OpenMP when building as a python module
-# https://devtalk.blender.org/t/centos-7-manylinux-build-difficulties/15007/5
-# and to disable
-# https://devtalk.blender.org/t/problem-with-running-blender-as-a-python-module/7367/8
-COPY ./docker/openmp_static_patch.txt /blenderpy/blender
-RUN cd blender && patch -p1 < openmp_static_patch.txt
+# Patch to disable fix segfault on exit problem
+# https://developer.blender.org/T82675
+COPY ./docker/segfault_bug_patch.txt /blenderpy/blender
+RUN cd blender && patch -p1 < segfault_bug_patch.txt
+
 
 RUN cd blender && make -j8 bpy
 
 
+# #################################################################################################
+# Final Stage
+# Installs previously built python and bpy module along with other dependencies in a fresh image.
+# This two stage process makes the final image much smaller because it doesn't include the files
+# and dependencies of the build process.
+# #################################################################################################
+
+
 FROM ubuntu:20.04
+
+LABEL Author="Klaus Greff <klausg@google.com>"
+LABEL Title="Kubruntu"
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-WORKDIR /
+WORKDIR /kubric
 
 # --- Install package dependencies
 # TODO: probably do not need all of them, or at least not in their dev version
@@ -102,6 +110,8 @@ RUN apt-get update --yes --fix-missing && \
       imagemagick \
       # OpenEXR
       libopenexr-dev \
+      curl \
+      ca-certificates \
       git \
       libffi-dev \
       libssl-dev \
@@ -125,13 +135,19 @@ RUN apt-get update --yes --fix-missing && \
 
 COPY --from=build /blenderpy/Python-3.7.9/python_3.7.9-1_amd64.deb .
 RUN dpkg -i python_3.7.9-1_amd64.deb && \
-    rm /python_3.7.9-1_amd64.deb
+    rm -f python_3.7.9-1_amd64.deb
 
 COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.7/site-packages
-COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-packages/2.83 /usr/local/lib/python3.7/site-packages/2.83
+COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.7/site-packages/2.91 /usr/local/lib/python3.7/site-packages/2.91
 
 # # --- Install Python dependencies
 COPY requirements.txt .
 RUN python3 -m ensurepip && \
-    pip3 install --upgrade pip && \
-    pip3 install --upgrade --force-reinstall -r requirements.txt
+    pip3 install --upgrade pip wheel && \
+    pip3 install --upgrade --force-reinstall -r requirements.txt && \
+    rm -f requirements.txt
+
+# # --- Install Kubric
+COPY dist/kubric*.whl .
+RUN pip3 install `ls kubric*.whl` && \
+    rm -f kubric*.whl

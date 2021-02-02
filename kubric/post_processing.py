@@ -89,7 +89,7 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     for bg_id in bg_ids:
       idxs[idxs == bg_id] = 0  # assign 0 to all background objects
     for i, object_id in enumerate(object_ids):
-      idxs[idxs == object_id] = i
+      idxs[idxs == object_id] = i + 1
 
   return output
 

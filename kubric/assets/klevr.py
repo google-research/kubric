@@ -17,7 +17,7 @@ import numpy as np
 import kubric as kb
 from kubric.assets import asset_source
 from kubric import core
-from kubric import color
+from kubric.core import color
 
 KLEVR_ASSETS_IDs = [
   "LargeMetalCube",
@@ -45,18 +45,18 @@ class KLEVR(asset_source.AssetSource):
     # self.ambient_light = (0.05, 0.05, 0.05)
 
   # NOTE: moved from worker
-  def create_random_object(self, rnd=np.random.RandomState()):
-    asset_id = rnd.choice(KLEVR_ASSETS_IDs)
+  def create_random_object(self, rng=np.random.default_rng()):
+    asset_id = rng.choice(KLEVR_ASSETS_IDs)
 
     if "Metal" in asset_id:
       material = kb.PrincipledBSDFMaterial(
-            color=kb.random_hue_color(rnd=rnd),
+            color=kb.random_hue_color(rng=rng),
             roughness=0.2,
             metallic=1.0,
             ior=2.5)
     else:  # if "Rubber" in asset_id:
       material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=rnd),
+          color=kb.random_hue_color(rng=rng),
           roughness=0.7,
           specular=0.33,
           metallic=0.,
@@ -66,8 +66,8 @@ class KLEVR(asset_source.AssetSource):
     return obj
 
   def get_floor(self):
-    asset = self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2))
-    asset.background = True  #TODO: should .create have an argument for this?
+    asset = self.create(asset_id="Floor", static=True, position=(0, 0, -0.2), scale=(2, 2, 2),
+                        background=True)
     return asset
 
   def get_lights(self):
@@ -91,68 +91,3 @@ class KLEVR(asset_source.AssetSource):
                                     position=(7.48113, -6.50764, 5.34367))
     camera.look_at((0, 0, 0))
     return camera
-
-
-
-
-
-
-  # TODO: this is obsolete?
-  # def get_scene(self):
-  #   floor = self.get_floor()
-  #   lights = self.get_lights()
-  #   camera = self.get_camera()
-  #   return floor, lights, camera
-
-  # TODO: this seems obsolete?
-  # def create_material(self, name, color_rgb):
-  #   if name == "metal":
-  #     return core.PrincipledBSDFMaterial(
-  #         color=color_rgb,
-  #         roughness=0.2,
-  #         metallic=1.0,
-  #         ior=2.5)
-  #   elif name == "rubber":
-  #     return core.PrincipledBSDFMaterial(
-  #         color=color_rgb,
-  #         roughness=0.7,
-  #         specular=0.33,
-  #         metallic=0.,
-  #         ior=1.25)
-
-  # TODO: this seems obsolete?
-  # def get_random_rotation(self, rnd=None):
-  #   """Samples a random rotation around z axis (uniformly distributed)."""
-  #   if rnd is None:
-  #     rnd = np.random.RandomState()
-  #   theta = rnd.uniform(0, 2*np.pi)
-  #   return np.cos(theta), 0, 0, np.sin(theta)
-
-  # TODO: this seems obsolete?
-  # def get_random_object_pose(self, asset_id, rnd=None):
-  #   if rnd is None:
-  #     rnd = np.random.RandomState()
-  #   properties = self.db[self.db["id"] == asset_id].iloc[0]   # there has to be a better way!
-  #   bounds = np.array(properties.get("bounds", [[0, 0, 0], [0, 0, 0]]))
-  #   rotation = self.get_random_rotation(rnd)
-  #   spawn_region = np.array(self.spawn_region) - bounds
-  #   position = rnd.uniform(*spawn_region)
-  #   return position, rotation
-
-  # TODO: this seems obsolete?
-  # def get_random_object(self, rnd=None):
-  #   if rnd is None:
-  #     rnd = np.random.RandomState()
-  #   random_id = rnd.choice(self.objects_list)
-  #   position, rotation = self.get_random_object_pose(random_id, rnd)
-  #   velocity = rnd.uniform((-4, -4, 0), (4, 4, 0)) - [position[0], position[1], 0]  # bias towards center
-  #   rgba = color.Color.from_hsv(rnd.random_sample(), .95, 1.0)
-  #   material_type = "metal" if "Metal" in random_id else "rubber"
-  #   material = self.create_material(material_type, rgba)
-  #   return self.create(asset_id=random_id,
-  #                      position=position,
-  #                      quaternion=rotation,
-  #                      velocity=velocity,
-  #                      material=material)
-
-
