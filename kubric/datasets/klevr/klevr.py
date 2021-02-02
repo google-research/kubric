@@ -59,7 +59,7 @@ def _get_files_from_master(path):
   all_files = []
   all_subdirs = list(path.glob('*'))
   for subdir in all_subdirs:
-    all_files.extend(_get_files_from_subdir(path / subdir))
+    all_files.extend(_get_files_from_subdir(subdir))
   logging.info('Found %d sub-folders in master path: %s', len(all_subdirs),
                path)
   return all_files

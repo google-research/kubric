@@ -1,5 +1,6 @@
 """Tests for the klevr dataset."""
 
+import pathlib
 import tensorflow as tf
 from kubric.datasets.klevr import klevr
 import tensorflow_datasets.public_api as tfds
@@ -15,12 +16,13 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
 
   @classmethod
   def setUpClass(cls):
-    klevr.Klevr.BUILDER_CONFIGS = [klevr.KlevrConfig(name='test',
-                                                     description='Dummy test.',
-                                                     path=cls.dummy_data,
-                                                     is_master=True,
-                                                     height=28,
-                                                     width=28)]
+    klevr.Klevr.BUILDER_CONFIGS = [klevr.KlevrConfig(
+        name='test',
+        description='Dummy test.',
+        path=pathlib.Path(__file__).parent / "dummy_data",
+        is_master=True,
+        height=28,
+        width=28)]
     super().setUpClass()
 
   def _download_and_prepare_as_dataset(self, builder):
