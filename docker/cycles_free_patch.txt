@@ -7,7 +7,7 @@ index 3ab352e..1162d89 100644
  
      def __del__(self):
 -        engine.free(self)
-+        if engine.free is not None:
++        if engine is not None:
 +            engine.free(self)
  
      # final render
