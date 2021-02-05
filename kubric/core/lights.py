@@ -14,7 +14,7 @@
 
 import traitlets as tl
 
-import kubric.core.traits as ktl
+from kubric.core import traits as ktl
 from kubric.core import base
 from kubric.core import color
 from kubric.core import objects
