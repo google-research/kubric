@@ -17,6 +17,7 @@ import numpy as np
 import kubric as kb
 from kubric.assets import asset_source
 from kubric import core
+from kubric import randomness
 from kubric.core import color
 
 KLEVR_ASSETS_IDs = [
@@ -45,7 +46,7 @@ class KLEVR(asset_source.AssetSource):
     # self.ambient_light = (0.05, 0.05, 0.05)
 
   # NOTE: moved from worker
-  def create_random_object(self, rng=np.random.default_rng()):
+  def create_random_object(self, rng=randomness.default_rng()):
     asset_id = rng.choice(KLEVR_ASSETS_IDs)
 
     if "Metal" in asset_id:

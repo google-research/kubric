@@ -17,7 +17,7 @@ import pytest
 import traitlets as tl
 from numpy.testing import assert_allclose
 
-import kubric.core.traits as ktl
+from kubric.core import traits as ktl
 
 
 @pytest.fixture
