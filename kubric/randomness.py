@@ -19,11 +19,15 @@ from kubric.core import color
 from kubric.core import objects
 
 
-def random_hue_color(saturation: float = 1., value: float = 1, rng=np.random.default_rng()):
+def default_rng():
+  return np.random.RandomState()
+
+
+def random_hue_color(saturation: float = 1., value: float = 1, rng=default_rng()):
   return color.Color.from_hsv(rng.uniform(), saturation, value)
 
 
-def random_rotation(axis=None, rng=np.random.default_rng()):
+def random_rotation(axis=None, rng=default_rng()):
   """ Compute a random rotation as a quaternion.
   If axis is None the rotation is sampled uniformly over all possible orientations.
   Otherwise it corresponds to a random rotation around the given axis."""
@@ -78,7 +82,7 @@ def position_sampler(region):
   return _sampler
 
 
-def resample_while(asset, samplers, condition, max_trials=100, rng=np.random.default_rng()):
+def resample_while(asset, samplers, condition, max_trials=100, rng=default_rng()):
   for trial in range(max_trials):
     for sampler in samplers:
       sampler(asset, rng)
@@ -89,7 +93,7 @@ def resample_while(asset, samplers, condition, max_trials=100, rng=np.random.def
 
 
 def move_until_no_overlap(asset, simulator, spawn_region=((-1, -1, -1), (1, 1, 1)), max_trials=100,
-                          rng=np.random.default_rng()):
+                          rng=default_rng()):
   return resample_while(asset,
                         samplers=[rotation_sampler(), position_sampler(spawn_region)],
                         condition=simulator.check_overlap,
