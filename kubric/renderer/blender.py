@@ -105,11 +105,11 @@ class Blender(core.View):
 
   @property
   def use_denoising(self) -> bool:
-    return self.blender_scene.view_layers[0].cycles.use_denoising
+    return self.blender_scene.cycles.use_denoising
 
   @use_denoising.setter
   def use_denoising(self, value: bool):
-    self.blender_scene.view_layers[0].cycles.use_denoising = value
+    self.blender_scene.cycles.use_denoising = value
 
   @property
   def samples_per_pixel(self) -> int:

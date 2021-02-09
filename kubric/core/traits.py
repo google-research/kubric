@@ -111,6 +111,10 @@ class RGB(tl.TraitType):
 class AssetInstance(tl.Instance):
   default_value = base.UndefinedAsset()
 
+  def make_dynamic_default(self):
+    # this function is only needed in traitlets < 5.0
+    return self.default_value
+
   def validate(self, obj: base.Asset, value):
     super().validate(obj, value)
 
