@@ -144,7 +144,7 @@ Finally, let us give each ball a random initial velocity. Combined with the code
 
 The resulting scene looks like this:
 
-.. image:: ../images/getting_started_blender_scene3.png
+.. image:: ../images/getting_started_blender_scene3.jpg
    :width: 400pt
 
 

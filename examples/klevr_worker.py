@@ -25,7 +25,7 @@ parser.add_argument("--min_nr_objects", type=int, default=4)
 parser.add_argument("--max_nr_objects", type=int, default=10)
 parser.add_argument("--max_placement_trials", type=int, default=100)
 parser.add_argument("--output_dir", type=str, default="output/")
-parser.add_argument("--assets_dir", type=str, default="./assets/KLEVR")
+parser.add_argument("--assets_dir", type=str, default="./assets/KuBasic")
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
@@ -44,7 +44,7 @@ klevr = kb.AssetSource(FLAGS.assets_dir)
 # --- Populate the scene
 logging.info("Creating a large gray cube as the floor...")
 floor_material = kb.PrincipledBSDFMaterial(color=kb.get_color('gray'), roughness=1., specular=0.)
-floor = kb.Cube(scale=(10, 10, 1), position=(0, 0, -1), material=floor_material, friction=0.3,
+floor = kb.Cube(scale=(100, 100, 1), position=(0, 0, -1), material=floor_material, friction=0.3,
                 static=True, background=True)
 scene.add(floor)
 
@@ -69,12 +69,22 @@ nr_objects = rng.integers(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 logging.info("Randomly placing %d objects:", nr_objects)
 spawn_region = [(-4, -4, 0), (4, 4, 3)]
 velocity_range = [(-4, -4, 0), (4, 4, 0)]
+clevr_colors = {
+    "gray": kb.Color(87/255, 87/255, 87/255),
+    "red": kb.Color(173/255, 35/255, 35/255),
+    "blue": kb.Color(42/255, 75/255, 215/255),
+    "green": kb.Color(29/255, 105/255, 20/255),
+    "brown": kb.Color(129/255, 74/255, 25/255),
+    "purple": kb.Color(129/255, 38/255, 192/255),
+    "cyan": kb.Color(41/255, 208/255, 208/255),
+    "yellow": kb.Color(255/255, 238/255, 5/255),
+}
 
 for i in range(nr_objects):
   shape = rng.choice(["Cube", "Cylinder", "Sphere"])
   # "Cone", "Torus", "Spot", "Sponge", "TorusKnot", "Gear", "Teapot", "Suzanne"])
   size = rng.choice([1.4, 0.7])
-  color = kb.random_hue_color(rng=rng)
+  color = rng.choice(list(clevr_colors.values()))
   material = rng.choice(["Metal", "Rubber"])
   obj = klevr.create(asset_id=shape, scale=size)
   if material == "Metal":
