@@ -107,20 +107,20 @@ def test_blender_init_adaptive_sampling():
 def test_blender_use_denoising_default():
   renderer = blender.Blender(core.Scene())
   assert renderer.use_denoising is True
-  assert renderer.blender_scene.view_layers[0].cycles.use_denoising is True
+  assert renderer.blender_scene.cycles.use_denoising is True
 
 
 def test_blender_set_use_denoising():
   renderer = blender.Blender(core.Scene())
   renderer.use_denoising = False
   assert renderer.use_denoising is False
-  assert renderer.blender_scene.view_layers[0].cycles.use_denoising is False
+  assert renderer.blender_scene.cycles.use_denoising is False
 
 
 def test_blender_use_denoising_init():
   renderer = blender.Blender(core.Scene(), use_denoising=False)
   assert renderer.use_denoising is False
-  assert renderer.blender_scene.view_layers[0].cycles.use_denoising is False
+  assert renderer.blender_scene.cycles.use_denoising is False
 
 
 def test_blender_samples_per_pixel_default():

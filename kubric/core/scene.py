@@ -16,7 +16,7 @@ from typing import Tuple, Union, List
 import traitlets as tl
 
 import kubric
-import kubric.core.traits as ktl
+from kubric.core import traits as ktl
 from kubric.core import base
 from kubric.core import cameras
 from kubric.core import color
