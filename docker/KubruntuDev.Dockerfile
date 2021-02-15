@@ -14,7 +14,7 @@ WORKDIR /kubric
 COPY . .
 
 RUN pip3 install -U pip && \
-    pip3 uninstall kubric && \
+    pip3 uninstall -y kubric && \
     pip3 install -r requirements_dev.txt && \
     pip3 install -r docs/requirements.txt && \
     pip3 install -e .

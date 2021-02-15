@@ -73,8 +73,10 @@ RUN mkdir lib && \
 RUN cd blender && \
     make update
 
-# Patch to disable fix segfault on exit problem
+# Patch to fix segfault on exit problem
 # https://developer.blender.org/T82675
+# https://developer.blender.org/rB87d3f4aff3225104cbb8be41ac0339c6a1cd9a85
+# TODO: remove once we are using Blender 2.92
 COPY ./docker/segfault_bug_patch.txt /blenderpy/blender
 RUN cd blender && patch -p1 < segfault_bug_patch.txt
 
