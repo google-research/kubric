@@ -63,7 +63,7 @@ def test_hex_to_rgba_invalid():
     color.Color.from_hexint(0x123456, alpha=1.1)
 
 
-@hypothesis.given(strategies.tuples(strategies.floats(0., 1.0), 
+@hypothesis.given(strategies.tuples(strategies.floats(0.01, 0.99),
                                     strategies.floats(0.01, 1.0), 
                                     strategies.floats(0.01, 1.0)))
 def test_hsv_conversion_is_invertible(hsv):
