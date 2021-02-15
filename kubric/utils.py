@@ -39,7 +39,7 @@ class ArgumentParser(argparse.ArgumentParser):
     self.add_argument("--width", type=int, default=512)
     self.add_argument("--height", type=int, default=512)
     self.add_argument("--scratch_dir", type=str, default=None)
-    self.add_argument("--job_dir", type=str, default="output")
+    self.add_argument("--job-dir", type=str, default="output")
 
   def parse_args(self, args=None, namespace=None):
     # --- parse argument in a way compatible with blender's REPL
