@@ -57,10 +57,7 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     # TODO: clip to a reasonable value. Is measured in meters so usual range is ~ [0, 10]
     output["Depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
-    # TODO: The vector output of Blender is supposed to have 4 components, but has only 3 (XYZ)
-    #       The first two should be movement wrt. previous frame, the other two wrt. next frame.
-    #       No idea what the 3rd is about. Maybe it is actually scene flow?
-    output["Vector"] = read_channels_from_exr(exr, ["Vector.X", "Vector.Y", "Vector.Z"])
+    output["Vector"] = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
   if "Normal" in layer_names:
     # range: [-1, 1]
     output["Normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])

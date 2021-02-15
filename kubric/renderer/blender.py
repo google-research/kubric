@@ -156,7 +156,7 @@ class Blender(core.View):
       data = {
           "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
           "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
-          "flow": np.zeros((H, W, 3), dtype=np.float32),
+          "flow": np.zeros((H, W, 4), dtype=np.float32),
           "depth": np.zeros((H, W, 1), dtype=np.float32),
           "UV": np.zeros((H, W, 3), dtype=np.float32),
       }
@@ -423,12 +423,22 @@ class Blender(core.View):
     out_node.format.file_format = "OPEN_EXR_MULTILAYER"
     out_node.base_path = str(path)  # output directory
 
-    layers = ["Image", "Depth", "Vector", "UV", "Normal", "CryptoObject00"]
+    layers = ["Image", "Depth", "UV", "Normal", "CryptoObject00"]
 
     out_node.file_slots.clear()
     for l in layers:
       out_node.file_slots.new(l)
       links.new(render_node.outputs.get(l), out_node.inputs.get(l))
+
+    # manually convert to RGBA
+    # see https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
+    split_rgba = tree.nodes.new(type="CompositorNodeSepRGBA")
+    combine_rgba = tree.nodes.new(type="CompositorNodeCombRGBA")
+    for channel in "RGBA":
+      links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
+    out_node.file_slots.new("Vector")
+    links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
+    links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   def _setup_scene_shading(self):
     self.blender_scene.world.use_nodes = True
