@@ -62,9 +62,9 @@ def setup_directories(FLAGS):
     scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = pathlib.Path(FLAGS.job_dir)
+  output_dir = FLAGS.job_dir
   if is_local_path(output_dir):
-    output_dir.mkdir(parents=True, exist_ok=True)
+    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir
 

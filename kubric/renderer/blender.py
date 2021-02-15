@@ -144,7 +144,6 @@ class Blender(core.View):
 
   def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
     from_dir = pathlib.Path(from_dir)
-    to_dir = pathlib.Path(to_dir)
     W, H = self.scene.resolution
 
     # --- split objects into foreground and background sets
@@ -177,7 +176,7 @@ class Blender(core.View):
       data["UV"] = layers["UV"]
 
       # Save to file
-      with smart_open.open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
+      with smart_open.open(to_dir + f"/frame_{frame_id:04d}.pkl", "wb") as fp:
         logger.info(f"writing {fp.name}")
         pickle.dump(data, fp)
 

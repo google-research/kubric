@@ -60,7 +60,7 @@ simulator = kb.simulator.PyBullet(scene, scratch_dir)
 renderer = kb.renderer.Blender(scene, scratch_dir)
 
 logging.info("Loading assets from %s", FLAGS.assets_dir)
-klevr = kb.AssetSource(FLAGS.assets_dir)
+kubasic = kb.AssetSource(FLAGS.assets_dir)
 
 
 # --- Populate the scene
@@ -96,7 +96,7 @@ for i in range(nr_objects):
   size = rng.choice(SIZES)
   color = rng.choice(list(COLORS.values()))
   material = rng.choice(["Metal", "Rubber"])
-  obj = klevr.create(asset_id=shape, scale=size)
+  obj = kubasic.create(asset_id=shape, scale=size)
   if material == "Metal":
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
     obj.friction = 0.4
@@ -118,16 +118,15 @@ for i in range(nr_objects):
 
 # --- Simulation
 logging.info("Saving the simulator state to '%s' before starting the simulation.",
-             output_dir / "scene.bullet")
-simulator.save_state(output_dir / "scene.bullet")
+             output_dir + "/scene.bullet")
+simulator.save_state(output_dir + "/scene.bullet")
 logging.info("Running the Simulation ...")
 animation = simulator.run()
 
-
 # --- Rendering
 logging.info("Saving the renderer state to '%s' before starting the rendering.",
-             output_dir / "scene.blend")
-renderer.save_state(output_dir / "scene.blend")
+             output_dir + "/scene.blend")
+renderer.save_state(output_dir + "/scene.blend")
 logging.info("Rendering the scene ...")
 renderer.render()
 
@@ -147,7 +146,7 @@ metadata = [{
     "animation": obj.keyframes,
 } for obj in scene.foreground_assets]
 
-with smart_open.open(output_dir / "metadata.pkl", "wb") as fp:
+with smart_open.open(output_dir + "/metadata.pkl", "wb") as fp:
   logging.info(f"Writing to {fp.name}")
   pickle.dump(metadata, fp)
 
