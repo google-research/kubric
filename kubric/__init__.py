@@ -34,5 +34,8 @@ from kubric.randomness import move_until_no_overlap
 from kubric.utils import ArgumentParser
 from kubric.utils import setup_logging
 from kubric.utils import log_my_flags
+from kubric.utils import setup_directories
+from kubric.utils import copy_file
+
 
 from kubric.version import __version__

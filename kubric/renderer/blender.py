@@ -16,24 +16,22 @@ import functools
 import logging
 import pathlib
 import pickle
-import shutil
 import sys
-import tempfile
 from typing import Any, Union, Callable
 
 import bpy
 import numpy as np
 import PIL.Image
+import smart_open
 from singledispatchmethod import singledispatchmethod
 
 import kubric.post_processing
 from kubric import core
 from kubric.redirect_io import RedirectStream
+from kubric.utils import copy_file
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
-
-_blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
@@ -58,7 +56,7 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
 
 
 class Blender(core.View):
-  def __init__(self, scene: core.Scene, adaptive_sampling=True, use_denoising=True,
+  def __init__(self, scene: core.Scene, scratch_dir, adaptive_sampling=True, use_denoising=True,
                samples_per_pixel=128, background_transparency=False):
     self.ambient_node = None
     self.ambient_hdri_node = None
@@ -66,6 +64,8 @@ class Blender(core.View):
     self.bg_node = None
     self.bg_hdri_node = None
     self.bg_mapping_node = None
+    self.scratch_dir = scratch_dir
+    self.log_file = scratch_dir / "blender.log"
 
     self._clear_and_reset()  # as blender has a default scene on load
     self.blender_scene = bpy.context.scene
@@ -78,6 +78,9 @@ class Blender(core.View):
     self.use_denoising = use_denoising  # improves the output quality
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
+    self.activate_render_passes()
+    bpy.context.scene.render.filepath = str(self.scratch_dir / "images" / "frame_")
+    self._set_up_exr_output(self.scratch_dir / "exr" / "frame_")
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
@@ -127,39 +130,16 @@ class Blender(core.View):
     self.blender_scene.render.film_transparent = value
 
   def save_state(self, path: Union[pathlib.Path, str] = "scene.blend", pack_textures: bool = True):
-    path = pathlib.Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-  # delete first, as blender auto-renames savefiles otherwise
-    if path.is_file():
-      logger.info(f"Overwriting {path}")
-      path.unlink()
-    else:
-      logger.info(f"Saving {path}")
-
+    # first store in a temporary file and then copy, to support remote paths
     if pack_textures:
-      with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-        bpy.ops.file.pack_all()  # embed all textures into the blend file
+      bpy.ops.file.pack_all()  # embed all textures into the blend file
+      bpy.ops.wm.save_mainfile(filepath=str(self.scratch_dir / "scene.blend"))
 
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-      path.parent.mkdir(parents=True, exist_ok=True)
-      bpy.ops.wm.save_mainfile(filepath=str(path))
+    copy_file(self.scratch_dir / 'scene.blend', path)
 
-  def render(self, path: Union[pathlib.Path, str]):
-    self._activate_render_passes()
-
-    path = pathlib.Path(path)
-    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
-    self._set_up_exr_output(path / "exr" / "frame_")
-
-    # --- remove stale output if exists
-    if path.exists() and path.is_dir():
-      logger.info(f"Deleting stale directory {str(path)}")
-      shutil.rmtree(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-
+  def render(self):
     # --- starts rendering
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.render.render(animation=True, write_still=True)
 
   def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
@@ -197,7 +177,7 @@ class Blender(core.View):
       data["UV"] = layers["UV"]
 
       # Save to file
-      with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
+      with smart_open.open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
         logger.info(f"writing {fp.name}")
         pickle.dump(data, fp)
 
@@ -250,7 +230,7 @@ class Blender(core.View):
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
     # TODO: support other file-formats
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
                                axis_forward=obj.front, axis_up=obj.up)
     assert len(bpy.context.selected_objects) == 1
@@ -421,7 +401,7 @@ class Blender(core.View):
     return mat
 
   def _clear_and_reset(self):
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.wm.read_factory_settings(use_empty=True)
       bpy.context.scene.world = bpy.data.worlds.new("World")
 
@@ -523,7 +503,7 @@ class Blender(core.View):
     self.bg_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
     self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
-  def _activate_render_passes(self):
+  def activate_render_passes(self):
     view_layer = self.blender_scene.view_layers[0]
     view_layer.use_pass_vector = True  # flow
     view_layer.use_pass_uv = True  # UV
