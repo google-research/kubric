@@ -243,9 +243,9 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
       coll_path = save_collision_geometry(cobj, output_path)
 
     properties["paths"] = {
-        "visual_geometry": [str(vis_path)],
-        "collision_geometry": [str(coll_path)],
-        "urdf": [str(urdf_path)]
+        "visual_geometry": [str(vis_path.relative_to(output_path))],
+        "collision_geometry": [str(coll_path.relative_to(output_path))],
+        "urdf": [str(urdf_path.relative_to(output_path))]
     }
     save_properties(output_path, properties)
     compress_object_dir(output_path, obj.name)
@@ -307,5 +307,5 @@ def export_collection(collection_name, output_folder):
   for obj in bpy.data.collections[collection_name].all_objects:
     details_list.append(kubricify(output_folder, obj))
 
-  with open(output_folder / "details_list.json", "w") as f:
+  with open(output_folder / "manifest.json", "w") as f:
     json.dump(details_list, f, indent=4, sort_keys=True)
