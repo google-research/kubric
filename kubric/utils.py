@@ -20,7 +20,8 @@ import pprint
 import shutil
 import sys
 import tempfile
-import smart_open
+
+import tensorflow_datasets.public_api as tfds
 
 logger = logging.getLogger(__name__)
 
@@ -53,18 +54,17 @@ class ArgumentParser(argparse.ArgumentParser):
 
 def setup_directories(FLAGS):
   if FLAGS.scratch_dir is None:
-    scratch_dir = pathlib.Path(tempfile.mkdtemp())
+    scratch_dir = tfds.core.as_path(tempfile.mkdtemp())
   else:
-    scratch_dir = pathlib.Path(FLAGS.scratch_dir)
+    scratch_dir = tfds.core.as_path(FLAGS.scratch_dir)
     if scratch_dir.exists():
       logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
       shutil.rmtree(scratch_dir)
     scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = FLAGS.job_dir
-  if is_local_path(output_dir):
-    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
+  output_dir = tfds.core.as_path(FLAGS.job_dir)
+  output_dir.mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir
 
@@ -76,17 +76,6 @@ def is_local_path(path):
     return False
   else:
     return True
-
-
-def copy_file(source_filename, destination_filename):
-  """ Copy a file using smart_open. """
-  with smart_open.open(source_filename, 'rb') as src:
-    with smart_open.open(destination_filename, 'wb') as dst:
-      while True:
-        buffer = src.read()
-        if not buffer:
-          break
-        dst.write(buffer)
 
 
 # --------------------------------------------------------------------------------------------------

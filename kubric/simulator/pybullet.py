@@ -14,10 +14,11 @@
 
 import logging
 import pathlib
+from typing import Dict, Union, Optional
 
 import pybullet as pb
+import tensorflow as tf
 from singledispatchmethod import singledispatchmethod
-from typing import Dict, Union, Optional
 
 from kubric import core
 
@@ -156,10 +157,9 @@ class PyBullet(core.View):
 
   def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
-    from kubric.utils import copy_file
     # first store in a temporary file and then copy, to support remote paths
     pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
-    copy_file(self.scratch_dir / 'scene.bullet', path)
+    tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate

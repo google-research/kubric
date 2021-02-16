@@ -12,7 +12,6 @@ pandas
 pybullet
 scikit-learn
 singledispatchmethod
-smart_open[gcp]
 tensorflow
 tensorflow-datasets
 traitlets

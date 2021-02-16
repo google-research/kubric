@@ -16,7 +16,6 @@ import logging
 import pickle
 
 import numpy as np
-import smart_open
 
 import kubric as kb
 
@@ -118,15 +117,15 @@ for i in range(nr_objects):
 
 # --- Simulation
 logging.info("Saving the simulator state to '%s' before starting the simulation.",
-             output_dir + "/scene.bullet")
-simulator.save_state(output_dir + "/scene.bullet")
+             output_dir / "scene.bullet")
+simulator.save_state(output_dir / "scene.bullet")
 logging.info("Running the Simulation ...")
 animation = simulator.run()
 
 # --- Rendering
 logging.info("Saving the renderer state to '%s' before starting the rendering.",
-             output_dir + "/scene.blend")
-renderer.save_state(output_dir + "/scene.blend")
+             output_dir / "scene.blend")
+renderer.save_state(output_dir / "scene.blend")
 logging.info("Rendering the scene ...")
 renderer.render()
 
@@ -146,7 +145,7 @@ metadata = [{
     "animation": obj.keyframes,
 } for obj in scene.foreground_assets]
 
-with smart_open.open(output_dir + "/metadata.pkl", "wb") as fp:
+with kb.GFile(output_dir / "metadata.pkl", "wb") as fp:
   logging.info(f"Writing to {fp.name}")
   pickle.dump(metadata, fp)
 

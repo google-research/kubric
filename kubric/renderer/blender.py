@@ -14,21 +14,21 @@
 
 import functools
 import logging
-import pathlib
 import pickle
 import sys
-from typing import Any, Union, Callable
+from typing import Any, Callable
 
 import bpy
 import numpy as np
 import PIL.Image
-import smart_open
+import tensorflow as tf
+import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
+from tensorflow_datasets.core.utils.type_utils import PathLike
 
 import kubric.post_processing
 from kubric import core
 from kubric.redirect_io import RedirectStream
-from kubric.utils import copy_file
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
@@ -129,21 +129,21 @@ class Blender(core.View):
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
 
-  def save_state(self, path: Union[pathlib.Path, str] = "scene.blend", pack_textures: bool = True):
-    # first store in a temporary file and then copy, to support remote paths
+  def save_state(self, path: PathLike = "scene.blend", pack_textures: bool = True):
+    # first store in a temporary file and then copy, because blender does not support remote paths
     if pack_textures:
       bpy.ops.file.pack_all()  # embed all textures into the blend file
       bpy.ops.wm.save_mainfile(filepath=str(self.scratch_dir / "scene.blend"))
-
-    copy_file(self.scratch_dir / 'scene.blend', path)
+    tf.io.gfile.copy(self.scratch_dir / 'scene.blend', path, overwrite=True)
 
   def render(self):
     # --- starts rendering
     with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.render.render(animation=True, write_still=True)
 
-  def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
-    from_dir = pathlib.Path(from_dir)
+  def postprocess(self, from_dir: PathLike, to_dir=PathLike):
+    from_dir = tfds.core.as_path(from_dir)
+    to_dir = tfds.core.as_path(to_dir)
     W, H = self.scene.resolution
 
     # --- split objects into foreground and background sets
@@ -169,14 +169,14 @@ class Blender(core.View):
                                                                  fg_objects)
 
       # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
-      data["RGBA"] = np.asarray(PIL.Image.open(png_filename))
+      data["RGBA"] = np.asarray(PIL.Image.open(str(png_filename)))
       data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
       data["flow"] = layers["Vector"]
       data["depth"] = layers["Depth"]
       data["UV"] = layers["UV"]
 
       # Save to file
-      with smart_open.open(to_dir + f"/frame_{frame_id:04d}.pkl", "wb") as fp:
+      with tf.io.gfile.GFile(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
         logger.info(f"writing {fp.name}")
         pickle.dump(data, fp)
 

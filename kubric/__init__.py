@@ -35,7 +35,8 @@ from kubric.utils import ArgumentParser
 from kubric.utils import setup_logging
 from kubric.utils import log_my_flags
 from kubric.utils import setup_directories
-from kubric.utils import copy_file
+from tensorflow_datasets.core.utils.generic_path import as_path
+from tensorflow.io.gfile import GFile
 
 
 from kubric.version import __version__
