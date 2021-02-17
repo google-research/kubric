@@ -16,8 +16,34 @@ import logging
 import os
 import pickle
 
+import dill.settings
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
+from typing import List
+
+dill.settings['recurse'] = True  # needed to make Klevr pickling work
+
+from types import FunctionType
+
+def _fixed_create_function(fcode, fglobals, fname=None, fdefaults=None,
+    fclosure=None, fdict=None, fkwdefaults=None):
+  # same as FunctionType, but enable passing __dict__ to new function,
+  # __dict__ is the storehouse for attributes added after function creation
+  if fdict is None: fdict = dict()
+  func = FunctionType(fcode, fglobals or dict(), fname, fdefaults, fclosure)
+  func.__dict__.update(fdict) #XXX: better copy? option to copy?
+  # THE WORKAROUND:
+  # if the function was serialized without recurse, fglobals would actually contain
+  # __builtins__, but because of recurse only the referenced modules/objects
+  # end up in fglobals and we are missing the important __builtins__
+  if "__builtins__" not in func.__globals__:
+    func.__globals__["__builtins__"] = globals()["__builtins__"]
+  if fkwdefaults is not None:
+    func.__kwdefaults__ = fkwdefaults
+  return func
+
+dill._dill._create_function = _fixed_create_function
+
 
 
 _DESCRIPTION = """
@@ -69,18 +95,19 @@ class KlevrConfig(tfds.core.BuilderConfig):
     self.width = width
 
 
-def _get_files_from_master(path):
+def _get_files_from_master(path: str) -> List[str]:
   all_files = []
-  all_subdirs = list(path.glob('*'))
+  all_subdirs = list(tfds.core.as_path(path).glob('*'))
   for subdir in all_subdirs:
-    all_files.extend(_get_files_from_subdir(subdir))
+    all_files.extend(_get_files_from_subdir(str(subdir)))
   logging.info('Found %d sub-folders in master path: %s', len(all_subdirs),
                path)
   return all_files
 
 
-def _get_files_from_subdir(path):
-  files = list(path.glob('frame*.pkl'))
+def _get_files_from_subdir(path: str) -> List[str]:
+  path = tfds.core.as_path(path)
+  files = [str(f) for f in path.glob('frame*.pkl')]
   logging.info('Found %d files in path: %s', len(files), path)
   return files
 
@@ -96,7 +123,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
       KlevrConfig(
           name='master',
           description='All the klevr files.',
-          path=tfds.core.as_path('gs://kubric/tfds/klevr'),
+          path='gs://research-brain-kubric-xgcp/jobs/',
           is_master=True,
           height=512,
           width=512,
@@ -120,7 +147,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
             'segmentation':
                 tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint32),
             'flow':
-                tfds.features.Tensor(shape=(h, w, 3), dtype=tf.float32),
+                tfds.features.Tensor(shape=(h, w, 4), dtype=tf.float32),
             'depth':
                 tfds.features.Tensor(shape=(h, w, 1), dtype=tf.float32),
             'UV':
@@ -142,7 +169,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
         tfds.Split.TRAIN: self._generate_examples(all_files),
     }
 
-  def _generate_examples(self, files):
+  def _generate_examples(self, files: List[str]):
     """Yields examples."""
 
     beam = tfds.core.lazy_imports.apache_beam
@@ -160,3 +187,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
             'UV': data['UV']
         }
     return beam.Create(files) | beam.Map(_process_example)
+
+
+Klevr.__module__ = "__main__"  # needed to make Klevr pickling work
+

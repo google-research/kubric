@@ -1,6 +1,6 @@
 OpenEXR
 Pillow
-apache-beam
+apache-beam[gcp]
 bidict
 cloudml-hypertune
 dataclasses
