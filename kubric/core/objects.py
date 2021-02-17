@@ -24,6 +24,12 @@ __all__ = ("Object3D", "PhysicalObject", "Sphere", "Cube", "FileBasedObject")
 
 
 class Object3D(base.Asset):
+  """
+  Attributes:
+    position (vec3d): the (x, y, z) position of the object.
+    quaternion (vec4d): a (W, X, Y, Z) quaternion for describing the rotation.
+    up (str): which direction to consider as "up" (required for look_at).
+  """
   position = ktl.Vector3D()
   quaternion = ktl.Quaternion()
 

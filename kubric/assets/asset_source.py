@@ -14,52 +14,36 @@
 
 import json
 import logging
-import pathlib
-import shutil
 import tarfile
 import tempfile
 
 import pandas as pd
-from google.cloud import storage
-import urllib.parse
+import tensorflow as tf
+import tensorflow_datasets.public_api as tfds
+from tensorflow_datasets.core.utils.type_utils import PathLike
+
+from typing import Optional
 
 from kubric.core import objects
 
 
-logger = logging.getLogger(__name__)
-
-
 class AssetSource(object):
-  # see: https://googleapis.dev/python/storage/latest
+  def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
+    self.remote_dir = tfds.core.as_path(path)
+    name = self.remote_dir.name
+    logging.info("Adding AssetSource '%s' with URI='%s'", name, self.remote_dir)
 
-  def __init__(self, uri: str):
-    name = pathlib.Path(uri).name
-    logger.info("Adding AssetSource '%s' with URI='%s'", name, uri)
-    
-    sections = urllib.parse.urlparse(uri)
-    self.local_temp_folder = tempfile.TemporaryDirectory()
-    self.local_path = pathlib.Path(self.local_temp_folder.name)
+    self.local_dir = tfds.core.as_path(tempfile.mkdtemp(prefix="assets", dir=scratch_dir))
 
-    if sections.scheme == "gs":   # cloud
-      self.protocol = "gs"
-      self.bucket_name = sections.netloc
-      self.path = sections.path
-      self.client = storage.Client()
-      self.bucket = self.client.get_bucket(self.bucket_name)
+    manifest_path = self.remote_dir / "manifest.json"
+    if manifest_path.exists():
 
-    elif sections.scheme == "":  # local
-      self.protocol = "local"
-      self.path = pathlib.Path(uri)
+      self.db = pd.read_json(tf.io.gfile.GFile(manifest_path, "r"))
+      logging.info("Found manifest file. Loaded information about %d assets", self.db.shape[0])
     else:
-      raise ValueError("Unknown protocol for {}".format(uri))
-
-    # TODO handle missing details list file
-    manifest = self._download_file("details_list.json")
-    self.db = pd.read_json(manifest)
-
-  def __del__(self):
-    logger.debug("removing tmp dir: \"%s\"", self.local_temp_folder.name)
-    self.local_temp_folder.cleanup()
+      assets_list = [p.name[:-7] for p in manifest_path.iterdir() if p.name.endswith('.tar.gz')]
+      self.db = pd.DataFrame(assets_list, columns=["id"])
+      logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
   def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
@@ -75,29 +59,24 @@ class AssetSource(object):
                                    **kwargs)
 
   def fetch(self, object_id):
-    object_path = self._download_file(object_id + ".tar.gz")
-    with tarfile.open(object_path, "r:gz") as tar:
-      tar.extractall(self.local_path)
+    remote_path = self.remote_dir / (object_id + '.tar.gz')
+    local_path = self.local_dir / (object_id + '.tar.gz')
+    if not local_path.exists():
+      logging.debug("Copying %s to %s", str(remote_path), str(local_path))
+      tf.io.gfile.copy(remote_path, local_path)
 
-    urdf = self.local_path / object_id / "object.urdf"
-    vis = self.local_path / object_id / "visual_geometry.obj"
-    json_path = self.local_path / object_id / "data.json"
+      with tarfile.open(local_path, "r:gz") as tar:
+        tar.extractall(self.local_dir)
+        logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
+    json_path = self.local_dir / object_id / "data.json"
     with open(json_path, "r") as f:
       properties = json.load(f)
-    return urdf, vis, properties
+      logging.debug("Loaded properties %s", repr(properties))
 
-  def _download_file(self, filename):
-    target_path = self.local_path / filename
-    if self.protocol == "gs":
-      remote_path = f"gs://{self.bucket_name}{self.path}/{filename}"
-      logger.info("Downloading %s to %s", remote_path, str(target_path))
-      blob = storage.blob.Blob.from_string(remote_path)
-      blob.download_to_filename(str(target_path), client=self.client)
-    elif self.protocol == "local":
-      remote_path = f"{self.path}/{filename}"
-      logger.debug("Copying %s to %s", remote_path, str(target_path))
-      shutil.copyfile(remote_path, target_path)
+    # paths
+    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"][0]
+    urdf_path = self.local_dir /object_id / properties["paths"]["urdf"][0]
 
-    return pathlib.Path(target_path)
+    return urdf_path, vis_path, properties
 

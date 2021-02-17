@@ -1,5 +1,6 @@
 OpenEXR
 Pillow
+apache-beam[gcp]
 bidict
 cloudml-hypertune
 dataclasses
@@ -11,5 +12,7 @@ pandas
 pybullet
 scikit-learn
 singledispatchmethod
+tensorflow
+tensorflow-datasets
 traitlets
 trimesh

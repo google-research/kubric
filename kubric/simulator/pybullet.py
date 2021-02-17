@@ -13,30 +13,24 @@
 # limitations under the License.
 
 import logging
-import sys
-
-
 import pathlib
 from typing import Dict, Union, Optional
 
+import pybullet as pb
+import tensorflow as tf
 from singledispatchmethod import singledispatchmethod
-import tempfile
 
-from kubric.redirect_io import RedirectStream
 from kubric import core
 
 logger = logging.getLogger(__name__)
-_pybullet_logs = tempfile.mkstemp(suffix="_bullet.txt")[1]
-
-with RedirectStream(stream=sys.stdout, filename=_pybullet_logs):
-  import pybullet as pb
 
 __all__ = ("PyBullet", )
 
 
 class PyBullet(core.View):
 
-  def __init__(self, scene: core.Scene):
+  def __init__(self, scene: core.Scene, scratch_dir):
+    self.scratch_dir = scratch_dir
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
     # Set some parameters to fix the sticky-walls problem
     # (see https://github.com/bulletphysics/bullet3/issues/3094)
@@ -49,7 +43,10 @@ class PyBullet(core.View):
     })
 
   def __del__(self):
-    pb.disconnect()
+    try:
+      pb.disconnect()
+    except Exception:
+      pass  # cleanup code. ignore errors
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Optional[int]:
@@ -158,12 +155,11 @@ class PyBullet(core.View):
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def save_state(self, path: Union[pathlib.Path, str]):
+  def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
-    path = pathlib.Path(path)
-    path = path / "scene.bullet"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    pb.saveBullet(str(path))
+    # first store in a temporary file and then copy, to support remote paths
+    pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
+    tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
 
   def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate

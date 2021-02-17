@@ -68,7 +68,10 @@ def get_vertices_and_faces(obj):
 def get_custom_property(obj, name, default):
   # try getting density from material
   mat = obj.active_material
-  if name in mat:
+  if mat is None:
+    print(f"No {name} information found. Using default {name}={default}.")
+    value = 1.0
+  elif name in mat:
     value = mat[name]
     print(f"Using {name}={value} from material {mat}.")
   elif name in obj:
@@ -112,7 +115,7 @@ def get_object_properties(obj, density=None, friction=None, tmesh=None):
 
   properties = {
       "id": obj.name,
-      "material": obj.active_material.name,
+      "material": obj.active_material.name if obj.active_material else None,
       "density": roundf(tmesh.density),
       "friction": roundf(friction),
       "nr_vertices": len(tmesh.vertices),
@@ -153,7 +156,7 @@ def center_mesh_around(obj, new_center):
 def select(obj_list):
   if not isinstance(obj_list, (list, tuple)):
     obj_list = [obj_list]
-  previous_selection = copy(bpy.context.selected_objects)
+  previous_selection = copy.copy(bpy.context.selected_objects)
   previous_active = bpy.context.active_object
 
   for obj in bpy.context.selected_objects:
@@ -240,9 +243,9 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
       coll_path = save_collision_geometry(cobj, output_path)
 
     properties["paths"] = {
-        "visual_geometry": [str(vis_path)],
-        "collision_geometry": [str(coll_path)],
-        "urdf": [str(urdf_path)]
+        "visual_geometry": [str(vis_path.relative_to(output_path))],
+        "collision_geometry": [str(coll_path.relative_to(output_path))],
+        "urdf": [str(urdf_path.relative_to(output_path))]
     }
     save_properties(output_path, properties)
     compress_object_dir(output_path, obj.name)
@@ -304,10 +307,5 @@ def export_collection(collection_name, output_folder):
   for obj in bpy.data.collections[collection_name].all_objects:
     details_list.append(kubricify(output_folder, obj))
 
-  with open(output_folder / "details_list.json", "w") as f:
+  with open(output_folder / "manifest.json", "w") as f:
     json.dump(details_list, f, indent=4, sort_keys=True)
-
-
-# filename = "/Users/klausg/Projects/kubric/kubric/assets/asset_preprocessing.py"
-# exec(compile(open(filename).read(), filename, "exec"))
-# export_collection("Objects", "/Users/klausg/Projects/kubric/KLEVR")

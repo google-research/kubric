@@ -35,5 +35,9 @@ from kubric.randomness import move_until_no_overlap
 from kubric.utils import ArgumentParser
 from kubric.utils import setup_logging
 from kubric.utils import log_my_flags
+from kubric.utils import setup_directories
+from tensorflow_datasets.core.utils.generic_path import as_path
+from tensorflow.io.gfile import GFile
+
 
 from kubric.version import __version__
