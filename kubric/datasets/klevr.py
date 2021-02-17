@@ -16,35 +16,9 @@ import logging
 import os
 import pickle
 
-import dill.settings
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 from typing import List
-from types import FunctionType
-
-dill.settings['recurse'] = True  # needed to make Klevr pickling work
-
-
-def _fixed_create_function(fcode, fglobals, fname=None, fdefaults=None,
-    fclosure=None, fdict=None, fkwdefaults=None):
-  # same as FunctionType, but enable passing __dict__ to new function,
-  # __dict__ is the storehouse for attributes added after function creation
-  if fdict is None: fdict = dict()
-  func = FunctionType(fcode, fglobals or dict(), fname, fdefaults, fclosure)
-  func.__dict__.update(fdict) #XXX: better copy? option to copy?
-  # THE WORKAROUND:
-  # if the function was serialized without recurse, fglobals would actually contain
-  # __builtins__, but because of recurse only the referenced modules/objects
-  # end up in fglobals and we are missing the important __builtins__
-  if "__builtins__" not in func.__globals__:
-    func.__globals__["__builtins__"] = globals()["__builtins__"]
-  if fkwdefaults is not None:
-    func.__kwdefaults__ = fkwdefaults
-  return func
-
-
-dill._dill._create_function = _fixed_create_function
-
 
 _DESCRIPTION = """
 The Klevr dataset is a semi-synthetic dataset created from scans of real world
@@ -93,9 +67,6 @@ class KlevrConfig(tfds.core.BuilderConfig):
     self.is_master = is_master
     self.height = height
     self.width = width
-
-
-KlevrConfig.__module__ = "__main__"  # needed to make Klevr pickling work
 
 
 def _get_files_from_master(path: str) -> List[str]:
@@ -190,7 +161,4 @@ class Klevr(tfds.core.BeamBasedBuilder):
             'UV': data['UV']
         }
     return beam.Create(files) | beam.Map(_process_example)
-
-
-Klevr.__module__ = "__main__"  # needed to make Klevr pickling work
 
