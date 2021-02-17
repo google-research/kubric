@@ -20,10 +20,10 @@ import dill.settings
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 from typing import List
+from types import FunctionType
 
 dill.settings['recurse'] = True  # needed to make Klevr pickling work
 
-from types import FunctionType
 
 def _fixed_create_function(fcode, fglobals, fname=None, fdefaults=None,
     fclosure=None, fdict=None, fkwdefaults=None):
@@ -42,8 +42,8 @@ def _fixed_create_function(fcode, fglobals, fname=None, fdefaults=None,
     func.__kwdefaults__ = fkwdefaults
   return func
 
-dill._dill._create_function = _fixed_create_function
 
+dill._dill._create_function = _fixed_create_function
 
 
 _DESCRIPTION = """
@@ -93,6 +93,9 @@ class KlevrConfig(tfds.core.BuilderConfig):
     self.is_master = is_master
     self.height = height
     self.width = width
+
+
+KlevrConfig.__module__ = "__main__"  # needed to make Klevr pickling work
 
 
 def _get_files_from_master(path: str) -> List[str]:

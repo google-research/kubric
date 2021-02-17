@@ -6,7 +6,7 @@ GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
 
-echo "tensorflow_datasets[$DATASET_NAME]" > /tmp/beam_requirements.txt
+echo "tensorflow_datasets" > /tmp/beam_requirements.txt
 
 
 tfds build $DATASET_CONFIG \
