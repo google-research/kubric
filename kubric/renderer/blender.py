@@ -153,11 +153,12 @@ class Blender(core.View):
     # --- output one file per frame of data
     for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
       data = {
-          "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
+          "rgba": np.zeros((H, W, 4), dtype=np.uint8),
           "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
           "flow": np.zeros((H, W, 4), dtype=np.float32),
           "depth": np.zeros((H, W, 1), dtype=np.float32),
-          "UV": np.zeros((H, W, 3), dtype=np.float32),
+          "uv": np.zeros((H, W, 3), dtype=np.float32),
+          "normal": np.zeros((H, W, 3), dtype=np.float32),
       }
 
       exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
@@ -169,11 +170,12 @@ class Blender(core.View):
                                                                  fg_objects)
 
       # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
-      data["RGBA"] = np.asarray(PIL.Image.open(str(png_filename)))
-      data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
-      data["flow"] = layers["Vector"]
-      data["depth"] = layers["Depth"]
-      data["UV"] = layers["UV"]
+      data["rgba"] = np.asarray(PIL.Image.open(str(png_filename)))
+      data["segmentation"][:, :, 0] = layers["segmentation_indices"][:, :, 0]
+      data["flow"] = layers["flow"]
+      data["depth"] = layers["depth"]
+      data["uv"] = layers["uv"]
+      data["normal"] = layers["normal"]
 
       # Save to file
       with tf.io.gfile.GFile(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:

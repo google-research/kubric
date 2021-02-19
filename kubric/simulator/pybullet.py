@@ -190,8 +190,12 @@ class PyBullet(core.View):
       for frame_id in range(self.scene.frame_end + 1):
         obj.position = animation[obj]["position"][frame_id]
         obj.quaternion = animation[obj]["quaternion"][frame_id]
+        obj.velocity = animation[obj]["velocity"][frame_id]
+        obj.angular_velocity = animation[obj]["angular_velocity"][frame_id]
         obj.keyframe_insert("position", frame_id)
         obj.keyframe_insert("quaternion", frame_id)
+        obj.keyframe_insert("velocity", frame_id)
+        obj.keyframe_insert("angular_velocity", frame_id)
 
     return animation
 

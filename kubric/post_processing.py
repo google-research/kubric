@@ -51,19 +51,19 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
   if "Image" in layer_names:
     # Image is in RGBA format with range [0, inf]
     # TODO: image is in HDR, so we need some tone-mapping
-    output["Image"] = read_channels_from_exr(exr, ["Image.R", "Image.G", "Image.B", "Image.A"])
+    output["rgba"] = read_channels_from_exr(exr, ["Image.R", "Image.G", "Image.B", "Image.A"])
   if "Depth" in layer_names:
     # range [0, 10000000000.0]  # the value 1e10 is used for background / infinity
     # TODO: clip to a reasonable value. Is measured in meters so usual range is ~ [0, 10]
-    output["Depth"] = read_channels_from_exr(exr, ["Depth.V"])
+    output["depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
-    output["Vector"] = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
+    output["flow"] = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
   if "Normal" in layer_names:
     # range: [-1, 1]
-    output["Normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
+    output["normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
   if "UV" in layer_names:
     # range [0, 1]
-    output["UV"] = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
+    output["uv"] = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
   if "CryptoObject00" in layer_names:
     # CryptoMatte stores the segmentation of Objects using two kinds of channels:
     #  - index channels (uint32) specify the object index for a pixel
@@ -77,10 +77,10 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     index_channels = [n + "." + c for n in crypto_layers for c in "RB"]
     idxs = read_channels_from_exr(exr, index_channels)
     idxs.dtype = np.uint32
-    output["SegmentationIndex"] = idxs
+    output["segmentation_indices"] = idxs
     alpha_channels = [n + "." + c for n in crypto_layers for c in "GA"]
     alphas = read_channels_from_exr(exr, alpha_channels)
-    output["SegmentationAlpha"] = alphas
+    output["segmentation_alphas"] = alphas
     # replace crypto-ids with object index for foreground objects and 0 for background objects
     bg_ids = [kubric.assets.mm3hash(obj.uid) for obj in background_objects]
     object_ids = [kubric.assets.mm3hash(obj.uid) for obj in objects]

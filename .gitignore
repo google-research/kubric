@@ -1,7 +1,6 @@
 .DS_Store
 **/__pycache__/
 *.ply
-*.blend
 *.bullet
 *.png
 *.exr

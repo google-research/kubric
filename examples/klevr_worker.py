@@ -11,13 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import copy
 import logging
 import pickle
 
 import numpy as np
-
+import tensorflow as tf
 import kubric as kb
+
 
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
@@ -28,32 +29,38 @@ VELOCITY_RANGE = [(-4, -4, 0), (4, 4, 0)]
 OBJECT_TYPES = ["Cube", "Cylinder", "Sphere"]  # "Cone", "Torus", "Spot", "Sponge", "TorusKnot", "Gear", "Teapot", "Suzanne"
 # the set of colors to sample from
 COLORS = {
-    "gray": kb.Color(87/255, 87/255, 87/255),
-    "red": kb.Color(173/255, 35/255, 35/255),
     "blue": kb.Color(42/255, 75/255, 215/255),
-    "green": kb.Color(29/255, 105/255, 20/255),
     "brown": kb.Color(129/255, 74/255, 25/255),
-    "purple": kb.Color(129/255, 38/255, 192/255),
     "cyan": kb.Color(41/255, 208/255, 208/255),
+    "gray": kb.Color(87/255, 87/255, 87/255),
+    "green": kb.Color(29/255, 105/255, 20/255),
+    "purple": kb.Color(129/255, 38/255, 192/255),
+    "red": kb.Color(173/255, 35/255, 35/255),
     "yellow": kb.Color(255/255, 238/255, 5/255),
 }
 # the sizes of objects to sample from
-SIZES = [1.4, 0.7]
+SIZES = {
+    "small": 0.7,
+    "large": 1.4,
+}
 
 
 # --- CLI arguments
 parser = kb.ArgumentParser()
-parser.add_argument("--min_nr_objects", type=int, default=4)
+parser.add_argument("--min_nr_objects", type=int, default=3)
 parser.add_argument("--max_nr_objects", type=int, default=10)
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/KuBasic")
-
+parser.set_defaults(frame_end=48)
+parser.set_defaults(width=512)
+parser.set_defaults(height=512)
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
 scratch_dir, output_dir = kb.setup_directories(FLAGS)
-rng = np.random.default_rng(seed=FLAGS.random_seed)
+seed = FLAGS.random_seed if FLAGS.random_seed else np.random.randint(0, 2147483647)
+rng = np.random.default_rng(seed=seed)
 scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene, scratch_dir)
 renderer = kb.renderer.Blender(scene, scratch_dir)
@@ -89,19 +96,20 @@ scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
 nr_objects = rng.integers(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 logging.info("Randomly placing %d objects:", nr_objects)
 
-
+object_info = []
 for i in range(nr_objects):
-  shape = rng.choice(OBJECT_TYPES)
-  size = rng.choice(SIZES)
-  color = rng.choice(list(COLORS.values()))
-  material = rng.choice(["Metal", "Rubber"])
-  obj = kubasic.create(asset_id=shape, scale=size)
-  if material == "Metal":
+  shape_name = rng.choice(OBJECT_TYPES)
+  size_name = rng.choice(list(SIZES))
+  color_name = rng.choice(list(COLORS))
+  color = COLORS[color_name]
+  material_name = rng.choice(["Metal", "Rubber"])
+  obj = kubasic.create(asset_id=shape_name, scale=SIZES[size_name])
+  if material_name == "Metal":
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
     obj.friction = 0.4
     obj.restitution = 0.3
     obj.mass *= 2.7
-  else:  # material == "Rubber"
+  else:  # material_name == "Rubber"
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=0., ior=1.25, roughness=0.7,
                                              specular=0.33)
     obj.friction = 0.8
@@ -109,6 +117,12 @@ for i in range(nr_objects):
     obj.mass *= 1.1
 
   scene.add(obj)
+  obj.metadata = {
+      "shape": shape_name.lower(),
+      "size": size_name.lower(),
+      "material": material_name.lower(),
+      "color": color_name.lower(),
+  }
   kb.move_until_no_overlap(obj, simulator, spawn_region=SPAWN_REGION)
   # bias velocity towards center
   obj.velocity = (rng.uniform(*VELOCITY_RANGE) - [obj.position[0], obj.position[1], 0])
@@ -136,16 +150,38 @@ renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-metadata = [{
-    "asset_id": obj.asset_id,
-    "material": "Metal" if obj.material.metallic > 0.5 else "Rubber",
-    "mass": obj.mass,
-    "color": obj.material.color.rgb,
-    "size": "small" if obj.scale[0] < 1. else "large",
-    "animation": obj.keyframes,
-} for obj in scene.foreground_assets]
 
-with kb.GFile(output_dir / "metadata.pkl", "wb") as fp:
+object_info = []
+frames = list(range(scene.frame_start, scene.frame_end+1))
+# extract the framewise position, quaternion, and velocity for each object
+for obj in scene.foreground_assets:
+  info = copy.copy(obj.metadata)
+  info['positions'] = np.array([obj.keyframes['position'][f] for f in frames], dtype=np.float32)
+  info['quaternions'] = np.array([obj.keyframes['quaternion'][f] for f in frames], dtype=np.float32)
+  info['velocities'] = np.array([obj.keyframes['velocity'][f] for f in frames], dtype=np.float32)
+  info['angular_velocities'] = np.array([obj.keyframes['angular_velocity'][f] for f in frames], dtype=np.float32)
+
+  info['mass'] = obj.mass
+  info['friction'] = obj.friction
+  info['restitution'] = obj.restitution
+  info['image_positions'] = np.zeros((len(frames), 2), dtype=np.float32)  # TODO: actually compute
+  object_info.append(info)
+
+cam = scene.camera
+metadata = {
+    "seed": seed,
+    "nr_objects": nr_objects,
+    "objects": object_info,
+    "camera": {
+        "focal_length": cam.focal_length,
+        "sensor_width": cam.sensor_width,
+        "field_of_view": cam.field_of_view,
+        "positions": np.array([cam.position for _ in frames], dtype=np.float32),
+        "quaternions": np.array([cam.quaternion for _ in frames], dtype=np.float32)
+    }
+}
+
+with tf.io.gfile.GFile(output_dir / "metadata.pkl", "wb") as fp:
   logging.info(f"Writing to {fp.name}")
   pickle.dump(metadata, fp)
 

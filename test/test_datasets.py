@@ -25,7 +25,7 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
   BUILDER_CONFIG_NAMES_TO_TEST = ['test']
   DATASET_CLASS = klevr.Klevr
   SPLITS = {
-      tfds.Split.TRAIN: 4,  # Number of fake train example
+      tfds.Split.TRAIN: 2,  # Number of fake train example
   }
   EXAMPLE_DIR = pathlib.Path(__file__).parent / "dummy_data"
 
@@ -35,7 +35,7 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
         name='test',
         description='Dummy test.',
         path=cls.EXAMPLE_DIR,
-        is_master=True,
+        num_frames=2,
         height=28,
         width=28)]
     super().setUpClass()
@@ -50,8 +50,10 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
       splits = builder.as_dataset()
       train_ex = list(splits[tfds.Split.TRAIN])[0]
       # Check that the shapes of the dataset examples is correct.
-      self.assertIn('dummy_data', str(train_ex['source'].numpy()))
+      self.assertIn('dummy_data', str(train_ex['metadata']['video_name'].numpy()))
 
+import tensorflow_datasets as tfds
+tfds.features
 
 if __name__ == '__main__':
   tfds.testing.test_main()
