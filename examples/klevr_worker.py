@@ -59,7 +59,7 @@ FLAGS = parser.parse_args()
 kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
 scratch_dir, output_dir = kb.setup_directories(FLAGS)
-seed = FLAGS.random_seed if FLAGS.random_seed else np.random.randint(0, 2147483647)
+seed = FLAGS.seed if FLAGS.seed else np.random.randint(0, 2147483647)
 rng = np.random.default_rng(seed=seed)
 scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene, scratch_dir)
@@ -186,3 +186,11 @@ with tf.io.gfile.GFile(output_dir / "metadata.pkl", "wb") as fp:
   pickle.dump(metadata, fp)
 
 logging.info("Done!")
+
+# -- report generated_images to hyperparameter tuner
+import hypertune
+
+hpt = hypertune.HyperTune()
+hpt.report_hyperparameter_tuning_metric(
+    hyperparameter_metric_tag='generated_images',
+    metric_value=len(frames))

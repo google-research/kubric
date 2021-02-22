@@ -29,7 +29,7 @@ EOF
 #
 tfds build $DATASET_CONFIG \
   --data_dir=$GCS_BUCKET/tensorflow_datasets \
-  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$DATASET_NAME-gen,staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,setup_file=$TEMP/setup.py"
+  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$DATASET_NAME-gen,staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,setup_file=$TEMP/setup.py,machine_type=n1-highmem-16,num_workers=50"
 
 
 # clean-up: delete the pseudo-package

@@ -36,7 +36,7 @@ class ArgumentParser(argparse.ArgumentParser):
     self.add_argument("--frame_start", type=int, default=1)
     self.add_argument("--frame_end", type=int, default=24)  # 1 second
     self.add_argument("--logging_level", type=str, default="INFO")
-    self.add_argument("--random_seed", type=int, default=0)
+    self.add_argument("--seed", type=int, default=0)
     self.add_argument("--width", type=int, default=512)
     self.add_argument("--height", type=int, default=512)
     self.add_argument("--scratch_dir", type=str, default=None)

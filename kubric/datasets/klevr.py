@@ -47,7 +47,7 @@ class KlevrConfig(tfds.core.BuilderConfig):
   """"Configuration for Klevr video dataset."""
 
   def __init__(
-      self, *, path: str, height: int, width: int, num_frames: int, **kwargs
+      self, *, path: str, height: int, width: int, num_frames: int, subset=None, **kwargs
   ):
     """Defines a particular configuration of tensorflow records.
 
@@ -67,6 +67,7 @@ class KlevrConfig(tfds.core.BuilderConfig):
     self.height = height
     self.width = width
     self.num_frames = num_frames
+    self.subset = subset
 
 
 class Klevr(tfds.core.BeamBasedBuilder):
@@ -80,10 +81,11 @@ class Klevr(tfds.core.BeamBasedBuilder):
       KlevrConfig(
           name='master',
           description='All the KLEVR files.',
-          path='gs://research-brain-kubric-xgcp/jobs/klevr',
+          path='gs://research-brain-kubric-xgcp/jobs/klevr_v0',
           height=512,
           width=512,
           num_frames=48,
+          subset=None,
       ),
 
   ]
@@ -115,12 +117,11 @@ class Klevr(tfds.core.BeamBasedBuilder):
                 'material': tfds.features.ClassLabel(names=["metal", "rubber"]),
                 'color': tfds.features.ClassLabel(names=["blue", "brown", "cyan", "gray",
                                                          "green", "purple", "red", "yellow"]),
-
                 'mass': tf.float32,
                 'friction': tf.float32,
                 'restitution': tf.float32,
 
-                'positions': tfds.features.Sequence(tfds.features.Tensor(shape=(3,), dtype=tf.float32), length=s),
+                'positions': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
                 'quaternions': tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
                 'velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
                 'angular_velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
@@ -163,115 +164,22 @@ class Klevr(tfds.core.BeamBasedBuilder):
     """Returns SplitGenerators."""
     del unused_dl_manager
     path = tfds.core.as_path(self.builder_config.path)
-    all_subdirs = [str(d) for d in path.glob('*')
-                   if (d / 'metadata.pkl').exists()]
+    all_subdirs = sorted([d for d in path.glob('*')
+                         if (d / 'metadata.pkl').exists()], key=lambda x: int(x.name))
     logging.info('Found %d sub-folders in master path: %s', len(all_subdirs), path)
 
+    if self.builder_config.subset:
+      all_subdirs = all_subdirs[:self.builder_config.subset]
+      logging.info('Using a subset of %d folders.', len(all_subdirs))
+
     return {
-        tfds.Split.TRAIN: self._generate_examples(all_subdirs),
+        tfds.Split.TRAIN: self._generate_examples([str(d) for d in all_subdirs]),
     }
 
   def _generate_examples(self, directories: List[str]):
     """Yields examples."""
 
     beam = tfds.core.lazy_imports.apache_beam
-    path = self.builder_config.path.parent
-
-    def _process_example(video_dir):
-      video_dir = tfds.core.as_path(video_dir)
-      key = f'{video_dir.name}'
-      files = sorted([str(f) for f in video_dir.glob('frame*.pkl')])
-
-      with tf.io.gfile.GFile(str(video_dir / 'metadata.pkl'), 'rb') as fp:
-        metadata = pickle.load(fp)
-
-      frames = []
-      for frame_file in files:
-        with tf.io.gfile.GFile(str(frame_file), 'rb') as fp:
-          data = pickle.load(fp)
-          frames.append({
-              'rgb': data['rgba'][..., :3],
-              'segmentation': data['segmentation'].astype(np.uint16),
-              'flow': data['flow'],
-              'depth': data['depth'],
-              'uv': data['uv'],
-              'normal': data['normal']
-          })
-
-      # compute the range of the depth map
-      min_depth = np.min([np.min(f['depth']) for f in frames])
-      max_depth = np.max([np.max(f['depth']) for f in frames])
-
-      # compute the range of magnitudes of the optical flow (both forward and backward)
-      def flow_magnitude(vec):
-        bwd_flow_magnitude = np.linalg.norm(vec[:, :, :2], axis=-1)
-        min_bwd_flow_mag = np.min(bwd_flow_magnitude)
-        max_bwd_flow_mag = np.max(bwd_flow_magnitude)
-        fwd_flow_magnitude = np.linalg.norm(vec[:, :, 2:], axis=-1)
-        min_fwd_flow_mag = np.min(fwd_flow_magnitude)
-        max_fwd_flow_mag = np.max(fwd_flow_magnitude)
-        return min(min_fwd_flow_mag, min_bwd_flow_mag), max(max_fwd_flow_mag, max_bwd_flow_mag)
-
-      flow_magnitude_ranges = [flow_magnitude(frame["flow"]) for frame in frames]
-      min_flow = np.min([fmr[0] for fmr in flow_magnitude_ranges])
-      max_flow = np.max([fmr[1] for fmr in flow_magnitude_ranges])
-
-      # compute bboxes
-      for i, obj in enumerate(metadata["objects"]):
-        obj['bboxes'] = []
-        for j, frame in enumerate(frames):
-          seg = frame['segmentation'][:, :, 0]
-          idxs = np.array(np.where(seg == i+1), dtype=np.float32)
-          if idxs.size > 0:
-            idxs /= np.array(seg.shape)[:, np.newaxis]
-            bbox = tfds.features.BBox(ymin=float(idxs[0].min()), xmin=float(idxs[1].min()),
-                                      ymax=float(idxs[0].max()), xmax=float(idxs[1].max()))
-          else:
-            bbox = tfds.features.BBox(ymin=0., xmin=0., ymax=0., xmax=0.)
-          obj['bboxes'].append(bbox)
-
-
-      return key, {
-          'metadata': {
-              'video_name': os.fspath(video_dir.relative_to(path)),
-              'width': frames[0]['rgb'].shape[1],
-              'height': frames[0]['rgb'].shape[0],
-              'num_frames': len(frames),
-              'num_instances': metadata['nr_objects'],
-              'depth_range': [min_depth, max_depth],
-              'flow_range': [min_flow, max_flow],
-          },
-          'instances': [{
-              'shape': obj['shape'],
-              'size': obj['size'],
-              'material': obj['material'],
-              'color': obj['color'],
-              'mass': obj['mass'],
-              'friction': obj['friction'],
-              'restitution': obj['restitution'],
-              'positions': obj['positions'],
-              'quaternions': obj['quaternions'],
-              'velocities': obj['velocities'],
-              'angular_velocities': obj['angular_velocities'],
-              'image_positions': obj['image_positions'],
-              'bboxes': obj['bboxes'],
-          } for obj in metadata["objects"]],
-          'camera': {
-              "focal_length": metadata["camera"]["focal_length"],
-              "sensor_width": metadata["camera"]["sensor_width"],
-              "field_of_view": metadata["camera"]["field_of_view"],
-              "positions": metadata["camera"]["positions"],
-              "quaternions": metadata["camera"]["quaternions"],
-          },
-          'events': {"collision": []},
-          'video': [f['rgb'] for f in frames],
-          'segmentations': [f['segmentation'] for f in frames],
-          'flow': [f['flow'] for f in frames],
-          'depth': [f['depth'] for f in frames],
-          'uv': [f['uv'] for f in frames],
-          'normal': [f['normal'] for f in frames],
-      }
-
     return beam.Create(directories) | beam.Map(_process_example)
 
 
@@ -280,3 +188,98 @@ def _get_files_from_subdir(path: str) -> List[str]:
   files = [str(f) for f in path.glob('frame*.pkl')]
   logging.info('Found %d files in path: %s', len(files), path)
   return files
+
+
+def _process_example(video_dir):
+  video_dir = tfds.core.as_path(video_dir)
+  key = f'{video_dir.name}'
+  files = sorted([str(f) for f in video_dir.glob('frame*.pkl')])
+
+  with tf.io.gfile.GFile(str(video_dir / 'metadata.pkl'), 'rb') as fp:
+    metadata = pickle.load(fp)
+
+  frames = []
+  for frame_file in files:
+    with tf.io.gfile.GFile(str(frame_file), 'rb') as fp:
+      data = pickle.load(fp)
+      frames.append({
+          'rgb': data['rgba'][..., :3],
+          'segmentation': data['segmentation'].astype(np.uint16),
+          'flow': data['flow'],
+          'depth': data['depth'],
+          'uv': data['uv'],
+          'normal': data['normal']
+      })
+
+  # compute the range of the depth map
+  min_depth = np.min([np.min(f['depth']) for f in frames])
+  max_depth = np.max([np.max(f['depth']) for f in frames])
+
+  # compute the range of magnitudes of the optical flow (both forward and backward)
+  def flow_magnitude(vec):
+    bwd_flow_magnitude = np.linalg.norm(vec[:, :, :2], axis=-1)
+    min_bwd_flow_mag = np.min(bwd_flow_magnitude)
+    max_bwd_flow_mag = np.max(bwd_flow_magnitude)
+    fwd_flow_magnitude = np.linalg.norm(vec[:, :, 2:], axis=-1)
+    min_fwd_flow_mag = np.min(fwd_flow_magnitude)
+    max_fwd_flow_mag = np.max(fwd_flow_magnitude)
+    return min(min_fwd_flow_mag, min_bwd_flow_mag), max(max_fwd_flow_mag, max_bwd_flow_mag)
+
+  flow_magnitude_ranges = [flow_magnitude(frame["flow"]) for frame in frames]
+  min_flow = np.min([fmr[0] for fmr in flow_magnitude_ranges])
+  max_flow = np.max([fmr[1] for fmr in flow_magnitude_ranges])
+
+  # compute bboxes
+  for i, obj in enumerate(metadata["objects"]):
+    obj['bboxes'] = []
+    for j, frame in enumerate(frames):
+      seg = frame['segmentation'][:, :, 0]
+      idxs = np.array(np.where(seg == i+1), dtype=np.float32)
+      if idxs.size > 0:
+        idxs /= np.array(seg.shape)[:, np.newaxis]
+        bbox = tfds.features.BBox(ymin=float(idxs[0].min()), xmin=float(idxs[1].min()),
+                                  ymax=float(idxs[0].max()), xmax=float(idxs[1].max()))
+      else:
+        bbox = tfds.features.BBox(ymin=0., xmin=0., ymax=0., xmax=0.)
+      obj['bboxes'].append(bbox)
+
+  return key, {
+      'metadata': {
+          'video_name': os.fspath(key),
+          'width': frames[0]['rgb'].shape[1],
+          'height': frames[0]['rgb'].shape[0],
+          'num_frames': len(frames),
+          'num_instances': metadata['nr_objects'],
+          'depth_range': [min_depth, max_depth],
+          'flow_range': [min_flow, max_flow],
+      },
+      'instances': [{
+          'shape': obj['shape'],
+          'size': obj['size'],
+          'material': obj['material'],
+          'color': obj['color'],
+          'mass': obj['mass'],
+          'friction': obj['friction'],
+          'restitution': obj['restitution'],
+          'positions': obj['positions'],
+          'quaternions': obj['quaternions'],
+          'velocities': obj['velocities'],
+          'angular_velocities': obj['angular_velocities'],
+          'image_positions': obj['image_positions'],
+          'bboxes': obj['bboxes'],
+      } for obj in metadata["objects"]],
+      'camera': {
+          "focal_length": metadata["camera"]["focal_length"],
+          "sensor_width": metadata["camera"]["sensor_width"],
+          "field_of_view": metadata["camera"]["field_of_view"],
+          "positions": metadata["camera"]["positions"],
+          "quaternions": metadata["camera"]["quaternions"],
+      },
+      'events': {"collision": []},
+      'video': [f['rgb'] for f in frames],
+      'segmentations': [f['segmentation'] for f in frames],
+      'flow': [f['flow'] for f in frames],
+      'depth': [f['depth'] for f in frames],
+      'uv': [f['uv'] for f in frames],
+      'normal': [f['normal'] for f in frames],
+  }
