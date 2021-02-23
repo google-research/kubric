@@ -72,9 +72,10 @@ class KlevrConfig(tfds.core.BuilderConfig):
 
 class Klevr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for klevr dataset."""
-  VERSION = tfds.core.Version('1.0.0')
+  VERSION = tfds.core.Version('1.0.1')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
+      '1.0.1': 'mini version with just 100 examples',
   }
 
   BUILDER_CONFIGS = [
@@ -85,7 +86,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
           height=512,
           width=512,
           num_frames=48,
-          subset=None,
+          subset=100,
       ),
 
   ]
@@ -210,6 +211,10 @@ def _process_example(video_dir):
           'uv': data['uv'],
           'normal': data['normal']
       })
+
+  num_frames = metadata["objects"][0]["positions"].shape[0]
+  assert len(frames) == num_frames, f"{len(frames)} != {num_frames}"
+  assert len(metadata["objects"]) == metadata["nr_objects"], f"{len(metadata['objects'])} != {metadata['nr_objects']}"
 
   # compute the range of the depth map
   min_depth = np.min([np.min(f['depth']) for f in frames])
