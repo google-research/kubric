@@ -17,13 +17,13 @@ import pathlib
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
-from kubric.datasets import klevr
+from kubric.datasets import klevr2
 
 
 class KlevrTest(tfds.testing.DatasetBuilderTestCase):
   """Tests for klevr dataset."""
   BUILDER_CONFIG_NAMES_TO_TEST = ['test']
-  DATASET_CLASS = klevr.Klevr
+  DATASET_CLASS = klevr2.Klevr
   SPLITS = {
       tfds.Split.TRAIN: 2,  # Number of fake train example
   }
@@ -31,7 +31,7 @@ class KlevrTest(tfds.testing.DatasetBuilderTestCase):
 
   @classmethod
   def setUpClass(cls):
-    klevr.Klevr.BUILDER_CONFIGS = [klevr.KlevrConfig(
+    klevr2.Klevr.BUILDER_CONFIGS = [klevr2.KlevrConfig(
         name='test',
         description='Dummy test.',
         path=cls.EXAMPLE_DIR,
