@@ -1,10 +1,13 @@
 #!/bin/bash -x
 
-DATASET_NAME=klevrheavy  # has to be the same as the filename of DATASET_CONFIG
-DATASET_CONFIG=kubric/datasets/klevrheavy.py
+DATASET_NAME=${1}  # has to be the same as the filename of DATASET_CONFIG
+DATASET_CONFIG="kubric/datasets/${DATASET_NAME}.py"
 GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
+JOB_NAME=${2}
+MACHINE_TYPE="n1-highmem-8"
+NUM_WORKERS=20
 
 # create a pseudo-package in a temporary directory to ship the dataset code to dataflow workers
 # https://beam.apache.org/documentation/sdks/python-pipeline-dependencies/
@@ -32,7 +35,10 @@ EOF
 #
 tfds build $DATASET_CONFIG \
   --data_dir=$GCS_BUCKET/tensorflow_datasets \
-  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$DATASET_NAME-test-fix,staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,setup_file=$TEMP/setup.py,machine_type=n1-highmem-16,num_workers=20"
+  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$JOB_NAME,\
+staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,\
+setup_file=$TEMP/setup.py,machine_type=$MACHINE_TYPE,num_workers=$NUM_WORKERS"
+
 
 
 # clean-up: delete the pseudo-package

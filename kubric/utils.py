@@ -31,16 +31,28 @@ class ArgumentParser(argparse.ArgumentParser):
     argparse.ArgumentParser.__init__(self, *args, **kwargs)
 
     # --- default arguments for kubric
-    self.add_argument("--frame_rate", type=int, default=24)
-    self.add_argument("--step_rate", type=int, default=240)
-    self.add_argument("--frame_start", type=int, default=1)
-    self.add_argument("--frame_end", type=int, default=24)  # 1 second
+    self.add_argument("--frame_rate", type=int, default=24,
+                      help='number of rendered frames per second (default: 24)')
+    self.add_argument("--step_rate", type=int, default=240,
+                      help='number of simulation steps per second. '
+                           'Has to be an integer multiple of --frame_rate (default: 240)')
+    self.add_argument("--frame_start", type=int, default=1,
+                      help='index of the first frame to render. '
+                           'Note that simulation always starts at frame 0 (default: 1)')
+    self.add_argument("--frame_end", type=int, default=24,
+                      help='index of the last frame to render (default: 24)')  # 1 second
     self.add_argument("--logging_level", type=str, default="INFO")
-    self.add_argument("--seed", type=int, default=0)
-    self.add_argument("--width", type=int, default=512)
-    self.add_argument("--height", type=int, default=512)
-    self.add_argument("--scratch_dir", type=str, default=None)
-    self.add_argument("--job-dir", type=str, default="output")
+    self.add_argument("--seed", type=int, default=None,
+                      help="(int) seed to be used for random sampling in the worker (default: None)")
+    self.add_argument("--width", type=int, default=512,
+                      help="width of the output image/video in pixels (default: 512)")
+    self.add_argument("--height", type=int, default=512,
+                      help="height of the output image/video in pixels (default: 512)")
+    self.add_argument("--scratch_dir", type=str, default=None,
+                      help="local directory for storing intermediate files such as "
+                           "downloaded assets, raw output of renderer, ... (default: temp dir)")
+    self.add_argument("--job-dir", type=str, default="output",
+                      help="target directory for storing the output of the worker (default: ./output)")
 
   def parse_args(self, args=None, namespace=None):
     # --- parse argument in a way compatible with blender's REPL
