@@ -395,12 +395,12 @@ class Klevr(tfds.core.BeamBasedBuilder):
           'video': [subsample_avg(f['rgb'], target_size) for f in frames],
           'segmentations': [subsample_nearest_neighbor(f['segmentation'], target_size)
                             for f in frames],
-          # 'flow': [convert_float_to_uint16(f['flow'], min_flow, max_flow)
-          #          for f in frames],
-          # 'depth': [convert_float_to_uint16(f['depth'], min_depth, max_depth)
-          #           for f in frames],
-          # 'uv': [convert_float_to_uint16(f['uv'], 0., 1.) for f in frames],
-          # 'normal': [convert_float_to_uint16(f['normal'], -1., 1.) for f in frames],
+          'flow': [convert_float_to_uint16(f['flow'], min_flow, max_flow)
+                   for f in frames],
+          'depth': [convert_float_to_uint16(f['depth'], min_depth, max_depth)
+                    for f in frames],
+          'uv': [convert_float_to_uint16(f['uv'], 0., 1.) for f in frames],
+          'normal': [convert_float_to_uint16(f['normal'], -1., 1.) for f in frames],
       }
 
     beam = tfds.core.lazy_imports.apache_beam

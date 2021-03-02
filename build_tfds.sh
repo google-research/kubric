@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
-DATASET_NAME=klevr  # has to be the same as the filename of DATASET_CONFIG
-DATASET_CONFIG=kubric/datasets/klevr.py
+DATASET_NAME=klevrheavy  # has to be the same as the filename of DATASET_CONFIG
+DATASET_CONFIG=kubric/datasets/klevrheavy.py
 GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
@@ -26,10 +26,13 @@ setuptools.setup(
 )
 EOF
 
+# install_requires=[
+#        'tensorflow_datasets @ git+https://git@github.com/qwlouse/datasets@master#egg=tensorflow_datasets'],
+
 #
 tfds build $DATASET_CONFIG \
   --data_dir=$GCS_BUCKET/tensorflow_datasets \
-  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$DATASET_NAME-gen-subsampling-splits,staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,setup_file=$TEMP/setup.py,machine_type=n1-highmem-32,num_workers=20"
+  --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$DATASET_NAME-test-fix,staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,setup_file=$TEMP/setup.py,machine_type=n1-highmem-16,num_workers=20"
 
 
 # clean-up: delete the pseudo-package
