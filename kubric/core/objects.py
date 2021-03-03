@@ -59,6 +59,14 @@ class Object3D(base.Asset):
   def euler_xyz(self):
     return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
+  @property
+  def matrix_world(self):
+    """ Affine transformation 4x4 matrix to map points from world to object coordinates."""
+    RT = np.eye(4)
+    RT[:3, :3] = mathutils.Quaternion(self.quaternion).to_matrix()
+    RT[:3, 3] = self.position
+    return RT
+
 
 class PhysicalObject(Object3D):
   scale = ktl.Scale()

@@ -20,6 +20,9 @@ from kubric.core import objects
 
 __all__ = ("Camera", "UndefinedCamera", "PerspectiveCamera", "OrthographicCamera")
 
+import mathutils
+q = mathutils.Quaternion()
+
 
 class Camera(objects.Object3D):
   """ Base class for all types of cameras. """
@@ -75,6 +78,41 @@ class PerspectiveCamera(Camera):
   @field_of_view.setter
   def field_of_view(self, fov: float) -> None:
     self.focal_length = self.sensor_width / (2 * np.tan(fov / 2))
+
+  @property
+  def active_scene(self):
+    # TODO: proper (error) handling of cameras that are part of multiple scenes
+    return self.scenes[0] if self.scenes else None
+
+  @property
+  def sensor_height(self):
+    scene = self.active_scene
+    return self.sensor_width / scene.resolution[0] * scene.resolution[1]
+
+  @property
+  def K(self):
+    width, height = self.active_scene.resolution
+    f_x = self.focal_length / self.sensor_width * width
+    f_y = self.focal_length / self.sensor_height * height
+    p_x = width / 2.
+    p_y = height / 2.
+    return np.array([
+        [f_x, 0, -p_x],
+        [0, -f_y, -p_y],
+        [0,   0,   -1],
+    ])
+
+  def project_point(self, point3d):
+    """ Compute the image space coordinates (in pixels) for a given point in world coordinates."""
+    RT = np.linalg.inv(self.matrix_world)
+    P = np.zeros((3, 4), dtype=np.float32)
+    P[:, :3] = self.K
+
+    point4d = np.concatenate([point3d, [1.]])
+    projected = P @ RT @ point4d
+    image_coords = projected / projected[2]
+    image_coords[2] = np.sign(projected[2])
+    return image_coords
 
 
 class OrthographicCamera(Camera):

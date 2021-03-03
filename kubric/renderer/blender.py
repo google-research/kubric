@@ -296,6 +296,8 @@ class Blender(core.View):
   def _add_asset(self, obj: core.PerspectiveCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "PERSP"
+    # fix sensor width and determine sensor height by the aspect ratio of the image:
+    camera.sensor_fit = 'HORIZONTAL'
     camera_obj = bpy.data.objects.new(obj.uid, camera)
 
     register_object3d_setters(obj, camera_obj)

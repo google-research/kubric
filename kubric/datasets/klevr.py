@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools
 import logging
 import os
 import pickle
@@ -25,8 +26,6 @@ _DESCRIPTION = """
 The Klevr dataset is a synthetic video dataset of simple rigid objects interacting physically.
 It is based on the the CLEVR dataset:
 https://cs.stanford.edu/people/jcjohns/clevr/
-
-It includes RGB, optical flow, metric depth, and object segmentation, as well as 
 """
 
 _CITATION = """
@@ -47,138 +46,60 @@ class KlevrConfig(tfds.core.BuilderConfig):
   """"Configuration for Klevr video dataset."""
 
   def __init__(
-      self, *, height: int, width: int, num_frames: int, subset=None, validation_percentage:float = 0.1, **kwargs
+      self, *, height: int, width: int, num_frames: int,
+      validation_ratio: float = 0.1, full: bool = True, **kwargs
   ):
     """Defines a particular configuration of tensorflow records.
 
     Args:
-      path: The path to the data. Path can be a directory containing
-        subfolders of frames, or an individual folder containing frames. The
-        code assumes this is a path to a google cloud bucket, but the code will
-        also work for, e.g., local directories.
-      height: The height of the provided data.
-      width: The width of the provided data.
-      max_objects: maximum number of objects that occur within a single scene
-                  (counting the background as one object).
+      height (int): The target resolution height.
+      width (int): The target resolution width.
+      num_frames (int): The target number of frames.
+      validation_ratio (float): The proportion of examples to use for validation.
+      full (bool): Whether to include depth/normal/uv/flow information or not.
       **kwargs: Keyword arguments to the base class.
     """
     super(KlevrConfig, self).__init__(**kwargs)
     self.height = height
     self.width = width
     self.num_frames = num_frames
-    self.subset = subset
-    self.validation_percentage = validation_percentage
+    self.validation_ratio = validation_ratio
+    self.full = full
 
 
 class Klevr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for klevr dataset."""
-  VERSION = tfds.core.Version('1.2.0')
+  VERSION = tfds.core.Version('1.3.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
-      '1.0.1': 'mini version with just 100 examples',
-      '1.0.3': 'simplified version without instances, camera, and events',
-      '1.0.4': 'minimal version with just video',
-      '1.0.5': 'minimal + segmentation',
-      '1.0.6': 'minimal + depth + uv + normal + flow',
-      '1.0.7': 'everything except depth/uv/normal/flow',
-      '1.0.8': 'like 1.0.7 but with all examples',
-      '1.0.9': 'full dataset but with depth/uv/normal/flow converted to uint16',
-      '1.1.0': 'use 10% of examples as validation split, sparse bboxes, no depth/uv/normal/flow',
-      '1.2.0': 'include subsampled variants',
+      '1.3.0': 'tidied up'
   }
 
   BUILDER_CONFIGS = [
       KlevrConfig(
           name='master',
-          description='Full resolution of 512x512 and full framerate of 48fps',
-          height=512,
-          width=512,
-          num_frames=48,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='256x256_24fps',
-          description='Downscaled to 256x256 with full framerate of 24fps',
+          description='Full resolution of 512x512 and full framerate of 24fps',
           height=256,
           width=256,
           num_frames=48,
-          subset=None,
-          validation_percentage=0.1,
-      ),
+          validation_ratio=0.2,
+          full=True,
+      )] + [
       KlevrConfig(
-          name='256x256_12fps',
-          description='Downscaled to 256x256 and sub-sampled to a framerate of 12fps',
-          height=256,
-          width=256,
-          num_frames=24,
+          name='{0}x{0}_{1}fps{2}'.format(resolution, fps, "_full" if full else ""),
+          description='Downscaled to {0}x{0} with a framerate of {1} and {2}'.format(
+              resolution, fps, "including segmentation, flow, depth, normal and UV maps."
+              if full else "including only segmentation."
+          ),
+          height=resolution,
+          width=resolution,
+          num_frames=fps * 2,
           subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='256x256_6fps',
-          description='Downscaled to 256x256 and sub-sampled to a framerate of 6fps',
-          height=256,
-          width=256,
-          num_frames=12,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='128x128_24fps',
-          description='Downscaled to 128x128 with full framerate of 24fps',
-          height=128,
-          width=128,
-          num_frames=48,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='128x128_12fps',
-          description='Downscaled to 128x128 and sub-sampled to a framerate of 12fps',
-          height=128,
-          width=128,
-          num_frames=24,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='128x128_6fps',
-          description='Downscaled to 128x128 and sub-sampled to a framerate of 6fps',
-          height=128,
-          width=128,
-          num_frames=12,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='64x64_24fps',
-          description='Downscaled to 64x64 with full framerate of 24fps',
-          height=64,
-          width=64,
-          num_frames=48,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='64x64_12fps',
-          description='Downscaled to 64x64 and sub-sampled to a framerate of 12fps',
-          height=64,
-          width=64,
-          num_frames=24,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-      KlevrConfig(
-          name='64x64_6fps',
-          description='Downscaled to 64x64 and sub-sampled to a framerate of 6fps',
-          height=64,
-          width=64,
-          num_frames=12,
-          subset=None,
-          validation_percentage=0.1,
-      ),
-  ]
+          validation_ratio=0.2,
+          full=full
+      )
+      for resolution, fps, full in itertools.product([256, 128, 64], [12, 6], [True, False])
+     ]
 
   def _info(self) -> tfds.core.DatasetInfo:
     """Returns the dataset metadata."""
@@ -198,9 +119,9 @@ class Klevr(tfds.core.BeamBasedBuilder):
                 'num_frames': tf.int32,
                 'num_instances': tf.uint16,
 
-                # 'depth_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                # 'flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                # 'flow_magnitude_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                'depth_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                'flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                'flow_magnitude_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
             },
             'instances': tfds.features.Sequence(feature={
                 'shape': tfds.features.ClassLabel(names=["cube", "cylinder", "sphere"]),
@@ -241,14 +162,14 @@ class Klevr(tfds.core.BeamBasedBuilder):
             'video':  tfds.features.Video(shape=(s, h, w, 3)),
             'segmentations': tfds.features.Sequence(
                 tfds.features.Image(shape=(h, w, 1), dtype=tf.uint16), length=s),
-            # 'flow': tfds.features.Sequence(
-            #     tfds.features.Tensor(shape=(h, w, 4), dtype=tf.uint16), length=s),
-            # 'depth': tfds.features.Sequence(
-            #     tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint16), length=s),
-            # 'uv': tfds.features.Sequence(
-            #     tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
-            # 'normal': tfds.features.Sequence(
-            #     tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
+            'flow': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 4), dtype=tf.uint16), length=s),
+            'depth': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint16), length=s),
+            'uv': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
+            'normal': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
         }),
         supervised_keys=None,
         homepage='https://github.com/google-research/kubric',
@@ -267,11 +188,11 @@ class Klevr(tfds.core.BeamBasedBuilder):
       logging.info('Using a subset of %d folders.', len(all_subdirs))
 
     str_directories = [str(d) for d in all_subdirs]
-    validation_percentage = self.builder_config.validation_percentage
-    validation_examples = round(len(str_directories) * validation_percentage)
+    validation_ratio = self.builder_config.validation_ratio
+    validation_examples = round(len(str_directories) * validation_ratio)
     training_examples = len(str_directories) - validation_examples
     logging.info("Using %s of examples for validation for a total of %d",
-                 "{:.2%}".format(validation_percentage), validation_examples)
+                 "{:.2%}".format(validation_ratio), validation_examples)
     logging.info("Using the other %d examples for training", training_examples)
 
     return {
@@ -297,8 +218,13 @@ class Klevr(tfds.core.BeamBasedBuilder):
       def convert_float_to_uint16(array, min_val, max_val):
         return np.round((array - min_val) / (max_val - min_val) * 65535).astype(np.uint16)
 
+      num_frames = metadata["objects"][0]["positions"].shape[0]
+      assert len(files) == num_frames, f"{len(files)} != {num_frames}"
+      assert len(metadata["objects"]) == metadata["nr_objects"], f"{len(metadata['objects'])} != {metadata['nr_objects']}"
+
+
       frames = []
-      for frame_file in files:
+      for frame_file in files[::frame_subsampling]:
         with tf.io.gfile.GFile(str(frame_file), 'rb') as fp:
           data = pickle.load(fp)
           frames.append({
@@ -311,12 +237,6 @@ class Klevr(tfds.core.BeamBasedBuilder):
           })
 
 
-      num_frames = metadata["objects"][0]["positions"].shape[0]
-      assert len(frames) == num_frames, f"{len(frames)} != {num_frames}"
-      assert len(metadata["objects"]) == metadata["nr_objects"], f"{len(metadata['objects'])} != {metadata['nr_objects']}"
-
-      # subsample frames
-      frames = frames[::frame_subsampling]
 
       # compute the range of the depth map
       min_depth = np.min([np.min(f['depth']) for f in frames])
@@ -392,10 +312,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
               "quaternions": metadata["camera"]["quaternions"][::frame_subsampling],
           },
           'events': {"collision": []},
-          'video': [subsample_avg(f['rgb'], target_size) for f in frames],
+          'video': [f['rgb'] for f in frames],
           'segmentations': [subsample_nearest_neighbor(f['segmentation'], target_size)
                             for f in frames],
-          'flow': [convert_float_to_uint16(f['flow'], min_flow, max_flow)
+          'flow': [convert_float_to_uint16(subsample_nearest_neighbor(f['flow'], target_size), min_flow, max_flow)
                    for f in frames],
           'depth': [convert_float_to_uint16(f['depth'], min_depth, max_depth)
                     for f in frames],

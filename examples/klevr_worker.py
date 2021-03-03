@@ -26,7 +26,8 @@ SPAWN_REGION = [(-4, -4, 0), (4, 4, 3)]
 # the range of velocities from which to sample [(min), (max)]
 VELOCITY_RANGE = [(-4, -4, 0), (4, 4, 0)]
 # the names of the KuBasic assets to use
-OBJECT_TYPES = ["Cube", "Cylinder", "Sphere"]  # "Cone", "Torus", "Spot", "Sponge", "TorusKnot", "Gear", "Teapot", "Suzanne"
+OBJECT_TYPES = ["Cube", "Cylinder", "Sphere", "Cone", "Torus", "Gear", "TorusKnot", "Sponge",
+                "Spot", "Teapot", "Suzanne"]
 # the set of colors to sample from
 COLORS = {
     "blue": kb.Color(42/255, 75/255, 215/255),
@@ -44,15 +45,21 @@ SIZES = {
     "large": 1.4,
 }
 
-
 # --- CLI arguments
 parser = kb.ArgumentParser()
 parser.add_argument("--min_nr_objects", type=int, default=3)
 parser.add_argument("--max_nr_objects", type=int, default=10)
+parser.add_argument("--object_types", nargs="+", default=["Cube", "Cylinder", "Sphere"],
+                    choices=OBJECT_TYPES)
+parser.add_argument("--object_colors", choices=["clevr", "uniform", "gray"], default="clevr")
+parser.add_argument("--object_sizes", choices=["clevr", "uniform", "const"], default="clevr")
+parser.add_argument("--floor_color", choices=["clevr", "uniform", "gray"], default="gray")
+parser.add_argument("--floor_friction", type=float, default=0.3)
+parser.add_argument("--light_jitter", type=float, default=1.0)
+parser.add_argument("--camera_jitter", type=float, default=1.0)
+
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/KuBasic")
-parser.set_defaults(frame_end=48)
-parser.set_defaults(width=512)
-parser.set_defaults(height=512)
+parser.set_defaults(frame_end=24, frame_rate=12, width=256, height=256)
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
@@ -60,7 +67,7 @@ kb.setup_logging(FLAGS.logging_level)
 kb.log_my_flags(FLAGS)
 scratch_dir, output_dir = kb.setup_directories(FLAGS)
 seed = FLAGS.seed if FLAGS.seed else np.random.randint(0, 2147483647)
-rng = np.random.default_rng(seed=seed)
+rng = np.random.RandomState(seed=seed)
 scene = kb.Scene.from_flags(FLAGS)
 simulator = kb.simulator.PyBullet(scene, scratch_dir)
 renderer = kb.renderer.Blender(scene, scratch_dir)
@@ -69,41 +76,73 @@ logging.info("Loading assets from %s", FLAGS.assets_dir)
 kubasic = kb.AssetSource(FLAGS.assets_dir)
 
 
+def sample_color(strategy):
+  if strategy == "gray":
+    return "gray", kb.get_color("gray")
+  elif strategy == "clevr":
+    color_label = rng.choice(list(COLORS.keys()))
+    return color_label, COLORS[color_label]
+  elif strategy == "uniform":
+    return None, kb.random_hue_color(rng=rng)
+  else:
+    raise ValueError(f"Unknown color sampling strategy {strategy}")
+
+
+def sample_sizes(strategy):
+  if strategy == "clevr":
+    size_label = rng.choice(list(SIZES.keys()))
+    size = SIZES[size_label]
+    return size_label, size
+  elif strategy == "uniform":
+    return None, rng.uniform(0.7, 1.4)
+  elif strategy == "const":
+    return None, 1
+  else:
+    raise ValueError(f"Unknown size sampling strategy {strategy}")
+
+
 # --- Populate the scene
-logging.info("Creating a large gray cube as the floor...")
-floor_material = kb.PrincipledBSDFMaterial(color=kb.get_color('gray'), roughness=1., specular=0.)
-floor = kb.Cube(scale=(100, 100, 1), position=(0, 0, -1), material=floor_material, friction=0.3,
-                static=True, background=True)
-scene.add(floor)
+logging.info("Creating a large cube as the floor...")
+floor_color_label, floor_color = sample_color(FLAGS.floor_color)
+floor_material = kb.PrincipledBSDFMaterial(color=floor_color, roughness=1., specular=0.)
+scene.add(kb.Cube(scale=(100, 100, 1), position=(0, 0, -1), material=floor_material,
+                  friction=FLAGS.floor_friction, static=True, background=True))
 
 logging.info("Adding several lights to the scene...")
-sun = kb.DirectionalLight(color=kb.Color(1, 1, 1), shadow_softness=0.2, intensity=0.45,
-                          position=(11.6608, -6.62799, 25.8232), look_at=(0, 0, 0))
+sun = kb.DirectionalLight(color=kb.get_color("white"), shadow_softness=0.2, intensity=0.45,
+                          position=(11.6608, -6.62799, 25.8232))
 lamp_back = kb.RectAreaLight(color=kb.get_color("white"), intensity=50.,
-                             position=(-1.1685, 2.64602, 5.81574), look_at=(0, 0, 0))
+                             position=(-1.1685, 2.64602, 5.81574))
 lamp_key = kb.RectAreaLight(color=kb.get_color(0xffedd0), intensity=100, width=0.5, height=0.5,
-                            position=(6.44671, -2.90517, 4.2584), look_at=(0, 0, 0))
+                            position=(6.44671, -2.90517, 4.2584))
 lamp_fill = kb.RectAreaLight(color=kb.get_color("#c2d0ff"), intensity=30, width=0.5, height=0.5,
-                             position=(-4.67112, -4.0136, 3.01122), look_at=(0, 0, 0))
-scene.add([sun, lamp_back, lamp_key, lamp_fill])
+                             position=(-4.67112, -4.0136, 3.01122))
+lights = [sun, lamp_back, lamp_key, lamp_fill]
+# slightly move the light positions
+for light in lights:
+  light.position += rng.rand(3) * FLAGS.light_jitter
+  light.look_at((0, 0, 0))
+  scene.add(light)
+
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
 logging.info("Setting up the Camera...")
 scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
-                                    position=(7.48113, -6.50764, 5.34367), look_at=(0, 0, 0))
+                                    position=(7.48113, -6.50764, 5.34367))
+scene.camera.position += rng.rand(3) * FLAGS.camera_jitter
+scene.camera.look_at((0, 0, 0))
 
 # --- Place random objects
-nr_objects = rng.integers(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+nr_objects = rng.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
 logging.info("Randomly placing %d objects:", nr_objects)
 
 object_info = []
 for i in range(nr_objects):
-  shape_name = rng.choice(OBJECT_TYPES)
-  size_name = rng.choice(list(SIZES))
-  color_name = rng.choice(list(COLORS))
-  color = COLORS[color_name]
+  shape_name = rng.choice(FLAGS.object_types)
+  size_label, size = sample_sizes(FLAGS.object_sizes)
+  color_label, color = sample_color(FLAGS.object_colors)
   material_name = rng.choice(["Metal", "Rubber"])
-  obj = kubasic.create(asset_id=shape_name, scale=SIZES[size_name])
+  obj = kubasic.create(asset_id=shape_name, scale=size)
   if material_name == "Metal":
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
     obj.friction = 0.4
@@ -119,9 +158,9 @@ for i in range(nr_objects):
   scene.add(obj)
   obj.metadata = {
       "shape": shape_name.lower(),
-      "size": size_name.lower(),
+      "size": size_label,
       "material": material_name.lower(),
-      "color": color_name.lower(),
+      "color": color_label,
   }
   kb.move_until_no_overlap(obj, simulator, spawn_region=SPAWN_REGION)
   # bias velocity towards center
@@ -156,15 +195,20 @@ frames = list(range(scene.frame_start, scene.frame_end+1))
 # extract the framewise position, quaternion, and velocity for each object
 for obj in scene.foreground_assets:
   info = copy.copy(obj.metadata)
-  info['positions'] = np.array([obj.keyframes['position'][f] for f in frames], dtype=np.float32)
-  info['quaternions'] = np.array([obj.keyframes['quaternion'][f] for f in frames], dtype=np.float32)
-  info['velocities'] = np.array([obj.keyframes['velocity'][f] for f in frames], dtype=np.float32)
-  info['angular_velocities'] = np.array([obj.keyframes['angular_velocity'][f] for f in frames], dtype=np.float32)
+  info['positions'] = np.array([obj.keyframes['position'][f] for f in frames],
+                               dtype=np.float32)
+  info['quaternions'] = np.array([obj.keyframes['quaternion'][f] for f in frames],
+                                 dtype=np.float32)
+  info['velocities'] = np.array([obj.keyframes['velocity'][f] for f in frames],
+                                dtype=np.float32)
+  info['angular_velocities'] = np.array([obj.keyframes['angular_velocity'][f] for f in frames],
+                                        dtype=np.float32)
 
   info['mass'] = obj.mass
   info['friction'] = obj.friction
   info['restitution'] = obj.restitution
-  info['image_positions'] = np.zeros((len(frames), 2), dtype=np.float32)  # TODO: actually compute
+  info['image_positions'] = np.array([scene.camera.project_point(p)[:2]
+                                      for p in info["positions"]])
   object_info.append(info)
 
 cam = scene.camera
@@ -172,6 +216,8 @@ metadata = {
     "seed": seed,
     "nr_objects": nr_objects,
     "objects": object_info,
+    "floor_color": floor_color_label,
+    "floor_friction": FLAGS.floor_friction,
     "camera": {
         "focal_length": cam.focal_length,
         "sensor_width": cam.sensor_width,
