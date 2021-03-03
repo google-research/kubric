@@ -146,10 +146,10 @@ def center_top(obj):
 
 
 def center_mesh_around(obj, new_center):
-  vertices, faces = get_vertices_and_faces(obj)
-  vertices -= np.array(new_center)
-  obj.data.clear_geometry()
-  obj.data.from_pydata(vertices.tolist(), [], faces.tolist())
+  for vert in obj.data.vertices:
+    vert.co[0] -= new_center[0]
+    vert.co[1] -= new_center[1]
+    vert.co[2] -= new_center[2]
 
 
 @contextlib.contextmanager
