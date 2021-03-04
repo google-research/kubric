@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
 import argparse
+import copy
 import logging
 import pathlib
+import pickle
 import pprint
 import shutil
 import sys
 import tempfile
 
+import numpy as np
+import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
 logger = logging.getLogger(__name__)
@@ -101,3 +103,85 @@ def setup_logging(logging_level):
 def log_my_flags(flags):
   flags_string = pprint.pformat(vars(flags), indent=2, width=100)
   logger.info(flags_string)
+
+# --------------------------------------------------------------------------------------------------
+# Collect metadata
+# --------------------------------------------------------------------------------------------------
+
+
+def get_scene_metadata(scene, **kwargs):
+  metadata = {
+      "width": scene.resolution[0],
+      "height": scene.resolution[1],
+      "num_frames": scene.frame_end - scene.frame_start + 1,
+      "num_instances": len(scene.foreground_assets),
+  }
+  metadata.update(kwargs)
+  return metadata
+
+
+def get_camera_info(camera, **kwargs):
+  camera_info = {
+      "focal_length": camera.focal_length,
+      "sensor_width": camera.sensor_width,
+      "field_of_view": camera.field_of_view,
+      "positions": camera.get_values_over_time("position"),
+      "quaternions": camera.get_values_over_time("quaternion"),
+      "K": camera.K,
+      "R": camera.R,
+  }
+  camera_info.update(kwargs)
+  return camera_info
+
+
+def get_instance_info(scene):
+  instance_info = []
+  # extract the framewise position, quaternion, and velocity for each object
+  for instance in scene.foreground_assets:
+    info = copy.copy(instance.metadata)
+    info["positions"] = instance.get_values_over_time("position")
+    info["quaternions"] = instance.get_values_over_time("quaternion")
+    info["velocities"] = instance.get_values_over_time("velocity")
+    info["angular_velocities"] = instance.get_values_over_time("angular_velocity")
+    info["mass"] = instance.mass
+    info["friction"] = instance.friction
+    info["restitution"] = instance.restitution
+    info["image_positions"] = np.array([scene.camera.project_point(p)[:2]
+                                        for p in info["positions"]])
+    instance_info.append(info)
+  return instance_info
+
+
+def process_collisions(collisions, scene):
+  def get_obj_index(obj):
+    try:
+      return scene.foreground_assets.index(obj)
+    except ValueError:
+      return -1
+
+  return [{
+      "instances": (get_obj_index(c["instances"][0]), get_obj_index(c["instances"][1])),
+      "contact_normal": c["contact_normal"],
+      "frame": c["frame"],
+      "force": c["force"],
+      "position": c["position"],
+      "image_position": scene.camera.project_point(c["position"])[:2],
+  } for c in collisions]
+
+
+def save_as_pkl(filename, data):
+  with tf.io.gfile.GFile(filename, "wb") as fp:
+    logging.info(f"Writing to {fp.name}")
+    pickle.dump(data, fp)
+
+
+def done():
+  logging.info("Done!")
+
+  # -- report generated_images to hyperparameter tuner
+  import hypertune
+
+  hpt = hypertune.HyperTune()
+  hpt.report_hyperparameter_tuning_metric(
+      hyperparameter_metric_tag="answer",
+      metric_value=42)

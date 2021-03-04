@@ -20,7 +20,7 @@ import pickle
 import numpy as np
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
-from typing import List, Tuple
+from typing import List
 
 _DESCRIPTION = """
 The Klevr dataset is a synthetic video dataset of simple rigid objects interacting physically.
@@ -78,10 +78,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
   BUILDER_CONFIGS = [
       KlevrConfig(
           name='master',
-          description='Full resolution of 512x512 and full framerate of 24fps',
+          description='Full resolution of 256x256 and a framerate of 12fps',
           height=256,
           width=256,
-          num_frames=48,
+          num_frames=24,
           validation_ratio=0.2,
           full=True,
       )] + [
@@ -98,7 +98,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
           validation_ratio=0.2,
           full=full
       )
-      for resolution, fps, full in itertools.product([256, 128, 64], [12, 6], [True, False])
+      for resolution, fps, full in itertools.product([128, 64], [12, 6], [True, False])
      ]
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -218,10 +218,9 @@ class Klevr(tfds.core.BeamBasedBuilder):
       def convert_float_to_uint16(array, min_val, max_val):
         return np.round((array - min_val) / (max_val - min_val) * 65535).astype(np.uint16)
 
-      num_frames = metadata["objects"][0]["positions"].shape[0]
+      num_frames = metadata["instances"][0]["positions"].shape[0]
       assert len(files) == num_frames, f"{len(files)} != {num_frames}"
-      assert len(metadata["objects"]) == metadata["nr_objects"], f"{len(metadata['objects'])} != {metadata['nr_objects']}"
-
+      assert len(metadata["instances"]) == metadata["num_instances"], f"{len(metadata['instances'])} != {metadata['num_instances']}"
 
       frames = []
       for frame_file in files[::frame_subsampling]:
@@ -235,8 +234,6 @@ class Klevr(tfds.core.BeamBasedBuilder):
               'uv': data['uv'],
               'normal': data['normal']
           })
-
-
 
       # compute the range of the depth map
       min_depth = np.min([np.min(f['depth']) for f in frames])
@@ -260,7 +257,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
       max_flow_mag = np.max([fmr[1] for fmr in flow_magnitude_ranges])
 
       # compute bboxes
-      for i, obj in enumerate(metadata["objects"]):
+      for i, obj in enumerate(metadata["instances"]):
         obj['bboxes'] = []
         obj['bbox_frames'] = []
         for j, frame in zip(range(0, num_frames, frame_subsampling), frames):
@@ -283,10 +280,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
               'width': target_size[1],
               'height': target_size[0],
               'num_frames': len(frames),
-              'num_instances': metadata['nr_objects'],
-              # 'depth_range': [min_depth, max_depth],
-              # 'flow_range': [min_flow, max_flow],
-              # 'flow_magnitude_range': [min_flow_mag, max_flow_mag]
+              'num_instances': metadata['num_instances'],
+              'depth_range': [min_depth, max_depth],
+              'flow_range': [min_flow, max_flow],
+              'flow_magnitude_range': [min_flow_mag, max_flow_mag]
           },
           'instances': [{
               'shape': obj['shape'],
@@ -303,7 +300,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
               'image_positions': obj['image_positions'][::frame_subsampling],
               'bboxes': obj['bboxes'],
               'bbox_frames': obj['bbox_frames'],
-          } for obj in metadata["objects"]],
+          } for obj in metadata["instances"]],
           'camera': {
               "focal_length": metadata["camera"]["focal_length"],
               "sensor_width": metadata["camera"]["sensor_width"],

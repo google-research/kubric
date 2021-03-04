@@ -80,11 +80,6 @@ class PerspectiveCamera(Camera):
     self.focal_length = self.sensor_width / (2 * np.tan(fov / 2))
 
   @property
-  def active_scene(self):
-    # TODO: proper (error) handling of cameras that are part of multiple scenes
-    return self.scenes[0] if self.scenes else None
-
-  @property
   def sensor_height(self):
     scene = self.active_scene
     return self.sensor_width / scene.resolution[0] * scene.resolution[1]

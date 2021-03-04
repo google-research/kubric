@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
 import collections
 import multiprocessing
-from typing import Any
 
 import munch
+import numpy as np
 import traitlets as tl
 
 __all__ = ("Asset", "Undefined", "UndefinedAsset")
@@ -69,6 +68,11 @@ class Asset(tl.HasTraits):
 
     super().__init__(**kwargs)
 
+  @property
+  def active_scene(self):
+    # TODO: this is currently just a hack to avoid the ambiguity when dealing with multiple scenes
+    return self.scenes[0] if self.scenes else None
+
   @tl.default("uid")
   def _uid(self):
     """ Use the class name and a global count separated by a period as the UID.
@@ -92,6 +96,44 @@ class Asset(tl.HasTraits):
                                    owner=self,
                                    frame=frame,
                                    type='keyframe'))
+
+  def get_value_at(self, name, frame, interpolation="linear"):
+    if name not in self.keyframes:
+      # no animation data found, try retrieving static value
+      return getattr(self, name)
+    keyframes = self.keyframes[name]
+
+    if frame in keyframes:
+      return keyframes[frame]
+
+    available_frames = sorted(keyframes.keys())
+    right_idx = np.searchsorted(available_frames, frame)
+    if right_idx == 0:
+      return keyframes[available_frames[0]]
+    if right_idx == len(available_frames):
+      return keyframes[available_frames[-1]]
+    left_frame, right_frame = available_frames[right_idx-1], available_frames[right_idx]
+
+    if interpolation == "const":
+      return keyframes[left_frame]
+    elif interpolation == "nearest":
+      if abs(frame - left_frame) <= abs(frame - right_frame):
+        return keyframes[left_frame]
+      else:
+        return keyframes[right_frame]
+    elif interpolation == "linear":
+      mixing = (frame - left_frame) / (right_frame - left_frame)
+      left_val = np.array(keyframes[left_frame])
+      right_val = np.array(keyframes[right_frame])
+      return (1-mixing) * left_val + mixing * right_val
+
+  def get_values_over_time(self, name, frames=None, interpolation="linear"):
+    if frames is None:
+      frames = list(range(self.active_scene.frame_start,
+                          self.active_scene.frame_end+1))
+    return np.array([self.get_value_at(name, frame=f, interpolation=interpolation)
+                     for f in frames], dtype=np.float32)
+
 
   def __hash__(self):
     return hash(self.uid)

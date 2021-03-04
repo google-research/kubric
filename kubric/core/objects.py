@@ -60,10 +60,15 @@ class Object3D(base.Asset):
     return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
   @property
+  def R(self):
+    """Rotation matrix that rotates from world to object coordinates"""
+    return np.array(mathutils.Quaternion(self.quaternion).to_matrix())
+
+  @property
   def matrix_world(self):
     """ Affine transformation 4x4 matrix to map points from world to object coordinates."""
     RT = np.eye(4)
-    RT[:3, :3] = mathutils.Quaternion(self.quaternion).to_matrix()
+    RT[:3, :3] = self.R
     RT[:3, 3] = self.position
     return RT
 

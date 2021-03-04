@@ -11,12 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import copy
 import logging
-import pickle
 
 import numpy as np
-import tensorflow as tf
 import kubric as kb
 
 
@@ -133,11 +130,11 @@ scene.camera.position += rng.rand(3) * FLAGS.camera_jitter
 scene.camera.look_at((0, 0, 0))
 
 # --- Place random objects
-nr_objects = rng.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
-logging.info("Randomly placing %d objects:", nr_objects)
+num_objects = rng.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+logging.info("Randomly placing %d objects:", num_objects)
 
 object_info = []
-for i in range(nr_objects):
+for i in range(num_objects):
   shape_name = rng.choice(FLAGS.object_types)
   size_label, size = sample_sizes(FLAGS.object_sizes)
   color_label, color = sample_color(FLAGS.object_colors)
@@ -190,72 +187,15 @@ renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
+kb.save_as_pkl(output_dir / "metadata.pkl", {
+    "metadata": kb.get_scene_metadata(scene, seed=seed),
+    "camera": kb.get_camera_info(scene.camera),
+    "instances": kb.get_instance_info(scene),
+    "events": {"collisions":  kb.process_collisions(collisions, scene)},
+    "background": {
+        "floor_color": floor_color_label,
+        "floor_friction": FLAGS.floor_friction,
+    }
+  })
 
-object_info = []
-frames = list(range(scene.frame_start, scene.frame_end+1))
-# extract the framewise position, quaternion, and velocity for each object
-for obj in scene.foreground_assets:
-  info = copy.copy(obj.metadata)
-  info['positions'] = np.array([obj.keyframes['position'][f] for f in frames],
-                               dtype=np.float32)
-  info['quaternions'] = np.array([obj.keyframes['quaternion'][f] for f in frames],
-                                 dtype=np.float32)
-  info['velocities'] = np.array([obj.keyframes['velocity'][f] for f in frames],
-                                dtype=np.float32)
-  info['angular_velocities'] = np.array([obj.keyframes['angular_velocity'][f] for f in frames],
-                                        dtype=np.float32)
-
-  info['mass'] = obj.mass
-  info['friction'] = obj.friction
-  info['restitution'] = obj.restitution
-  info['image_positions'] = np.array([scene.camera.project_point(p)[:2]
-                                      for p in info["positions"]])
-  object_info.append(info)
-
-
-def get_obj_index(obj):
-  if obj is None:
-    return None
-  try:
-    return scene.foreground_assets.index(obj)
-  except ValueError:
-    return -1
-
-
-cam = scene.camera
-metadata = {
-    "seed": seed,
-    "nr_objects": nr_objects,
-    "objects": object_info,
-    "floor_color": floor_color_label,
-    "floor_friction": FLAGS.floor_friction,
-    "camera": {
-        "focal_length": cam.focal_length,
-        "sensor_width": cam.sensor_width,
-        "field_of_view": cam.field_of_view,
-        "positions": np.array([cam.position for _ in frames], dtype=np.float32),
-        "quaternions": np.array([cam.quaternion for _ in frames], dtype=np.float32)
-    },
-    "collisions":  [{
-        "instances": (get_obj_index(c["instances"][0]), get_obj_index(c["instances"][1])),
-        "contact_normal": c["contact_normal"],
-        "frame": c["frame"],
-        "force": c["force"],
-        "position": c["position"],
-        "image_position": scene.camera.project_point(c["position"])[:2],
-    } for c in collisions]
-}
-
-with tf.io.gfile.GFile(output_dir / "metadata.pkl", "wb") as fp:
-  logging.info(f"Writing to {fp.name}")
-  pickle.dump(metadata, fp)
-
-logging.info("Done!")
-
-# -- report generated_images to hyperparameter tuner
-import hypertune
-
-hpt = hypertune.HyperTune()
-hpt.report_hyperparameter_tuning_metric(
-    hyperparameter_metric_tag='generated_images',
-    metric_value=len(frames))
+kb.done()
