@@ -14,7 +14,7 @@
 
 import logging
 import pathlib
-from typing import Dict, Union, Optional
+from typing import Dict, List, Optional, Tuple, Union
 
 import pybullet as pb
 import tensorflow as tf
@@ -161,7 +161,8 @@ class PyBullet(core.View):
     pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
     tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
 
-  def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
+  def run(self) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]],
+                         List[dict]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
     max_step = (self.scene.frame_end + 1) * steps_per_frame
 
@@ -169,7 +170,23 @@ class PyBullet(core.View):
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
                  for obj_id in obj_idxs}
 
+    collisions = []
     for current_step in range(max_step):
+
+      contact_points = pb.getContactPoints()
+      for collision in contact_points:
+        (contact_flag, body_a, body_b, link_a, link_b, position_a, position_b, contact_normal_b,
+         contact_distance, normal_force, lateral_friction1, lateral_friction_dir1,
+         lateral_friction2, lateral_friction_dir2) = collision
+        if normal_force > 1e-6:
+          collisions.append({
+              "instances": (self._obj_idx_to_asset(body_b), self._obj_idx_to_asset(body_a)),
+              "position": position_b,
+              "contact_normal": contact_normal_b,
+              "frame": current_step / steps_per_frame,
+              "force": normal_force,
+          })
+
       if current_step % steps_per_frame == 0:
         for obj_idx in obj_idxs:
           position, quaternion = self.get_position_and_rotation(obj_idx)
@@ -197,7 +214,16 @@ class PyBullet(core.View):
         obj.keyframe_insert("velocity", frame_id)
         obj.keyframe_insert("angular_velocity", frame_id)
 
-    return animation
+    return animation, collisions
+
+  def _obj_idx_to_asset(self, idx):
+    assets = [asset for asset in self.scene.assets if asset.linked_objects.get(self) == idx]
+    if len(assets) == 1:
+      return assets[0]
+    elif len(assets) == 0:
+      return None,
+    else:
+      raise RuntimeError("Multiple assets linked to same pybullet object. How did that happen?")
 
 
 def xyzw2wxyz(xyzw):

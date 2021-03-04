@@ -173,7 +173,8 @@ logging.info("Saving the simulator state to '%s' before starting the simulation.
              output_dir / "scene.bullet")
 simulator.save_state(output_dir / "scene.bullet")
 logging.info("Running the Simulation ...")
-animation = simulator.run()
+animation, collisions = simulator.run()
+
 
 # --- Rendering
 logging.info("Saving the renderer state to '%s' before starting the rendering.",
@@ -211,6 +212,16 @@ for obj in scene.foreground_assets:
                                       for p in info["positions"]])
   object_info.append(info)
 
+
+def get_obj_index(obj):
+  if obj is None:
+    return None
+  try:
+    return scene.foreground_assets.index(obj)
+  except ValueError:
+    return -1
+
+
 cam = scene.camera
 metadata = {
     "seed": seed,
@@ -224,7 +235,15 @@ metadata = {
         "field_of_view": cam.field_of_view,
         "positions": np.array([cam.position for _ in frames], dtype=np.float32),
         "quaternions": np.array([cam.quaternion for _ in frames], dtype=np.float32)
-    }
+    },
+    "collisions":  [{
+        "instances": (get_obj_index(c["instances"][0]), get_obj_index(c["instances"][1])),
+        "contact_normal": c["contact_normal"],
+        "frame": c["frame"],
+        "force": c["force"],
+        "position": c["position"],
+        "image_position": scene.camera.project_point(c["position"])[:2],
+    } for c in collisions]
 }
 
 with tf.io.gfile.GFile(output_dir / "metadata.pkl", "wb") as fp:
