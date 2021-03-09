@@ -44,8 +44,8 @@ SIZES = {
 
 # --- CLI arguments
 parser = kb.ArgumentParser()
-parser.add_argument("--min_nr_objects", type=int, default=3)
-parser.add_argument("--max_nr_objects", type=int, default=10)
+parser.add_argument("--min_num_objects", type=int, default=3)
+parser.add_argument("--max_num_objects", type=int, default=10)
 parser.add_argument("--object_types", nargs="+", default=["Cube", "Cylinder", "Sphere"],
                     choices=OBJECT_TYPES)
 parser.add_argument("--object_colors", choices=["clevr", "uniform", "gray"], default="clevr")
@@ -130,7 +130,7 @@ scene.camera.position += rng.rand(3) * FLAGS.camera_jitter
 scene.camera.look_at((0, 0, 0))
 
 # --- Place random objects
-num_objects = rng.randint(FLAGS.min_nr_objects, FLAGS.max_nr_objects)
+num_objects = rng.randint(FLAGS.min_num_objects, FLAGS.max_num_objects)
 logging.info("Randomly placing %d objects:", num_objects)
 
 object_info = []

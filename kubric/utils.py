@@ -147,7 +147,7 @@ def get_instance_info(scene):
     info["friction"] = instance.friction
     info["restitution"] = instance.restitution
     info["image_positions"] = np.array([scene.camera.project_point(p)[:2]
-                                        for p in info["positions"]])
+                                        for p in info["positions"]], dtype=np.float32)
     instance_info.append(info)
   return instance_info
 

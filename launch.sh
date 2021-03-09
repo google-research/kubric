@@ -3,9 +3,9 @@
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
 #JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
-JOB_NAME="klevr_v0"
+JOB_NAME="klevr_v1_10k"
 PROJECT_ID="kubric-xgcp"
-REGION="us-central1-a"  #< WARNING: match region of bucket!
+REGION="us-central1"  #< WARNING: match region of bucket!
 
 run_mode=${1}
 shift # shifts all arguments to the left thus removing ${1}
@@ -25,9 +25,9 @@ cat > /tmp/hypertune.yml << EOF
   trainingInput:
     hyperparameters:
       goal: MAXIMIZE
-      hyperparameterMetricTag: "generated_images"
-      maxTrials: 1000
-      maxParallelTrials: 100
+      hyperparameterMetricTag: "answer"
+      maxTrials: 10000
+      maxParallelTrials: 400
       enableTrialEarlyStopping: False
 
       # --- each of these become an argparse argument

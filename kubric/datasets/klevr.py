@@ -47,7 +47,7 @@ class KlevrConfig(tfds.core.BuilderConfig):
 
   def __init__(
       self, *, height: int, width: int, num_frames: int,
-      validation_ratio: float = 0.1, full: bool = True, **kwargs
+      validation_ratio: float = 0.1, **kwargs
   ):
     """Defines a particular configuration of tensorflow records.
 
@@ -56,7 +56,6 @@ class KlevrConfig(tfds.core.BuilderConfig):
       width (int): The target resolution width.
       num_frames (int): The target number of frames.
       validation_ratio (float): The proportion of examples to use for validation.
-      full (bool): Whether to include depth/normal/uv/flow information or not.
       **kwargs: Keyword arguments to the base class.
     """
     super(KlevrConfig, self).__init__(**kwargs)
@@ -64,15 +63,14 @@ class KlevrConfig(tfds.core.BuilderConfig):
     self.width = width
     self.num_frames = num_frames
     self.validation_ratio = validation_ratio
-    self.full = full
 
 
 class Klevr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for klevr dataset."""
-  VERSION = tfds.core.Version('1.3.0')
+  VERSION = tfds.core.Version('1.5.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
-      '1.3.0': 'tidied up'
+      '1.5.0': 'improved 10k version'
   }
 
   BUILDER_CONFIGS = [
@@ -83,22 +81,17 @@ class Klevr(tfds.core.BeamBasedBuilder):
           width=256,
           num_frames=24,
           validation_ratio=0.2,
-          full=True,
       )] + [
       KlevrConfig(
-          name='{0}x{0}_{1}fps{2}'.format(resolution, fps, "_full" if full else ""),
-          description='Downscaled to {0}x{0} with a framerate of {1} and {2}'.format(
-              resolution, fps, "including segmentation, flow, depth, normal and UV maps."
-              if full else "including only segmentation."
-          ),
+          name='{0}x{0}_{1}fps'.format(resolution, fps),
+          description='Downscaled to {0}x{0} with a framerate of {1} and including segmentation, '
+                      'flow, depth, normal and UV maps."'.format(resolution, fps),
           height=resolution,
           width=resolution,
           num_frames=fps * 2,
-          subset=None,
           validation_ratio=0.2,
-          full=full
       )
-      for resolution, fps, full in itertools.product([128, 64], [12, 6], [True, False])
+      for resolution, fps in itertools.product([128, 64], [12, 6])
      ]
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -137,8 +130,8 @@ class Klevr(tfds.core.BeamBasedBuilder):
                 'quaternions': tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
                 'velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
                 'angular_velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+
                 'image_positions': tfds.features.Tensor(shape=(s, 2), dtype=tf.float32),
-                # TODO: Sequence(BBoxFeature(), length=s)  crashes but that might be a tfds bug
                 'bboxes': tfds.features.Sequence(
                     tfds.features.BBoxFeature()),
                 'bbox_frames': tfds.features.Sequence(
@@ -152,11 +145,13 @@ class Klevr(tfds.core.BeamBasedBuilder):
                 'quaternions': tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
             },
             'events': {
-                'collision': tfds.features.Sequence({
+                'collisions': tfds.features.Sequence({
                     'instances': tfds.features.Tensor(shape=(2,), dtype=tf.uint16),
-                    'contact_normal': tfds.features.Tensor(shape=(3,), dtype=tf.float32),
                     'frame': tf.int32,
                     'force': tf.float32,
+                    'position': tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+                    'image_position': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                    'contact_normal': tfds.features.Tensor(shape=(3,), dtype=tf.float32),
                 }),
             },
             'video':  tfds.features.Video(shape=(s, h, w, 3)),
@@ -178,14 +173,9 @@ class Klevr(tfds.core.BeamBasedBuilder):
   def _split_generators(self, unused_dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     del unused_dl_manager
-    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/klevr_v0',)
-    all_subdirs = sorted([d for d in path.glob('*')
-                         if (d / 'metadata.pkl').exists()], key=lambda x: int(x.name))
+    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/klevr_v1_10k',)
+    all_subdirs = sorted([d for d in path.glob('*')], key=lambda x: int(x.name))
     logging.info('Found %d sub-folders in master path: %s', len(all_subdirs), path)
-
-    if self.builder_config.subset:
-      all_subdirs = all_subdirs[:self.builder_config.subset]
-      logging.info('Using a subset of %d folders.', len(all_subdirs))
 
     str_directories = [str(d) for d in all_subdirs]
     validation_ratio = self.builder_config.validation_ratio
@@ -204,8 +194,8 @@ class Klevr(tfds.core.BeamBasedBuilder):
     """Yields examples."""
 
     target_size = (self.builder_config.height, self.builder_config.width)
-    assert 48 % self.builder_config.num_frames == 0
-    frame_subsampling = 48 // self.builder_config.num_frames
+    assert 24 % self.builder_config.num_frames == 0
+    frame_subsampling = 24 // self.builder_config.num_frames
 
     def _process_example(video_dir):
       video_dir = tfds.core.as_path(video_dir)
@@ -219,8 +209,9 @@ class Klevr(tfds.core.BeamBasedBuilder):
         return np.round((array - min_val) / (max_val - min_val) * 65535).astype(np.uint16)
 
       num_frames = metadata["instances"][0]["positions"].shape[0]
+      num_instances = metadata["metadata"]["num_instances"]
       assert len(files) == num_frames, f"{len(files)} != {num_frames}"
-      assert len(metadata["instances"]) == metadata["num_instances"], f"{len(metadata['instances'])} != {metadata['num_instances']}"
+      assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
 
       frames = []
       for frame_file in files[::frame_subsampling]:
@@ -268,7 +259,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
             bbox = tfds.features.BBox(ymin=float(idxs[0].min()), xmin=float(idxs[1].min()),
                                       ymax=float(idxs[0].max()), xmax=float(idxs[1].max()))
             obj["bboxes"].append(bbox)
-            obj["bbox_frames"].append(j)
+            obj["bbox_frames"].append(j//frame_subsampling)
 
       src_height, src_width = frames[0]['rgb'].shape[:2]
       assert src_height % target_size[0] == 0
@@ -280,10 +271,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
               'width': target_size[1],
               'height': target_size[0],
               'num_frames': len(frames),
-              'num_instances': metadata['num_instances'],
-              'depth_range': [min_depth, max_depth],
-              'flow_range': [min_flow, max_flow],
-              'flow_magnitude_range': [min_flow_mag, max_flow_mag]
+              'num_instances': num_instances,
+              'depth_range': np.array([min_depth, max_depth], dtype=np.float32),
+              'flow_range': np.array([min_flow, max_flow], dtype=np.float32),
+              'flow_magnitude_range': np.array([min_flow_mag, max_flow_mag], dtype=np.float32)
           },
           'instances': [{
               'shape': obj['shape'],
@@ -293,31 +284,44 @@ class Klevr(tfds.core.BeamBasedBuilder):
               'mass': obj['mass'],
               'friction': obj['friction'],
               'restitution': obj['restitution'],
-              'positions': obj['positions'][::frame_subsampling],
-              'quaternions': obj['quaternions'][::frame_subsampling],
-              'velocities': obj['velocities'][::frame_subsampling],
-              'angular_velocities': obj['angular_velocities'][::frame_subsampling],
-              'image_positions': obj['image_positions'][::frame_subsampling],
+              'positions': obj['positions'][::frame_subsampling].astype(np.float32),
+              'quaternions': obj['quaternions'][::frame_subsampling].astype(np.float32),
+              'velocities': obj['velocities'][::frame_subsampling].astype(np.float32),
+              'angular_velocities': obj['angular_velocities'][::frame_subsampling].astype(np.float32),
+              'image_positions': obj['image_positions'][::frame_subsampling].astype(np.float32),
               'bboxes': obj['bboxes'],
-              'bbox_frames': obj['bbox_frames'],
+              'bbox_frames': np.array(obj['bbox_frames'], dtype=np.uint16),
           } for obj in metadata["instances"]],
           'camera': {
               "focal_length": metadata["camera"]["focal_length"],
               "sensor_width": metadata["camera"]["sensor_width"],
               "field_of_view": metadata["camera"]["field_of_view"],
-              "positions": metadata["camera"]["positions"][::frame_subsampling],
-              "quaternions": metadata["camera"]["quaternions"][::frame_subsampling],
+              "positions": metadata["camera"]["positions"][::frame_subsampling].astype(np.float32),
+              "quaternions": metadata["camera"]["quaternions"][::frame_subsampling].astype(np.float32),
           },
-          'events': {"collision": []},
-          'video': [f['rgb'] for f in frames],
+          'events': {
+              'collisions': [{
+                  "instances": np.array(c["instances"], dtype=np.uint16),
+                  "contact_normal": np.array(c["contact_normal"], dtype=np.float32),
+                  "frame": c["frame"],
+                  "force": c["force"],
+                  "position": np.array(c["position"], dtype=np.float32),
+                  "image_position": np.array(c["image_position"], dtype=np.float32),
+              } for c in metadata["events"]["collisions"]],
+          },
+          'video': [subsample_avg(f['rgb'], target_size) for f in frames],
           'segmentations': [subsample_nearest_neighbor(f['segmentation'], target_size)
                             for f in frames],
-          'flow': [convert_float_to_uint16(subsample_nearest_neighbor(f['flow'], target_size), min_flow, max_flow)
+          'flow': [convert_float_to_uint16(subsample_nearest_neighbor(f['flow'], target_size),
+                                           min_flow, max_flow)
                    for f in frames],
-          'depth': [convert_float_to_uint16(f['depth'], min_depth, max_depth)
+          'depth': [convert_float_to_uint16(subsample_nearest_neighbor(f['depth'], target_size),
+                                            min_depth, max_depth)
                     for f in frames],
-          'uv': [convert_float_to_uint16(f['uv'], 0., 1.) for f in frames],
-          'normal': [convert_float_to_uint16(f['normal'], -1., 1.) for f in frames],
+          'uv': [convert_float_to_uint16(subsample_nearest_neighbor(f['uv'], target_size), 0., 1.)
+                 for f in frames],
+          'normal': [convert_float_to_uint16(subsample_nearest_neighbor(f['normal'], target_size),
+                                             -1., 1.) for f in frames],
       }
 
     beam = tfds.core.lazy_imports.apache_beam
