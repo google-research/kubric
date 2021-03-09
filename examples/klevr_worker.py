@@ -47,7 +47,7 @@ parser = kb.ArgumentParser()
 parser.add_argument("--min_num_objects", type=int, default=3)
 parser.add_argument("--max_num_objects", type=int, default=10)
 parser.add_argument("--object_types", nargs="+", default=["Cube", "Cylinder", "Sphere"],
-                    choices=OBJECT_TYPES)
+                    choices=["ALL"] + OBJECT_TYPES)
 parser.add_argument("--object_colors", choices=["clevr", "uniform", "gray"], default="clevr")
 parser.add_argument("--object_sizes", choices=["clevr", "uniform", "const"], default="clevr")
 parser.add_argument("--floor_color", choices=["clevr", "uniform", "gray"], default="gray")
@@ -58,6 +58,8 @@ parser.add_argument("--camera_jitter", type=float, default=1.0)
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/KuBasic")
 parser.set_defaults(frame_end=24, frame_rate=12, width=256, height=256)
 FLAGS = parser.parse_args()
+objects_types = OBJECT_TYPES if "ALL" in FLAGS.object_types else FLAGS.object_types
+
 
 # --- Common setups & resources
 kb.setup_logging(FLAGS.logging_level)
@@ -135,7 +137,7 @@ logging.info("Randomly placing %d objects:", num_objects)
 
 object_info = []
 for i in range(num_objects):
-  shape_name = rng.choice(FLAGS.object_types)
+  shape_name = rng.choice(objects_types)
   size_label, size = sample_sizes(FLAGS.object_sizes)
   color_label, color = sample_color(FLAGS.object_colors)
   material_name = rng.choice(["Metal", "Rubber"])
@@ -144,20 +146,20 @@ for i in range(num_objects):
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
     obj.friction = 0.4
     obj.restitution = 0.3
-    obj.mass *= 2.7
+    obj.mass *= 2.7 * size**3
   else:  # material_name == "Rubber"
     obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=0., ior=1.25, roughness=0.7,
                                              specular=0.33)
     obj.friction = 0.8
     obj.restitution = 0.7
-    obj.mass *= 1.1
+    obj.mass *= 1.1 * size**3
 
   scene.add(obj)
   obj.metadata = {
       "shape": shape_name.lower(),
-      "size": size_label,
+      "size": size,
       "material": material_name.lower(),
-      "color": color_label,
+      "color": color.rgb,
   }
   kb.move_until_no_overlap(obj, simulator, spawn_region=SPAWN_REGION)
   # bias velocity towards center
@@ -193,7 +195,7 @@ kb.save_as_pkl(output_dir / "metadata.pkl", {
     "instances": kb.get_instance_info(scene),
     "events": {"collisions":  kb.process_collisions(collisions, scene)},
     "background": {
-        "floor_color": floor_color_label,
+        "floor_color": floor_color.rgb,
         "floor_friction": FLAGS.floor_friction,
     }
   })

@@ -122,7 +122,7 @@ class Color(NamedTuple):
     }[name.lower()]
 
 
-def get_color(color: Union[int, str, Tuple]):
+def get_color(color: Union[int, str, Tuple]) -> Color:
   if isinstance(color, str):
     if color.startswith("#"):
       return Color.from_hexstr(color)

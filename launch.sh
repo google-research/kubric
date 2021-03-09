@@ -2,8 +2,7 @@
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
-#JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
-JOB_NAME="klevr_v1_10k"
+JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
 PROJECT_ID="kubric-xgcp"
 REGION="us-central1"  #< WARNING: match region of bucket!
 
