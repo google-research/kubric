@@ -71,9 +71,9 @@ class KlevrUniConfig(tfds.core.BuilderConfig):
     self.validation_ratio = validation_ratio
 
 
-class Klevr(tfds.core.BeamBasedBuilder):
+class KlevrUni(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for klevr dataset."""
-  VERSION = tfds.core.Version('1.5.0')
+  VERSION = tfds.core.Version('1.0.0')
   RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
   }
@@ -86,17 +86,24 @@ class Klevr(tfds.core.BeamBasedBuilder):
           width=256,
           num_frames=24,
           validation_ratio=0.2,
-      )] + [
+      ),
       KlevrUniConfig(
-          name='{0}x{0}_{1}fps'.format(resolution, fps),
-          description='Downscaled to {0}x{0} with a framerate of {1}"'.format(resolution, fps),
-          height=resolution,
-          width=resolution,
-          num_frames=fps * 2,
+          name='128x128',
+          description='Downscaled to 128x128',
+          height=128,
+          width=128,
+          num_frames=24,
+          validation_ratio=0.2,
+      ),
+      KlevrUniConfig(
+          name='64x64',
+          description='Downscaled to 64x64',
+          height=64,
+          width=64,
+          num_frames=24,
           validation_ratio=0.2,
       )
-      for resolution, fps in itertools.product([128, 64], [12, 6])
-     ]
+  ]
 
   def _info(self) -> tfds.core.DatasetInfo:
     """Returns the dataset metadata."""
