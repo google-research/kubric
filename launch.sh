@@ -2,7 +2,7 @@
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
-JOB_NAME="kubric_`date +"%b%d_%H%M%S"`"
+JOB_NAME="kubric_$(date +"%b%d_%H%M%S" | tr A-Z a-z)"
 PROJECT_ID="kubric-xgcp"
 REGION="us-central1"  #< WARNING: match region of bucket!
 
@@ -25,7 +25,7 @@ cat > /tmp/hypertune.yml << EOF
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: 10000
+      maxTrials: 1000
       maxParallelTrials: 400
       enableTrialEarlyStopping: False
 
