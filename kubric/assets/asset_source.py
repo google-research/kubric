@@ -25,9 +25,10 @@ from tensorflow_datasets.core.utils.type_utils import PathLike
 from typing import Optional
 
 from kubric.core import objects
+from kubric.core import materials
 
 
-class AssetSource(object):
+class AssetSource:
   def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
     self.remote_dir = tfds.core.as_path(path)
     name = self.remote_dir.name
@@ -79,3 +80,31 @@ class AssetSource(object):
 
     return urdf_path, vis_path, properties
 
+
+class TextureSource:
+  def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
+    self.remote_dir = tfds.core.as_path(path)
+    name = self.remote_dir.name
+    logging.info("Adding TextureSource '%s' with URI='%s'", name, self.remote_dir)
+    self.local_dir = tfds.core.as_path(tempfile.mkdtemp(prefix="textures", dir=scratch_dir))
+
+    manifest_path = self.remote_dir / "manifest.json"
+    if manifest_path.exists():
+      self.db = pd.read_json(tf.io.gfile.GFile(manifest_path, "r"))
+      logging.info("Found manifest file. Loaded information about %d assets", self.db.shape[0])
+    else:
+      assets_list = [p.name for p in self.remote_dir.iterdir()]
+      self.db = pd.DataFrame(assets_list, columns=["id"])
+      logging.info("No manifest file. Found %d assets.", self.db.shape[0])
+
+  def create(self, texture_name: str, **kwargs) -> materials.Texture:
+    texture_path = self.fetch(texture_name)
+    return materials.Texture(filename=str(texture_path), **kwargs)
+
+  def fetch(self, texture_name):
+    remote_path = self.remote_dir / texture_name
+    local_path = self.local_dir / texture_name
+    if not local_path.exists():
+      logging.debug("Copying %s to %s", str(remote_path), str(local_path))
+      tf.io.gfile.copy(remote_path, local_path)
+    return local_path

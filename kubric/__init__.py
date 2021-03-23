@@ -22,7 +22,7 @@ from kubric.simulator import PyBullet
 from kubric.post_processing import get_render_layers_from_exr
 
 from kubric import assets
-from kubric.assets import AssetSource
+from kubric.assets import AssetSource, TextureSource
 from kubric.assets.utils import mm3hash
 
 from kubric.randomness import random_hue_color

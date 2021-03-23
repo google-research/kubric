@@ -55,3 +55,7 @@ class FlatMaterial(Material):
   color = ktl.RGBA(default_value=core.color.get_color("white"))
   holdout = tl.Bool(False)
   indirect_visibility = tl.Bool(True)
+
+
+class Texture(base.Asset):
+  filename = tl.Unicode()
