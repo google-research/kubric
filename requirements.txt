@@ -1,5 +1,4 @@
 OpenEXR
-Pillow
 apache-beam[gcp]
 bidict
 cloudml-hypertune
@@ -10,6 +9,7 @@ munch
 numpy>=1.17
 pandas
 pybullet
+pypng
 scikit-learn
 singledispatchmethod
 tensorflow
