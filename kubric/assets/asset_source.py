@@ -37,11 +37,10 @@ class AssetSource(object):
 
     manifest_path = self.remote_dir / "manifest.json"
     if manifest_path.exists():
-
       self.db = pd.read_json(tf.io.gfile.GFile(manifest_path, "r"))
       logging.info("Found manifest file. Loaded information about %d assets", self.db.shape[0])
     else:
-      assets_list = [p.name[:-7] for p in manifest_path.iterdir() if p.name.endswith('.tar.gz')]
+      assets_list = [p.name[:-7] for p in self.remote_dir.iterdir() if p.name.endswith('.tar.gz')]
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
