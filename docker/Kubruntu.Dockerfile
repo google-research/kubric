@@ -83,7 +83,7 @@ RUN cd blender && patch -p1 < segfault_bug_patch.txt
 # fix an annoying (no-consequence) bpy shutdown error
 # see https://github.com/google-research/kubric/issues/65
 COPY ./docker/cycles_free_patch.txt /blenderpy/blender
-RUN cd blender && patch -p1 < cycles_free_patch.txt
+RUN cd blender && patch -p1 < /blenderpy/blender/cycles_free_patch.txt
 
 
 RUN cd blender && make -j8 bpy
