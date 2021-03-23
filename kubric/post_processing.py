@@ -57,7 +57,9 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     # TODO: clip to a reasonable value. Is measured in meters so usual range is ~ [0, 10]
     output["depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
-    output["flow"] = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
+    flow = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
+    output["backward_flow"] = flow[..., :2]
+    output["forward_flow"] = flow[..., 2:]
   if "Normal" in layer_names:
     # range: [-1, 1]
     output["normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
