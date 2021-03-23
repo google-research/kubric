@@ -1,0 +1,640 @@
+[
+    {
+        "area": 5.738,
+        "bounds": [
+            [
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            [
+                0.5,
+                0.5,
+                0.5
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Cube",
+        "inertia": [
+            [
+                0.1643,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.1643,
+                0.0
+            ],
+            [
+                -0.0,
+                0.0,
+                0.1643
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.9936,
+        "material": "Material",
+        "nr_faces": 972,
+        "nr_vertices": 488,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.9936
+    },
+    {
+        "area": 3.1378,
+        "bounds": [
+            [
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            [
+                0.5,
+                0.5,
+                0.5
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Sphere",
+        "inertia": [
+            [
+                0.0522,
+                -0.0,
+                0.0
+            ],
+            [
+                -0.0,
+                0.0522,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.0522
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.5225,
+        "material": "Material",
+        "nr_faces": 5120,
+        "nr_vertices": 2562,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.5225
+    },
+    {
+        "area": 4.5707,
+        "bounds": [
+            [
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            [
+                0.5,
+                0.5,
+                0.5
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Cylinder",
+        "inertia": [
+            [
+                0.1131,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.1131,
+                0.0
+            ],
+            [
+                -0.0,
+                0.0,
+                0.0971
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.7808,
+        "material": "Material",
+        "nr_faces": 2300,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.7808
+    },
+    {
+        "area": 3.0199,
+        "bounds": [
+            [
+                -0.3429,
+                -0.626,
+                -0.5283
+            ],
+            [
+                0.3429,
+                0.6234,
+                0.7011
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Spot",
+        "inertia": [
+            [
+                0.0426,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0231,
+                -0.0127
+            ],
+            [
+                0.0,
+                -0.0127,
+                0.0296
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.2763,
+        "material": "Material",
+        "nr_faces": 5856,
+        "nr_vertices": 2930,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2763
+    },
+    {
+        "area": 3.7164,
+        "bounds": [
+            [
+                -0.6007,
+                -0.6007,
+                -0.3062
+            ],
+            [
+                0.6007,
+                0.6007,
+                0.8997
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Cone",
+        "inertia": [
+            [
+                0.0534,
+                -0.0,
+                -0.0
+            ],
+            [
+                -0.0,
+                0.0534,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.0533
+            ]
+        ],
+        "is_convex": true,
+        "mass": 0.4774,
+        "material": "Material",
+        "nr_faces": 1916,
+        "nr_vertices": 960,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.4774
+    },
+    {
+        "area": 4.5426,
+        "bounds": [
+            [
+                -0.7494,
+                -0.7494,
+                -0.1386
+            ],
+            [
+                0.7494,
+                0.7494,
+                0.1386
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 0,
+        "friction": 1.0,
+        "id": "Gear",
+        "inertia": [
+            [
+                0.0482,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.0482,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                0.0927
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.2842,
+        "material": "Material",
+        "nr_faces": 5664,
+        "nr_vertices": 2832,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2842
+    },
+    {
+        "area": 12.2568,
+        "bounds": [
+            [
+                -0.5,
+                -0.5,
+                -0.5
+            ],
+            [
+                0.5,
+                0.5,
+                0.5
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            0.0,
+            0.0
+        ],
+        "density": 1.0,
+        "euler_number": -160,
+        "friction": 1.0,
+        "id": "Sponge",
+        "inertia": [
+            [
+                0.1092,
+                -0.0,
+                -0.0
+            ],
+            [
+                -0.0,
+                0.1092,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.1092
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.5476,
+        "material": "Material",
+        "nr_faces": 28224,
+        "nr_vertices": 13952,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.5476
+    },
+    {
+        "area": 2.8011,
+        "bounds": [
+            [
+                -0.4649,
+                -0.7021,
+                -0.291
+            ],
+            [
+                0.4649,
+                0.7906,
+                0.4412
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 1.0,
+        "euler_number": 0,
+        "friction": 1.0,
+        "id": "Teapot",
+        "inertia": [
+            [
+                0.0244,
+                -0.0,
+                0.0
+            ],
+            [
+                -0.0,
+                0.0215,
+                -0.0
+            ],
+            [
+                0.0,
+                -0.0,
+                0.0305
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.3227,
+        "material": "Material",
+        "nr_faces": 3148,
+        "nr_vertices": 1574,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.3227
+    },
+    {
+        "area": 3.5366,
+        "bounds": [
+            [
+                -0.75,
+                -0.75,
+                -0.15
+            ],
+            [
+                0.75,
+                0.75,
+                0.15
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            -0.0
+        ],
+        "density": 1.0,
+        "euler_number": 0,
+        "friction": 1.0,
+        "id": "Torus",
+        "inertia": [
+            [
+                0.0508,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.0508,
+                -0.0
+            ],
+            [
+                -0.0,
+                -0.0,
+                0.0987
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.2627,
+        "material": "Material",
+        "nr_faces": 2304,
+        "nr_vertices": 1152,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2627
+    },
+    {
+        "area": 4.8053,
+        "bounds": [
+            [
+                -0.8092,
+                -0.748,
+                -0.3458
+            ],
+            [
+                0.5908,
+                0.7481,
+                0.3455
+            ]
+        ],
+        "center_mass": [
+            0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 1.0,
+        "euler_number": 0,
+        "friction": 1.0,
+        "id": "TorusKnot",
+        "inertia": [
+            [
+                0.0429,
+                0.0,
+                -0.0
+            ],
+            [
+                0.0,
+                0.0429,
+                0.0
+            ],
+            [
+                -0.0,
+                0.0,
+                0.0699
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.2724,
+        "material": "Material",
+        "nr_faces": 5120,
+        "nr_vertices": 2560,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.2724
+    },
+    {
+        "area": 2.9803,
+        "bounds": [
+            [
+                -0.7135,
+                -0.4408,
+                -0.6414
+            ],
+            [
+                0.7135,
+                0.4191,
+                0.3852
+            ]
+        ],
+        "center_mass": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "density": 1.0,
+        "euler_number": 2,
+        "friction": 1.0,
+        "id": "Suzanne",
+        "inertia": [
+            [
+                0.0243,
+                -0.0,
+                -0.0
+            ],
+            [
+                -0.0,
+                0.0252,
+                0.0033
+            ],
+            [
+                -0.0,
+                0.0033,
+                0.0273
+            ]
+        ],
+        "is_convex": false,
+        "mass": 0.3113,
+        "material": "Material",
+        "nr_faces": 15508,
+        "nr_vertices": 7756,
+        "paths": {
+            "collision_geometry": [
+                "collision_geometry.obj"
+            ],
+            "urdf": [
+                "object.urdf"
+            ],
+            "visual_geometry": [
+                "visual_geometry.obj"
+            ]
+        },
+        "volume": 0.3113
+    }
+]

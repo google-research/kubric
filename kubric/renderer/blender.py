@@ -13,22 +13,23 @@
 # limitations under the License.
 
 import functools
+import json
 import logging
-import pickle
 import sys
-from typing import Any, Callable
+from typing import Any, Callable, Dict
+
+from kubric import core
+import kubric.post_processing
+from kubric.redirect_io import RedirectStream
+import numpy as np
+import png
+from singledispatchmethod import singledispatchmethod
+import tensorflow as tf
+from tensorflow_datasets.core.utils.type_utils import PathLike
+import tensorflow_datasets.public_api as tfds
 
 import bpy
-import numpy as np
-import PIL.Image
-import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
-from singledispatchmethod import singledispatchmethod
-from tensorflow_datasets.core.utils.type_utils import PathLike
 
-import kubric.post_processing
-from kubric import core
-from kubric.redirect_io import RedirectStream
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
@@ -53,6 +54,85 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
     return blender_obj
 
   return _func
+
+
+def write_scaled_png(data: np.array,
+                     path_prefix: PathLike) -> Dict[str, float]:
+  """Writes data as pngs to path and optionally returns rescaling values.
+
+  data is expected to be of shape [B, H, W, C] and has to have
+  between 1 and 4 channels. A two channel image is padded using a zero channel.
+  uint8 and uint16 are written as is.
+  other dtypes are rescaled to uint16. When rescaling, this method returns the
+  min and max values of the original data.
+
+  Args:
+    data: the image to be written
+    path_prefix: the path prefix to write to
+
+  Returns:
+    {"min": value, "max": value} if rescaling was applied, None otherwise.
+  """
+  assert len(data.shape) == 4, data.shape
+  scaling = None
+  if data.dtype in [np.uint32, np.uint64]:
+    max_value = np.amax(data)
+    if max_value > 65535:
+      logger.warning("max_value %d exceeds uint16 bounds for %s.",
+                     max_value, path_prefix)
+    data = data.astype(np.uint16)
+  elif data.dtype in [np.float32, np.float64]:
+    min_value = np.amin(data)
+    max_value = np.amax(data)
+    scaling = {"min": min_value.item(), "max": max_value.item()}
+    data = (data - min_value) * 65535 / (max_value - min_value)
+    data = data.astype(np.uint16)
+  elif data.dtype in [np.uint8, np.uint16]:
+    pass
+  else:
+    raise NotImplementedError(f"Cannot handle {data.dtype}.")
+  bitdepth = 8 if data.dtype == np.uint8 else 16
+  greyscale = (data.shape[-1] == 1)
+  alpha = (data.shape[-1] == 4)
+  w = png.Writer(data.shape[1], data.shape[2], greyscale=greyscale,
+                 bitdepth=bitdepth, alpha=alpha)
+  for i in range(data.shape[0]):
+    img = data[i].copy()
+    if img.shape[-1] == 2:
+      # Pad two-channel images with a zero channel.
+      img = np.concatenate([img, np.zeros_like(img[..., :1])], axis=-1)
+    # pypng expects 2d arrays
+    # see https://pypng.readthedocs.io/en/latest/ex.html#reshaping
+    img = img.reshape(img.shape[0], -1)
+    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
+      w.write(fp, img)
+  return scaling
+
+
+def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
+  scalings = {}
+  for key, img in data.items():
+    scaling = write_scaled_png(img, path_prefix / key)
+    if scaling:
+      scalings[key] = scaling
+  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
+    json.dump(scalings, fp)
+
+
+def read_png(path: PathLike):
+  pngReader = png.Reader(bytes=path.read_bytes())
+  width, height, pngdata, info = pngReader.read()
+  del pngReader
+  bitdepth = info["bitdepth"]
+  if bitdepth == 8:
+    dtype = np.uint8
+  elif bitdepth == 16:
+    dtype = np.uint16
+  else:
+    NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+  plane_count = info["planes"]
+  pngdata = np.vstack(list(map(dtype, pngdata)))
+  return pngdata.reshape(height, width, plane_count)
 
 
 class Blender(core.View):
@@ -144,23 +224,14 @@ class Blender(core.View):
   def postprocess(self, from_dir: PathLike, to_dir=PathLike):
     from_dir = tfds.core.as_path(from_dir)
     to_dir = tfds.core.as_path(to_dir)
-    W, H = self.scene.resolution
 
     # --- split objects into foreground and background sets
     fg_objects = [obj for obj in self.scene.assets if obj.background is False]
     bg_objects = [obj for obj in self.scene.assets if obj.background is True]
 
-    # --- output one file per frame of data
+    # --- collect all layers for all frames
+    data_stack = {}
     for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
-      data = {
-          "rgba": np.zeros((H, W, 4), dtype=np.uint8),
-          "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
-          "flow": np.zeros((H, W, 4), dtype=np.float32),
-          "depth": np.zeros((H, W, 1), dtype=np.float32),
-          "uv": np.zeros((H, W, 3), dtype=np.float32),
-          "normal": np.zeros((H, W, 3), dtype=np.float32),
-      }
-
       exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
       png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
 
@@ -168,19 +239,20 @@ class Blender(core.View):
       layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
                                                                  bg_objects,
                                                                  fg_objects)
-
-      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
-      data["rgba"] = np.asarray(PIL.Image.open(str(png_filename)))
-      data["segmentation"][:, :, 0] = layers["segmentation_indices"][:, :, 0]
-      data["flow"] = layers["flow"]
-      data["depth"] = layers["depth"]
-      data["uv"] = layers["uv"]
-      data["normal"] = layers["normal"]
-
-      # Save to file
-      with tf.io.gfile.GFile(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
-        logger.info(f"writing {fp.name}")
-        pickle.dump(data, fp)
+      data = {k: layers[k] for k in
+              ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
+      # Use the contrast-normalized PNG instead of the EXR for RGBA.
+      data["rgba"] = read_png(png_filename)
+      data["segmentation"] = layers["segmentation_indices"][:, :, :1]
+      for key in data:
+        if key in data_stack:
+          data_stack[key].append(data[key])
+        else:
+          data_stack[key] = [data[key]]
+    for key in data_stack:
+      data_stack[key] = np.stack(data_stack[key], axis=0)
+    # Save to image files
+    write_image_dict(data_stack, to_dir)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
