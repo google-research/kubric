@@ -49,7 +49,7 @@ class AssetSource:
     assert asset_id in self.db["id"].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
 
-    for pname in ["mass", "friction", "restitution", "bounds"]:
+    for pname in ["mass", "friction", "restitution", "bounds", "render_import_kwargs"]:
       if pname in properties and pname not in kwargs:
         kwargs[pname] = properties[pname]
 

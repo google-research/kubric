@@ -27,6 +27,7 @@ from singledispatchmethod import singledispatchmethod
 import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
+import pathlib
 
 import bpy
 
@@ -214,7 +215,7 @@ class Blender(core.View):
     if pack_textures:
       bpy.ops.file.pack_all()  # embed all textures into the blend file
       bpy.ops.wm.save_mainfile(filepath=str(self.scratch_dir / "scene.blend"))
-    tf.io.gfile.copy(self.scratch_dir / 'scene.blend', path, overwrite=True)
+    tf.io.gfile.copy(self.scratch_dir / "scene.blend", path, overwrite=True)
 
   def render(self):
     # --- starts rendering
@@ -279,10 +280,10 @@ class Blender(core.View):
     cube = bpy.context.active_object
 
     register_object3d_setters(asset, cube)
-    asset.observe(AttributeSetter(cube, 'active_material',
-                                  converter=self._convert_to_blender_object), 'material')
-    asset.observe(AttributeSetter(cube, 'scale'), 'scale')
-    asset.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
+    asset.observe(AttributeSetter(cube, "active_material",
+                                  converter=self._convert_to_blender_object), "material")
+    asset.observe(AttributeSetter(cube, "scale"), "scale")
+    asset.observe(KeyframeSetter(cube, "scale"), "scale", type="keyframe")
     return cube
 
   @add_asset.register(core.Sphere)
@@ -293,19 +294,39 @@ class Blender(core.View):
     sphere = bpy.context.active_object
 
     register_object3d_setters(obj, sphere)
-    obj.observe(AttributeSetter(sphere, 'active_material',
-                                converter=self._convert_to_blender_object), 'material')
-    obj.observe(AttributeSetter(sphere, 'scale'), 'scale')
-    obj.observe(KeyframeSetter(sphere, 'scale'), 'scale', type="keyframe")
+    obj.observe(AttributeSetter(sphere, "active_material",
+                                converter=self._convert_to_blender_object), "material")
+    obj.observe(AttributeSetter(sphere, "scale"), "scale")
+    obj.observe(KeyframeSetter(sphere, "scale"), "scale", type="keyframe")
     return sphere
 
   @add_asset.register(core.FileBasedObject)
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
-    # TODO: support other file-formats
-    with RedirectStream(stream=sys.stdout, filename=self.log_file):
-      bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
-                               axis_forward=obj.front, axis_up=obj.up)
+
+    _, _, extension = obj.render_filename.rpartition(".")
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):  # reduce the logging noise
+      if extension == "obj":
+        bpy.ops.import_scene.obj(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+      elif extension in ["glb", "gltf"]:
+        bpy.ops.import_scene.gltf(filepath=obj.render_filename,
+                                  **obj.render_import_kwargs)
+        # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
+        # here we are interested only in the meshes, so delete everything else
+        non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
+        bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+        bpy.ops.object.join()
+      elif extension == "fbx":
+        bpy.ops.import_scene.fbx(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+      elif extension in ["x3d", "wrl"]:
+        bpy.ops.import_scene.x3d(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+
+      else:
+        raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
+
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
 
@@ -314,10 +335,10 @@ class Blender(core.View):
     blender_obj.data.use_auto_smooth = False
 
     register_object3d_setters(obj, blender_obj)
-    obj.observe(AttributeSetter(blender_obj, 'active_material',
-                                converter=self._convert_to_blender_object), 'material')
-    obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
-    obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
+    obj.observe(AttributeSetter(blender_obj, "active_material",
+                                converter=self._convert_to_blender_object), "material")
+    obj.observe(AttributeSetter(blender_obj, "scale"), "scale")
+    obj.observe(KeyframeSetter(blender_obj, "scale"), "scale", type="keyframe")
     return blender_obj
 
   @add_asset.register(core.DirectionalLight)
@@ -327,10 +348,10 @@ class Blender(core.View):
     sun_obj = bpy.data.objects.new(obj.uid, sun)
 
     register_object3d_setters(obj, sun_obj)
-    obj.observe(AttributeSetter(sun, 'color'), 'color')
-    obj.observe(KeyframeSetter(sun, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(sun, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(sun, 'energy'), 'intensity', type="keyframe")
+    obj.observe(AttributeSetter(sun, "color"), "color")
+    obj.observe(KeyframeSetter(sun, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(sun, "energy"), "intensity")
+    obj.observe(KeyframeSetter(sun, "energy"), "intensity", type="keyframe")
     return sun_obj
 
   @add_asset.register(core.RectAreaLight)
@@ -340,14 +361,14 @@ class Blender(core.View):
     area_obj = bpy.data.objects.new(obj.uid, area)
 
     register_object3d_setters(obj, area_obj)
-    obj.observe(AttributeSetter(area, 'color'), 'color')
-    obj.observe(KeyframeSetter(area, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(area, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(area, 'energy'), 'intensity', type="keyframe")
-    obj.observe(AttributeSetter(area, 'size'), 'width')
-    obj.observe(KeyframeSetter(area, 'size'), 'width', type="keyframe")
-    obj.observe(AttributeSetter(area, 'size_y'), 'height')
-    obj.observe(KeyframeSetter(area, 'size_y'), 'height', type="keyframe")
+    obj.observe(AttributeSetter(area, "color"), "color")
+    obj.observe(KeyframeSetter(area, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(area, "energy"), "intensity")
+    obj.observe(KeyframeSetter(area, "energy"), "intensity", type="keyframe")
+    obj.observe(AttributeSetter(area, "size"), "width")
+    obj.observe(KeyframeSetter(area, "size"), "width", type="keyframe")
+    obj.observe(AttributeSetter(area, "size_y"), "height")
+    obj.observe(KeyframeSetter(area, "size_y"), "height", type="keyframe")
     return area_obj
 
   @add_asset.register(core.PointLight)
@@ -357,10 +378,10 @@ class Blender(core.View):
     point_light_obj = bpy.data.objects.new(obj.uid, point_light)
 
     register_object3d_setters(obj, point_light_obj)
-    obj.observe(AttributeSetter(point_light, 'color'), 'color')
-    obj.observe(KeyframeSetter(point_light, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(point_light, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(point_light, 'energy'), 'intensity', type="keyframe")
+    obj.observe(AttributeSetter(point_light, "color"), "color")
+    obj.observe(KeyframeSetter(point_light, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(point_light, "energy"), "intensity")
+    obj.observe(KeyframeSetter(point_light, "energy"), "intensity", type="keyframe")
     return point_light_obj
 
   @add_asset.register(core.PerspectiveCamera)
@@ -369,26 +390,26 @@ class Blender(core.View):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "PERSP"
     # fix sensor width and determine sensor height by the aspect ratio of the image:
-    camera.sensor_fit = 'HORIZONTAL'
+    camera.sensor_fit = "HORIZONTAL"
     camera_obj = bpy.data.objects.new(obj.uid, camera)
 
     register_object3d_setters(obj, camera_obj)
-    obj.observe(AttributeSetter(camera, 'lens'), 'focal_length')
-    obj.observe(KeyframeSetter(camera, 'lens'), 'focal_length', type="keyframe")
-    obj.observe(AttributeSetter(camera, 'sensor_width'), 'sensor_width')
-    obj.observe(KeyframeSetter(camera, 'sensor_width'), 'sensor_width', type="keyframe")
+    obj.observe(AttributeSetter(camera, "lens"), "focal_length")
+    obj.observe(KeyframeSetter(camera, "lens"), "focal_length", type="keyframe")
+    obj.observe(AttributeSetter(camera, "sensor_width"), "sensor_width")
+    obj.observe(KeyframeSetter(camera, "sensor_width"), "sensor_width", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
   @prepare_blender_object
   def _add_asset(self, obj: core.OrthographicCamera):
     camera = bpy.data.cameras.new(obj.uid)
-    camera.type = 'ORTHO'
+    camera.type = "ORTHO"
     camera_obj = bpy.data.objects.new(obj.uid, camera)
 
     register_object3d_setters(obj, camera_obj)
-    obj.observe(AttributeSetter(camera, 'ortho_scale'), 'orthographic_scale')
-    obj.observe(KeyframeSetter(camera, 'ortho_scale'), 'orthographic_scale', type="keyframe")
+    obj.observe(AttributeSetter(camera, "ortho_scale"), "orthographic_scale")
+    obj.observe(KeyframeSetter(camera, "ortho_scale"), "orthographic_scale", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)
@@ -432,12 +453,12 @@ class Blender(core.View):
   @prepare_blender_object
   def _add_asset(self, obj: core.FlatMaterial):
     # --- Create node-based material
-    mat = bpy.data.materials.new('Holdout')
+    mat = bpy.data.materials.new("Holdout")
     mat.use_nodes = True
     tree = mat.node_tree
-    tree.nodes.remove(tree.nodes['Principled BSDF'])  # remove the default shader
+    tree.nodes.remove(tree.nodes["Principled BSDF"])  # remove the default shader
 
-    output_node = tree.nodes['Material Output']
+    output_node = tree.nodes["Material Output"]
 
     # This material is constructed from three different shaders:
     #  1. if holdout=False then emission_node is responsible for giving the object a uniform color
@@ -454,24 +475,24 @@ class Blender(core.View):
 
     emission_node = tree.nodes.new(type="ShaderNodeEmission")
 
-    tree.links.new(transparent_node.outputs['BSDF'], indirect_mix_node.inputs[1])
-    tree.links.new(emission_node.outputs['Emission'], indirect_mix_node.inputs[2])
-    tree.links.new(emission_node.outputs['Emission'], holdout_mix_node.inputs[1])
-    tree.links.new(holdout_node.outputs['Holdout'], holdout_mix_node.inputs[2])
-    tree.links.new(light_path_node.outputs['Is Camera Ray'], overall_mix_node.inputs['Fac'])
-    tree.links.new(indirect_mix_node.outputs['Shader'], overall_mix_node.inputs[1])
-    tree.links.new(holdout_mix_node.outputs['Shader'], overall_mix_node.inputs[2])
-    tree.links.new(overall_mix_node.outputs['Shader'], output_node.inputs['Surface'])
+    tree.links.new(transparent_node.outputs["BSDF"], indirect_mix_node.inputs[1])
+    tree.links.new(emission_node.outputs["Emission"], indirect_mix_node.inputs[2])
+    tree.links.new(emission_node.outputs["Emission"], holdout_mix_node.inputs[1])
+    tree.links.new(holdout_node.outputs["Holdout"], holdout_mix_node.inputs[2])
+    tree.links.new(light_path_node.outputs["Is Camera Ray"], overall_mix_node.inputs["Fac"])
+    tree.links.new(indirect_mix_node.outputs["Shader"], overall_mix_node.inputs[1])
+    tree.links.new(holdout_mix_node.outputs["Shader"], overall_mix_node.inputs[2])
+    tree.links.new(overall_mix_node.outputs["Shader"], output_node.inputs["Surface"])
 
-    obj.observe(AttributeSetter(emission_node.inputs['Color'], 'default_value'), "color")
-    obj.observe(KeyframeSetter(emission_node.inputs['Color'], 'default_value'), "color",
+    obj.observe(AttributeSetter(emission_node.inputs["Color"], "default_value"), "color")
+    obj.observe(KeyframeSetter(emission_node.inputs["Color"], "default_value"), "color",
                 type="keyframe")
-    obj.observe(AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout")
-    obj.observe(KeyframeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout",
+    obj.observe(AttributeSetter(holdout_mix_node.inputs["Fac"], "default_value"), "holdout")
+    obj.observe(KeyframeSetter(holdout_mix_node.inputs["Fac"], "default_value"), "holdout",
                 type="keyframe")
-    obj.observe(AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+    obj.observe(AttributeSetter(indirect_mix_node.inputs["Fac"], "default_value"),
                 "indirect_visibility")
-    obj.observe(KeyframeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+    obj.observe(KeyframeSetter(indirect_mix_node.inputs["Fac"], "default_value"),
                 "indirect_visibility", type="keyframe")
     return mat
 
@@ -607,7 +628,7 @@ class AttributeSetter:
     self.converter = converter
 
   def __call__(self, change):
-    # change = {'type': 'change', 'new': (1., 1., 1.), 'owner': obj}
+    # change = {"type": "change", "new": (1., 1., 1.), "owner": obj}
     new_value = change.new
 
     if isinstance(new_value, core.Undefined):
@@ -632,8 +653,8 @@ class KeyframeSetter:
 def register_object3d_setters(obj, blender_obj):
   assert isinstance(obj, core.Object3D), f"{obj!r} is not an Object3D"
 
-  obj.observe(AttributeSetter(blender_obj, 'location'), 'position')
-  obj.observe(KeyframeSetter(blender_obj, 'location'), 'position', type="keyframe")
+  obj.observe(AttributeSetter(blender_obj, "location"), "position")
+  obj.observe(KeyframeSetter(blender_obj, "location"), "position", type="keyframe")
 
-  obj.observe(AttributeSetter(blender_obj, 'rotation_quaternion'), 'quaternion')
-  obj.observe(KeyframeSetter(blender_obj, 'rotation_quaternion'), 'quaternion', type="keyframe")
+  obj.observe(AttributeSetter(blender_obj, "rotation_quaternion"), "quaternion")
+  obj.observe(KeyframeSetter(blender_obj, "rotation_quaternion"), "quaternion", type="keyframe")

@@ -137,5 +137,6 @@ class FileBasedObject(PhysicalObject):
 
   simulation_filename = tl.Unicode()   # TODO: use pathlib.Path instead
   render_filename = tl.Unicode()       # TODO: use pathlib.Path instead
+  render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())
 
   # TODO: trigger error when changing filenames or asset-id after the fact
