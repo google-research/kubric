@@ -27,7 +27,6 @@ from singledispatchmethod import singledispatchmethod
 import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
-import pathlib
 
 import bpy
 
@@ -112,6 +111,7 @@ def write_scaled_png(data: np.array,
 
 def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
   scalings = {}
+  path_prefix = tfds.core.as_path(path_prefix)
   for key, img in data.items():
     scaling = write_scaled_png(img, path_prefix / key)
     if scaling:
@@ -121,6 +121,7 @@ def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
 
 
 def read_png(path: PathLike):
+  path = tfds.core.as_path(path)
   pngReader = png.Reader(bytes=path.read_bytes())
   width, height, pngdata, info = pngReader.read()
   del pngReader
@@ -130,10 +131,10 @@ def read_png(path: PathLike):
   elif bitdepth == 16:
     dtype = np.uint16
   else:
-    NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
   plane_count = info["planes"]
   pngdata = np.vstack(list(map(dtype, pngdata)))
-  return pngdata.reshape(height, width, plane_count)
+  return pngdata.reshape((height, width, plane_count))
 
 
 class Blender(core.View):

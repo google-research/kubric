@@ -62,10 +62,12 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     output["forward_flow"] = flow[..., 2:]
   if "Normal" in layer_names:
     # range: [-1, 1]
-    output["normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
+    data = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
+    output["normal"] = ((data + 1) * 65535 / 2).astype(np.uint16)
   if "UV" in layer_names:
     # range [0, 1]
-    output["uv"] = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
+    data = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
+    output["uv"] = (data * 65535).astype(np.uint16)
   if "CryptoObject00" in layer_names:
     # CryptoMatte stores the segmentation of Objects using two kinds of channels:
     #  - index channels (uint32) specify the object index for a pixel
