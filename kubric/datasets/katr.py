@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import itertools
 import logging
 import os
-import pickle
+import json
 
 import numpy as np
+import png
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 from typing import List
@@ -31,7 +31,7 @@ class KatrConfig(tfds.core.BuilderConfig):
   """"Configuration for Katr video dataset."""
 
   def __init__(
-      self, *, height: int, width: int, num_frames: int,
+      self, *, height: int, width: int,
       validation_ratio: float = 0.1, **kwargs
   ):
     """Defines a particular configuration of tensorflow records.
@@ -39,22 +39,22 @@ class KatrConfig(tfds.core.BuilderConfig):
     Args:
       height (int): The target resolution height.
       width (int): The target resolution width.
-      num_frames (int): The target number of frames.
       validation_ratio (float): The proportion of examples to use for validation.
       **kwargs: Keyword arguments to the base class.
     """
     super(KatrConfig, self).__init__(**kwargs)
     self.height = height
     self.width = width
-    self.num_frames = num_frames
     self.validation_ratio = validation_ratio
 
 
 class Katr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for Katr dataset."""
-  VERSION = tfds.core.Version('1.0.0')
+  VERSION = tfds.core.Version('1.1.1')
   RELEASE_NOTES = {
-      '1.0.0': 'Initial release.',
+      '1.1.1': "small test",
+      '1.1.0': 'split flow into -> forward_flow and backward_flow',
+      '1.0.0': 'initial release',
   }
 
   BUILDER_CONFIGS = [
@@ -63,7 +63,6 @@ class Katr(tfds.core.BeamBasedBuilder):
           description='Full resolution of 512x512 and a framerate of 12fps',
           height=512,
           width=512,
-          num_frames=24,
           validation_ratio=0.2,
       ),
       KatrConfig(
@@ -71,7 +70,6 @@ class Katr(tfds.core.BeamBasedBuilder):
           description='Downscaled to 256x256',
           height=256,
           width=256,
-          num_frames=24,
           validation_ratio=0.2,
       ),
       KatrConfig(
@@ -79,7 +77,6 @@ class Katr(tfds.core.BeamBasedBuilder):
           description='Downscaled to 128x128',
           height=128,
           width=128,
-          num_frames=24,
           validation_ratio=0.2,
       ),
       KatrConfig(
@@ -87,7 +84,6 @@ class Katr(tfds.core.BeamBasedBuilder):
           description='Downscaled to 64x64',
           height=64,
           width=64,
-          num_frames=24,
           validation_ratio=0.2,
       )
   ]
@@ -97,7 +93,7 @@ class Katr(tfds.core.BeamBasedBuilder):
 
     h = self.builder_config.height
     w = self.builder_config.width
-    s = self.builder_config.num_frames
+    s = 24
 
     return tfds.core.DatasetInfo(
         builder=self,
@@ -111,8 +107,8 @@ class Katr(tfds.core.BeamBasedBuilder):
                 'num_instances': tf.uint16,
 
                 'depth_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                'flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                'flow_magnitude_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                'forward_flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                'backward_flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
             },
             'background': {
                 'hdri': tfds.features.Text(),
@@ -154,8 +150,10 @@ class Katr(tfds.core.BeamBasedBuilder):
             'video':  tfds.features.Video(shape=(s, h, w, 3)),
             'segmentations': tfds.features.Sequence(
                 tfds.features.Image(shape=(h, w, 1), dtype=tf.uint16), length=s),
-            'flow': tfds.features.Sequence(
-                tfds.features.Tensor(shape=(h, w, 4), dtype=tf.uint16), length=s),
+            'forward_flow': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 2), dtype=tf.uint16), length=s),
+            'backward_flow': tfds.features.Sequence(
+                tfds.features.Tensor(shape=(h, w, 2), dtype=tf.uint16), length=s),
             'depth': tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint16), length=s),
             'uv': tfds.features.Sequence(
@@ -170,7 +168,7 @@ class Katr(tfds.core.BeamBasedBuilder):
   def _split_generators(self, unused_dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     del unused_dl_manager
-    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/kubric_katr_v0_10k_c',)
+    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/kubric_may03_145256',)
     all_subdirs = sorted([d for d in path.glob('*')], key=lambda x: int(x.name))
     logging.info('Found %d sub-folders in master path: %s', len(all_subdirs), path)
 
@@ -191,87 +189,44 @@ class Katr(tfds.core.BeamBasedBuilder):
     """Yields examples."""
 
     target_size = (self.builder_config.height, self.builder_config.width)
-    assert 24 % self.builder_config.num_frames == 0
-    frame_subsampling = 24 // self.builder_config.num_frames
 
     def _process_example(video_dir):
       video_dir = tfds.core.as_path(video_dir)
       key = f'{video_dir.name}'
-      files = sorted([str(f) for f in video_dir.glob('frame*.pkl')])
 
-      with tf.io.gfile.GFile(str(video_dir / 'metadata.pkl'), 'rb') as fp:
-        metadata = pickle.load(fp)
+      with tf.io.gfile.GFile(str(video_dir / 'data_ranges.json'), 'rb') as fp:
+        data_ranges = json.load(fp)
 
-      def convert_float_to_uint16(array, min_val, max_val):
-        return np.round((array - min_val) / (max_val - min_val) * 65535).astype(np.uint16)
+      with tf.io.gfile.GFile(str(video_dir / 'metadata.json'), 'rb') as fp:
+        metadata = json.load(fp)
 
-      num_frames = metadata["instances"][0]["positions"].shape[0]
+      with tf.io.gfile.GFile(str(video_dir / 'bboxes.json'), 'rb') as fp:
+        bboxes = json.load(fp)
+
+      num_frames = metadata["metadata"]["num_frames"]
       num_instances = metadata["metadata"]["num_instances"]
-      assert len(files) == num_frames, f"{len(files)} != {num_frames}"
       assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
 
-      frames = []
-      for frame_file in files[::frame_subsampling]:
-        with tf.io.gfile.GFile(str(frame_file), 'rb') as fp:
-          data = pickle.load(fp)
-          frames.append({
-              'rgb': data['rgba'][..., :3],
-              'segmentation': data['segmentation'].astype(np.uint16),
-              'flow': data['flow'],
-              'depth': data['depth'],
-              'uv': data['uv'],
-              'normal': data['normal']
-          })
-
-      # compute the range of the depth map
-      min_depth = np.min([np.min(f['depth']) for f in frames])
-      max_depth = np.max([np.max(f['depth']) for f in frames])
-
-      min_flow = np.min([np.min(f['flow']) for f in frames])
-      max_flow = np.max([np.max(f['flow']) for f in frames])
-
-      # compute the range of magnitudes of the optical flow (both forward and backward)
-      def flow_magnitude(vec):
-        bwd_flow_magnitude = np.linalg.norm(vec[:, :, :2], axis=-1)
-        min_bwd_flow_mag = np.min(bwd_flow_magnitude)
-        max_bwd_flow_mag = np.max(bwd_flow_magnitude)
-        fwd_flow_magnitude = np.linalg.norm(vec[:, :, 2:], axis=-1)
-        min_fwd_flow_mag = np.min(fwd_flow_magnitude)
-        max_fwd_flow_mag = np.max(fwd_flow_magnitude)
-        return min(min_fwd_flow_mag, min_bwd_flow_mag), max(max_fwd_flow_mag, max_bwd_flow_mag)
-
-      flow_magnitude_ranges = [flow_magnitude(frame["flow"]) for frame in frames]
-      min_flow_mag = np.min([fmr[0] for fmr in flow_magnitude_ranges])
-      max_flow_mag = np.max([fmr[1] for fmr in flow_magnitude_ranges])
-
-      # compute bboxes
-      for i, obj in enumerate(metadata["instances"]):
-        obj['bboxes'] = []
-        obj['bbox_frames'] = []
-        for j, frame in zip(range(0, num_frames, frame_subsampling), frames):
-          seg = frame['segmentation'][:, :, 0]
-          idxs = np.array(np.where(seg == i+1), dtype=np.float32)
-          if idxs.size > 0:
-            idxs /= np.array(seg.shape)[:, np.newaxis]
-            bbox = tfds.features.BBox(ymin=float(idxs[0].min()), xmin=float(idxs[1].min()),
-                                      ymax=float(idxs[0].max()), xmax=float(idxs[1].max()))
-            obj["bboxes"].append(bbox)
-            obj["bbox_frames"].append(j//frame_subsampling)
-
-      src_height, src_width = frames[0]['rgb'].shape[:2]
-      assert src_height % target_size[0] == 0
-      assert src_width % target_size[1] == 0
+      rgba_frame_paths = [video_dir / f"rgba_{f:05d}.png" for f in range(num_frames)]
+      segmentation_frame_paths = [video_dir / f"segmentation_{f:05d}.png" for f in range(num_frames)]
+      fwd_flow_frame_paths = [video_dir / f"forward_flow_{f:05d}.png" for f in range(num_frames)]
+      bwd_flow_frame_paths = [video_dir / f"backward_flow_{f:05d}.png" for f in range(num_frames)]
+      depth_frame_paths = [video_dir / f"depth_{f:05d}.png" for f in range(num_frames)]
+      uv_frame_paths = [video_dir / f"uv_{f:05d}.png" for f in range(num_frames)]
+      normal_frame_paths = [video_dir / f"normal_{f:05d}.png" for f in range(num_frames)]
 
       return key, {
           'metadata': {
               'video_name': os.fspath(key),
               'width': target_size[1],
               'height': target_size[0],
-              'num_frames': len(frames),
+              'num_frames': num_frames,
               'num_instances': num_instances,
-              'depth_range': np.array([min_depth, max_depth], dtype=np.float32),
-              'flow_range': np.array([min_flow, max_flow], dtype=np.float32),
-              'flow_magnitude_range': np.array([min_flow_mag, max_flow_mag], dtype=np.float32)
+              'depth_range': [data_ranges["depth"]["min"], data_ranges["depth"]["max"]],
+              'forward_flow_range': [data_ranges["forward_flow"]["min"],
+                                     data_ranges["forward_flow"]["max"]],
+              'backward_flow_range': [data_ranges["backward_flow"]["min"],
+                                      data_ranges["backward_flow"]["max"]],
           },
           'background': {
               'hdri': metadata['background']['hdri'],
@@ -281,44 +236,45 @@ class Katr(tfds.core.BeamBasedBuilder):
               'mass': obj['mass'],
               'friction': obj['friction'],
               'restitution': obj['restitution'],
-              'positions': obj['positions'][::frame_subsampling].astype(np.float32),
-              'quaternions': obj['quaternions'][::frame_subsampling].astype(np.float32),
-              'velocities': obj['velocities'][::frame_subsampling].astype(np.float32),
-              'angular_velocities': obj['angular_velocities'][::frame_subsampling].astype(np.float32),
-              'image_positions': obj['image_positions'][::frame_subsampling].astype(np.float32),
-              'bboxes': obj['bboxes'],
-              'bbox_frames': np.array(obj['bbox_frames'], dtype=np.uint16),
-          } for obj in metadata["instances"]],
+              'positions': np.array(obj['positions'], np.float32),
+              'quaternions': np.array(obj['quaternions'], np.float32),
+              'velocities': np.array(obj['velocities'], np.float32),
+              'angular_velocities': np.array(obj['angular_velocities'], np.float32),
+              'image_positions': np.array(obj['image_positions'], np.float32),
+              'bboxes': [tfds.features.BBox(*bbox) for bbox in bboxes[i]['bboxes']],
+              'bbox_frames': np.array(bboxes[i]['bbox_frames'], dtype=np.uint16),
+          } for i, obj in enumerate(metadata["instances"])],
           'camera': {
               "focal_length": metadata["camera"]["focal_length"],
               "sensor_width": metadata["camera"]["sensor_width"],
               "field_of_view": metadata["camera"]["field_of_view"],
-              "positions": metadata["camera"]["positions"][::frame_subsampling].astype(np.float32),
-              "quaternions": metadata["camera"]["quaternions"][::frame_subsampling].astype(np.float32),
+              "positions": np.array(metadata["camera"]["positions"], np.float32),
+              "quaternions": np.array(metadata["camera"]["quaternions"], np.float32),
           },
           'events': {
               'collisions': [{
                   "instances": np.array(c["instances"], dtype=np.uint16),
-                  "contact_normal": np.array(c["contact_normal"], dtype=np.float32),
                   "frame": c["frame"],
                   "force": c["force"],
                   "position": np.array(c["position"], dtype=np.float32),
                   "image_position": np.array(c["image_position"], dtype=np.float32),
+                  "contact_normal": np.array(c["contact_normal"], dtype=np.float32),
               } for c in metadata["events"]["collisions"]],
           },
-          'video': [subsample_avg(f['rgb'], target_size) for f in frames],
-          'segmentations': [subsample_nearest_neighbor(f['segmentation'], target_size)
-                            for f in frames],
-          'flow': [convert_float_to_uint16(subsample_nearest_neighbor(f['flow'], target_size),
-                                           min_flow, max_flow)
-                   for f in frames],
-          'depth': [convert_float_to_uint16(subsample_nearest_neighbor(f['depth'], target_size),
-                                            min_depth, max_depth)
-                    for f in frames],
-          'uv': [convert_float_to_uint16(subsample_nearest_neighbor(f['uv'], target_size), 0., 1.)
-                 for f in frames],
-          'normal': [convert_float_to_uint16(subsample_nearest_neighbor(f['normal'], target_size),
-                                             -1., 1.) for f in frames],
+          'video': [subsample_avg(read_png(frame_path), target_size)[..., :3]
+                    for frame_path in rgba_frame_paths],
+          'segmentations': [subsample_nearest_neighbor(read_png(frame_path), target_size)
+                            for frame_path in segmentation_frame_paths],
+          'forward_flow': [subsample_nearest_neighbor(read_png(frame_path), target_size)[..., :2]
+                           for frame_path in fwd_flow_frame_paths],
+          'backward_flow': [subsample_nearest_neighbor(read_png(frame_path), target_size)[..., :2]
+                            for frame_path in bwd_flow_frame_paths],
+          'depth': [subsample_nearest_neighbor(read_png(frame_path), target_size)
+                    for frame_path in depth_frame_paths],
+          'uv': [subsample_nearest_neighbor(read_png(frame_path), target_size)
+                 for frame_path in uv_frame_paths],
+          'normal': [subsample_nearest_neighbor(read_png(frame_path), target_size)
+                     for frame_path in normal_frame_paths],
       }
 
     beam = tfds.core.lazy_imports.apache_beam
@@ -351,3 +307,19 @@ def subsample_avg(arr, size):
                                dst_width, width_bin,
                                channels)).mean(axis=(1, 3))).astype(np.uint8)
 
+
+def read_png(path: os.PathLike):
+  path = tfds.core.as_path(path)
+  pngReader = png.Reader(bytes=path.read_bytes())
+  width, height, pngdata, info = pngReader.read()
+  del pngReader
+  bitdepth = info["bitdepth"]
+  if bitdepth == 8:
+    dtype = np.uint8
+  elif bitdepth == 16:
+    dtype = np.uint16
+  else:
+    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+  plane_count = info["planes"]
+  pngdata = np.vstack(list(map(dtype, pngdata)))
+  return pngdata.reshape((height, width, plane_count))

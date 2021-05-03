@@ -33,7 +33,8 @@ parser.add_argument("--max_num_objects", type=int, default=10)
 parser.add_argument("--floor_friction", type=float, default=0.3)
 parser.add_argument("--camera_jitter", type=float, default=1.0)
 parser.add_argument("--object_scale", type=float, default=8.0)
-
+parser.add_argument("--background", choices=["hdri", "clevr"], default="hdri")
+parser.add_argument("--camera", choices=["fixed", "moving"], default="fixed")
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/GSO")
 parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_haven/4k")
 
@@ -65,15 +66,19 @@ scene.add(floor)
 background_hdri = hdris.create(texture_name=hdris.db.sample(random_state=rng).iloc[0]['id'])
 
 renderer._set_ambient_light_hdri(background_hdri.filename)
-renderer._set_background_hdri(background_hdri.filename)
-renderer.use_denoising = False
-floor.linked_objects[renderer].cycles.is_shadow_catcher = True
+renderer.use_denoising = False  # somehow leads to blurry HDRIs
+
+if FLAGS.background == "hdri":
+  renderer._set_background_hdri(background_hdri.filename)
+  floor.linked_objects[renderer].cycles.is_shadow_catcher = True
+else:
+  floor.material = kb.PrincipledBSDFMaterial(color=kb.get_color("gray"), roughness=1., specular=0.)
 
 
 logging.info("Setting up the Camera...")
-scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
+scene.camera = kb.PerspectiveCamera(focal_length=55., sensor_width=32,
                                     position=(7.48113, -6.50764, 5.34367))
-scene.camera.position += rng.rand(3) * FLAGS.camera_jitter
+scene.camera.position += (rng.rand(3) - 0.5) * 2 * FLAGS.camera_jitter
 scene.camera.look_at((0, 0, 0))
 
 # --- Place random objects
@@ -92,6 +97,19 @@ for i in range(num_objects):
   obj.velocity = (rng.uniform(*VELOCITY_RANGE) - [obj.position[0], obj.position[1], 0])
   logging.info("    Added %s", obj)
 
+if FLAGS.camera == "moving":
+  # sample two points in the cube ([-7, -7, 4], [7, 7, 7])
+  camera_range = [[-7, -7, 4], [7, 7, 7]]
+  camera_start = rng.uniform(*camera_range)
+  camera_end = rng.uniform(*camera_range)
+  # linearly interpolate the camera position between these two points
+  # while keeping it focused on the center of the scene
+  for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
+    interp = (frame - FLAGS.frame_start) / (FLAGS.frame_end - FLAGS.frame_start + 1)
+    scene.camera.position = interp * camera_start + (1 - interp) * camera_end
+    scene.camera.look_at((0, 0, 0))
+    scene.camera.keyframe_insert("position", frame)
+    scene.camera.keyframe_insert("quaternion", frame)
 
 # --- Simulation
 logging.info("Saving the simulator state to '%s' before starting the simulation.",
@@ -115,7 +133,7 @@ renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-kb.save_as_pkl(output_dir / "metadata.pkl", {
+kb.save_as_json(output_dir / "metadata.json", {
     "metadata": kb.get_scene_metadata(scene, seed=seed),
     "camera": kb.get_camera_info(scene.camera),
     "instances": kb.get_instance_info(scene),
