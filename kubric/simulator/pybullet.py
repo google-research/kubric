@@ -106,6 +106,8 @@ class PyBullet(core.View):
   def _add_object(self, obj: core.FileBasedObject) -> Optional[int]:
     # TODO: support other file-formats
     # TODO: add material assignments
+    if obj.simulation_filename is None:
+      return None  # if there is no simulation file, then ignore this object
     path = pathlib.Path(obj.simulation_filename).resolve()
     logger.debug("Loading '{}' in the simulator".format(path))
 

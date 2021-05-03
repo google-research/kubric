@@ -135,8 +135,8 @@ class Sphere(PhysicalObject):
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
-  simulation_filename = tl.Unicode()   # TODO: use pathlib.Path instead
-  render_filename = tl.Unicode()       # TODO: use pathlib.Path instead
+  simulation_filename = tl.Unicode(allow_none=True)   # TODO: use pathlib.Path instead
+  render_filename = tl.Unicode(allow_none=True)       # TODO: use pathlib.Path instead
   render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())
 
   # TODO: trigger error when changing filenames or asset-id after the fact

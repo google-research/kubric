@@ -17,6 +17,7 @@ import json
 import logging
 import sys
 from typing import Any, Callable, Dict
+import os.path
 
 from kubric import core
 import kubric.post_processing
@@ -328,7 +329,8 @@ class Blender(core.View):
   @add_asset.register(core.FileBasedObject)
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
-
+    if obj.render_filename is None:
+      return None  # if there is no render file, then ignore this object
     _, _, extension = obj.render_filename.rpartition(".")
     with RedirectStream(stream=sys.stdout, filename=self.log_file):  # reduce the logging noise
       if extension == "obj":
@@ -349,6 +351,13 @@ class Blender(core.View):
         bpy.ops.import_scene.x3d(filepath=obj.render_filename,
                                  **obj.render_import_kwargs)
 
+      elif extension == "blend":
+        # for now we require the paths to be encoded in the render_import_kwargs. That is:
+        # - filepath = dir / "Object" / object_name
+        # - directory = dir / "Object"
+        # - filename = object_name
+
+        bpy.ops.wm.append(**obj.render_import_kwargs)
       else:
         raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
 
