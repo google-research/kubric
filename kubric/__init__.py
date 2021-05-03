@@ -41,6 +41,7 @@ from kubric.utils import get_instance_info
 from kubric.utils import get_camera_info
 from kubric.utils import process_collisions
 from kubric.utils import save_as_pkl
+from kubric.utils import save_as_json
 from kubric.utils import done
 
 from tensorflow_datasets.core.utils.generic_path import as_path

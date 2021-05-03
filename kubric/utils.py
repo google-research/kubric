@@ -27,6 +27,7 @@
 # limitations under the License.
 import argparse
 import copy
+import json
 import logging
 import pathlib
 import pickle
@@ -187,6 +188,19 @@ def save_as_pkl(filename, data):
   with tf.io.gfile.GFile(filename, "wb") as fp:
     logging.info(f"Writing to {fp.name}")
     pickle.dump(data, fp)
+
+
+class NumpyEncoder(json.JSONEncoder):
+  def default(self, obj):
+    if isinstance(obj, np.ndarray):
+      return obj.tolist()
+    return json.JSONEncoder.default(self, obj)
+
+
+def save_as_json(filename, data):
+  with tf.io.gfile.GFile(filename, "wb") as fp:
+    logging.info(f"Writing to {fp.name}")
+    json.dump(data, fp, sort_keys=True, indent=4, cls=NumpyEncoder)
 
 
 def done():
