@@ -204,7 +204,7 @@ def convert_all_gso_assets_from_dir(download_dir: Path, target_dir: Path):
   list_of_asset_files = sorted(download_dir.glob("*.zip"))
   for i, path in enumerate(list_of_asset_files):
     logging.info(f"{i:4d}/{len(list_of_asset_files)}: Converting {path}...")
-    properties = convert_google_scanned_object(path, target_dir)
+    properties = convert_gso_asset(path, target_dir)
     details_list.append(properties)
 
   with open(target_dir / "manifest.json", "w") as f:
