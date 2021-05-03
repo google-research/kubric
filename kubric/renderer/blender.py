@@ -27,6 +27,7 @@ from singledispatchmethod import singledispatchmethod
 import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
+from kubric.utils import save_as_json
 
 import bpy
 
@@ -135,6 +136,26 @@ def read_png(path: PathLike):
   plane_count = info["planes"]
   pngdata = np.vstack(list(map(dtype, pngdata)))
   return pngdata.reshape((height, width, plane_count))
+
+
+def compute_bboxes(segmentation):
+  instances = []
+  for k in range(1, np.max(segmentation)+1):
+    obj = {
+        "bboxes": [],
+        "bbox_frames": [],
+    }
+    for t in range(segmentation.shape[0]):
+      seg = segmentation[t, ..., 0]
+      idxs = np.array(np.where(seg == k), dtype=np.float32)
+      if idxs.size > 0:
+        idxs /= np.array(seg.shape)[:, np.newaxis]
+        obj["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
+                              float(idxs[0].max()), float(idxs[1].max())))
+        obj["bbox_frames"].append(t)
+
+    instances.append(obj)
+  return instances
 
 
 class Blender(core.View):
@@ -255,6 +276,9 @@ class Blender(core.View):
       data_stack[key] = np.stack(data_stack[key], axis=0)
     # Save to image files
     write_image_dict(data_stack, to_dir)
+    # compute bounding boxes
+    instance_bboxes = compute_bboxes(data_stack["segmentation"])
+    save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
