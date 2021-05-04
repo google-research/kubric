@@ -14,6 +14,7 @@
 import logging
 import pathlib
 
+import bpy
 import numpy as np
 import kubric as kb
 
@@ -33,7 +34,7 @@ parser.add_argument("--max_num_objects", type=int, default=10)
 parser.add_argument("--floor_friction", type=float, default=0.3)
 parser.add_argument("--camera_jitter", type=float, default=1.0)
 parser.add_argument("--object_scale", type=float, default=8.0)
-parser.add_argument("--background", choices=["hdri", "clevr"], default="hdri")
+parser.add_argument("--background", choices=["hdri", "clevr", "dome"], default="hdri")
 parser.add_argument("--camera", choices=["fixed", "moving"], default="fixed")
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/GSO")
 parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_haven/4k")
@@ -59,7 +60,7 @@ hdris = kb.TextureSource(FLAGS.hdri_dir)
 # --- Populate the scene
 logging.info("Creating a large cube as the floor...")
 
-floor = kb.Cube(scale=(100, 100, 1), position=(0, 0, -1),
+floor = kb.Cube(scale=(100, 100, 1), position=(0, 0, -1.01),
                 friction=FLAGS.floor_friction, static=True, background=True)
 scene.add(floor)
 
@@ -71,12 +72,30 @@ renderer.use_denoising = False  # somehow leads to blurry HDRIs
 if FLAGS.background == "hdri":
   renderer._set_background_hdri(background_hdri.filename)
   floor.linked_objects[renderer].cycles.is_shadow_catcher = True
+
+elif FLAGS.background == "dome":
+  # TODO: this is one large dirty hack!
+  renderer._set_background_hdri(background_hdri.filename)
+  dome_path = hdris.fetch("dome.blend")
+  dome = kb.FileBasedObject(
+      static=True, background=True,
+      simulation_filename=None,
+      render_filename=str(dome_path),
+      render_import_kwargs={
+          "filepath": str(dome_path / "Object" / "Dome"),
+          "directory": str(dome_path / "Object"),
+          "filename": "Dome",
+      })
+  scene.add(dome)
+  dome_mat = dome.linked_objects[renderer].data.materials[0]
+  texture_node = dome_mat.node_tree.nodes["Image Texture"]
+  texture_node.image = bpy.data.images.load(background_hdri.filename)
 else:
   floor.material = kb.PrincipledBSDFMaterial(color=kb.get_color("gray"), roughness=1., specular=0.)
 
 
 logging.info("Setting up the Camera...")
-scene.camera = kb.PerspectiveCamera(focal_length=55., sensor_width=32,
+scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
                                     position=(7.48113, -6.50764, 5.34367))
 scene.camera.position += (rng.rand(3) - 0.5) * 2 * FLAGS.camera_jitter
 scene.camera.look_at((0, 0, 0))
@@ -99,7 +118,7 @@ for i in range(num_objects):
 
 if FLAGS.camera == "moving":
   # sample two points in the cube ([-7, -7, 4], [7, 7, 7])
-  camera_range = [[-7, -7, 4], [7, 7, 7]]
+  camera_range = [[-10, -10, 1], [10, 10, 3]]
   camera_start = rng.uniform(*camera_range)
   camera_end = rng.uniform(*camera_range)
   # linearly interpolate the camera position between these two points
@@ -107,7 +126,7 @@ if FLAGS.camera == "moving":
   for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
     interp = (frame - FLAGS.frame_start) / (FLAGS.frame_end - FLAGS.frame_start + 1)
     scene.camera.position = interp * camera_start + (1 - interp) * camera_end
-    scene.camera.look_at((0, 0, 0))
+    scene.camera.look_at((0, 0, 1))
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
 

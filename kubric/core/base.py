@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import collections
+import contextlib
 import multiprocessing
 
 import munch
@@ -96,6 +97,25 @@ class Asset(tl.HasTraits):
                                    owner=self,
                                    frame=frame,
                                    type='keyframe'))
+
+  @contextlib.contextmanager
+  def at_frame(self, frame, interpolation="linear"):
+    if frame is None:
+      try:
+        yield self
+      finally:
+        return
+
+    old_values = {}
+    try:
+      for key, value in self.keyframes.items():
+        old_values[key] = getattr(self, key)
+        setattr(self, key, self.get_value_at(name=key, frame=frame,
+                                             interpolation=interpolation))
+      yield self
+    finally:
+      for key, value in old_values.items():
+        setattr(self, key, value)
 
   def get_value_at(self, name, frame, interpolation="linear"):
     if name not in self.keyframes:
