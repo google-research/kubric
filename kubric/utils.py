@@ -27,6 +27,7 @@
 # limitations under the License.
 import argparse
 import copy
+import json
 import logging
 import pathlib
 import pickle
@@ -160,8 +161,10 @@ def get_instance_info(scene):
     info["mass"] = instance.mass
     info["friction"] = instance.friction
     info["restitution"] = instance.restitution
-    info["image_positions"] = np.array([scene.camera.project_point(p)[:2]
-                                        for p in info["positions"]], dtype=np.float32)
+    frame_range = range(scene.frame_start, scene.frame_end+1)
+    info["image_positions"] = np.array([scene.camera.project_point(point3d=p, frame=f)[:2]
+                                        for f, p in zip(frame_range, info["positions"])],
+                                       dtype=np.float32)
     instance_info.append(info)
   return instance_info
 
@@ -187,6 +190,19 @@ def save_as_pkl(filename, data):
   with tf.io.gfile.GFile(filename, "wb") as fp:
     logging.info(f"Writing to {fp.name}")
     pickle.dump(data, fp)
+
+
+class NumpyEncoder(json.JSONEncoder):
+  def default(self, obj):
+    if isinstance(obj, np.ndarray):
+      return obj.tolist()
+    return json.JSONEncoder.default(self, obj)
+
+
+def save_as_json(filename, data):
+  with tf.io.gfile.GFile(filename, "wb") as fp:
+    logging.info(f"Writing to {fp.name}")
+    json.dump(data, fp, sort_keys=True, indent=4, cls=NumpyEncoder)
 
 
 def done():

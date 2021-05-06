@@ -17,6 +17,7 @@ import json
 import logging
 import sys
 from typing import Any, Callable, Dict
+import os.path
 
 from kubric import core
 import kubric.post_processing
@@ -27,7 +28,7 @@ from singledispatchmethod import singledispatchmethod
 import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
-import pathlib
+from kubric.utils import save_as_json
 
 import bpy
 
@@ -112,6 +113,7 @@ def write_scaled_png(data: np.array,
 
 def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
   scalings = {}
+  path_prefix = tfds.core.as_path(path_prefix)
   for key, img in data.items():
     scaling = write_scaled_png(img, path_prefix / key)
     if scaling:
@@ -121,6 +123,7 @@ def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
 
 
 def read_png(path: PathLike):
+  path = tfds.core.as_path(path)
   pngReader = png.Reader(bytes=path.read_bytes())
   width, height, pngdata, info = pngReader.read()
   del pngReader
@@ -130,10 +133,30 @@ def read_png(path: PathLike):
   elif bitdepth == 16:
     dtype = np.uint16
   else:
-    NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
   plane_count = info["planes"]
   pngdata = np.vstack(list(map(dtype, pngdata)))
-  return pngdata.reshape(height, width, plane_count)
+  return pngdata.reshape((height, width, plane_count))
+
+
+def compute_bboxes(segmentation):
+  instances = []
+  for k in range(1, np.max(segmentation)+1):
+    obj = {
+        "bboxes": [],
+        "bbox_frames": [],
+    }
+    for t in range(segmentation.shape[0]):
+      seg = segmentation[t, ..., 0]
+      idxs = np.array(np.where(seg == k), dtype=np.float32)
+      if idxs.size > 0:
+        idxs /= np.array(seg.shape)[:, np.newaxis]
+        obj["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
+                              float(idxs[0].max()), float(idxs[1].max())))
+        obj["bbox_frames"].append(t)
+
+    instances.append(obj)
+  return instances
 
 
 class Blender(core.View):
@@ -254,6 +277,9 @@ class Blender(core.View):
       data_stack[key] = np.stack(data_stack[key], axis=0)
     # Save to image files
     write_image_dict(data_stack, to_dir)
+    # compute bounding boxes
+    instance_bboxes = compute_bboxes(data_stack["segmentation"])
+    save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
@@ -303,7 +329,8 @@ class Blender(core.View):
   @add_asset.register(core.FileBasedObject)
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
-
+    if obj.render_filename is None:
+      return None  # if there is no render file, then ignore this object
     _, _, extension = obj.render_filename.rpartition(".")
     with RedirectStream(stream=sys.stdout, filename=self.log_file):  # reduce the logging noise
       if extension == "obj":
@@ -324,6 +351,13 @@ class Blender(core.View):
         bpy.ops.import_scene.x3d(filepath=obj.render_filename,
                                  **obj.render_import_kwargs)
 
+      elif extension == "blend":
+        # for now we require the paths to be encoded in the render_import_kwargs. That is:
+        # - filepath = dir / "Object" / object_name
+        # - directory = dir / "Object"
+        # - filename = object_name
+
+        bpy.ops.wm.append(**obj.render_import_kwargs)
       else:
         raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
 

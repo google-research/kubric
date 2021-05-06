@@ -19,6 +19,7 @@ import traitlets as tl
 import kubric
 from kubric.core import traits as ktl
 from kubric.core import base
+from kubric.core import objects
 from kubric.core import cameras
 from kubric.core import color
 
@@ -106,7 +107,7 @@ class Scene(tl.HasTraits):
 
   @property
   def foreground_assets(self):
-    return tuple(a for a in self._assets if not a.background)
+    return tuple(a for a in self._assets if isinstance(a, objects.Object3D) and not a.background)
 
   @property
   def background_assets(self):

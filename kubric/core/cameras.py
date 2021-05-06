@@ -97,17 +97,18 @@ class PerspectiveCamera(Camera):
         [0,   0,   -1],
     ])
 
-  def project_point(self, point3d):
+  def project_point(self, point3d, frame=None):
     """ Compute the image space coordinates (in pixels) for a given point in world coordinates."""
-    RT = np.linalg.inv(self.matrix_world)
-    P = np.zeros((3, 4), dtype=np.float32)
-    P[:, :3] = self.K
+    with self.at_frame(frame):
+      RT = np.linalg.inv(self.matrix_world)
+      P = np.zeros((3, 4), dtype=np.float32)
+      P[:, :3] = self.K
 
-    point4d = np.concatenate([point3d, [1.]])
-    projected = P @ RT @ point4d
-    image_coords = projected / projected[2]
-    image_coords[2] = np.sign(projected[2])
-    return image_coords
+      point4d = np.concatenate([point3d, [1.]])
+      projected = P @ RT @ point4d
+      image_coords = projected / projected[2]
+      image_coords[2] = np.sign(projected[2])
+      return image_coords
 
 
 class OrthographicCamera(Camera):

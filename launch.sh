@@ -25,7 +25,7 @@ cat > /tmp/hypertune.yml << EOF
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: 1000
+      maxTrials: 10000
       maxParallelTrials: 400
       enableTrialEarlyStopping: False
 
