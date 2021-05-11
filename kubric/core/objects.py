@@ -90,6 +90,13 @@ class PhysicalObject(Object3D):
   material = ktl.AssetInstance(materials.Material,
                                default_value=materials.UndefinedMaterial())
 
+  # If the segmentation_id is None, we use the "default" segmentation label for
+  # this object. Otherwise, we use the segmentation_id specified here. This
+  # allows us to perform things like "instance segmentation" and
+  # "semantic segmentation", from a labelmap in the Kubric worker, even if the
+  # objects in the scene are generated in different orders on different runs.
+  segmentation_id = tl.Integer(None, allow_none=True)
+
   @tl.validate("mass")
   def _valid_mass(self, proposal):
     mass = proposal["value"]

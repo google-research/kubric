@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import numpy as np
 import OpenEXR
 import Imath
@@ -85,13 +86,26 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     alpha_channels = [n + "." + c for n in crypto_layers for c in "GA"]
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
-    # replace crypto-ids with object index for foreground objects and 0 for background objects
+    # replace crypto-ids with object index for foreground objects and 0 for background objects.
+    labelmap = {}
+    # Foreground objects: Set the label id to either asset.segmentation_id
+    # if it is present, or index + 1 otherwise.
+    for idx, asset in enumerate(objects):
+      if asset.segmentation_id is not None:
+        labelmap[kubric.assets.mm3hash(asset.uid)] = asset.segmentation_id
+      else:
+        labelmap[kubric.assets.mm3hash(asset.uid)] = idx + 1
+    # All background images are assigned to 0.
+    for asset in background_objects:
+      labelmap[kubric.assets.mm3hash(asset.uid)] = 0
+    logging.info("The labelmap is ", labelmap)
+
     bg_ids = [kubric.assets.mm3hash(obj.uid) for obj in background_objects]
     object_ids = [kubric.assets.mm3hash(obj.uid) for obj in objects]
     for bg_id in bg_ids:
-      idxs[idxs == bg_id] = 0  # assign 0 to all background objects
+      idxs[idxs == bg_id] = labelmap[bg_id]  # assign 0 to all background objects
     for i, object_id in enumerate(object_ids):
-      idxs[idxs == object_id] = i + 1
+      idxs[idxs == object_id] = labelmap[object_id]
 
   return output
 
