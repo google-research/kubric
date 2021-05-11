@@ -13,12 +13,16 @@
 # limitations under the License.
 
 import functools
+import io
 import json
 import logging
+import multiprocessing.pool
 import sys
-from typing import Any, Callable, Dict
+import threading
+from typing import Any, Callable, Dict, Tuple
 import os.path
 
+import imageio
 from kubric import core
 import kubric.post_processing
 from kubric.redirect_io import RedirectStream
@@ -111,13 +115,61 @@ def write_scaled_png(data: np.array,
   return scaling
 
 
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
-  scalings = {}
-  path_prefix = tfds.core.as_path(path_prefix)
-  for key, img in data.items():
+def write_tiff(
+    all_imgs: np.ndarray,
+    path_prefix: tfds.core.ReadWritePath,
+) -> None:
+  """Save single-channel float images as tiff.."""
+  assert len(all_imgs.shape) == 4
+  assert all_imgs.shape[-1] == 1  # Single channel image
+  assert all_imgs.dtype in [np.float32, np.float64]
+  for i, img in enumerate(all_imgs):
+    path = path_prefix.parent / f"{path_prefix.name}_{i:05d}.tiff"
+
+    # Save tiff in an intermediate buffer
+    buffer = io.BytesIO()
+    imageio.imwrite(buffer, img, format=".tif")
+    path.write_bytes(buffer.getvalue())
+
+
+def write_single_record(
+    kv: Tuple[str, np.array],
+    path_prefix: PathLike,
+    scalings: Dict[str, Dict[str, float]],
+    lock: threading.Lock,
+):
+  """Write single record."""
+  key = kv[0]
+  img = kv[1]
+  if key == "depth":
+    write_tiff(img, path_prefix / key)
+  else:
     scaling = write_scaled_png(img, path_prefix / key)
     if scaling:
-      scalings[key] = scaling
+      with lock:
+        scalings[key] = scaling
+
+
+def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
+  # Pre-load image libs to avoid race-condition in multi-thread.
+  imageio.plugins.tifffile.load_lib()
+
+  scalings = {}
+
+  lock = threading.Lock()
+  _MAX_WRITE_THREADS = 16
+  with multiprocessing.pool.ThreadPool(
+      min(len(data.items()), _MAX_WRITE_THREADS)) as pool:
+    args = [(key, img) for key, img in data.items()]
+    write_single_record_fn = functools.partial(
+        write_single_record,
+        path_prefix=path_prefix,
+        scalings=scalings,
+        lock=lock)
+    pool.map(write_single_record_fn, args)
+    pool.close()
+    pool.join()
+
   with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
     json.dump(scalings, fp)
 

@@ -4,6 +4,7 @@ bidict
 cloudml-hypertune
 dataclasses
 google-cloud-storage
+imageio
 mathutils
 munch
 numpy>=1.17
