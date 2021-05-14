@@ -293,11 +293,14 @@ class Blender(core.View):
     self.blender_scene.render.film_transparent = value
 
   def save_state(self, path: PathLike = "scene.blend", pack_textures: bool = True):
-    # first store in a temporary file and then copy, because blender does not support remote paths
     if pack_textures:
       bpy.ops.file.pack_all()  # embed all textures into the blend file
-      bpy.ops.wm.save_mainfile(filepath=str(self.scratch_dir / "scene.blend"))
-    tf.io.gfile.copy(self.scratch_dir / "scene.blend", path, overwrite=True)
+
+    # first store in a temporary file and then copy; blender does not support remote paths
+    filepath = str(self.scratch_dir / "scene.blend")
+    bpy.ops.wm.save_mainfile(filepath=filepath)
+    logger.info(f"copying '{filepath}' → '{path}'")
+    tf.io.gfile.copy(filepath, path, overwrite=True)
 
   def render(self):
     # --- starts rendering
