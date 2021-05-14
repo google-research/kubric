@@ -23,7 +23,7 @@ except IOError:
 
 __version__ = None
 
-with open('kubric/version.py') as f:
+with open("kubric/version.py") as f:
   exec(f.read(), globals())
 
 
@@ -31,7 +31,7 @@ setuptools.setup(
     name="kubric",
     version="0.1",
     author="Kubric team",
-    author_email="klausg@google.com",  # TODO: create a kubric-dev group
+    author_email="kubric+dev@google.com",
     description="A data generation pipeline for creating semi-realistic synthetic multi-object "
                 "videos with rich annotations such as instance segmentation, depth maps, "
                 "and optical flow.",

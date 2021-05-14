@@ -14,9 +14,9 @@ shift # shifts all arguments to the left thus removing ${1}
 
 if [[ "${run_mode}" == "dev" ]]
 then
-  SOURCE_TAG=gcr.io/kubric-xgcp/kubruntudev:latest
+  SOURCE_TAG=kubricdockerhub/kubruntudev:latest
 else
-  SOURCE_TAG=gcr.io/kubric-xgcp/kubruntu:latest
+  SOURCE_TAG=kubricdockerhub/kubruntu:latest
 fi
 
 # --- Specify the hypertune configuration

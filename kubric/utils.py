@@ -65,7 +65,7 @@ class ArgumentParser(argparse.ArgumentParser):
                       help="width of the output image/video in pixels (default: 512)")
     self.add_argument("--height", type=int, default=512,
                       help="height of the output image/video in pixels (default: 512)")
-    self.add_argument("--scratch_dir", type=str, default=None,
+    self.add_argument("--scratch_dir", type=str, default=tempfile.mkdtemp(),
                       help="local directory for storing intermediate files such as "
                            "downloaded assets, raw output of renderer, ... (default: temp dir)")
     self.add_argument("--job-dir", type=str, default="output",
@@ -80,16 +80,16 @@ class ArgumentParser(argparse.ArgumentParser):
       flags = super(ArgumentParser, self).parse_args(args=args)
     return flags
 
+def str2path(strpath):
+  return tfds.core.as_path(strpath)
 
 def setup_directories(FLAGS):
-  if FLAGS.scratch_dir is None:
-    scratch_dir = tfds.core.as_path(tempfile.mkdtemp())
-  else:
-    scratch_dir = tfds.core.as_path(FLAGS.scratch_dir)
-    if scratch_dir.exists():
-      logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
-      shutil.rmtree(scratch_dir)
-    scratch_dir.mkdir(parents=True)
+  assert FLAGS.scratch_dir is not None
+  scratch_dir = FLAGS.scratch_dir
+  if scratch_dir.exists():
+    logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
+    shutil.rmtree(scratch_dir)
+  scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
   output_dir = tfds.core.as_path(FLAGS.job_dir)
