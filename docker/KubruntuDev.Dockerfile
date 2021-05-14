@@ -4,27 +4,34 @@
 # immediately affect the installed kubric.
 # The intended way to use this image is by mounting a kubric development folder
 # from the host over the included sources.
+# 
 # For example from the kubric directory a bash session can be started as:
-# >>  docker run -v "`pwd`:/kubric" -w "/kubric" --rm -it klausgreff/kubruntudev:latest /bin/bash
+# 
+# docker run \
+#   --rm \
+#   --user $(id -u):$(id -g) \
+#   --volume "$PWD:/kubric" \
+#   --workdir "/kubric" \
+#   --interactive \
+#   kubricdockerhub/kubruntudev:latest \
+#   /bin/bash
 
-FROM klausgreff/kubruntu:latest
+FROM kubricdockerhub/blender:latest
 
-WORKDIR /kubric
+# --- Install Python dependencies
+COPY requirements.txt .
+COPY requirements_dev.txt .
+RUN python3 -m ensurepip
+RUN pip3 install --upgrade pip wheel
+RUN pip3 install --upgrade -r requirements.txt
+RUN pip3 install --upgrade -r requirements_dev.txt
 
-COPY . .
+# --- Clear temporary
+RUN rm -f requirements.txt
+RUN rm -f requirements_dev.txt
 
-RUN pip3 install -U pip && \
-    pip3 uninstall -y kubric && \
-    pip3 install -r requirements_dev.txt && \
-    pip3 install -r docs/requirements.txt && \
-    pip3 install -e .
+# --- Silences tensorflow
+ENV TF_CPP_MIN_LOG_LEVEL="3"
 
-
-
-
-
-
-
-
-
-
+# --- Allows "import kubric" w/o install
+ENV PYTHONPATH="/kubric"

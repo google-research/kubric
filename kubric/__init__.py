@@ -43,6 +43,7 @@ from kubric.utils import process_collisions
 from kubric.utils import save_as_pkl
 from kubric.utils import save_as_json
 from kubric.utils import done
+from kubric.utils import str2path
 
 from tensorflow_datasets.core.utils.generic_path import as_path
 

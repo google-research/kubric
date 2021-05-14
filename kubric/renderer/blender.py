@@ -20,6 +20,7 @@ import multiprocessing.pool
 import sys
 import threading
 from typing import Any, Callable, Dict, Tuple
+import tempfile
 import os.path
 
 import imageio
@@ -32,6 +33,7 @@ from singledispatchmethod import singledispatchmethod
 import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
+import kubric as kb
 from kubric.utils import save_as_json
 
 import bpy
@@ -212,16 +214,21 @@ def compute_bboxes(segmentation):
 
 
 class Blender(core.View):
-  def __init__(self, scene: core.Scene, scratch_dir, adaptive_sampling=True, use_denoising=True,
-               samples_per_pixel=128, background_transparency=False):
+  def __init__(self,
+               scene: core.Scene,
+               scratch_dir=tempfile.mkdtemp(),
+               adaptive_sampling=True,
+               use_denoising=True,
+               samples_per_pixel=128,
+               background_transparency=False):
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
     self.bg_node = None
     self.bg_hdri_node = None
     self.bg_mapping_node = None
-    self.scratch_dir = scratch_dir
-    self.log_file = scratch_dir / "blender.log"
+    self.scratch_dir = kb.str2path(scratch_dir)
+    self.log_file = self.scratch_dir / "blender.log"
 
     self._clear_and_reset()  # as blender has a default scene on load
     self.blender_scene = bpy.context.scene

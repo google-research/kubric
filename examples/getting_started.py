@@ -54,4 +54,4 @@ for i in range(8):
   scene.add(ball)
   kb.move_until_no_overlap(ball, simulator, spawn_region=spawn_region)
 
-renderer.save_state("scene1.blend")
+renderer.save_state("getting_started.blend")

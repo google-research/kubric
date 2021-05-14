@@ -7,13 +7,13 @@ Assuming a functional `Docker installation <https://docs.docker.com/get-docker/>
 
 .. code-block:: console
 
-    docker pull klausgreff/kubruntu
+    docker pull kubricdockerhub/kubruntu
 
 To run a ``worker.py`` file use:
 
 .. code-block:: console
 
-    docker run  -v "`pwd`:/kubric" -it --rm  klausgreff/kubruntu python3 worker.py
+    docker run --rm --interactive --user $(id -u):$(id -g) -v "`pwd`:/kubric" -w /kubric kubricdockerhub/kubruntu python3 examples/getting_started.py
 
 In the following we will create a series of simple workers that highlight different aspects of Kubric.
 The code for these examples can also be found in the `examples directory <https://github.com/google-research/kubric/tree/main/examples>`_.

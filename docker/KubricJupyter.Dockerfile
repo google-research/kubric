@@ -1,7 +1,5 @@
-# This docker image starts a jupyterlab server and exposes it to the outside.
-
-
-FROM klausgreff/kubruntu:latest
+# --- Image with an active jupyterlab server exposed it to port 8888
+FROM kubricdockerhub/kubruntu:latest
 
 EXPOSE 8888
 WORKDIR /kubric

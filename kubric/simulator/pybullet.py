@@ -14,6 +14,7 @@
 
 import logging
 import pathlib
+import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
 import pybullet as pb
@@ -29,7 +30,7 @@ __all__ = ("PyBullet", )
 
 class PyBullet(core.View):
 
-  def __init__(self, scene: core.Scene, scratch_dir):
+  def __init__(self, scene: core.Scene, scratch_dir=tempfile.mkdtemp()):
     self.scratch_dir = scratch_dir
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
     # Set some parameters to fix the sticky-walls problem
@@ -159,6 +160,7 @@ class PyBullet(core.View):
 
   def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
+    assert self.scratch_dir is not None
     # first store in a temporary file and then copy, to support remote paths
     pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
     tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
