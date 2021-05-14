@@ -6,8 +6,8 @@ Installing Kubric
 There are several ways of installing Kubric:
 
   1. Using Docker (recommended)
-  2. Native installation as Python package
-  3. Through the Blender CLI
+  2. Through the Blender CLI
+  3. Native installation as Python package
 
 Docker
 ------
@@ -23,18 +23,42 @@ This completes the "installation", and any Kubric worker file can now be run as:
 
 .. code-block:: console
 
-    docker run  -v "`pwd`:/kubric" -it --rm  klausgreff/kubruntu python3 worker.py
+    docker run --user $(id -u):$(id -g) --volume "$PWD:/kubric" --interactive --rm  klausgreff/kubruntu python3 worker.py
 
 
 .. note::
-    The flag ``-v "HOST_DIR:CONTAINER_DIR"`` mounts the current directory into ``/kubric/`` in the container.
-    This is a convenient way to pass files (like ``worker.py``) into the container and also get the output files back.
-    The flags ``-it`` allocates a pseudo-tty including STDIN for interactivity and finally ``--rm`` deletes the container (but not the image) after completion (optional to avoid clutter).
+    The flag ``--user $(id -u):$(id -g)`` ensures commands executed within the container use the host user information 
+    in creating new files.
+    The flag ``--volume "HOST_DIR:CONTAINER_DIR"`` mounts the current directory into the ``/kubric`` container directory; this is a convenient way to pass files (like ``worker.py``) into the container and also get the output files back.
+    The flags ``--interactive`` allocates a pseudo-tty including STDIN for interactivity and finally ``--rm`` deletes the container (but not the image) after completion (optional to avoid clutter).
+
+
+Blender
+-------
+In principle, Kubric scripts can also be run directly through the CLI of Blender, which makes use of the included Python version that Blender ships with (instead of the system Python).
+For this approach, download and install the desired version of `Blender <https://www.blender.org/download/>`_ normally, and also clone Kubric as usual.
+
+Then from the Kubric source directory install the requirements and Kubric inside Blender Python.
+For example like this:
+
+.. code-block:: console
+
+    blender --python -m pip install -r requirements.txt
+    blender --python -m pip install .
+
+.. warning:: This may fail for some dependencies which have to be built (e.g. OpenEXR), even if the corresponding system-packages are installed because the Blender-internal pip fails to find the correct paths. We do not know of a good solution for this.
+
+It should then be possible to run Kubric worker files using:
+
+.. code-block:: console
+
+    blender --factory-startup -noaudio --background --python worker.py
+
 
 Native
 ------
 In case that you need (or want) a Kubric installation directly on your host system, you need to first manually install ``bpy`` and the other dependencies.
-Be warned though: this process can be difficult and frustrating.
+Be warned though: this process can be VERY difficult and frustrating.
 
 First clone the `Kubric git repository <https://github.com/google-research/kubric>`_:
 
@@ -73,25 +97,3 @@ Kubric worker files can then be run normally using python:
 .. code-block:: console
 
     python worker.py
-
-Blender
--------
-In principle, Kubric scripts can also be run directly through the CLI of Blender, which makes use of the included Python version that Blender ships with (instead of the system Python).
-For this approach, download and install the desired version of `Blender <https://www.blender.org/download/>`_ normally, and also clone Kubric as usual.
-
-Then from the Kubric source directory install the requirements and Kubric inside Blender Python.
-For example like this:
-
-.. code-block:: console
-
-    blender --python -m pip install -r requirements.txt
-    blender --python -m pip install .
-
-.. warning:: This may fail for some dependencies which have to be built (e.g. OpenEXR), even if the corresponding system-packages are installed because the Blender-internal pip fails to find the correct paths. We do not know of a good solution for this.
-
-It should then be possible to run Kubric worker files using:
-
-.. code-block:: console
-
-    blender --factory-startup -noaudio --background --python worker.py
-

@@ -12,7 +12,7 @@ Kubric is a Python package for creating synthetic video datasets with rich groun
    :maxdepth: 2
    :caption: Contents:
 
-   source/getting_started
    source/installing
+   source/getting_started
    source/kubric
 
