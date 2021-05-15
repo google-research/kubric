@@ -229,6 +229,7 @@ class Blender(core.View):
     self.bg_mapping_node = None
     self.scratch_dir = kb.str2path(scratch_dir)
     self.log_file = self.scratch_dir / "blender.log"
+    logger.info("Blender rendering folder: '%s'", self.scratch_dir)
 
     self._clear_and_reset()  # as blender has a default scene on load
     self.blender_scene = bpy.context.scene
@@ -293,19 +294,38 @@ class Blender(core.View):
     self.blender_scene.render.film_transparent = value
 
   def save_state(self, path: PathLike = "scene.blend", pack_textures: bool = True):
-    if pack_textures:
-      bpy.ops.file.pack_all()  # embed all textures into the blend file
-
-    # first store in a temporary file and then copy; blender does not support remote paths
+    """Saves the '.blend' blender file to disk.""" 
     filepath = str(self.scratch_dir / "scene.blend")
-    bpy.ops.wm.save_mainfile(filepath=filepath)
-    logger.info(f"copying '{filepath}' → '{path}'")
+    logger.debug("copying '%s' → '%s'", filepath, path)
+
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
+      # --- save file to the local scratch directory
+      bpy.ops.wm.save_mainfile(filepath=filepath)
+      # --- embed all textures into the blend file
+      if pack_textures: bpy.ops.file.pack_all()
+
+    # --- copy to the target directory (might be bucket)
     tf.io.gfile.copy(filepath, path, overwrite=True)
 
-  def render(self):
-    # --- starts rendering
-    with RedirectStream(stream=sys.stdout, filename=self.log_file):
-      bpy.ops.render.render(animation=True, write_still=True)
+  def render(self, verbose=False):
+    """Renders the animation to `self.scratch_dir`; likely postprocessed by self.postprocess."""
+    with RedirectStream(stream=sys.stdout, filename=self.log_file, disabled=verbose):
+        bpy.ops.render.render(animation=True, write_still=False) #TODO: Issue #95
+      
+  def render_still(self, filepath: PathLike = "kubric.png", verbose=False):
+    """Renders a single frame of the scene to filepath."""
+    assert filepath.endswith(".png")
+    
+    # --- temporarily modify the blender render.filepath 
+    render_filepath_backup = bpy.context.scene.render.filepath
+    bpy.context.scene.render.filepath = str(self.scratch_dir / "stillframe.png")
+    # --- render
+    with RedirectStream(stream=sys.stdout, filename=self.log_file, disabled=verbose):
+      bpy.ops.render.render(animation=False, write_still=True)
+    # --- copy to desired output path and restore blender render.filepath
+    tf.io.gfile.copy(bpy.context.scene.render.filepath, filepath, overwrite=True)
+    bpy.context.scene.render.filepath = render_filepath_backup
+
 
   def postprocess(self, from_dir: PathLike, to_dir=PathLike):
     from_dir = tfds.core.as_path(from_dir)

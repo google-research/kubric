@@ -28,11 +28,13 @@ class RedirectStream(object):
     libc = ctypes.CDLL(None)
     libc.fflush(None)
 
-  def __init__(self, stream, filename=os.devnull):
+  def __init__(self, stream, filename=os.devnull, disabled=False):
     self.stream = stream
     self.filename = filename
+    self.disabled = disabled
 
   def __enter__(self):
+    if self.disabled: return
     try:
       self.stream.flush()  # ensures python stream unaffected
       self.fd = open(self.filename, "w+")
@@ -44,6 +46,7 @@ class RedirectStream(object):
       print(e)
   
   def __exit__(self, type, value, traceback):
+    if self.disabled: return
     try:
       RedirectStream._flush_c_stream()  # ensures C stream buffer empty
       os.dup2(self.dup_stream, self.stream.fileno())  # restores stream

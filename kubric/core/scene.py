@@ -153,6 +153,15 @@ class Scene(tl.HasTraits):
     for view in self._views:
       view.add(asset)
 
+    # --- if is a camera object, and none is set, set as the camera
+    if isinstance(asset, kubric.cameras.Camera):
+      self.camera = asset
+
+  def __iadd__(self, asset: Union[base.Asset, List[base.Asset]]):
+    """Adds assets to the scene with a 'scene+=asset' coding pattern."""
+    self.add(asset)
+    return self
+
   def remove(self, asset: base.Asset):
     if asset not in self._assets:
       raise ValueError(f"{asset} cannot be removed, because it is not part of this scene.")

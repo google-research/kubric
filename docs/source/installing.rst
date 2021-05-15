@@ -23,7 +23,11 @@ This completes the "installation", and any Kubric worker file can now be run as:
 
 .. code-block:: console
 
-    docker run --user $(id -u):$(id -g) --volume "$PWD:/kubric" --interactive --rm  kubricdockerhub/kubruntu python3 worker.py
+    docker run --rm --interactive \
+        --user $(id -u):$(id -g) \
+        --volume "$PWD:/kubric" \
+        kubricdockerhub/kubruntu \
+        python3 examples/helloworld.py
 
 .. note::
     The flag ``--user $(id -u):$(id -g)`` ensures commands executed within the container use the host user information 

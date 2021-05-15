@@ -11,6 +11,8 @@
 
 FROM kubricdockerhub/blender:latest
 
+WORKDIR /kubric
+
 # --- Install Python dependencies
 COPY requirements.txt .
 RUN python3 -m ensurepip
