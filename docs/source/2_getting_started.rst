@@ -1,29 +1,20 @@
-Getting Started
+Getting started
 ===============
 The typical Kubric workflow involves a worker file, that describes the construction, simulation, rendering, and post-processing of a single video.
-Because of its dependence on the Blender python module, installing kubric can be difficult.
-The recommended way of using Kubric is thus via the `kubruntu <https://hub.docker.com/r/kubricdockerhub/kubruntu>`_ Docker image, which contains a fully functional installation of Kubric with all its dependencies.
-Assuming a functional `Docker installation <https://docs.docker.com/get-docker/>`_ this image can simply be downloaded like this (for more details see :ref:`installation instructions<installation>`):
+Let us look at the very simple ``examples/getting_started.py`` file that renders a video of a few bouncing balls.
+The corresponding code can be executed as:
 
 .. code-block:: console
 
-    docker pull kubricdockerhub/kubruntu
-
-To run a ``worker.py`` file use:
-
-.. code-block:: console
-
-    docker run --rm --interactive --user $(id -u):$(id -g) -v "`pwd`:/kubric" -w /kubric kubricdockerhub/kubruntu python3 examples/getting_started.py
-
-In the following we will create a series of simple workers that highlight different aspects of Kubric.
-The code for these examples can also be found in the `examples directory <https://github.com/google-research/kubric/tree/main/examples>`_.
-
-A Simple Worker
----------------
-To get started let's create a very simple ``worker.py`` file that renders of a few bouncing balls.
+    docker run --rm --interactive \
+      --user $(id -u):$(id -g) \ 
+      -v "`pwd`:/kubric" \
+      -w /kubric kubricdockerhub/kubruntu \ 
+      python3 examples/getting_started.py
 
 Boilerplate
-^^^^^^^^^^^
+-----------
+
 First, we need to create a (default) scene, a simulator and a renderer.
 Currently only the pybullet simulator and the Blender renderer are supported so we'll use those:
 
@@ -37,8 +28,8 @@ Currently only the pybullet simulator and the Blender renderer are supported so 
   simulator = kb.simulator.PyBullet(scene)
   renderer = kb.renderer.Blender(scene)
 
-Scene Geometry
-^^^^^^^^^^^^^^
+Scene geometry
+--------------
 Next we will create a square floor and four bounding walls and add them to the scene.
 For this we resize and position five `kb.Cube` primitives, which by default creates a cube ranging from (-1, -1, -1) to (1, 1, 1):
 
@@ -56,8 +47,8 @@ For this we resize and position five `kb.Cube` primitives, which by default crea
 
 The ``static=True`` argument ensures that the floor and walls remain fixed during the physics simulation, since we don't want them to react to gravity or topple.
 
-Light and Camera
-^^^^^^^^^^^^^^^^
+Light and camera
+----------------
 Next we need to add a light, and a camera to the scene:
 
 .. code-block:: python
@@ -70,8 +61,8 @@ Next we need to add a light, and a camera to the scene:
 
 Note that we did not simply add the camera with ``scene.add``, but instead assigned it to ``scene.camera``, which sets it as the active camera for rendering (and also automatically adds it to the scene).
 
-Preliminary Run
-^^^^^^^^^^^^^^^
+Preliminary run
+---------------
 We can already export this scene as a Blender file to see what is happening:
 
 .. code-block:: python
@@ -90,8 +81,8 @@ which gives us a ``scene1.blend`` file that looks like this:
 .. image:: ../images/getting_started_blender_scene_2.png
    :width: 400pt
 
-Colorful Balls
-^^^^^^^^^^^^^^
+Colorful balls
+--------------
 
 Next, let us add a couple of colorful balls (:class:`~kubric.core.objects.Sphere` primitives) for bouncing around.
 We use ``rng.uniform(low, high)`` to ensures that each ball is initialized at its own random random position within the range of the walls:
@@ -149,7 +140,8 @@ The resulting scene looks like this:
 
 
 Simulation
-^^^^^^^^^^
+----------
+
 Now that we have all the objects in place, it is time to run the simulation.
 In Kubric this is very easy:
 
@@ -161,7 +153,7 @@ export scene: motion paths
 
 
 Rendering
-^^^^^^^^^
+---------
 renderer.render
 
 resolution
@@ -169,13 +161,13 @@ resolution
 output format
 
 
-Post-Processing
-^^^^^^^^^^^^^^^
+Post-processing
+---------------
 exr -> pkl
 
 
 Bonus: GIF
-^^^^^^^^^^
+----------
 how to turn this into an animated GIF?
 
 Result: image!
