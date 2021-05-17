@@ -11,19 +11,19 @@ There are several ways of installing Kubric:
 
 Docker
 ------
-The Docker image `kubruntu <https://hub.docker.com/r/klausgreff/kubruntu>`_ features a fully functional installation of Kubric and all its dependencies.
+The Docker image `kubruntu <https://hub.docker.com/r/kubricdockerhub/kubruntu>`_ features a fully functional installation of Kubric and all its dependencies.
 This approach for using Kubric is by far the easiest, and the one we recommend.
 Assuming a working `Docker installation <https://docs.docker.com/get-docker/>`_ the image can be downloaded simply by:
 
 .. code-block:: console
 
-    docker pull klausgreff/kubruntu
+    docker pull kubricdockerhub/kubruntu
 
 This completes the "installation", and any Kubric worker file can now be run as:
 
 .. code-block:: console
 
-    docker run  -v "`pwd`:/kubric" -it --rm  klausgreff/kubruntu python3 worker.py
+    docker run  -v "`pwd`:/kubric" -it --rm  kubricdockerhub/kubruntu python3 worker.py
 
 
 .. note::

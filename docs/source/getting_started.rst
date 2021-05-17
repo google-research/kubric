@@ -2,7 +2,7 @@ Getting Started
 ===============
 The typical Kubric workflow involves a worker file, that describes the construction, simulation, rendering, and post-processing of a single video.
 Because of its dependence on the Blender python module, installing kubric can be difficult.
-The recommended way of using Kubric is thus via the `kubruntu <https://hub.docker.com/r/klausgreff/kubruntu>`_ Docker image, which contains a fully functional installation of Kubric with all its dependencies.
+The recommended way of using Kubric is thus via the `kubruntu <https://hub.docker.com/r/kubricdockerhub/kubruntu>`_ Docker image, which contains a fully functional installation of Kubric with all its dependencies.
 Assuming a functional `Docker installation <https://docs.docker.com/get-docker/>`_ this image can simply be downloaded like this (for more details see :ref:`installation instructions<installation>`):
 
 .. code-block:: console
@@ -83,7 +83,7 @@ To execute our worker run the following command from the same directory as the `
 
 .. code-block:: console
 
-  docker run  -v "`pwd`:/kubric" -it --rm  klausgreff/kubruntudev python3 worker.py
+  docker run  -v "$PWD:/kubric" -it --rm  kubricdockerhub/kubruntudev python3 worker.py
 
 which gives us a ``scene1.blend`` file that looks like this:
 
