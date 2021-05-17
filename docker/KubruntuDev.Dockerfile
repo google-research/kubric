@@ -18,6 +18,8 @@
 
 FROM kubricdockerhub/blender:latest
 
+WORKDIR /kubric
+
 # --- Install Python dependencies
 COPY requirements.txt .
 COPY requirements_dev.txt .
