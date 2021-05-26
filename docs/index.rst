@@ -2,7 +2,7 @@ Kubric
 ======
 Kubric is a Python package for creating synthetic video datasets with rich ground-truth information such as instance segmentation, optical flow and depth maps:
 
-.. image:: images/KLEVR.gif
+.. image:: /images/KLEVR.gif
    :alt: Example video including segmentation, optical flow and depth map
    :align: center
 
@@ -14,4 +14,5 @@ Kubric is a Python package for creating synthetic video datasets with rich groun
    source/1_helloworld
    source/2_simulator 
    source/3_kubric_api
+   source/assets
 

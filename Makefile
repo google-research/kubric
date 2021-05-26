@@ -26,6 +26,10 @@ kubruntudev_push: kubruntudev
 docs: $(shell find docs )
 	cd docs && $(MAKE) html
 
+# --- starts a simple HTTP server to inspect the docs
+docs_server:
+	cd docs/_build/html && python3 -m http.server 8000
+
 clean:
 	python3 setup.py clean --all
 	rm -rf kubric.egg-info

@@ -1,7 +1,5 @@
-.. _installation:
-
 Installing
-=================
+==========
 
 The Docker image `kubruntu <https://hub.docker.com/r/kubricdockerhub/kubruntu>`_ features a fully functional installation of Kubric and all its dependencies.
 This approach for using Kubric is by far the easiest, and the one we recommend. 
