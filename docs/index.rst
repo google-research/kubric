@@ -12,6 +12,6 @@ Kubric is a Python package for creating synthetic video datasets with rich groun
 
    source/0_installing
    source/1_helloworld
-   source/2_getting_started 
+   source/2_simulator 
    source/3_kubric_api
 

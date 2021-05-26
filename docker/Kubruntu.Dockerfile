@@ -7,7 +7,7 @@
 #   --workdir "/kubric" \
 #   --interactive \
 #   kubricdockerhub/kubruntu:latest \
-#   python3 examples/getting_started.py
+#   python3 examples/helloworld.py
 
 FROM kubricdockerhub/blender:latest
 
