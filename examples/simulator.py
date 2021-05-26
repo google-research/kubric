@@ -18,30 +18,35 @@ import kubric as kb
 
 logging.basicConfig(level="WARNING") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
 
-# --- create scene and attach a renderer to it
+# --- create scene and attach a renderer and simulator
 scene = kb.Scene(resolution=(256, 256))
+scene.frame_end = 48   #< numbers of frames to render
+scene.frame_rate = 24  #< rendering framerate
+scene.step_rate = 240  #< simulation framerate
 simulator = kb.simulator.PyBullet(scene)
-renderer = kb.renderer.Blender(scene)
+renderer = kb.renderer.Blender(scene, scratch_dir="./output")
 
-floor = kb.Cube(scale=(1, 1, 0.1), position=(0, 0, -0.1), static=True)
-north_wall = kb.Cube(scale=(1.2, 0.1, 0.5), position=(0, 1.1, 0.3), static=True)
-south_wall = kb.Cube(scale=(1.2, 0.1, 0.5), position=(0, -1.1, 0.3), static=True)
-east_wall = kb.Cube(scale=(0.1, 1, 0.5), position=(1.1, 0, 0.3), static=True)
-west_wall = kb.Cube(scale=(0.1, 1, 0.5), position=(-1.1, 0, 0.3), static=True)
-scene.add([floor, north_wall, south_wall, east_wall, west_wall])
-
-sun = kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
-scene.add(sun)
-
+# --- populate the scene with objects, lights, cameras
+scene += kb.Cube(scale=(3, 3, 0.1), position=(0, 0, -0.1), static=True)
+scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
 scene.camera = kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
 
+# --- generates spheres randomly within a spawn region
+spawn_region = [[-1, -1, 0], [1, 1, 1]]
 rng = np.random.default_rng()
-spawn_region = [[-1, -1, 0], [1, 1, 1]]   # [low, high] bounds of the volume for spawning balls
 for i in range(8):
-  ball = kb.Sphere(scale=0.1, position=rng.uniform(*spawn_region),
-                   velocity=rng.uniform([-1, -1, 0], [1, 1, 0]))
-  ball.material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng))
-  scene.add(ball)
-  kb.move_until_no_overlap(ball, simulator, spawn_region=spawn_region)
+  position = rng.uniform(*spawn_region)
+  velocity = rng.uniform([-1, -1, 0], [1, 1, 0])
+  material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng))
+  sphere = kb.Sphere(scale=0.1, position=position, velocity=velocity, material=material)
+  scene += sphere
+  kb.move_until_no_overlap(sphere, simulator, spawn_region=spawn_region)
 
-renderer.save_state("getting_started.blend")
+# --- executes the simulation (and store keyframes)
+simulator.run()
+
+# --- save blender file
+# renderer.save_state("simulator.blend")
+
+# --- renders the output (to renderer.scratch_dir)
+renderer.render(verbose=True)

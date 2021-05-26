@@ -24,7 +24,18 @@
       },
       "command": "docker run --rm --interactive --user $(id -u):$(id -g) --volume '${workspaceFolder}:/kubric' kubricdockerhub/kubruntudev python3 examples/helloworld.py",
       "problemMatcher": []  
-    }
+    },
+
+    // --- Executes within the pre-built docker image
+    {
+      "label": "Kubruntudev examples/simulator.py",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/"
+      },
+      "command": "docker run --rm --interactive --user $(id -u):$(id -g) --volume '${workspaceFolder}:/kubric' kubricdockerhub/kubruntudev python3 examples/simulator.py",
+      "problemMatcher": []
+    },
 
     // OBSOLETE/TODO: execution within a vscode mounted container
     // {

@@ -1,179 +1,70 @@
-Getting started
-===============
-The typical Kubric workflow involves a worker file, that describes the construction, simulation, rendering, and post-processing of a single video.
-Let us look at the very simple ``examples/getting_started.py`` file that renders a video of a few bouncing balls.
-The corresponding code can be executed as:
+Simulator
+=========
 
-.. code-block:: console
+A slightly more complex example does not render static frames but instead uses the physics engine to run a simulation, and then renders the corresponding video.
+Let us look at `examples/simulator.py <https://github.com/google-research/kubric/blob/main/examples/simulator.py>`_ (full source at the bottom of this page).
 
-    docker run --rm --interactive \
-      --user $(id -u):$(id -g) \ 
-      -v "`pwd`:/kubric" \
-      -w /kubric kubricdockerhub/kubruntu \ 
-      python3 examples/getting_started.py
-
-Boilerplate
------------
-
-First, we need to create a (default) scene, a simulator and a renderer.
-Currently only the pybullet simulator and the Blender renderer are supported so we'll use those:
+As we are generating a video, we also specify the framerate properties of renderer and simulator, how many frames to render, and attach a simulator to the scene:
 
 .. code-block:: python
-  :linenos:
-
-  import numpy as np
-  import kubric as kb
+  :emphasize-lines: 5
 
   scene = kb.Scene(resolution=(256, 256))
+  scene.frame_end = 48   #< numbers of frames to render
+  scene.frame_rate = 24  #< rendering framerate
+  scene.step_rate = 240  #< simulation framerate
   simulator = kb.simulator.PyBullet(scene)
-  renderer = kb.renderer.Blender(scene)
+  renderer = kb.renderer.Blender(scene, scratch_dir="./output")
 
-Scene geometry
---------------
-Next we will create a square floor and four bounding walls and add them to the scene.
-For this we resize and position five `kb.Cube` primitives, which by default creates a cube ranging from (-1, -1, -1) to (1, 1, 1):
+And notice that when we specify the floor, the ``static=True`` argument ensures that the floor remains fixed during the simulation:
 
 .. code-block:: python
-  :lineno-start: 7
+  :emphasize-lines: 1
 
-  floor = kb.Cube(scale=(1, 1, 0.1), position=(0, 0, -0.1), static=True)
-  north_wall = kb.Cube(scale=(1.2, 0.1, 1), position=(0, 1.1, 0.1), static=True)
-  south_wall = kb.Cube(scale=(1.2, 0.1, 1), position=(0, -1.1, 0.1), static=True)
-  east_wall = kb.Cube(scale=(0.1, 1, 1), position=(1.1, 0, 0.1), static=True)
-  west_wall = kb.Cube(scale=(0.1, 1, 1), position=(-1.1, 0, 0.1), static=True)
-
-  scene.add([floor, north_wall, south_wall, east_wall, west_wall])
-
-
-The ``static=True`` argument ensures that the floor and walls remain fixed during the physics simulation, since we don't want them to react to gravity or topple.
-
-Light and camera
-----------------
-Next we need to add a light, and a camera to the scene:
-
-.. code-block:: python
-  :lineno-start: 14
-
-  sun = kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
-  scene.add(sun)
-
+  scene += kb.Cube(scale=(1, 1, 0.1), position=(0, 0, -0.1), static=True)
+  scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
   scene.camera = kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
 
-Note that we did not simply add the camera with ``scene.add``, but instead assigned it to ``scene.camera``, which sets it as the active camera for rendering (and also automatically adds it to the scene).
-
-Preliminary run
----------------
-We can already export this scene as a Blender file to see what is happening:
+Let us add a couple of colorful balls (:class:`~kubric.core.objects.Sphere` primitives) that bounce around; we use ``rng.uniform(low, high)`` to ensures that each ball is initialized at its own random random position:
 
 .. code-block:: python
-  :lineno-start: 19
 
-  renderer.save_state("scene1.blend")
-
-To execute our worker run the following command from the same directory as the ``worker.py`` file:
-
-.. code-block:: console
-
-  docker run  -v "$PWD:/kubric" -it --rm  kubricdockerhub/kubruntudev python3 worker.py
-
-which gives us a ``scene1.blend`` file that looks like this:
-
-.. image:: ../images/getting_started_blender_scene_2.png
-   :width: 400pt
-
-Colorful balls
---------------
-
-Next, let us add a couple of colorful balls (:class:`~kubric.core.objects.Sphere` primitives) for bouncing around.
-We use ``rng.uniform(low, high)`` to ensures that each ball is initialized at its own random random position within the range of the walls:
-
-.. code-block:: python
-  :lineno-start: 19
-
+  spawn_region = [[-1, -1, 0], [1, 1, 1]]
   rng = np.random.default_rng()
-  spawn_region = [[-1, -1, 0], [1, 1, 1]]   # [low, high] bounds of spawning region
   for i in range(8):
-    ball = kb.Sphere(scale=0.1, position=rng.uniform(*spawn_region))
-    scene.add(ball)
+    position = rng.uniform(*spawn_region)
+    velocity = rng.uniform([-1, -1, 0], [1, 1, 0])
+    material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng))
+    sphere = kb.Sphere(scale=0.1, position=position, velocity=velocity, material=material)
+    scene += sphere
+    kb.move_until_no_overlap(sphere, simulator, spawn_region=spawn_region)
 
-One problem with relying on a random placement is that the balls might by accident intersect each other or the walls.
-For spheres we could easily avoid this problem by manually checking the distance of each ball to all other objects and resampling the position in case of a collision.
-But kubric provides a more convenient solution for this problem that can furthermore deal with arbitrary shapes: :func:`~kubric.randomness.move_until_no_overlap`.
-This helper function re-samples the objects position (and rotation) until the simulator no longer detects any collisions:
+To color them, we use the :class:`~kubric.core.materials.PrincipledBSDFMaterial`.
+This material is very versatile and can represent a wide range of materials including plastic, rubber, metal, wax, and glass (see e.g. `these examples from the blender documentation <https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html#examples>`_). 
 
-.. code-block:: python
-  :lineno-start: 25
-
-    kb.move_until_no_overlap(ball, simulator, spawn_region=spawn_region)
-
-
-So far these balls all share the default (diffuse gray) material.
-To color them, we will use the :class:`~kubric.core.materials.PrincipledBSDFMaterial`.
-This material is very versatile and can represent a wide range of materials including plastic, rubber, metal, wax, and glass (see e.g. `these examples from the blender documentation <https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html#examples>`_).
-But here we will stick to the default settings and only modify the color.
-
-.. code-block:: python
-  :lineno-start: 26
-
-    ball.material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng))
-
-
-
-Finally, let us give each ball a random initial velocity. Combined with the code above we get:
-
-.. code-block:: python
-  :lineno-start: 19
-
-  rng = np.random.default_rng()
-  spawn_region = [[-1, -1, 0], [1, 1, 1]]   # [low, high] bounds of spawning region
-  for i in range(8):
-    ball = kb.Sphere(scale=0.1, position=rng.uniform(*spawn_region),
-                     velocity=rng.uniform([-1, -1, 0], [1, 1, 0]))
-    ball.material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(rng=rng))
-    scene.add(ball)
-    kb.move_until_no_overlap(ball, simulator, spawn_region=spawn_region)
-
-The resulting scene looks like this:
-
-.. image:: ../images/getting_started_blender_scene3.jpg
-   :width: 400pt
-
-
-Simulation
-----------
+The utility function :func:`~kubric.randomness.move_until_no_overlap` jitters the objects position (and rotation) until the simulator no longer detects any collisions.
 
 Now that we have all the objects in place, it is time to run the simulation.
-In Kubric this is very easy:
+Once the simulation terminates (pybullet), the simulated object states are saved as keyframes within the renderer (blender).
 
-simulation.run
+.. TODO: start_frame, end_frame, frame_rate, step_rate
 
-start_frame, end_frame, frame_rate, step_rate
+.. code-block:: python
+  
+  simulator.run()
 
-export scene: motion paths
+The gif below is generated via the ``convert`` tool from the ImageMagick package:
 
+.. code-block:: shell
 
-Rendering
----------
-renderer.render
+  convert -delay 8 -loop 0 output/images/frame_*.png output/simulator.gif
 
-resolution
+.. image:: /images/simulator.gif
+   :width: 250pt
+   :align: center
 
-output format
+-------
 
-
-Post-processing
----------------
-exr -> pkl
-
-
-Bonus: GIF
-----------
-how to turn this into an animated GIF?
-
-Result: image!
-
-
-
-
-
-
+.. literalinclude:: /../examples/simulator.py
+  :lineno-start: 1
+  :lines: 15-

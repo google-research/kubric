@@ -2,18 +2,11 @@ Helloworld
 ==========
 
 The typical Kubric workflow involves a worker file, that describes the scene and how to render it.
-Let us go through `examples/helloworld.py <https://github.com/google-research/kubric/blob/main/examples/helloworld.py>`_ line by line
-
-.. literalinclude:: /../examples/helloworld.py
-  :lineno-start: 1
-  :lines: 15-
-
---------
+Let us go through `examples/helloworld.py <https://github.com/google-research/kubric/blob/main/examples/helloworld.py>`_ line by line (full source at the bottom of this page).
 
 First, we need to create a (default) scene and attach the renderer (Blender) to it.
 
 .. code-block:: python
-  :lineno-start: 7
 
   scene = kb.Scene(resolution=(256, 256))
   renderer = kb.renderer.Blender(scene)
@@ -21,7 +14,6 @@ First, we need to create a (default) scene and attach the renderer (Blender) to 
 Next we will create a floor (i.e. cube), and add a sphere on top of it (with default materials).
 
 .. code-block:: python
-  :lineno-start: 11
 
   scene += kb.Cube(scale=(10, 10, 0.1), position=(0, 0, -0.1))
   scene += kb.Sphere(scale=1, position=(0, 0, .5))
@@ -29,7 +21,6 @@ Next we will create a floor (i.e. cube), and add a sphere on top of it (with def
 We also add a directional light to illuminate the scene, and a camera for rendering:
 
 .. code-block:: python
-  :lineno-start: 13
   
   scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
   scene += kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
@@ -37,7 +28,6 @@ We also add a directional light to illuminate the scene, and a camera for render
 We can export this scene as a Blender file to see what is happening (you will be able to open the ``blend`` file in Blender and inspect it as visualized in the screenshot below):
 
 .. code-block:: python
-  :lineno-start: 17
 
   renderer.save_state("helloworld.blend")
 
@@ -49,7 +39,6 @@ We can export this scene as a Blender file to see what is happening (you will be
 Or ask Blender to render an image (from the given camera):
 
 .. code-block:: python
-  :lineno-start: 18
   
   renderer.render_still("helloworld.png")
   
@@ -57,3 +46,9 @@ Or ask Blender to render an image (from the given camera):
    :width: 200pt
    :alt: Image rendered by Kubric (via Blender) 
    :align: center
+
+-------
+
+.. literalinclude:: /../examples/helloworld.py
+  :lineno-start: 1
+  :lines: 15-
