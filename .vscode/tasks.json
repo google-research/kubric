@@ -3,8 +3,8 @@
   // for the documentation about the tasks.json format
   "version": "2.0.0",
   "tasks": [
-
-    // For macOS blender configured as: https://github.com/google-research/kubric/issues/99 
+    
+    // --- Executes within the blender REPL
     {
       "label": "Blender REPL",
       "type": "shell",
@@ -15,8 +15,18 @@
       "problemMatcher": []
     },
 
+    // --- Executes within the pre-built docker image
+    {
+      "label": "Kubruntudev examples/helloworld.py",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/"
+      },
+      "command": "docker run --rm --interactive --user $(id -u):$(id -g) --volume '${workspaceFolder}:/kubric' kubricdockerhub/kubruntudev python3 examples/helloworld.py",
+      "problemMatcher": []  
+    }
 
-    // OBSOLETE: execution within a vscode mounted kubruntudev container
+    // OBSOLETE/TODO: execution within a vscode mounted container
     // {
     //   "label": "klevr",
     //   "type": "shell",

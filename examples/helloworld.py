@@ -28,5 +28,5 @@ scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensit
 scene += kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
 
 # --- render (and save the blender file) 
-renderer.render_still("helloworld.png")
 renderer.save_state("helloworld.blend")
+renderer.render_still("helloworld.png")
