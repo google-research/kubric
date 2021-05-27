@@ -16,7 +16,7 @@ import logging
 import numpy as np
 import kubric as kb
 
-logging.basicConfig(level="WARNING") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
+logging.basicConfig(level="INFO") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
 
 # --- create scene and attach a renderer and simulator
 scene = kb.Scene(resolution=(256, 256))
@@ -24,7 +24,7 @@ scene.frame_end = 48   #< numbers of frames to render
 scene.frame_rate = 24  #< rendering framerate
 scene.step_rate = 240  #< simulation framerate
 simulator = kb.simulator.PyBullet(scene)
-renderer = kb.renderer.Blender(scene, scratch_dir="./output")
+renderer = kb.renderer.Blender(scene)
 
 # --- populate the scene with objects, lights, cameras
 scene += kb.Cube(scale=(3, 3, 0.1), position=(0, 0, -0.1), static=True)
@@ -45,8 +45,6 @@ for i in range(8):
 # --- executes the simulation (and store keyframes)
 simulator.run()
 
-# --- save blender file
-# renderer.save_state("simulator.blend")
-
-# --- renders the output (to renderer.scratch_dir)
-renderer.render(verbose=True)
+# --- renders the output
+renderer.save_state("output/simulator.blend")
+renderer.render(png_filepath="output/frame_", exr_filepath="output/frame_")

@@ -14,14 +14,19 @@
 
 import logging
 import pathlib
+import sys
 import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
-import pybullet as pb
 import tensorflow as tf
 from singledispatchmethod import singledispatchmethod
 
 from kubric import core
+from kubric.redirect_io import RedirectStream
+
+# --- removes the "pybullet build time: May 26 2021 18:52:36" message upon import
+with RedirectStream(stream=sys.stderr):
+  import pybullet as pb
 
 logger = logging.getLogger(__name__)
 

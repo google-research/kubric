@@ -39,6 +39,7 @@ import tempfile
 import numpy as np
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
+from tensorflow_datasets.core.utils.type_utils import PathLike
 
 logger = logging.getLogger(__name__)
 
@@ -80,8 +81,8 @@ class ArgumentParser(argparse.ArgumentParser):
       flags = super(ArgumentParser, self).parse_args(args=args)
     return flags
 
-def str2path(strpath):
-  return tfds.core.as_path(strpath)
+def str2path(path: str) -> PathLike:
+  return tfds.core.as_path(path)
 
 def setup_directories(FLAGS):
   assert FLAGS.scratch_dir is not None
