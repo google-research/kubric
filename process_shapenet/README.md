@@ -1,5 +1,6 @@
 # Steps to process shapenet
 
+
 ## 1. Download Dataset
 
 - Download ShapeNetCore v2 release from https://shapenet.org/download/shapenetcore
@@ -10,15 +11,17 @@
 
 ```
 git clone git@github.com:google-research/kubric.git
+cd kubric
 ```
 
+- Visualize an example of a shapenet Kubric asset at `process_shapenet/example`
 
 ## 3. Run Docker and Install Required Libraries
 
 - Create Docker Image
 
 ```
-cd kubric/process_shapenet
+cd process_shapenet
 bash make_docker.sh
 ```
 

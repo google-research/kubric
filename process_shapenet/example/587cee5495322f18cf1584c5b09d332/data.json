@@ -1,0 +1,58 @@
+{
+    "area": 0.73354,
+    "bounds": [
+        [
+            -0.027159,
+            -0.160763,
+            -0.512877
+        ],
+        [
+            0.030585,
+            0.099324,
+            0.45098
+        ]
+    ],
+    "center_mass": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "density": 1000.0,
+    "euler_number": 16921,
+    "friction": 0.0,
+    "id": "587cee5495322f18cf1584c5b09d332",
+    "inertia": [
+        [
+            -0.0,
+            0.0,
+            -0.0
+        ],
+        [
+            0.0,
+            -0.0,
+            -0.0
+        ],
+        [
+            -0.0,
+            -0.0,
+            0.0
+        ]
+    ],
+    "is_convex": false,
+    "mass": 0.0,
+    "nr_faces": 33250,
+    "nr_vertices": 7951,
+    "paths": {
+        "collision_geometry": [
+            "/collision_geometry.obj"
+        ],
+        "texture": [],
+        "urdf": [
+            "/object.urdf"
+        ],
+        "visual_geometry": [
+            "/visual_geometry.obj"
+        ]
+    },
+    "volume": 0.0
+}
