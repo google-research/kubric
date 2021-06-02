@@ -38,6 +38,7 @@ cat > /tmp/Dockerfile <<EOF
     RUN python3.7 -m pip install --upgrade --force-reinstall munch
     RUN python3.7 -m pip install --upgrade --force-reinstall traitlets
     RUN python3.7 -m pip install --upgrade --force-reinstall ipdb
+    RUN python3.7 -m pip install --upgrade Image
 
     ENTRYPOINT ["/tk/bin/start.sh"]
 EOF
