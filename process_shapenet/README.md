@@ -4,32 +4,40 @@
 
 - Download ShapeNetCore v2 release from https://shapenet.org/download/shapenetcore
 
-## 2. Create and Enter Docker
+## 2. Download Kubric Repository
+
+- Download Kubric Repository
 
 ```
+git clone git@github.com:google-research/kubric.git
+```
+
+
+## 3. Run Docker and Install Required Libraries
+
+- Create Docker Image
+
+```
+cd kubric/process_shapenet
 bash make_docker.sh
 ```
 
-## 3. 
-
-- Download Repo
+- Install Manifold Plus within the Docker container
 
 ```
-git clone 
-```
-
-- Install Manifold Plus
-
-```
+cd ..
 git clone git@github.com:hjwdzh/ManifoldPlus.git
 cd ManifoldPlus
 bash compile.sh
+
 # test
 ./build/manifold --input data/bathtub.obj --output results/bathtub_manifold.obj --depth 8
 ```
 
-## Run ShapeNet Script
+## 4. Run ShapeNet Script
 
 ```
-python3.7 process_shapenet -d ../datasets/ShapeNetCore.v2
+python3.7 process_shapenet/process_shapenet.py -d ../datasets/ShapeNetCore.v2
 ```
+
+The Kubric assets will be saved at process_shapenet/output

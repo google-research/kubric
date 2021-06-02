@@ -16,9 +16,39 @@ import tarfile
 
 from subprocess import PIPE, Popen
 
+
+URDF_TEMPLATE = """
+<robot name="{id}">
+    <link name="base">
+        <contact>
+            <lateral_friction value="{friction}" />  
+        </contact>
+        <inertial>
+            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
+            <mass value="{mass}" />
+            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
+                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
+                     iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="visual_geometry.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" />
+            <geometry>
+                <mesh filename="collision_geometry.obj" />
+            </geometry>
+        </collision>
+    </link>
+</robot>
+"""
+
 def save_asset(asset_path, target_dir='output'):
     """
-
+    Saves a kubric-compatible asset corresponding to a shapenet object
     """
     obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
 
@@ -56,7 +86,6 @@ def save_asset(asset_path, target_dir='output'):
     ## Save translated original object
     vis_path = os.path.join(target_asset_dir, 'visual_geometry.obj')
     with open(vis_path, 'a') as f:
-        j = 0
         for l in lines:
             if 'v ' == l[:2] and len(l.split(' ')) == 4:
                 r_list = l.split(' ')[-3:]
@@ -70,11 +99,9 @@ def save_asset(asset_path, target_dir='output'):
                 f.write(l)
 
     # Save gltf object
-    stdout, stderr = subprocess_call(f'obj2gltf -i {vis_path} -o {vis_path.replace(".obj", "gltf")}')
+    _, stderr = subprocess_call(f'obj2gltf -i {vis_path} -o {vis_path.replace(".obj", "")}')
     if stderr != '':
         print(f'warning .gltf was not saved, {stderr}')
-
-    # Save material, textures, and properties
 
     ## material
     mat_path = obj_path.replace('.obj', '.mtl')
@@ -140,22 +167,6 @@ def verify_tmesh(tmesh):
     return True
 
 
-def fix_tmesh(tmesh):
-    print("Merging vertices closer than a pre-set constant...")
-    tmesh.merge_vertices()
-    print("Removing duplicate faces...")
-    tmesh.remove_duplicate_faces()
-    print("Scaling...")
-    tmesh.apply_scale(scaling=1.0)
-    print("Making the mesh watertight...")
-    trimesh.repair.broken_faces(tmesh, color=None)
-    flag = trimesh.repair.fill_holes(tmesh)
-    assert flag
-    print("Fixing inversion and winding...")
-    trimesh.repair.fix_inversion(tmesh)
-    trimesh.repair.fix_winding(tmesh)
-
-
 def merge_meshes(yourList):
     vertice_list = [mesh.vertices for mesh in yourList]
     faces_list = [mesh.faces for mesh in yourList]
@@ -169,31 +180,6 @@ def merge_meshes(yourList):
     merged__meshes = trimesh.Trimesh(vertices, faces)
     return merged__meshes
 
-
-def save_image(fname, src_fname):
-    from stl import mesh
-    from mpl_toolkits import mplot3d
-    from matplotlib import pyplot
-
-    # Create a new plot
-    figure = pyplot.figure()
-    axes = mplot3d.Axes3D(figure)
-
-    # Load the STL files and add the vectors to the plot
-    your_mesh = mesh.Mesh.from_file(src_fname)
-    axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors))
-
-    # Auto scale to the mesh size
-    scale = your_mesh.points.flatten('F')
-    axes.auto_scale_xyz(scale, scale, scale)
-    pyplot.savefig(fname)
-    print('Saved')
-
-
-def clean_stdout(stdout):
-    return stdout.split(' ')[0].replace('\n', '')
-
-
 def subprocess_call(command):
     p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()
@@ -201,9 +187,7 @@ def subprocess_call(command):
     # get outputs
     stdout = stdout.decode('utf-8')
     stderr = stderr.decode('utf-8')
-
-    # if stdout is None or stdout == '':
-    #     raise ValueError(stderr)
+    
     return stdout, stderr
 
 
@@ -234,36 +218,6 @@ def get_object_properties(tmesh, name, density=None, friction=None):
     return properties
 
 
-URDF_TEMPLATE = """
-<robot name="{id}">
-    <link name="base">
-        <contact>
-            <lateral_friction value="{friction}" />  
-        </contact>
-        <inertial>
-            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
-            <mass value="{mass}" />
-            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
-                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
-                     iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
-        </inertial>
-        <visual>
-            <origin xyz="0 0 0" />
-            <geometry>
-                <mesh filename="visual_geometry.obj" />
-            </geometry>
-        </visual>
-        <collision>
-            <origin xyz="0 0 0" />
-            <geometry>
-                <mesh filename="collision_geometry.obj" />
-            </geometry>
-        </collision>
-    </link>
-</robot>
-"""
-
-
 def get_tmesh(src_fname, return_center_mass=False):
     # Load the mesh
     # -------------
@@ -275,13 +229,10 @@ def get_tmesh(src_fname, return_center_mass=False):
     else:
         tmesh = scene_or_mesh
 
-    # make sure tmesh is suitable
-    # verify_tmesh(tmesh)
-
     # center the tmesh
     center_mass = tmesh.center_mass
     tmesh.apply_translation(-center_mass)
-    # properties = get_object_properties(tmesh, name)
+
     if return_center_mass:
         return tmesh, center_mass
 
@@ -321,4 +272,4 @@ if __name__ == "__main__":
         # Loop over each object and save asset
         for i, obj_id in enumerate(obj_id_list):
             obj_path = os.path.join(args.datadir, cat_dir, obj_id)
-            save_asset(obj_path)
+            save_asset(obj_path, target_dir=os.path.join('process_shapenet', 'output', cat_dir))

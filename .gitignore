@@ -9,6 +9,8 @@
 output/*
 docs/_build
 .idea
+process_shapenet/output
+process_shapenet/output_old
 **/.ipynb_checkpoints
 .hypothesis
 __MACOSX/
