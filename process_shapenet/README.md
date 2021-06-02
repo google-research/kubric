@@ -1,29 +1,35 @@
 # Steps to process shapenet
 
-## Installation
+## 1. Download Dataset
+
+- Download ShapeNetCore v2 release from https://shapenet.org/download/shapenetcore
+
+## 2. Create and Enter Docker
+
+```
+bash make_docker.sh
+```
+
+## 3. 
+
+- Download Repo
+
+```
+git clone 
+```
 
 - Install Manifold Plus
 
 ```
 git clone git@github.com:hjwdzh/ManifoldPlus.git
 cd ManifoldPlus
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j8
-rm -rf .git
-```
-
-- Install NPM from `https://www.npmjs.com/get-npm`
-
-- Install `obj2gltf` with the following command
-
-```
-npm install -g obj2gltf
+bash compile.sh
+# test
+./build/manifold --input data/bathtub.obj --output results/bathtub_manifold.obj --depth 8
 ```
 
 ## Run ShapeNet Script
 
 ```
-python process_shapenet -d {path_to_shapenet} -c {category_id}
+python3.7 process_shapenet -d ../datasets/ShapeNetCore.v2
 ```

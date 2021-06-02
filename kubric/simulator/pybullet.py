@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,30 +13,25 @@
 # limitations under the License.
 
 import logging
-import sys
-
-
 import pathlib
-from typing import Dict, Union, Optional
-
-from singledispatchmethod import singledispatchmethod
 import tempfile
+from typing import Dict, List, Optional, Tuple, Union
 
-from kubric.redirect_io import RedirectStream
+import pybullet as pb
+import tensorflow as tf
+from singledispatchmethod import singledispatchmethod
+
 from kubric import core
 
 logger = logging.getLogger(__name__)
-_pybullet_logs = tempfile.mkstemp(suffix="_bullet.txt")[1]
-
-with RedirectStream(stream=sys.stdout, filename=_pybullet_logs):
-  import pybullet as pb
 
 __all__ = ("PyBullet", )
 
 
 class PyBullet(core.View):
 
-  def __init__(self, scene: core.Scene):
+  def __init__(self, scene: core.Scene, scratch_dir=tempfile.mkdtemp()):
+    self.scratch_dir = scratch_dir
     self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
     # Set some parameters to fix the sticky-walls problem
     # (see https://github.com/bulletphysics/bullet3/issues/3094)
@@ -49,7 +44,10 @@ class PyBullet(core.View):
     })
 
   def __del__(self):
-    pb.disconnect()
+    try:
+      pb.disconnect()
+    except Exception:
+      pass  # cleanup code. ignore errors
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Optional[int]:
@@ -109,6 +107,8 @@ class PyBullet(core.View):
   def _add_object(self, obj: core.FileBasedObject) -> Optional[int]:
     # TODO: support other file-formats
     # TODO: add material assignments
+    if obj.simulation_filename is None:
+      return None  # if there is no simulation file, then ignore this object
     path = pathlib.Path(obj.simulation_filename).resolve()
     logger.debug("Loading '{}' in the simulator".format(path))
 
@@ -158,14 +158,15 @@ class PyBullet(core.View):
     velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
-  def save_state(self, path: Union[pathlib.Path, str]):
+  def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
-    path = pathlib.Path(path)
-    path = path / "scene.bullet"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    pb.saveBullet(str(path))
+    assert self.scratch_dir is not None
+    # first store in a temporary file and then copy, to support remote paths
+    pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
+    tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
 
-  def run(self) -> Dict[core.PhysicalObject, Dict[str, list]]:
+  def run(self) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]],
+                         List[dict]]:
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
     max_step = (self.scene.frame_end + 1) * steps_per_frame
 
@@ -173,7 +174,23 @@ class PyBullet(core.View):
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
                  for obj_id in obj_idxs}
 
+    collisions = []
     for current_step in range(max_step):
+
+      contact_points = pb.getContactPoints()
+      for collision in contact_points:
+        (contact_flag, body_a, body_b, link_a, link_b, position_a, position_b, contact_normal_b,
+         contact_distance, normal_force, lateral_friction1, lateral_friction_dir1,
+         lateral_friction2, lateral_friction_dir2) = collision
+        if normal_force > 1e-6:
+          collisions.append({
+              "instances": (self._obj_idx_to_asset(body_b), self._obj_idx_to_asset(body_a)),
+              "position": position_b,
+              "contact_normal": contact_normal_b,
+              "frame": current_step / steps_per_frame,
+              "force": normal_force,
+          })
+
       if current_step % steps_per_frame == 0:
         for obj_idx in obj_idxs:
           position, quaternion = self.get_position_and_rotation(obj_idx)
@@ -194,10 +211,23 @@ class PyBullet(core.View):
       for frame_id in range(self.scene.frame_end + 1):
         obj.position = animation[obj]["position"][frame_id]
         obj.quaternion = animation[obj]["quaternion"][frame_id]
+        obj.velocity = animation[obj]["velocity"][frame_id]
+        obj.angular_velocity = animation[obj]["angular_velocity"][frame_id]
         obj.keyframe_insert("position", frame_id)
         obj.keyframe_insert("quaternion", frame_id)
+        obj.keyframe_insert("velocity", frame_id)
+        obj.keyframe_insert("angular_velocity", frame_id)
 
-    return animation
+    return animation, collisions
+
+  def _obj_idx_to_asset(self, idx):
+    assets = [asset for asset in self.scene.assets if asset.linked_objects.get(self) == idx]
+    if len(assets) == 1:
+      return assets[0]
+    elif len(assets) == 0:
+      return None,
+    else:
+      raise RuntimeError("Multiple assets linked to same pybullet object. How did that happen?")
 
 
 def xyzw2wxyz(xyzw):

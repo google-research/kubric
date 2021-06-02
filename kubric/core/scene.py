@@ -1,23 +1,25 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from typing import Tuple
+
+from typing import Tuple, Union, List
 
 import traitlets as tl
 
 import kubric
-import kubric.core.traits as ktl
+from kubric.core import traits as ktl
 from kubric.core import base
+from kubric.core import objects
 from kubric.core import cameras
 from kubric.core import color
 
@@ -60,7 +62,8 @@ class Scene(tl.HasTraits):
   ambient_illumination = ktl.RGBA()
   background = ktl.RGBA()
 
-  def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
+  def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,
+               step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
                gravity: Tuple[float, float, float] = (0, 0, -10.),
                camera: cameras.Camera = cameras.UndefinedCamera(),
                ambient_illumination: color.Color = color.get_color("black"),
@@ -104,7 +107,7 @@ class Scene(tl.HasTraits):
 
   @property
   def foreground_assets(self):
-    return tuple(a for a in self._assets if not a.background)
+    return tuple(a for a in self._assets if isinstance(a, objects.Object3D) and not a.background)
 
   @property
   def background_assets(self):
@@ -131,7 +134,12 @@ class Scene(tl.HasTraits):
     for asset in self._assets:
       view.remove(asset)
 
-  def add(self, asset: base.Asset):
+  def add(self, asset: Union[base.Asset, List[base.Asset]]):
+    if isinstance(asset, (list, tuple)):
+      for a in asset:
+        self.add(a)
+      return
+
     if isinstance(asset, base.Undefined):
       return
 
@@ -145,9 +153,14 @@ class Scene(tl.HasTraits):
     for view in self._views:
       view.add(asset)
 
-  def add_all(self, *assets: base.Asset):
-    for asset in assets:
-      self.add(asset)
+    # --- if is a camera object, and none is set, set as the camera
+    if isinstance(asset, kubric.cameras.Camera):
+      self.camera = asset
+
+  def __iadd__(self, asset: Union[base.Asset, List[base.Asset]]):
+    """Adds assets to the scene with a 'scene+=asset' coding pattern."""
+    self.add(asset)
+    return self
 
   def remove(self, asset: base.Asset):
     if asset not in self._assets:

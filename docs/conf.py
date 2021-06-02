@@ -1,3 +1,17 @@
+# Copyright 2021 The Kubric Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -10,20 +24,29 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import inspect
+import os
+import sys
 
 import sphinx_rtd_theme
 
+sys.path.insert(0, os.path.abspath('..'))
+
+
+__version__ = "None"
+
+# read version without importing kubric (to avoid missing bpy dependency problems)
+with open('../kubric/version.py') as f:
+  exec(f.read(), globals())
+
 # -- Project information -----------------------------------------------------
 
-project = 'Kubric'
-copyright = '2021, Klaus Greff, Andrea Tagliasacchi'
-author = 'Klaus Greff, Andrea Tagliasacchi'
+project = "Kubric"
+copyright = "2021 The Kubric Authors"
+author = 'The Kubric Authors'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -33,6 +56,11 @@ release = '0.1'
 # ones.
 extensions = [
     "sphinx_rtd_theme",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.coverage",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.linkcode",
+    "sphinx.ext.mathjax",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -43,6 +71,53 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+
+# -- Autodoc ----------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+autodoc_mock_imports = ["bpy", "OpenEXR"]
+autoclass_content = 'both'
+
+# -- Napoleon ----------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = True
+
+
+# -- Linkcode ----------------------------
+
+def linkcode_resolve(domain, info):
+  # try to create a corresponding github link for each source-file
+  # adapted from Lasagne https://github.com/Lasagne/Lasagne/blob/master/docs/conf.py#L114
+  def find_source():
+    obj = sys.modules[info['module']]
+    fn = inspect.getsourcefile(obj)
+    fn = os.path.relpath(fn, start="..")
+    source, lineno = inspect.getsourcelines(obj)
+
+    for part in info['fullname'].split('.'):
+      obj = getattr(obj, part)
+      try:
+        fn = inspect.getsourcefile(obj)
+        fn = os.path.relpath(fn, start="..")
+        source, lineno = inspect.getsourcelines(obj)
+      except TypeError:
+        break
+    return fn, lineno, lineno + len(source) - 1
+
+  if domain != 'py' or not info['module']:
+    return None
+
+  fn, line_start, line_end = find_source()
+  if line_start is None:
+    filename = fn
+  else:
+    filename = f"{fn}#L{line_start}-L{line_end}"
+
+  # except Exception:
+  #   filename = info['module'].replace('.', '/') + '.py'
+  tag = 'main' if 'dev' in release else ('v' + release)
+  return f"https://github.com/google-research/kubric/blob/{tag}/{filename}"
 
 # -- Options for HTML output -------------------------------------------------
 

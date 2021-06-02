@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import abc
 import collections
+import contextlib
 import multiprocessing
-from typing import Any
 
 import munch
+import numpy as np
 import traitlets as tl
 
 __all__ = ("Asset", "Undefined", "UndefinedAsset")
@@ -51,6 +51,7 @@ class Asset(tl.HasTraits):
 
   uid = tl.Unicode(read_only=True)
   background = tl.Bool(default_value=False)
+  metadata = tl.Dict(key_trait=tl.ObjectName())
 
   def __init__(self, **kwargs):
     initializable_traits = self.trait_names()
@@ -67,6 +68,11 @@ class Asset(tl.HasTraits):
     self.keyframes = collections.defaultdict(dict)
 
     super().__init__(**kwargs)
+
+  @property
+  def active_scene(self):
+    # TODO: this is currently just a hack to avoid the ambiguity when dealing with multiple scenes
+    return self.scenes[0] if self.scenes else None
 
   @tl.default("uid")
   def _uid(self):
@@ -91,6 +97,63 @@ class Asset(tl.HasTraits):
                                    owner=self,
                                    frame=frame,
                                    type='keyframe'))
+
+  @contextlib.contextmanager
+  def at_frame(self, frame, interpolation="linear"):
+    if frame is None:
+      try:
+        yield self
+      finally:
+        return
+
+    old_values = {}
+    try:
+      for key, value in self.keyframes.items():
+        old_values[key] = getattr(self, key)
+        setattr(self, key, self.get_value_at(name=key, frame=frame,
+                                             interpolation=interpolation))
+      yield self
+    finally:
+      for key, value in old_values.items():
+        setattr(self, key, value)
+
+  def get_value_at(self, name, frame, interpolation="linear"):
+    if name not in self.keyframes:
+      # no animation data found, try retrieving static value
+      return getattr(self, name)
+    keyframes = self.keyframes[name]
+
+    if frame in keyframes:
+      return keyframes[frame]
+
+    available_frames = sorted(keyframes.keys())
+    right_idx = np.searchsorted(available_frames, frame)
+    if right_idx == 0:
+      return keyframes[available_frames[0]]
+    if right_idx == len(available_frames):
+      return keyframes[available_frames[-1]]
+    left_frame, right_frame = available_frames[right_idx-1], available_frames[right_idx]
+
+    if interpolation == "const":
+      return keyframes[left_frame]
+    elif interpolation == "nearest":
+      if abs(frame - left_frame) <= abs(frame - right_frame):
+        return keyframes[left_frame]
+      else:
+        return keyframes[right_frame]
+    elif interpolation == "linear":
+      mixing = (frame - left_frame) / (right_frame - left_frame)
+      left_val = np.array(keyframes[left_frame])
+      right_val = np.array(keyframes[right_frame])
+      return (1-mixing) * left_val + mixing * right_val
+
+  def get_values_over_time(self, name, frames=None, interpolation="linear"):
+    if frames is None:
+      frames = list(range(self.active_scene.frame_start,
+                          self.active_scene.frame_end+1))
+    return np.array([self.get_value_at(name, frame=f, interpolation=interpolation)
+                     for f in frames], dtype=np.float32)
+
 
   def __hash__(self):
     return hash(self.uid)

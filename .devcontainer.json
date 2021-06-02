@@ -1,11 +1,17 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.140.1/containers/python-3
 {
-  "name": "Kubruntu",
-  "build": {
-    "dockerfile": "./docker/Kubruntu.Dockerfile",
-    "context": ".",
-  },
+  "name": "Kubric",
+  
+  // --- loads from pre-built container
+  "image": "docker.io/kubricdockerhub/kubruntudev:latest",
+
+  // --- builds container (extremely slow... 2h built time!)
+  // "build": {
+  //   "dockerfile": "./docker/Kubruntu.Dockerfile",
+  //   "context": ".",
+  // },
+
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
@@ -16,10 +22,12 @@
     "python.linting.flake8Path": "/usr/local/bin/flake8",
     "python.linting.pylintPath": "/usr/local/bin/pylint"
   },
+
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "ms-python.python"
   ]
+
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
   // Use 'postCreateCommand' to run commands after the container is created.

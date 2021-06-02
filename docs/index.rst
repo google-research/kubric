@@ -1,21 +1,17 @@
-.. Kubric documentation master file, created by
-   sphinx-quickstart on Tue Jan 19 20:26:19 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Kubric
+======
+Kubric is a Python package for creating synthetic video datasets with rich ground-truth information such as instance segmentation, optical flow and depth maps:
 
-Welcome to Kubric's documentation!
-==================================
+.. image:: images/KLEVR.gif
+   :alt: Example video including segmentation, optical flow and depth map
+   :align: center
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   source/getting_started
+   source/0_installing
+   source/1_helloworld
+   source/2_getting_started 
+   source/3_kubric_api
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

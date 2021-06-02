@@ -1,23 +1,25 @@
+"""
+Run this file to process shapenet objects into assets that Kubric can import
+"""
+
 import os
 import trimesh
 import glob
 import numpy as np
 import trimesh.exchange.obj as tri_obj
-import os
 import re
 import json
-import subprocess
-import time
 import shutil
-import pprint
 import argparse
 import pybullet as pb
-from subprocess import PIPE, Popen
-import trimesh.exchange.obj as tri_obj
 import tarfile
 
+from subprocess import PIPE, Popen
 
-def save_asset(asset_path, which_mesh=0, target_dir='output'):
+def save_asset(asset_path, target_dir='output'):
+    """
+
+    """
     obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
 
     # Ignore asset if there is no material
@@ -304,17 +306,19 @@ def get_waterfilled_obj(obj_path):
 
 
 if __name__ == "__main__":
+    # Parse the dataset directory
     parser = argparse.ArgumentParser()
-
     parser.add_argument('-d', '--datadir', required=True,
                         help='Define the dataset directory.')
-    parser.add_argument("-c", "--cat_id",  default=None,
-                        help='Reset or resume the experiment.')
-
     args = parser.parse_args()
+    
+    # Get the categories of shapenet
+    cat_dirs = os.listdir(args.datadir)
 
-    cat_dir = os.path.join(args.datadir, args.cat_id)
-    obj_id_list = os.listdir(cat_dir)
-    for i, obj_id in enumerate(obj_id_list):
-        obj_path = os.path.join(cat_dir, obj_id)
-        save_asset(obj_path)
+    # Loop over each category
+    for cat_dir in cat_dirs:
+        obj_id_list = os.listdir(os.path.join(args.datadir, cat_dir))
+        # Loop over each object and save asset
+        for i, obj_id in enumerate(obj_id_list):
+            obj_path = os.path.join(args.datadir, cat_dir, obj_id)
+            save_asset(obj_path)

@@ -1,7 +1,6 @@
 .DS_Store
 **/__pycache__/
 *.ply
-*.blend
 *.bullet
 *.png
 *.exr
@@ -14,3 +13,7 @@ docs/_build
 .hypothesis
 __MACOSX/
 ManifoldPlus/
+build/
+dist/
+*.egg-info/
+*.blend*

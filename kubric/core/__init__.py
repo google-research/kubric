@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,11 @@
 """ This package defines the basic object hierarchy that forms the center of Kubrics interface.
 
 The root classes are Scene and Asset, which further specializes into:
- * Material
-   - PrincipledBSDFMaterial
-   - FlatMaterial
- * Object3D
-   - PhysicalObject
-     > FileBasedObject
-     > Cube
-     > Sphere
- * Light
-   - DirectionalLight
-   - RectAreaLight
-   - PointLight
- * Camera
-   - PerspectiveCamera
-   - OrthographicCamera
+
+* Materials
+* Objects
+* Lights
+* Cameras
 """
 
 from kubric.core.color import *

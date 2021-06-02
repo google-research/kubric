@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@ import numpy as np
 import kubric as kb
 from kubric.assets import asset_source
 from kubric import core
+from kubric import randomness
 from kubric.core import color
 
 KLEVR_ASSETS_IDs = [
@@ -45,18 +46,18 @@ class KLEVR(asset_source.AssetSource):
     # self.ambient_light = (0.05, 0.05, 0.05)
 
   # NOTE: moved from worker
-  def create_random_object(self, rnd=np.random.RandomState()):
-    asset_id = rnd.choice(KLEVR_ASSETS_IDs)
+  def create_random_object(self, rng=randomness.default_rng()):
+    asset_id = rng.choice(KLEVR_ASSETS_IDs)
 
     if "Metal" in asset_id:
       material = kb.PrincipledBSDFMaterial(
-            color=kb.random_hue_color(rnd=rnd),
+            color=kb.random_hue_color(rng=rng),
             roughness=0.2,
             metallic=1.0,
             ior=2.5)
     else:  # if "Rubber" in asset_id:
       material = kb.PrincipledBSDFMaterial(
-          color=kb.random_hue_color(rnd=rnd),
+          color=kb.random_hue_color(rng=rng),
           roughness=0.7,
           specular=0.33,
           metallic=0.,

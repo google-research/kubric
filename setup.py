@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@ except IOError:
 
 __version__ = None
 
-with open('kubric/version.py') as f:
+with open("kubric/version.py") as f:
   exec(f.read(), globals())
 
 
@@ -31,7 +31,7 @@ setuptools.setup(
     name="kubric",
     version="0.1",
     author="Kubric team",
-    author_email="klausg@google.com",  # TODO: create a kubric-dev group
+    author_email="kubric+dev@google.com",
     description="A data generation pipeline for creating semi-realistic synthetic multi-object "
                 "videos with rich annotations such as instance segmentation, depth maps, "
                 "and optical flow.",

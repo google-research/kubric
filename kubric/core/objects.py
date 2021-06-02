@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@ import mathutils
 import numpy as np
 import traitlets as tl
 
-import kubric.core.traits as ktl
+from kubric.core import traits as ktl
 from kubric.core import base
 from kubric.core import materials
 
@@ -24,6 +24,12 @@ __all__ = ("Object3D", "PhysicalObject", "Sphere", "Cube", "FileBasedObject")
 
 
 class Object3D(base.Asset):
+  """
+  Attributes:
+    position (vec3d): the (x, y, z) position of the object.
+    quaternion (vec4d): a (W, X, Y, Z) quaternion for describing the rotation.
+    up (str): which direction to consider as "up" (required for look_at).
+  """
   position = ktl.Vector3D()
   quaternion = ktl.Quaternion()
 
@@ -53,6 +59,19 @@ class Object3D(base.Asset):
   def euler_xyz(self):
     return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
+  @property
+  def R(self):
+    """Rotation matrix that rotates from world to object coordinates"""
+    return np.array(mathutils.Quaternion(self.quaternion).to_matrix())
+
+  @property
+  def matrix_world(self):
+    """ Affine transformation 4x4 matrix to map points from world to object coordinates."""
+    RT = np.eye(4)
+    RT[:3, :3] = self.R
+    RT[:3, 3] = self.position
+    return RT
+
 
 class PhysicalObject(Object3D):
   scale = ktl.Scale()
@@ -70,6 +89,13 @@ class PhysicalObject(Object3D):
 
   material = ktl.AssetInstance(materials.Material,
                                default_value=materials.UndefinedMaterial())
+
+  # If the segmentation_id is None, we use the "default" segmentation label for
+  # this object. Otherwise, we use the segmentation_id specified here. This
+  # allows us to perform things like "instance segmentation" and
+  # "semantic segmentation", from a labelmap in the Kubric worker, even if the
+  # objects in the scene are generated in different orders on different runs.
+  segmentation_id = tl.Integer(None, allow_none=True)
 
   @tl.validate("mass")
   def _valid_mass(self, proposal):
@@ -116,7 +142,8 @@ class Sphere(PhysicalObject):
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
-  simulation_filename = tl.Unicode()   # TODO: use pathlib.Path instead
-  render_filename = tl.Unicode()       # TODO: use pathlib.Path instead
+  simulation_filename = tl.Unicode(allow_none=True)   # TODO: use pathlib.Path instead
+  render_filename = tl.Unicode(allow_none=True)       # TODO: use pathlib.Path instead
+  render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())
 
   # TODO: trigger error when changing filenames or asset-id after the fact

@@ -2,6 +2,7 @@
 
 - Download `cmake` from `https://github.com/Kitware/CMake/releases/download/v3.19.0-rc1/cmake-3.19.0-rc1-Linux-x86_64.sh` and install locally
 - `git clone https://github.com/hjwdzh/ManifoldPlus`
+- go to each file in `/mnt/home/projects/kubric/ManifoldPlus/src` and prepend `Eigen` with `eigen3/`
 - run `bash compile.sh` using the cmake
 - run `./build/manifold --input data/shapenet_1.obj --output results/shapenet_1.obj --depth 8` for each shapenet object
 

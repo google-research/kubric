@@ -1,10 +1,10 @@
-# Copyright 2020 The Kubric Authors
+# Copyright 2021 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,27 +13,34 @@
 # limitations under the License.
 
 import functools
+import io
+import json
 import logging
-import pathlib
-import pickle
-import shutil
+import multiprocessing.pool
 import sys
+import threading
+from typing import Any, Callable, Dict, Tuple
 import tempfile
-from typing import Any, Union, Callable
+import os.path
+
+import imageio
+from kubric import core
+import kubric.post_processing
+from kubric.redirect_io import RedirectStream
+import numpy as np
+import png
+from singledispatchmethod import singledispatchmethod
+import tensorflow as tf
+from tensorflow_datasets.core.utils.type_utils import PathLike
+import tensorflow_datasets.public_api as tfds
+import kubric as kb
+from kubric.utils import save_as_json
 
 import bpy
-import numpy as np
-import PIL.Image
-from singledispatchmethod import singledispatchmethod
 
-import kubric.post_processing
-from kubric import core
-from kubric.redirect_io import RedirectStream
 
 AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
-
-_blender_logs = tempfile.mkstemp(suffix="_blender.txt")[1]
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
@@ -57,15 +64,172 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
   return _func
 
 
+def write_scaled_png(data: np.array,
+                     path_prefix: PathLike) -> Dict[str, float]:
+  """Writes data as pngs to path and optionally returns rescaling values.
+
+  data is expected to be of shape [B, H, W, C] and has to have
+  between 1 and 4 channels. A two channel image is padded using a zero channel.
+  uint8 and uint16 are written as is.
+  other dtypes are rescaled to uint16. When rescaling, this method returns the
+  min and max values of the original data.
+
+  Args:
+    data: the image to be written
+    path_prefix: the path prefix to write to
+
+  Returns:
+    {"min": value, "max": value} if rescaling was applied, None otherwise.
+  """
+  assert len(data.shape) == 4, data.shape
+  scaling = None
+  if data.dtype in [np.uint32, np.uint64]:
+    max_value = np.amax(data)
+    if max_value > 65535:
+      logger.warning("max_value %d exceeds uint16 bounds for %s.",
+                     max_value, path_prefix)
+    data = data.astype(np.uint16)
+  elif data.dtype in [np.float32, np.float64]:
+    min_value = np.amin(data)
+    max_value = np.amax(data)
+    scaling = {"min": min_value.item(), "max": max_value.item()}
+    data = (data - min_value) * 65535 / (max_value - min_value)
+    data = data.astype(np.uint16)
+  elif data.dtype in [np.uint8, np.uint16]:
+    pass
+  else:
+    raise NotImplementedError(f"Cannot handle {data.dtype}.")
+  bitdepth = 8 if data.dtype == np.uint8 else 16
+  greyscale = (data.shape[-1] == 1)
+  alpha = (data.shape[-1] == 4)
+  w = png.Writer(data.shape[1], data.shape[2], greyscale=greyscale,
+                 bitdepth=bitdepth, alpha=alpha)
+  for i in range(data.shape[0]):
+    img = data[i].copy()
+    if img.shape[-1] == 2:
+      # Pad two-channel images with a zero channel.
+      img = np.concatenate([img, np.zeros_like(img[..., :1])], axis=-1)
+    # pypng expects 2d arrays
+    # see https://pypng.readthedocs.io/en/latest/ex.html#reshaping
+    img = img.reshape(img.shape[0], -1)
+    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
+      w.write(fp, img)
+  return scaling
+
+
+def write_tiff(
+    all_imgs: np.ndarray,
+    path_prefix: tfds.core.ReadWritePath,
+) -> None:
+  """Save single-channel float images as tiff.."""
+  assert len(all_imgs.shape) == 4
+  assert all_imgs.shape[-1] == 1  # Single channel image
+  assert all_imgs.dtype in [np.float32, np.float64]
+  for i, img in enumerate(all_imgs):
+    path = path_prefix.parent / f"{path_prefix.name}_{i:05d}.tiff"
+
+    # Save tiff in an intermediate buffer
+    buffer = io.BytesIO()
+    imageio.imwrite(buffer, img, format=".tif")
+    path.write_bytes(buffer.getvalue())
+
+
+def write_single_record(
+    kv: Tuple[str, np.array],
+    path_prefix: PathLike,
+    scalings: Dict[str, Dict[str, float]],
+    lock: threading.Lock,
+):
+  """Write single record."""
+  key = kv[0]
+  img = kv[1]
+  if key == "depth":
+    write_tiff(img, path_prefix / key)
+  else:
+    scaling = write_scaled_png(img, path_prefix / key)
+    if scaling:
+      with lock:
+        scalings[key] = scaling
+
+
+def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
+  # Pre-load image libs to avoid race-condition in multi-thread.
+  imageio.plugins.tifffile.load_lib()
+
+  scalings = {}
+
+  lock = threading.Lock()
+  _MAX_WRITE_THREADS = 16
+  with multiprocessing.pool.ThreadPool(
+      min(len(data.items()), _MAX_WRITE_THREADS)) as pool:
+    args = [(key, img) for key, img in data.items()]
+    write_single_record_fn = functools.partial(
+        write_single_record,
+        path_prefix=path_prefix,
+        scalings=scalings,
+        lock=lock)
+    pool.map(write_single_record_fn, args)
+    pool.close()
+    pool.join()
+
+  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
+    json.dump(scalings, fp)
+
+
+def read_png(path: PathLike):
+  path = tfds.core.as_path(path)
+  pngReader = png.Reader(bytes=path.read_bytes())
+  width, height, pngdata, info = pngReader.read()
+  del pngReader
+  bitdepth = info["bitdepth"]
+  if bitdepth == 8:
+    dtype = np.uint8
+  elif bitdepth == 16:
+    dtype = np.uint16
+  else:
+    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+  plane_count = info["planes"]
+  pngdata = np.vstack(list(map(dtype, pngdata)))
+  return pngdata.reshape((height, width, plane_count))
+
+
+def compute_bboxes(segmentation):
+  instances = []
+  for k in range(1, np.max(segmentation)+1):
+    obj = {
+        "bboxes": [],
+        "bbox_frames": [],
+    }
+    for t in range(segmentation.shape[0]):
+      seg = segmentation[t, ..., 0]
+      idxs = np.array(np.where(seg == k), dtype=np.float32)
+      if idxs.size > 0:
+        idxs /= np.array(seg.shape)[:, np.newaxis]
+        obj["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
+                              float(idxs[0].max()), float(idxs[1].max())))
+        obj["bbox_frames"].append(t)
+
+    instances.append(obj)
+  return instances
+
+
 class Blender(core.View):
-  def __init__(self, scene: core.Scene, adaptive_sampling=True, use_denoising=True,
-               samples_per_pixel=128, background_transparency=False):
+  def __init__(self,
+               scene: core.Scene,
+               scratch_dir=tempfile.mkdtemp(),
+               adaptive_sampling=True,
+               use_denoising=True,
+               samples_per_pixel=128,
+               background_transparency=False):
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
     self.bg_node = None
     self.bg_hdri_node = None
     self.bg_mapping_node = None
+    self.scratch_dir = kb.str2path(scratch_dir)
+    self.log_file = self.scratch_dir / "blender.log"
+    logger.info("Blender rendering folder: '%s'", self.scratch_dir)
 
     self._clear_and_reset()  # as blender has a default scene on load
     self.blender_scene = bpy.context.scene
@@ -78,6 +242,9 @@ class Blender(core.View):
     self.use_denoising = use_denoising  # improves the output quality
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
+    self.activate_render_passes()
+    bpy.context.scene.render.filepath = str(self.scratch_dir / "images" / "frame_")
+    self._set_up_exr_output(self.scratch_dir / "exr" / "frame_")
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
@@ -93,8 +260,6 @@ class Blender(core.View):
         "background": [lambda change: self._set_background_color(change.new)],
     })
 
-
-
   @property
   def adaptive_sampling(self) -> bool:
     return self.blender_scene.cycles.use_adaptive_sampling
@@ -105,11 +270,12 @@ class Blender(core.View):
 
   @property
   def use_denoising(self) -> bool:
-    return self.blender_scene.view_layers[0].cycles.use_denoising
+    return self.blender_scene.cycles.use_denoising
 
   @use_denoising.setter
   def use_denoising(self, value: bool):
-    self.blender_scene.view_layers[0].cycles.use_denoising = value
+    self.blender_scene.cycles.use_denoising = value
+    self.blender_scene.cycles.denoiser = "NLM"
 
   @property
   def samples_per_pixel(self) -> int:
@@ -127,61 +293,51 @@ class Blender(core.View):
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
 
-  def save_state(self, path: Union[pathlib.Path, str], pack_textures: bool = True):
-    path = pathlib.Path(path)
-    path = path / "scene.blend"
+  def save_state(self, path: PathLike = "scene.blend", pack_textures: bool = True):
+    """Saves the '.blend' blender file to disk.""" 
+    filepath = str(self.scratch_dir / "scene.blend")
+    logger.debug("copying '%s' → '%s'", filepath, path)
 
-    # delete first, as blender auto-renames savefiles otherwise
-    if path.is_file():
-      logger.info(f"Overwriting {path}")
-      path.unlink()
-    else:
-      logger.info(f"Saving {path}")
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
+      # --- save file to the local scratch directory
+      bpy.ops.wm.save_mainfile(filepath=filepath)
+      # --- embed all textures into the blend file
+      if pack_textures: bpy.ops.file.pack_all()
 
-    if pack_textures:
-      with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-        bpy.ops.file.pack_all()  # embed all textures into the blend file
+    # --- copy to the target directory (might be bucket)
+    tf.io.gfile.copy(filepath, path, overwrite=True)
 
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-      path.parent.mkdir(parents=True, exist_ok=True)
-      bpy.ops.wm.save_mainfile(filepath=str(path))
+  def render(self, verbose=False):
+    """Renders the animation to `self.scratch_dir`; likely postprocessed by self.postprocess."""
+    with RedirectStream(stream=sys.stdout, filename=self.log_file, disabled=verbose):
+        bpy.ops.render.render(animation=True, write_still=False) #TODO: Issue #95
+      
+  def render_still(self, filepath: PathLike = "kubric.png", verbose=False):
+    """Renders a single frame of the scene to filepath."""
+    assert filepath.endswith(".png")
+    
+    # --- temporarily modify the blender render.filepath 
+    render_filepath_backup = bpy.context.scene.render.filepath
+    bpy.context.scene.render.filepath = str(self.scratch_dir / "stillframe.png")
+    # --- render
+    with RedirectStream(stream=sys.stdout, filename=self.log_file, disabled=verbose):
+      bpy.ops.render.render(animation=False, write_still=True)
+    # --- copy to desired output path and restore blender render.filepath
+    tf.io.gfile.copy(bpy.context.scene.render.filepath, filepath, overwrite=True)
+    bpy.context.scene.render.filepath = render_filepath_backup
 
-  def render(self, path: Union[pathlib.Path, str]):
-    self._activate_render_passes()
 
-    path = pathlib.Path(path)
-    bpy.context.scene.render.filepath = str(path / "images" / "frame_")
-    self._set_up_exr_output(path / "exr" / "frame_")
-
-    # --- remove stale output if exists
-    if path.exists() and path.is_dir():
-      logger.info(f"Deleting stale directory {str(path)}")
-      shutil.rmtree(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-    # --- starts rendering
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-      bpy.ops.render.render(animation=True, write_still=True)
-
-  def postprocess(self, from_dir: Union[pathlib.Path, str], to_dir=Union[pathlib.Path, str]):
-    from_dir = pathlib.Path(from_dir)
-    to_dir = pathlib.Path(to_dir)
-    W, H = self.scene.resolution
+  def postprocess(self, from_dir: PathLike, to_dir=PathLike):
+    from_dir = tfds.core.as_path(from_dir)
+    to_dir = tfds.core.as_path(to_dir)
 
     # --- split objects into foreground and background sets
     fg_objects = [obj for obj in self.scene.assets if obj.background is False]
     bg_objects = [obj for obj in self.scene.assets if obj.background is True]
 
-    # --- output one file per frame of data
+    # --- collect all layers for all frames
+    data_stack = {}
     for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
-      data = {
-          "RGBA": np.zeros((H, W, 4), dtype=np.uint8),
-          "segmentation": np.zeros((H, W, 1), dtype=np.uint32),
-          "flow": np.zeros((H, W, 3), dtype=np.float32),
-          "depth": np.zeros((H, W, 1), dtype=np.float32),
-          "UV": np.zeros((H, W, 3), dtype=np.float32),
-      }
-
       exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
       png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
 
@@ -189,18 +345,23 @@ class Blender(core.View):
       layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
                                                                  bg_objects,
                                                                  fg_objects)
-
-      # Use the contrast-normalized PNG instead of the EXR for the RGBA image.
-      data["RGBA"] = np.asarray(PIL.Image.open(png_filename))
-      data["segmentation"][:, :, 0] = layers["SegmentationIndex"][:, :, 0]
-      data["flow"] = layers["Vector"]
-      data["depth"] = layers["Depth"]
-      data["UV"] = layers["UV"]
-
-      # Save to file
-      with open(to_dir / f"frame_{frame_id:04d}.pkl", "wb") as fp:
-        logger.info(f"writing {fp.name}")
-        pickle.dump(data, fp)
+      data = {k: layers[k] for k in
+              ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
+      # Use the contrast-normalized PNG instead of the EXR for RGBA.
+      data["rgba"] = read_png(png_filename)
+      data["segmentation"] = layers["segmentation_indices"][:, :, :1]
+      for key in data:
+        if key in data_stack:
+          data_stack[key].append(data[key])
+        else:
+          data_stack[key] = [data[key]]
+    for key in data_stack:
+      data_stack[key] = np.stack(data_stack[key], axis=0)
+    # Save to image files
+    write_image_dict(data_stack, to_dir)
+    # compute bounding boxes
+    instance_bboxes = compute_bboxes(data_stack["segmentation"])
+    save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
@@ -227,10 +388,10 @@ class Blender(core.View):
     cube = bpy.context.active_object
 
     register_object3d_setters(asset, cube)
-    asset.observe(AttributeSetter(cube, 'active_material',
-                                  converter=self._convert_to_blender_object), 'material')
-    asset.observe(AttributeSetter(cube, 'scale'), 'scale')
-    asset.observe(KeyframeSetter(cube, 'scale'), 'scale', type="keyframe")
+    asset.observe(AttributeSetter(cube, "active_material",
+                                  converter=self._convert_to_blender_object), "material")
+    asset.observe(AttributeSetter(cube, "scale"), "scale")
+    asset.observe(KeyframeSetter(cube, "scale"), "scale", type="keyframe")
     return cube
 
   @add_asset.register(core.Sphere)
@@ -241,27 +402,59 @@ class Blender(core.View):
     sphere = bpy.context.active_object
 
     register_object3d_setters(obj, sphere)
-    obj.observe(AttributeSetter(sphere, 'active_material',
-                                converter=self._convert_to_blender_object), 'material')
-    obj.observe(AttributeSetter(sphere, 'scale'), 'scale')
-    obj.observe(KeyframeSetter(sphere, 'scale'), 'scale', type="keyframe")
+    obj.observe(AttributeSetter(sphere, "active_material",
+                                converter=self._convert_to_blender_object), "material")
+    obj.observe(AttributeSetter(sphere, "scale"), "scale")
+    obj.observe(KeyframeSetter(sphere, "scale"), "scale", type="keyframe")
     return sphere
 
   @add_asset.register(core.FileBasedObject)
   @prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
-    # TODO: support other file-formats
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
-      bpy.ops.import_scene.obj(filepath=str(obj.render_filename),
-                               axis_forward=obj.front, axis_up=obj.up)
+    if obj.render_filename is None:
+      return None  # if there is no render file, then ignore this object
+    _, _, extension = obj.render_filename.rpartition(".")
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):  # reduce the logging noise
+      if extension == "obj":
+        bpy.ops.import_scene.obj(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+      elif extension in ["glb", "gltf"]:
+        bpy.ops.import_scene.gltf(filepath=obj.render_filename,
+                                  **obj.render_import_kwargs)
+        # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
+        # here we are interested only in the meshes, so delete everything else
+        non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
+        bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+        bpy.ops.object.join()
+      elif extension == "fbx":
+        bpy.ops.import_scene.fbx(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+      elif extension in ["x3d", "wrl"]:
+        bpy.ops.import_scene.x3d(filepath=obj.render_filename,
+                                 **obj.render_import_kwargs)
+
+      elif extension == "blend":
+        # for now we require the paths to be encoded in the render_import_kwargs. That is:
+        # - filepath = dir / "Object" / object_name
+        # - directory = dir / "Object"
+        # - filename = object_name
+
+        bpy.ops.wm.append(**obj.render_import_kwargs)
+      else:
+        raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
+
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
 
+    # deactivate auto_smooth because for some reason it lead to no smoothing at all
+    # TODO: make smoothing configurable
+    blender_obj.data.use_auto_smooth = False
+
     register_object3d_setters(obj, blender_obj)
-    obj.observe(AttributeSetter(blender_obj, 'active_material',
-                                converter=self._convert_to_blender_object), 'material')
-    obj.observe(AttributeSetter(blender_obj, 'scale'), 'scale')
-    obj.observe(KeyframeSetter(blender_obj, 'scale'), 'scale', type="keyframe")
+    obj.observe(AttributeSetter(blender_obj, "active_material",
+                                converter=self._convert_to_blender_object), "material")
+    obj.observe(AttributeSetter(blender_obj, "scale"), "scale")
+    obj.observe(KeyframeSetter(blender_obj, "scale"), "scale", type="keyframe")
     return blender_obj
 
   @add_asset.register(core.DirectionalLight)
@@ -271,10 +464,10 @@ class Blender(core.View):
     sun_obj = bpy.data.objects.new(obj.uid, sun)
 
     register_object3d_setters(obj, sun_obj)
-    obj.observe(AttributeSetter(sun, 'color'), 'color')
-    obj.observe(KeyframeSetter(sun, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(sun, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(sun, 'energy'), 'intensity', type="keyframe")
+    obj.observe(AttributeSetter(sun, "color"), "color")
+    obj.observe(KeyframeSetter(sun, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(sun, "energy"), "intensity")
+    obj.observe(KeyframeSetter(sun, "energy"), "intensity", type="keyframe")
     return sun_obj
 
   @add_asset.register(core.RectAreaLight)
@@ -284,14 +477,14 @@ class Blender(core.View):
     area_obj = bpy.data.objects.new(obj.uid, area)
 
     register_object3d_setters(obj, area_obj)
-    obj.observe(AttributeSetter(area, 'color'), 'color')
-    obj.observe(KeyframeSetter(area, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(area, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(area, 'energy'), 'intensity', type="keyframe")
-    obj.observe(AttributeSetter(area, 'size'), 'width')
-    obj.observe(KeyframeSetter(area, 'size'), 'width', type="keyframe")
-    obj.observe(AttributeSetter(area, 'size_y'), 'height')
-    obj.observe(KeyframeSetter(area, 'size_y'), 'height', type="keyframe")
+    obj.observe(AttributeSetter(area, "color"), "color")
+    obj.observe(KeyframeSetter(area, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(area, "energy"), "intensity")
+    obj.observe(KeyframeSetter(area, "energy"), "intensity", type="keyframe")
+    obj.observe(AttributeSetter(area, "size"), "width")
+    obj.observe(KeyframeSetter(area, "size"), "width", type="keyframe")
+    obj.observe(AttributeSetter(area, "size_y"), "height")
+    obj.observe(KeyframeSetter(area, "size_y"), "height", type="keyframe")
     return area_obj
 
   @add_asset.register(core.PointLight)
@@ -301,10 +494,10 @@ class Blender(core.View):
     point_light_obj = bpy.data.objects.new(obj.uid, point_light)
 
     register_object3d_setters(obj, point_light_obj)
-    obj.observe(AttributeSetter(point_light, 'color'), 'color')
-    obj.observe(KeyframeSetter(point_light, 'color'), 'color', type="keyframe")
-    obj.observe(AttributeSetter(point_light, 'energy'), 'intensity')
-    obj.observe(KeyframeSetter(point_light, 'energy'), 'intensity', type="keyframe")
+    obj.observe(AttributeSetter(point_light, "color"), "color")
+    obj.observe(KeyframeSetter(point_light, "color"), "color", type="keyframe")
+    obj.observe(AttributeSetter(point_light, "energy"), "intensity")
+    obj.observe(KeyframeSetter(point_light, "energy"), "intensity", type="keyframe")
     return point_light_obj
 
   @add_asset.register(core.PerspectiveCamera)
@@ -312,25 +505,27 @@ class Blender(core.View):
   def _add_asset(self, obj: core.PerspectiveCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "PERSP"
+    # fix sensor width and determine sensor height by the aspect ratio of the image:
+    camera.sensor_fit = "HORIZONTAL"
     camera_obj = bpy.data.objects.new(obj.uid, camera)
 
     register_object3d_setters(obj, camera_obj)
-    obj.observe(AttributeSetter(camera, 'lens'), 'focal_length')
-    obj.observe(KeyframeSetter(camera, 'lens'), 'focal_length', type="keyframe")
-    obj.observe(AttributeSetter(camera, 'sensor_width'), 'sensor_width')
-    obj.observe(KeyframeSetter(camera, 'sensor_width'), 'sensor_width', type="keyframe")
+    obj.observe(AttributeSetter(camera, "lens"), "focal_length")
+    obj.observe(KeyframeSetter(camera, "lens"), "focal_length", type="keyframe")
+    obj.observe(AttributeSetter(camera, "sensor_width"), "sensor_width")
+    obj.observe(KeyframeSetter(camera, "sensor_width"), "sensor_width", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
   @prepare_blender_object
   def _add_asset(self, obj: core.OrthographicCamera):
     camera = bpy.data.cameras.new(obj.uid)
-    camera.type = 'ORTHO'
+    camera.type = "ORTHO"
     camera_obj = bpy.data.objects.new(obj.uid, camera)
 
     register_object3d_setters(obj, camera_obj)
-    obj.observe(AttributeSetter(camera, 'ortho_scale'), 'orthographic_scale')
-    obj.observe(KeyframeSetter(camera, 'ortho_scale'), 'orthographic_scale', type="keyframe")
+    obj.observe(AttributeSetter(camera, "ortho_scale"), "orthographic_scale")
+    obj.observe(KeyframeSetter(camera, "ortho_scale"), "orthographic_scale", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)
@@ -374,12 +569,12 @@ class Blender(core.View):
   @prepare_blender_object
   def _add_asset(self, obj: core.FlatMaterial):
     # --- Create node-based material
-    mat = bpy.data.materials.new('Holdout')
+    mat = bpy.data.materials.new("Holdout")
     mat.use_nodes = True
     tree = mat.node_tree
-    tree.nodes.remove(tree.nodes['Principled BSDF'])  # remove the default shader
+    tree.nodes.remove(tree.nodes["Principled BSDF"])  # remove the default shader
 
-    output_node = tree.nodes['Material Output']
+    output_node = tree.nodes["Material Output"]
 
     # This material is constructed from three different shaders:
     #  1. if holdout=False then emission_node is responsible for giving the object a uniform color
@@ -396,29 +591,29 @@ class Blender(core.View):
 
     emission_node = tree.nodes.new(type="ShaderNodeEmission")
 
-    tree.links.new(transparent_node.outputs['BSDF'], indirect_mix_node.inputs[1])
-    tree.links.new(emission_node.outputs['Emission'], indirect_mix_node.inputs[2])
-    tree.links.new(emission_node.outputs['Emission'], holdout_mix_node.inputs[1])
-    tree.links.new(holdout_node.outputs['Holdout'], holdout_mix_node.inputs[2])
-    tree.links.new(light_path_node.outputs['Is Camera Ray'], overall_mix_node.inputs['Fac'])
-    tree.links.new(indirect_mix_node.outputs['Shader'], overall_mix_node.inputs[1])
-    tree.links.new(holdout_mix_node.outputs['Shader'], overall_mix_node.inputs[2])
-    tree.links.new(overall_mix_node.outputs['Shader'], output_node.inputs['Surface'])
+    tree.links.new(transparent_node.outputs["BSDF"], indirect_mix_node.inputs[1])
+    tree.links.new(emission_node.outputs["Emission"], indirect_mix_node.inputs[2])
+    tree.links.new(emission_node.outputs["Emission"], holdout_mix_node.inputs[1])
+    tree.links.new(holdout_node.outputs["Holdout"], holdout_mix_node.inputs[2])
+    tree.links.new(light_path_node.outputs["Is Camera Ray"], overall_mix_node.inputs["Fac"])
+    tree.links.new(indirect_mix_node.outputs["Shader"], overall_mix_node.inputs[1])
+    tree.links.new(holdout_mix_node.outputs["Shader"], overall_mix_node.inputs[2])
+    tree.links.new(overall_mix_node.outputs["Shader"], output_node.inputs["Surface"])
 
-    obj.observe(AttributeSetter(emission_node.inputs['Color'], 'default_value'), "color")
-    obj.observe(KeyframeSetter(emission_node.inputs['Color'], 'default_value'), "color",
+    obj.observe(AttributeSetter(emission_node.inputs["Color"], "default_value"), "color")
+    obj.observe(KeyframeSetter(emission_node.inputs["Color"], "default_value"), "color",
                 type="keyframe")
-    obj.observe(AttributeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout")
-    obj.observe(KeyframeSetter(holdout_mix_node.inputs['Fac'], 'default_value'), "holdout",
+    obj.observe(AttributeSetter(holdout_mix_node.inputs["Fac"], "default_value"), "holdout")
+    obj.observe(KeyframeSetter(holdout_mix_node.inputs["Fac"], "default_value"), "holdout",
                 type="keyframe")
-    obj.observe(AttributeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+    obj.observe(AttributeSetter(indirect_mix_node.inputs["Fac"], "default_value"),
                 "indirect_visibility")
-    obj.observe(KeyframeSetter(indirect_mix_node.inputs['Fac'], 'default_value'),
+    obj.observe(KeyframeSetter(indirect_mix_node.inputs["Fac"], "default_value"),
                 "indirect_visibility", type="keyframe")
     return mat
 
   def _clear_and_reset(self):
-    with RedirectStream(stream=sys.stdout, filename=_blender_logs):
+    with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.wm.read_factory_settings(use_empty=True)
       bpy.context.scene.world = bpy.data.worlds.new("World")
 
@@ -440,12 +635,22 @@ class Blender(core.View):
     out_node.format.file_format = "OPEN_EXR_MULTILAYER"
     out_node.base_path = str(path)  # output directory
 
-    layers = ["Image", "Depth", "Vector", "UV", "Normal", "CryptoObject00"]
+    layers = ["Image", "Depth", "UV", "Normal", "CryptoObject00"]
 
     out_node.file_slots.clear()
     for l in layers:
       out_node.file_slots.new(l)
       links.new(render_node.outputs.get(l), out_node.inputs.get(l))
+
+    # manually convert to RGBA
+    # see https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
+    split_rgba = tree.nodes.new(type="CompositorNodeSepRGBA")
+    combine_rgba = tree.nodes.new(type="CompositorNodeCombRGBA")
+    for channel in "RGBA":
+      links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
+    out_node.file_slots.new("Vector")
+    links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
+    links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   def _setup_scene_shading(self):
     self.blender_scene.world.use_nodes = True
@@ -485,7 +690,6 @@ class Blender(core.View):
     self.bg_hdri_node.location = 400, 200
     links.new(coord_node.outputs.get("Generated"), self.bg_mapping_node.inputs.get("Vector"))
     links.new(self.bg_mapping_node.outputs.get("Vector"), self.bg_hdri_node.inputs.get("Vector"))
-    #links.new(bg_hdri_node.outputs.get("Color"), self.bg_node.inputs.get("Color"))
 
     self.illum_mapping_node = tree.nodes.new(type="ShaderNodeMapping")
     self.illum_mapping_node.location = 200, -200
@@ -493,7 +697,6 @@ class Blender(core.View):
     self.ambient_hdri_node.location = 400, -200
     links.new(coord_node.outputs.get("Generated"), self.illum_mapping_node.inputs.get("Vector"))
     links.new(self.illum_mapping_node.outputs.get("Vector"), self.ambient_hdri_node.inputs.get("Vector"))
-    # links.new(illum_hdri_node.outputs.get("Color"), self.illum_node.inputs.get("Color"))
 
   def _set_ambient_light_color(self, color=(0., 0., 0., 1.0)):
     # disconnect incoming links from hdri node (if any)
@@ -522,7 +725,7 @@ class Blender(core.View):
     self.bg_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
     self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
-  def _activate_render_passes(self):
+  def activate_render_passes(self):
     view_layer = self.blender_scene.view_layers[0]
     view_layer.use_pass_vector = True  # flow
     view_layer.use_pass_uv = True  # UV
@@ -541,7 +744,7 @@ class AttributeSetter:
     self.converter = converter
 
   def __call__(self, change):
-    # change = {'type': 'change', 'new': (1., 1., 1.), 'owner': obj}
+    # change = {"type": "change", "new": (1., 1., 1.), "owner": obj}
     new_value = change.new
 
     if isinstance(new_value, core.Undefined):
@@ -566,8 +769,8 @@ class KeyframeSetter:
 def register_object3d_setters(obj, blender_obj):
   assert isinstance(obj, core.Object3D), f"{obj!r} is not an Object3D"
 
-  obj.observe(AttributeSetter(blender_obj, 'location'), 'position')
-  obj.observe(KeyframeSetter(blender_obj, 'location'), 'position', type="keyframe")
+  obj.observe(AttributeSetter(blender_obj, "location"), "position")
+  obj.observe(KeyframeSetter(blender_obj, "location"), "position", type="keyframe")
 
-  obj.observe(AttributeSetter(blender_obj, 'rotation_quaternion'), 'quaternion')
-  obj.observe(KeyframeSetter(blender_obj, 'rotation_quaternion'), 'quaternion', type="keyframe")
+  obj.observe(AttributeSetter(blender_obj, "rotation_quaternion"), "quaternion")
+  obj.observe(KeyframeSetter(blender_obj, "rotation_quaternion"), "quaternion", type="keyframe")
