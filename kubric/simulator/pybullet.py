@@ -93,7 +93,7 @@ class PyBullet(core.View):
     return box_idx
 
   @add_asset.register(core.Sphere)
-  def _add_object(self, obj: core.Cube) -> Optional[int]:
+  def _add_object(self, obj: core.Sphere) -> Optional[int]:
     radius = obj.scale[0]
     assert radius == obj.scale[1] == obj.scale[2], obj.scale  # only uniform scaling
     collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
