@@ -19,6 +19,7 @@ cat > /tmp/Dockerfile <<EOF
     RUN apt install -y npm
     # RUN npm install -g obj2gltf
 
+
     # Blender2.83 uses the system python3.7
     RUN apt-get install -y python3.7-dev
     RUN apt-get install -y python3-pip
@@ -40,10 +41,34 @@ cat > /tmp/Dockerfile <<EOF
     RUN python3.7 -m pip install --upgrade --force-reinstall ipdb
     RUN python3.7 -m pip install --upgrade Image
 
-    ENTRYPOINT ["/tk/bin/start.sh"]
+    # --- build/install manifoldplus, make "manifold" binary available in path
+    RUN apt-get install -y git
+    WORKDIR /
+    RUN git clone https://github.com/hjwdzh/ManifoldPlus.git
+    WORKDIR /ManifoldPlus
+    RUN git submodule update --init --recursive
+    RUN bash compile.sh
+    ENV PATH="/ManifoldPlus/build:$PATH"
+
+    # --- copy test data in the folder (reproducibility)
+    # COPY data /data
+    # RUN mkdir /results 
+    # RUN manifold --input /data/bathtub.obj --output /results/bathtub_manifold.obj --depth 8
+
+    # --- interactive setup
+    WORKDIR /
+    RUN alias ll="ls -l"
 EOF
 
 # --- create an image for reuse
-TAG="<put_tag_here>"
-docker build -f /tmp/Dockerfile -t $TAG $PWD
-docker push $TAG
+CONTAINERTAG="shapenet"
+SHAPENETHOME="$HOME/datasets/ShapeNetCore.v2"
+ISSANHOME="$HOME/datasets/issam"
+docker build -f /tmp/Dockerfile -t $CONTAINERTAG $PWD
+docker run --rm --interactive \
+    --user $(id -u):$(id -g) \
+    --volume "$SHAPENETHOME:/ShapeNetCore.v2" \
+    --volume "$ISSANHOME:/data" \
+    $CONTAINERTAG \
+    manifold --input /data/bathtub.obj --output /results/bathtub_manifold.obj --depth 8
+# docker push $CONTAINERTAG
