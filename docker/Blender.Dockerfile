@@ -94,9 +94,6 @@ RUN cd blender && patch -p1 < /blenderpy/blender/cycles_free_patch.txt
 
 RUN cd blender && make -j8 bpy
 
-# dummy change to trigger workflow
-RUN cd /
-
 # #################################################################################################
 # Stage 2
 # #################################################################################################
