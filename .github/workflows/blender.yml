@@ -1,7 +1,7 @@
 # This workflow is triggered for every push to the main branch changing `docker/Blender.Dockerfile`.
 # If this succeeds, it also publishes the container to `kubricdockerhub/blender`.
 
-name: Build blender and push to dockerhub
+name: docker/Blender.Dockerfile
 
 on:
   push:
@@ -36,8 +36,7 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ hashfiles('docker/Blender.Dockerfile',
                                                      'docker/cycles_free_patch.txt',
-                                                     'docker/segfault_bug_patch.txt',
-                                                     'requirements.txt') }}
+                                                     'docker/segfault_bug_patch.txt') }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
@@ -54,6 +53,7 @@ jobs:
           context: ./
           file: docker/Blender.Dockerfile
           push: true
+
           # using the fake ternary expression ${{ condition && 'true' || 'false' }}
           tags: |
             kubricdockerhub/blender:${{ github.sha }}
