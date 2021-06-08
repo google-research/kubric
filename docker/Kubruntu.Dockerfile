@@ -1,11 +1,9 @@
 # --- Image with *pre-installed* Kubric
 # 
-# docker run \
-#   --rm \
+# docker run --rm --interactive \
 #   --user $(id -u):$(id -g) \
 #   --volume "$PWD:/kubric" \
 #   --workdir "/kubric" \
-#   --interactive \
 #   kubricdockerhub/kubruntu:latest \
 #   python3 examples/getting_started.py
 
