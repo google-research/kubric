@@ -1,4 +1,4 @@
-# --- Image with *pre-installed* Kubric
+# --- Image with *pre-installed* Kubric python package
 # 
 # docker run --rm --interactive \
 #   --user $(id -u):$(id -g) \
