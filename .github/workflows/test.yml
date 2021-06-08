@@ -12,14 +12,13 @@ on:
 jobs:    
   test:
     runs-on: ubuntu-latest
-    needs: build
     container: kubricdockerhub/kubruntu:latest
 
     steps:
-      - name: Check out Repository
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Install Test Dependencies
+      - name: Install test dependencies
         run: pip3 install -r requirements_dev.txt
 
       - name: Test with pytest
