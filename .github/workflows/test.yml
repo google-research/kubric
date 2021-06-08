@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:    
-  test:
+  execute:
     runs-on: ubuntu-latest
     container: kubricdockerhub/kubruntu:latest
 
