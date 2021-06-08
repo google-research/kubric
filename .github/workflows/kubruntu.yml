@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out Repository
+      - name: Check out repository
         uses: actions/checkout@v2
 
       - name: Set up Python
@@ -23,11 +23,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
 
-      - name: Set up Docker Buildx
+      - name: Build package wheel
+        run: python setup.py bdist_wheel
+
+      - name: Set up docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Cache Docker Layers
+      - name: Cache docker layers
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
@@ -36,13 +39,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Login to Docker Hub
+      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: kubricdockerhub
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and Push Container
+      - name: Build and push container
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -56,5 +59,5 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       
-      - name: Image Digest
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
