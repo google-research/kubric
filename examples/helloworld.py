@@ -22,9 +22,9 @@ scene = kb.Scene(resolution=(256, 256))
 renderer = kb.renderer.Blender(scene)
 
 # --- populate the scene with objects, lights, cameras
-scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
 scene += kb.Cube(scale=(10, 10, 0.1), position=(0, 0, -0.1))
 scene += kb.Sphere(scale=1, position=(0, 0, .5))
+scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
 scene += kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
 
 # --- render (and save the blender file) 
