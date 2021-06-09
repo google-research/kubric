@@ -1,3 +1,6 @@
+# Scripts and containers to convert ShapeNetCore.v2 into Kubric-friendly assets.
+# WARNING: the commands within this makefile need to be executed within the shapenet2kubric folder.
+
 # --- Docker images used to preprocess shapenet→kubric
 container: Dockerfile
 	docker build -f Dockerfile -t kubricdockerhub/shapenet:latest .
@@ -9,11 +12,6 @@ container_push: container
 # --- pulls the container
 container_pull:
 	docker pull kubricdockerhub/shapenet:latest
-
-# --- downloads shapenet locally (25GB)
-# Download ShapeNetCore v2 release from https://shapenet.org/download/shapenetcore
-# download:
-# 	http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
 
 # --- executes the conversion process
 convert:
@@ -47,3 +45,10 @@ obj2gltf_test:
 		obj2gltf \
 		-i /shapenet2kubric/bathtub.obj \
 		-o /shapenet2kubric/bathtub
+
+# --- Downloads ShapeNetCore.v2
+# WARNING: accept the license before using https://shapenet.org/download/shapenetcore
+# WARNING: 25GB download (use --continue in wget)
+download:
+	wget --continue --directory-prefix $(HOME)/datasets http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
+	unzip -d $(HOME)/datasets $(HOME)/datasets/ShapeNetCore.v2.zip
