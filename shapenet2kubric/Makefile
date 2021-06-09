@@ -43,12 +43,12 @@ obj2gltf_test:
 		--volume "$(PWD):/shapenet2kubric" \
 		kubricdockerhub/shapenet:latest \
 		obj2gltf \
-		-i /shapenet2kubric/bathtub.obj \
-		-o /shapenet2kubric/bathtub
+			-i /shapenet2kubric/bathtub.obj \
+			-o /shapenet2kubric/bathtub
 
-# --- Downloads ShapeNetCore.v2
-# WARNING: accept the license before using https://shapenet.org/download/shapenetcore
-# WARNING: 25GB download (use --continue in wget)
+# --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
+	@read -p "Have you accepted the shapenet.org licence? (y/n):" line; \
+		if [ $$line = "n" ]; then echo "ABORTING: please obtain a licence first"; exit 1; fi
 	wget --continue --directory-prefix $(HOME)/datasets http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
 	unzip -d $(HOME)/datasets $(HOME)/datasets/ShapeNetCore.v2.zip
