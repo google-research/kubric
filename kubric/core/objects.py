@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools
 import mathutils
 import numpy as np
 import traitlets as tl
@@ -29,6 +30,7 @@ class Object3D(base.Asset):
     position (vec3d): the (x, y, z) position of the object.
     quaternion (vec4d): a (W, X, Y, Z) quaternion for describing the rotation.
     up (str): which direction to consider as "up" (required for look_at).
+    front (str): which direction to consider as "front" (required for look_at).
   """
   position = ktl.Vector3D()
   quaternion = ktl.Quaternion()
@@ -84,6 +86,8 @@ class PhysicalObject(Object3D):
   friction = tl.Float(0.0)
   restitution = tl.Float(0.5)
 
+  # TODO: a tuple of two numpy arrays is annoying to work with
+  #       either convert to single 2D array or to as tuples
   bounds = tl.Tuple(ktl.Vector3D(), ktl.Vector3D(),
                     default_value=((0., 0., 0.), (0., 0, 0.)))
 
@@ -130,13 +134,42 @@ class PhysicalObject(Object3D):
         raise tl.TraitError(f"lower bound cannot be larger than upper bound ({lower} !<= {upper})")
     return lower, upper
 
+  @property
+  def bbox_3d(self):
+    """ 3D bounding box as an array of 8 edges shape = [8, 3]."""
+    bounds = np.array(self.bounds, dtype=np.float)
+    # scale bounds:
+    bounds *= self.scale
+    # construct list of bbox edges
+    bbox_points = [mathutils.Vector(x)
+                   for x in itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])]
+    # rotate the
+    obj_orientation = mathutils.Quaternion(self.quaternion)
+    for x in bbox_points:
+      x.rotate(obj_orientation)  # rotates x in place by the object orientation
+
+    # shift by self.position and convert to np.array
+    return np.array([self.position + tuple(x) for x in bbox_points])
+
+  @property
+  def aabbox(self):
+    """ Axis-aligned bounding box [(min_x, min_y, min_y), (max_x, max_y, max_z)]."""
+    bbox3d = self.bbox_3d
+    # compute an axis aligned bounding box around the rotated bbox
+    axis_aligned_bbox = np.array([bbox3d.min(axis=0), bbox3d.max(axis=0)])
+    return axis_aligned_bbox
+
 
 class Cube(PhysicalObject):
-  pass
+  @tl.default("bounds")
+  def _get_bounds_default(self):
+    return (-1, -1, -1), (1, 1, 1)
 
 
 class Sphere(PhysicalObject):
-  pass
+  @tl.default("bounds")
+  def _get_bounds_default(self):
+    return (-1, -1, -1), (1, 1, 1)
 
 
 class FileBasedObject(PhysicalObject):
