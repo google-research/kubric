@@ -15,6 +15,7 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 	docker build -f docker/KubruntuDev.Dockerfile -t kubricdockerhub/kubruntudev:latest .
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
+# WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
 blender_push: blender
 	docker push kubricdockerhub/blender:latest
 kubruntu_push: kubruntu

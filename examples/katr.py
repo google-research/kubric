@@ -52,8 +52,10 @@ parser.add_argument("--background", choices=["hdri", "clevr", "dome"], default="
 parser.add_argument("--camera", choices=["fixed", "moving"], default="fixed")
 parser.add_argument("--assets_dir", type=str, default="gs://kubric-public/GSO")
 parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_haven/4k")
+parser.add_argument("--objects_set", choices=["train", "test"], default="train")
+parser.add_argument("--backgrounds_set", choices=["train", "test"], default="train")
 
-parser.set_defaults(frame_end=24, frame_rate=12, width=512, height=512)
+parser.set_defaults(frame_end=24, frame_rate=12, width=128, height=128)
 
 FLAGS = parser.parse_args()
 
@@ -78,8 +80,17 @@ floor = kb.Cube(scale=(100, 100, 1), position=(0, 0, -1.01),
                 friction=FLAGS.floor_friction, static=True, background=True)
 scene.add(floor)
 
-background_hdri = hdris.create(texture_name=hdris.db.sample(random_state=rng).iloc[0]['id'])
+# sample a background image (either from the train or held-out set)
+held_out_backgrounds = list(hdris.db.sample(frac=0.1, replace=False, random_state=42)['id'])
+train_backgrounds = [i for i in hdris.db["id"] if i not in held_out_backgrounds]
+if FLAGS.backgrounds_set == "train":
+  logging.info("Choosing one of the %d training backgrounds...", len(train_backgrounds))
+  background_hdri = hdris.create(texture_name=rng.choice(train_backgrounds))
+else:
+  logging.info("Choosing one of the %d held-out backgrounds...", len(held_out_backgrounds))
+  background_hdri = hdris.create(texture_name=rng.choice(held_out_backgrounds))
 
+# set the background
 renderer._set_ambient_light_hdri(background_hdri.filename)
 renderer.use_denoising = False  # somehow leads to blurry HDRIs
 
@@ -108,30 +119,43 @@ else:
   floor.material = kb.PrincipledBSDFMaterial(color=kb.get_color("gray"), roughness=1., specular=0.)
 
 
-logging.info("Setting up the Camera...")
-scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
-                                    position=(7.48113, -6.50764, 5.34367))
-scene.camera.position += (rng.rand(3) - 0.5) * 2 * FLAGS.camera_jitter
-scene.camera.look_at((0, 0, 0))
 
 # --- Place random objects
 num_objects = rng.randint(FLAGS.min_num_objects, FLAGS.max_num_objects)
-logging.info("Randomly placing %d objects:", num_objects)
+held_out_objects = list(gso.db.sample(frac=0.1, replace=False, random_state=42)['id'])
+train_objects = [i for i in gso.db["id"] if i not in held_out_objects]
+
+if FLAGS.objects_set == "train":
+  logging.info("Randomly placing %d objects out of the set of %d training objects:",
+               num_objects, len(train_objects))
+  objects_set = train_objects
+else:
+  logging.info("Randomly placing %d objects out of the set of %d held-out objects:",
+               num_objects, len(held_out_objects))
+  objects_set = held_out_objects
 
 object_info = []
 for i in range(num_objects):
-  obj = gso.create(asset_id=gso.db.sample(random_state=rng).iloc[0]['id'], scale=FLAGS.object_scale)
+  obj = gso.create(asset_id=rng.choice(objects_set), scale=FLAGS.object_scale)
   scene.add(obj)
   obj.metadata = {
       "asset_id": obj.asset_id,
+      "jft_category": gso.db[gso.db["id"] == obj.asset_id].iloc[0]['jft_category'],
   }
   kb.move_until_no_overlap(obj, simulator, spawn_region=SPAWN_REGION)
   # bias velocity towards center
   obj.velocity = (rng.uniform(*VELOCITY_RANGE) - [obj.position[0], obj.position[1], 0])
   logging.info("    Added %s", obj)
 
+
+logging.info("Setting up the Camera...")
+scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
+                                    position=(7.5, -6.5, 4.5))
+scene.camera.position += (rng.rand(3) - 0.5) * 2 * FLAGS.camera_jitter
+scene.camera.look_at((0, 0, 2))
+
 if FLAGS.camera == "moving":
-  # sample two points in the cube ([-7, -7, 4], [7, 7, 7])
+  # sample two points in the cube ([-10, -10, 1], [10, 10, 3])
   camera_range = [[-10, -10, 1], [10, 10, 3]]
   camera_start = rng.uniform(*camera_range)
   camera_end = rng.uniform(*camera_range)
@@ -161,7 +185,7 @@ renderer.render()
 
 
 # --- Postprocessing
-logging.info("Parse and post-process renderer-specific output into per-frame numpy pickles.")
+logging.info("Parse and post-process renderer-specific output...")
 renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata

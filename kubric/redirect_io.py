@@ -17,7 +17,8 @@ import os
 
 
 class RedirectStream(object):
-  """
+  """A simple class to redirect stdout/err to file.
+  
   Usage:
     with RedirectStream(sys.stdout, filename="stdout.txt"):
       print("commands will have stdout directed to file")
