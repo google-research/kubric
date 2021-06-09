@@ -49,9 +49,9 @@ def save_asset(asset_path, target_dir='output'):
     Saves a kubric-compatible asset corresponding to a shapenet object
     """
     obj_path = os.path.join(asset_path, 'models', 'model_normalized.obj')
-
-    # Ignore asset if there is no material
     assert os.path.exists(asset_path)
+
+    # --- Ignore asset if there is no material
     # TODO: what to do when materials are missing?
     if not os.path.exists(obj_path.replace('.obj', '.mtl')):
         return
@@ -98,11 +98,12 @@ def save_asset(asset_path, target_dir='output'):
                 f.write(l)
 
     ## Save gltf object
-    _, stderr = subprocess_call(f'obj2gltf -i {vis_path} -o {vis_path.replace(".obj", "")}')
-    if stderr != '':
-        print(f'warning .gltf was not saved, {stderr}')
+    outbasename = vis_path.replace(".obj", "")  #< obj2gltf does now use extension
+    outname = vis_path.replace(".obj", ".gltf")  #< but the output file will have it
+    subprocess_call(f'obj2gltf -i {vis_path} -o {outbasename}')
+    assert Path(outname).is_file(), f"something went wrong while generating {outname}"
 
-    ## material
+    ## Material
     # TODO: deal with missing materials
     mat_path = obj_path.replace('.obj', '.mtl')
     mtl_path = os.path.join(target_asset_dir, 'visual_geometry.mtl')
@@ -250,13 +251,13 @@ def save_tmesh(fname, tmesh):
 
 def get_waterfilled_obj(obj_path):
     dst = obj_path.replace('.obj', '_manifold_plus.obj')
-    # TODO: when does this exist? Is it just not to repeat work?
+    # TODO: this write "pollutes" the source ShapeNetCore.v2 folder!!!
     if not os.path.exists(dst):
         command = f'manifold --input {obj_path} --output {dst} --depth 8'
         _, stderr = subprocess_call(command)
         if stderr != '':
             print(f'warning manifold error , {stderr}')
-        assert Path(dst).is_file()
+        assert Path(dst).is_file(), f"something went wrong when executing {command}"
     return dst
 
 
@@ -277,4 +278,3 @@ if __name__ == "__main__":
         for i, obj_id in enumerate(obj_id_list):
             obj_path = os.path.join(args.datadir, cat_dir, obj_id)
             save_asset(obj_path, target_dir=os.path.join(args.outdir, cat_dir))
-            import pdb; pdb.set_trace()
