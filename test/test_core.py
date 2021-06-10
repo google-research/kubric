@@ -25,6 +25,9 @@ from kubric.core import objects
 from kubric.core import materials
 
 
+def test_are_running():
+  assert False
+
 def test_asset_has_uid():
   a = base.Asset()
   assert a.uid
