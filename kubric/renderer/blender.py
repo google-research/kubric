@@ -35,26 +35,6 @@ from kubric.utils import PathLike
 logger = logging.getLogger(__name__)
 
 
-def compute_bboxes(segmentation):
-  instances = []
-  for k in range(1, np.max(segmentation)+1):
-    obj = {
-        "bboxes": [],
-        "bbox_frames": [],
-    }
-    for t in range(segmentation.shape[0]):
-      seg = segmentation[t, ..., 0]
-      idxs = np.array(np.where(seg == k), dtype=np.float32)
-      if idxs.size > 0:
-        idxs /= np.array(seg.shape)[:, np.newaxis]
-        obj["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
-                              float(idxs[0].max()), float(idxs[1].max())))
-        obj["bbox_frames"].append(t)
-
-    instances.append(obj)
-  return instances
-
-
 class Blender(core.View):
   def __init__(self,
                scene: core.Scene,
@@ -168,7 +148,6 @@ class Blender(core.View):
     tf.io.gfile.copy(bpy.context.scene.render.filepath, filepath, overwrite=True)
     bpy.context.scene.render.filepath = render_filepath_backup
 
-
   def postprocess(self, from_dir: PathLike, to_dir=PathLike):
     from_dir = tfds.core.as_path(from_dir)
     to_dir = tfds.core.as_path(to_dir)
@@ -202,7 +181,7 @@ class Blender(core.View):
     # Save to image files
     utils.write_image_dict(data_stack, to_dir)
     # compute bounding boxes
-    instance_bboxes = compute_bboxes(data_stack["segmentation"])
+    instance_bboxes = kubric.post_processing.compute_bboxes(data_stack["segmentation"])
     utils.save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
