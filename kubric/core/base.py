@@ -16,28 +16,14 @@
 
 import collections
 import contextlib
-import multiprocessing
 
 import munch
 import numpy as np
 import traitlets as tl
 
+from kubric.utils import next_global_count
+
 __all__ = ("Asset", "Undefined", "UndefinedAsset")
-
-
-def next_global_count(name, reset=False):
-  """ Return the total number of times (0-indexed) the function has been called with the given name.
-   Used to create the increasing UID counts for each class (e.g. "Sphere.007").
-   When passing reset=True, then all counts are reset.
-   """
-  if reset or not hasattr(next_global_count, "counter"):
-    next_global_count.counter = collections.defaultdict(int)
-    next_global_count.lock = multiprocessing.Lock()
-
-  with next_global_count.lock:
-    counter = next_global_count.counter[name]
-    next_global_count.counter[name] += 1
-    return counter
 
 
 class Asset(tl.HasTraits):
@@ -48,15 +34,15 @@ class Asset(tl.HasTraits):
   support inserting keyframes for certain traits, and track linked (external) objects.
 
   Traits:
-    name: The basename used to create uids (defaults to __class__.name).
-    uid: A unique identifier (e.g. "Cube.001", "Cube.002" , ...)
-    background: TODO.
-    metadata: TODO.
+    name: The basename used to create uids (defaults to __class__.name)
+    uid: an unique identifier auto-generated from self.name (e.g. "name", "name.001" , ...)
+    background: TODO(klausg)
+    metadata: TODO(klausg)
 
   Attributes:
-    scenes: TODO.
-    keyframes: TODO.
-    linked_objects: TODO.
+    scenes: TODO(klausg)
+    keyframes: TODO(klausg)
+    linked_objects: TODO(klausg)
   """
 
   name = tl.Unicode(read_only=True)
@@ -90,15 +76,10 @@ class Asset(tl.HasTraits):
 
   @tl.default("uid")
   def _uid(self):
-    """Default initializer for uid trait.
-    
-    Use self.name and a global count separated by a period as the UID.
-    Counting starts at 1 and always has at least three digits.
-    UIDs are thus of the form Scene.001 or Cube.004.
-    That way the first 999 instances of each class can be sorted alphabetically.
-    """
+    # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
+    # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
 
-    # TODO(klaus): what is this logic used for?
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and do not have a name
     if isinstance(self, Undefined):
       return f"{self.name}"
     

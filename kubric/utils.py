@@ -35,6 +35,8 @@ import pprint
 import shutil
 import sys
 import tempfile
+import collections
+import multiprocessing
 
 import numpy as np
 import tensorflow as tf
@@ -216,3 +218,22 @@ def done():
   hpt.report_hyperparameter_tuning_metric(
       hyperparameter_metric_tag="answer",
       metric_value=42)
+
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+
+def next_global_count(name, reset=False):
+  """A global counter to create UIDs.
+  Return the total number of times (0-indexed) the function has been called with the given name.
+  Used to create the increasing UID counts for each class (e.g. "Sphere.007").
+  When passing reset=True, then all counts are reset.
+  """
+  if reset or not hasattr(next_global_count, "counter"):
+    next_global_count.counter = collections.defaultdict(int)
+    next_global_count.lock = multiprocessing.Lock()
+
+  with next_global_count.lock:
+    counter = next_global_count.counter[name]
+    next_global_count.counter[name] += 1
+    return counter
