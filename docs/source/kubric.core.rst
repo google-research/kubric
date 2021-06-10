@@ -6,10 +6,10 @@ kubric.core
    :inherited-members: HasTraits
    :show-inheritance:
 
-kubric.core.base
+kubric.core.assets
 ----------------
 
-.. automodule:: kubric.core.base
+.. automodule:: kubric.core.assets
    :members:
    :inherited-members: HasTraits
    :show-inheritance:

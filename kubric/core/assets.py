@@ -21,8 +21,6 @@ import traitlets as tl
 
 from kubric.utils import next_global_count
 
-__all__ = ("Asset", "Undefined", "UndefinedAsset")
-
 
 class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.
@@ -173,10 +171,8 @@ class Asset(tl.HasTraits):
     else:
       return f"<{self.uid}>"
 
-
 class Undefined:
   pass
-
 
 class UndefinedAsset(Asset, Undefined):
   pass

@@ -18,7 +18,7 @@ from types import MappingProxyType
 import munch
 
 from kubric.core.scene import Scene
-from kubric.core.base import Asset, Undefined
+from kubric.core import assets
 
 __all__ = ("View",)
 
@@ -58,12 +58,12 @@ class View(abc.ABC):
                            owner=scene,
                            type="change"))
 
-  def add(self, asset: Asset) -> None:
+  def add(self, asset: assets.Asset) -> None:
     # if asset has already been converted, then do nothing
     if self in asset.linked_objects:
       return
 
-    if isinstance(asset, Undefined):
+    if isinstance(asset, assets.Undefined):
       return
 
     # else use add_asset to create a new view-object and store it
@@ -79,12 +79,12 @@ class View(abc.ABC):
     #        so we will have to hack it in ourselves.
     for trait_name in asset.trait_names():
       value = getattr(asset, trait_name)
-      if isinstance(value, Asset):  # recursively add assets to the
+      if isinstance(value, assets.Asset):  # recursively add assets to the
         self.add(value)
       asset.notify_change(munch.Munch(owner=asset, type="change",
                                       name=trait_name, new=value, old=value))
 
-  def remove(self, asset: Asset) -> None:
+  def remove(self, asset: assets.Asset) -> None:
     # remove the view-object from the dict of linked objects
     if self in asset.linked_objects:
       del asset.linked_objects[self]
@@ -93,9 +93,9 @@ class View(abc.ABC):
     self.remove_asset(asset)
 
   @abc.abstractmethod
-  def add_asset(self, asset: Asset) -> Any:
+  def add_asset(self, asset: assets.Asset) -> Any:
     pass  # pragma: no cover
 
   @abc.abstractmethod
-  def remove_asset(self, asset: Asset) -> None:
+  def remove_asset(self, asset: assets.Asset) -> None:
     pass  # pragma: no cover

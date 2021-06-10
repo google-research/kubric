@@ -17,13 +17,13 @@ import numpy as np
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import base
+from kubric.core import assets
 from kubric.core import materials
 
 __all__ = ("Object3D", "PhysicalObject", "Sphere", "Cube", "FileBasedObject")
 
 
-class Object3D(base.Asset):
+class Object3D(assets.Asset):
   """
   Attributes:
     position (vec3d): the (x, y, z) position of the object.
