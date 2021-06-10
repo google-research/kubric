@@ -7,12 +7,10 @@
 # 
 # For example from the kubric directory a bash session can be started as:
 # 
-# docker run \
-#   --rm \
+# docker run --rm --interactive
 #   --user $(id -u):$(id -g) \
 #   --volume "$PWD:/kubric" \
 #   --workdir "/kubric" \
-#   --interactive \
 #   kubricdockerhub/kubruntudev:latest \
 #   /bin/bash
 

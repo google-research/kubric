@@ -34,7 +34,7 @@ import numpy as np
 import png
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
-from typing import List
+from typing import List, Dict
 
 _DESCRIPTION = ""
 
@@ -46,7 +46,10 @@ class KatrConfig(tfds.core.BuilderConfig):
 
   def __init__(
       self, *, height: int, width: int,
-      validation_ratio: float = 0.1, **kwargs
+      validation_ratio: float = 0.1,
+      train_val_path: str,
+      test_split_paths: Dict[str, str],
+      **kwargs
   ):
     """Defines a particular configuration of tensorflow records.
 
@@ -59,13 +62,18 @@ class KatrConfig(tfds.core.BuilderConfig):
     super(KatrConfig, self).__init__(**kwargs)
     self.height = height
     self.width = width
+    self.train_val_path = train_val_path
     self.validation_ratio = validation_ratio
+    self.test_split_paths = test_split_paths
 
 
 class Katr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for Katr dataset."""
-  VERSION = tfds.core.Version('1.1.1')
+  VERSION = tfds.core.Version('2.0.0')
   RELEASE_NOTES = {
+
+      '2.0.0': "changed background to dome, added compositional test splits, "
+               "reduced resolution, and renamed variants.",
       '1.1.1': "small test",
       '1.1.0': 'split flow into -> forward_flow and backward_flow',
       '1.0.0': 'initial release',
@@ -73,33 +81,57 @@ class Katr(tfds.core.BeamBasedBuilder):
 
   BUILDER_CONFIGS = [
       KatrConfig(
-          name='master',
-          description='Full resolution of 512x512 and a framerate of 12fps',
-          height=512,
-          width=512,
-          validation_ratio=0.2,
-      ),
-      KatrConfig(
-          name='256x256',
-          description='Downscaled to 256x256',
-          height=256,
-          width=256,
-          validation_ratio=0.2,
-      ),
-      KatrConfig(
-          name='128x128',
-          description='Downscaled to 128x128',
+          name='static_camera_128x128',
+          description='Static camera, full resolution of 128x128',
           height=128,
           width=128,
-          validation_ratio=0.2,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/katr_static_train3",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_objbg",
+          }
       ),
       KatrConfig(
-          name='64x64',
-          description='Downscaled to 64x64',
+          name='static_camera_64x64',
+          description='static_camera downscaled to 64x64',
           height=64,
           width=64,
-          validation_ratio=0.2,
-      )
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/katr_static_train3",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_static_test_objbg",
+          }
+      ),
+      KatrConfig(
+          name='moving_camera_128x128',
+          description='moving camera full resolution of 128x128',
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/katr_moving_train1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_objbg",
+          }
+      ),
+      KatrConfig(
+          name='moving_camera_64x64',
+          description='moving camera full resolution of 64x64',
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/katr_moving_train1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/katr_moving_test_objbg",
+          }
+      ),
   ]
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -169,11 +201,11 @@ class Katr(tfds.core.BeamBasedBuilder):
             'backward_flow': tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 2), dtype=tf.uint16), length=s),
             'depth': tfds.features.Sequence(
-                tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint16), length=s),
+                tfds.features.Image(shape=(h, w, 1), dtype=tf.uint16), length=s),
             'uv': tfds.features.Sequence(
-                tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
+                tfds.features.Image(shape=(h, w, 3), dtype=tf.uint16), length=s),
             'normal': tfds.features.Sequence(
-                tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
+                tfds.features.Image(shape=(h, w, 3), dtype=tf.uint16), length=s),
         }),
         supervised_keys=None,
         homepage='https://github.com/google-research/kubric',
@@ -182,22 +214,35 @@ class Katr(tfds.core.BeamBasedBuilder):
   def _split_generators(self, unused_dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     del unused_dl_manager
-    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/kubric_may03_145256',)
-    all_subdirs = sorted([d for d in path.glob('*')], key=lambda x: int(x.name))
+    path = tfds.core.as_path(self.builder_config.train_val_path)
+    # ensure only complete directories get included (metadata is the last file that is written)
+    all_subdirs = [d for d in path.glob('*') if (d / "metadata.json").exists()]
+    all_subdirs = sorted(all_subdirs, key=lambda x: int(x.name))
+    all_subdirs = [str(d) for d in all_subdirs]
     logging.info('Found %d sub-folders in master path: %s', len(all_subdirs), path)
 
-    str_directories = [str(d) for d in all_subdirs]
     validation_ratio = self.builder_config.validation_ratio
-    validation_examples = round(len(str_directories) * validation_ratio)
-    training_examples = len(str_directories) - validation_examples
+    validation_examples = round(len(all_subdirs) * validation_ratio)
+    training_examples = len(all_subdirs) - validation_examples
     logging.info("Using %s of examples for validation for a total of %d",
                  "{:.2%}".format(validation_ratio), validation_examples)
     logging.info("Using the other %d examples for training", training_examples)
 
-    return {
-        tfds.Split.TRAIN: self._generate_examples(str_directories[:training_examples]),
-        tfds.Split.VALIDATION: self._generate_examples(str_directories[training_examples:]),
+    splits = {
+        tfds.Split.TRAIN: self._generate_examples(all_subdirs[:training_examples]),
+        tfds.Split.VALIDATION: self._generate_examples(all_subdirs[training_examples:]),
     }
+
+    for key, path in self.builder_config.test_split_paths.items():
+      path = tfds.core.as_path(path)
+      # ensure only complete directories get included (metadata is the last file that is written)
+      split_dirs = [d for d in path.glob('*') if (d / "metadata.json").exists()]
+      # sort the directories by their integer number
+      split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
+      logging.info('Found %d sub-folders in "%s" path: %s', len(all_subdirs), key, path)
+      splits[key] = self._generate_examples([str(d) for d in split_dirs])
+
+    return splits
 
   def _generate_examples(self, directories: List[str]):
     """Yields examples."""
@@ -219,7 +264,13 @@ class Katr(tfds.core.BeamBasedBuilder):
 
       num_frames = metadata["metadata"]["num_frames"]
       num_instances = metadata["metadata"]["num_instances"]
+
+      if len(bboxes) < num_instances:
+        bboxes.extend([{"bboxes": [], "bbox_frames": []}
+                       for _ in range(num_instances - len(bboxes))])
+
       assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
+      assert len(bboxes) == num_instances, f"{video_dir}: len(bboxes)={len(bboxes)} != {num_instances}"
 
       rgba_frame_paths = [video_dir / f"rgba_{f:05d}.png" for f in range(num_frames)]
       segmentation_frame_paths = [video_dir / f"segmentation_{f:05d}.png" for f in range(num_frames)]
@@ -279,9 +330,11 @@ class Katr(tfds.core.BeamBasedBuilder):
                     for frame_path in rgba_frame_paths],
           'segmentations': [subsample_nearest_neighbor(read_png(frame_path), target_size)
                             for frame_path in segmentation_frame_paths],
-          'forward_flow': [subsample_nearest_neighbor(read_png(frame_path), target_size)[..., :2]
+          'forward_flow': [subsample_nearest_neighbor(read_png(frame_path)[..., :2], target_size,
+                                                      scale_magnitude=True)
                            for frame_path in fwd_flow_frame_paths],
-          'backward_flow': [subsample_nearest_neighbor(read_png(frame_path), target_size)[..., :2]
+          'backward_flow': [subsample_nearest_neighbor(read_png(frame_path)[..., :2], target_size,
+                                                       scale_magnitude=True)
                             for frame_path in bwd_flow_frame_paths],
           'depth': [subsample_nearest_neighbor(read_png(frame_path), target_size)
                     for frame_path in depth_frame_paths],
@@ -302,14 +355,20 @@ def _get_files_from_subdir(path: str) -> List[str]:
   return files
 
 
-def subsample_nearest_neighbor(arr, size):
+def subsample_nearest_neighbor(arr, size, scale_magnitude=False):
   src_height, src_width, channels = arr.shape
   dst_height, dst_width = size
   height_step = src_height // dst_height
   width_step = src_width // dst_width
   height_offset = int(np.floor((height_step-1)/2))
   width_offset = int(np.floor((width_step-1)/2))
-  return arr[height_offset::height_step, width_offset::width_step, :]
+  subsampled = arr[height_offset::height_step, width_offset::width_step, :]
+
+  if scale_magnitude:
+    assert subsampled.shape[-1] == 2, f"requires 2 channels but got {subsampled.shape}"
+    subsampled[..., 0] = subsampled[..., 0] / height_step
+    subsampled[..., 1] = subsampled[..., 1] / width_step
+  return subsampled
 
 
 def subsample_avg(arr, size):

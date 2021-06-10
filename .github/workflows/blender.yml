@@ -1,0 +1,65 @@
+# This workflow is triggered for every push to the main branch changing `docker/Blender.Dockerfile`.
+# If this succeeds, it also publishes the container to `kubricdockerhub/blender`.
+
+name: blender.yml
+
+on:
+  push:
+    branches: [ main ]
+    paths: 'docker/Blender.Dockerfile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker Layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ hashfiles('docker/Blender.Dockerfile',
+                                                     'docker/cycles_free_patch.txt',
+                                                     'docker/segfault_bug_patch.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: kubricdockerhub
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and Push Container
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: docker/Blender.Dockerfile
+          push: true
+
+          # using the fake ternary expression ${{ condition && 'true' || 'false' }}
+          tags: |
+            kubricdockerhub/blender:${{ github.sha }}
+            kubricdockerhub/blender:${{ github.event_name == 'push' && 'latest' || github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+      
+      - name: Image Digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
