@@ -13,12 +13,11 @@
 # limitations under the License.
 
 import functools
-from typing import Any, Callable
-from kubric import core
 
 import bpy
 
-AddAssetFunction = Callable[[core.View, core.Asset], Any]
+from kubric import core
+from kubric.custom_types import AddAssetFunction
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
@@ -46,4 +45,3 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
     return blender_obj
 
   return _func
-

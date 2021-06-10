@@ -45,9 +45,9 @@ import imageio
 import numpy as np
 import png
 import tensorflow as tf
-from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
 
+from kubric.custom_types import PathLike
 
 logger = logging.getLogger(__name__)
 
@@ -290,7 +290,7 @@ def write_scaled_png(data: np.array, path_prefix: PathLike) -> Dict[str, float]:
 
 def write_tiff(
     all_imgs: np.ndarray,
-    path_prefix: tfds.core.ReadWritePath,
+    path_prefix: PathLike,
 ) -> None:
   """Save single-channel float images as tiff.."""
   assert len(all_imgs.shape) == 4
