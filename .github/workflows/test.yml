@@ -21,7 +21,7 @@ on:
 jobs:    
   execute:
     runs-on: ubuntu-latest
-    container: kubricdockerhub/kubruntu:latest
+    container: kubricdockerhub/kubruntudev:latest
 
     steps:
       - name: Check out repository
