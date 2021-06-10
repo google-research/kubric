@@ -39,6 +39,11 @@ GID:=$(shell id -g)
 examples/helloworld:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
 
+
+# --- runs the test suite within the dev container (similar to test.yml)
+pytest:
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest
+
 clean:
 	python3 setup.py clean --all
 	rm -rf kubric.egg-info
