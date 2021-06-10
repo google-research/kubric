@@ -41,8 +41,10 @@ examples/helloworld:
 
 
 # --- runs the test suite within the dev container (similar to test.yml)
+# run a single test with `make pytest TEST=test/test_blender.py`
+TEST = test/
 pytest:
-	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest $(TEST)
 
 clean:
 	python3 setup.py clean --all
