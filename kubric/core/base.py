@@ -65,14 +65,10 @@ class Asset(tl.HasTraits):
   metadata = tl.Dict(key_trait=tl.ObjectName())
 
   def __init__(self, **kwargs):
-    # --- ensure all constructor arguments are used
-    # TODO(klaus): this logic could be moved to util.py? (quite generic) 
-    initializable_traits = self.trait_names()
-    initializable_traits.remove("uid")
-    unknown_traits = [kwarg for kwarg in kwargs if kwarg not in initializable_traits]
-    if unknown_traits:
-      raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}. "
-                     f"Possible traits are: {initializable_traits}")
+    # --- ensure all constructor arguments are traits
+    unknown_traits = [kwarg for kwarg in kwargs if kwarg not in self.trait_names()]
+    if unknown_traits: 
+      raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}.")
 
     # --- Change the basename used by the UID creation mechanism
     name = self.__class__.__name__ if "name" not in kwargs else kwargs["name"]
@@ -84,7 +80,7 @@ class Asset(tl.HasTraits):
     self.scenes = []
     self.keyframes = collections.defaultdict(dict)
 
-    # --- Initialize others
+    # --- Initialize traits
     super().__init__(**kwargs)
 
   @property
