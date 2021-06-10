@@ -12,162 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import functools
-import io
-import json
-import logging
-import multiprocessing.pool
-import sys
-import threading
-from typing import Any, Dict, Tuple
-import tempfile
 
-import imageio
-from kubric import core
-import kubric.post_processing
-from kubric.redirect_io import RedirectStream
-import numpy as np
-import png
-from singledispatchmethod import singledispatchmethod
-import tensorflow as tf
-from tensorflow_datasets.core.utils.type_utils import PathLike
-import tensorflow_datasets.public_api as tfds
-import kubric as kb
-from kubric.renderer.blender_utils import prepare_blender_object
-from kubric.utils import save_as_json
+import logging
+import sys
+import tempfile
+from typing import Any
 
 import bpy
+import numpy as np
+import tensorflow as tf
+import tensorflow_datasets.public_api as tfds
+from singledispatchmethod import singledispatchmethod
+
+import kubric as kb
+import kubric.post_processing
+from kubric import core
+from kubric.redirect_io import RedirectStream
+from kubric.renderer.blender_utils import prepare_blender_object
+from kubric import utils
+from kubric.utils import PathLike
 
 logger = logging.getLogger(__name__)
-
-
-def write_scaled_png(data: np.array,
-                     path_prefix: PathLike) -> Dict[str, float]:
-  """Writes data as pngs to path and optionally returns rescaling values.
-
-  data is expected to be of shape [B, H, W, C] and has to have
-  between 1 and 4 channels. A two channel image is padded using a zero channel.
-  uint8 and uint16 are written as is.
-  other dtypes are rescaled to uint16. When rescaling, this method returns the
-  min and max values of the original data.
-
-  Args:
-    data: the image to be written
-    path_prefix: the path prefix to write to
-
-  Returns:
-    {"min": value, "max": value} if rescaling was applied, None otherwise.
-  """
-  assert len(data.shape) == 4, data.shape
-  scaling = None
-  if data.dtype in [np.uint32, np.uint64]:
-    max_value = np.amax(data)
-    if max_value > 65535:
-      logger.warning("max_value %d exceeds uint16 bounds for %s.",
-                     max_value, path_prefix)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.float32, np.float64]:
-    min_value = np.amin(data)
-    max_value = np.amax(data)
-    scaling = {"min": min_value.item(), "max": max_value.item()}
-    data = (data - min_value) * 65535 / (max_value - min_value)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.uint8, np.uint16]:
-    pass
-  else:
-    raise NotImplementedError(f"Cannot handle {data.dtype}.")
-  bitdepth = 8 if data.dtype == np.uint8 else 16
-  greyscale = (data.shape[-1] == 1)
-  alpha = (data.shape[-1] == 4)
-  w = png.Writer(data.shape[1], data.shape[2], greyscale=greyscale,
-                 bitdepth=bitdepth, alpha=alpha)
-  for i in range(data.shape[0]):
-    img = data[i].copy()
-    if img.shape[-1] == 2:
-      # Pad two-channel images with a zero channel.
-      img = np.concatenate([img, np.zeros_like(img[..., :1])], axis=-1)
-    # pypng expects 2d arrays
-    # see https://pypng.readthedocs.io/en/latest/ex.html#reshaping
-    img = img.reshape(img.shape[0], -1)
-    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
-      w.write(fp, img)
-  return scaling
-
-
-def write_tiff(
-    all_imgs: np.ndarray,
-    path_prefix: tfds.core.ReadWritePath,
-) -> None:
-  """Save single-channel float images as tiff.."""
-  assert len(all_imgs.shape) == 4
-  assert all_imgs.shape[-1] == 1  # Single channel image
-  assert all_imgs.dtype in [np.float32, np.float64]
-  for i, img in enumerate(all_imgs):
-    path = path_prefix.parent / f"{path_prefix.name}_{i:05d}.tiff"
-
-    # Save tiff in an intermediate buffer
-    buffer = io.BytesIO()
-    imageio.imwrite(buffer, img, format=".tif")
-    path.write_bytes(buffer.getvalue())
-
-
-def write_single_record(
-    kv: Tuple[str, np.array],
-    path_prefix: PathLike,
-    scalings: Dict[str, Dict[str, float]],
-    lock: threading.Lock,
-):
-  """Write single record."""
-  key = kv[0]
-  img = kv[1]
-  if key == "depth":
-    write_tiff(img, path_prefix / key)
-  else:
-    scaling = write_scaled_png(img, path_prefix / key)
-    if scaling:
-      with lock:
-        scalings[key] = scaling
-
-
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
-
-  scalings = {}
-
-  lock = threading.Lock()
-  _MAX_WRITE_THREADS = 16
-  with multiprocessing.pool.ThreadPool(
-      min(len(data.items()), _MAX_WRITE_THREADS)) as pool:
-    args = [(key, img) for key, img in data.items()]
-    write_single_record_fn = functools.partial(
-        write_single_record,
-        path_prefix=path_prefix,
-        scalings=scalings,
-        lock=lock)
-    pool.map(write_single_record_fn, args)
-    pool.close()
-    pool.join()
-
-  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
-    json.dump(scalings, fp)
-
-
-def read_png(path: PathLike):
-  path = tfds.core.as_path(path)
-  pngReader = png.Reader(bytes=path.read_bytes())
-  width, height, pngdata, info = pngReader.read()
-  del pngReader
-  bitdepth = info["bitdepth"]
-  if bitdepth == 8:
-    dtype = np.uint8
-  elif bitdepth == 16:
-    dtype = np.uint16
-  else:
-    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
-  plane_count = info["planes"]
-  pngdata = np.vstack(list(map(dtype, pngdata)))
-  return pngdata.reshape((height, width, plane_count))
 
 
 def compute_bboxes(segmentation):
@@ -325,7 +190,7 @@ class Blender(core.View):
       data = {k: layers[k] for k in
               ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
-      data["rgba"] = read_png(png_filename)
+      data["rgba"] = utils.read_png(png_filename)
       data["segmentation"] = layers["segmentation_indices"][:, :, :1]
       for key in data:
         if key in data_stack:
@@ -335,10 +200,10 @@ class Blender(core.View):
     for key in data_stack:
       data_stack[key] = np.stack(data_stack[key], axis=0)
     # Save to image files
-    write_image_dict(data_stack, to_dir)
+    utils.write_image_dict(data_stack, to_dir)
     # compute bounding boxes
     instance_bboxes = compute_bboxes(data_stack["segmentation"])
-    save_as_json(to_dir / "bboxes.json", instance_bboxes)
+    utils.save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
