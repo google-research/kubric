@@ -76,6 +76,32 @@ class Object3D(base.Asset):
 
 
 class PhysicalObject(Object3D):
+  """ Base class for all 3D objects with a geometry and that can participate in physics simulation.
+
+  Attributes:
+    scale (vec3d): By how much the object is scaled along each of the 3 cardinal directions.
+
+    velocity (vec3d): Vector of velocities along (X, Y, Z).
+    angular_velocity (vec3d): Angular velocity of the object around the X, Y, and Z axis.
+
+    static (bool): Whether this object is considered static or movable (default) by
+                   the physics simulation.
+    mass (float): Mass of the object in kg.
+    friction (float): Friction coefficient used for physics simulation of this object
+                      (between 0 and 1).
+    restitution (float): Restitution (bounciness) coefficient used for physics simulation of this
+                         object (between 0 and 1).
+
+    bounds (Tuple[vec3d, vec3d]): An axis aligned bounding box around the object relative to its
+                                  center, but ignoring any scaling or rotation.
+
+    material (Material): Material assigned to this object.
+
+    segmentation_id (int): The integer id that will be used for this object in segmentation maps.
+                           Can be set to None, in which case the segmentation_id will correspond to
+                           the index of the object within the scene.
+  """
+
   scale = ktl.Scale()
 
   velocity = ktl.Vector3D()
@@ -89,7 +115,7 @@ class PhysicalObject(Object3D):
   # TODO: a tuple of two numpy arrays is annoying to work with
   #       either convert to single 2D array or to as tuples
   bounds = tl.Tuple(ktl.Vector3D(), ktl.Vector3D(),
-                    default_value=((0., 0., 0.), (0., 0, 0.)))
+                    default_value=((0., 0., 0.), (0., 0., 0.)))
 
   material = ktl.AssetInstance(materials.Material,
                                default_value=materials.UndefinedMaterial())
@@ -136,7 +162,7 @@ class PhysicalObject(Object3D):
 
   @property
   def bbox_3d(self):
-    """ 3D bounding box as an array of 8 edges shape = [8, 3]."""
+    """ 3D bounding box as an array of 8 corners (shape = [8, 3])"""
     bounds = np.array(self.bounds, dtype=np.float)
     # scale bounds:
     bounds *= self.scale
@@ -175,8 +201,9 @@ class Sphere(PhysicalObject):
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
-  simulation_filename = tl.Unicode(allow_none=True)   # TODO: use pathlib.Path instead
-  render_filename = tl.Unicode(allow_none=True)       # TODO: use pathlib.Path instead
+  # TODO: use tfds.core.utils.type_utils.ReadWritePath instead
+  simulation_filename = tl.Unicode(allow_none=True)
+  render_filename = tl.Unicode(allow_none=True)
   render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())
 
   # TODO: trigger error when changing filenames or asset-id after the fact
