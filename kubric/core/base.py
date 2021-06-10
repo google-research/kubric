@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO(klaus): shouldn't this logic be moved to util.py, and this file renamed to asset.py?
-
 import collections
 import contextlib
 
@@ -79,7 +77,8 @@ class Asset(tl.HasTraits):
     # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
     # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
 
-    # Undefined assets (e.g. UndefinedMaterial) are singletons and do not have a name
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
+    # to their name (without an instance counter)
     if isinstance(self, Undefined):
       return f"{self.name}"
     
