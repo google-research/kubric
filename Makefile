@@ -15,6 +15,7 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 	docker build -f docker/KubruntuDev.Dockerfile -t kubricdockerhub/kubruntudev:latest .
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
+# WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
 blender_push: blender
 	docker push kubricdockerhub/blender:latest
 kubruntu_push: kubruntu
@@ -29,6 +30,14 @@ docs: $(shell find docs )
 # --- starts a simple HTTP server to inspect the docs
 docs_server:
 	cd docs/_build/html && python3 -m http.server 8000
+
+# --- shared variables for example executions
+UID:=$(shell id -u)
+GID:=$(shell id -g)
+
+# --- one-liners for executing examples
+examples/helloworld:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
 
 clean:
 	python3 setup.py clean --all

@@ -314,6 +314,7 @@ class Blender(core.View):
     If a path is provided, the .blend file will be saved there.
     If it is not provided, the self.scratch_dir will be used.
     If neither is provided, an assertion will be raised.
+    If a file with the same path exists, it is overwritten.   
     """ 
     # --- if a scratch_dir was specified
     if path is None and self.scratch_dir is not None:
@@ -325,8 +326,11 @@ class Blender(core.View):
     if not parent.exists():
       parent.mkdir(parents=True)
 
+    # --- ensure file does NOT exist (as otherwise "foo.blend1" is created after "foo.blend")
+    kb.str2path(path).unlink(missing_ok=True)
+
     # --- save the file; see https://github.com/google-research/kubric/issues/96
-    logger.info("Saving blend file '%s'", path)
+    logger.info("Saving '%s'", path)
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       with io.StringIO() as fstdout: #< scratch stdout buffer 
         with redirect_stdout(fstdout): #< also suppresses python stdout
@@ -386,6 +390,7 @@ class Blender(core.View):
     # --- render
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       bpy.ops.render.render(animation=False, write_still=True)
+    logger.info(f"Rendered frame '{png_filepath}'")
 
   def postprocess(self, from_dir: PathLike, to_dir=PathLike):
     from_dir = tfds.core.as_path(from_dir)

@@ -2,7 +2,7 @@
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
-JOB_NAME="kubric_$(date +"%b%d_%H%M%S" | tr A-Z a-z)"
+#JOB_NAME="kubric_$(date +"%b%d_%H%M%S" | tr A-Z a-z)"
 PROJECT_ID="kubric-xgcp"
 REGION="us-central1"  #< WARNING: match region of bucket!
 
@@ -10,6 +10,12 @@ run_mode=${1}
 shift # shifts all arguments to the left thus removing ${1}
 worker_file=${1}
 shift # shifts all arguments to the left thus removing ${1}
+JOB_NAME=${1}
+shift
+NR_VIDEOS=${1}
+shift
+NR_WORKERS=${1}
+shift
 
 
 if [[ "${run_mode}" == "dev" ]]
@@ -25,8 +31,8 @@ cat > /tmp/hypertune.yml << EOF
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: 10000
-      maxParallelTrials: 400
+      maxTrials: $NR_VIDEOS
+      maxParallelTrials: $NR_WORKERS
       enableTrialEarlyStopping: False
 
       # --- each of these become an argparse argument
@@ -39,7 +45,7 @@ EOF
 
 
 # --- The container configuration
-cat > /tmp/Dockerfile <<EOF
+cat > Dockerfile <<EOF
 FROM ${SOURCE_TAG}
 
 COPY ${worker_file} /worker/worker.py
@@ -53,13 +59,13 @@ if [[ "${run_mode}" == "local" ]] || [[ "${run_mode}" == "dev" ]]
 then
   # --- Launches the job locally
   TAG="local"
-  docker build -f /tmp/Dockerfile -t $TAG $PWD
+  docker build -f Dockerfile -t $TAG $PWD
   docker run -v "`pwd`:/kubric" -v "`pwd`/../assets:/assets" $TAG  "$@"
 elif [[ "${run_mode}" == "remote" ]]
 then
   # --- Parameters for the launch
   TAG="gcr.io/$PROJECT_ID/worker"
-  docker build -f /tmp/Dockerfile -t $TAG $PWD
+  docker build -f Dockerfile -t $TAG $PWD
   docker push $TAG
   # --- Launches the job on aiplatform
   gcloud beta ai-platform jobs submit training $JOB_NAME \
@@ -74,7 +80,7 @@ then
 else   # hyper
   # --- Parameters for the launch
   TAG="gcr.io/$PROJECT_ID/$JOB_NAME"
-  docker build -f /tmp/Dockerfile -t $TAG $PWD
+  docker build -f Dockerfile -t $TAG $PWD
   docker push $TAG
   # --- Launches the job on aiplatform
   gcloud beta ai-platform jobs submit training $JOB_NAME \
@@ -84,6 +90,7 @@ else   # hyper
     --config /tmp/hypertune.yml \
     --job-dir "gs://research-brain-kubric-xgcp/jobs/$JOB_NAME" \
     -- "$@"
+  gcloud ai-platform jobs describe $JOB_NAME
 fi
 
 

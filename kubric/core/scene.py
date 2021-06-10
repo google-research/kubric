@@ -22,6 +22,7 @@ from kubric.core import base
 from kubric.core import objects
 from kubric.core import cameras
 from kubric.core import color
+from kubric.utils import next_global_count
 
 __all__ = ("Scene",)
 
@@ -77,7 +78,7 @@ class Scene(tl.HasTraits):
   @tl.default("uid")
   def _uid(self):
     name = self.__class__.__name__
-    return f"{name}.{base.next_global_count(name):03d}"
+    return f"{name}.{next_global_count(name):03d}"
 
   @tl.validate("step_rate")
   def _valid_step_rate(self, proposal):

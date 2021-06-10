@@ -27,9 +27,9 @@ simulator = kb.simulator.PyBullet(scene)
 renderer = kb.renderer.Blender(scene)
 
 # --- populate the scene with objects, lights, cameras
-scene += kb.Cube(scale=(3, 3, 0.1), position=(0, 0, -0.1), static=True)
-scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
-scene.camera = kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
+scene += kb.Cube(name="floor", scale=(3, 3, 0.1), position=(0, 0, -0.1), static=True)
+scene += kb.DirectionalLight(name="sun", position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
+scene.camera = kb.PerspectiveCamera(name="camera", position=(2, -0.5, 4), look_at=(0, 0, 0))
 
 # --- generates spheres randomly within a spawn region
 spawn_region = [[-1, -1, 0], [1, 1, 1]]

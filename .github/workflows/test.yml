@@ -1,0 +1,39 @@
+# This workflow is triggered for every push and every pull request to the main branch, or when the
+# kubruntu image is updated. It uses the (latest) container to run the tests and uploads the
+# coverage report to `codecov.io`.
+
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+    paths: '**.py'
+  pull_request:
+    branches: [ main ]
+    paths: '**.py'
+    
+  workflow_run:
+    workflows: ["kubruntu.yml"]
+    branches: [main]
+    types: 
+      - completed
+
+jobs:    
+  execute:
+    runs-on: ubuntu-latest
+    container: kubricdockerhub/kubruntu:latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Install test dependencies
+        run: pip3 install -r requirements_dev.txt
+
+      - name: Test with pytest
+        run: pytest --cov=./ --cov-report=xml
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
