@@ -1,13 +1,16 @@
+# execute linter on {push, pull request}, only whenever python file changes are detected
 name: Lint
 
 on:
   push:
     branches: [ main ]
+    paths: '**.py'
   pull_request:
     branches: [ main ]
+    paths: '**.py'
 
 jobs:    
-  test:
+  execute:
     runs-on: ubuntu-latest
 
     steps:

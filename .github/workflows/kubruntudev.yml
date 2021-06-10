@@ -1,9 +1,9 @@
-name: kubruntu.yml
+name: kubruntudev.yml
 
 on:
   push:
     branches: [ main ]
-    paths: 'docker/Kubruntu.Dockerfile'
+    paths: 'docker/KubruntuDev.Dockerfile'
 
   workflow_run:
     workflows: ["blender.yml"]
@@ -40,7 +40,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ hashfiles('docker/Kubruntu.Dockerfile',
+          key: ${{ runner.os }}-buildx-${{ hashfiles('docker/KubruntuDev.Dockerfile',
+                                                     'requirements_dev.txt',
                                                      'requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-buildx-
@@ -56,12 +57,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: docker/Kubruntu.Dockerfile
+          file: docker/KubruntuDev.Dockerfile
           push: true
           # using the fake ternary expression ${{ condition && 'true' || 'false' }}
           tags: |
-            kubricdockerhub/kubruntu:${{ github.sha }}
-            kubricdockerhub/kubruntu:${{ github.event_name == 'push' && 'latest' || github.sha }}
+            kubricdockerhub/kubruntudev:${{ github.sha }}
+            kubricdockerhub/kubruntudev:${{ github.event_name == 'push' && 'latest' || github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       
