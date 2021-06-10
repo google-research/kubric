@@ -311,14 +311,16 @@ class Blender(core.View):
   def save_state(self, path: PathLike=None, pack_textures: bool=True):
     """Saves the '.blend' blender file to disk.
 
-    If a scratch_dir is provided, the file is saved there, and the path is optinally specified.
+    If a path is provided, the .blend file will be saved there.
+    If it is not provided, the self.scratch_dir will be used.
+    If neither is provided, an assertion will be raised.
     If a file with the same path exists, it is overwritten.   
     """ 
-    # --- if a scratch_dir was specified, force use it
-    if self.scratch_dir is not None:
-      assert path is None
+    # --- if a scratch_dir was specified
+    if path is None and self.scratch_dir is not None:
       path = str(self.scratch_dir / "scene.blend")
-    
+    assert path is not None, "Neither self.scratch-dir nor path has been specified"
+
     # --- ensure directory exists
     parent = kb.str2path(path).parent
     if not parent.exists():
@@ -350,18 +352,17 @@ class Blender(core.View):
     Notes: 
       - Filepaths are provided in the "foo/bar/frames_" format, for which blender will
         generate {"foo/bar/frames_0", "foo/bar/frames_1", ...}.
-      - If `self.scratch_dir` is specified, that takes precedence w.r.t. filepath.
+      - If `self.scratch_dir` is specified, *_filepath are optional.
     """
 
-    # --- if a scratch_dir was specified, force use it
-    if self.scratch_dir is not None:
+    # --- if a scratch_dir was specified
+    if png_filepath is None and exr_filepath is None and self.scratch_dir is not None:
       logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
-      assert png_filepath is None and exr_filepath is None
       png_filepath = str(self.scratch_dir / "images" / "frame_")
       exr_filepath = str(self.scratch_dir / "exr" / "frame_")
 
     # --- sets blender internal properties
-    assert png_filepath is not None
+    assert png_filepath is not None, "Neither self.scratch-dir nor path has been specified"
     bpy.context.scene.render.filepath = str(png_filepath)
 
     # --- optionally renders EXR
