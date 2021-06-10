@@ -15,7 +15,7 @@
 import logging
 import sys
 import tempfile
-from typing import Any
+from typing import Any, Optional
 
 import bpy
 import numpy as np
@@ -27,7 +27,7 @@ import kubric as kb
 import kubric.post_processing
 from kubric import core
 from kubric.redirect_io import RedirectStream
-from kubric.renderer.blender_utils import prepare_blender_object
+from kubric.renderer import blender_utils
 from kubric import utils
 from kubric.utils import PathLike
 
@@ -65,7 +65,8 @@ class Blender(core.View):
     self.background_transparency = background_transparency
     self.activate_render_passes()
     bpy.context.scene.render.filepath = str(self.scratch_dir / "images" / "frame_")
-    self._set_up_exr_output(self.scratch_dir / "exr" / "frame_")
+    self.exr_output_node = blender_utils.set_up_exr_output_node()
+    self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
@@ -113,6 +114,18 @@ class Blender(core.View):
   @background_transparency.setter
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
+
+  def set_exr_output_path(self, path_prefix: Optional[PathLike]):
+    """Set the target path prefix for EXR output.
+
+    The final filename for a frame will be "{path_prefix}{frame_nr:04d}.exr".
+    If path_prefix is None then EXR output is disabled.
+    """
+    if path_prefix is None:
+      self.exr_output_node.mute = True
+    else:
+      self.exr_output_node.mute = False
+      self.exr_output_node.base_path = str(path_prefix)
 
   def save_state(self, path: PathLike = "scene.blend", pack_textures: bool = True):
     """Saves the '.blend' blender file to disk.""" 
@@ -202,7 +215,7 @@ class Blender(core.View):
         pass  # In this case the object is already gone
 
   @add_asset.register(core.Cube)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, asset: core.Cube):
     bpy.ops.mesh.primitive_cube_add()
     cube = bpy.context.active_object
@@ -215,7 +228,7 @@ class Blender(core.View):
     return cube
 
   @add_asset.register(core.Sphere)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.Sphere):
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=5)
     bpy.ops.object.shade_smooth()
@@ -229,7 +242,7 @@ class Blender(core.View):
     return sphere
 
   @add_asset.register(core.FileBasedObject)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.FileBasedObject):
     if obj.render_filename is None:
       return None  # if there is no render file, then ignore this object
@@ -278,7 +291,7 @@ class Blender(core.View):
     return blender_obj
 
   @add_asset.register(core.DirectionalLight)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.DirectionalLight):
     sun = bpy.data.lights.new(obj.uid, "SUN")
     sun_obj = bpy.data.objects.new(obj.uid, sun)
@@ -291,7 +304,7 @@ class Blender(core.View):
     return sun_obj
 
   @add_asset.register(core.RectAreaLight)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.RectAreaLight):
     area = bpy.data.lights.new(obj.uid, "AREA")
     area_obj = bpy.data.objects.new(obj.uid, area)
@@ -308,7 +321,7 @@ class Blender(core.View):
     return area_obj
 
   @add_asset.register(core.PointLight)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.PointLight):
     point_light = bpy.data.lights.new(obj.uid, "POINT")
     point_light_obj = bpy.data.objects.new(obj.uid, point_light)
@@ -321,7 +334,7 @@ class Blender(core.View):
     return point_light_obj
 
   @add_asset.register(core.PerspectiveCamera)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.PerspectiveCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "PERSP"
@@ -337,7 +350,7 @@ class Blender(core.View):
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.OrthographicCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "ORTHO"
@@ -349,7 +362,7 @@ class Blender(core.View):
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.PrincipledBSDFMaterial):
     mat = bpy.data.materials.new(obj.uid)
     mat.use_nodes = True
@@ -386,7 +399,7 @@ class Blender(core.View):
     return mat
 
   @add_asset.register(core.FlatMaterial)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.FlatMaterial):
     # --- Create node-based material
     mat = bpy.data.materials.new("Holdout")
@@ -436,41 +449,6 @@ class Blender(core.View):
     with RedirectStream(stream=sys.stdout, filename=self.log_file):
       bpy.ops.wm.read_factory_settings(use_empty=True)
       bpy.context.scene.world = bpy.data.worlds.new("World")
-
-  def _set_up_exr_output(self, path):
-    self.blender_scene.use_nodes = True
-    tree = self.blender_scene.node_tree
-    links = tree.links
-
-    # clear existing nodes
-    for node in tree.nodes:
-      tree.nodes.remove(node)
-
-    # the render node has outputs for all the rendered layers
-    render_node = tree.nodes.new(type="CompositorNodeRLayers")
-
-    # create a new FileOutput node
-    out_node = tree.nodes.new(type="CompositorNodeOutputFile")
-    # set the format to EXR (multilayer)
-    out_node.format.file_format = "OPEN_EXR_MULTILAYER"
-    out_node.base_path = str(path)  # output directory
-
-    layers = ["Image", "Depth", "UV", "Normal", "CryptoObject00"]
-
-    out_node.file_slots.clear()
-    for l in layers:
-      out_node.file_slots.new(l)
-      links.new(render_node.outputs.get(l), out_node.inputs.get(l))
-
-    # manually convert to RGBA
-    # see https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
-    split_rgba = tree.nodes.new(type="CompositorNodeSepRGBA")
-    combine_rgba = tree.nodes.new(type="CompositorNodeCombRGBA")
-    for channel in "RGBA":
-      links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
-    out_node.file_slots.new("Vector")
-    links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
-    links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   def _setup_scene_shading(self):
     self.blender_scene.world.use_nodes = True

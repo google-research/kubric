@@ -15,7 +15,7 @@
 import logging
 import pathlib
 import tempfile
-from custom_types import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import pybullet as pb
 import tensorflow as tf

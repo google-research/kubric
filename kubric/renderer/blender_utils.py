@@ -45,3 +45,44 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
     return blender_obj
 
   return _func
+
+
+def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObject00")):
+  """ Set up the blender compositor nodes required for exporting EXR files.
+
+  The filename can then be set with:
+  out_node.base_path = "my/custom/path/prefix_"
+
+  """
+  bpy.context.scene.use_nodes = True
+  tree = bpy.context.scene.node_tree
+  links = tree.links
+
+  # clear existing nodes
+  for node in tree.nodes:
+    tree.nodes.remove(node)
+
+  # the render node has outputs for all the rendered layers
+  render_node = tree.nodes.new(type="CompositorNodeRLayers")
+
+  # create a new FileOutput node
+  out_node = tree.nodes.new(type="CompositorNodeOutputFile")
+  # set the format to EXR (multilayer)
+  out_node.format.file_format = "OPEN_EXR_MULTILAYER"
+
+  out_node.file_slots.clear()
+  for layer_name in layers:
+    out_node.file_slots.new(layer_name)
+    links.new(render_node.outputs.get(layer_name), out_node.inputs.get(layer_name))
+
+  # manually convert to RGBA. See:
+  # https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
+  split_rgba = tree.nodes.new(type="CompositorNodeSepRGBA")
+  combine_rgba = tree.nodes.new(type="CompositorNodeCombRGBA")
+  for channel in "RGBA":
+    links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
+  out_node.file_slots.new("Vector")
+  links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
+  links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
+
+  return out_node
