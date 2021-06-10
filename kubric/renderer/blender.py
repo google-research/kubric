@@ -19,9 +19,8 @@ import logging
 import multiprocessing.pool
 import sys
 import threading
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Dict, Tuple
 import tempfile
-import os.path
 
 import imageio
 from kubric import core
@@ -34,34 +33,12 @@ import tensorflow as tf
 from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
 import kubric as kb
+from kubric.renderer.blender_utils import prepare_blender_object
 from kubric.utils import save_as_json
 
 import bpy
 
-
-AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
-
-
-def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
-  """ add_asset methods decorator that takes care of blender specific settings for each object."""
-  @functools.wraps(func)
-  def _func(self, asset: core.Asset):
-    blender_obj = func(self, asset)  # create the new blender object
-    blender_obj.name = asset.uid  # link the name of the object to the UID
-    # if it has a rotation mode, then make sure it is set to quaternions
-    if hasattr(blender_obj, "rotation_mode"):
-      blender_obj.rotation_mode = "QUATERNION"
-    # if object is an actual Object (eg. not a Scene, or a Material)
-    # then ensure that it is linked into (used by) the current scene collection
-    if isinstance(blender_obj, bpy.types.Object):
-      collection = bpy.context.scene.collection.objects
-      if blender_obj not in collection.values():
-        collection.link(blender_obj)
-
-    return blender_obj
-
-  return _func
 
 
 def write_scaled_png(data: np.array,
