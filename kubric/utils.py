@@ -26,11 +26,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import argparse
+import collections
 import copy
 import functools
 import io
 import json
 import logging
+import multiprocessing
 import multiprocessing.pool
 import pathlib
 import pickle
@@ -189,8 +191,8 @@ def process_collisions(collisions, scene):
 # File IO helpers
 # --------------------------------------------------------------------------------------------------
 
-def str2path(strpath):
-  return tfds.core.as_path(strpath)
+def str2path(path: str) -> PathLike:
+  return tfds.core.as_path(path)
 
 
 def setup_directories(FLAGS):
@@ -362,3 +364,23 @@ def read_png(path: PathLike):
   plane_count = info["planes"]
   pngdata = np.vstack(list(map(dtype, pngdata)))
   return pngdata.reshape((height, width, plane_count))
+
+
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
+
+def next_global_count(name, reset=False):
+  """A global counter to create UIDs.
+  Return the total number of times (0-indexed) the function has been called with the given name.
+  Used to create the increasing UID counts for each class (e.g. "Sphere.007").
+  When passing reset=True, then all counts are reset.
+  """
+  if reset or not hasattr(next_global_count, "counter"):
+    next_global_count.counter = collections.defaultdict(int)
+    next_global_count.lock = multiprocessing.Lock()
+
+  with next_global_count.lock:
+    counter = next_global_count.counter[name]
+    next_global_count.counter[name] += 1
+    return counter

@@ -14,59 +14,57 @@
 
 import collections
 import contextlib
-import multiprocessing
 
 import munch
 import numpy as np
 import traitlets as tl
 
+from kubric.utils import next_global_count
+
 __all__ = ("Asset", "Undefined", "UndefinedAsset")
-
-
-def next_global_count(name, reset=False):
-  """ Return the total number of times this function has been called with the given name.
-   Used to create the increasing UID counts for each class (e.g. "Sphere.007").
-   When passing reset=True, then all counts are reset to 0.
-   """
-  if reset or not hasattr(next_global_count, "counter"):
-    next_global_count.counter = collections.defaultdict(int)
-    next_global_count.lock = multiprocessing.Lock()
-
-  with next_global_count.lock:
-    next_global_count.counter[name] += 1
-    return next_global_count.counter[name]
 
 
 class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.
   All objects, materials, lights, and cameras inherit from Asset.
 
-  Assets
-   * have a UID
-   * are hashable,
-   * have traits that can be observed (by external objects)
-   * support inserting keyframes for certain traits
-   * track linked (external) objects
+  An assets have a UID, is hashable, have traits that can be observed (by external objects), 
+  support inserting keyframes for certain traits, and track linked (external) objects.
+
+  Traits:
+    name: The basename used to create uids (defaults to __class__.name)
+    uid: an unique identifier auto-generated from self.name (e.g. "name", "name.001" , ...)
+    background: TODO(klausg)
+    metadata: TODO(klausg)
+
+  Attributes:
+    scenes: TODO(klausg)
+    keyframes: TODO(klausg)
+    linked_objects: TODO(klausg)
   """
 
+  name = tl.Unicode(read_only=True)
   uid = tl.Unicode(read_only=True)
   background = tl.Bool(default_value=False)
   metadata = tl.Dict(key_trait=tl.ObjectName())
 
   def __init__(self, **kwargs):
-    initializable_traits = self.trait_names()
-    initializable_traits.remove("uid")
-    unknown_traits = [kwarg for kwarg in kwargs
-                      if kwarg not in initializable_traits]
+    # --- ensure all constructor arguments are traits
+    unknown_traits = [kwarg for kwarg in kwargs if kwarg not in self.trait_names()]
+    if unknown_traits: 
+      raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}.")
 
-    if unknown_traits:
-      raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}. "
-                     f"Possible traits are: {initializable_traits}")
+    # --- Change the basename used by the UID creation mechanism
+    name = self.__class__.__name__ if "name" not in kwargs else kwargs["name"]
+    self.set_trait("name", name)  #< force set (read-only)
+    kwargs.pop("name", None)
 
+    # --- Initialize attributes
     self.linked_objects = {}
     self.scenes = []
     self.keyframes = collections.defaultdict(dict)
 
+    # --- Initialize traits
     super().__init__(**kwargs)
 
   @property
@@ -76,16 +74,20 @@ class Asset(tl.HasTraits):
 
   @tl.default("uid")
   def _uid(self):
-    """ Use the class name and a global count separated by a period as the UID.
-    Counting starts at 1 and always has at least three digits.
-    UIDs are thus of the form Scene.001 or Cube.004.
-    That way the first 999 instances of each class can be sorted alphabetically.
-    """
-    name = self.__class__.__name__
+    # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
+    # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
+
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
+    # to their name (without an instance counter)
     if isinstance(self, Undefined):
-      return f"{name}"
+      return f"{self.name}"
+    
+    # --- match the same naming logic Blender uses
+    name_counter = next_global_count(self.name)
+    if name_counter==0:
+      return f"{self.name}"
     else:
-      return f"{name}.{next_global_count(name):03d}"
+      return f"{self.name}.{name_counter:03d}"
 
   def keyframe_insert(self, member: str, frame: int):
     if not self.has_trait(member):

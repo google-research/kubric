@@ -67,17 +67,8 @@ def position_sampler(region):
   region = np.array(region, dtype=np.float)
 
   def _sampler(obj: objects.PhysicalObject, rng):
-    # make a copy of the bbox points in the matutils.Vector format
-    bounds = np.array(obj.bounds, dtype=np.float)
-    bbox_points = [mathutils.Vector(x)
-                   for x in itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])]
-    obj_orientation = mathutils.Quaternion(obj.quaternion)
-    for x in bbox_points:
-      x.rotate(obj_orientation)  # rotates x in place by the object orientation
-    bbox_points = np.array([tuple(x) for x in bbox_points])  # convert to np.array
-    rotated_bounds = np.array([bbox_points.min(axis=0), bbox_points.max(axis=0)])
-
-    effective_region = np.array(region) - rotated_bounds
+    obj.position = (0, 0, 0)  # reset position to origin
+    effective_region = np.array(region) - obj.aabbox
     obj.position = rng.uniform(*effective_region)
 
   return _sampler

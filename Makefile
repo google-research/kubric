@@ -31,6 +31,23 @@ docs: $(shell find docs )
 docs_server:
 	cd docs/_build/html && python3 -m http.server 8000
 
+# --- shared variables for example executions
+UID:=$(shell id -u)
+GID:=$(shell id -g)
+
+# --- one-liners for executing examples
+examples/helloworld:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
+
+
+# --- runs the test suite within the dev container (similar to test.yml), e.g.
+# USAGE:
+# 	make pytest TEST=test/test_core.py
+# 	make pytest TEST=test/test_core.py::test_asset_name_readonly
+TEST = test/
+pytest:
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings $(TEST)
+
 clean:
 	python3 setup.py clean --all
 	rm -rf kubric.egg-info
