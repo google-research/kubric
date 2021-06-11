@@ -17,13 +17,15 @@ from unittest import mock
 
 from kubric.core.scene import Scene
 from kubric.core.cameras import PerspectiveCamera
-from kubric.core import base
+from kubric.core import assets
 from kubric.core import objects
 from kubric.core import materials
 from kubric.core import view
 
 from kubric.core.color import get_color
 
+def test_empty_scene():
+  _ = Scene()
 
 def test_scene_constructor():
   cam = PerspectiveCamera()
@@ -47,7 +49,7 @@ def test_scene_constructor():
 
 def test_add_asset_after_linking_views():
   scene = Scene()
-  asset = base.Asset()
+  asset = assets.Asset()
   view1 = mock.Mock(view.View)
   view2 = mock.Mock(view.View)
   scene.link_view(view1)
@@ -68,7 +70,7 @@ def test_add_asset_after_linking_views():
 
 def test_add_asset_before_linking_views():
   scene = Scene()
-  asset = base.Asset()
+  asset = assets.Asset()
   scene.add(asset)
   assert asset in scene.assets
   assert scene in asset.scenes
@@ -88,7 +90,7 @@ def test_add_asset_multiple_times_ignored():
   scene = Scene()
   view1 = mock.Mock(view.View)
   scene.link_view(view1)
-  asset = base.Asset()
+  asset = assets.Asset()
 
   # call three times
   scene.add(asset)
@@ -105,7 +107,7 @@ def test_add_asset_multi_scene():
   scene1 = Scene()
   scene2 = Scene()
 
-  asset = base.Asset()
+  asset = assets.Asset()
   scene1.add(asset)
   scene2.add(asset)
 

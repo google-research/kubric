@@ -18,7 +18,9 @@ import traitlets as tl
 
 import kubric
 from kubric.core import traits as ktl
-from kubric.core import base
+from kubric.core import assets
+from kubric.core.assets import Asset  #< avoids self.assets property name clash
+from kubric.core.assets import UndefinedAsset  #< avoids self.assets property name clash
 from kubric.core import objects
 from kubric.core import cameras
 from kubric.core import color
@@ -124,7 +126,7 @@ class Scene(tl.HasTraits):
     self._views.append(view)
 
     for asset in self._assets:
-      if not isinstance(asset, base.Undefined):
+      if not isinstance(asset, UndefinedAsset):
         view.add(asset)
 
   def unlink_view(self, view: "kubric.core.view.View"):
@@ -135,13 +137,13 @@ class Scene(tl.HasTraits):
     for asset in self._assets:
       view.remove(asset)
 
-  def add(self, asset: Union[base.Asset, List[base.Asset]]):
+  def add(self, asset: Union[Asset, List[Asset]]):
     if isinstance(asset, (list, tuple)):
       for a in asset:
         self.add(a)
       return
 
-    if isinstance(asset, base.Undefined):
+    if isinstance(asset, UndefinedAsset):
       return
 
     if asset in self._assets:
@@ -158,12 +160,12 @@ class Scene(tl.HasTraits):
     if isinstance(asset, kubric.cameras.Camera):
       self.camera = asset
 
-  def __iadd__(self, asset: Union[base.Asset, List[base.Asset]]):
+  def __iadd__(self, asset: Union[Asset, List[Asset]]):
     """Adds assets to the scene with a 'scene+=asset' coding pattern."""
     self.add(asset)
     return self
 
-  def remove(self, asset: base.Asset):
+  def remove(self, asset: Asset):
     if asset not in self._assets:
       raise ValueError(f"{asset} cannot be removed, because it is not part of this scene.")
     self._assets.remove(asset)

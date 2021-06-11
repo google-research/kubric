@@ -19,6 +19,7 @@ from contextlib import redirect_stdout
 from typing import Any, Optional, Union
 
 import bpy
+
 import numpy as np
 import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
@@ -26,6 +27,7 @@ from singledispatchmethod import singledispatchmethod
 import kubric as kb
 import kubric.post_processing
 from kubric import core
+from kubric.core.assets import UndefinedAsset
 from kubric.redirect_io import RedirectStream
 from kubric.renderer import blender_utils
 from kubric import utils
@@ -598,7 +600,7 @@ class AttributeSetter:
     # change = {"type": "change", "new": (1., 1., 1.), "owner": obj}
     new_value = change.new
 
-    if isinstance(new_value, core.Undefined):
+    if isinstance(new_value, UndefinedAsset):
       return  # ignore any Undefined values
 
     if self.converter:

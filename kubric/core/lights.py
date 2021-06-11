@@ -15,10 +15,10 @@
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import base
+from kubric.core import assets
 from kubric.core import color
 from kubric.core import objects
-
+from kubric.core.assets import UndefinedAsset
 
 __all__ = ("Light", "UndefinedLight", "DirectionalLight", "RectAreaLight", "PointLight")
 
@@ -32,7 +32,7 @@ class Light(objects.Object3D):
     return True
 
 
-class UndefinedLight(Light, base.Undefined):
+class UndefinedLight(Light, UndefinedAsset):
   pass
 
 
