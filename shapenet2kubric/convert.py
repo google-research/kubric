@@ -268,9 +268,9 @@ if __name__ == "__main__":
     parser.add_argument('--outdir', required=True, help='The output directory.')
     args = parser.parse_args()
     
-    # Get the categories of shapenet
-    cat_dirs = os.listdir(args.datadir)
-
+    # --- Get the categories of shapenet (i.e. subfolders)
+    cat_dirs = [x for x in Path(args.datadir).iterdir() if x.is_dir()]
+    
     # Loop over each category
     for cat_dir in cat_dirs:
         obj_id_list = os.listdir(os.path.join(args.datadir, cat_dir))

@@ -1,7 +1,9 @@
 # Scripts and containers to convert ShapeNetCore.v2 into Kubric-friendly assets.
 # WARNING: the commands within this makefile need to be executed within the shapenet2kubric folder.
 
-TEMPDIR := $(shell mktemp -d)
+DOWNLOADPREFIX := $(HOME)/datasets
+SHAPENETSRC := $(DOWNLOADPREFIX)/ShapeNetCore.v2
+SHAPENETDST := $(DOWNLOADPREFIX)/ShapeNetCore.v2.kubric
 
 # --- Docker images used to preprocess shapenet→kubric
 container: Dockerfile
@@ -19,22 +21,19 @@ container_pull:
 convert:
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(PWD):/shapenet2kubric" \
-		--volume "$(HOME)/datasets/ShapeNetCore.v2:/ShapeNetCore.v2" \
-		--volume "$(HOME)/datasets/ShapeNetCore.v2.kubric:/ShapeNetCore.v2.kubric" \
+		--volume $(PWD):/shapenet2kubric \
+		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
+		--volume $(SHAPENETDST):/ShapeNetCore.v2.kubric \
 		kubricdockerhub/shapenet:latest \
 		python3.7 shapenet2kubric/convert.py \
 			--datadir "/ShapeNetCore.v2" \
 			--outdir "/ShapeNetCore.v2.kubric"
 
-download_bathtub:
-	wget --directory-prefix $(TEMPDIR) https://raw.githubusercontent.com/hjwdzh/ManifoldPlus/master/data/bathtub.obj
-
 # --- (manually) check that the container can execute "manifold" correctly
-manifold_test: download_bathtub
+manifold_test: bathtub
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(TEMPDIR):/workdir" \
+		--volume "$(DOWNLOADPREFIX):/workdir" \
 		kubricdockerhub/shapenet:latest \
 		manifold \
 			--input /workdir/bathtub.obj \
@@ -42,10 +41,10 @@ manifold_test: download_bathtub
 			--depth 8
 
 # --- (manually) check that the container can execute "obj2gltf" correctly
-obj2gltf_test: download_bathtub
+obj2gltf_test: bathtub
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(TEMPDIR):/workdir" \
+		--volume "$(DOWNLOADPREFIX):/workdir" \
 		kubricdockerhub/shapenet:latest \
 		obj2gltf \
 			-i /workdir/bathtub.obj \
@@ -55,5 +54,9 @@ obj2gltf_test: download_bathtub
 download:
 	@read -p "Have you accepted the shapenet.org licence? (y/n):" line; \
 		if [ $$line = "n" ]; then echo "ABORTING: please obtain a licence first"; exit 1; fi
-	wget --continue --directory-prefix $(HOME)/datasets http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
-	unzip -d $(HOME)/datasets $(HOME)/datasets/ShapeNetCore.v2.zip
+	wget --continue --directory-prefix $(DOWNLOADPREFIX) http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
+	unzip -d $(DOWNLOADPREFIX) $(DOWNLOADPREFIX)/ShapeNetCore.v2.zip
+
+# --- model used to manually test manifold and obj2gltf
+bathtub:
+	wget --directory-prefix $(DOWNLOADPREFIX) https://raw.githubusercontent.com/hjwdzh/ManifoldPlus/master/data/bathtub.obj
