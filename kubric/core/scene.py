@@ -16,6 +16,7 @@ from typing import Tuple, Union, List
 
 import traitlets as tl
 
+import kubric  # pylint: disable=unused-import
 from kubric.utils import next_global_count
 from kubric.core import color
 from kubric.core import traits as ktl
@@ -134,6 +135,7 @@ class Scene(tl.HasTraits):
       view.remove(asset)
 
   def add(self, asset: Union[Asset, List[Asset]]):
+    # --- if list, unroll list and call itself on elements
     if isinstance(asset, (list, tuple)):
       for a in asset:
         self.add(a)
