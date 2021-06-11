@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric assets interface definition."""
 
 import collections
 import contextlib
@@ -26,7 +27,7 @@ class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.
   All objects, materials, lights, and cameras inherit from Asset.
 
-  An assets have a UID, is hashable, have traits that can be observed (by external objects), 
+  An assets have a UID, is hashable, have traits that can be observed (by external objects),
   support inserting keyframes for certain traits, and track linked (external) objects.
 
   Traits:
@@ -49,7 +50,7 @@ class Asset(tl.HasTraits):
   def __init__(self, **kwargs):
     # --- ensure all constructor arguments are traits
     unknown_traits = [kwarg for kwarg in kwargs if kwarg not in self.trait_names()]
-    if unknown_traits: 
+    if unknown_traits:
       raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}.")
 
     # --- Change the basename used by the UID creation mechanism
@@ -89,7 +90,7 @@ class Asset(tl.HasTraits):
     self.notify_change(munch.Munch(name=member,
                                    owner=self,
                                    frame=frame,
-                                   type='keyframe'))
+                                   type="keyframe"))
 
   @contextlib.contextmanager
   def at_frame(self, frame, interpolation="linear"):
@@ -97,7 +98,7 @@ class Asset(tl.HasTraits):
       try:
         yield self
       finally:
-        return
+        return  # TODO(klausg): deal with pylint warning
 
     old_values = {}
     try:
@@ -169,6 +170,6 @@ class UndefinedAsset(Asset):
 
   @tl.default("uid")
   def _uid(self):
-    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal
     # to their name (without an instance counter)
     return f"{self.name}"
