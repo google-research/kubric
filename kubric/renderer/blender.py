@@ -241,7 +241,7 @@ class Blender(core.View):
       png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
 
       # TODO(klausg): this is blender specific, should not be IN the blender module?
-      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+      layers = blender_utils.get_render_layers_from_exr(exr_filename,
                                                                  bg_objects,
                                                                  fg_objects)
       data = {k: layers[k] for k in
