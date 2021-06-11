@@ -1,6 +1,8 @@
 # Scripts and containers to convert ShapeNetCore.v2 into Kubric-friendly assets.
 # WARNING: the commands within this makefile need to be executed within the shapenet2kubric folder.
 
+TEMPDIR := $(shell mktemp -d)
+
 # --- Docker images used to preprocess shapenet→kubric
 container: Dockerfile
 	docker build -f Dockerfile -t kubricdockerhub/shapenet:latest .
@@ -25,26 +27,29 @@ convert:
 			--datadir "/ShapeNetCore.v2" \
 			--outdir "/ShapeNetCore.v2.kubric"
 
+download_bathtub:
+	wget --directory-prefix $(TEMPDIR) https://raw.githubusercontent.com/hjwdzh/ManifoldPlus/master/data/bathtub.obj
+
 # --- (manually) check that the container can execute "manifold" correctly
-manifold_test:
+manifold_test: download_bathtub
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(PWD):/shapenet2kubric" \
+		--volume "$(TEMPDIR):/workdir" \
 		kubricdockerhub/shapenet:latest \
 		manifold \
-			--input /shapenet2kubric/bathtub.obj \
-			--output /shapenet2kubric/bathtub_manifold.obj \
+			--input /workdir/bathtub.obj \
+			--output /workdir/bathtub_manifold.obj \
 			--depth 8
 
 # --- (manually) check that the container can execute "obj2gltf" correctly
-obj2gltf_test:
+obj2gltf_test: download_bathtub
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(PWD):/shapenet2kubric" \
+		--volume "$(TEMPDIR):/workdir" \
 		kubricdockerhub/shapenet:latest \
 		obj2gltf \
-			-i /shapenet2kubric/bathtub.obj \
-			-o /shapenet2kubric/bathtub
+			-i /workdir/bathtub.obj \
+			-o /workdir/bathtub
 
 # --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
