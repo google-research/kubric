@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric color classes."""
 
 import colorsys
 from typing import NamedTuple, Tuple, Union
@@ -34,12 +35,12 @@ class Color(NamedTuple):
 
   @property
   def hexstr(self):
-    r, g, b, a = [int(x * 255) for x in self]
+    r, g, b, a = [int(x * 255) for x in iter(self)]
     return f"#{r:02x}{g:02x}{b:02x}{a:02x}"
 
   @property
   def hexstr_short(self):
-    r, g, b, a = [int(x * 15) for x in self]
+    r, g, b, a = [int(x * 15) for x in iter(self)]
     return f"#{r:01x}{g:01x}{b:01x}{a:01x}"
 
   @classmethod
@@ -56,7 +57,7 @@ class Color(NamedTuple):
   def from_hexint(cls, hexint: int, alpha: float = 1.0):
     """Create a Color instance from a hex integer like 0xaaff33 and an optional alpha value."""
     if not 0 <= hexint <= 0xffffff:
-      raise ValueError("hexint has to be between 0x000000 and 0xffffff (was 0x{:06x})".format(hexint))
+      raise ValueError("hexint not [0x000000 ... 0xffffff] (was 0x{:06x})".format(hexint))
     if not 0. <= alpha <= 1.0:
       raise ValueError("alpha has to be between 0.0 and 1.0 (was {})".format(alpha))
     b = hexint & 255
