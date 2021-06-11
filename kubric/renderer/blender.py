@@ -47,7 +47,7 @@ class Blender(core.View):
     An implementation of a rendering backend in Blender/Cycles.
 
     Args:
-      verbose: when True, redirects the blender stdout to stdnull
+      verbose: when False, redirects the blender stdout to stdnull
     """
 
     self.scratch_dir = scratch_dir
@@ -59,18 +59,20 @@ class Blender(core.View):
     self.bg_mapping_node = None
     self.verbose = verbose
 
-    self._clear_and_reset()  # as blender has a default scene on load
+    # blender has a default scene on load, so we clear everything first
+    blender_utils.clear_and_reset_blender_scene(self.verbose)
     self.blender_scene = bpy.context.scene
 
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
+    blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
     self._setup_scene_shading()
 
     self.adaptive_sampling = adaptive_sampling  # speeds up rendering
     self.use_denoising = use_denoising  # improves the output quality
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
-    self.activate_render_passes()
+
     self.exr_output_node = blender_utils.set_up_exr_output_node()
 
     super().__init__(scene, scene_observers={
@@ -167,16 +169,15 @@ class Blender(core.View):
     # --- save the file; see https://github.com/google-research/kubric/issues/96
     logger.info("Saving '%s'", path)
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      with io.StringIO() as fstdout: #< scratch stdout buffer
-        with redirect_stdout(fstdout): #< also suppresses python stdout
+      with io.StringIO() as fstdout:  # < scratch stdout buffer
+        with redirect_stdout(fstdout):  # < also suppresses python stdout
           bpy.ops.wm.save_mainfile(filepath=path)
           if pack_textures: bpy.ops.file.pack_all()
         if self.verbose: print(fstdout.getvalue())
 
-
   def render(self,
-             png_filepath:PathLike=None,
-             exr_filepath:PathLike=None):
+             png_filepath: PathLike = None,
+             exr_filepath: PathLike = None):
     """Renders the animation.
 
     Args:
@@ -211,7 +212,7 @@ class Blender(core.View):
 
     # --- starts rendering
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-        bpy.ops.render.render(animation=True, write_still=False) #BUG: Issue #95
+        bpy.ops.render.render(animation=True, write_still=False)  # BUG: Issue #95
       
   def render_still(self, png_filepath:PathLike):
     """Renders a single frame of the scene to png_filepath."""
@@ -510,11 +511,6 @@ class Blender(core.View):
                 "indirect_visibility", type="keyframe")
     return mat
 
-  def _clear_and_reset(self):
-    with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      bpy.ops.wm.read_factory_settings(use_empty=True)
-      bpy.context.scene.world = bpy.data.worlds.new("World")
-
   def _setup_scene_shading(self):
     self.blender_scene.world.use_nodes = True
     tree = self.blender_scene.world.node_tree
@@ -587,14 +583,6 @@ class Blender(core.View):
                                                  self.bg_node.inputs.get("Color"))
     self.bg_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
     self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
-
-  def activate_render_passes(self):
-    view_layer = bpy.context.scene.view_layers[0]
-    view_layer.use_pass_vector = True  # flow
-    view_layer.use_pass_uv = True  # UV
-    view_layer.use_pass_normal = True  # surface normals
-    view_layer.use_pass_cryptomatte_object = True  # segmentation
-    view_layer.pass_cryptomatte_depth = 2
 
   def _convert_to_blender_object(self, asset: core.Asset):
     return asset.linked_objects[self]

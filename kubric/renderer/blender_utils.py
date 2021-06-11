@@ -13,11 +13,20 @@
 # limitations under the License.
 
 import functools
+import sys
 
 import bpy
 
 from kubric import core
 from kubric.custom_types import AddAssetFunction
+from kubric.redirect_io import RedirectStream
+
+
+def clear_and_reset_blender_scene(verbose=False):
+  """ Resets Blender to an entirely empty scene."""
+  with RedirectStream(stream=sys.stdout, disabled=verbose):
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.context.scene.world = bpy.data.worlds.new("World")
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
@@ -86,3 +95,14 @@ def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObje
   links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   return out_node
+
+
+def activate_render_passes(normal: bool = True, optical_flow: bool = True,
+                           segmentation: bool = True, uv: bool = True):
+    view_layer = bpy.context.scene.view_layers[0]
+    view_layer.use_pass_vector = optical_flow
+    view_layer.use_pass_uv = uv
+    view_layer.use_pass_normal = normal  # surface normals
+    view_layer.use_pass_cryptomatte_object = segmentation
+    if segmentation:
+      view_layer.pass_cryptomatte_depth = 2
