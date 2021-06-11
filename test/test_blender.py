@@ -16,10 +16,11 @@ import bpy
 
 from kubric import core
 from kubric.renderer import blender
+from kubric.renderer import blender_utils
 
 
 def test_prepare_blender_object():
-  @blender.prepare_blender_object
+  @blender_utils.prepare_blender_object
   def add_asset(self, asset):
     bpy.ops.mesh.primitive_cube_add()
     cube = bpy.context.active_object
