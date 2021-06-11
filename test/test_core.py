@@ -21,14 +21,15 @@ from numpy.testing import assert_allclose
 from traitlets import TraitError
 from unittest import mock
 
-from kubric.core import base
+from kubric.core import Asset
+from kubric.core import UndefinedAsset
 from kubric.core import objects
 from kubric.core import materials
 
 
 def test_asset_default_uid():
   # first instance of an object should have the name of object class
-  a = base.Asset()
+  a = Asset()
   assert a.uid
   assert isinstance(a.uid, str)
   assert a.uid == a.__class__.__name__
@@ -36,41 +37,41 @@ def test_asset_default_uid():
 
 def test_asset_progressive_uids():
   # first instance of an object should have the name of object class
-  a = base.Asset(name="Foo")
-  b = base.Asset(name="Foo")
-  c = base.Asset(name="Foo")
+  a = Asset(name="Foo")
+  b = Asset(name="Foo")
+  c = Asset(name="Foo")
   assert a.uid == "Foo"
   assert b.uid == "Foo.001"
   assert c.uid == "Foo.002"
 
 
 def test_asset_name_readonly():
-  a = base.Asset()
+  a = Asset()
   with pytest.raises(TraitError):
     a.name = "Foo"
 
 
 def test_asset_uid_readonly():
-  a = base.Asset()
+  a = Asset()
   with pytest.raises(TraitError, match=r".*uid.* trait is read-only.*"):
     a.uid = "abc"
 
 
 def test_undefined_asset_uid():
-  a = base.UndefinedAsset()
-  b = base.UndefinedAsset()
+  a = UndefinedAsset()
+  b = UndefinedAsset()
   assert a.uid == "UndefinedAsset"
   assert b.uid == "UndefinedAsset"
 
 
 def test_asset_raises_unknown_traits():
   with pytest.raises(KeyError, match=r".*'doesnotexist'.*") as e:
-    base.Asset(doesnotexist=1)
+    Asset(doesnotexist=1)
 
 
 def test_asset_hash_and_eq():
-  a = b = base.Asset()
-  c = base.Asset()
+  a = b = Asset()
+  c = Asset()
 
   assert hash(a)
   assert hash(a) == hash(b)
@@ -80,7 +81,7 @@ def test_asset_hash_and_eq():
 
 
 def test_asset_repr():
-  a = base.Asset()
+  a = Asset()
   assert re.match(r"^<Asset.[0-9][0-9][0-9].*>$", repr(a)) is not None
 
 
@@ -213,6 +214,35 @@ def test_physicalobject_bounds_validation():
   obj = objects.PhysicalObject()
   with pytest.raises(TraitError):
     obj.bounds = ((1, 1, 1), (3, 0, 2))
+
+
+def test_cube_default_bounds():
+  cube = objects.Cube(position=(2, 2, 2))
+  assert np.all(cube.bounds[0] == (-1, -1, -1))
+  assert np.all(cube.bounds[1] == (1, 1, 1))
+
+
+def test_sphere_default_bounds():
+  sphere = objects.Sphere(position=(1, 2, 3))
+  assert np.all(sphere.bounds[0] == (-1, -1, -1))
+  assert np.all(sphere.bounds[1] == (1, 1, 1))
+
+
+def test_object_aabbox_translation_and_scale():
+  cube = objects.Cube(position=(1, 2, 3), scale=(1, 2, 0.5))
+  lower, upper = cube.aabbox
+
+  assert np.all(lower == (0, 0, 2.5))
+  assert np.all(upper == (2, 4, 3.5))
+
+
+def test_object_aabbox_rotation():
+  cube = objects.Cube(look_at=(1, 1, 0))  # 45 degree rotation around z
+  lower, upper = cube.aabbox
+
+  sqrt2 = np.sqrt(2)
+  np.testing.assert_allclose(lower, (-sqrt2, -sqrt2, -1), atol=1e-5)
+  np.testing.assert_allclose(upper, (sqrt2, sqrt2, 1), atol=1e-5)
 
 
 def test_keyframe_insert_raises_for_unknown_trait():

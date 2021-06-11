@@ -31,7 +31,8 @@ import pathlib
 import bpy
 import numpy as np
 import kubric as kb
-
+from kubric.renderer.blender import Blender as KubricRenderer
+from kubric.simulator.pybullet import PyBullet as KubricSimulator
 
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
@@ -66,8 +67,8 @@ scratch_dir, output_dir = kb.setup_directories(FLAGS)
 seed = FLAGS.seed if FLAGS.seed else np.random.randint(0, 2147483647)
 rng = np.random.RandomState(seed=seed)
 scene = kb.Scene.from_flags(FLAGS)
-simulator = kb.simulator.PyBullet(scene, scratch_dir)
-renderer = kb.renderer.Blender(scene, scratch_dir)
+renderer = KubricRenderer(scene, scratch_dir)
+simulator = KubricSimulator(scene, scratch_dir)
 
 gso = kb.AssetSource(FLAGS.assets_dir)
 hdris = kb.TextureSource(FLAGS.hdri_dir)

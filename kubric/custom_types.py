@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""The basic types of the Kubric interface (derived from the core "Asset")."""
+from typing import Any, Callable, Union
 
-from .scene import Scene
-from .view import View
-from .assets import *
-from .color import *
-from .objects import *
-from .materials import *
-from .lights import *
-from .cameras import *
+import tensorflow_datasets.public_api as tfds
+
+from kubric import core  # pylint: disable=unused-import
+
+AddAssetFunction = Callable[["core.View", "core.Asset"], Any]
+
+PathLike = Union[str, tfds.core.ReadWritePath]

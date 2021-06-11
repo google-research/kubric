@@ -16,10 +16,8 @@ import numpy as np
 import traitlets as tl
 
 from kubric.core import color
-from kubric.core import base
-
-
-__all__ = ("Vector3D", "Scale", "Quaternion", "RGB", "RGBA", "AssetInstance")
+from kubric.core.assets import UndefinedAsset
+from kubric.core.assets import Asset
 
 
 class Vector3D(tl.TraitType):
@@ -109,13 +107,13 @@ class RGB(tl.TraitType):
 
 
 class AssetInstance(tl.Instance):
-  default_value = base.UndefinedAsset()
+  default_value = UndefinedAsset()
 
   def make_dynamic_default(self):
     # this function is only needed in traitlets < 5.0
     return self.default_value
 
-  def validate(self, obj: base.Asset, value):
+  def validate(self, obj: Asset, value):
     super().validate(obj, value)
 
     # make sure the new asset is part of all scenes that the parent is part of

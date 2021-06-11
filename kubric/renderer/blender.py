@@ -12,204 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from contextlib import redirect_stdout
-import functools
 import io
-import json
 import logging
-import multiprocessing.pool
 import sys
-import threading
-from typing import Any, Callable, Dict, Tuple, Union
+from contextlib import redirect_stdout
+from typing import Any, Optional, Union
 
-import imageio
+import bpy
+
 import numpy as np
-import png
-from singledispatchmethod import singledispatchmethod
-import tensorflow as tf
-from tensorflow_datasets.core.utils.type_utils import PathLike
 import tensorflow_datasets.public_api as tfds
+from singledispatchmethod import singledispatchmethod
 
 import kubric as kb
 import kubric.post_processing
 from kubric import core
+from kubric.core.assets import UndefinedAsset
 from kubric.redirect_io import RedirectStream
-from kubric.utils import save_as_json
+from kubric.renderer import blender_utils
+from kubric import utils
+from kubric.utils import PathLike
 
-import bpy
-
-
-AddAssetFunction = Callable[[core.View, core.Asset], Any]
 logger = logging.getLogger(__name__)
-
-
-def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
-  """ add_asset methods decorator that takes care of blender specific settings for each object."""
-  @functools.wraps(func)
-  def _func(self, asset: core.Asset):
-    blender_obj = func(self, asset)  # create the new blender object
-    blender_obj.name = asset.uid  # link the name of the object to the UID
-    # if it has a rotation mode, then make sure it is set to quaternions
-    if hasattr(blender_obj, "rotation_mode"):
-      blender_obj.rotation_mode = "QUATERNION"
-    # if object is an actual Object (eg. not a Scene, or a Material)
-    # then ensure that it is linked into (used by) the current scene collection
-    if isinstance(blender_obj, bpy.types.Object):
-      collection = bpy.context.scene.collection.objects
-      if blender_obj not in collection.values():
-        collection.link(blender_obj)
-
-    return blender_obj
-
-  return _func
-
-
-def write_scaled_png(data: np.array, path_prefix: PathLike) -> Dict[str, float]:
-  """Writes data as pngs to path and optionally returns rescaling values.
-
-  data is expected to be of shape [B, H, W, C] and has to have
-  between 1 and 4 channels. A two channel image is padded using a zero channel.
-  uint8 and uint16 are written as is.
-  other dtypes are rescaled to uint16. When rescaling, this method returns the
-  min and max values of the original data.
-
-  Args:
-    data: the image to be written
-    path_prefix: the path prefix to write to
-
-  Returns:
-    {"min": value, "max": value} if rescaling was applied, None otherwise.
-  """
-  assert len(data.shape) == 4, data.shape
-  scaling = None
-  if data.dtype in [np.uint32, np.uint64]:
-    max_value = np.amax(data)
-    if max_value > 65535:
-      logger.warning("max_value %d exceeds uint16 bounds for %s.",
-                     max_value, path_prefix)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.float32, np.float64]:
-    min_value = np.amin(data)
-    max_value = np.amax(data)
-    scaling = {"min": min_value.item(), "max": max_value.item()}
-    data = (data - min_value) * 65535 / (max_value - min_value)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.uint8, np.uint16]:
-    pass
-  else:
-    raise NotImplementedError(f"Cannot handle {data.dtype}.")
-  bitdepth = 8 if data.dtype == np.uint8 else 16
-  greyscale = (data.shape[-1] == 1)
-  alpha = (data.shape[-1] == 4)
-  w = png.Writer(data.shape[1], data.shape[2], greyscale=greyscale,
-                 bitdepth=bitdepth, alpha=alpha)
-  for i in range(data.shape[0]):
-    img = data[i].copy()
-    if img.shape[-1] == 2:
-      # Pad two-channel images with a zero channel.
-      img = np.concatenate([img, np.zeros_like(img[..., :1])], axis=-1)
-    # pypng expects 2d arrays
-    # see https://pypng.readthedocs.io/en/latest/ex.html#reshaping
-    img = img.reshape(img.shape[0], -1)
-    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
-      w.write(fp, img)
-  return scaling
-
-
-def write_tiff(
-    all_imgs: np.ndarray,
-    path_prefix: tfds.core.ReadWritePath,
-) -> None:
-  """Save single-channel float images as tiff.."""
-  assert len(all_imgs.shape) == 4
-  assert all_imgs.shape[-1] == 1  # Single channel image
-  assert all_imgs.dtype in [np.float32, np.float64]
-  for i, img in enumerate(all_imgs):
-    path = path_prefix.parent / f"{path_prefix.name}_{i:05d}.tiff"
-
-    # Save tiff in an intermediate buffer
-    buffer = io.BytesIO()
-    imageio.imwrite(buffer, img, format=".tif")
-    path.write_bytes(buffer.getvalue())
-
-
-def write_single_record(
-    kv: Tuple[str, np.array],
-    path_prefix: PathLike,
-    scalings: Dict[str, Dict[str, float]],
-    lock: threading.Lock,
-):
-  """Write single record."""
-  key = kv[0]
-  img = kv[1]
-  if key == "depth":
-    write_tiff(img, path_prefix / key)
-  else:
-    scaling = write_scaled_png(img, path_prefix / key)
-    if scaling:
-      with lock:
-        scalings[key] = scaling
-
-
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
-
-  scalings = {}
-
-  lock = threading.Lock()
-  _MAX_WRITE_THREADS = 16
-  with multiprocessing.pool.ThreadPool(
-      min(len(data.items()), _MAX_WRITE_THREADS)) as pool:
-    args = [(key, img) for key, img in data.items()]
-    write_single_record_fn = functools.partial(
-        write_single_record,
-        path_prefix=path_prefix,
-        scalings=scalings,
-        lock=lock)
-    pool.map(write_single_record_fn, args)
-    pool.close()
-    pool.join()
-
-  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
-    json.dump(scalings, fp)
-
-
-def read_png(path: PathLike):
-  path = tfds.core.as_path(path)
-  pngReader = png.Reader(bytes=path.read_bytes())
-  width, height, pngdata, info = pngReader.read()
-  del pngReader
-  bitdepth = info["bitdepth"]
-  if bitdepth == 8:
-    dtype = np.uint8
-  elif bitdepth == 16:
-    dtype = np.uint16
-  else:
-    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
-  plane_count = info["planes"]
-  pngdata = np.vstack(list(map(dtype, pngdata)))
-  return pngdata.reshape((height, width, plane_count))
-
-
-def compute_bboxes(segmentation):
-  instances = []
-  for k in range(1, np.max(segmentation)+1):
-    obj = {
-        "bboxes": [],
-        "bbox_frames": [],
-    }
-    for t in range(segmentation.shape[0]):
-      seg = segmentation[t, ..., 0]
-      idxs = np.array(np.where(seg == k), dtype=np.float32)
-      if idxs.size > 0:
-        idxs /= np.array(seg.shape)[:, np.newaxis]
-        obj["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
-                              float(idxs[0].max()), float(idxs[1].max())))
-        obj["bbox_frames"].append(t)
-
-    instances.append(obj)
-  return instances
 
 
 class Blender(core.View):
@@ -225,7 +49,7 @@ class Blender(core.View):
     An implementation of a rendering backend in Blender/Cycles.
 
     Args:
-      verbose: when True, redirects the blender stdout to stdnull
+      verbose: when False, redirects the blender stdout to stdnull
     """
 
     self.scratch_dir = scratch_dir
@@ -237,18 +61,21 @@ class Blender(core.View):
     self.bg_mapping_node = None
     self.verbose = verbose
 
-    self._clear_and_reset()  # as blender has a default scene on load
+    # blender has a default scene on load, so we clear everything first
+    blender_utils.clear_and_reset_blender_scene(self.verbose)
     self.blender_scene = bpy.context.scene
 
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
+    blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
     self._setup_scene_shading()
 
     self.adaptive_sampling = adaptive_sampling  # speeds up rendering
     self.use_denoising = use_denoising  # improves the output quality
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
-    self.activate_render_passes()
+
+    self.exr_output_node = blender_utils.set_up_exr_output_node()
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
@@ -308,6 +135,18 @@ class Blender(core.View):
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
 
+  def set_exr_output_path(self, path_prefix: Optional[PathLike]):
+    """Set the target path prefix for EXR output.
+
+    The final filename for a frame will be "{path_prefix}{frame_nr:04d}.exr".
+    If path_prefix is None then EXR output is disabled.
+    """
+    if path_prefix is None:
+      self.exr_output_node.mute = True
+    else:
+      self.exr_output_node.mute = False
+      self.exr_output_node.base_path = str(path_prefix)
+
   def save_state(self, path: PathLike=None, pack_textures: bool=True):
     """Saves the '.blend' blender file to disk.
 
@@ -332,16 +171,15 @@ class Blender(core.View):
     # --- save the file; see https://github.com/google-research/kubric/issues/96
     logger.info("Saving '%s'", path)
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      with io.StringIO() as fstdout: #< scratch stdout buffer
-        with redirect_stdout(fstdout): #< also suppresses python stdout
+      with io.StringIO() as fstdout:  # < scratch stdout buffer
+        with redirect_stdout(fstdout):  # < also suppresses python stdout
           bpy.ops.wm.save_mainfile(filepath=path)
           if pack_textures: bpy.ops.file.pack_all()
         if self.verbose: print(fstdout.getvalue())
 
-
   def render(self,
-             png_filepath:PathLike=None,
-             exr_filepath:PathLike=None):
+             png_filepath: PathLike = None,
+             exr_filepath: PathLike = None):
     """Renders the animation.
 
     Args:
@@ -365,10 +203,8 @@ class Blender(core.View):
     assert png_filepath is not None, "Neither self.scratch-dir nor path has been specified"
     bpy.context.scene.render.filepath = str(png_filepath)
 
-    # --- optionally renders EXR
-    # TODO: klaus, is this sufficient to disable EXR output?
-    if exr_filepath is not None:
-      self._setup_exr_output(str(exr_filepath))
+    # --- optionally (erx_filepath=None) renders EXR 
+    self.set_exr_output_path(exr_filepath)
 
     # --- notify the logger when a frame has been rendered
     #     TODO: can we get this also for the EXR output?
@@ -378,8 +214,8 @@ class Blender(core.View):
 
     # --- starts rendering
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-        bpy.ops.render.render(animation=True, write_still=False) #BUG: Issue #95
-
+        bpy.ops.render.render(animation=True, write_still=False)
+      
   def render_still(self, png_filepath:PathLike):
     """Renders a single frame of the scene to png_filepath."""
 
@@ -407,13 +243,13 @@ class Blender(core.View):
       png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
 
       # TODO(klausg): this is blender specific, should not be IN the blender module?
-      layers = kubric.post_processing.get_render_layers_from_exr(exr_filename,
+      layers = blender_utils.get_render_layers_from_exr(exr_filename,
                                                                  bg_objects,
                                                                  fg_objects)
       data = {k: layers[k] for k in
               ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
-      data["rgba"] = read_png(png_filename)
+      data["rgba"] = utils.read_png(png_filename)
       data["segmentation"] = layers["segmentation_indices"][:, :, :1]
       for key in data:
         if key in data_stack:
@@ -423,10 +259,10 @@ class Blender(core.View):
     for key in data_stack:
       data_stack[key] = np.stack(data_stack[key], axis=0)
     # Save to image files
-    write_image_dict(data_stack, to_dir)
+    utils.write_image_dict(data_stack, to_dir)
     # compute bounding boxes
-    instance_bboxes = compute_bboxes(data_stack["segmentation"])
-    save_as_json(to_dir / "bboxes.json", instance_bboxes)
+    instance_bboxes = kubric.post_processing.compute_bboxes(data_stack["segmentation"])
+    utils.save_as_json(to_dir / "bboxes.json", instance_bboxes)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
@@ -447,7 +283,7 @@ class Blender(core.View):
         pass  # In this case the object is already gone
 
   @add_asset.register(core.Cube)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, asset: core.Cube):
     bpy.ops.mesh.primitive_cube_add()
     cube = bpy.context.active_object
@@ -460,8 +296,8 @@ class Blender(core.View):
     return cube
 
   @add_asset.register(core.Sphere)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.Sphere):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.Sphere):
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=5)
     bpy.ops.object.shade_smooth()
     sphere = bpy.context.active_object
@@ -474,8 +310,8 @@ class Blender(core.View):
     return sphere
 
   @add_asset.register(core.FileBasedObject)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.FileBasedObject):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.FileBasedObject):
     if obj.render_filename is None:
       return None  # if there is no render file, then ignore this object
     _, _, extension = obj.render_filename.rpartition(".")
@@ -523,7 +359,7 @@ class Blender(core.View):
     return blender_obj
 
   @add_asset.register(core.DirectionalLight)
-  @prepare_blender_object
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.DirectionalLight):  # pylint: disable=function-redefined
     sun = bpy.data.lights.new(obj.uid, "SUN")
     sun_obj = bpy.data.objects.new(obj.uid, sun)
@@ -536,8 +372,8 @@ class Blender(core.View):
     return sun_obj
 
   @add_asset.register(core.RectAreaLight)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.RectAreaLight):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.RectAreaLight):  
     area = bpy.data.lights.new(obj.uid, "AREA")
     area_obj = bpy.data.objects.new(obj.uid, area)
 
@@ -553,8 +389,8 @@ class Blender(core.View):
     return area_obj
 
   @add_asset.register(core.PointLight)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.PointLight):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.PointLight):
     point_light = bpy.data.lights.new(obj.uid, "POINT")
     point_light_obj = bpy.data.objects.new(obj.uid, point_light)
 
@@ -566,8 +402,8 @@ class Blender(core.View):
     return point_light_obj
 
   @add_asset.register(core.PerspectiveCamera)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.PerspectiveCamera):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.PerspectiveCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "PERSP"
     # fix sensor width and determine sensor height by the aspect ratio of the image:
@@ -582,8 +418,8 @@ class Blender(core.View):
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.OrthographicCamera):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.OrthographicCamera):
     camera = bpy.data.cameras.new(obj.uid)
     camera.type = "ORTHO"
     camera_obj = bpy.data.objects.new(obj.uid, camera)
@@ -594,8 +430,8 @@ class Blender(core.View):
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.PrincipledBSDFMaterial):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.PrincipledBSDFMaterial):
     mat = bpy.data.materials.new(obj.uid)
     mat.use_nodes = True
     bsdf_node = mat.node_tree.nodes["Principled BSDF"]
@@ -631,8 +467,8 @@ class Blender(core.View):
     return mat
 
   @add_asset.register(core.FlatMaterial)
-  @prepare_blender_object
-  def _add_asset(self, obj: core.FlatMaterial):  # pylint: disable=function-redefined
+  @blender_utils.prepare_blender_object
+  def _add_asset(self, obj: core.FlatMaterial):
     # --- Create node-based material
     mat = bpy.data.materials.new("Holdout")
     mat.use_nodes = True
@@ -676,46 +512,6 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(indirect_mix_node.inputs["Fac"], "default_value"),
                 "indirect_visibility", type="keyframe")
     return mat
-
-  def _clear_and_reset(self):
-    with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      bpy.ops.wm.read_factory_settings(use_empty=True)
-      bpy.context.scene.world = bpy.data.worlds.new("World")
-
-  def _setup_exr_output(self, path: str):
-    self.blender_scene.use_nodes = True
-    tree = self.blender_scene.node_tree
-    links = tree.links
-
-    # clear existing nodes
-    for node in tree.nodes:
-      tree.nodes.remove(node)
-
-    # the render node has outputs for all the rendered layers
-    render_node = tree.nodes.new(type="CompositorNodeRLayers")
-
-    # create a new FileOutput node
-    out_node = tree.nodes.new(type="CompositorNodeOutputFile")
-    # set the format to EXR (multilayer)
-    out_node.format.file_format = "OPEN_EXR_MULTILAYER"
-    out_node.base_path = str(path)  # output directory
-
-    layers = ["Image", "Depth", "UV", "Normal", "CryptoObject00"]
-
-    out_node.file_slots.clear()
-    for l in layers:
-      out_node.file_slots.new(l)
-      links.new(render_node.outputs.get(l), out_node.inputs.get(l))
-
-    # manually convert to RGBA
-    # see https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
-    split_rgba = tree.nodes.new(type="CompositorNodeSepRGBA")
-    combine_rgba = tree.nodes.new(type="CompositorNodeCombRGBA")
-    for channel in "RGBA":
-      links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
-    out_node.file_slots.new("Vector")
-    links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
-    links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   def _setup_scene_shading(self):
     self.blender_scene.world.use_nodes = True
@@ -790,14 +586,6 @@ class Blender(core.View):
     self.bg_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
     self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
-  def activate_render_passes(self):
-    view_layer = self.blender_scene.view_layers[0]
-    view_layer.use_pass_vector = True  # flow
-    view_layer.use_pass_uv = True  # UV
-    view_layer.use_pass_normal = True  # surface normals
-    view_layer.cycles.use_pass_crypto_object = True  # segmentation
-    view_layer.cycles.pass_crypto_depth = 2
-
   def _convert_to_blender_object(self, asset: core.Asset):
     return asset.linked_objects[self]
 
@@ -812,7 +600,7 @@ class AttributeSetter:
     # change = {"type": "change", "new": (1., 1., 1.), "owner": obj}
     new_value = change.new
 
-    if isinstance(new_value, core.Undefined):
+    if isinstance(new_value, UndefinedAsset):
       return  # ignore any Undefined values
 
     if self.converter:

@@ -14,12 +14,13 @@
 
 import logging
 import kubric as kb
+from kubric.renderer.blender import Blender as KubricRenderer
 
 logging.basicConfig(level="INFO") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
 
 # --- create scene and attach a renderer to it
 scene = kb.Scene(resolution=(256, 256))
-renderer = kb.renderer.Blender(scene)
+renderer = KubricRenderer(scene)
 
 # --- populate the scene with objects, lights, cameras
 scene += kb.Cube(name="floor", scale=(10, 10, 0.1), position=(0, 0, -0.1))
@@ -27,6 +28,6 @@ scene += kb.Sphere(name="ball", scale=1, position=(0, 0, .5))
 scene += kb.DirectionalLight(name="sun", position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
 scene += kb.PerspectiveCamera(name="camera", position=(2, -0.5, 4), look_at=(0, 0, 0))
 
-# --- render (and save the blender file) 
+# --- render (and save the blender file)
 renderer.save_state("output/helloworld.blend")
 renderer.render_still("output/helloworld.png")

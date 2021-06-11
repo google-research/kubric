@@ -38,7 +38,8 @@ GID:=$(shell id -g)
 # --- one-liners for executing examples
 examples/helloworld:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
-
+examples/simulator:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
@@ -46,7 +47,7 @@ examples/helloworld:
 # 	make pytest TEST=test/test_core.py::test_asset_name_readonly
 TEST = test/
 pytest:
-	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings $(TEST)
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
 
 # --- runs pylint on the entire "kubric/" subfolder
 LINT = ./kubric

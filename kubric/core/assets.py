@@ -21,8 +21,6 @@ import traitlets as tl
 
 from kubric.utils import next_global_count
 
-__all__ = ("Asset", "Undefined", "UndefinedAsset")
-
 
 class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.
@@ -76,13 +74,6 @@ class Asset(tl.HasTraits):
   def _uid(self):
     # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
     # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
-
-    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
-    # to their name (without an instance counter)
-    if isinstance(self, Undefined):
-      return f"{self.name}"
-    
-    # --- match the same naming logic Blender uses
     name_counter = next_global_count(self.name)
     if name_counter==0:
       return f"{self.name}"
@@ -174,10 +165,10 @@ class Asset(tl.HasTraits):
       return f"<{self.uid}>"
 
 
-class Undefined:
-  pass
+class UndefinedAsset(Asset):
 
-
-class UndefinedAsset(Asset, Undefined):
-  pass
-
+  @tl.default("uid")
+  def _uid(self):
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
+    # to their name (without an instance counter)
+    return f"{self.name}"

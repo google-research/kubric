@@ -16,16 +16,15 @@ from typing import Tuple, Union, List
 
 import traitlets as tl
 
-import kubric
-from kubric.core import traits as ktl
-from kubric.core import base
-from kubric.core import objects
-from kubric.core import cameras
-from kubric.core import color
+import kubric  # pylint: disable=unused-import
 from kubric.utils import next_global_count
-
-__all__ = ("Scene",)
-
+from kubric.core import color
+from kubric.core import traits as ktl
+from kubric.core.assets import Asset  #< avoids self.assets property name clash
+from kubric.core.assets import UndefinedAsset  #< avoids self.assets property name clash
+from kubric.core.cameras import Camera
+from kubric.core.cameras import UndefinedCamera
+from kubric.core.objects import Object3D
 
 class Scene(tl.HasTraits):
   """ Scenes hold Assets and are the main interface used by Views (such as Renderers).
@@ -54,7 +53,7 @@ class Scene(tl.HasTraits):
   frame_rate = tl.Integer()
   step_rate = tl.Integer()
 
-  camera = tl.Instance(cameras.Camera)
+  camera = tl.Instance(Camera)
   resolution = tl.Tuple(tl.Integer(), tl.Integer())
 
   gravity = ktl.Vector3D()
@@ -66,7 +65,7 @@ class Scene(tl.HasTraits):
   def __init__(self, frame_start: int = 1, frame_end: int = 48, frame_rate: int = 24,
                step_rate: int = 240, resolution: Tuple[int, int] = (512, 512),
                gravity: Tuple[float, float, float] = (0, 0, -10.),
-               camera: cameras.Camera = cameras.UndefinedCamera(),
+               camera: Camera = UndefinedCamera(),
                ambient_illumination: color.Color = color.get_color("black"),
                background: color.Color = color.get_color("black")):
     self._assets = []
@@ -108,7 +107,7 @@ class Scene(tl.HasTraits):
 
   @property
   def foreground_assets(self):
-    return tuple(a for a in self._assets if isinstance(a, objects.Object3D) and not a.background)
+    return tuple(a for a in self._assets if isinstance(a, Object3D) and not a.background)
 
   @property
   def background_assets(self):
@@ -124,7 +123,7 @@ class Scene(tl.HasTraits):
     self._views.append(view)
 
     for asset in self._assets:
-      if not isinstance(asset, base.Undefined):
+      if not isinstance(asset, UndefinedAsset):
         view.add(asset)
 
   def unlink_view(self, view: "kubric.core.view.View"):
@@ -135,13 +134,14 @@ class Scene(tl.HasTraits):
     for asset in self._assets:
       view.remove(asset)
 
-  def add(self, asset: Union[base.Asset, List[base.Asset]]):
+  def add(self, asset: Union[Asset, List[Asset]]):
+    # --- if list, unroll list and call itself on elements
     if isinstance(asset, (list, tuple)):
       for a in asset:
         self.add(a)
       return
 
-    if isinstance(asset, base.Undefined):
+    if isinstance(asset, UndefinedAsset):
       return
 
     if asset in self._assets:
@@ -155,15 +155,15 @@ class Scene(tl.HasTraits):
       view.add(asset)
 
     # --- if is a camera object, and none is set, set as the camera
-    if isinstance(asset, kubric.cameras.Camera):
+    if isinstance(asset, Camera):
       self.camera = asset
 
-  def __iadd__(self, asset: Union[base.Asset, List[base.Asset]]):
+  def __iadd__(self, asset: Union[Asset, List[Asset]]):
     """Adds assets to the scene with a 'scene+=asset' coding pattern."""
     self.add(asset)
     return self
 
-  def remove(self, asset: base.Asset):
+  def remove(self, asset: Asset):
     if asset not in self._assets:
       raise ValueError(f"{asset} cannot be removed, because it is not part of this scene.")
     self._assets.remove(asset)
