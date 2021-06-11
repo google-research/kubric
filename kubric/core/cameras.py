@@ -15,7 +15,7 @@
 import numpy as np
 import traitlets as tl
 
-from kubric.core import assets
+from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
 
 __all__ = ("Camera", "UndefinedCamera", "PerspectiveCamera", "OrthographicCamera")
@@ -32,7 +32,7 @@ class Camera(objects.Object3D):
     return True
 
 
-class UndefinedCamera(Camera, assets.Undefined):
+class UndefinedCamera(Camera, UndefinedAsset):
   """ Marker object that indicates that a camera instance attribute has not been set. """
   pass
 

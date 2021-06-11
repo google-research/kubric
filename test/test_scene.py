@@ -24,6 +24,8 @@ from kubric.core import view
 
 from kubric.core.color import get_color
 
+def test_empty_scene():
+  _ = Scene()
 
 def test_scene_constructor():
   cam = PerspectiveCamera()

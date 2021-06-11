@@ -24,6 +24,7 @@ from typing import Any, Callable, Dict, Tuple, Union
 
 import imageio
 from kubric import core
+from kubric.core.assets import UndefinedAsset
 import kubric.post_processing
 from kubric.redirect_io import RedirectStream
 import numpy as np
@@ -812,7 +813,7 @@ class AttributeSetter:
     # change = {"type": "change", "new": (1., 1., 1.), "owner": obj}
     new_value = change.new
 
-    if isinstance(new_value, core.Undefined):
+    if isinstance(new_value, UndefinedAsset):
       return  # ignore any Undefined values
 
     if self.converter:

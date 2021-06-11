@@ -20,6 +20,7 @@ import kubric
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core.assets import Asset  #< avoids self.assets property name clash
+from kubric.core.assets import UndefinedAsset  #< avoids self.assets property name clash
 from kubric.core import objects
 from kubric.core import cameras
 from kubric.core import color
@@ -125,7 +126,7 @@ class Scene(tl.HasTraits):
     self._views.append(view)
 
     for asset in self._assets:
-      if not isinstance(asset, assets.Undefined):
+      if not isinstance(asset, UndefinedAsset):
         view.add(asset)
 
   def unlink_view(self, view: "kubric.core.view.View"):
@@ -142,7 +143,7 @@ class Scene(tl.HasTraits):
         self.add(a)
       return
 
-    if isinstance(asset, assets.Undefined):
+    if isinstance(asset, UndefinedAsset):
       return
 
     if asset in self._assets:

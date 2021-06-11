@@ -16,6 +16,7 @@ import traitlets as tl
 
 from kubric.core import traits as ktl
 from kubric.core import assets
+from kubric.core.assets import UndefinedAsset
 from kubric import core
 
 __all__ = ("Material", "UndefinedMaterial", "PrincipledBSDFMaterial", "FlatMaterial")
@@ -26,7 +27,7 @@ class Material(assets.Asset):
   pass
 
 
-class UndefinedMaterial(Material, assets.Undefined):
+class UndefinedMaterial(Material, UndefinedAsset):
   """Marker class to indicate that Kubric should not interfere with this material."""
   pass
 
