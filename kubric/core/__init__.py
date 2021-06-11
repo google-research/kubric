@@ -16,19 +16,17 @@
 
 The root classes are Scene and Asset, which further specializes into:
 
-* Materials
 * Objects
+* Materials
 * Lights
 * Cameras
 """
 
-from kubric.core.color import *
-from kubric.core.base import *
-# from kubric.core.traits import *
-from kubric.core.objects import *
-from kubric.core.materials import *
-from kubric.core.lights import *
-from kubric.core.cameras import *
-from kubric.core.scene import Scene
-from kubric.core.view import View
-
+from .scene import Scene
+from .view import View
+from .assets import *
+from .color import *
+from .objects import *
+from .materials import *
+from .lights import *
+from .cameras import *

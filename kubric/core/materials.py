@@ -15,18 +15,19 @@
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import base
+from kubric.core import assets
+from kubric.core.assets import UndefinedAsset
 from kubric import core
 
 __all__ = ("Material", "UndefinedMaterial", "PrincipledBSDFMaterial", "FlatMaterial")
 
 
-class Material(base.Asset):
+class Material(assets.Asset):
   """Base class for all materials."""
   pass
 
 
-class UndefinedMaterial(Material, base.Undefined):
+class UndefinedMaterial(Material, UndefinedAsset):
   """Marker class to indicate that Kubric should not interfere with this material."""
   pass
 
@@ -57,5 +58,5 @@ class FlatMaterial(Material):
   indirect_visibility = tl.Bool(True)
 
 
-class Texture(base.Asset):
+class Texture(assets.Asset):
   filename = tl.Unicode()

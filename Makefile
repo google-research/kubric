@@ -38,7 +38,8 @@ GID:=$(shell id -g)
 # --- one-liners for executing examples
 examples/helloworld:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
-
+examples/simulator:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
