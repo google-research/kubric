@@ -49,8 +49,9 @@ pytest:
 	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings $(TEST)
 
 # --- runs pylint on the entire "kubric/" subfolder
+LINT = ./kubric
 pylint:
-	pylint --rcfile=.pylintrc ./kubric
+	pylint --rcfile=.pylintrc $(LINT)
 
 clean:
 	python3 setup.py clean --all
