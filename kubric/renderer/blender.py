@@ -589,12 +589,12 @@ class Blender(core.View):
     self.bg_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
   def activate_render_passes(self):
-    view_layer = self.blender_scene.view_layers[0]
+    view_layer = bpy.context.scene.view_layers[0]
     view_layer.use_pass_vector = True  # flow
     view_layer.use_pass_uv = True  # UV
     view_layer.use_pass_normal = True  # surface normals
-    view_layer.cycles.use_pass_crypto_object = True  # segmentation
-    view_layer.cycles.pass_crypto_depth = 2
+    view_layer.use_pass_cryptomatte_object = True  # segmentation
+    view_layer.pass_cryptomatte_depth = 2
 
   def _convert_to_blender_object(self, asset: core.Asset):
     return asset.linked_objects[self]
