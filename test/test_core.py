@@ -215,6 +215,35 @@ def test_physicalobject_bounds_validation():
     obj.bounds = ((1, 1, 1), (3, 0, 2))
 
 
+def test_cube_default_bounds():
+  cube = objects.Cube(position=(2, 2, 2))
+  assert np.all(cube.bounds[0] == (-1, -1, -1))
+  assert np.all(cube.bounds[1] == (1, 1, 1))
+
+
+def test_sphere_default_bounds():
+  sphere = objects.Sphere(position=(1, 2, 3))
+  assert np.all(sphere.bounds[0] == (-1, -1, -1))
+  assert np.all(sphere.bounds[1] == (1, 1, 1))
+
+
+def test_object_aabbox_translation_and_scale():
+  cube = objects.Cube(position=(1, 2, 3), scale=(1, 2, 0.5))
+  lower, upper = cube.aabbox
+
+  assert np.all(lower == (0, 0, 2.5))
+  assert np.all(upper == (2, 4, 3.5))
+
+
+def test_object_aabbox_rotation():
+  cube = objects.Cube(look_at=(1, 1, 0))  # 45 degree rotation around z
+  lower, upper = cube.aabbox
+
+  sqrt2 = np.sqrt(2)
+  np.testing.assert_allclose(lower, (-sqrt2, -sqrt2, -1), atol=1e-5)
+  np.testing.assert_allclose(upper, (sqrt2, sqrt2, 1), atol=1e-5)
+
+
 def test_keyframe_insert_raises_for_unknown_trait():
   obj = objects.Object3D()
   with pytest.raises(KeyError):
