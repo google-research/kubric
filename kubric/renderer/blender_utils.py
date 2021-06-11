@@ -109,9 +109,14 @@ def activate_render_passes(normal: bool = True, optical_flow: bool = True,
     view_layer.use_pass_vector = optical_flow
     view_layer.use_pass_uv = uv
     view_layer.use_pass_normal = normal  # surface normals
-    view_layer.use_pass_cryptomatte_object = segmentation
-    if segmentation:
-      view_layer.pass_cryptomatte_depth = 2
+    if bpy.app.version >= (2, 93, 0):
+      view_layer.use_pass_cryptomatte_object = segmentation
+      if segmentation:
+        view_layer.pass_cryptomatte_depth = 2
+    else:
+      view_layer.cycles.use_pass_crypto_object = segmentation
+      if segmentation:
+        view_layer.cycles.pass_crypto_depth = 2
 
 
 def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str]) -> np.ndarray:

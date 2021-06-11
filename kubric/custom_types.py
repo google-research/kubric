@@ -16,8 +16,11 @@ from typing import Any, Callable, Union
 
 import tensorflow_datasets.public_api as tfds
 
+# noinspection PyUnresolvedReferences
+from kubric import core
+
 __all__ = ["AddAssetFunction", "PathLike"]
 
-AddAssetFunction = Callable[["kubric.core.View", "kubric.core.Asset"], Any]
+AddAssetFunction = Callable[["core.View", "core.Asset"], Any]
 
 PathLike = Union[str, tfds.core.ReadWritePath]
