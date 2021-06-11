@@ -24,16 +24,11 @@ COPY requirements_dev.txt .
 COPY docs/requirements.txt ./requirements_docs.txt
 
 # --- Install Python dependencies
-RUN python3 -m ensurepip
-RUN pip3 install --upgrade pip wheel
-RUN pip3 install --upgrade -r requirements.txt
-RUN pip3 install --upgrade -r requirements_dev.txt
-RUN pip3 install --upgrade -r requirements_docs.txt
-
-# --- Clear temporary
-RUN rm -f requirements.txt
-RUN rm -f requirements_dev.txt
-RUN rm -f requirements_docs.txt
+RUN pip install --upgrade pip wheel && \
+    pip install --upgrade -r requirements.txt && \
+    pip install --upgrade -r requirements_dev.txt && \
+    pip install --upgrade -r requirements_docs.txt && \
+    rm -f requirements.txt requirements_dev.txt requirements_docs.txt
 
 # --- Silences tensorflow
 ENV TF_CPP_MIN_LOG_LEVEL="3"

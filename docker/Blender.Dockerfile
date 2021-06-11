@@ -81,6 +81,7 @@ ENV LANG C.UTF-8
 RUN apt-get update --yes --fix-missing && \
     apt-get install --yes --quiet --no-install-recommends --reinstall \
       python3.9-dev \
+      python3.9-distutils \
       build-essential \
       # for GIF creation
       imagemagick \
@@ -109,5 +110,15 @@ RUN apt-get update --yes --fix-missing && \
       #tk-dev \  # installs libpng-dev which leads to blender linking errors
       uuid-dev
 
+# make python3.9 the default python and python3
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 10 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 10
+
+# install pip for python 3.9
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python3.9 get-pip.py && \
+    rm get-pip.py
+
+
 COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.9/dist-packages/
-COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.9/dist-packages/2.93 /usr/local/lib/python3.9/dist-packages/2.93
+COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.9/site-packages/2.93 /usr/local/lib/python3.9/dist-packages/2.93
