@@ -9,7 +9,7 @@ First, we need to create a (default) scene and attach the renderer (Blender) to 
 .. code-block:: python
 
   scene = kb.Scene(resolution=(256, 256))
-  renderer = kb.renderer.Blender(scene)
+  renderer = KubricRenderer(scene)
 
 Next we will create a floor (i.e. cube), and add a sphere on top of it (with default materials).
 

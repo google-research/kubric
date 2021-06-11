@@ -21,7 +21,6 @@ import traitlets as tl
 
 from kubric.utils import next_global_count
 
-__all__ = ("Asset", "UndefinedAsset")
 
 class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.

@@ -15,16 +15,14 @@
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import assets
-from kubric.core import color
+
 from kubric.core import objects
 from kubric.core.assets import UndefinedAsset
-
-__all__ = ("Light", "UndefinedLight", "DirectionalLight", "RectAreaLight", "PointLight")
+from kubric.core.color import get_color
 
 
 class Light(objects.Object3D):
-  color = ktl.RGB(default_value=color.get_color("white").rgb)
+  color = ktl.RGB(default_value=get_color("white").rgb)
   intensity = tl.Float(1.)
 
   @tl.default("background")

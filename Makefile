@@ -47,7 +47,7 @@ examples/simulator:
 # 	make pytest TEST=test/test_core.py::test_asset_name_readonly
 TEST = test/
 pytest:
-	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings $(TEST)
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
 
 clean:
 	python3 setup.py clean --all

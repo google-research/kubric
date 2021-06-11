@@ -21,7 +21,6 @@ from kubric.core.scene import Scene
 from kubric.core.assets import Asset
 from kubric.core.assets import UndefinedAsset
 
-__all__ = ("View",)
 
 empty_dict = MappingProxyType({})  # immutable empty dict for use in default arguments
 

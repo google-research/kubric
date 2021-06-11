@@ -30,8 +30,6 @@ with RedirectStream(stream=sys.stderr):
 
 logger = logging.getLogger(__name__)
 
-__all__ = ("PyBullet", )
-
 
 class PyBullet(core.View):
 
