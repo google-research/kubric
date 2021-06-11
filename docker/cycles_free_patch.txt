@@ -2,7 +2,7 @@ diff --git a/intern/cycles/blender/addon/__init__.py b/intern/cycles/blender/add
 index 3ab352e..1162d89 100644
 --- a/intern/cycles/blender/addon/__init__.py
 +++ b/intern/cycles/blender/addon/__init__.py
-@@ -64,7 +64,8 @@ class CyclesRender(bpy.types.RenderEngine):
+@@ -66,7 +66,8 @@ class CyclesRender(bpy.types.RenderEngine):
          self.session = None
  
      def __del__(self):

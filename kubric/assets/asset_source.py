@@ -20,10 +20,11 @@ import tempfile
 import pandas as pd
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
-from tensorflow_datasets.core.utils.type_utils import PathLike
+
 
 from typing import Optional
 
+from kubric.custom_types import PathLike
 from kubric.core import objects
 from kubric.core import materials
 

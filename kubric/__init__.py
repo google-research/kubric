@@ -19,7 +19,6 @@ from kubric.core import *
 from kubric.core.color import Color, get_color
 from kubric.renderer import Blender
 from kubric.simulator import PyBullet
-from kubric.post_processing import get_render_layers_from_exr
 
 from kubric import assets
 from kubric.assets import AssetSource, TextureSource
