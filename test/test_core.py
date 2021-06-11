@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import re
+from numpy.core.arrayprint import format_float_positional
 
 import pytest
 import numpy as np
@@ -25,11 +26,28 @@ from kubric.core import objects
 from kubric.core import materials
 
 
-def test_asset_has_uid():
+def test_asset_default_uid():
+  # first instance of an object should have the name of object class
   a = base.Asset()
   assert a.uid
   assert isinstance(a.uid, str)
-  assert re.match(r"^Asset.[0-9][0-9][0-9]$", a.uid) is not None
+  assert a.uid == a.__class__.__name__
+
+
+def test_asset_progressive_uids():
+  # first instance of an object should have the name of object class
+  a = base.Asset(name="Foo")
+  b = base.Asset(name="Foo")
+  c = base.Asset(name="Foo")
+  assert a.uid == "Foo"
+  assert b.uid == "Foo.001"
+  assert c.uid == "Foo.002"
+
+
+def test_asset_name_readonly():
+  a = base.Asset()
+  with pytest.raises(TraitError):
+    a.name = "Foo"
 
 
 def test_asset_uid_readonly():

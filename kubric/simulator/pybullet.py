@@ -14,14 +14,19 @@
 
 import logging
 import pathlib
+import sys
 import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
-import pybullet as pb
 import tensorflow as tf
 from singledispatchmethod import singledispatchmethod
 
 from kubric import core
+from kubric.redirect_io import RedirectStream
+
+# --- removes the "pybullet build time: May 26 2021 18:52:36" message upon import
+with RedirectStream(stream=sys.stderr):
+  import pybullet as pb
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +93,7 @@ class PyBullet(core.View):
     return box_idx
 
   @add_asset.register(core.Sphere)
-  def _add_object(self, obj: core.Cube) -> Optional[int]:
+  def _add_object(self, obj: core.Sphere) -> Optional[int]:
     radius = obj.scale[0]
     assert radius == obj.scale[1] == obj.scale[2], obj.scale  # only uniform scaling
     collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
