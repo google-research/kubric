@@ -103,20 +103,22 @@ def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObje
   return out_node
 
 
-def activate_render_passes(normal: bool = True, optical_flow: bool = True,
-                           segmentation: bool = True, uv: bool = True):
-    view_layer = bpy.context.scene.view_layers[0]
-    view_layer.use_pass_vector = optical_flow
-    view_layer.use_pass_uv = uv
-    view_layer.use_pass_normal = normal  # surface normals
-    if bpy.app.version >= (2, 93, 0):
-      view_layer.use_pass_cryptomatte_object = segmentation
-      if segmentation:
-        view_layer.pass_cryptomatte_depth = 2
-    else:
-      view_layer.cycles.use_pass_crypto_object = segmentation
-      if segmentation:
-        view_layer.cycles.pass_crypto_depth = 2
+def activate_render_passes(normal: bool = True,
+                           optical_flow: bool = True,
+                           segmentation: bool = True,
+                           uv: bool = True):
+  view_layer = bpy.context.scene.view_layers[0]
+  view_layer.use_pass_vector = optical_flow
+  view_layer.use_pass_uv = uv
+  view_layer.use_pass_normal = normal  # surface normals
+  if bpy.app.version >= (2, 93, 0):
+    view_layer.use_pass_cryptomatte_object = segmentation
+    if segmentation:
+      view_layer.pass_cryptomatte_depth = 2
+  else:
+    view_layer.cycles.use_pass_crypto_object = segmentation
+    if segmentation:
+      view_layer.cycles.pass_crypto_depth = 2
 
 
 def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str]) -> np.ndarray:
@@ -140,11 +142,13 @@ def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str])
   return np.stack(outputs, axis=-1)
 
 
-def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> Dict[str, np.ndarray]:
+def get_render_layers_from_exr(filename,
+                               background_objects=(),
+                               objects=()) -> Dict[str, np.ndarray]:
   exr = OpenEXR.InputFile(str(filename))
   layer_names = set()
-  for n, v in exr.header()["channels"].items():
-    layer_name, _,  channel_name = n.partition(".")
+  for n, _ in exr.header()["channels"].items():
+    layer_name, _, _ = n.partition(".")
     layer_names.add(layer_name)
 
   output = {}
@@ -197,13 +201,13 @@ def get_render_layers_from_exr(filename, background_objects=(), objects=()) -> D
     # All background images are assigned to 0.
     for asset in background_objects:
       labelmap[kubric.assets.mm3hash(asset.uid)] = 0
-    logging.info("The labelmap is ", labelmap)
+    logging.info("The labelmap is '%s'", labelmap)  # TODO(klausg): check %s appropriate here?
 
     bg_ids = [kubric.assets.mm3hash(obj.uid) for obj in background_objects]
     object_ids = [kubric.assets.mm3hash(obj.uid) for obj in objects]
     for bg_id in bg_ids:
       idxs[idxs == bg_id] = labelmap[bg_id]  # assign 0 to all background objects
-    for i, object_id in enumerate(object_ids):
+    for _, object_id in enumerate(object_ids):
       idxs[idxs == object_id] = labelmap[object_id]
 
   return output
