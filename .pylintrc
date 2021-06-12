@@ -5,7 +5,9 @@
 # Its canonical open-source location is:
 #   https://google.github.io/styleguide/pylintrc
 #
-# WARNING: line length changed 80→100
+# KUBRIC TWEAKS:
+# – line length changed 80–100
+# – disabled C0114: Missing module docstring (missing-module-docstring)
 
 [MASTER]
 
@@ -92,6 +94,7 @@ disable=abstract-method,
         map-builtin-not-iterating,
         misplaced-comparison-constant,
         missing-function-docstring,
+        missing-module-docstring,
         metaclass-assignment,
         next-method-called,
         next-method-defined,

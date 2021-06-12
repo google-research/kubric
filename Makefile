@@ -40,7 +40,11 @@ examples/helloworld:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
 examples/simulator:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
-
+examples/klevr:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
+examples/katr:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
+		
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
 # 	make pytest TEST=test/test_core.py

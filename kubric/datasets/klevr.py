@@ -25,6 +25,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=line-too-long
 """Synthetic video dataset of simple rigid objects interacting physically."""
 
 import itertools
@@ -302,7 +303,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
               "positions": obj["positions"][::frame_subsampling].astype(np.float32),
               "quaternions": obj["quaternions"][::frame_subsampling].astype(np.float32),
               "velocities": obj["velocities"][::frame_subsampling].astype(np.float32),
-              "angular_velocities": obj["angular_velocities"][::frame_subsampling].astype(np.float32),  # pylint: disable=line-too-long
+              "angular_velocities": obj["angular_velocities"][::frame_subsampling].astype(np.float32),
               "image_positions": obj["image_positions"][::frame_subsampling].astype(np.float32),
               "bboxes": obj["bboxes"],
               "bbox_frames": np.array(obj["bbox_frames"], dtype=np.uint16),
@@ -312,7 +313,7 @@ class Klevr(tfds.core.BeamBasedBuilder):
               "sensor_width": metadata["camera"]["sensor_width"],
               "field_of_view": metadata["camera"]["field_of_view"],
               "positions": metadata["camera"]["positions"][::frame_subsampling].astype(np.float32),
-              "quaternions": metadata["camera"]["quaternions"][::frame_subsampling].astype(np.float32),  # pylint: disable=line-too-long
+              "quaternions": metadata["camera"]["quaternions"][::frame_subsampling].astype(np.float32),
           },
           "events": {
               "collisions": [{

@@ -21,7 +21,7 @@ def mm3hash(name):
   """
   hash_32 = sklearn.utils.murmurhash3_32(name, positive=True)
   exp = hash_32 >> 23 & 255
-  if (exp == 0) or (exp == 255):
+  if exp in (0, 255):
     hash_32 ^= 1 << 23
   return hash_32
 

@@ -199,7 +199,7 @@ def str2path(path: str) -> PathLike:
 
 def setup_directories(flags):
   assert flags.scratch_dir is not None
-  scratch_dir = flags.scratch_dir
+  scratch_dir = str2path(flags.scratch_dir)
   if scratch_dir.exists():
     logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
     shutil.rmtree(scratch_dir)

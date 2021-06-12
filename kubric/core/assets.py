@@ -98,7 +98,8 @@ class Asset(tl.HasTraits):
       try:
         yield self
       finally:
-        return  # TODO(klausg): deal with pylint warning
+        # TODO(klausg): deal with pylint warning
+        return  # pylint: disable=lost-exception
 
     old_values = {}
     try:
