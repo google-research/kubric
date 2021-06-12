@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
 
 import io
 import logging
@@ -37,6 +38,8 @@ logger = logging.getLogger(__name__)
 
 
 class Blender(core.View):
+  """ An implementation of a rendering backend in Blender/Cycles."""
+
   def __init__(self,
                scene: core.Scene,
                scratch_dir=None,
@@ -46,12 +49,15 @@ class Blender(core.View):
                background_transparency=False,
                verbose: bool=False):
     """
-    An implementation of a rendering backend in Blender/Cycles.
-
     Args:
-      verbose: when False, redirects the blender stdout to stdnull
+      scene: the kubric scene this class will observe
+      scratch_dir: TODO
+      adaptive_sampling: TODO
+      use_denoising: TODO
+      samples_per_pixel: TODO
+      background_transparency: TODO
+      verbose: when False, blender stdout is redirected to stdnull
     """
-
     self.scratch_dir = scratch_dir
     self.ambient_node = None
     self.ambient_hdri_node = None
@@ -203,19 +209,19 @@ class Blender(core.View):
     assert png_filepath is not None, "Neither self.scratch-dir nor path has been specified"
     bpy.context.scene.render.filepath = str(png_filepath)
 
-    # --- optionally (erx_filepath=None) renders EXR 
+    # --- optionally (erx_filepath=None) renders EXR
     self.set_exr_output_path(exr_filepath)
 
     # --- notify the logger when a frame has been rendered
     #     TODO: can we get this also for the EXR output?
     def render_notification(scene):
-      logger.info(f"Rendered frame '{scene.render.frame_path()}'")
+      logger.info("Rendered frame '%s'", scene.render.frame_path())
     bpy.app.handlers.render_write.append(render_notification)
 
     # --- starts rendering
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-        bpy.ops.render.render(animation=True, write_still=False)
-      
+      bpy.ops.render.render(animation=True, write_still=False)
+
   def render_still(self, png_filepath:PathLike):
     """Renders a single frame of the scene to png_filepath."""
 
@@ -226,7 +232,7 @@ class Blender(core.View):
     # --- render
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       bpy.ops.render.render(animation=False, write_still=True)
-    logger.info(f"Rendered frame '{png_filepath}'")
+    logger.info("Rendered frame '%s'", png_filepath)
 
   def postprocess(self, from_dir: PathLike, to_dir=PathLike):
     from_dir = tfds.core.as_path(from_dir)
@@ -373,7 +379,7 @@ class Blender(core.View):
 
   @add_asset.register(core.RectAreaLight)
   @blender_utils.prepare_blender_object
-  def _add_asset(self, obj: core.RectAreaLight):  
+  def _add_asset(self, obj: core.RectAreaLight):
     area = bpy.data.lights.new(obj.uid, "AREA")
     area_obj = bpy.data.objects.new(obj.uid, area)
 
@@ -448,7 +454,8 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint")
+    obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"],
+                                "default_value"), "specular_tint")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint",
                 type="keyframe")
     obj.observe(AttributeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior")
@@ -542,7 +549,8 @@ class Blender(core.View):
     links.new(self.bg_node.outputs.get("Background"), mix_node.inputs[2])
     links.new(mix_node.outputs.get("Shader"), out_node.inputs.get("Surface"))
 
-    # create nodes for HDRI images, but leave them disconnected until set_ambient_illumination or set_background
+    # create nodes for HDRI images, but leave them disconnected until
+    # set_ambient_illumination or set_background
     coord_node = tree.nodes.new(type="ShaderNodeTexCoord")
 
     self.bg_mapping_node = tree.nodes.new(type="ShaderNodeMapping")
@@ -557,7 +565,8 @@ class Blender(core.View):
     self.ambient_hdri_node = tree.nodes.new(type="ShaderNodeTexEnvironment")
     self.ambient_hdri_node.location = 400, -200
     links.new(coord_node.outputs.get("Generated"), self.illum_mapping_node.inputs.get("Vector"))
-    links.new(self.illum_mapping_node.outputs.get("Vector"), self.ambient_hdri_node.inputs.get("Vector"))
+    links.new(self.illum_mapping_node.outputs.get("Vector"),
+              self.ambient_hdri_node.inputs.get("Vector"))
 
   def _set_ambient_light_color(self, color=(0., 0., 0., 1.0)):
     # disconnect incoming links from hdri node (if any)
@@ -591,6 +600,8 @@ class Blender(core.View):
 
 
 class AttributeSetter:
+  """TODO(klausg): provide high-level description of observer implementation."""
+
   def __init__(self, blender_obj, attribute: str, converter=None):
     self.blender_obj = blender_obj
     self.attribute = attribute
