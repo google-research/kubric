@@ -39,7 +39,7 @@ class RedirectStream(object):
     if self.disabled: return
     try:
       self.stream.flush()  # ensures python stream unaffected
-      self.fd = open(self.filename, "w+")
+      self.fd = open(self.filename, "w+")  # pylint: disable=consider-using-with
       self.dup_stream = os.dup(self.stream.fileno())
       os.dup2(self.fd.fileno(), self.stream.fileno())  # replaces stream
     except Exception as e:  # pylint: disable=broad-except

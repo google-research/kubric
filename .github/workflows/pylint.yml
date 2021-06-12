@@ -25,4 +25,5 @@ jobs:
 
       - name: Lint with pylint
         run: |
+          pylint --version
           pylint --rcfile=.pylintrc ./kubric
