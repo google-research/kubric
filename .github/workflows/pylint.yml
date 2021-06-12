@@ -3,7 +3,6 @@ name: pylint.yml
 
 on:
   pull_request:
-    branches: [ main ]
     paths: '**.py'
 
 jobs:    
