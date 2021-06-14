@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
-
 import kubric as kb
 from kubric.assets import asset_source
 from kubric import core
@@ -38,11 +36,12 @@ KLEVR_ASSETS_IDs = [
 ]
 
 class KLEVR(asset_source.AssetSource):
+  """The KLEVR asset source, providing the default CLEVR visual setup."""
+
   def __init__(self, uri: str):
     super().__init__(uri)
-    #TODO: this seems obsolete?
+    # TODO(klausg): obsolete?
     # self.spawn_region = ((-3.5, -3.5, 0), (3.5, 3.5, 2))
-    #TODO: this seems obsolete?
     # self.ambient_light = (0.05, 0.05, 0.05)
 
   # NOTE: moved from worker
@@ -63,7 +62,7 @@ class KLEVR(asset_source.AssetSource):
           metallic=0.,
           ior=1.25)
 
-    obj = self.create(asset_id=asset_id, material=material)   
+    obj = self.create(asset_id=asset_id, material=material)
     return obj
 
   def get_floor(self):

@@ -25,6 +25,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# pylint: disable=line-too-long
+"""Synthetic video dataset of simple rigid objects interacting physically."""
 
 import itertools
 import logging
@@ -38,8 +40,7 @@ from typing import List
 
 _DESCRIPTION = """
 The Klevr dataset is a synthetic video dataset of simple rigid objects interacting physically.
-It is based on the the CLEVR dataset:
-https://cs.stanford.edu/people/jcjohns/clevr/
+It is based on the the CLEVR dataset: https://cs.stanford.edu/people/jcjohns/clevr
 """
 
 _CITATION = """
@@ -72,7 +73,7 @@ class KlevrConfig(tfds.core.BuilderConfig):
       validation_ratio (float): The proportion of examples to use for validation.
       **kwargs: Keyword arguments to the base class.
     """
-    super(KlevrConfig, self).__init__(**kwargs)
+    super().__init__(**kwargs)
     self.height = height
     self.width = width
     self.num_frames = num_frames
@@ -81,25 +82,25 @@ class KlevrConfig(tfds.core.BuilderConfig):
 
 class Klevr(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for klevr dataset."""
-  VERSION = tfds.core.Version('1.5.0')
+  VERSION = tfds.core.Version("1.5.0")
   RELEASE_NOTES = {
-      '1.0.0': 'Initial release.',
-      '1.5.0': 'improved 10k version'
+      "1.0.0": "Initial release.",
+      "1.5.0": "improved 10k version"
   }
 
   BUILDER_CONFIGS = [
       KlevrConfig(
-          name='master',
-          description='Full resolution of 256x256 and a framerate of 12fps',
+          name="master",
+          description="Full resolution of 256x256 and a framerate of 12fps",
           height=256,
           width=256,
           num_frames=24,
           validation_ratio=0.2,
       )] + [
       KlevrConfig(
-          name='{0}x{0}_{1}fps'.format(resolution, fps),
-          description='Downscaled to {0}x{0} with a framerate of {1} and including segmentation, '
-                      'flow, depth, normal and UV maps."'.format(resolution, fps),
+          name="{0}x{0}_{1}fps".format(resolution, fps),
+          description="Downscaled to {0}x{0} with a framerate of {1} and including segmentation, "
+                      "flow, depth, normal and UV maps.".format(resolution, fps),
           height=resolution,
           width=resolution,
           num_frames=fps * 2,
@@ -119,77 +120,77 @@ class Klevr(tfds.core.BeamBasedBuilder):
         builder=self,
         description=_DESCRIPTION,
         features=tfds.features.FeaturesDict({
-            'metadata': {
-                'video_name': tfds.features.Text(),
-                'width': tf.int32,
-                'height': tf.int32,
-                'num_frames': tf.int32,
-                'num_instances': tf.uint16,
+            "metadata": {
+                "video_name": tfds.features.Text(),
+                "width": tf.int32,
+                "height": tf.int32,
+                "num_frames": tf.int32,
+                "num_instances": tf.uint16,
 
-                'depth_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                'flow_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                'flow_magnitude_range': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                "depth_range": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                "flow_range": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                "flow_magnitude_range": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
             },
-            'instances': tfds.features.Sequence(feature={
-                'shape': tfds.features.ClassLabel(names=["cube", "cylinder", "sphere"]),
-                'size': tfds.features.ClassLabel(names=["small", "large"]),
-                'material': tfds.features.ClassLabel(names=["metal", "rubber"]),
-                'color': tfds.features.ClassLabel(names=["blue", "brown", "cyan", "gray",
+            "instances": tfds.features.Sequence(feature={
+                "shape": tfds.features.ClassLabel(names=["cube", "cylinder", "sphere"]),
+                "size": tfds.features.ClassLabel(names=["small", "large"]),
+                "material": tfds.features.ClassLabel(names=["metal", "rubber"]),
+                "color": tfds.features.ClassLabel(names=["blue", "brown", "cyan", "gray",
                                                          "green", "purple", "red", "yellow"]),
-                'mass': tf.float32,
-                'friction': tf.float32,
-                'restitution': tf.float32,
+                "mass": tf.float32,
+                "friction": tf.float32,
+                "restitution": tf.float32,
 
-                'positions': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-                'quaternions': tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
-                'velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-                'angular_velocities': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+                "positions": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+                "quaternions": tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
+                "velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+                "angular_velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
 
-                'image_positions': tfds.features.Tensor(shape=(s, 2), dtype=tf.float32),
-                'bboxes': tfds.features.Sequence(
+                "image_positions": tfds.features.Tensor(shape=(s, 2), dtype=tf.float32),
+                "bboxes": tfds.features.Sequence(
                     tfds.features.BBoxFeature()),
-                'bbox_frames': tfds.features.Sequence(
+                "bbox_frames": tfds.features.Sequence(
                     tfds.features.Tensor(shape=(), dtype=tf.int32)),
             }),
-            'camera': {
-                'focal_length': tf.float32,
-                'sensor_width': tf.float32,
-                'field_of_view': tf.float32,
-                'positions': tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-                'quaternions': tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
+            "camera": {
+                "focal_length": tf.float32,
+                "sensor_width": tf.float32,
+                "field_of_view": tf.float32,
+                "positions": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+                "quaternions": tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
             },
-            'events': {
-                'collisions': tfds.features.Sequence({
-                    'instances': tfds.features.Tensor(shape=(2,), dtype=tf.uint16),
-                    'frame': tf.int32,
-                    'force': tf.float32,
-                    'position': tfds.features.Tensor(shape=(3,), dtype=tf.float32),
-                    'image_position': tfds.features.Tensor(shape=(2,), dtype=tf.float32),
-                    'contact_normal': tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+            "events": {
+                "collisions": tfds.features.Sequence({
+                    "instances": tfds.features.Tensor(shape=(2,), dtype=tf.uint16),
+                    "frame": tf.int32,
+                    "force": tf.float32,
+                    "position": tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+                    "image_position": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+                    "contact_normal": tfds.features.Tensor(shape=(3,), dtype=tf.float32),
                 }),
             },
-            'video':  tfds.features.Video(shape=(s, h, w, 3)),
-            'segmentations': tfds.features.Sequence(
+            "video":  tfds.features.Video(shape=(s, h, w, 3)),
+            "segmentations": tfds.features.Sequence(
                 tfds.features.Image(shape=(h, w, 1), dtype=tf.uint16), length=s),
-            'flow': tfds.features.Sequence(
+            "flow": tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 4), dtype=tf.uint16), length=s),
-            'depth': tfds.features.Sequence(
+            "depth": tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 1), dtype=tf.uint16), length=s),
-            'uv': tfds.features.Sequence(
+            "uv": tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
-            'normal': tfds.features.Sequence(
+            "normal": tfds.features.Sequence(
                 tfds.features.Tensor(shape=(h, w, 3), dtype=tf.uint16), length=s),
         }),
         supervised_keys=None,
-        homepage='https://github.com/google-research/kubric',
+        homepage="https://github.com/google-research/kubric",
         citation=_CITATION)
 
   def _split_generators(self, unused_dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     del unused_dl_manager
-    path = tfds.core.as_path('gs://research-brain-kubric-xgcp/jobs/klevr_v1_10k',)
-    all_subdirs = sorted(list(path.glob('*')), key=lambda x: int(x.name))
-    logging.info('Found %d sub-folders in master path: %s', len(all_subdirs), path)
+    path = tfds.core.as_path("gs://research-brain-kubric-xgcp/jobs/klevr_v1_10k",)
+    all_subdirs = sorted(list(path.glob("*")), key=lambda x: int(x.name))
+    logging.info("Found %d sub-folders in master path: %s", len(all_subdirs), path)
 
     str_directories = [str(d) for d in all_subdirs]
     validation_ratio = self.builder_config.validation_ratio
@@ -213,10 +214,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
 
     def _process_example(video_dir):
       video_dir = tfds.core.as_path(video_dir)
-      key = f'{video_dir.name}'
-      files = sorted([str(f) for f in video_dir.glob('frame*.pkl')])
+      key = f"{video_dir.name}"
+      files = sorted([str(f) for f in video_dir.glob("frame*.pkl")])
 
-      with tf.io.gfile.GFile(str(video_dir / 'metadata.pkl'), 'rb') as fp:
+      with tf.io.gfile.GFile(str(video_dir / "metadata.pkl"), "rb") as fp:
         metadata = pickle.load(fp)
 
       def convert_float_to_uint16(array, min_val, max_val):
@@ -225,27 +226,28 @@ class Klevr(tfds.core.BeamBasedBuilder):
       num_frames = metadata["instances"][0]["positions"].shape[0]
       num_instances = metadata["metadata"]["num_instances"]
       assert len(files) == num_frames, f"{len(files)} != {num_frames}"
-      assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
+      len_meta_instances = len(metadata["instances"])
+      assert len_meta_instances == num_instances, f"{len_meta_instances} != {num_instances}"
 
       frames = []
       for frame_file in files[::frame_subsampling]:
-        with tf.io.gfile.GFile(str(frame_file), 'rb') as fp:
+        with tf.io.gfile.GFile(str(frame_file), "rb") as fp:
           data = pickle.load(fp)
           frames.append({
-              'rgb': data['rgba'][..., :3],
-              'segmentation': data['segmentation'].astype(np.uint16),
-              'flow': data['flow'],
-              'depth': data['depth'],
-              'uv': data['uv'],
-              'normal': data['normal']
+              "rgb": data["rgba"][..., :3],
+              "segmentation": data["segmentation"].astype(np.uint16),
+              "flow": data["flow"],
+              "depth": data["depth"],
+              "uv": data["uv"],
+              "normal": data["normal"]
           })
 
       # compute the range of the depth map
-      min_depth = np.min([np.min(f['depth']) for f in frames])
-      max_depth = np.max([np.max(f['depth']) for f in frames])
+      min_depth = np.min([np.min(f["depth"]) for f in frames])
+      max_depth = np.max([np.max(f["depth"]) for f in frames])
 
-      min_flow = np.min([np.min(f['flow']) for f in frames])
-      max_flow = np.max([np.max(f['flow']) for f in frames])
+      min_flow = np.min([np.min(f["flow"]) for f in frames])
+      max_flow = np.max([np.max(f["flow"]) for f in frames])
 
       # compute the range of magnitudes of the optical flow (both forward and backward)
       def flow_magnitude(vec):
@@ -263,10 +265,10 @@ class Klevr(tfds.core.BeamBasedBuilder):
 
       # compute bboxes
       for i, obj in enumerate(metadata["instances"]):
-        obj['bboxes'] = []
-        obj['bbox_frames'] = []
+        obj["bboxes"] = []
+        obj["bbox_frames"] = []
         for j, frame in zip(range(0, num_frames, frame_subsampling), frames):
-          seg = frame['segmentation'][:, :, 0]
+          seg = frame["segmentation"][:, :, 0]
           idxs = np.array(np.where(seg == i+1), dtype=np.float32)
           if idxs.size > 0:
             idxs /= np.array(seg.shape)[:, np.newaxis]
@@ -275,46 +277,46 @@ class Klevr(tfds.core.BeamBasedBuilder):
             obj["bboxes"].append(bbox)
             obj["bbox_frames"].append(j//frame_subsampling)
 
-      src_height, src_width = frames[0]['rgb'].shape[:2]
+      src_height, src_width = frames[0]["rgb"].shape[:2]
       assert src_height % target_size[0] == 0
       assert src_width % target_size[1] == 0
 
       return key, {
-          'metadata': {
-              'video_name': os.fspath(key),
-              'width': target_size[1],
-              'height': target_size[0],
-              'num_frames': len(frames),
-              'num_instances': num_instances,
-              'depth_range': np.array([min_depth, max_depth], dtype=np.float32),
-              'flow_range': np.array([min_flow, max_flow], dtype=np.float32),
-              'flow_magnitude_range': np.array([min_flow_mag, max_flow_mag], dtype=np.float32)
+          "metadata": {
+              "video_name": os.fspath(key),
+              "width": target_size[1],
+              "height": target_size[0],
+              "num_frames": len(frames),
+              "num_instances": num_instances,
+              "depth_range": np.array([min_depth, max_depth], dtype=np.float32),
+              "flow_range": np.array([min_flow, max_flow], dtype=np.float32),
+              "flow_magnitude_range": np.array([min_flow_mag, max_flow_mag], dtype=np.float32)
           },
-          'instances': [{
-              'shape': obj['shape'],
-              'size': obj['size'],
-              'material': obj['material'],
-              'color': obj['color'],
-              'mass': obj['mass'],
-              'friction': obj['friction'],
-              'restitution': obj['restitution'],
-              'positions': obj['positions'][::frame_subsampling].astype(np.float32),
-              'quaternions': obj['quaternions'][::frame_subsampling].astype(np.float32),
-              'velocities': obj['velocities'][::frame_subsampling].astype(np.float32),
-              'angular_velocities': obj['angular_velocities'][::frame_subsampling].astype(np.float32),
-              'image_positions': obj['image_positions'][::frame_subsampling].astype(np.float32),
-              'bboxes': obj['bboxes'],
-              'bbox_frames': np.array(obj['bbox_frames'], dtype=np.uint16),
+          "instances": [{
+              "shape": obj["shape"],
+              "size": obj["size"],
+              "material": obj["material"],
+              "color": obj["color"],
+              "mass": obj["mass"],
+              "friction": obj["friction"],
+              "restitution": obj["restitution"],
+              "positions": obj["positions"][::frame_subsampling].astype(np.float32),
+              "quaternions": obj["quaternions"][::frame_subsampling].astype(np.float32),
+              "velocities": obj["velocities"][::frame_subsampling].astype(np.float32),
+              "angular_velocities": obj["angular_velocities"][::frame_subsampling].astype(np.float32),
+              "image_positions": obj["image_positions"][::frame_subsampling].astype(np.float32),
+              "bboxes": obj["bboxes"],
+              "bbox_frames": np.array(obj["bbox_frames"], dtype=np.uint16),
           } for obj in metadata["instances"]],
-          'camera': {
+          "camera": {
               "focal_length": metadata["camera"]["focal_length"],
               "sensor_width": metadata["camera"]["sensor_width"],
               "field_of_view": metadata["camera"]["field_of_view"],
               "positions": metadata["camera"]["positions"][::frame_subsampling].astype(np.float32),
               "quaternions": metadata["camera"]["quaternions"][::frame_subsampling].astype(np.float32),
           },
-          'events': {
-              'collisions': [{
+          "events": {
+              "collisions": [{
                   "instances": np.array(c["instances"], dtype=np.uint16),
                   "contact_normal": np.array(c["contact_normal"], dtype=np.float32),
                   "frame": c["frame"],
@@ -323,18 +325,18 @@ class Klevr(tfds.core.BeamBasedBuilder):
                   "image_position": np.array(c["image_position"], dtype=np.float32),
               } for c in metadata["events"]["collisions"]],
           },
-          'video': [subsample_avg(f['rgb'], target_size) for f in frames],
-          'segmentations': [subsample_nearest_neighbor(f['segmentation'], target_size)
+          "video": [subsample_avg(f["rgb"], target_size) for f in frames],
+          "segmentations": [subsample_nearest_neighbor(f["segmentation"], target_size)
                             for f in frames],
-          'flow': [convert_float_to_uint16(subsample_nearest_neighbor(f['flow'], target_size),
+          "flow": [convert_float_to_uint16(subsample_nearest_neighbor(f["flow"], target_size),
                                            min_flow, max_flow)
                    for f in frames],
-          'depth': [convert_float_to_uint16(subsample_nearest_neighbor(f['depth'], target_size),
+          "depth": [convert_float_to_uint16(subsample_nearest_neighbor(f["depth"], target_size),
                                             min_depth, max_depth)
                     for f in frames],
-          'uv': [convert_float_to_uint16(subsample_nearest_neighbor(f['uv'], target_size), 0., 1.)
+          "uv": [convert_float_to_uint16(subsample_nearest_neighbor(f["uv"], target_size), 0., 1.)
                  for f in frames],
-          'normal': [convert_float_to_uint16(subsample_nearest_neighbor(f['normal'], target_size),
+          "normal": [convert_float_to_uint16(subsample_nearest_neighbor(f["normal"], target_size),
                                              -1., 1.) for f in frames],
       }
 
@@ -344,13 +346,13 @@ class Klevr(tfds.core.BeamBasedBuilder):
 
 def _get_files_from_subdir(path: str) -> List[str]:
   path = tfds.core.as_path(path)
-  files = [str(f) for f in path.glob('frame*.pkl')]
-  logging.info('Found %d files in path: %s', len(files), path)
+  files = [str(f) for f in path.glob("frame*.pkl")]
+  logging.info("Found %d files in path: %s", len(files), path)
   return files
 
 
 def subsample_nearest_neighbor(arr, size):
-  src_height, src_width, channels = arr.shape
+  src_height, src_width, _ = arr.shape
   dst_height, dst_width = size
   height_step = src_height // dst_height
   width_step = src_width // dst_width

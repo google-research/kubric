@@ -2,14 +2,13 @@
 # kubruntu image is updated. It uses the (latest) container to run the tests and uploads the
 # coverage report to `codecov.io`.
 
-name: Test
+name: test.yml
 
 on:
   push:
     branches: [ main ]
     paths: '**.py'
   pull_request:
-    branches: [ main ]
     paths: '**.py'
     
   workflow_run:
