@@ -15,8 +15,6 @@
 import colorsys
 from typing import NamedTuple, Tuple, Union
 
-__all__ = ("Color", "get_color")
-
 
 class Color(NamedTuple):
   """Represents a color in terms of float values for RGBA between 0.0 and 1.0."""
