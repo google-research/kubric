@@ -54,5 +54,5 @@ name_to_crypto = [
 
 
 def test_mm3hash():
-    for name, expected in name_to_crypto:
-        assert utils.mm3hash(name) == expected
+  for name, expected in name_to_crypto:
+    assert utils.mm3hash(name) == expected

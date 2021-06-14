@@ -11,9 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Testing for `kubric.core` module."""
 
 import re
-from numpy.core.arrayprint import format_float_positional
 
 import pytest
 import numpy as np
@@ -65,7 +65,7 @@ def test_undefined_asset_uid():
 
 
 def test_asset_raises_unknown_traits():
-  with pytest.raises(KeyError, match=r".*'doesnotexist'.*") as e:
+  with pytest.raises(KeyError, match=r".*'doesnotexist'.*"):
     Asset(doesnotexist=1)
 
 

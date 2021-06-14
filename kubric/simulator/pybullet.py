@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable=function-redefined
+
 import logging
 import pathlib
 import sys
@@ -32,12 +34,14 @@ logger = logging.getLogger(__name__)
 
 
 class PyBullet(core.View):
+  """Adds physics simulation on top of kb.Scene using PyBullet."""
 
   def __init__(self, scene: core.Scene, scratch_dir=tempfile.mkdtemp()):
     self.scratch_dir = scratch_dir
-    self.physicsClient = pb.connect(pb.DIRECT)  # pb.GUI
-    # Set some parameters to fix the sticky-walls problem
-    # (see https://github.com/bulletphysics/bullet3/issues/3094)
+    self.physics_client = pb.connect(pb.DIRECT)  # pb.GUI
+
+    # --- Set some parameters to fix the sticky-walls problem; see
+    # https://github.com/bulletphysics/bullet3/issues/3094
     pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0., warmStartingFactor=0.,
                                  useSplitImpulse=True, contactSlop=0., enableConeFriction=False,
                                  deterministicOverlappingPairs=True)
@@ -49,7 +53,7 @@ class PyBullet(core.View):
   def __del__(self):
     try:
       pb.disconnect()
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
       pass  # cleanup code. ignore errors
 
   @singledispatchmethod
@@ -59,30 +63,27 @@ class PyBullet(core.View):
   def remove_asset(self, asset: core.Asset) -> None:
     if self in asset.linked_objects:
       pb.removeBody(asset.linked_objects[self])
-    # TODO: unobserve
+    # TODO(klausg): unobserve
 
   @add_asset.register(core.Camera)
   def _add_object(self, obj: core.Camera) -> Optional[int]:
-    logger.debug(f"Ignored camera {obj}")
-    return None
+    logger.debug("Ignored camera %s", obj)
 
   @add_asset.register(core.Material)
   def _add_object(self, obj: core.Material) -> Optional[int]:
-    logger.debug(f"Ignored material {obj}")
-    return None
+    logger.debug("Ignored material %s", obj)
 
   @add_asset.register(core.Light)
   def _add_object(self, obj: core.Light) -> Optional[int]:
-    logger.debug(f"Ignored light {obj}")
-    return None
+    logger.debug("Ignored light %s", obj)
 
   @add_asset.register(core.Cube)
   def _add_object(self, obj: core.Cube) -> Optional[int]:
     collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
-    # see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
+    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
     box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
                                  wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
     pb.changeDynamics(box_idx, -1, contactProcessingThreshold=0)
@@ -97,8 +98,8 @@ class PyBullet(core.View):
     collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
-    # see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
+    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
     sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
                                     wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
     pb.changeDynamics(sphere_idx, -1, contactProcessingThreshold=0)
@@ -113,25 +114,25 @@ class PyBullet(core.View):
     if obj.simulation_filename is None:
       return None  # if there is no simulation file, then ignore this object
     path = pathlib.Path(obj.simulation_filename).resolve()
-    logger.debug("Loading '{}' in the simulator".format(path))
+    logger.debug("Loading '%s' in the simulator", path)
 
     if not path.exists():
-      raise IOError('File "{}" does not exist.'.format(path))
+      raise IOError(f"File '{path}' does not exist.")
 
     scale = obj.scale[0]
     assert obj.scale[1] == obj.scale[2] == scale, "Pybullet does not support non-uniform scaling"
 
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls issue
-    # see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
+    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
     if path.suffix == ".urdf":
       obj_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale,
                             useMaximalCoordinates=True)
     else:
       raise IOError(
-          'Unsupported format "{}" of file "{}"'.format(path.suffix, path))
+          "Unsupported format '{}' of file '{}'".format(path.suffix, path))
 
     if obj_idx < 0:
-      raise IOError('Failed to load "{}".'.format(path))
+      raise IOError("Failed to load '{}'.".format(path))
 
     pb.changeDynamics(obj_idx, -1, contactProcessingThreshold=0)
 
@@ -165,8 +166,8 @@ class PyBullet(core.View):
     """Receives a folder path as input."""
     assert self.scratch_dir is not None
     # first store in a temporary file and then copy, to support remote paths
-    pb.saveBullet(str(self.scratch_dir / 'scene.bullet'))
-    tf.io.gfile.copy(self.scratch_dir / 'scene.bullet', path, overwrite=True)
+    pb.saveBullet(str(self.scratch_dir / "scene.bullet"))
+    tf.io.gfile.copy(self.scratch_dir / "scene.bullet", path, overwrite=True)
 
   def run(self) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]],
                          List[dict]]:
@@ -182,9 +183,17 @@ class PyBullet(core.View):
 
       contact_points = pb.getContactPoints()
       for collision in contact_points:
-        (contact_flag, body_a, body_b, link_a, link_b, position_a, position_b, contact_normal_b,
-         contact_distance, normal_force, lateral_friction1, lateral_friction_dir1,
+        (contact_flag,
+         body_a, body_b,
+         link_a, link_b,
+         position_a, position_b, contact_normal_b,
+         contact_distance, normal_force,
+         lateral_friction1, lateral_friction_dir1,
          lateral_friction2, lateral_friction_dir2) = collision
+        del link_a, link_b #< unused
+        del contact_flag, contact_distance, position_a #< unused
+        del lateral_friction1, lateral_friction2 #< unused
+        del lateral_friction_dir1, lateral_friction_dir2 #< unused
         if normal_force > 1e-6:
           collisions.append({
               "instances": (self._obj_idx_to_asset(body_b), self._obj_idx_to_asset(body_a)),
@@ -228,7 +237,8 @@ class PyBullet(core.View):
     if len(assets) == 1:
       return assets[0]
     elif len(assets) == 0:
-      return None,
+      # TODO(klausg): verify the trailing "," was there with purpose?
+      return None,  # pylint: disable=trailing-comma-tuple
     else:
       raise RuntimeError("Multiple assets linked to same pybullet object. How did that happen?")
 
@@ -265,7 +275,7 @@ def setter(object_idx, func):
   return _callable
 
 
-def set_position(object_idx, position, asset):
+def set_position(object_idx, position, asset):  # pylint: disable=unused-argument
   # reuse existing quaternion
   _, quaternion = pb.getBasePositionAndOrientation(object_idx)
   # resetBasePositionAndOrientation zeroes out velocities, but we wish to conserve them
@@ -274,7 +284,7 @@ def set_position(object_idx, position, asset):
   pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_quaternion(object_idx, quaternion, asset):
+def set_quaternion(object_idx, quaternion, asset):  # pylint: disable=unused-argument
   quaternion = wxyz2xyzw(quaternion)  # convert quaternion format
   # reuse existing position
   position, _ = pb.getBasePositionAndOrientation(object_idx)
@@ -284,19 +294,19 @@ def set_quaternion(object_idx, quaternion, asset):
   pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_velocity(object_idx, velocity, asset):
+def set_velocity(object_idx, velocity, asset):  # pylint: disable=unused-argument
   _, angular_velocity = pb.getBaseVelocity(object_idx)  # reuse existing angular velocity
   pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_angular_velocity(object_idx, angular_velocity, asset):
+def set_angular_velocity(object_idx, angular_velocity, asset):  # pylint: disable=unused-argument
   velocity, _ = pb.getBaseVelocity(object_idx)  # reuse existing velocity
   pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
 def set_mass(object_idx, mass: float, asset):
   if mass < 0:
-    raise ValueError('mass cannot be negative ({})'.format(mass))
+    raise ValueError("mass cannot be negative ({})".format(mass))
   if not asset.static:
     pb.changeDynamics(object_idx, -1, mass=mass)
 
@@ -308,15 +318,15 @@ def set_static(object_idx, is_static, asset):
     pb.changeDynamics(object_idx, -1, mass=asset.mass)
 
 
-def set_friction(object_idx, friction: float, asset):
+def set_friction(object_idx, friction: float, asset):  # pylint: disable=unused-argument
   if friction < 0:
-    raise ValueError('friction cannot be negative ({})'.format(friction))
+    raise ValueError("friction cannot be negative ({})".format(friction))
   pb.changeDynamics(object_idx, -1, lateralFriction=friction)
 
 
-def set_restitution(object_idx, restitution: float, asset):
+def set_restitution(object_idx, restitution: float, asset):  # pylint: disable=unused-argument
   if restitution < 0:
-    raise ValueError('restitution cannot be negative ({})'.format(restitution))
+    raise ValueError("restitution cannot be negative ({})".format(restitution))
   if restitution > 1:
-    raise ValueError('restitution should be below 1.0 ({})'.format(restitution))
+    raise ValueError("restitution should be below 1.0 ({})".format(restitution))
   pb.changeDynamics(object_idx, -1, restitution=restitution)

@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Utilities to generate randomly generated quantities (rotations, positions, colors)."""
 
-import itertools
 import mathutils
 import numpy as np
 
@@ -75,7 +75,7 @@ def position_sampler(region):
 
 
 def resample_while(asset, samplers, condition, max_trials=100, rng=default_rng()):
-  for trial in range(max_trials):
+  for _ in range(max_trials):
     for sampler in samplers:
       sampler(asset, rng)
     if not condition(asset):

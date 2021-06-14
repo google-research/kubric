@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric objects."""
 
 import itertools
 import mathutils
@@ -60,17 +61,17 @@ class Object3D(assets.Asset):
     return np.array(mathutils.Quaternion(self.quaternion).to_euler())
 
   @property
-  def R(self):
-    """Rotation matrix that rotates from world to object coordinates"""
+  def rotation_matrix(self):
+    """ Returns the rotation matrix corresponding to self.quaternion."""
     return np.array(mathutils.Quaternion(self.quaternion).to_matrix())
 
   @property
   def matrix_world(self):
-    """ Affine transformation 4x4 matrix to map points from world to object coordinates."""
-    RT = np.eye(4)
-    RT[:3, :3] = self.R
-    RT[:3, 3] = self.position
-    return RT
+    """ Returns the homogeneous transformation mapping points from world to object coordinates."""
+    transformation = np.eye(4)
+    transformation[:3, :3] = self.rotation
+    transformation[:3, 3] = self.position
+    return transformation
 
 
 class PhysicalObject(Object3D):

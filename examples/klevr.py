@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""A kubric example that generates KLEVR-like outputs."""
+
 import logging
 import numpy as np
 import kubric as kb
@@ -79,8 +81,8 @@ def sample_color(strategy):
   if strategy == "gray":
     return "gray", kb.get_color("gray")
   elif strategy == "clevr":
-    color_label = rng.choice(list(COLORS.keys()))
-    return color_label, COLORS[color_label]
+    clevr_color_label = rng.choice(list(COLORS.keys()))
+    return clevr_color_label, COLORS[clevr_color_label]
   elif strategy == "uniform":
     return None, kb.random_hue_color(rng=rng)
   else:
@@ -89,9 +91,9 @@ def sample_color(strategy):
 
 def sample_sizes(strategy):
   if strategy == "clevr":
-    size_label = rng.choice(list(SIZES.keys()))
-    size = SIZES[size_label]
-    return size_label, size
+    clevr_size_label = rng.choice(list(SIZES.keys()))
+    currsize = SIZES[clevr_size_label]
+    return clevr_size_label, currsize
   elif strategy == "uniform":
     return None, rng.uniform(0.7, 1.4)
   elif strategy == "const":

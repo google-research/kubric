@@ -1,0 +1,29 @@
+# execute linter on {push, pull request}, only whenever python file changes are detected
+name: pylint.yml
+
+on:
+  pull_request:
+    paths: '**.py'
+
+jobs:    
+  execute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install linter
+        run: |
+          pip3 install --upgrade pip
+          pip3 install pylint
+
+      - name: Lint with pylint
+        run: |
+          pylint --version
+          pylint --rcfile=.pylintrc ./kubric
