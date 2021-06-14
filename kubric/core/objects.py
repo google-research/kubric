@@ -14,13 +14,58 @@
 """Kubric objects."""
 
 import itertools
-import mathutils
 import numpy as np
+import pyquaternion as pyquat
 import traitlets as tl
 
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core import materials
+
+
+def look_at_quat(position, target, up, front):
+  convert_to_axis = {
+      'X': np.array([1., 0., 0.]),
+      'Y': np.array([0., 1., 0.]),
+      'Z': np.array([0., 0., 1.]),
+      '-X': np.array([-1., 0., 0.]),
+      '-Y': np.array([0., -1., 0.]),
+      '-Z': np.array([0., 0., -1.]),
+  }
+  if isinstance(up, str):
+    up = convert_to_axis[up]
+  if isinstance(front, str):
+    front = convert_to_axis[front]
+
+  target = np.asarray(target, dtype=np.float)
+  position = np.asarray(position, dtype=np.float)
+
+  look_at_direction = target - position
+  look_at_direction /= np.linalg.norm(look_at_direction)
+  # first rotate around up, so we project the direction onto perpendicular plane
+  direction_flat = (np.ones(3) - np.abs(up)) * look_at_direction
+  direction_flat /= np.linalg.norm(direction_flat)
+
+  alpha = np.arccos(np.sum(direction_flat * front))
+
+  q1 = pyquat.Quaternion(axis=up, angle=-alpha)
+  # now we rotate the right direction (which is the cross product between front and up)
+  right = np.cross(front, up)
+  rotated_right = q1.rotate(right)
+
+  # finally we rotate around the rotated right to actually look at the target
+  beta = np.arccos(np.sum(direction_flat * look_at_direction))
+  q2 = pyquat.Quaternion(axis=rotated_right, angle=beta)
+
+  return tuple(q2 * q1)
+
+
+def euler_to_quat(euler_angles):
+  """ Convert three (euler) angles around XYZ to a single quaternion."""
+  q1 = pyquat.Quaternion(axis=[1., 0., 0.], angle=euler_angles[0])
+  q2 = pyquat.Quaternion(axis=[0., 1., 0.], angle=euler_angles[1])
+  q3 = pyquat.Quaternion(axis=[0., 0., 1.], angle=euler_angles[2])
+  return tuple(q3 * q2 * q1)
 
 
 class Object3D(assets.Asset):
@@ -41,11 +86,10 @@ class Object3D(assets.Asset):
                up="Y", front="-Z", look_at=None, euler=None, **kwargs):
     if look_at is not None:
       assert quaternion is None and euler is None
-      direction = mathutils.Vector(look_at) - mathutils.Vector(position)
-      quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
+      quaternion = look_at_quat(position, look_at, up, front)
     elif euler is not None:
       assert look_at is None and quaternion is None
-      quaternion = mathutils.Euler(euler).to_quaternion()
+      quaternion = euler_to_quat(euler)
     elif quaternion is None:
       quaternion = (1., 0., 0., 0.)
 
@@ -53,23 +97,18 @@ class Object3D(assets.Asset):
                      front=front, **kwargs)
 
   def look_at(self, target):
-    direction = mathutils.Vector(target) - mathutils.Vector(self.position)
-    self.quaternion = direction.to_track_quat(self.front.upper(), self.up.upper())
-
-  @property
-  def euler_xyz(self):
-    return np.array(mathutils.Quaternion(self.quaternion).to_euler())
+    self.quaternion = look_at_quat(self.position, target, self.up, self.front)
 
   @property
   def rotation_matrix(self):
     """ Returns the rotation matrix corresponding to self.quaternion."""
-    return np.array(mathutils.Quaternion(self.quaternion).to_matrix())
+    return pyquat.Quaternion(*self.quaternion).rotation_matrix
 
   @property
   def matrix_world(self):
     """ Returns the homogeneous transformation mapping points from world to object coordinates."""
     transformation = np.eye(4)
-    transformation[:3, :3] = self.rotation
+    transformation[:3, :3] = self.rotation_matrix
     transformation[:3, 3] = self.position
     return transformation
 
@@ -166,15 +205,12 @@ class PhysicalObject(Object3D):
     # scale bounds:
     bounds *= self.scale
     # construct list of bbox edges
-    bbox_points = [mathutils.Vector(x)
-                   for x in itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])]
+    bbox_points = [x for x in itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])]
     # rotate the
-    obj_orientation = mathutils.Quaternion(self.quaternion)
-    for x in bbox_points:
-      x.rotate(obj_orientation)  # rotates x in place by the object orientation
-
-    # shift by self.position and convert to np.array
-    return np.array([self.position + tuple(x) for x in bbox_points])
+    obj_orientation = pyquat.Quaternion(*self.quaternion)
+    rotated_bbox_points = [obj_orientation.rotate(x) for x in bbox_points]
+    # shift by self.position and convert to single np.array
+    return np.array([self.position + x for x in rotated_bbox_points])
 
   @property
   def aabbox(self):

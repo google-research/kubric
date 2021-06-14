@@ -115,7 +115,6 @@ def test_object3d_constructor_look_at():
 def test_object3d_constructor_euler():
   obj = objects.Object3D(euler=(np.pi, 0, 0))
   assert_allclose(obj.quaternion, (0, 1, 0, 0), atol=1e-6)
-  assert_allclose(np.abs(obj.euler_xyz), (np.pi, 0, 0), atol=1e-6)
 
 
 def test_object3d_look_at():
@@ -149,7 +148,6 @@ def test_physicalobject_constructor_look_at():
 def test_physicalobject_constructor_euler():
   obj = objects.PhysicalObject(euler=(np.pi, 0, 0))
   assert_allclose(obj.quaternion, (0, 1, 0, 0), atol=1e-6)
-  assert_allclose(np.abs(obj.euler_xyz), (np.pi, 0, 0), atol=1e-6)
 
 
 def test_physicalobject_constructor():

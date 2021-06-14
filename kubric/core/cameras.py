@@ -19,9 +19,6 @@ from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
 
 
-import mathutils
-q = mathutils.Quaternion()
-
 
 class Camera(objects.Object3D):
   """ Base class for all types of cameras. """
