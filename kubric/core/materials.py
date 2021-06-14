@@ -19,8 +19,6 @@ from kubric.core import assets
 from kubric.core.assets import UndefinedAsset
 from kubric import core
 
-__all__ = ("Material", "UndefinedMaterial", "PrincipledBSDFMaterial", "FlatMaterial")
-
 
 class Material(assets.Asset):
   """Base class for all materials."""

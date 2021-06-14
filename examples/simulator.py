@@ -15,6 +15,8 @@
 import logging
 import numpy as np
 import kubric as kb
+from kubric.renderer.blender import Blender as KubricBlender
+from kubric.simulator.pybullet import PyBullet as KubricSimulator
 
 logging.basicConfig(level="INFO") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
 
@@ -23,8 +25,8 @@ scene = kb.Scene(resolution=(256, 256))
 scene.frame_end = 48   #< numbers of frames to render
 scene.frame_rate = 24  #< rendering framerate
 scene.step_rate = 240  #< simulation framerate
-simulator = kb.simulator.PyBullet(scene)
-renderer = kb.renderer.Blender(scene)
+renderer = KubricBlender(scene)
+simulator = KubricSimulator(scene)
 
 # --- populate the scene with objects, lights, cameras
 scene += kb.Cube(name="floor", scale=(3, 3, 0.1), position=(0, 0, -0.1), static=True)

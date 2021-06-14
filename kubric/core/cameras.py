@@ -18,7 +18,6 @@ import traitlets as tl
 from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
 
-__all__ = ("Camera", "UndefinedCamera", "PerspectiveCamera", "OrthographicCamera")
 
 import mathutils
 q = mathutils.Quaternion()
