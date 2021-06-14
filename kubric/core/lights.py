@@ -11,20 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric lights module."""
 
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import base
-from kubric.core import color
+
 from kubric.core import objects
-
-
-__all__ = ("Light", "UndefinedLight", "DirectionalLight", "RectAreaLight", "PointLight")
+from kubric.core.assets import UndefinedAsset
+from kubric.core.color import get_color
 
 
 class Light(objects.Object3D):
-  color = ktl.RGB(default_value=color.get_color("white").rgb)
+  color = ktl.RGB(default_value=get_color("white").rgb)
   intensity = tl.Float(1.)
 
   @tl.default("background")
@@ -32,7 +31,7 @@ class Light(objects.Object3D):
     return True
 
 
-class UndefinedLight(Light, base.Undefined):
+class UndefinedLight(Light, UndefinedAsset):
   pass
 
 

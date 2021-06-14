@@ -15,20 +15,17 @@
 import traitlets as tl
 
 from kubric.core import traits as ktl
-from kubric.core import base
+from kubric.core import assets
+from kubric.core.assets import UndefinedAsset
 from kubric import core
 
-__all__ = ("Material", "UndefinedMaterial", "PrincipledBSDFMaterial", "FlatMaterial")
 
-
-class Material(base.Asset):
+class Material(assets.Asset):
   """Base class for all materials."""
-  pass
 
 
-class UndefinedMaterial(Material, base.Undefined):
+class UndefinedMaterial(Material, UndefinedAsset):
   """Marker class to indicate that Kubric should not interfere with this material."""
-  pass
 
 
 class PrincipledBSDFMaterial(Material):
@@ -45,8 +42,9 @@ class PrincipledBSDFMaterial(Material):
 
 
 class FlatMaterial(Material):
-  """Renders the object as a uniform color without any shading.
-  If holdout is true, then the pixels of the object will be transparent in the final image (alpha=0).
+  """ Renders the object as a uniform color without any shading.
+
+  If holdout is true, then the object pixels will be transparent in the final image (alpha=0).
   (Note, that this is not the same as a transparent object. It still "occludes" other objects)
 
   The indirect_visibility flag controls if the object casts shadows, can be seen in reflections and
@@ -57,5 +55,5 @@ class FlatMaterial(Material):
   indirect_visibility = tl.Bool(True)
 
 
-class Texture(base.Asset):
+class Texture(assets.Asset):
   filename = tl.Unicode()

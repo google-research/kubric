@@ -30,6 +30,8 @@ from kubric.core import materials
 
 
 class AssetSource:
+  """TODO(klausg): documentation."""
+
   def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
     self.remote_dir = tfds.core.as_path(path)
     name = self.remote_dir.name
@@ -42,7 +44,7 @@ class AssetSource:
       self.db = pd.read_json(tf.io.gfile.GFile(manifest_path, "r"))
       logging.info("Found manifest file. Loaded information about %d assets", self.db.shape[0])
     else:
-      assets_list = [p.name[:-7] for p in self.remote_dir.iterdir() if p.name.endswith('.tar.gz')]
+      assets_list = [p.name[:-7] for p in self.remote_dir.iterdir() if p.name.endswith(".tar.gz")]
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
@@ -60,8 +62,8 @@ class AssetSource:
                                    **kwargs)
 
   def fetch(self, object_id):
-    remote_path = self.remote_dir / (object_id + '.tar.gz')
-    local_path = self.local_dir / (object_id + '.tar.gz')
+    remote_path = self.remote_dir / (object_id + ".tar.gz")
+    local_path = self.local_dir / (object_id + ".tar.gz")
     if not local_path.exists():
       logging.debug("Copying %s to %s", str(remote_path), str(local_path))
       tf.io.gfile.copy(remote_path, local_path)
@@ -83,6 +85,8 @@ class AssetSource:
 
 
 class TextureSource:
+  """TODO(klausg): documentation."""
+
   def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
     self.remote_dir = tfds.core.as_path(path)
     name = self.remote_dir.name

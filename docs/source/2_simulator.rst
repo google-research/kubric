@@ -13,8 +13,8 @@ As we are generating a video, we also specify the framerate properties of render
   scene.frame_end = 48   #< numbers of frames to render
   scene.frame_rate = 24  #< rendering framerate
   scene.step_rate = 240  #< simulation framerate
-  simulator = kb.simulator.PyBullet(scene)
-  renderer = kb.renderer.Blender(scene, scratch_dir="./output")
+  simulator = KubricSimulator(scene)
+  renderer = KubricRenderer(scene, scratch_dir="./output")
 
 And notice that when we specify the floor, the ``static=True`` argument ensures that the floor remains fixed during the simulation:
 

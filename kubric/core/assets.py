@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric assets interface definition."""
 
 import collections
 import contextlib
@@ -21,14 +22,12 @@ import traitlets as tl
 
 from kubric.utils import next_global_count
 
-__all__ = ("Asset", "Undefined", "UndefinedAsset")
-
 
 class Asset(tl.HasTraits):
   """ Base class for the entire OO interface in Kubric.
   All objects, materials, lights, and cameras inherit from Asset.
 
-  An assets have a UID, is hashable, have traits that can be observed (by external objects), 
+  An assets have a UID, is hashable, have traits that can be observed (by external objects),
   support inserting keyframes for certain traits, and track linked (external) objects.
 
   Traits:
@@ -51,7 +50,7 @@ class Asset(tl.HasTraits):
   def __init__(self, **kwargs):
     # --- ensure all constructor arguments are traits
     unknown_traits = [kwarg for kwarg in kwargs if kwarg not in self.trait_names()]
-    if unknown_traits: 
+    if unknown_traits:
       raise KeyError(f"Cannot initialize unknown trait(s) {unknown_traits}.")
 
     # --- Change the basename used by the UID creation mechanism
@@ -76,13 +75,6 @@ class Asset(tl.HasTraits):
   def _uid(self):
     # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
     # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
-
-    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal 
-    # to their name (without an instance counter)
-    if isinstance(self, Undefined):
-      return f"{self.name}"
-    
-    # --- match the same naming logic Blender uses
     name_counter = next_global_count(self.name)
     if name_counter==0:
       return f"{self.name}"
@@ -98,7 +90,7 @@ class Asset(tl.HasTraits):
     self.notify_change(munch.Munch(name=member,
                                    owner=self,
                                    frame=frame,
-                                   type='keyframe'))
+                                   type="keyframe"))
 
   @contextlib.contextmanager
   def at_frame(self, frame, interpolation="linear"):
@@ -106,7 +98,8 @@ class Asset(tl.HasTraits):
       try:
         yield self
       finally:
-        return
+        # TODO(klausg): deal with pylint warning
+        return  # pylint: disable=lost-exception
 
     old_values = {}
     try:
@@ -174,10 +167,10 @@ class Asset(tl.HasTraits):
       return f"<{self.uid}>"
 
 
-class Undefined:
-  pass
+class UndefinedAsset(Asset):
 
-
-class UndefinedAsset(Asset, Undefined):
-  pass
-
+  @tl.default("uid")
+  def _uid(self):
+    # Undefined assets (e.g. UndefinedMaterial) are singletons and thus their uid is always equal
+    # to their name (without an instance counter)
+    return f"{self.name}"

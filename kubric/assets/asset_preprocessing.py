@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""TODO(klausg): write a one liner of what this module contains."""
 
 import contextlib
 import copy
@@ -59,9 +60,9 @@ def get_active_object():
 
 
 def get_vertices_and_faces(obj):
-  bmesh = obj.data  # todo: verify that this is a mesh object?
+  bmesh = obj.data  # TODO: verify that this is a mesh object?
   vertices = np.array([v.co for v in bmesh.vertices])
-  faces = np.array([[v for v in p.vertices] for p in bmesh.polygons if len(p.vertices) > 2])
+  faces = np.array([[v for v in p.vertices] for p in bmesh.polygons if len(p.vertices) > 2])  # pylint: disable=unnecessary-comprehension
   return vertices, faces
 
 
@@ -127,7 +128,7 @@ def get_object_properties(obj, density=None, friction=None, tmesh=None):
       "center_mass": rounda(tmesh.center_mass),
       "inertia": rounda(tmesh.moment_inertia),
       "is_convex": tmesh.is_convex,
-      "euler_number": tmesh.euler_number,  # used for topological analysis (see: http://max-limper.de/publications/Euler/index.html),
+      "euler_number": tmesh.euler_number,
   }
   return properties
 

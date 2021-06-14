@@ -36,14 +36,14 @@ def get_image_plot(width, height, nrows=1, ncols=1, display_dpi=1):
 
 def plot_image(rgb, ax=None):
   if ax is None:
-    fig, ax = get_image_plot(rgb.shape[1], rgb.shape[0])
+    _, ax = get_image_plot(rgb.shape[1], rgb.shape[0])
 
   ax.imshow(rgb, interpolation="nearest")
 
 
 def plot_depth(depth, ax=None, depth_range=None, colormap="inferno_r"):
   if ax is None:
-    fig, ax = get_image_plot(depth.shape[1], depth.shape[0])
+    _, ax = get_image_plot(depth.shape[1], depth.shape[0])
   if depth_range is None:
     depth_range = np.min(depth), np.max(depth)
   ax.imshow((depth - depth_range[0]) / (depth_range[1] - depth_range[0]), cmap=colormap,
@@ -52,18 +52,18 @@ def plot_depth(depth, ax=None, depth_range=None, colormap="inferno_r"):
 
 def plot_uv(uv, ax=None):
   if ax is None:
-    fig, ax = get_image_plot(uv.shape[1], uv.shape[0])
+    _, ax = get_image_plot(uv.shape[1], uv.shape[0])
   ax.imshow(uv, interpolation="nearest")
 
 
 def plot_segmentation(seg, ax=None, palette=None, num_objects=None):
   if ax is None:
-    fig, ax = get_image_plot(seg.shape[1], seg.shape[0])
+    _, ax = get_image_plot(seg.shape[1], seg.shape[0])
   if num_objects is None:
     num_objects = np.max(seg)  # assume consecutive numbering
   num_objects += 1  # background
   if palette is None:
-    palette = [(0., 0., 0.)] + sns.color_palette('hls', num_objects-1)
+    palette = [(0., 0., 0.)] + sns.color_palette("hls", num_objects-1)
 
   seg_img = np.zeros((seg.shape[0], seg.shape[1], 3), dtype=np.float32)
   for i in range(num_objects):
@@ -73,7 +73,7 @@ def plot_segmentation(seg, ax=None, palette=None, num_objects=None):
 
 def plot_flow(vec, ax=None, flow_mag_range=None):
   if ax is None:
-    fig, ax = get_image_plot(vec.shape[1], vec.shape[0])
+    _, ax = get_image_plot(vec.shape[1], vec.shape[0])
   direction = (np.arctan2(vec[:, :, 0], vec[:, :, 1]) + np.pi) / (2 * np.pi)
   norm = np.linalg.norm(vec, axis=-1)
   if flow_mag_range is None:
@@ -88,19 +88,19 @@ def plot_flow(vec, ax=None, flow_mag_range=None):
 
 def plot_normal(norm, ax=None):
   if ax is None:
-    fig, ax = get_image_plot(norm.shape[1], norm.shape[0])
+    _, ax = get_image_plot(norm.shape[1], norm.shape[0])
   norm = norm / 2 + 0.5
   ax.imshow(norm, interpolation="nearest")
 
 
 def plot_bboxes(seg, ax=None, linewidth=100, num_objects=None, palette=None):
   if ax is None:
-    fig, ax = get_image_plot(seg.shape[1], seg.shape[0])
+    _, ax = get_image_plot(seg.shape[1], seg.shape[0])
   if num_objects is None:
     num_objects = np.max(seg)  # assume consecutive numbering
   num_objects += 1  # background
   if palette is None:
-    palette = [(0., 0., 0.)] + sns.color_palette('hls', num_objects)
+    palette = [(0., 0., 0.)] + sns.color_palette("hls", num_objects)
   seg = seg[:, :, 0]
   for i in range(1, num_objects):
     idxs = np.array(np.where(seg == i), dtype=np.float32)
@@ -108,14 +108,14 @@ def plot_bboxes(seg, ax=None, linewidth=100, num_objects=None, palette=None):
       miny, minx, maxy, maxx = idxs[0].min()-1, idxs[1].min()-1, idxs[0].max(), idxs[1].max()
       rect = matplotlib.patches.Rectangle([minx, miny], maxx-minx, maxy-miny,
                                           linewidth=linewidth, edgecolor=palette[i],
-                                          facecolor='none')
+                                          facecolor="none")
       ax.add_patch(rect)
 
 
 def plot_center_of_mass(objects, ax, frames=slice(None, None), palette=None):
   num_objects = len(objects) + 1  # background
   if palette is None:
-    palette = [(0., 0., 0.)] + sns.color_palette('hls', num_objects)
+    palette = [(0., 0., 0.)] + sns.color_palette("hls", num_objects)
   for k, obj in enumerate(objects):
     x, y = obj["image_positions"][frames].T
     ax.scatter(x, y, marker="X", s=50000, color=palette[k+1])
@@ -125,7 +125,7 @@ def plot_object_collisions(collisions, ax, frame, num_objects=None, palette=None
   if num_objects is None:
     num_objects = np.max([c["instances"] for c in collisions]) + 1  # background
   if palette is None:
-    palette = [(0., 0., 0.)] + sns.color_palette('hls', num_objects)
+    palette = [(0., 0., 0.)] + sns.color_palette("hls", num_objects)
   coll = [c for c in collisions
           if (-1 not in c["instances"]) and (frame-0.5 <= c["frame"] <= frame+0.5)]
   for c in coll:
@@ -139,4 +139,4 @@ def plot_ground_collisions(collisions, ax, frame):
           if (-1 in c["instances"]) and (frame-0.5 <= c["frame"] <= frame+0.5)]
   for c in coll:
     ax.scatter(x=c["image_position"][0], y=c["image_position"][1], s=c["force"]*1000,
-               marker=".", facecolors='k')
+               marker=".", facecolors="k")

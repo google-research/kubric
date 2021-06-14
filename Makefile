@@ -38,15 +38,25 @@ GID:=$(shell id -g)
 # --- one-liners for executing examples
 examples/helloworld:
 	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
-
-
+examples/simulator:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
+examples/klevr:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
+examples/katr:
+	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
+		
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
 # 	make pytest TEST=test/test_core.py
 # 	make pytest TEST=test/test_core.py::test_asset_name_readonly
 TEST = test/
 pytest:
-	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings $(TEST)
+	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
+
+# --- runs pylint on the entire "kubric/" subfolder
+LINT = ./kubric
+pylint:
+	pylint --rcfile=.pylintrc $(LINT)
 
 clean:
 	python3 setup.py clean --all

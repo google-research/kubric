@@ -11,11 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import logging
+"""A kubric example that generates KLEVR-like outputs."""
 
+import logging
 import numpy as np
 import kubric as kb
-
+from kubric.renderer.blender import Blender as KubricRenderer
+from kubric.simulator.pybullet import PyBullet as KubricSimulator
 
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
@@ -68,8 +70,8 @@ scratch_dir, output_dir = kb.setup_directories(FLAGS)
 seed = FLAGS.seed if FLAGS.seed else np.random.randint(0, 2147483647)
 rng = np.random.RandomState(seed=seed)
 scene = kb.Scene.from_flags(FLAGS)
-simulator = kb.simulator.PyBullet(scene, scratch_dir)
-renderer = kb.renderer.Blender(scene, scratch_dir)
+renderer = KubricRenderer(scene, scratch_dir)
+simulator = KubricSimulator(scene, scratch_dir)
 
 logging.info("Loading assets from %s", FLAGS.assets_dir)
 kubasic = kb.AssetSource(FLAGS.assets_dir)
@@ -79,8 +81,8 @@ def sample_color(strategy):
   if strategy == "gray":
     return "gray", kb.get_color("gray")
   elif strategy == "clevr":
-    color_label = rng.choice(list(COLORS.keys()))
-    return color_label, COLORS[color_label]
+    clevr_color_label = rng.choice(list(COLORS.keys()))
+    return clevr_color_label, COLORS[clevr_color_label]
   elif strategy == "uniform":
     return None, kb.random_hue_color(rng=rng)
   else:
@@ -89,9 +91,9 @@ def sample_color(strategy):
 
 def sample_sizes(strategy):
   if strategy == "clevr":
-    size_label = rng.choice(list(SIZES.keys()))
-    size = SIZES[size_label]
-    return size_label, size
+    clevr_size_label = rng.choice(list(SIZES.keys()))
+    currsize = SIZES[clevr_size_label]
+    return clevr_size_label, currsize
   elif strategy == "uniform":
     return None, rng.uniform(0.7, 1.4)
   elif strategy == "const":

@@ -18,9 +18,9 @@ from types import MappingProxyType
 import munch
 
 from kubric.core.scene import Scene
-from kubric.core.base import Asset, Undefined
+from kubric.core.assets import Asset
+from kubric.core.assets import UndefinedAsset
 
-__all__ = ("View",)
 
 empty_dict = MappingProxyType({})  # immutable empty dict for use in default arguments
 
@@ -63,7 +63,7 @@ class View(abc.ABC):
     if self in asset.linked_objects:
       return
 
-    if isinstance(asset, Undefined):
+    if isinstance(asset, UndefinedAsset):
       return
 
     # else use add_asset to create a new view-object and store it

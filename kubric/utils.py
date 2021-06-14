@@ -59,23 +59,25 @@ logger = logging.getLogger(__name__)
 # --------------------------------------------------------------------------------------------------
 
 class ArgumentParser(argparse.ArgumentParser):
+  """An argumentparser with default options, and compatibility with the Blender REPL."""
+
   def __init__(self, *args, **kwargs):
     argparse.ArgumentParser.__init__(self, *args, **kwargs)
 
     # --- default arguments for kubric
     self.add_argument("--frame_rate", type=int, default=24,
-                      help='number of rendered frames per second (default: 24)')
+                      help="number of rendered frames per second (default: 24)")
     self.add_argument("--step_rate", type=int, default=240,
-                      help='number of simulation steps per second. '
-                           'Has to be an integer multiple of --frame_rate (default: 240)')
+                      help="number of simulation steps per second. "
+                           "Has to be an integer multiple of --frame_rate (default: 240)")
     self.add_argument("--frame_start", type=int, default=1,
-                      help='index of the first frame to render. '
-                           'Note that simulation always starts at frame 0 (default: 1)')
+                      help="index of the first frame to render. "
+                           "Note that simulation always starts at frame 0 (default: 1)")
     self.add_argument("--frame_end", type=int, default=24,
-                      help='index of the last frame to render (default: 24)')  # 1 second
+                      help="index of the last frame to render (default: 24)")  # 1 second
     self.add_argument("--logging_level", type=str, default="INFO")
     self.add_argument("--seed", type=int, default=None,
-                      help="(int) seed to be used for random sampling in the worker (default: None)")
+                      help="(int) seed for random sampling in the worker (default: None)")
     self.add_argument("--width", type=int, default=512,
                       help="width of the output image/video in pixels (default: 512)")
     self.add_argument("--height", type=int, default=512,
@@ -84,15 +86,15 @@ class ArgumentParser(argparse.ArgumentParser):
                       help="local directory for storing intermediate files such as "
                            "downloaded assets, raw output of renderer, ... (default: temp dir)")
     self.add_argument("--job-dir", type=str, default="output",
-                      help="target directory for storing the output of the worker (default: ./output)")
+                      help="target directory for storing the worker output (default: ./output)")
 
   def parse_args(self, args=None, namespace=None):
-    # --- parse argument in a way compatible with blender's REPL
+    # --- parse argument in a way compatible with blender REPL
     if args is not None and "--" in sys.argv:
       args = sys.argv[sys.argv.index("--")+1:]
-      flags = super(ArgumentParser, self).parse_args(args=args, namespace=namespace)
+      flags = super().parse_args(args=args, namespace=namespace)
     else:
-      flags = super(ArgumentParser, self).parse_args(args=args)
+      flags = super().parse_args(args=args)
     return flags
 
 
@@ -113,7 +115,7 @@ def done():
   logging.info("Done!")
 
   # -- report generated_images to hyperparameter tuner
-  import hypertune
+  import hypertune  # pylint: disable=import-outside-toplevel
 
   hpt = hypertune.HyperTune()
   hpt.report_hyperparameter_tuning_metric(
@@ -195,16 +197,16 @@ def str2path(path: str) -> PathLike:
   return tfds.core.as_path(path)
 
 
-def setup_directories(FLAGS):
-  assert FLAGS.scratch_dir is not None
-  scratch_dir = FLAGS.scratch_dir
+def setup_directories(flags):
+  assert flags.scratch_dir is not None
+  scratch_dir = str2path(flags.scratch_dir)
   if scratch_dir.exists():
     logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
     shutil.rmtree(scratch_dir)
   scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = tfds.core.as_path(FLAGS.job_dir)
+  output_dir = tfds.core.as_path(flags.job_dir)
   output_dir.mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir
@@ -213,7 +215,7 @@ def setup_directories(FLAGS):
 def is_local_path(path):
   """ Determine if a given path is local or remote. """
   first_part = pathlib.Path(path).parts[0]
-  if first_part.endswith(':') and len(first_part) > 2:
+  if first_part.endswith(":") and len(first_part) > 2:
     return False
   else:
     return True
@@ -221,7 +223,7 @@ def is_local_path(path):
 
 def save_as_pkl(filename, data):
   with tf.io.gfile.GFile(filename, "wb") as fp:
-    logging.info(f"Writing to {fp.name}")
+    logging.info("Writing to '%s'", fp.name)
     pickle.dump(data, fp)
 
 
@@ -234,7 +236,7 @@ class NumpyEncoder(json.JSONEncoder):
 
 def save_as_json(filename, data):
   with tf.io.gfile.GFile(filename, "wb") as fp:
-    logging.info(f"Writing to {fp.name}")
+    logging.info("Writing to '%s'", fp.name)
     json.dump(data, fp, sort_keys=True, indent=4, cls=NumpyEncoder)
 
 
@@ -325,17 +327,14 @@ def write_single_record(
         scalings[key] = scaling
 
 
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
+def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16):
   # Pre-load image libs to avoid race-condition in multi-thread.
   imageio.plugins.tifffile.load_lib()
-
   scalings = {}
-
   lock = threading.Lock()
-  _MAX_WRITE_THREADS = 16
-  with multiprocessing.pool.ThreadPool(
-      min(len(data.items()), _MAX_WRITE_THREADS)) as pool:
-    args = [(key, img) for key, img in data.items()]
+  num_threads = min(len(data.items()), max_write_threads)
+  with multiprocessing.pool.ThreadPool(num_threads) as pool:
+    args = [(key, img) for key, img in data.items()]  # pylint: disable=unnecessary-comprehension
     write_single_record_fn = functools.partial(
         write_single_record,
         path_prefix=path_prefix,
@@ -351,9 +350,9 @@ def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike):
 
 def read_png(path: PathLike):
   path = tfds.core.as_path(path)
-  pngReader = png.Reader(bytes=path.read_bytes())
-  width, height, pngdata, info = pngReader.read()
-  del pngReader
+  png_reader = png.Reader(bytes=path.read_bytes())
+  width, height, pngdata, info = png_reader.read()
+  del png_reader
   bitdepth = info["bitdepth"]
   if bitdepth == 8:
     dtype = np.uint8

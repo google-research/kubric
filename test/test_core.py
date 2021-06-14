@@ -11,9 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Testing for `kubric.core` module."""
 
 import re
-from numpy.core.arrayprint import format_float_positional
 
 import pytest
 import numpy as np
@@ -21,14 +21,15 @@ from numpy.testing import assert_allclose
 from traitlets import TraitError
 from unittest import mock
 
-from kubric.core import base
+from kubric.core import Asset
+from kubric.core import UndefinedAsset
 from kubric.core import objects
 from kubric.core import materials
 
 
 def test_asset_default_uid():
   # first instance of an object should have the name of object class
-  a = base.Asset()
+  a = Asset()
   assert a.uid
   assert isinstance(a.uid, str)
   assert a.uid == a.__class__.__name__
@@ -36,41 +37,41 @@ def test_asset_default_uid():
 
 def test_asset_progressive_uids():
   # first instance of an object should have the name of object class
-  a = base.Asset(name="Foo")
-  b = base.Asset(name="Foo")
-  c = base.Asset(name="Foo")
+  a = Asset(name="Foo")
+  b = Asset(name="Foo")
+  c = Asset(name="Foo")
   assert a.uid == "Foo"
   assert b.uid == "Foo.001"
   assert c.uid == "Foo.002"
 
 
 def test_asset_name_readonly():
-  a = base.Asset()
+  a = Asset()
   with pytest.raises(TraitError):
     a.name = "Foo"
 
 
 def test_asset_uid_readonly():
-  a = base.Asset()
+  a = Asset()
   with pytest.raises(TraitError, match=r".*uid.* trait is read-only.*"):
     a.uid = "abc"
 
 
 def test_undefined_asset_uid():
-  a = base.UndefinedAsset()
-  b = base.UndefinedAsset()
+  a = UndefinedAsset()
+  b = UndefinedAsset()
   assert a.uid == "UndefinedAsset"
   assert b.uid == "UndefinedAsset"
 
 
 def test_asset_raises_unknown_traits():
-  with pytest.raises(KeyError, match=r".*'doesnotexist'.*") as e:
-    base.Asset(doesnotexist=1)
+  with pytest.raises(KeyError, match=r".*'doesnotexist'.*"):
+    Asset(doesnotexist=1)
 
 
 def test_asset_hash_and_eq():
-  a = b = base.Asset()
-  c = base.Asset()
+  a = b = Asset()
+  c = Asset()
 
   assert hash(a)
   assert hash(a) == hash(b)
@@ -80,7 +81,7 @@ def test_asset_hash_and_eq():
 
 
 def test_asset_repr():
-  a = base.Asset()
+  a = Asset()
   assert re.match(r"^<Asset.[0-9][0-9][0-9].*>$", repr(a)) is not None
 
 

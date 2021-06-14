@@ -11,15 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Kubric asset traits (i.e. traitlets properties with validators)."""
 
 import numpy as np
 import traitlets as tl
 
 from kubric.core import color
-from kubric.core import base
-
-
-__all__ = ("Vector3D", "Scale", "Quaternion", "RGB", "RGBA", "AssetInstance")
+from kubric.core.assets import UndefinedAsset
+from kubric.core.assets import Asset
 
 
 class Vector3D(tl.TraitType):
@@ -35,6 +34,7 @@ class Vector3D(tl.TraitType):
 
 
 class Scale(tl.TraitType):
+  """Scale trait."""
   default_value = np.ones(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
 
@@ -51,6 +51,7 @@ class Scale(tl.TraitType):
 
 
 class Quaternion(tl.TraitType):
+  """Quaternion trait."""
   default_value = np.array([1, 0, 0, 0], dtype=np.float32)
   info_text = "a 4D vector (WXYZ quaternion) of floats"
 
@@ -63,6 +64,7 @@ class Quaternion(tl.TraitType):
 
 
 class RGBA(tl.TraitType):
+  """RGBA color trait."""
   default_value = color.Color(0., 0., 0., 1.0)
   info_text = "an RGBA color"
 
@@ -78,7 +80,7 @@ class RGBA(tl.TraitType):
     else:
       return self.error(obj, value)
 
-    if not all([0 <= x <= 1 for x in rgba]):
+    if not all(0 <= x <= 1 for x in rgba):
       self.error(obj, value)
 
     return rgba
@@ -87,6 +89,7 @@ class RGBA(tl.TraitType):
 # TODO: it is inconsistent to use Color object for RGBA and a regular tuple for RGB.
 #       But we do need both types. So maybe we should have both ColorRGBA and ColorRGB classes?
 class RGB(tl.TraitType):
+  """RGB color trait."""
   default_value = (0., 0., 0.)
   info_text = "an RGB color"
 
@@ -102,20 +105,21 @@ class RGB(tl.TraitType):
     else:
       return self.error(obj, value)
 
-    if not all([0 <= x <= 1 for x in rgb]):
+    if not all(0 <= x <= 1 for x in rgb):
       self.error(obj, value)
 
     return rgb
 
 
 class AssetInstance(tl.Instance):
-  default_value = base.UndefinedAsset()
+  """TODO(klausg): one liner to justify its existance."""
+  default_value = UndefinedAsset()
 
   def make_dynamic_default(self):
     # this function is only needed in traitlets < 5.0
     return self.default_value
 
-  def validate(self, obj: base.Asset, value):
+  def validate(self, obj: Asset, value):
     super().validate(obj, value)
 
     # make sure the new asset is part of all scenes that the parent is part of
