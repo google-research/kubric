@@ -16,7 +16,7 @@ import logging
 import kubric as kb
 from kubric.renderer.blender import Blender as KubricRenderer
 
-logging.basicConfig(level="INFO") #< CRITICAL, ERROR, WARNING, INFO, DEBUG
+logging.basicConfig(level="INFO")  # < CRITICAL, ERROR, WARNING, INFO, DEBUG
 
 # --- create scene and attach a renderer to it
 scene = kb.Scene(resolution=(256, 256))

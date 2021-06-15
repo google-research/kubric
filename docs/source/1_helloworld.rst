@@ -16,14 +16,14 @@ Next we will create a floor (i.e. cube), and add a sphere on top of it (with def
 .. code-block:: python
 
   scene += kb.Cube(scale=(10, 10, 0.1), position=(0, 0, -0.1))
-  scene += kb.Sphere(scale=1, position=(0, 0, .5))
+  scene += kb.Sphere(scale=1, position=(0, 0, 1.))
 
 We also add a directional light to illuminate the scene, and a camera for rendering:
 
 .. code-block:: python
   
   scene += kb.DirectionalLight(position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
-  scene += kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 0))
+  scene += kb.PerspectiveCamera(position=(2, -0.5, 4), look_at=(0, 0, 1))
 
 We can export this scene as a Blender file to see what is happening (you will be able to open the ``blend`` file in Blender and inspect it as visualized in the screenshot below):
 
