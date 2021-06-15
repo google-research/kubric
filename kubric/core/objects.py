@@ -17,47 +17,84 @@ import itertools
 import numpy as np
 import pyquaternion as pyquat
 import traitlets as tl
+from typing import Optional, Union, Tuple
 
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core import materials
+from kubric.custom_types import ArrayLike
 
 
-def look_at_quat(position, target, up, front):
-  convert_to_axis = {
-      'X': np.array([1., 0., 0.]),
-      'Y': np.array([0., 1., 0.]),
-      'Z': np.array([0., 0., 1.]),
-      '-X': np.array([-1., 0., 0.]),
-      '-Y': np.array([0., -1., 0.]),
-      '-Z': np.array([0., 0., -1.]),
-  }
+def ensure_3d_vector(x: ArrayLike) -> np.ndarray:
+  x = np.asarray(x, dtype=np.float64)
+  if not x.shape == (3,):
+    raise ValueError(f"Expected shape=(3,), got {x.shape}")
+  return x
+
+
+def normalize(
+    x: ArrayLike,
+    eps: float = 1.0e-8,
+    fallback: Optional[ArrayLike] = None
+) -> np.ndarray:
+  x = np.asarray(x, dtype=np.float64)
+  norm_x = np.linalg.norm(x)
+  if norm_x < eps:
+    if fallback is None:
+      raise ValueError(f"Expected non-zero vector.")
+    else:
+      return np.asarray(fallback, dtype=np.float64)
+  return x / norm_x
+
+
+def are_orthogonal(x: ArrayLike, y: ArrayLike, eps: float = 1e-8) -> bool:
+  x = np.asarray(x, dtype=np.float64)
+  y = np.asarray(y, dtype=np.float64)
+  assert x.ndim == 1, x.shape
+  assert y.ndim == 1, y.shape
+  return x.dot(y) < eps
+
+
+def convert_str_direction_to_vector(direction: str) -> np.ndarray:
+  return {
+      'X': np.array([1., 0., 0.], dtype=np.float64),
+      'Y': np.array([0., 1., 0.], dtype=np.float64),
+      'Z': np.array([0., 0., 1.], dtype=np.float64),
+      '-X': np.array([-1., 0., 0.], dtype=np.float64),
+      '-Y': np.array([0., -1., 0.], dtype=np.float64),
+      '-Z': np.array([0., 0., -1.], dtype=np.float64),
+  }[direction.upper()]
+
+
+def look_at_quat(
+    position: ArrayLike,
+    target: ArrayLike,
+    up: Union[str, ArrayLike] = "Y",
+    front: Union[str, ArrayLike] = "-Z",
+) -> Tuple[float, float, float, float]:
+  # convert directions to vectors if needed
+  world_up = convert_str_direction_to_vector("Z")
+  world_right = convert_str_direction_to_vector("X")
   if isinstance(up, str):
-    up = convert_to_axis[up]
+    up = convert_str_direction_to_vector(up)
   if isinstance(front, str):
-    front = convert_to_axis[front]
+    front = convert_str_direction_to_vector(front)
 
-  target = np.asarray(target, dtype=np.float)
-  position = np.asarray(position, dtype=np.float)
+  up = normalize(ensure_3d_vector(up))
+  front = normalize(ensure_3d_vector(front))
+  right = np.cross(up, front)
 
-  look_at_direction = target - position
-  look_at_direction /= np.linalg.norm(look_at_direction)
-  # first rotate around up, so we project the direction onto perpendicular plane
-  direction_flat = (np.ones(3) - np.abs(up)) * look_at_direction
-  direction_flat /= np.linalg.norm(direction_flat)
+  target = ensure_3d_vector(target)
+  position = ensure_3d_vector(position)
 
-  alpha = np.arccos(np.sum(direction_flat * front))
+  # construct the desired coordinate basis front, right, up
+  look_at_front = normalize(target - position)
+  look_at_right = normalize(np.cross(world_up, look_at_front), fallback=world_right)
+  look_at_up = normalize(np.cross(look_at_front, look_at_right))
 
-  q1 = pyquat.Quaternion(axis=up, angle=-alpha)
-  # now we rotate the right direction (which is the cross product between front and up)
-  right = np.cross(front, up)
-  rotated_right = q1.rotate(right)
-
-  # finally we rotate around the rotated right to actually look at the target
-  beta = np.arccos(np.sum(direction_flat * look_at_direction))
-  q2 = pyquat.Quaternion(axis=rotated_right, angle=beta)
-
-  return tuple(q2 * q1)
+  R1 = np.stack([look_at_right, look_at_up, look_at_front])
+  R2 = np.stack([right, up, front])
+  return tuple(pyquat.Quaternion(matrix=(R1.T @ R2)))
 
 
 def euler_to_quat(euler_angles):

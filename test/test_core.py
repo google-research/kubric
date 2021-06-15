@@ -18,6 +18,7 @@ import re
 import pytest
 import numpy as np
 from numpy.testing import assert_allclose
+import pyquaternion as pyquat
 from traitlets import TraitError
 from unittest import mock
 
@@ -107,9 +108,21 @@ def test_object3d_constructor_raises_unknown_trait():
     objects.Object3D(location=(1, 2, 3))
 
 
+def test_look_at_quat_front_points_toward_target():
+  position = (0., 0., 0.)
+  target = (1., 1., 1.)
+  front = "-Z"
+  up = "Y"
+  q = pyquat.Quaternion(*objects.look_at_quat(position, target, up, front))
+  direction = q.rotate(np.array([0, 0, -1.]))
+  dir_expected = np.array(target) / np.linalg.norm(target)
+
+  assert np.allclose(direction, dir_expected)
+
+
 def test_object3d_constructor_look_at():
   obj = objects.Object3D(look_at=(0, 0, 1))
-  assert_allclose(obj.quaternion, (0, 0, -1, 0), atol=1e-6)  # TODO: double check
+  assert_allclose(obj.quaternion, (0, 0, 1, 0), atol=1e-6)  # TODO: double check
 
 
 def test_object3d_constructor_euler():
@@ -120,7 +133,7 @@ def test_object3d_constructor_euler():
 def test_object3d_look_at():
   obj = objects.Object3D()
   obj.look_at((0, 0, 1))
-  assert_allclose(obj.quaternion, (0, 0, -1, 0), atol=1e-6)  # TODO: double check
+  assert_allclose(obj.quaternion, (0, 0, 1, 0), atol=1e-6)  # TODO: double check
 
 
 def test_physical_object_constructor_default_args():
@@ -142,7 +155,7 @@ def test_physical_object_constructor_default_args():
 
 def test_physicalobject_constructor_look_at():
   obj = objects.PhysicalObject(look_at=(0, 0, 1))
-  assert_allclose(obj.quaternion, (0, 0, -1, 0), atol=1e-6)  # TODO: double check
+  assert_allclose(obj.quaternion, (0, 0, 1, 0), atol=1e-6)  # TODO: double check
 
 
 def test_physicalobject_constructor_euler():
