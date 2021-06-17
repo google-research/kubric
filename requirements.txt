@@ -10,6 +10,7 @@ numpy>=1.17
 pandas
 pybullet
 pypng
+pyquaternion
 scikit-learn
 singledispatchmethod
 tensorflow

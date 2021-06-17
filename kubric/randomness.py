@@ -13,8 +13,8 @@
 # limitations under the License.
 """Utilities to generate randomly generated quantities (rotations, positions, colors)."""
 
-import mathutils
 import numpy as np
+import pyquaternion as pyquat
 
 from kubric.core import color
 from kubric.core import objects
@@ -34,26 +34,24 @@ def random_rotation(axis=None, rng=default_rng()):
   Otherwise it corresponds to a random rotation around the given axis."""
 
   if axis is None:
-    # uniform over all possible orientations
-    z = 2
-    while z > 1:
-      x, y = rng.uniform(size=2)
-      z = x*x + y*y
+    # uniform across rotation space
+    # copied from pyquat.Quaternion.random to be able to use a custom rng
+    r1, r2, r3 = rng.random(3)
 
-    w = 2
-    while w > 1:
-      u, v = rng.uniform(size=2)
-      w = u*u + v*v
+    q1 = np.sqrt(1.0 - r1) * (np.sin(2 * np.pi * r2))
+    q2 = np.sqrt(1.0 - r1) * (np.cos(2 * np.pi * r2))
+    q3 = np.sqrt(r1) * (np.sin(2 * np.pi * r3))
+    q4 = np.sqrt(r1) * (np.cos(2 * np.pi * r3))
 
-    s = np.sqrt((1-z) / w)
-    return x, y, s*u, s*v
+    return q1, q2, q3, q4
+
   else:
     if isinstance(axis, str) and axis.upper() in ["X", "Y", "Z"]:
-      axis = {"X": (1., 0., 0., 0.),
+      axis = {"X": (1., 0., 0.),
               "Y": (0., 1., 0.),
               "Z": (0., 0., 1.)}[axis.upper()]
 
-    quat = mathutils.Quaternion(axis, rng.uniform(0, 2*np.pi))
+    quat = pyquat.Quaternion(axis=axis, angle=rng.uniform(0, 2*np.pi))
     return tuple(quat)
 
 

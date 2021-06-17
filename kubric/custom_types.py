@@ -13,8 +13,9 @@
 # limitations under the License.
 """Kubric type annotations."""
 
-from typing import Any, Callable, Union
+from typing import Any, Callable, Union, Sequence
 
+import numpy as np
 import tensorflow_datasets.public_api as tfds
 
 from kubric import core  # pylint: disable=unused-import
@@ -22,3 +23,5 @@ from kubric import core  # pylint: disable=unused-import
 AddAssetFunction = Callable[["core.View", "core.Asset"], Any]
 
 PathLike = Union[str, tfds.core.ReadWritePath]
+
+ArrayLike = Union[Sequence[float], np.ndarray]
