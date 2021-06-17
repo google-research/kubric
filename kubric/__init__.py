@@ -57,7 +57,6 @@ from kubric.custom_types import PathLike
 from kubric import assets
 from kubric.assets import AssetSource
 from kubric.assets import TextureSource
-from kubric.assets.utils import mm3hash
 
 from kubric.randomness import random_hue_color
 from kubric.randomness import random_rotation

@@ -21,8 +21,8 @@ import bpy
 import numpy as np
 import OpenEXR
 import Imath
+import sklearn.utils
 
-import kubric.assets
 from kubric import core
 from kubric.custom_types import AddAssetFunction
 from kubric.redirect_io import RedirectStream
@@ -195,19 +195,30 @@ def get_render_layers_from_exr(filename,
     # if it is present, or index + 1 otherwise.
     for idx, asset in enumerate(objects):
       if asset.segmentation_id is not None:
-        labelmap[kubric.assets.mm3hash(asset.uid)] = asset.segmentation_id
+        labelmap[mm3hash(asset.uid)] = asset.segmentation_id
       else:
-        labelmap[kubric.assets.mm3hash(asset.uid)] = idx + 1
+        labelmap[mm3hash(asset.uid)] = idx + 1
     # All background images are assigned to 0.
     for asset in background_objects:
-      labelmap[kubric.assets.mm3hash(asset.uid)] = 0
+      labelmap[mm3hash(asset.uid)] = 0
     logging.info("The labelmap is '%s'", labelmap)  # TODO(klausg): check %s appropriate here?
 
-    bg_ids = [kubric.assets.mm3hash(obj.uid) for obj in background_objects]
-    object_ids = [kubric.assets.mm3hash(obj.uid) for obj in objects]
+    bg_ids = [mm3hash(obj.uid) for obj in background_objects]
+    object_ids = [mm3hash(obj.uid) for obj in objects]
     for bg_id in bg_ids:
       idxs[idxs == bg_id] = labelmap[bg_id]  # assign 0 to all background objects
     for _, object_id in enumerate(object_ids):
       idxs[idxs == object_id] = labelmap[object_id]
 
   return output
+
+
+def mm3hash(name):
+  """ Compute the uint32 hash that Blenders Cryptomatte uses.
+  https://github.com/Psyop/Cryptomatte/blob/master/specification/cryptomatte_specification.pdf
+  """
+  hash_32 = sklearn.utils.murmurhash3_32(name, positive=True)
+  exp = hash_32 >> 23 & 255
+  if exp in (0, 255):
+    hash_32 ^= 1 << 23
+  return hash_32

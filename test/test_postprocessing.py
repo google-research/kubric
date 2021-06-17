@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from kubric.assets import utils
+from kubric.renderer import blender_utils
 
 # a large list of cryptomatte ids that were manually extracted
 # (100 may be overkill. But I did have the first 29 succeed only to fail at Object_30)
@@ -55,4 +55,4 @@ name_to_crypto = [
 
 def test_mm3hash():
   for name, expected in name_to_crypto:
-    assert utils.mm3hash(name) == expected
+    assert blender_utils.mm3hash(name) == expected
