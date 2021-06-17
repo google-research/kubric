@@ -14,5 +14,3 @@
 
 from kubric.assets.asset_source import AssetSource, TextureSource
 from kubric.assets.klevr import KLEVR
-from kubric.assets.utils import mm3hash
-
