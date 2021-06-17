@@ -2,8 +2,6 @@
 **/__pycache__/
 *.ply
 *.bullet
-*.png
-*.exr
 .vscode/settings.json
 output/*
 docs/_build
