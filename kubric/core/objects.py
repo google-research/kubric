@@ -41,7 +41,7 @@ def normalize(
   norm_x = np.linalg.norm(x)
   if norm_x < eps:
     if fallback is None:
-      raise ValueError(f"Expected non-zero vector.")
+      raise ValueError("Expected non-zero vector.")
     else:
       return np.asarray(fallback, dtype=np.float64)
   return x / norm_x
@@ -57,12 +57,12 @@ def are_orthogonal(x: ArrayLike, y: ArrayLike, eps: float = 1e-8) -> bool:
 
 def convert_str_direction_to_vector(direction: str) -> np.ndarray:
   return {
-      'X': np.array([1., 0., 0.], dtype=np.float64),
-      'Y': np.array([0., 1., 0.], dtype=np.float64),
-      'Z': np.array([0., 0., 1.], dtype=np.float64),
-      '-X': np.array([-1., 0., 0.], dtype=np.float64),
-      '-Y': np.array([0., -1., 0.], dtype=np.float64),
-      '-Z': np.array([0., 0., -1.], dtype=np.float64),
+      "X": np.array([1., 0., 0.], dtype=np.float64),
+      "Y": np.array([0., 1., 0.], dtype=np.float64),
+      "Z": np.array([0., 0., 1.], dtype=np.float64),
+      "-X": np.array([-1., 0., 0.], dtype=np.float64),
+      "-Y": np.array([0., -1., 0.], dtype=np.float64),
+      "-Z": np.array([0., 0., -1.], dtype=np.float64),
   }[direction.upper()]
 
 
@@ -92,9 +92,9 @@ def look_at_quat(
   look_at_right = normalize(np.cross(world_up, look_at_front), fallback=world_right)
   look_at_up = normalize(np.cross(look_at_front, look_at_right))
 
-  R1 = np.stack([look_at_right, look_at_up, look_at_front])
-  R2 = np.stack([right, up, front])
-  return tuple(pyquat.Quaternion(matrix=(R1.T @ R2)))
+  rotation_matrix1 = np.stack([look_at_right, look_at_up, look_at_front])
+  rotation_matrix2 = np.stack([right, up, front])
+  return tuple(pyquat.Quaternion(matrix=(rotation_matrix1.T @ rotation_matrix2)))
 
 
 def euler_to_quat(euler_angles):
@@ -241,9 +241,9 @@ class PhysicalObject(Object3D):
     bounds = np.array(self.bounds, dtype=np.float)
     # scale bounds:
     bounds *= self.scale
-    # construct list of bbox edges
-    bbox_points = [x for x in itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])]
-    # rotate the
+    # construct list of bbox corners
+    bbox_points = itertools.product(bounds[:, 0], bounds[:, 1], bounds[:, 2])
+    # rotate the bbox
     obj_orientation = pyquat.Quaternion(*self.quaternion)
     rotated_bbox_points = [obj_orientation.rotate(x) for x in bbox_points]
     # shift by self.position and convert to single np.array
