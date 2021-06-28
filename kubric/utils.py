@@ -50,6 +50,7 @@ import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
 from kubric.custom_types import PathLike
+from kubric import core
 
 logger = logging.getLogger(__name__)
 
@@ -101,6 +102,23 @@ class ArgumentParser(argparse.ArgumentParser):
 # --------------------------------------------------------------------------------------------------
 # Helpers for workers
 # --------------------------------------------------------------------------------------------------
+
+def setup(flags):
+  setup_logging(flags.logging_level)
+  log_my_flags(flags)
+
+  seed = flags.seed if flags.seed else np.random.randint(0, 2147483647)
+  rng = np.random.RandomState(seed=seed)
+  scene = core.scene.Scene.from_flags(flags)
+
+  scratch_dir, output_dir = setup_directories(flags)
+  from kubric.simulator import PyBullet
+  from kubric.renderer import Blender
+
+  simulator = PyBullet(scene, scratch_dir)
+  renderer = Blender(scene, scratch_dir)
+  return scene, simulator, renderer, rng, output_dir
+
 
 def setup_logging(logging_level):
   logging.basicConfig(level=logging_level)

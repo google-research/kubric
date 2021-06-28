@@ -68,14 +68,17 @@ class PyBullet(core.View):
   @add_asset.register(core.Camera)
   def _add_object(self, obj: core.Camera) -> Optional[int]:
     logger.debug("Ignored camera %s", obj)
+    return None
 
   @add_asset.register(core.Material)
   def _add_object(self, obj: core.Material) -> Optional[int]:
     logger.debug("Ignored material %s", obj)
+    return None
 
   @add_asset.register(core.Light)
   def _add_object(self, obj: core.Light) -> Optional[int]:
     logger.debug("Ignored light %s", obj)
+    return None
 
   @add_asset.register(core.Cube)
   def _add_object(self, obj: core.Cube) -> Optional[int]:
@@ -110,7 +113,6 @@ class PyBullet(core.View):
   @add_asset.register(core.FileBasedObject)
   def _add_object(self, obj: core.FileBasedObject) -> Optional[int]:
     # TODO: support other file-formats
-    # TODO: add material assignments
     if obj.simulation_filename is None:
       return None  # if there is no simulation file, then ignore this object
     path = pathlib.Path(obj.simulation_filename).resolve()
@@ -148,9 +150,6 @@ class PyBullet(core.View):
         continue
       overlap_points = pb.getClosestPoints(obj_idx, body_id, distance=0)
       if overlap_points:
-        # TODO: we can easily get a suggested correction here
-        # i = np.argmin([o[8] for o in overlap_points], axis=0)  # find the most overlapping point
-        # push = np.array(overlap_points[i][7]) * (overlap_points[i][8] + margin)
         return True
     return False
 
@@ -190,10 +189,10 @@ class PyBullet(core.View):
          contact_distance, normal_force,
          lateral_friction1, lateral_friction_dir1,
          lateral_friction2, lateral_friction_dir2) = collision
-        del link_a, link_b #< unused
-        del contact_flag, contact_distance, position_a #< unused
-        del lateral_friction1, lateral_friction2 #< unused
-        del lateral_friction_dir1, lateral_friction_dir2 #< unused
+        del link_a, link_b  # < unused
+        del contact_flag, contact_distance, position_a  # < unused
+        del lateral_friction1, lateral_friction2  # < unused
+        del lateral_friction_dir1, lateral_friction_dir2  # < unused
         if normal_force > 1e-6:
           collisions.append({
               "instances": (self._obj_idx_to_asset(body_b), self._obj_idx_to_asset(body_a)),
@@ -237,8 +236,7 @@ class PyBullet(core.View):
     if len(assets) == 1:
       return assets[0]
     elif len(assets) == 0:
-      # TODO(klausg): verify the trailing "," was there with purpose?
-      return None,  # pylint: disable=trailing-comma-tuple
+      return None
     else:
       raise RuntimeError("Multiple assets linked to same pybullet object. How did that happen?")
 

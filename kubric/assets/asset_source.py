@@ -83,6 +83,11 @@ class AssetSource:
 
     return urdf_path, vis_path, properties
 
+  def get_test_split(self, fraction=0.1):
+    held_out_objects = list(self.db.sample(frac=fraction, replace=False, random_state=42)['id'])
+    train_objects = [i for i in self.db["id"] if i not in held_out_objects]
+    return train_objects, held_out_objects
+
 
 class TextureSource:
   """TODO(klausg): documentation."""
@@ -113,3 +118,8 @@ class TextureSource:
       logging.debug("Copying %s to %s", str(remote_path), str(local_path))
       tf.io.gfile.copy(remote_path, local_path)
     return local_path
+
+  def get_test_split(self, fraction=0.1):
+    held_out_textures = list(self.db.sample(frac=fraction, replace=False, random_state=42)['id'])
+    train_textures = [i for i in self.db["id"] if i not in held_out_textures]
+    return train_textures, held_out_textures

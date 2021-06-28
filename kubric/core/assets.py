@@ -149,7 +149,6 @@ class Asset(tl.HasTraits):
     return np.array([self.get_value_at(name, frame=f, interpolation=interpolation)
                      for f in frames], dtype=np.float32)
 
-
   def __hash__(self):
     return hash(self.uid)
 
