@@ -20,6 +20,11 @@ from kubric import randomness
 from kubric.core import color
 
 
+CLEVR_OBJECTS = ("Cube", "Cylinder", "Sphere")
+KUBASIC_OBJECTS = ("Cube", "Cylinder", "Sphere", "Cone", "Torus", "Gear", "TorusKnot",
+                   "Sponge", "Spot", "Teapot", "Suzanne")
+
+
 def get_clevr_lights(
     light_jitter: float = 1.0,
     rng: np.random.RandomState = randomness.default_rng()):
@@ -46,13 +51,20 @@ def get_clevr_lights(
   return lights
 
 
-def get_random_clevr_object(
+def get_random_kubasic_object(
     asset_source,
-    object_types=("Cube", "Cylinder", "Sphere"),
-    color_strategy="clevr",
+    objects_set="kubasic",
+    color_strategy="uniform_hue",
+    size_strategy="uniform",
     rng=randomness.default_rng()):
-  shape_name = rng.choice(object_types)
-  size_label, size = randomness.sample_sizes("clevr")
+  if objects_set == "clevr":
+    shape_name = rng.choice(CLEVR_OBJECTS)
+  elif objects_set == "kubasic":
+    shape_name = rng.choice(KUBASIC_OBJECTS)
+  else:
+    raise ValueError(f"Unknown object set {objects_set}")
+
+  size_label, size = randomness.sample_sizes(size_strategy)
   color_label, color = randomness.sample_color(color_strategy)
   material_name = rng.choice(["Metal", "Rubber"])
   obj = asset_source.create(name=f"{size_label} {color_label} {material_name} {shape_name}",
@@ -83,6 +95,7 @@ def add_hdri_dome(hdri_source, background_hdri, scene):
   dome_path = hdri_source.fetch("dome.blend")
   dome = kb.FileBasedObject(
       name="BackgroundDome",
+      position=(0, 0, 0.01),  # slight offset in z direction to stay above floor plane
       static=True, background=True,
       simulation_filename=None,
       render_filename=str(dome_path),

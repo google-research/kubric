@@ -112,12 +112,7 @@ def setup(flags):
   scene = core.scene.Scene.from_flags(flags)
 
   scratch_dir, output_dir = setup_directories(flags)
-  from kubric.simulator import PyBullet
-  from kubric.renderer import Blender
-
-  simulator = PyBullet(scene, scratch_dir)
-  renderer = Blender(scene, scratch_dir)
-  return scene, simulator, renderer, rng, output_dir
+  return scene, rng, output_dir, scratch_dir
 
 
 def setup_logging(logging_level):
@@ -163,8 +158,8 @@ def get_camera_info(camera, **kwargs):
       "field_of_view": camera.field_of_view,
       "positions": camera.get_values_over_time("position"),
       "quaternions": camera.get_values_over_time("quaternion"),
-      "K": camera.K,
-      "R": camera.R,
+      "K": camera.intrinsics,
+      "R": camera.matrix_world,
   }
   camera_info.update(kwargs)
   return camera_info

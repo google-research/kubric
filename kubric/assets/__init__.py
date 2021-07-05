@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from kubric.assets.asset_source import AssetSource, TextureSource
-from kubric.assets.utils import KLEVR
+from .asset_source import AssetSource, TextureSource
+from . import utils

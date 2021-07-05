@@ -153,7 +153,7 @@ class Blender(core.View):
       self.exr_output_node.mute = False
       self.exr_output_node.base_path = str(path_prefix)
 
-  def save_state(self, path: PathLike=None, pack_textures: bool=True):
+  def save_state(self, path: Optional[PathLike] = None, pack_textures: bool = True):
     """Saves the '.blend' blender file to disk.
 
     If a path is provided, the .blend file will be saved there.
@@ -179,9 +179,11 @@ class Blender(core.View):
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
-          bpy.ops.wm.save_mainfile(filepath=path)
-          if pack_textures: bpy.ops.file.pack_all()
-        if self.verbose: print(fstdout.getvalue())
+          if pack_textures:
+            bpy.ops.file.pack_all()
+          bpy.ops.wm.save_mainfile(filepath=str(path))
+        if self.verbose:
+          print(fstdout.getvalue())
 
   def render(self,
              png_filepath: PathLike = None,
