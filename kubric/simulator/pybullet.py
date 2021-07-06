@@ -168,10 +168,30 @@ class PyBullet(core.View):
     pb.saveBullet(str(self.scratch_dir / "scene.bullet"))
     tf.io.gfile.copy(self.scratch_dir / "scene.bullet", path, overwrite=True)
 
-  def run(self) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]],
-                         List[dict]]:
+  def run(
+      self,
+      frame_start: int = 0,
+      frame_end: Optional[int] = None
+  ) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]], List[dict]]:
+    """
+    Run the physics simulation.
+
+    The resulting animation is saved directly as keyframes in the assets,
+    and also returned (together with the collision events).
+
+    Args:
+      frame_start: The first frame from which to start the simulation (inclusive).
+        Also the first frame for which keyframes are stored.
+      frame_end: The last frame (inclusive) that is simulated (and for which animations
+        are computed).
+
+    Returns:
+      A dict of all animations and a list of all collision events.
+    """
+
+    frame_end = self.scene.frame_end if frame_end is None else frame_end
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
-    max_step = (self.scene.frame_end + 1) * steps_per_frame
+    max_step = (frame_end - frame_start + 1) * steps_per_frame
 
     obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
@@ -219,15 +239,15 @@ class PyBullet(core.View):
 
     # --- Transfer simulation to renderer keyframes
     for obj in animation.keys():
-      for frame_id in range(self.scene.frame_end + 1):
+      for frame_id in range(frame_end - frame_start + 1):
         obj.position = animation[obj]["position"][frame_id]
         obj.quaternion = animation[obj]["quaternion"][frame_id]
         obj.velocity = animation[obj]["velocity"][frame_id]
         obj.angular_velocity = animation[obj]["angular_velocity"][frame_id]
-        obj.keyframe_insert("position", frame_id)
-        obj.keyframe_insert("quaternion", frame_id)
-        obj.keyframe_insert("velocity", frame_id)
-        obj.keyframe_insert("angular_velocity", frame_id)
+        obj.keyframe_insert("position", frame_id + frame_start)
+        obj.keyframe_insert("quaternion", frame_id + frame_start)
+        obj.keyframe_insert("velocity", frame_id + frame_start)
+        obj.keyframe_insert("angular_velocity", frame_id + frame_start)
 
     return animation, collisions
 
@@ -238,7 +258,7 @@ class PyBullet(core.View):
     elif len(assets) == 0:
       return None
     else:
-      raise RuntimeError("Multiple assets linked to same pybullet object. How did that happen?")
+      raise RuntimeError("Multiple assets linked to same pybullet object. That should never happen")
 
 
 def xyzw2wxyz(xyzw):
