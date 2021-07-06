@@ -13,6 +13,17 @@
 # limitations under the License.
 
 import numpy as np
+from typing import List
+
+
+def compute_visibility(segmentation: np.ndarray) -> List[List[int]]:
+  """Compute how many pixels are visible for each instance at each frame."""
+  instances = []
+  for k in range(1, np.max(segmentation)+1):
+      visibility = [int(np.sum(segmentation[t, ..., 0] == k))
+                    for t in range(segmentation.shape[0])]
+      instances.append(visibility)
+  return instances
 
 
 def compute_bboxes(segmentation):

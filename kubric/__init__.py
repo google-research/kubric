@@ -65,6 +65,9 @@ from kubric.randomness import position_sampler
 from kubric.randomness import resample_while
 from kubric.randomness import move_until_no_overlap
 
+from kubric.post_processing import compute_visibility
+from kubric.post_processing import compute_bboxes
+
 from kubric.utils import ArgumentParser
 from kubric.utils import done
 from kubric.utils import get_camera_info
