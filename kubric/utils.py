@@ -145,7 +145,6 @@ def get_scene_metadata(scene, **kwargs):
       "width": scene.resolution[0],
       "height": scene.resolution[1],
       "num_frames": scene.frame_end - scene.frame_start + 1,
-      "num_instances": len(scene.foreground_assets),
   }
   metadata.update(kwargs)
   return metadata
@@ -165,10 +164,11 @@ def get_camera_info(camera, **kwargs):
   return camera_info
 
 
-def get_instance_info(scene):
+def get_instance_info(scene, assets_subset=None):
   instance_info = []
   # extract the framewise position, quaternion, and velocity for each object
-  for instance in scene.foreground_assets:
+  assets_subset = scene.foreground_assets if assets_subset is None else assets_subset
+  for instance in assets_subset:
     info = copy.copy(instance.metadata)
     info["positions"] = instance.get_values_over_time("position")
     info["quaternions"] = instance.get_values_over_time("quaternion")
@@ -185,10 +185,12 @@ def get_instance_info(scene):
   return instance_info
 
 
-def process_collisions(collisions, scene):
+def process_collisions(collisions, scene, assets_subset=None):
+  assets_subset = scene.foreground_assets if assets_subset is None else assets_subset
+
   def get_obj_index(obj):
     try:
-      return scene.foreground_assets.index(obj)
+      return assets_subset.index(obj)
     except ValueError:
       return -1
 

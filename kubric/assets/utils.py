@@ -91,7 +91,7 @@ def get_random_kubasic_object(
   return obj
 
 
-def add_hdri_dome(hdri_source, background_hdri, scene):
+def add_hdri_dome(hdri_source, scene, background_hdri=None):
   dome_path = hdri_source.fetch("dome.blend")
   dome = kb.FileBasedObject(
       name="BackgroundDome",
@@ -109,7 +109,10 @@ def add_hdri_dome(hdri_source, background_hdri, scene):
   import bpy
   blender_renderer = [v for v in scene.views if isinstance(v, Blender)]
   if blender_renderer:
-    dome_mat = dome.linked_objects[blender_renderer[0]].data.materials[0]
-    texture_node = dome_mat.node_tree.nodes["Image Texture"]
-    texture_node.image = bpy.data.images.load(background_hdri.filename)
+    dome_blender = dome.linked_objects[blender_renderer[0]]
+    dome_blender.cycles_visibility.shadow = False
+    if background_hdri is not None:
+      dome_mat = dome_blender.data.materials[0]
+      texture_node = dome_mat.node_tree.nodes["Image Texture"]
+      texture_node.image = bpy.data.images.load(background_hdri.filename)
   return dome

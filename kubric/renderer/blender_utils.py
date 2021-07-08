@@ -24,7 +24,7 @@ import Imath
 import sklearn.utils
 
 from kubric import core
-from kubric.custom_types import AddAssetFunction
+from kubric.custom_types import AddAssetFunction, ArrayLike
 from kubric.redirect_io import RedirectStream
 
 
@@ -138,13 +138,10 @@ def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str])
     array = np.frombuffer(exr.channel(channel_name), numpy_type)
     array = array.reshape([height, width])
     outputs.append(array)
-  # TODO: verify that the types are all the same?
   return np.stack(outputs, axis=-1)
 
 
-def get_render_layers_from_exr(filename,
-                               background_objects=(),
-                               objects=()) -> Dict[str, np.ndarray]:
+def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
   exr = OpenEXR.InputFile(str(filename))
   layer_names = set()
   for n, _ in exr.header()["channels"].items():
@@ -189,28 +186,22 @@ def get_render_layers_from_exr(filename,
     alpha_channels = [n + "." + c for n in crypto_layers for c in "GA"]
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
-    # replace crypto-ids with object index for foreground objects and 0 for background objects.
-    labelmap = {}
-    # Foreground objects: Set the label id to either asset.segmentation_id
-    # if it is present, or index + 1 otherwise.
-    for idx, asset in enumerate(objects):
-      if asset.segmentation_id is not None:
-        labelmap[mm3hash(asset.uid)] = asset.segmentation_id
-      else:
-        labelmap[mm3hash(asset.uid)] = idx + 1
-    # All background images are assigned to 0.
-    for asset in background_objects:
-      labelmap[mm3hash(asset.uid)] = 0
-    logging.info("The labelmap is '%s'", labelmap)  # TODO(klausg): check %s appropriate here?
-
-    bg_ids = [mm3hash(obj.uid) for obj in background_objects]
-    object_ids = [mm3hash(obj.uid) for obj in objects]
-    for bg_id in bg_ids:
-      idxs[idxs == bg_id] = labelmap[bg_id]  # assign 0 to all background objects
-    for _, object_id in enumerate(object_ids):
-      idxs[idxs == object_id] = labelmap[object_id]
-
   return output
+
+
+def replace_cryptomatte_hashes_by_asset_index(
+    segmentation_ids: ArrayLike,
+    assets: Sequence[core.assets.Asset]):
+  """Replace (inplace) the cryptomatte hash (from Blender) by the index of each asset.
+
+  Args:
+    segmentation_ids: Segmentation array of cryptomatte hashes as returned by Blender.
+    assets: List of assets to use for replacement.
+  """
+  # replace crypto-ids with object index for foreground objects and 0 for background objects.
+  for idx, asset in enumerate(assets):
+    asset_hash = mm3hash(asset.uid)
+    segmentation_ids[segmentation_ids == asset_hash] = idx
 
 
 def mm3hash(name):

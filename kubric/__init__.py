@@ -67,6 +67,7 @@ from kubric.randomness import move_until_no_overlap
 
 from kubric.post_processing import compute_visibility
 from kubric.post_processing import compute_bboxes
+from kubric.post_processing import adjust_segmentation_idxs
 
 from kubric.utils import ArgumentParser
 from kubric.utils import done
