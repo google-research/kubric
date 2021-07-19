@@ -53,6 +53,8 @@ def adjust_segmentation_idxs(
 
 def compute_bboxes(segmentation: ArrayLike, asset_list: Sequence[assets.Asset]):
   for k, asset in enumerate(asset_list, start=1):
+    asset.metadata["bboxes"] = []
+    asset.metadata["bbox_frames"] = []
     for t in range(segmentation.shape[0]):
       seg = segmentation[t, ..., 0]
       idxs = np.array(np.where(seg == k), dtype=np.float32)

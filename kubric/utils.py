@@ -310,7 +310,7 @@ def write_scaled_png(data: np.array, path_prefix: PathLike) -> Dict[str, float]:
 def write_tiff(
     all_imgs: np.ndarray,
     path_prefix: PathLike,
-) -> None:
+) -> Dict[str, float]:
   """Save single-channel float images as tiff.."""
   assert len(all_imgs.shape) == 4
   assert all_imgs.shape[-1] == 1  # Single channel image
@@ -322,6 +322,7 @@ def write_tiff(
     buffer = io.BytesIO()
     imageio.imwrite(buffer, img, format=".tif")
     path.write_bytes(buffer.getvalue())
+  return {"min": float(all_imgs.min()), "max": float(all_imgs.max())}
 
 
 def write_single_record(
@@ -334,12 +335,12 @@ def write_single_record(
   key = kv[0]
   img = kv[1]
   if key == "depth":
-    write_tiff(img, path_prefix / key)
+    scaling = write_tiff(img, path_prefix / key)
   else:
     scaling = write_scaled_png(img, path_prefix / key)
-    if scaling:
-      with lock:
-        scalings[key] = scaling
+  if scaling is not None:
+    with lock:
+      scalings[key] = scaling
 
 
 def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16):

@@ -24,7 +24,7 @@ setuptools.setup(
     url="https://github.com/google-research/kubric",
     author="kubric authors",
     author_email="kubric@google.com",
-    install_requires=['tensorflow_datasets', 'pypng'],
+    install_requires=['tensorflow_datasets', 'pypng', 'imageio'],
     packages=setuptools.find_packages(),
 )
 EOF

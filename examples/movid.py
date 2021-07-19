@@ -68,16 +68,19 @@ MOVid-C
   --camera=random --background=hdri --objects_set=gso
   --min_num_dynamic_objects=3 --max_num_dynamic_objects=10
   --min_num_static_objects=0 --max_num_static_objects=0
+  --save_state=False
 
 MOVid-D
-  --camera=linear_movement --background=hdri --objects_set=gso
-  --min_num_dynamic_objects=3 --max_num_dynamic_objects=10
-  --min_num_static_objects=0 --max_num_static_objects=0
+  --camera=random --background=hdri --objects_set=gso
+  --min_num_dynamic_objects=1 --max_num_dynamic_objects=3
+  --min_num_static_objects=10 --max_num_static_objects=20
+  --save_state=False
 
 MOVid-E
   --camera=linear_movement --background=hdri --objects_set=gso
   --min_num_dynamic_objects=1 --max_num_dynamic_objects=3
   --min_num_static_objects=10 --max_num_static_objects=20
+  --save_state=False
 """
 
 import logging
@@ -91,7 +94,7 @@ import numpy as np
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
 STATIC_SPAWN_REGION = [(-7, -7, 0), (7, 7, 4)]
-DYNAMIC_SPAWN_REGION = [(-4, -4, 1), (4, 4, 5)]
+DYNAMIC_SPAWN_REGION = [(-5, -5, 1), (5, 5, 5)]
 CAMERA_RANGE = [[-10, -10, 1], [10, 10, 3]]
 
 # --- CLI arguments
@@ -109,9 +112,7 @@ parser.add_argument("--max_num_dynamic_objects", type=int, default=3,
                     help="maximum number of static (distractor) objects")
 parser.add_argument("--object_friction", type=float, default=None)
 parser.add_argument("--object_restitution", type=float, default=None)
-parser.add_argument("--visibility_max_threshold", type=float, default=0.001)
-parser.add_argument("--visibility_mean_threshold", type=float, default=0.000)
-
+parser.add_argument("--objects_all_same", action="store_true", default=False)
 # Configuration for the floor and background
 parser.add_argument("--floor_friction", type=float, default=0.3)
 parser.add_argument("--floor_restitution", type=float, default=0.5)
@@ -120,20 +121,22 @@ parser.add_argument("--backgrounds_split", choices=["train", "test"], default="t
 
 # Configuration for the camera
 parser.add_argument("--camera", choices=["clevr", "random", "linear_movement"], default="clevr")
-parser.add_argument("--max_camera_movement", type=float, default=1.0)
+parser.add_argument("--max_camera_movement", type=float, default=3.0)
 
 # Configuration for the source of the assets
 parser.add_argument("--kubasic_assets_dir", type=str, default="gs://kubric-public/KuBasic")
 parser.add_argument("--gso_assets_dir", type=str, default="gs://kubric-public/GSO")
 parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_haven/4k")
 
-parser.set_defaults(frame_end=24, frame_rate=12, width=256, height=256)
+parser.add_argument("--no_save_state", dest="save_state", action="store_false")
+parser.add_argument("--save_state", dest="save_state", action="store_true")
+parser.set_defaults(save_state=True, frame_end=24, frame_rate=12, width=256, height=256)
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
 scene, rng, output_dir, scratch_dir = kb.setup(FLAGS)
 simulator = PyBullet(scene, scratch_dir)
-renderer = Blender(scene, scratch_dir, use_denoising=False, adaptive_sampling=False)
+renderer = Blender(scene, scratch_dir, use_denoising=True, adaptive_sampling=False)
 
 
 # --- Populate the scene
@@ -146,17 +149,21 @@ floor = kb.Cube(name="floor", scale=(100, 100, 1), position=(0, 0, -1),
                 static=True, background=True)
 scene.add(floor)
 
+scene_metadata = {}
 if FLAGS.background == "clevr":
   logging.info("Adding four (studio) lights to the scene similar to the CLEVR setup...")
   scene.add(kb.assets.utils.get_clevr_lights(rng=rng))
   scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
+  scene_metadata["background"] = "clevr"
 if FLAGS.background == "colored":
   logging.info("Adding four (studio) lights to the scene similar to the CLEVR setup...")
   scene.add(kb.assets.utils.get_clevr_lights(rng=rng))
   scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
   hdri_source = kb.TextureSource(FLAGS.hdri_dir)
   dome = kb.assets.utils.add_hdri_dome(hdri_source, scene, None)
-  dome.material = kb.PrincipledBSDFMaterial(color=kb.random_hue_color(), roughness=1., specular=0.)
+  bg_color = kb.random_hue_color()
+  dome.material = kb.PrincipledBSDFMaterial(color=bg_color, roughness=1., specular=0.)
+  scene_metadata["background"] = bg_color.hexstr
 elif FLAGS.background == "hdri":
   logging.info("Loading background HDRIs from %s", FLAGS.hdri_dir)
   hdri_source = kb.TextureSource(FLAGS.hdri_dir)
@@ -170,6 +177,7 @@ elif FLAGS.background == "hdri":
 
   dome = kb.assets.utils.add_hdri_dome(hdri_source, scene, background_hdri)
   renderer._set_ambient_light_hdri(background_hdri.filename)
+  scene_metadata["background"] = kb.str2path(background_hdri.filename).stem
 
 
 def scale_to_norm_range(vec, min_length=0, max_length=np.inf):
@@ -196,7 +204,7 @@ if FLAGS.camera == "linear_movement":
   # but no further than FLAGS.max_camera_movement
   camera_start = scale_to_norm_range(rng.uniform(*CAMERA_RANGE), 8, 12)
   camera_end = scale_to_norm_range(rng.uniform(*CAMERA_RANGE), 8, 12)
-  movement_speed = rng.uniform(low=0., high=3.)
+  movement_speed = rng.uniform(low=0., high=FLAGS.max_camera_movement)
   camera_movement = scale_to_norm_range(camera_end - camera_start,
                                         min_length=movement_speed,
                                         max_length=movement_speed)
@@ -224,6 +232,8 @@ else:  # FLAGS.objects_set == "gso":
   asset_source = kb.AssetSource(FLAGS.gso_assets_dir)
   train_split, test_split = asset_source.get_test_split(fraction=0.1)
   active_split = train_split if FLAGS.objects_split == "train" else test_split
+  if FLAGS.objects_all_same:
+    active_split = [rng.choice(active_split)]
 
 
 # --- Place random objects
@@ -263,7 +273,6 @@ def add_random_object(spawn_region, use_init_velocity=True):
 num_static_objects = rng.randint(FLAGS.min_num_static_objects,
                                  FLAGS.max_num_static_objects+1)
 logging.info("Randomly placing %d static objects:", num_static_objects)
-
 for i in range(num_static_objects):
   obj = add_random_object(spawn_region=STATIC_SPAWN_REGION, use_init_velocity=False)
   obj.friction = 1.0
@@ -289,16 +298,22 @@ for i in range(num_dynamic_objects):
   obj = add_random_object(spawn_region=DYNAMIC_SPAWN_REGION, use_init_velocity=True)
   obj.metadata["dynamic"] = True
 
-logging.info("Saving the simulator state to '%s' before starting the simulation.",
-             output_dir / "scene.bullet")
-simulator.save_state(output_dir / "scene.bullet")
+if FLAGS.save_state:
+  logging.info("Saving the simulator state to '%s' before starting the simulation.",
+               output_dir / "scene.bullet")
+  simulator.save_state(output_dir / "scene.bullet")
+
+# Run dynamic objects simulation
 logging.info("Running the simulation ...")
 animation, collisions = simulator.run(frame_start=0, frame_end=scene.frame_end+1)
 
+
 # --- Rendering
-logging.info("Saving the renderer state to '%s' before starting the rendering.",
-             output_dir / "scene.blend")
-renderer.save_state(output_dir / "scene.blend")
+if FLAGS.save_state:
+  logging.info("Saving the renderer state to '%s' before starting the rendering.",
+               output_dir / "scene.blend")
+  renderer.save_state(output_dir / "scene.blend")
+
 logging.info("Rendering the scene ...")
 data_stack = renderer.render()
 
@@ -309,20 +324,20 @@ visible_foreground_assets = [asset for asset in scene.foreground_assets
 visible_foreground_assets = sorted(visible_foreground_assets,
                                    key=lambda asset: np.sum(asset.metadata["visibility"]),
                                    reverse=True)
-
-kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground_assets)
-
 kb.adjust_segmentation_idxs(data_stack["segmentation"],
                             scene.assets,
                             visible_foreground_assets)
-
+scene_metadata["num_instances"] = len(visible_foreground_assets)
 # Save to image files
 kb.utils.write_image_dict(data_stack, output_dir)
+
+kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground_assets)
+
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
 kb.save_as_json(output_dir / "metadata.json", {
-    "metadata": kb.get_scene_metadata(scene, num_instances=len(visible_foreground_assets)),
+    "metadata": kb.get_scene_metadata(scene, **scene_metadata),
     "camera": kb.get_camera_info(scene.camera),
     "instances": kb.get_instance_info(scene, assets_subset=visible_foreground_assets),
 })
