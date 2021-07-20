@@ -47,7 +47,9 @@ class Blender(core.View):
                use_denoising=True,
                samples_per_pixel=128,
                background_transparency=False,
-               verbose: bool = False):
+               verbose: bool = False,
+               custom_scene: Optional[str] = None,
+  ):
     """
     Args:
       scene: the kubric scene this class will observe
@@ -68,7 +70,7 @@ class Blender(core.View):
     self.verbose = verbose
 
     # blender has a default scene on load, so we clear everything first
-    blender_utils.clear_and_reset_blender_scene(self.verbose)
+    self.clear_and_reset_blender_scene(self.verbose, custom_scene=custom_scene)
     self.blender_scene = bpy.context.scene
 
     # the ray-tracing engine is set here because it affects the availability of some features
@@ -258,6 +260,16 @@ class Blender(core.View):
     blender_utils.replace_cryptomatte_hashes_by_asset_index(data_stack["segmentation"],
                                                             self.scene.assets)
     return data_stack
+
+  def clear_and_reset_blender_scene(self, verbose: bool = False, custom_scene: str = None):
+    """ Resets Blender to an entirely empty scene (or a custom one)."""
+    with RedirectStream(stream=sys.stdout, disabled=verbose):
+      bpy.ops.wm.read_factory_settings(use_empty=True)
+      if custom_scene is None:
+        bpy.context.scene.world = bpy.data.worlds.new("World")
+      else:
+        logger.info("Loading scene from '%s'", custom_scene)
+        bpy.ops.wm.open_mainfile(filepath=custom_scene)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:

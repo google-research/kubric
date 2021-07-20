@@ -13,8 +13,6 @@
 # limitations under the License.
 
 import functools
-import logging
-import sys
 from typing import Dict, Sequence
 
 import bpy
@@ -25,14 +23,6 @@ import sklearn.utils
 
 from kubric import core
 from kubric.custom_types import AddAssetFunction, ArrayLike
-from kubric.redirect_io import RedirectStream
-
-
-def clear_and_reset_blender_scene(verbose=False):
-  """ Resets Blender to an entirely empty scene."""
-  with RedirectStream(stream=sys.stdout, disabled=verbose):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.context.scene.world = bpy.data.worlds.new("World")
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
