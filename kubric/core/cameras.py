@@ -83,7 +83,7 @@ class PerspectiveCamera(Camera):
 
   @property
   def intrinsics(self):
-    width, height = self.active_scene.resolution
+    width, height = 1., 1.  # self.active_scene.resolution
     f_x = self.focal_length / self.sensor_width * width
     f_y = self.focal_length / self.sensor_height * height
     p_x = width / 2.
@@ -95,7 +95,7 @@ class PerspectiveCamera(Camera):
     ])
 
   def project_point(self, point3d, frame=None):
-    """ Compute the image space coordinates (in pixels) for a given point in world coordinates."""
+    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
     with self.at_frame(frame):
       homo_transform = np.linalg.inv(self.matrix_world)
       homo_intrinsics = np.zeros((3, 4), dtype=np.float32)

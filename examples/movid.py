@@ -121,7 +121,7 @@ parser.add_argument("--backgrounds_split", choices=["train", "test"], default="t
 
 # Configuration for the camera
 parser.add_argument("--camera", choices=["clevr", "random", "linear_movement"], default="clevr")
-parser.add_argument("--max_camera_movement", type=float, default=3.0)
+parser.add_argument("--max_camera_movement", type=float, default=4.0)
 
 # Configuration for the source of the assets
 parser.add_argument("--kubasic_assets_dir", type=str, default="gs://kubric-public/KuBasic")
@@ -180,13 +180,25 @@ elif FLAGS.background == "hdri":
   scene_metadata["background"] = kb.str2path(background_hdri.filename).stem
 
 
-def scale_to_norm_range(vec, min_length=0, max_length=np.inf):
-  length = np.clip(np.linalg.norm(vec), 1e-6, np.inf)
-  if length < min_length:
-    return vec / length * min_length
-  elif length > max_length:
-    return vec / length * max_length
-  return vec
+def sample_point_in_half_sphere_shell(inner_radius, outer_radius):
+  while True:
+    v = rng.uniform((-outer_radius, -outer_radius, 0),
+                    (outer_radius, outer_radius, outer_radius))
+    len_v = np.linalg.norm(v)
+    if inner_radius <= len_v <= outer_radius:
+      return v
+
+
+def get_linear_camera_motion_start_end(inner_radius=8., outer_radius=12.):
+  while True:
+    camera_start = sample_point_in_half_sphere_shell(inner_radius, outer_radius)
+    movement_speed = rng.uniform(low=0., high=FLAGS.max_camera_movement)
+    direction = rng.rand(3) - 0.5
+    movement = direction / np.linalg.norm(direction) * movement_speed
+    camera_end = camera_start + movement
+    camera_end_length = np.linalg.norm(camera_end)
+    if (inner_radius <= camera_end_length <= outer_radius) and camera_end[2] > 0.:
+      return camera_start, camera_end
 
 
 logging.info("Setting up the Camera...")
@@ -196,19 +208,10 @@ if FLAGS.camera == "clevr":
   scene.camera.position = [7.48113, -6.50764, 5.34367] + rng.rand(3)
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "random":
-  scene.camera.position = scale_to_norm_range(rng.uniform(*CAMERA_RANGE), 8, 12)
+  scene.camera.position = sample_point_in_half_sphere_shell(8., 12.)
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "linear_movement":
-  # sample two points in the cube ([-10, -10, 1], [10, 10, 3])
-  # and move the camera from the first towards the second
-  # but no further than FLAGS.max_camera_movement
-  camera_start = scale_to_norm_range(rng.uniform(*CAMERA_RANGE), 8, 12)
-  camera_end = scale_to_norm_range(rng.uniform(*CAMERA_RANGE), 8, 12)
-  movement_speed = rng.uniform(low=0., high=FLAGS.max_camera_movement)
-  camera_movement = scale_to_norm_range(camera_end - camera_start,
-                                        min_length=movement_speed,
-                                        max_length=movement_speed)
-  camera_end = camera_start + camera_movement
+  camera_start, camera_end = get_linear_camera_motion_start_end()
   # linearly interpolate the camera position between these two points
   # while keeping it focused on the center of the scene
   # we start one frame early and end one frame late to ensure that
@@ -237,7 +240,7 @@ else:  # FLAGS.objects_set == "gso":
 
 
 # --- Place random objects
-def add_random_object(spawn_region, use_init_velocity=True):
+def add_random_object(spawn_region, rng, use_init_velocity=True):
   velocity_range = [(-4., -4., 0.), (4., 4., 0.)]
   if FLAGS.objects_set == "clevr":
     obj = kb.assets.utils.get_random_kubasic_object(
@@ -260,13 +263,13 @@ def add_random_object(spawn_region, use_init_velocity=True):
   if FLAGS.object_restitution is not None:
     obj.restitution = FLAGS.object_restitution
   scene.add(obj)
-  kb.move_until_no_overlap(obj, simulator, spawn_region=spawn_region)
+  kb.move_until_no_overlap(obj, simulator, spawn_region=spawn_region, rng=rng)
   # bias velocity towards center
   if use_init_velocity:
     obj.velocity = rng.uniform(*velocity_range) - [obj.position[0], obj.position[1], 0]
   else:
     obj.velocity = (0., 0., 0.)
-  logging.info("    Added %s", obj)
+  logging.info("    Added %s at %s", obj.asset_id, obj.position)
   return obj
 
 
@@ -274,9 +277,9 @@ num_static_objects = rng.randint(FLAGS.min_num_static_objects,
                                  FLAGS.max_num_static_objects+1)
 logging.info("Randomly placing %d static objects:", num_static_objects)
 for i in range(num_static_objects):
-  obj = add_random_object(spawn_region=STATIC_SPAWN_REGION, use_init_velocity=False)
+  obj = add_random_object(spawn_region=STATIC_SPAWN_REGION, rng=rng, use_init_velocity=False)
   obj.friction = 1.0
-  obj.metadata["dynamic"] = False
+  obj.metadata["is_dynamic"] = False
 
 
 # --- Simulation
@@ -295,8 +298,9 @@ num_dynamic_objects = rng.randint(FLAGS.min_num_dynamic_objects,
                                   FLAGS.max_num_dynamic_objects+1)
 logging.info("Randomly placing %d dynamic objects:", num_dynamic_objects)
 for i in range(num_dynamic_objects):
-  obj = add_random_object(spawn_region=DYNAMIC_SPAWN_REGION, use_init_velocity=True)
-  obj.metadata["dynamic"] = True
+  obj = add_random_object(spawn_region=DYNAMIC_SPAWN_REGION, rng=rng, use_init_velocity=True)
+  obj.metadata["is_dynamic"] = True
+
 
 if FLAGS.save_state:
   logging.info("Saving the simulator state to '%s' before starting the simulation.",
@@ -324,9 +328,10 @@ visible_foreground_assets = [asset for asset in scene.foreground_assets
 visible_foreground_assets = sorted(visible_foreground_assets,
                                    key=lambda asset: np.sum(asset.metadata["visibility"]),
                                    reverse=True)
-kb.adjust_segmentation_idxs(data_stack["segmentation"],
-                            scene.assets,
-                            visible_foreground_assets)
+data_stack["segmentation"] = kb.adjust_segmentation_idxs(
+    data_stack["segmentation"],
+    scene.assets,
+    visible_foreground_assets)
 scene_metadata["num_instances"] = len(visible_foreground_assets)
 # Save to image files
 kb.utils.write_image_dict(data_stack, output_dir)

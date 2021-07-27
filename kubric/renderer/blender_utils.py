@@ -182,16 +182,19 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
 def replace_cryptomatte_hashes_by_asset_index(
     segmentation_ids: ArrayLike,
     assets: Sequence[core.assets.Asset]):
-  """Replace (inplace) the cryptomatte hash (from Blender) by the index of each asset.
+  """Replace (inplace) the cryptomatte hash (from Blender) by the index of each asset + 1.
+  (the +1 is to ensure that the 0 for background does not interfere with asset index 0)
 
   Args:
     segmentation_ids: Segmentation array of cryptomatte hashes as returned by Blender.
     assets: List of assets to use for replacement.
   """
-  # replace crypto-ids with object index for foreground objects and 0 for background objects.
-  for idx, asset in enumerate(assets):
+  # replace crypto-ids with asset index
+  new_segmentation_ids = np.zeros_like(segmentation_ids)
+  for idx, asset in enumerate(assets, start=1):
     asset_hash = mm3hash(asset.uid)
-    segmentation_ids[segmentation_ids == asset_hash] = idx
+    new_segmentation_ids[segmentation_ids == asset_hash] = idx
+  return new_segmentation_ids
 
 
 def mm3hash(name):

@@ -57,9 +57,10 @@ class MovidConfig(tfds.core.BuilderConfig):
 
 class Movid(tfds.core.BeamBasedBuilder):
   """DatasetBuilder for Katr dataset."""
-  VERSION = tfds.core.Version("1.0.0")
+  VERSION = tfds.core.Version("1.1.0")
   RELEASE_NOTES = {
     "1.0.0": "initial release",
+    "1.1.0": "fixed segmentation, and various other minor issues"
   }
 
   BUILDER_CONFIGS = [
@@ -93,7 +94,7 @@ class Movid(tfds.core.BeamBasedBuilder):
       ),
       MovidConfig(
           name="E_64x64",
-          description="Static objects, moving camera, downscaled to 128x128",
+          description="Static objects, moving camera, downscaled to 64x64",
           height=64,
           width=64,
           validation_ratio=0.1,
@@ -105,6 +106,97 @@ class Movid(tfds.core.BeamBasedBuilder):
               "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_same2",
           }
       ),
+      MovidConfig(
+          name="D_256x256",
+          description="Static objects, random camera, full resolution of 256x256",
+          height=256,
+          width=256,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+          }
+      ),
+      MovidConfig(
+          name="D_128x128",
+          description="Static objects, random camera, downscaled to  128x128",
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+          }
+      ),
+      MovidConfig(
+          name="D_64x64",
+          description="Static objects, random camera, downscaled to 64x64",
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+          }
+      ),
+      MovidConfig(
+          name="C_256x256",
+          description="Dynamic objects, random camera, full resolution of 256x256",
+          height=256,
+          width=256,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+          }
+      ),
+      MovidConfig(
+          name="C_128x128",
+          description="Dynamic objects, random camera, downscaled to  128x128",
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+          }
+      ),
+      MovidConfig(
+          name="C_64x64",
+          description="Static objects, random camera, downscaled to 64x64",
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+          }
+      ),
+
   ]
 
   def _info(self) -> tfds.core.DatasetInfo:
@@ -132,6 +224,7 @@ class Movid(tfds.core.BeamBasedBuilder):
             "background": tfds.features.Text(),
             "instances": tfds.features.Sequence(feature={
                 "asset_id": tfds.features.Text(),
+                "is_dynamic": tfds.features.Tensor(shape=(s,), dtype=tf.bool),
                 "mass": tf.float32,
                 "friction": tf.float32,
                 "restitution": tf.float32,
@@ -146,6 +239,7 @@ class Movid(tfds.core.BeamBasedBuilder):
                     tfds.features.BBoxFeature()),
                 "bbox_frames": tfds.features.Sequence(
                     tfds.features.Tensor(shape=(), dtype=tf.int32)),
+                "visibility": tfds.features.Tensor(shape=(s,), dtype=tf.uint16),
             }),
             "camera": {
                 "focal_length": tf.float32,
@@ -186,7 +280,7 @@ class Movid(tfds.core.BeamBasedBuilder):
     """Returns SplitGenerators."""
     del unused_dl_manager
     path = tfds.core.as_path(self.builder_config.train_val_path)
-    all_subdirs = [d for d in path.glob("*")]  # if (d / "events.json").exists()]
+    all_subdirs = [d for d in path.glob("*") if (d / "events.json").exists()]
     all_subdirs = sorted(all_subdirs, key=lambda x: int(x.name))
     all_subdirs = [str(d) for d in all_subdirs]
     logging.info("Found %d sub-folders in master path: %s", len(all_subdirs), path)
@@ -205,7 +299,7 @@ class Movid(tfds.core.BeamBasedBuilder):
 
     for key, path in self.builder_config.test_split_paths.items():
       path = tfds.core.as_path(path)
-      split_dirs = [d for d in path.glob("*")]  # if (d / "events.json").exists()]
+      split_dirs = [d for d in path.glob("*") if (d / "events.json").exists()]
       # sort the directories by their integer number
       split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
       logging.info("Found %d sub-folders in '%s' path: %s", len(all_subdirs), key, path)
@@ -244,10 +338,6 @@ class Movid(tfds.core.BeamBasedBuilder):
       uv_frame_paths = [video_dir / f"uv_{f:05d}.png" for f in range(num_frames)]
       normal_frame_paths = [video_dir / f"normal_{f:05d}.png" for f in range(num_frames)]
 
-      depth_arrays = [subsample_nearest_neighbor(read_tiff(frame_path), target_size)
-                      for frame_path in depth_frame_paths]
-      depth_range = [np.min(depth_arrays), np.max(depth_arrays)]
-
       scale = 256 / target_size[0]
       return key, {
           "metadata": {
@@ -256,15 +346,17 @@ class Movid(tfds.core.BeamBasedBuilder):
               "height": target_size[0],
               "num_frames": num_frames,
               "num_instances": num_instances,
-              "depth_range": depth_range,
+              "depth_range": [data_ranges["depth"]["min"],
+                              data_ranges["depth"]["max"]],
               "forward_flow_range": [data_ranges["forward_flow"]["min"] / scale,
                                      data_ranges["forward_flow"]["max"] / scale],
               "backward_flow_range": [data_ranges["backward_flow"]["min"] / scale,
                                       data_ranges["backward_flow"]["max"] / scale],
           },
-          "background": "foo",
+          "background": metadata["metadata"]["background"],
           "instances": [{
               "asset_id": obj["asset_id"],
+              "is_dynamic": obj["is_dynamic"],
               "mass": obj["mass"],
               "friction": obj["friction"],
               "restitution": obj["restitution"],
@@ -275,6 +367,7 @@ class Movid(tfds.core.BeamBasedBuilder):
               "image_positions": np.array(obj["image_positions"], np.float32),
               "bboxes": [tfds.features.BBox(*bbox) for bbox in obj["bboxes"]],
               "bbox_frames": np.array(obj["bbox_frames"], dtype=np.uint16),
+              "visibility": np.array(obj["visibility"], dtype=np.uint16),
           } for i, obj in enumerate(metadata["instances"])],
           "camera": {
               "focal_length": metadata["camera"]["focal_length"],
@@ -301,8 +394,11 @@ class Movid(tfds.core.BeamBasedBuilder):
                            for frame_path in fwd_flow_frame_paths],
           "backward_flow": [subsample_nearest_neighbor(read_png(frame_path)[..., :2], target_size)
                             for frame_path in bwd_flow_frame_paths],
-          "depth": [convert_float_to_uint16(x, depth_range[0], depth_range[1])
-                    for x in depth_arrays],
+          "depth": [convert_float_to_uint16(subsample_nearest_neighbor(read_tiff(frame_path),
+                                                                       target_size),
+                                            data_ranges["depth"]["min"],
+                                            data_ranges["depth"]["max"])
+                    for frame_path in depth_frame_paths],
           "uv": [subsample_nearest_neighbor(read_png(frame_path), target_size)
                  for frame_path in uv_frame_paths],
           "normal": [subsample_nearest_neighbor(read_png(frame_path), target_size)

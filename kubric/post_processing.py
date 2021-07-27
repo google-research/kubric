@@ -27,7 +27,7 @@ def compute_visibility(segmentation: np.ndarray, assets: Sequence[assets.Asset])
     assets: The list of assets in the scene (whose ordering corresponds to the segmentation indices)
 
   """
-  for i, asset in enumerate(assets):
+  for i, asset in enumerate(assets, start=1):
     asset.metadata["visibility"] = [int(np.sum(segmentation[t] == i))
                                     for t in range(segmentation.shape[0])]
 
@@ -42,13 +42,15 @@ def adjust_segmentation_idxs(
   Note that this starts with index=1 for the first asset in new_assets_list, to leave id=0 for
   background assets.
   """
-  for i, asset in enumerate(old_assets_list):
+  new_segmentation = np.zeros_like(segmentation)
+  for i, asset in enumerate(old_assets_list, start=1):
     if isinstance(asset, objects.PhysicalObject) and asset.segmentation_id is not None:
-      segmentation[segmentation == i] = asset.segmentation_id
+      new_segmentation[segmentation == i] = asset.segmentation_id
     elif asset in new_assets_list:
-      segmentation[segmentation == i] = new_assets_list.index(asset) + 1
+      new_segmentation[segmentation == i] = new_assets_list.index(asset) + 1
     else:
-      segmentation[segmentation == i] = ignored_label
+      new_segmentation[segmentation == i] = ignored_label
+  return new_segmentation
 
 
 def compute_bboxes(segmentation: ArrayLike, asset_list: Sequence[assets.Asset]):
@@ -59,8 +61,10 @@ def compute_bboxes(segmentation: ArrayLike, asset_list: Sequence[assets.Asset]):
       seg = segmentation[t, ..., 0]
       idxs = np.array(np.where(seg == k), dtype=np.float32)
       if idxs.size > 0:
-        idxs /= np.array(seg.shape)[:, np.newaxis]
-        asset.metadata["bboxes"].append((float(idxs[0].min()), float(idxs[1].min()),
-                              float(idxs[0].max()), float(idxs[1].max())))
+        y_min = float(idxs[0].min() / seg.shape[0])
+        x_min = float(idxs[1].min() / seg.shape[1])
+        y_max = float((idxs[0].max() + 1) / seg.shape[0])
+        x_max = float((idxs[1].max() + 1) / seg.shape[1])
+        asset.metadata["bboxes"].append((y_min, x_min, y_max, x_max))
         asset.metadata["bbox_frames"].append(t)
 

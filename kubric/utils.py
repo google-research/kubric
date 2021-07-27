@@ -27,6 +27,7 @@
 # limitations under the License.
 import argparse
 import collections
+import colorsys
 import copy
 import functools
 import io
@@ -307,6 +308,40 @@ def write_scaled_png(data: np.array, path_prefix: PathLike) -> Dict[str, float]:
   return scaling
 
 
+def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
+  """Get a list of colors where the first is black and the rest are evenly spaced in HSL space."""
+  hues = np.linspace(0, 1, int(n_colors) + 1)[:-1]
+  hues = (hues + first_hue) % 1
+  palette = [(0., 0., 0.)] + [colorsys.hls_to_rgb(h_i, lightness, saturation) for h_i in hues]
+  return np.round(np.array(palette) * 255).astype(np.uint8)
+
+
+def write_palette_png(data: np.array, path_prefix: PathLike,
+                      palette: np.ndarray = None):
+  """"""
+  assert len(data.shape) == 4, data.shape
+
+  if data.dtype in [np.uint16, np.uint32, np.uint64]:
+    max_value = np.amax(data)
+    if max_value > 255:
+      logger.warning("max_value %d exceeds uint bounds for %s.",
+                     max_value, path_prefix)
+    data = data.astype(np.uint8)
+  elif data.dtype == np.uint8:
+    pass
+  else:
+    raise NotImplementedError(f"Cannot handle {data.dtype}.")
+  assert data.shape[-1] == 1, "Must be grayscale"
+  if palette is None:
+    palette = hls_palette(np.max(data) + 1)
+
+  w = png.Writer(data.shape[1], data.shape[2], palette=palette, bitdepth=8)
+  for i in range(data.shape[0]):
+    img = data[i, :, :, 0]  # pypng expects 2d arrays
+    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
+      w.write(fp, img)
+
+
 def write_tiff(
     all_imgs: np.ndarray,
     path_prefix: PathLike,
@@ -330,12 +365,16 @@ def write_single_record(
     path_prefix: PathLike,
     scalings: Dict[str, Dict[str, float]],
     lock: threading.Lock,
+    segmentation_palette=None,
 ):
   """Write single record."""
   key = kv[0]
   img = kv[1]
   if key == "depth":
     scaling = write_tiff(img, path_prefix / key)
+  elif key == "segmentation":
+    write_palette_png(img, path_prefix / key, segmentation_palette)
+    scaling = None
   else:
     scaling = write_scaled_png(img, path_prefix / key)
   if scaling is not None:
@@ -343,7 +382,8 @@ def write_single_record(
       scalings[key] = scaling
 
 
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16):
+def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16,
+                     segmentation_palette=None):
   # Pre-load image libs to avoid race-condition in multi-thread.
   imageio.plugins.tifffile.load_lib()
   scalings = {}

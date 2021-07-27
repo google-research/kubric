@@ -23,6 +23,7 @@ import tempfile
 import bpy
 
 import numpy as np
+import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
 
@@ -163,13 +164,12 @@ class Blender(core.View):
     If neither is provided, an assertion will be raised.
     If a file with the same path exists, it is overwritten.
     """
-    # --- if a scratch_dir was specified
-    if path is None and self.scratch_dir is not None:
-      path = str(self.scratch_dir / "scene.blend")
-    assert path is not None, "Neither self.scratch-dir nor path has been specified"
+    # first write to a temporary file, and later copy
+    # (because blender cannot write to gcs buckets etc.)
+    tmp_path = self.scratch_dir / "scene.blend"
 
     # --- ensure directory exists
-    parent = kb.str2path(path).parent
+    parent = kb.str2path(tmp_path).parent
     if not parent.exists():
       parent.mkdir(parents=True)
 
@@ -177,15 +177,24 @@ class Blender(core.View):
     kb.str2path(path).unlink(missing_ok=True)
 
     # --- save the file; see https://github.com/google-research/kubric/issues/96
-    logger.info("Saving '%s'", path)
+
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
           if pack_textures:
             bpy.ops.file.pack_all()
-          bpy.ops.wm.save_mainfile(filepath=str(path))
+          bpy.ops.wm.save_mainfile(filepath=str(tmp_path))
         if self.verbose:
           print(fstdout.getvalue())
+
+    # --- if a scratch_dir was specified
+    if path is not None:
+      path = kb.str2path(path)
+      logger.info("Saving '%s'", path)
+      tf.io.gfile.copy(tmp_path, path, overwrite=True)
+    else:
+      logger.info("Saved to '%s'", tmp_path)
+
 
   def render(self,
              frames: Optional[Sequence[int]] = None,
@@ -257,8 +266,8 @@ class Blender(core.View):
       data_stack[key] = np.stack(data_stack[key], axis=0)
 
     # map the Blender cryptomatte hashes to asset indices
-    blender_utils.replace_cryptomatte_hashes_by_asset_index(data_stack["segmentation"],
-                                                            self.scene.assets)
+    data_stack["segmentation"] = blender_utils.replace_cryptomatte_hashes_by_asset_index(
+        data_stack["segmentation"], self.scene.assets)
     return data_stack
 
   def clear_and_reset_blender_scene(self, verbose: bool = False, custom_scene: str = None):
@@ -323,33 +332,35 @@ class Blender(core.View):
       return None  # if there is no render file, then ignore this object
     _, _, extension = obj.render_filename.rpartition(".")
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):  # reduce the logging noise
-      if extension == "obj":
-        bpy.ops.import_scene.obj(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
-      elif extension in ["glb", "gltf"]:
-        bpy.ops.import_scene.gltf(filepath=obj.render_filename,
-                                  **obj.render_import_kwargs)
-        # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
-        # here we are interested only in the meshes, so delete everything else
-        non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
-        bpy.ops.object.delete({"selected_objects": non_mesh_objects})
-        bpy.ops.object.join()
-      elif extension == "fbx":
-        bpy.ops.import_scene.fbx(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
-      elif extension in ["x3d", "wrl"]:
-        bpy.ops.import_scene.x3d(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
+      with io.StringIO() as fstdout:  # < scratch stdout buffer
+        with redirect_stdout(fstdout):  # < also suppresses python stdout
+          if extension == "obj":
+            bpy.ops.import_scene.obj(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
+          elif extension in ["glb", "gltf"]:
+            bpy.ops.import_scene.gltf(filepath=obj.render_filename,
+                                      **obj.render_import_kwargs)
+            # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
+            # here we are interested only in the meshes, so delete everything else
+            non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
+            bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+            bpy.ops.object.join()
+          elif extension == "fbx":
+            bpy.ops.import_scene.fbx(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
+          elif extension in ["x3d", "wrl"]:
+            bpy.ops.import_scene.x3d(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
 
-      elif extension == "blend":
-        # for now we require the paths to be encoded in the render_import_kwargs. That is:
-        # - filepath = dir / "Object" / object_name
-        # - directory = dir / "Object"
-        # - filename = object_name
+          elif extension == "blend":
+            # for now we require the paths to be encoded in the render_import_kwargs. That is:
+            # - filepath = dir / "Object" / object_name
+            # - directory = dir / "Object"
+            # - filename = object_name
 
-        bpy.ops.wm.append(**obj.render_import_kwargs)
-      else:
-        raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
+            bpy.ops.wm.append(**obj.render_import_kwargs)
+          else:
+            raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
 
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
