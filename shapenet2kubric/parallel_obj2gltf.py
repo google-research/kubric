@@ -20,12 +20,13 @@ logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
 
-def setup_logging():
+def setup_logging(datadir):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
-  fh = logging.FileHandler('/workdir/ShapeNetCore.v2/conversion.log')
+  logpath = pathlib.Path(datadir)/'parallel_obj2gltf.log'
+  fh = logging.FileHandler(logpath)
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
   logger.addHandler(fh)
@@ -46,7 +47,7 @@ def shapenet_objects_dirs(datadir):
   categories = [x for x in pathlib.Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
     object_folders += [x for x in category.iterdir() if x.is_dir()]
-  [print(folder) for folder in object_folders]
+  # [print(folder) for folder in object_folders]
   return object_folders
 
 # ------------------------------------------------------------------------------
@@ -80,7 +81,7 @@ if __name__ == '__main__':
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   args = parser.parse_args()
-  setup_logging()
+  setup_logging(args.datadir)
 
   # --- gathers collection over which threads will be executed
   object_folders = shapenet_objects_dirs(args.datadir)
