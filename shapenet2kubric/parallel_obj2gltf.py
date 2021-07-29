@@ -55,7 +55,6 @@ def shapenet_objects_dirs(datadir):
 # ------------------------------------------------------------------------------
 
 def process_object(object_folder):
-  print(object_folder)
   # TODO: add option to delete file if exists?
   # see: https://docs.python.org/3/library/subprocess.html
   source_path = object_folder / "models" / "model_normalized.obj"
@@ -65,9 +64,13 @@ def process_object(object_folder):
   logger.debug(f'conversion of "{object_folder}" started...')
   cmd = f'obj2gltf -i {source_path} -o {target_path}'.split(' ')
   retobj = subprocess.run(cmd, capture_output=True, check=True)
-  logger.debug(retobj.stdout)
+  if retobj.stdout != '':
+    if retobj.stdout.startswith(b"Total: "):
+      logger.debug(f'{retobj.stdout}')
+    else:
+      logger.error(f'{retobj.stdout}')
   if retobj.returncode != 0:
-    logger.debug(retobj.stderr)
+    if retobj.stderr != "": logger.debug(retobj.stderr)
     logger.error(f'obj2gltf on "{target_path}" did not execute correctly.')
   logger.debug(f'conversion of "{object_folder}" finished')
   if not target_path.is_file():
@@ -90,8 +93,9 @@ if __name__ == '__main__':
   # --- launches jobs in parallel
   with tqdm.tqdm(total=len(object_folders)) as pbar:
     with multiprocessing.Pool(args.num_processes) as pool:
-      for _ in pool.imap(process_object, object_folders):
+      for counter, _ in enumerate(pool.imap(process_object, object_folders)):
         pbar.update(1)
+        logger.debug(f"Processed {counter}/{len(object_folders)}")
 
 
 # ------------------------------------------------------------------------------
