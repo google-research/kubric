@@ -90,8 +90,8 @@ if __name__ == '__main__':
   # --- launches jobs in parallel
   with tqdm.tqdm(total=len(object_folders)) as pbar:
     with multiprocessing.Pool(args.num_processes) as pool:
-      for counter, _ in enumerate(pool.imap(process_object, object_folders)):
-        pbar.update(counter)
+      for _ in pool.imap(process_object, object_folders):
+        pbar.update(1)
 
 
 # ------------------------------------------------------------------------------
