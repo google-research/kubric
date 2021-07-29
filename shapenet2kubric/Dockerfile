@@ -36,4 +36,4 @@ RUN bash compile.sh
 ENV PATH="/ManifoldPlus/build:$PATH"
 
 # --- final startup folder
-WORKDIR /
+WORKDIR /shapenet2kubric

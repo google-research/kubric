@@ -68,7 +68,7 @@ pararallel_obj2gltf:
 		--volume $(PWD):/shapenet2kubric \
 		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
 		kubricdockerhub/shapenet:latest \
-		python3.7 /shapenet2kubric/parallel_obj2gltf.py
+		python3.7 parallel_obj2gltf.py
 
 # --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
