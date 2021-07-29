@@ -22,7 +22,8 @@ RUN python3.7 -m pip install --upgrade --force-reinstall pip
 RUN python3.7 -m pip install --upgrade --force-reinstall numpy
 RUN python3.7 -m pip install --upgrade --force-reinstall pybullet
 RUN python3.7 -m pip install --upgrade --force-reinstall trimesh
-RUN python3.7 -m pip install --upgrade Image
+RUN python3.7 -m pip install --upgrade --force-reinstall Image
+RUN python3.7 -m pip install --upgrade --force-reinstall tqdm
 
 # --- build/install manifoldplus, make "manifold" binary available in path
 RUN apt-get install -y git

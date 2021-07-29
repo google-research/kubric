@@ -41,22 +41,43 @@ manifold_test: bathtub
 			--depth 8
 
 # --- (manually) check that the container can execute "obj2gltf" correctly
-obj2gltf_test: bathtub
+obj2gltf_test:
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
-		--volume "$(DOWNLOADPREFIX):/workdir" \
+		--volume "$(DOWNLOADPREFIX):/ShapeNetCore.v2" \
 		kubricdockerhub/shapenet:latest \
 		obj2gltf \
-			-i /workdir/bathtub.obj \
-			-o /workdir/bathtub
+			-i /ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj \
+			-o /ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.glb
+
+# --- conversion of known problematic models (success!)
+obj2gltf_local: 
+	# rifle model
+	obj2gltf \
+		-i /ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj \
+		-o /ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.glb
+	# policar model
+	obj2gltf \
+		-i /ShapeNetCore.v2/02958343/114b662c64caba81bb07f8c2248e54bc/models/model_normalized.obj \
+		-o /ShapeNetCore.v2/02958343/114b662c64caba81bb07f8c2248e54bc/models/model_normalized.glb
+
+# --- batch conversion of the entire shapenet
+pararallel_obj2gltf:
+	docker run --rm --interactive \
+		--user $(shell id -u):$(shell id -g) \
+		--volume $(PWD):/shapenet2kubric \
+		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
+		kubricdockerhub/shapenet:latest \
+		python3.7 shapenet2kubric/parallel_obj2gltf.py \
+			--datadir "/ShapeNetCore.v2"
 
 # --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
 	@read -p "Have you accepted the shapenet.org licence? (y/n):" line; \
-		if [ $$line = "n" ]; then echo "ABORTING: please obtain a licence first"; exit 1; fi
+		if [ $$line = "n" || $$line = "" ]; then echo "ABORTING: please obtain a licence first"; exit 1; fi
 	wget --continue --directory-prefix $(DOWNLOADPREFIX) http://shapenet.cs.stanford.edu/shapenet/obj-zip/ShapeNetCore.v2.zip
 	unzip -d $(DOWNLOADPREFIX) $(DOWNLOADPREFIX)/ShapeNetCore.v2.zip
 
 # --- model used to manually test manifold and obj2gltf
 bathtub:
-	wget --directory-prefix $(DOWNLOADPREFIX) https://raw.githubusercontent.com/hjwdzh/ManifoldPlus/master/data/bathtub.obj
+	wget -nc --directory-prefix $(DOWNLOADPREFIX) https://raw.githubusercontent.com/hjwdzh/ManifoldPlus/master/data/bathtub.obj

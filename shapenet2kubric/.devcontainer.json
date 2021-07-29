@@ -4,21 +4,31 @@
   "name": "shapenet",
   
   // --- OPTION A: loads from pre-built container
-  // "image": "docker.io/kubricdockerhub/shapenet:latest",
+  "image": "docker.io/kubricdockerhub/shapenet:latest",
   
   // --- OPTION B: builds container (extremely slow... 2h built time!)
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".",
-  },
+  // "build": {
+  //   "dockerfile": "Dockerfile",
+  //   "context": ".",
+  // },
   
   // Set *default* container specific settings.json values on container create.
   "settings": {
     "python.pythonPath": "/usr/local/bin/python3",
   },
-  
+
+  // Which folders to mount
+  "mounts": [
+    "source=${localEnv:HOME}/datasets/ShapeNetCore.v2.dummy,target=/ShapeNetCore.v2.dummy,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/datasets/ShapeNetCore.v2,target=/ShapeNetCore.v2,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.bash_profile,target=/root/.bash_profile,type=bind,consistency=cached"
+  ],
+
+  // starts a login shell (i.e. loads /root/.bash_profile)
+  "postAttachCommand": "/bin/bash -l",
+
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "ms-python.python"
-  ]
+  ],
 }
