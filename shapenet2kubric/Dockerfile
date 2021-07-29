@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 # --- Install system dep
 RUN apt-get update --fix-missing
 RUN apt-get -y install cmake
+RUN apt-get -y install wget
 
 # --- install obj2gltf (REQUIRED)
 RUN apt install -y nodejs
