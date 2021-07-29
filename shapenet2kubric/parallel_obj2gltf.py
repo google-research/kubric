@@ -23,7 +23,7 @@ def setup_logging(datadir):
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
-  logpath = pathlib.Path(datadir)/'parallel_obj2gltf.log'
+  logpath = pathlib.Path(datadir)/'shapenet2kubric.log'
   fh = logging.FileHandler(logpath)
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
@@ -63,20 +63,22 @@ def process_object(object_folder):
     logger.error(f'The source path "{source_path}" is not a file?')
   logger.debug(f'conversion of "{object_folder}"')
   cmd = f'obj2gltf -i {source_path} -o {target_path}'.split(' ')
-  retobj = subprocess.run(cmd, capture_output=True, check=True)
-  
-  # --- catch errors in stdout
-  stdout = retobj.stdout.decode('utf-8')
-  silent_error = not (stdout.startswith('Total') and stdout.endswith('ms\n'))
-  if silent_error:
-    logger.error(f'{stdout}')
-  else:
-    logger.debug(f'{stdout}') 
+  try:
+    retobj = subprocess.run(cmd, capture_output=True, check=True)
 
-  # --- catch errors in return code
-  if retobj.returncode != 0:
+    # --- catch (silent) errors in stdout
+    stdout = retobj.stdout.decode('utf-8')
+    silent_error = not (stdout.startswith('Total') and stdout.endswith('ms\n'))
+    if silent_error:
+      logger.error(f'{stdout}')
+    else:
+      logger.debug(f'{stdout}') 
+
     if retobj.stderr != "": logger.debug(retobj.stderr.decode('utf-8'))
-    logger.error(f'obj2gltf on "{target_path}" did not execute correctly.')
+    
+
+  except subprocess.CalledProcessError:
+    logger.error(f'obj2gltf on "{target_path}" failed.')
 
   # --- verify post-hypothesis
   if not target_path.is_file():
@@ -109,10 +111,10 @@ if __name__ == '__main__':
     parallel_launch(args.datadir, args.num_processes)
  
   if False:
-    # --- this is a problematic one
     setup_logging(pathlib.Path.cwd())
-    process_object('/ShapeNetCore.v2/02691156/d583d6f23c590f3ec672ad25c77a396')
-
+    process_object('/ShapeNetCore.v2/02691156/d583d6f23c590f3ec672ad25c77a396') #< soft fail
+    process_object('/ShapeNetCore.v2/02958343/3c33f9f8edc558ce77aa0b62eed1492') #< hard fail
+    
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
