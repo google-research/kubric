@@ -62,7 +62,7 @@ obj2gltf_local:
 		-o /ShapeNetCore.v2/02958343/114b662c64caba81bb07f8c2248e54bc/models/model_normalized.glb
 
 # --- batch conversion of the entire shapenet
-pararallel_obj2gltf:
+parallel_obj2gltf:
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
 		--volume $(PWD):/shapenet2kubric \

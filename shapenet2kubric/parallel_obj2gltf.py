@@ -7,6 +7,8 @@ import logging
 import sys
 import tqdm
 
+from shapenet_denylist import invalid_model
+
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major>=3 and sys.version_info.minor>=7
 
@@ -18,20 +20,21 @@ logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
 
-def setup_logging(datadir):
+def setup_logging(datadir=None):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
-  logpath = pathlib.Path(datadir)/'shapenet2kubric.log'
-  fh = logging.FileHandler(logpath)
-  fh.setLevel(logging.DEBUG)
-  fh.setFormatter(formatter)
-  logger.addHandler(fh)
+  if datadir is not None:
+    logpath = pathlib.Path(datadir)/'shapenet2kubric.log'
+    fh = logging.FileHandler(logpath)
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
 
   # --- send WARNING+ logs to console
   sh = logging.StreamHandler()
-  sh.setLevel(logging.WARNING)
+  sh.setLevel((logging.WARNING, logging.DEBUG)[datadir is None])
   sh.setFormatter(formatter)
   logger.addHandler(sh)
 
@@ -39,7 +42,7 @@ def setup_logging(datadir):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def shapenet_objects_dirs(datadir):
+def shapenet_objects_dirs(datadir: pathlib.Path):
   """Returns a list of pathlib.Path folders, one per object."""
   object_folders = list()
   categories = [x for x in pathlib.Path(datadir).iterdir() if x.is_dir()]
@@ -54,11 +57,13 @@ def shapenet_objects_dirs(datadir):
 
 def process_object(object_folder):
   object_folder = pathlib.Path(object_folder)
+  if invalid_model(object_folder): 
+    logger.debug(f'skipping denylist model "{object_folder}"')
 
   # TODO: add option to delete file if exists?
   # see: https://docs.python.org/3/library/subprocess.html
-  source_path = object_folder / "models" / "model_normalized.obj"
-  target_path = object_folder / "models" / "model_normalized.glb"
+  source_path = object_folder / 'models' / 'model_normalized.obj'
+  target_path = object_folder / 'models' / 'model_normalized.glb'
   if not source_path.is_file():
     logger.error(f'The source path "{source_path}" is not a file?')
   logger.debug(f'conversion of "{object_folder}"')
@@ -74,7 +79,9 @@ def process_object(object_folder):
     else:
       logger.debug(f'{stdout}') 
 
-    if retobj.stderr != "": logger.debug(retobj.stderr.decode('utf-8'))
+    # --- if there is stdout, log it
+    if retobj.stderr != "":
+      logger.debug(retobj.stderr.decode('utf-8'))
     
 
   except subprocess.CalledProcessError:
@@ -111,9 +118,8 @@ if __name__ == '__main__':
     parallel_launch(args.datadir, args.num_processes)
  
   if False:
-    setup_logging(pathlib.Path.cwd())
-    process_object('/ShapeNetCore.v2/02691156/d583d6f23c590f3ec672ad25c77a396') #< soft fail
-    process_object('/ShapeNetCore.v2/02958343/3c33f9f8edc558ce77aa0b62eed1492') #< hard fail
+    setup_logging(datadir=None)
+    process_object(pathlib.Path(args.datadir)/'03046257/5972bc07e59371777bcb070cc655f13a')
     
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
