@@ -56,7 +56,10 @@ def shapenet_objects_dirs(datadir: Path):
 
   # --- remove invalid folders
   logging.debug(f"dropping problemantic folders: {__shapenet_list__}")
-  object_folders = [folder for folder in object_folders if not invalid_model(folder) ] 
+  object_folders = [folder for folder in object_folders if not invalid_model(folder) ]
+
+  # TODO: add objects w/o materials to the denylist?
+  # if not os.path.exists(obj_path.replace('.obj', '.mtl')):
 
   return object_folders
 
