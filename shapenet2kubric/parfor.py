@@ -5,6 +5,7 @@ import multiprocessing
 import logging
 import sys
 import tqdm
+import importlib
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
 
@@ -19,13 +20,13 @@ logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
 
-def setup_logging(datadir:str):
+def setup_logging(datadir:str, functor_module:str):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
   datadir = Path(args.datadir)
-  logpath = datadir/'shapenet2kubric.log'
+  logpath = datadir/f'shapenet2kubric.{functor_module}.log'
   fh = logging.FileHandler(logpath)
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
@@ -83,10 +84,10 @@ if __name__ == '__main__':
   args = parser.parse_args()
   
   # TODO: importlib
-  from obj2gltf import functor
-  setup_logging(args.datadir)
+  functor_module = importlib.import_module(args.functor_module)
+  setup_logging(args.datadir, args.functor_module)
   collection = shapenet_objects_dirs(args.datadir)
-  parfor(collection, functor, args.num_processes)
+  parfor(collection, functor_module.functor, args.num_processes)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

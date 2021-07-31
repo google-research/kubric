@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3.9
+# pylint disable=missing-function-docstring
 
 import fire
 import os
@@ -25,7 +26,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(shapenet_root=SHAPENET_ROOT, num_processes=8):
+def parfor(module, shapenet_root=SHAPENET_ROOT, num_processes=8):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -34,13 +35,13 @@ def parfor(shapenet_root=SHAPENET_ROOT, num_processes=8):
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
     python3.7 parfor.py \
-      --functor_module obj2gltf
-      --datadir /ShapeNetCore.v2
+      --functor_module {module} \
+      --datadir /ShapeNetCore.v2 \
       --num_processes {num_processes}
   """
   _execute(command)
 
-def obj2gltf(model='03046257/5972bc07e59371777bcb070cc655f13a', shapenet_root=SHAPENET_ROOT):
+def obj2gltf(model, shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -49,6 +50,19 @@ def obj2gltf(model='03046257/5972bc07e59371777bcb070cc655f13a', shapenet_root=SH
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
     python3.7 obj2gltf.py \
+      --model={model}
+  """
+  _execute(command)
+
+def obj2manifold(model, shapenet_root=SHAPENET_ROOT):
+  shapenet_root = os.path.expanduser(shapenet_root)
+  command = f"""
+  docker run --rm --interactive \
+    --user `id -u`:`id -g` \
+    --volume $PWD:/shapenet2kubric \
+    --volume {shapenet_root}:/ShapeNetCore.v2 \
+    kubricdockerhub/shapenet:latest \
+    python3.7 obj2manifold.py \
       --model={model}
   """
   _execute(command)
