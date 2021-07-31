@@ -1,19 +1,14 @@
-#!/usr/local/bin/python3
+# pylint: disable=logging-fstring-interpolation
 import sys
 import argparse
 from pathlib import Path
-from shapenet_denylist import invalid_model
+
 import subprocess
 import logging
 import multiprocessing
 
 def functor(object_folder:str, logger=multiprocessing.get_logger()):
   object_folder = Path(object_folder)
-
-  # --- check object folder is appropriate
-  if invalid_model(object_folder): 
-    logger.debug(f'skipping denylist model "{object_folder}"')
-    return
 
   # TODO: add option to delete file if exists?
   # see: https://docs.python.org/3/library/subprocess.html
@@ -49,14 +44,14 @@ def functor(object_folder:str, logger=multiprocessing.get_logger()):
 if __name__=='__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
-  parser.add_argument('--model')
+  parser.add_argument('--model', default='03046257/5972bc07e59371777bcb070cc655f13a')
   args = parser.parse_args()
 
   # --- setup logger
-  logger = logging.getLogger(__name__)
-  logger.setLevel(logging.DEBUG)
+  stdout_logger = logging.getLogger(__name__)
+  stdout_logger.setLevel(logging.DEBUG)
   handler = logging.StreamHandler(sys.stdout)
-  logger.addHandler(handler)
+  stdout_logger.addHandler(handler)
 
   # --- execute functor
-  functor(Path(args.datadir)/args.model, logger)
+  functor(Path(args.datadir)/args.model, stdout_logger)

@@ -1,10 +1,12 @@
-# pylint disable=logging-fstring-interpolation
+# pylint: disable=logging-fstring-interpolation
 import argparse
 from pathlib import Path
 import multiprocessing
 import logging
 import sys
 import tqdm
+from shapenet_denylist import invalid_model
+from shapenet_denylist import __shapenet_list__
 
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major>=3 and sys.version_info.minor>=7
@@ -17,26 +19,25 @@ logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
 
-def setup_logging(datadir:Path, functor_module):
+def setup_logging(datadir:str):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
+  datadir = Path(args.datadir)
   logpath = datadir/'shapenet2kubric.log'
   fh = logging.FileHandler(logpath)
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
   logger.addHandler(fh)
+  print(f"logging DEBUG+ to: {logpath}")
 
   # --- send WARNING+ logs to console
   sh = logging.StreamHandler()
   sh.setLevel(logging.WARNING)
   sh.setFormatter(formatter)
   logger.addHandler(sh)
-
-  # TODO: remove
-  # --- bind logger to the functor
-  # functor_module.set_logger(logger)
+  print(f"logging WARNING+ to: stderr")
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -44,11 +45,18 @@ def setup_logging(datadir:Path, functor_module):
 
 def shapenet_objects_dirs(datadir: Path):
   """Returns a list of pathlib.Path folders, one per object."""
+
+  logging.info("gathering shapenet folders: {__shapenet_list__}")
   object_folders = list()
   categories = [x for x in Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
     object_folders += [x for x in category.iterdir() if x.is_dir()]
-  # [print(folder) for folder in object_folders]
+  logging.debug(f"gathering folders: {object_folders}")
+
+  # --- remove invalid folders
+  logging.debug(f"dropping problemantic folders: {__shapenet_list__}")
+  object_folders = [folder for folder in object_folders if not invalid_model(folder) ] 
+
   return object_folders
 
 # ------------------------------------------------------------------------------
@@ -73,14 +81,10 @@ if __name__ == '__main__':
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--functor_module', default='obj2gltf')
   args = parser.parse_args()
-
-  datadir = Path(args.datadir)
   
   # TODO: importlib
   from obj2gltf import functor
-  # functor = lambda x: functor_module(x, logger)
-  # setup_logging(datadir, functor_module)
-
+  setup_logging(args.datadir)
   collection = shapenet_objects_dirs(args.datadir)
   parfor(collection, functor, args.num_processes)
 
