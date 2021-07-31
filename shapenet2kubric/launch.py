@@ -1,7 +1,5 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python3.9
 
-# ./launch.py -- --completion > ~/.launch-completion
-# source ~/.launch-completion
 import fire
 import os
 import re
@@ -42,7 +40,7 @@ def parfor(shapenet_root=SHAPENET_ROOT, num_processes=8):
   """
   _execute(command)
 
-def obj2gltf(shapenet_root=SHAPENET_ROOT):
+def obj2gltf(model='03046257/5972bc07e59371777bcb070cc655f13a', shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -50,10 +48,14 @@ def obj2gltf(shapenet_root=SHAPENET_ROOT):
     --volume $PWD:/shapenet2kubric \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
-    python3.7 obj2gltf.py
+    python3.7 obj2gltf.py \
+      --model={model}
   """
   _execute(command)
 
+def completion():
+  _execute('./launch.py -- --completion > .launch-completion')
+  print('to enable completion, run "source .launch-completion"')
 
 def _execute(command_string):
   command_string = re.sub(' +', ' ', command_string)

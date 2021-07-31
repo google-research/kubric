@@ -1,4 +1,6 @@
 #!/usr/local/bin/python3
+import sys
+import argparse
 from pathlib import Path
 from shapenet_denylist import invalid_model
 import subprocess
@@ -6,10 +8,12 @@ import logging
 import multiprocessing
 
 def functor(object_folder:str, logger=multiprocessing.get_logger()):
-  # --- check object folder is appropriate
   object_folder = Path(object_folder)
+
+  # --- check object folder is appropriate
   if invalid_model(object_folder): 
     logger.debug(f'skipping denylist model "{object_folder}"')
+    return
 
   # TODO: add option to delete file if exists?
   # see: https://docs.python.org/3/library/subprocess.html
@@ -28,7 +32,7 @@ def functor(object_folder:str, logger=multiprocessing.get_logger()):
     if silent_error:
       logger.error(f'{stdout}')
     else:
-      logger.debug(f'{stdout}') 
+      logger.debug(f'{stdout}')
 
     # --- if there is stdout, log it
     if retobj.stderr != "":
@@ -43,5 +47,16 @@ def functor(object_folder:str, logger=multiprocessing.get_logger()):
     logger.error(f'The output "{target_path}" was not written.')
 
 if __name__=='__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--datadir', default='/ShapeNetCore.v2')
+  parser.add_argument('--model')
+  args = parser.parse_args()
+
+  # --- setup logger
   logger = logging.getLogger(__name__)
-  functor('/ShapeNetCore.v2/03046257/5972bc07e59371777bcb070cc655f13a', logger)
+  logger.setLevel(logging.DEBUG)
+  handler = logging.StreamHandler(sys.stdout)
+  logger.addHandler(handler)
+
+  # --- execute functor
+  functor(Path(args.datadir)/args.model, logger)
