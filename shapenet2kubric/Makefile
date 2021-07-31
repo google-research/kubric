@@ -62,13 +62,13 @@ obj2gltf_local:
 		-o /ShapeNetCore.v2/02958343/114b662c64caba81bb07f8c2248e54bc/models/model_normalized.glb
 
 # --- batch conversion of the entire shapenet
-parallel_obj2gltf:
+parfor:
 	docker run --rm --interactive \
 		--user $(shell id -u):$(shell id -g) \
 		--volume $(PWD):/shapenet2kubric \
 		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
 		kubricdockerhub/shapenet:latest \
-		python3.7 parallel_obj2gltf.py
+		python3.7 parfor.py
 
 # --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
