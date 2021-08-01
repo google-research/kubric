@@ -31,14 +31,16 @@ def setup_logging(datadir:str, functor_module:str):
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
   logger.addHandler(fh)
-  print(f"logging DEBUG+ to: {logpath}")
 
   # --- send WARNING+ logs to console
   sh = logging.StreamHandler()
   sh.setLevel(logging.WARNING)
   sh.setFormatter(formatter)
   logger.addHandler(sh)
-  print(f"logging WARNING+ to: stderr")
+
+  # --- inform
+  logging.warning(f'logging DEBUG+ to "{logpath}"')
+  logging.warning(f'logging WARNING+ to stderr')
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

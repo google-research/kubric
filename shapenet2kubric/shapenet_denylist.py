@@ -56,6 +56,8 @@ __shapenet_list__ = [
   '02958343/39b307361b650db073a425eed3ac7a0b', #missing texture0 texture1',
   '02958343/85914342038de6f160190e29962cb3e7', #missing texture0 texture1',
   '02958343/d5f1637a5c9479e0185ce5d54f27f6b9', #missing texture0 texture1',
+  '03001627/b7a1ec97b8f85127493a4a2a112261d3', #missing texture0
+  '02924116/2d44416a2f00fff08fd1fd158db1677c', #missing texture 4
   # --- missing MANY textures
   '02958343/b3ffbbb2e8a5376d4ed9aac513001a31', #missing many textures',
   '02958343/f6bbb767b1b75ab0c9d22fcb1abe82ed', #missing many textures',
