@@ -67,7 +67,14 @@ def obj2manifold(model, shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
+RIFLE_MODEL='04090263/18807814a9cefedcd957eaf7f4edb205'
+def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
+  """Runs the entire pipeline on a single model."""
+  obj2gltf(model, shapenet_root)
+  obj2manifold(model, shapenet_root)
+
 def completion():
+  """Updates fire's bash completion."""
   _execute('./launch.py -- --completion > .launch-completion')
   print('to enable completion, run "source .launch-completion"')
 
