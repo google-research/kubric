@@ -73,9 +73,14 @@ def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   obj2gltf(model, shapenet_root)
   obj2manifold(model, shapenet_root)
 
+def blender(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
+  filepath = os.path.expanduser(shapenet_root+'/'+model+'/models/model_normalized.obj')
+  blender = os.path.expanduser('~/Applications/Blender.app/Contents/MacOS/Blender')
+  _execute(f'{blender} --python load_obj.py -- --filepath="{filepath}"')
+
 def completion():
   """Updates fire's bash completion."""
-  _execute('./launch.py -- --completion > .launch-completion')
+  _execute('launch -- --completion > .launch-completion')
   print('to enable completion, run "source .launch-completion"')
 
 def _execute(command_string):
