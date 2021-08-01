@@ -13,6 +13,7 @@ assert sys.version_info.major>=3 and sys.version_info.minor>=7
 
 # --- default folders
 SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
+BLENDER_EXEC = '~/Applications/Blender.app/Contents/MacOS/Blender'
 
 def bash(shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
@@ -74,9 +75,9 @@ def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   obj2manifold(model, shapenet_root)
 
 def blender(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
-  filepath = os.path.expanduser(shapenet_root+'/'+model+'/models/model_normalized.obj')
-  blender = os.path.expanduser('~/Applications/Blender.app/Contents/MacOS/Blender')
-  _execute(f'{blender} --python load_obj.py -- --filepath="{filepath}"')
+  shapenet_root = os.path.expanduser(shapenet_root)
+  blender = os.path.expanduser(BLENDER_EXEC)
+  _execute(f'{blender} --python load_model.py -- --datadir={shapenet_root} --model={model}')
 
 def completion():
   """Updates fire's bash completion."""
