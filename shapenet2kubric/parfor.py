@@ -83,15 +83,18 @@ def parfor(collection, functor, num_processes):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
+  parser.add_argument('--functor_module', default='obj2gltf')
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
-  parser.add_argument('--functor_module', default='obj2gltf')
+  parser.add_argument('--stop_after', default=0, type=int)
   args = parser.parse_args()
   
   # TODO: importlib
   functor_module = importlib.import_module(args.functor_module)
   setup_logging(args.datadir, args.functor_module)
   collection = shapenet_objects_dirs(args.datadir)
+  if args.stop_after != 0: 
+    collection = collection[0:args.stop_after]
   parfor(collection, functor_module.functor, args.num_processes)
 
 # ------------------------------------------------------------------------------

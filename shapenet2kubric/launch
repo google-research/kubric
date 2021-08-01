@@ -14,6 +14,7 @@ assert sys.version_info.major>=3 and sys.version_info.minor>=7
 # --- default folders
 SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
 BLENDER_EXEC = '~/Applications/Blender.app/Contents/MacOS/Blender'
+RIFLE_MODEL='04090263/18807814a9cefedcd957eaf7f4edb205'
 
 def bash(shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
@@ -27,7 +28,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(module, shapenet_root=SHAPENET_ROOT, num_processes=8):
+def parfor(module, stop_after=0, shapenet_root=SHAPENET_ROOT, num_processes=8):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -38,7 +39,8 @@ def parfor(module, shapenet_root=SHAPENET_ROOT, num_processes=8):
     python3.7 parfor.py \
       --functor_module {module} \
       --datadir /ShapeNetCore.v2 \
-      --num_processes {num_processes}
+      --num_processes {num_processes} \
+      --stop_after {stop_after}
   """
   _execute(command)
 
@@ -68,7 +70,6 @@ def obj2manifold(model, shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-RIFLE_MODEL='04090263/18807814a9cefedcd957eaf7f4edb205'
 def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   """Runs the entire pipeline on a single model."""
   obj2gltf(model, shapenet_root)
