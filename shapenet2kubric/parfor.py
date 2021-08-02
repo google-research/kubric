@@ -8,6 +8,7 @@ import tqdm
 import importlib
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
+from convert2 import functor
 
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major>=3 and sys.version_info.minor>=7
@@ -19,14 +20,13 @@ assert sys.version_info.major>=3 and sys.version_info.minor>=7
 logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
-
-def setup_logging(datadir:str, functor_module:str):
+def setup_logging(datadir:str):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
   datadir = Path(args.datadir)
-  logpath = datadir/f'shapenet2kubric.{functor_module}.log'
+  logpath = datadir / 'convert2.log'
   fh = logging.FileHandler(logpath)
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
@@ -83,19 +83,16 @@ def parfor(collection, functor, num_processes):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument('--functor_module', default='obj2gltf')
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
   args = parser.parse_args()
   
-  # TODO: importlib
-  functor_module = importlib.import_module(args.functor_module)
-  setup_logging(args.datadir, args.functor_module)
+  setup_logging(args.datadir)
   collection = shapenet_objects_dirs(args.datadir)
   if args.stop_after != 0: 
     collection = collection[0:args.stop_after]
-  parfor(collection, functor_module.functor, args.num_processes)
+  parfor(collection, functor, args.num_processes)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

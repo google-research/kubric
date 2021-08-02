@@ -15,6 +15,7 @@ assert sys.version_info.major>=3 and sys.version_info.minor>=7
 SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
 BLENDER_EXEC = '~/Applications/Blender.app/Contents/MacOS/Blender'
 RIFLE_MODEL='04090263/18807814a9cefedcd957eaf7f4edb205'
+CHAIR_MODEL='03001627/865551d21a4b2c09ad484915511ccff6'
 
 def bash(shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
@@ -28,7 +29,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(module, stop_after=0, shapenet_root=SHAPENET_ROOT, num_processes=8):
+def parfor(stop_after=0, shapenet_root=SHAPENET_ROOT, num_processes=8):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -37,14 +38,13 @@ def parfor(module, stop_after=0, shapenet_root=SHAPENET_ROOT, num_processes=8):
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
     python3.7 parfor.py \
-      --functor_module {module} \
       --datadir /ShapeNetCore.v2 \
       --num_processes {num_processes} \
       --stop_after {stop_after}
   """
   _execute(command)
 
-def obj2gltf(model, shapenet_root=SHAPENET_ROOT):
+def convert2(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
@@ -52,29 +52,10 @@ def obj2gltf(model, shapenet_root=SHAPENET_ROOT):
     --volume $PWD:/shapenet2kubric \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
-    python3.7 obj2gltf.py \
-      --model={model}
+    python3.7 convert2.py --datadir=/ShapeNetCore.v2 --model={model}
   """
   _execute(command)
-
-def obj2manifold(model, shapenet_root=SHAPENET_ROOT):
-  shapenet_root = os.path.expanduser(shapenet_root)
-  command = f"""
-  docker run --rm --interactive \
-    --user `id -u`:`id -g` \
-    --volume $PWD:/shapenet2kubric \
-    --volume {shapenet_root}:/ShapeNetCore.v2 \
-    kubricdockerhub/shapenet:latest \
-    python3.7 obj2manifold.py \
-      --model={model}
-  """
-  _execute(command)
-
-def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
-  """Runs the entire pipeline on a single model."""
-  obj2gltf(model, shapenet_root)
-  obj2manifold(model, shapenet_root)
-
+  
 def blender(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   blender = os.path.expanduser(BLENDER_EXEC)
@@ -89,7 +70,9 @@ def _execute(command_string):
   command_string = re.sub(' +', ' ', command_string)
   command_string = command_string.replace('\n',' ')
   print(command_string)
-  return subprocess.run(command_string, shell=True, check=True)
+  retobj = subprocess.run(command_string, shell=True, check=False)
+  if retobj.returncode != 0:
+    print("ERROR: process returned with error code {retobj.returncode}")
 
 if __name__ == '__main__':
   fire.Fire()
