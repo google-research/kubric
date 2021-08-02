@@ -51,4 +51,9 @@ def merge_meshes(yourList):
   return merged__meshes
 
 if __name__ == '__main__':
-  pass
+  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj'
+  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/model_watertight.obj'
+  model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/collision_geometry.obj'
+  print(f"properties computed from {model}")
+  properties = get_object_properties(model)
+  print(properties)
