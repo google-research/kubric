@@ -1,6 +1,7 @@
 import trimesh
 import numpy as np
 from pathlib import Path
+import json
 
 def get_object_properties(obj_path:Path):
   def rounda(x): return np.round(x, decimals=6).tolist()
@@ -8,18 +9,10 @@ def get_object_properties(obj_path:Path):
   tmesh = get_tmesh(str(obj_path))
 
   properties = {
-    "density": roundf(tmesh.density),
-    "friction": 0.0,  # TODO: 
-    "nr_vertices": len(tmesh.vertices),
-    "nr_faces": len(tmesh.faces),
     "bounds": rounda(tmesh.bounds),
-    "area": roundf(tmesh.area),
-    "volume": roundf(tmesh.volume),
     "mass": roundf(tmesh.mass),
     "center_mass": rounda(tmesh.center_mass),
     "inertia": rounda(tmesh.moment_inertia),
-    "is_convex": tmesh.is_convex,
-    "euler_number": tmesh.euler_number,
   }
   return properties
 
@@ -32,7 +25,8 @@ def get_tmesh(obj_fd):
   else:
     tmesh = scene_or_mesh
 
-  # TODO: ???? center the tmesh 
+  # TODO: see https://github.com/google-research/kubric/issues/134
+  # TL;DR: this solution was a bit of a hack, but you'd be able to change pivot in blender?
   # center_mass = tmesh.center_mass
   # tmesh.apply_translation(-center_mass)
   return tmesh
@@ -56,4 +50,4 @@ if __name__ == '__main__':
   model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/collision_geometry.obj'
   print(f"properties computed from {model}")
   properties = get_object_properties(model)
-  print(properties)
+  print(json.dumps(properties, indent=2))

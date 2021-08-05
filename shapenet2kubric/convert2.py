@@ -100,7 +100,7 @@ def stage3(object_folder:Path, logger=multiprocessing.get_logger()):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
   logger.debug(f'stage3 running on "{object_folder}"')
-  source_path = object_folder / 'models' / 'model_normalized.obj'
+  source_path = object_folder / 'kubric' / 'collision_geometry.obj'
   target_urdf_path = object_folder / 'kubric' / 'object.urdf'
   target_json_path = object_folder / 'kubric' / 'data.json'
 
@@ -108,14 +108,16 @@ def stage3(object_folder:Path, logger=multiprocessing.get_logger()):
   if not source_path.is_file():
     logger.error(f'stage3 pre-condition failed, file does not exist "{source_path}"')
 
-  # --- body
+  # --- body1: object.urdf file
   properties = get_object_properties(source_path)
   properties["id"] = str(object_folder.relative_to(object_folder.parent.parent))
+  properties['density'] = 1
+  properties['friction'] = .5
   urdf_str = URDF_TEMPLATE.format(**properties)
   with open(target_urdf_path, 'w') as fd:
     fd.write(urdf_str)
 
-  # --- TODO(klausg): aren't these heavily redundant? (always the same)
+  # --- body2: data.json file
   properties["paths"] = {
     "visual_geometry": 'visual_geometry.glb',
     "collision_geometry": 'collision_geometry.obj',
@@ -124,6 +126,12 @@ def stage3(object_folder:Path, logger=multiprocessing.get_logger()):
   with open(target_json_path, "w") as fd:
     json.dump(properties, fd, indent=4, sort_keys=True)
   
+  # --- post-condition
+  if not target_urdf_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{target_urdf_path}"')
+  if not target_json_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{target_json_path}"')
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

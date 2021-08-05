@@ -14,13 +14,13 @@ URDF_TEMPLATE = """
         <visual>
             <origin xyz="0 0 0" />
             <geometry>
-                <mesh filename="visual_geometry.obj" />
+                <mesh filename="visual_geometry.glb" />
             </geometry>
         </visual>
         <collision>
             <origin xyz="0 0 0" />
             <geometry>
-                <mesh filename="collision_geometry.glb" />
+                <mesh filename="collision_geometry.obj" />
             </geometry>
         </collision>
     </link>
