@@ -1,5 +1,5 @@
-#!/usr/local/bin/python3.9
-# pylint disable=missing-function-docstring
+#!/usr/bin/env python3
+# pylint: disable=missing-function-docstring
 
 import fire
 import os
@@ -29,7 +29,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(stop_after=0, shapenet_root=SHAPENET_ROOT, num_processes=8):
+def parfor(num_processes=8, stop_after=0, shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
