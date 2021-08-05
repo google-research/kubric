@@ -29,7 +29,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(num_processes=8, stop_after=0, shapenet_root=SHAPENET_ROOT):
+def parfor(num_processes=8, shapenet_root=SHAPENET_ROOT, stop_after=0):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
