@@ -146,28 +146,34 @@ def stage4(object_folder:Path, logger=multiprocessing.get_logger()):
     tar.add(object_folder / 'kubric' / 'object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json')
   
-  # TODO: how can this be passed down from parfor? lambda?
-  if False:
-    shutil.rmtree(str(object_folder / 'kubric'))
-  
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def functor(object_folder:str, logger=multiprocessing.get_logger()):
+def stage5(object_folder:Path, logger=multiprocessing.get_logger()):
+  # TODO: how can this be passed down from parfor? lambda?
+  if False:
+    shutil.rmtree(str(object_folder / 'kubric'))
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=multiprocessing.get_logger()):
   object_folder = Path(object_folder)
   logger.debug(f'pipeline running on "{object_folder}"')
 
   try:
-    stage0(object_folder, logger)
-    stage1(object_folder, logger)
-    stage2(object_folder, logger)
-    stage3(object_folder, logger)
-    stage4(object_folder, logger)
+    if 0 in stages: stage0(object_folder, logger)
+    if 1 in stages: stage1(object_folder, logger)
+    if 2 in stages: stage2(object_folder, logger)
+    if 3 in stages: stage3(object_folder, logger)
+    if 4 in stages: stage4(object_folder, logger)
+    if 5 in stages: stage4(object_folder, logger)
 
   except Exception as e:
     logger.error(f'Pipeline exception on "{object_folder}"')
-    logger.debug(f'Exception details: {e!r}')
+    logger.debug(f'Exception details: {str(e)}')
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -177,6 +183,7 @@ if __name__=='__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--model', default='02933112/718f8fe82bc186a086d53ab0fe94e911')
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
   args = parser.parse_args()
 
   # --- setup logger
@@ -186,4 +193,6 @@ if __name__=='__main__':
   stdout_logger.addHandler(handler)
 
   # --- execute functor
-  functor(Path(args.datadir)/args.model, stdout_logger)
+  object_folder = Path(args.datadir)/args.model
+  stages = [int(stage) for stage in args.stages]
+  functor(object_folder, stages, logger=stdout_logger)

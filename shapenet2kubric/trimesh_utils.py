@@ -1,13 +1,30 @@
+#!/usr/bin/env python3
+import io
+import json
+import sys
 import trimesh
 import numpy as np
 from pathlib import Path
-import json
+from contextlib import redirect_stderr, redirect_stdout
+
+class ObjectPropertiesException(Exception):
+  def __init__(self, message):
+    super().__init__(message)
 
 def get_object_properties(obj_path:Path):
+  with io.StringIO() as fstdout: #< scratch file buffer 
+    with redirect_stdout(fstdout): #< captures python stdout
+      with redirect_stderr(fstdout): #< captures python stderr
+        tmesh = _get_tmesh(str(obj_path))
+    
+    # --- normal execution of trimesh should be output-less
+    stdout_as_string = fstdout.getvalue()
+    if stdout_as_string != '':
+      message = f'trimesh failed on "{str(obj_path)}" with this message: "{stdout_as_string}"'
+      raise ObjectPropertiesException(message)
+
   def rounda(x): return np.round(x, decimals=6).tolist()
   def roundf(x): return float(np.round(x, decimals=6))
-  tmesh = get_tmesh(str(obj_path))
-
   properties = {
     "bounds": rounda(tmesh.bounds),
     "mass": roundf(tmesh.mass),
@@ -16,12 +33,12 @@ def get_object_properties(obj_path:Path):
   }
   return properties
 
-def get_tmesh(obj_fd):
+def _get_tmesh(obj_fd):
   scene_or_mesh = trimesh.load_mesh(obj_fd, process=False)
   if isinstance(scene_or_mesh, trimesh.Scene):
     mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)
                  for g in scene_or_mesh.geometry.values()]
-    tmesh = merge_meshes(mesh_list)
+    tmesh = _merge_meshes(mesh_list)
   else:
     tmesh = scene_or_mesh
 
@@ -31,7 +48,7 @@ def get_tmesh(obj_fd):
   # tmesh.apply_translation(-center_mass)
   return tmesh
 
-def merge_meshes(yourList):
+def _merge_meshes(yourList):
   vertice_list = [mesh.vertices for mesh in yourList]
   faces_list = [mesh.faces for mesh in yourList]
   faces_offset = np.cumsum([v.shape[0] for v in vertice_list])
