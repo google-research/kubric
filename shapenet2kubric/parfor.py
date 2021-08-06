@@ -6,10 +6,15 @@ import logging
 import sys
 import tqdm
 import json
+from datetime import datetime
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
-from convert import functor
-from datetime import datetime
+
+from convert import stage0
+from convert import stage1
+from convert import stage2
+from convert import stage3
+from convert import stage4
 
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major>=3 and sys.version_info.minor>=7
@@ -101,8 +106,25 @@ class Functor(object):
   def __init__(self, stages):
     self.stages = stages
     self.logger = multiprocessing.get_logger()
-  def __call__(self, object_folder):
-    return functor(object_folder, self.stages, self.logger)
+    
+  def __call__(self, object_folder:str):
+    self.logger.debug(f'pipeline running on "{object_folder}"')
+    object_folder = Path(object_folder)
+  
+    stages = self.stages
+    logger = self.logger
+    
+    try:
+      if 0 in stages: stage0(object_folder, logger)
+      if 1 in stages: stage1(object_folder, logger)
+      if 2 in stages: stage2(object_folder, logger)
+      if 3 in stages: properties = stage3(object_folder, logger)
+      if 4 in stages: stage4(object_folder, logger)
+      return properties
+
+    except Exception as e:
+      logger.error(f'Pipeline exception on "{object_folder}"')
+      logger.debug(f'Exception details: {str(e)}')
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

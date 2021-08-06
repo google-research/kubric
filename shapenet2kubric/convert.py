@@ -162,42 +162,24 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=_DEFAULT_LOGGER):
-  # TODO: movel logic to Functor class in parfor?
-  object_folder = Path(object_folder)
-  logger.debug(f'pipeline running on "{object_folder}"')
-  properties = None
-
-  try:
-    if 0 in stages: stage0(object_folder, logger)
-    if 1 in stages: stage1(object_folder, logger)
-    if 2 in stages: stage2(object_folder, logger)
-    if 3 in stages: properties = stage3(object_folder, logger)
-    if 4 in stages: stage4(object_folder, logger)
-    return properties
-
-  except Exception as e:
-    logger.error(f'Pipeline exception on "{object_folder}"')
-    logger.debug(f'Exception details: {str(e)}')
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
 if __name__=='__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--model', default='02933112/718f8fe82bc186a086d53ab0fe94e911')
-  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
+  parser.add_argument('--stages', nargs='+')
   args = parser.parse_args()
 
-  # --- setup logger
-  stdout_logger = logging.getLogger(__name__)
-  stdout_logger.setLevel(logging.DEBUG)
+  # --- setup logger (→stdout)
+  logger = logging.getLogger(__name__)
+  logger.setLevel(logging.DEBUG)
   handler = logging.StreamHandler(sys.stdout)
-  stdout_logger.addHandler(handler)
+  logger.addHandler(handler)
 
-  # --- execute functor
+  # --- execute functors
   object_folder = Path(args.datadir)/args.model
   stages = [int(stage) for stage in args.stages]
-  functor(object_folder, stages, logger=stdout_logger)
+  if 0 in stages: stage0(object_folder, logger)
+  if 1 in stages: stage1(object_folder, logger)
+  if 2 in stages: stage2(object_folder, logger)
+  if 3 in stages: properties = stage3(object_folder, logger)
+  if 4 in stages: stage4(object_folder, logger)
