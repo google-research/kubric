@@ -3,25 +3,33 @@ import io
 import json
 import sys
 import trimesh
+import logging
 import numpy as np
 from pathlib import Path
 from contextlib import redirect_stderr, redirect_stdout
+
+_DEFAULT_LOGGER = logging.getLogger(__name__)
 
 class ObjectPropertiesException(Exception):
   def __init__(self, message):
     super().__init__(message)
 
-def get_object_properties(obj_path:Path):
-  with io.StringIO() as fstdout: #< scratch file buffer 
-    with redirect_stdout(fstdout): #< captures python stdout
-      with redirect_stderr(fstdout): #< captures python stderr
-        tmesh = _get_tmesh(str(obj_path))
+def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
+  # --- override the trimesh logger TODO: to be tested?
+  trimesh.util.log = logger
+
+  # with io.StringIO() as fstdout: #< scratch file buffer 
+    # with redirect_stdout(fstdout): #< captures python stdout
+      # with redirect_stderr(fstdout): #< captures python stderr
+        # tmesh = _get_tmesh(str(obj_path))
+
+  tmesh = _get_tmesh(str(obj_path))
     
     # --- normal execution of trimesh should be output-less
-    stdout_as_string = fstdout.getvalue()
-    if stdout_as_string != '':
-      message = f'trimesh failed on "{str(obj_path)}" with this message: "{stdout_as_string}"'
-      raise ObjectPropertiesException(message)
+    # stdout_as_string = fstdout.getvalue()
+    # if stdout_as_string != '':
+      # message = f'trimesh failed on "{str(obj_path)}" with this message: \n"{stdout_as_string}"'
+      # raise ObjectPropertiesException(message)
 
   def rounda(x): return np.round(x, decimals=6).tolist()
   def roundf(x): return float(np.round(x, decimals=6))
@@ -64,7 +72,15 @@ def _merge_meshes(yourList):
 if __name__ == '__main__':
   # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj'
   # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/model_watertight.obj'
-  model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/collision_geometry.obj'
+  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/collision_geometry.obj'
+  model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/02958343/b3ffbbb2e8a5376d4ed9aac513001a31/models/model_normalized.obj'
+
+  # --- setup logger (→stdout)
+  logger = logging.getLogger(__name__)
+  logger.setLevel(logging.DEBUG)
+  handler = logging.StreamHandler(sys.stdout)
+  logger.addHandler(handler)
+
   print(f"properties computed from {model}")
-  properties = get_object_properties(model)
-  print(json.dumps(properties, indent=2))
+  properties = get_object_properties(model, logger=logger)
+  # print(json.dumps(properties, indent=2))
