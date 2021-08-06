@@ -48,8 +48,8 @@ def parfor(num_processes=4, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT, sto
   _execute(command)
 
 
-def convert2(model=RIFLE_MODEL, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT):
-  """e.g. launch convert2 04090263/18807814a9cefedcd957eaf7f4edb205 [0,1,2]"""
+def convert(model=RIFLE_MODEL, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT):
+  """e.g. launch convert 04090263/18807814a9cefedcd957eaf7f4edb205 [0,1,2]"""
   shapenet_root = os.path.expanduser(shapenet_root)
   stages = ' '.join(str(stage) for stage in stages)
   command = f"""
@@ -58,7 +58,7 @@ def convert2(model=RIFLE_MODEL, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT)
     --volume $PWD:/shapenet2kubric \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
-    python3.7 convert2.py \
+    python3.7 convert.py \
       --datadir=/ShapeNetCore.v2 \
       --model={model} \
       --stages {stages}

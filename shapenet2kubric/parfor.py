@@ -8,7 +8,7 @@ import tqdm
 import json
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
-from convert2 import functor
+from convert import functor
 from datetime import datetime
 
 # --- python3.7 needed by suprocess 'capture output'
@@ -58,7 +58,7 @@ def shapenet_objects_dirs(datadir: str):
   categories = [x for x in Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
     object_folders += [x for x in category.iterdir() if x.is_dir()]
-  logging.debug(f"gathering folders: {object_folders}")
+  logging.debug(f"gathered object folders: {object_folders}")
 
   # --- remove invalid folders
   logging.debug(f"dropping problemantic folders: {__shapenet_list__}")
