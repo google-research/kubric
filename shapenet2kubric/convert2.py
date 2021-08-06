@@ -134,6 +134,8 @@ def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
   if not target_json_path.is_file():
     logger.error(f'stage3 post-condition failed, file does not exist "{target_json_path}"')
 
+  return properties
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -147,13 +149,7 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'visual_geometry.glb')
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf')
-    tar.add(object_folder / 'kubric' / 'data.json')
-
-  with open(object_folder / 'kubric' / 'data.json', 'r') as fd:
-    properties = json.load(fd)
-
-  return properties
-  
+    tar.add(object_folder / 'kubric' / 'data.json') 
   
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -178,8 +174,8 @@ def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=_DEFAULT_LOGGER):
     if 0 in stages: stage0(object_folder, logger)
     if 1 in stages: stage1(object_folder, logger)
     if 2 in stages: stage2(object_folder, logger)
-    if 3 in stages: stage3(object_folder, logger)
-    if 4 in stages: properties = stage4(object_folder, logger)
+    if 3 in stages: properties = stage3(object_folder, logger)
+    if 4 in stages: stage4(object_folder, logger)
     return properties
 
   except Exception as e:
