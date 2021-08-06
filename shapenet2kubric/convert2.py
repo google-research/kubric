@@ -7,7 +7,7 @@ from pathlib import Path
 from shapenet_denylist import invalid_model
 import subprocess
 import logging
-import multiprocessing
+import multiprocessing as mp
 from redirect_io import RedirectStream  #< duplicate?
 from trimesh_utils import get_object_properties
 from urdf_template import URDF_TEMPLATE
@@ -112,7 +112,7 @@ def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
 
   # --- body1: object.urdf file
   properties = get_object_properties(source_path)
-  properties["id"] = str(object_folder.relative_to(object_folder.parent.parent))
+  properties['id'] = str(object_folder.relative_to(object_folder.parent.parent))
   properties['density'] = 1
   properties['friction'] = .5
   urdf_str = URDF_TEMPLATE.format(**properties)
@@ -120,10 +120,10 @@ def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
     fd.write(urdf_str)
 
   # --- body2: data.json file
-  properties["paths"] = {
-    "visual_geometry": 'visual_geometry.glb',
-    "collision_geometry": 'collision_geometry.obj',
-    "urdf": 'object.urdf',
+  properties['paths'] = {
+    'visual_geometry': 'visual_geometry.glb',
+    'collision_geometry': 'collision_geometry.obj',
+    'urdf': 'object.urdf',
   }
   with open(target_json_path, "w") as fd:
     json.dump(properties, fd, indent=4, sort_keys=True)
@@ -142,37 +142,45 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage4 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
 
-  with tarfile.open(target_path, "w:gz") as tar:
+  # --- dumps file into tar (pre-conditions auto-verified by exceptions)
+  with tarfile.open(target_path, 'w:gz') as tar:
     tar.add(object_folder / 'kubric' / 'visual_geometry.glb')
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json')
+
+  with open(object_folder / 'kubric' / 'data.json', 'r') as fd:
+    properties = json.load(fd)
+
+  return properties
+  
   
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage5(object_folder:Path, logger=_DEFAULT_LOGGER):
-  # TODO: coalesce information from all stages into single json
-  # TODO: how can this be passed down from parfor? lambda?
-  if False:
-    shutil.rmtree(str(object_folder / 'kubric'))
+# def stage5():
+  # TODO: cleanup
+  #   if False:
+  #     shutil.rmtree(str(object_folder / 'kubric'))
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=_DEFAULT_LOGGER):
+  # TODO: movel logic to Functor class in parfor?
   object_folder = Path(object_folder)
   logger.debug(f'pipeline running on "{object_folder}"')
+  properties = None
 
   try:
     if 0 in stages: stage0(object_folder, logger)
     if 1 in stages: stage1(object_folder, logger)
     if 2 in stages: stage2(object_folder, logger)
     if 3 in stages: stage3(object_folder, logger)
-    if 4 in stages: stage4(object_folder, logger)
-    if 5 in stages: stage4(object_folder, logger)
+    if 4 in stages: properties = stage4(object_folder, logger)
+    return properties
 
   except Exception as e:
     logger.error(f'Pipeline exception on "{object_folder}"')

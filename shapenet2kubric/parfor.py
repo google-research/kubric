@@ -5,6 +5,7 @@ import multiprocessing
 import logging
 import sys
 import tqdm
+import json
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
 from convert2 import functor
@@ -72,13 +73,25 @@ def shapenet_objects_dirs(datadir: str):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def parfor(collection, functor, num_processes):
+def parfor(collection, functor, num_processes, manifest_path):
   # --- launches jobs in parallel
+  dataset_properties = list()
   with tqdm.tqdm(total=len(collection)) as pbar:
     with multiprocessing.Pool(num_processes) as pool:
-      for counter, _ in enumerate(pool.imap(functor, collection)):
+      for counter, properties in enumerate(pool.imap(functor, collection)):
         logger.debug(f"Processed {counter}/{len(collection)}")
+        dataset_properties.append(properties)
         pbar.update(1)
+
+  # --- writes cumulative properties to the manifest
+  invalid_manifest = any([properties is None for properties in dataset_properties])
+  if invalid_manifest:
+    logger.error(f'Cannot compile manifest from invalid properties')
+    logger.debug(f'properties dump: \n {dataset_properties}')
+  else:
+    logger.info(f"Dumping aggregated information to {manifest_path}")
+    with open(manifest_path, 'w') as fp:
+      json.dump(dataset_properties, fp, indent=4, sort_keys=True)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -89,14 +102,18 @@ class Functor(object):
     self.stages = stages
     self.logger = multiprocessing.get_logger()
   def __call__(self, object_folder):
-    functor(object_folder, self.stages, self.logger)
+    return functor(object_folder, self.stages, self.logger)
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
-  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4"])
   args = parser.parse_args()
 
   # --- specify and communicate logging policy
@@ -108,26 +125,12 @@ if __name__ == '__main__':
 
   # --- collect folders over which parfor will be executed
   collection = shapenet_objects_dirs(args.datadir)
-
+  manifest_path = Path(args.datadir) / 'manifest.json'
+  
   # --- trim the parfor collection (for quick dry-run)
   if args.stop_after != 0: 
     collection = collection[0:args.stop_after]
-
+  
   # --- launch
   logger.info(f'starting parfor on {args.datadir} at {str(datetime.now())}')
-  parfor(collection, functor_with_stages, args.num_processes)
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
-# NOTE: if you want even more performance, this could be used
-# import fcntl
-# import time
-# try:
-#   with open('foo.txt', 'w+') as fd:
-#     fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-#     time.sleep(5)
-#     fcntl.flock(fd, fcntl.LOCK_UN)
-# except BlockingIOError:
-#   print("file was busy")
+  parfor(collection, functor_with_stages, args.num_processes, manifest_path)
