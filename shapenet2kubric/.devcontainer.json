@@ -25,7 +25,7 @@
   ],
 
   // starts a login shell (i.e. loads /root/.bash_profile)
-  "postAttachCommand": "/bin/bash -l",
+  // "postAttachCommand": "source /root/.bash_profile",
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
