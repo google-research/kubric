@@ -5,10 +5,10 @@ import multiprocessing
 import logging
 import sys
 import tqdm
-import importlib
 from shapenet_denylist import invalid_model
 from shapenet_denylist import __shapenet_list__
 from convert2 import functor
+from datetime import datetime
 
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major>=3 and sys.version_info.minor>=7
@@ -26,8 +26,8 @@ def setup_logging(datadir:str):
 
   # --- sends DEBUG+ logs to file
   datadir = Path(args.datadir)
-  logpath = datadir / 'convert2.log'
-  fh = logging.FileHandler(logpath)
+  logpath = datadir / 'shapenet2kubric.log'
+  fh = logging.FileHandler(logpath, mode='w')
   fh.setLevel(logging.DEBUG)
   fh.setFormatter(formatter)
   logger.addHandler(fh)
@@ -46,10 +46,13 @@ def setup_logging(datadir:str):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def shapenet_objects_dirs(datadir: Path):
+def shapenet_objects_dirs(datadir: str):
   """Returns a list of pathlib.Path folders, one per object."""
+  taxonomy_path = Path(datadir) / 'taxonomy.json'
+  if not taxonomy_path.is_file():
+    logging.fatal(f'Verify that "{str(datadir)}" is a valid shapenet folder, as the taxonomy file was not found at "{str(taxonomy_path)}"')
 
-  logging.info("gathering shapenet folders: {__shapenet_list__}")
+  logging.info(f"gathering shapenet folders: {datadir}")
   object_folders = list()
   categories = [x for x in Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
@@ -81,18 +84,38 @@ def parfor(collection, functor, num_processes):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+class Functor(object):
+  def __init__(self, stages):
+    self.stages = stages
+    self.logger = multiprocessing.get_logger()
+  def __call__(self, object_folder):
+    functor(object_folder, self.stages, self.logger)
+
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
   args = parser.parse_args()
-  
+
+  # --- specify and communicate logging policy
   setup_logging(args.datadir)
+
+  # --- fetch which stages to execute
+  stages = [int(stage) for stage in args.stages]
+  functor_with_stages = Functor(stages)
+
+  # --- collect folders over which parfor will be executed
   collection = shapenet_objects_dirs(args.datadir)
+
+  # --- trim the parfor collection (for quick dry-run)
   if args.stop_after != 0: 
     collection = collection[0:args.stop_after]
-  parfor(collection, functor, args.num_processes)
+
+  # --- launch
+  logger.info(f'starting parfor on {args.datadir} at {str(datetime.now())}')
+  parfor(collection, functor_with_stages, args.num_processes)
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
