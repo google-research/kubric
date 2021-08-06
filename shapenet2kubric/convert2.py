@@ -16,11 +16,13 @@ import json
 import shutil
 import pybullet as pb
 
+_DEFAULT_LOGGER = logging.getLogger(__name__)
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage0(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage0(object_folder:Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage0 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'visual_geometry.glb'
@@ -47,7 +49,7 @@ def stage0(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage1(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage1(object_folder:Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage1 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'model_watertight.obj'
@@ -72,7 +74,7 @@ def stage1(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
     
-def stage2(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage2(object_folder:Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage2 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'model_watertight.obj'
   target_path = object_folder / 'kubric' / 'collision_geometry.obj'
@@ -96,7 +98,7 @@ def stage2(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage3(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
   logger.debug(f'stage3 running on "{object_folder}"')
@@ -136,7 +138,7 @@ def stage3(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage4(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage4 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
 
@@ -150,7 +152,8 @@ def stage4(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage5(object_folder:Path, logger=multiprocessing.get_logger()):
+def stage5(object_folder:Path, logger=_DEFAULT_LOGGER):
+  # TODO: coalesce information from all stages into single json
   # TODO: how can this be passed down from parfor? lambda?
   if False:
     shutil.rmtree(str(object_folder / 'kubric'))
@@ -159,7 +162,7 @@ def stage5(object_folder:Path, logger=multiprocessing.get_logger()):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=multiprocessing.get_logger()):
+def functor(object_folder:str, stages=[0,1,2,3,4,5], logger=_DEFAULT_LOGGER):
   object_folder = Path(object_folder)
   logger.debug(f'pipeline running on "{object_folder}"')
 
