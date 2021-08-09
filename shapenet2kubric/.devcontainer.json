@@ -21,8 +21,10 @@
   "mounts": [
     "source=${localEnv:HOME}/datasets/ShapeNetCore.v2.dummy,target=/ShapeNetCore.v2.dummy,type=bind,consistency=cached",
     "source=${localEnv:HOME}/datasets/ShapeNetCore.v2,target=/ShapeNetCore.v2,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.bash_profile,target=/root/.bash_profile,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.bash_profile,target=/root/.bashrc,type=bind,consistency=cached"
   ],
+  
+  "userEnvProbe": "loginInteractiveShell",
 
   // starts a login shell (i.e. loads /root/.bash_profile)
   // "postAttachCommand": "source /root/.bash_profile",
