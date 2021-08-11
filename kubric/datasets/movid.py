@@ -70,12 +70,12 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=256,
           width=256,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_obj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_bg1",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_objbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_same2",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_bg1",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_same2",
           }
       ),
       MovidConfig(
@@ -84,12 +84,12 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=128,
           width=128,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_obj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_bg1",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_objbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_same2",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_bg1",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_same2",
           }
       ),
       MovidConfig(
@@ -98,12 +98,12 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=64,
           width=64,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_obj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_bg1",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_objbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v1_test_same2",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_bg1",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_same2",
           }
       ),
       MovidConfig(
@@ -112,13 +112,13 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=256,
           width=256,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testmany",
           }
       ),
       MovidConfig(
@@ -127,13 +127,13 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=128,
           width=128,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testmany",
           }
       ),
       MovidConfig(
@@ -142,13 +142,13 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=64,
           width=64,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_d_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testsame1",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v1_testmany1",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_d_v11_testmany",
           }
       ),
       MovidConfig(
@@ -157,13 +157,13 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=256,
           width=256,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
           }
       ),
       MovidConfig(
@@ -172,13 +172,13 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=128,
           width=128,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
           }
       ),
       MovidConfig(
@@ -187,13 +187,103 @@ class Movid(tfds.core.BeamBasedBuilder):
           height=64,
           width=64,
           validation_ratio=0.1,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v1",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_c_v11",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testbg",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testobjbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testsame",
-              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v1_testmany",
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="B_256x256",
+          description="Random color background, Kubasic objects, random camera, full resolution of 256x256",
+          height=256,
+          width=256,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="B_128x128",
+          description="Random color background, Kubasic objects, random camera, downscaled to  128x128",
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="B_64x64",
+          description="Random color background, Kubasic objects, random camera, downscaled to 64x64",
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobjbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testsame",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="A_256x256",
+          description="CLEVR setup, full resolution of 256x256",
+          height=256,
+          width=256,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_same",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_many",
+          }
+      ),
+      MovidConfig(
+          name="A_128x128",
+          description="CLEVR setup, downscaled to  128x128",
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_same",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_many",
+          }
+      ),
+      MovidConfig(
+          name="A_64x64",
+          description="CLEVR setup, downscaled to 64x64",
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          test_split_paths={
+              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
+              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
+              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_objbg",
+              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_same",
+              "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_many",
           }
       ),
 
@@ -224,7 +314,7 @@ class Movid(tfds.core.BeamBasedBuilder):
             "background": tfds.features.Text(),
             "instances": tfds.features.Sequence(feature={
                 "asset_id": tfds.features.Text(),
-                "is_dynamic": tfds.features.Tensor(shape=(s,), dtype=tf.bool),
+                "is_dynamic": tfds.features.Tensor(shape=(), dtype=tf.bool),
                 "mass": tf.float32,
                 "friction": tf.float32,
                 "restitution": tf.float32,
@@ -302,7 +392,7 @@ class Movid(tfds.core.BeamBasedBuilder):
       split_dirs = [d for d in path.glob("*") if (d / "events.json").exists()]
       # sort the directories by their integer number
       split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
-      logging.info("Found %d sub-folders in '%s' path: %s", len(all_subdirs), key, path)
+      logging.info("Found %d sub-folders in '%s' path: %s", len(split_dirs), key, path)
       splits[key] = self._generate_examples([str(d) for d in split_dirs])
 
     return splits
@@ -316,19 +406,24 @@ class Movid(tfds.core.BeamBasedBuilder):
       video_dir = tfds.core.as_path(video_dir)
       key = f"{video_dir.name}"
 
-      with tf.io.gfile.GFile(str(video_dir / "data_ranges.json"), "rb") as fp:
+      with tf.io.gfile.GFile(str(video_dir / "data_ranges.json"), "r") as fp:
         data_ranges = json.load(fp)
 
-      with tf.io.gfile.GFile(str(video_dir / "metadata.json"), "rb") as fp:
+      with tf.io.gfile.GFile(str(video_dir / "metadata.json"), "r") as fp:
         metadata = json.load(fp)
 
-      with tf.io.gfile.GFile(str(video_dir / "events.json"), "rb") as fp:
+      with tf.io.gfile.GFile(str(video_dir / "events.json"), "r") as fp:
         events = json.load(fp)
 
       num_frames = metadata["metadata"]["num_frames"]
       num_instances = metadata["metadata"]["num_instances"]
 
       assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
+
+      assert "depth" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
+      assert "forward_flow" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
+      assert "backward_flow" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
+      depth_min, depth_max = data_ranges["depth"]["min"], data_ranges["depth"]["max"]
 
       rgba_frame_paths = [video_dir / f"rgba_{f:05d}.png" for f in range(num_frames)]
       segmentation_frame_paths = [video_dir / f"segmentation_{f:05d}.png" for f in range(num_frames)]
@@ -346,8 +441,7 @@ class Movid(tfds.core.BeamBasedBuilder):
               "height": target_size[0],
               "num_frames": num_frames,
               "num_instances": num_instances,
-              "depth_range": [data_ranges["depth"]["min"],
-                              data_ranges["depth"]["max"]],
+              "depth_range": [depth_min, depth_max],
               "forward_flow_range": [data_ranges["forward_flow"]["min"] / scale,
                                      data_ranges["forward_flow"]["max"] / scale],
               "backward_flow_range": [data_ranges["backward_flow"]["min"] / scale,
@@ -355,8 +449,8 @@ class Movid(tfds.core.BeamBasedBuilder):
           },
           "background": metadata["metadata"]["background"],
           "instances": [{
-              "asset_id": obj["asset_id"],
-              "is_dynamic": obj["is_dynamic"],
+              "asset_id": obj.get("asset_id", f"{obj['material']} {obj['shape']}"),
+              "is_dynamic": bool(obj["is_dynamic"]),
               "mass": obj["mass"],
               "friction": obj["friction"],
               "restitution": obj["restitution"],
@@ -388,7 +482,8 @@ class Movid(tfds.core.BeamBasedBuilder):
           },
           "video": [subsample_avg(read_png(frame_path), target_size)[..., :3]
                     for frame_path in rgba_frame_paths],
-          "segmentations": [subsample_nearest_neighbor(read_png(frame_path), target_size)
+          "segmentations": [subsample_nearest_neighbor(read_png(frame_path).astype(np.uint16),
+                                                       target_size)
                             for frame_path in segmentation_frame_paths],
           "forward_flow": [subsample_nearest_neighbor(read_png(frame_path)[..., :2], target_size)
                            for frame_path in fwd_flow_frame_paths],
@@ -396,8 +491,7 @@ class Movid(tfds.core.BeamBasedBuilder):
                             for frame_path in bwd_flow_frame_paths],
           "depth": [convert_float_to_uint16(subsample_nearest_neighbor(read_tiff(frame_path),
                                                                        target_size),
-                                            data_ranges["depth"]["min"],
-                                            data_ranges["depth"]["max"])
+                                            depth_min, depth_max)
                     for frame_path in depth_frame_paths],
           "uv": [subsample_nearest_neighbor(read_png(frame_path), target_size)
                  for frame_path in uv_frame_paths],
@@ -455,7 +549,6 @@ def read_png(path: os.PathLike):
 
 
 def read_tiff(path: os.PathLike):
-  print(f"freading '{path}'")
   img_bytes = tfds.core.as_path(path).read_bytes()
   return imageio.imread(img_bytes, format="tif")[:, :, None]
 

@@ -19,7 +19,6 @@ from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
 
 
-
 class Camera(objects.Object3D):
   """ Base class for all types of cameras. """
 
@@ -116,3 +115,26 @@ class OrthographicCamera(Camera):
     super().__init__(orthographic_scale=orthographic_scale, position=position,
                      quaternion=quaternion, up=up, front=front, look_at=look_at, euler=euler,
                      **kwargs)
+
+  @property
+  def intrinsics(self):
+    fx = fy = 2.0 / self.orthographic_scale
+
+    return np.array([
+        [fx, 0,  0],
+        [0, fy,  0],
+        [0,   0,   -1],
+    ])
+
+  def project_point(self, point3d, frame=None):
+    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
+    with self.at_frame(frame):
+      homo_transform = np.linalg.inv(self.matrix_world)
+      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
+      homo_intrinsics[:, :3] = self.intrinsics
+
+      point4d = np.concatenate([point3d, [1.]])
+      projected = homo_intrinsics @ homo_transform @ point4d
+      image_coords = projected / projected[2]
+      image_coords[2] = np.sign(projected[2])
+      return image_coords
