@@ -39,7 +39,7 @@ def parfor(num_processes=4, stages=(0, 1, 2, 3, 35, 4), shapenet_root=SHAPENET_R
     --volume $PWD:/shapenet2kubric \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
-    python3.7 parfor.py \
+    python parfor.py \
       --datadir /ShapeNetCore.v2 \
       --num_processes {num_processes} \
       --stop_after {stop_after} \
@@ -58,7 +58,7 @@ def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=(0, 1, 2, 3, 
     --volume $PWD:/shapenet2kubric \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     kubricdockerhub/shapenet:latest \
-    python3.7 convert.py \
+    python convert.py \
       --datadir=/ShapeNetCore.v2 \
       --model={model} \
       --stages {stages}
