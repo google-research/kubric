@@ -1,18 +1,20 @@
 # pylint: disable=logging-fstring-interpolation
 # see: https://docs.python.org/3/library/subprocess.html
 
-import sys
 import argparse
+import json
+import logging
 from pathlib import Path
 import subprocess
-import logging
-import multiprocessing as mp
-from redirect_io import RedirectStream  #< duplicate?
+import sys
+import tarfile
+
+import bpy
+import pybullet as pb
+
+from redirect_io import RedirectStream  # < duplicate?
 from trimesh_utils import get_object_properties
 from urdf_template import URDF_TEMPLATE
-import tarfile
-import json
-import pybullet as pb
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
 
@@ -143,7 +145,65 @@ def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
+  logger.debug(f'stage3.5 running on "{object_folder}"')
+
+  source_path = object_folder / 'kubric' / 'visual_geometry.glb'
+  source_backup_path = object_folder / 'kubric' / 'visual_geometry_bak.glb'
+  log_path = object_folder / 'kubric' / 'stage3.5_logs.txt'
+  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+
+  asset_id = str(object_folder.relative_to(object_folder.parent.parent))
+
+  bpy.ops.wm.read_factory_settings(use_empty=True)
+  bpy.context.scene.world = bpy.data.worlds.new("World")
+
+  with RedirectStream(stream=sys.stdout, filename=str(log_path)):
+    bpy.ops.import_scene.gltf(filepath=str(source_path), loglevel=50)
+
+  bpy.ops.object.select_all(action='DESELECT')
+
+  for obj in bpy.data.objects:
+    # remove duplicate vertices
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.mesh.remove_doubles(threshold=1e-06)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    # disable auto-smoothing
+    obj.data.use_auto_smooth = False
+    # split edges with an angle above 70 degrees (1.22 radians)
+    m = obj.modifiers.new("EdgeSplit", "EDGE_SPLIT")
+    m.split_angle = 1.22173
+    bpy.ops.object.modifier_apply(modifier="EdgeSplit")
+    # move every face an epsilon in the direction of its normal, to reduce clipping artifacts
+    m = obj.modifiers.new("Displace", "DISPLACE")
+    m.strength = 0.00001
+    bpy.ops.object.modifier_apply(modifier="Displace")
+
+  # join all objects together
+  bpy.ops.object.select_all(action='SELECT')
+  bpy.ops.object.join()
+
+  # set the name of the asset
+  bpy.context.active_object.name = asset_id
+
+  # rename the source file
+  source_path.rename(source_backup_path)
+
+  # store new visual geometry
+  bpy.ops.export_scene.gltf(filepath=str(target_path), check_existing=True)
+
+  if not target_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
+  if not source_backup_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{source_backup_path}"')
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage4 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
 
@@ -155,9 +215,9 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'data.json') 
 
 
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
+
+
+
 
 # TODO: cleanup
 # def stage5():
