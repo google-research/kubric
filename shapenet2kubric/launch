@@ -15,7 +15,7 @@ SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
 BLENDER_EXEC = '~/Applications/Blender.app/Contents/MacOS/Blender'
 RIFLE_MODEL = '04090263/18807814a9cefedcd957eaf7f4edb205'
 CHAIR_MODEL = '03001627/865551d21a4b2c09ad484915511ccff6'
-
+POLICE_CAR_MODEL = '02958343/114b662c64caba81bb07f8c2248e54bc'
 
 def bash(shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
