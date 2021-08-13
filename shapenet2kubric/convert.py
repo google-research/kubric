@@ -248,4 +248,5 @@ if __name__ == '__main__':
   if 1 in stages: stage1(object_folder, logger)
   if 2 in stages: stage2(object_folder, logger)
   if 3 in stages: properties = stage3(object_folder, logger)
+  if 35 in stages: stage35(object_folder, logger)
   if 4 in stages: stage4(object_folder, logger)

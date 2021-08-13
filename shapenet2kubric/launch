@@ -29,7 +29,7 @@ def bash(shapenet_root=SHAPENET_ROOT):
   _execute(command)
 
 
-def parfor(num_processes=4, stages=(0, 1, 2, 3, 4), shapenet_root=SHAPENET_ROOT, stop_after=0):
+def parfor(num_processes=4, stages=(0, 1, 2, 3, 35, 4), shapenet_root=SHAPENET_ROOT, stop_after=0):
   """e.g. launch parfor 4 [0,1,2] ~/datasets/ShapeNetCore.v2 4"""
   shapenet_root = os.path.expanduser(shapenet_root)
   stages = ' '.join(str(stage) for stage in stages)
@@ -48,7 +48,7 @@ def parfor(num_processes=4, stages=(0, 1, 2, 3, 4), shapenet_root=SHAPENET_ROOT,
   _execute(command)
 
 
-def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=(0, 1, 2, 3, 4)):
+def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=(0, 1, 2, 3, 35, 4)):
   """e.g. launch convert 04090263/18807814a9cefedcd957eaf7f4edb205"""
   shapenet_root = os.path.expanduser(shapenet_root)
   stages = ' '.join(str(stage) for stage in stages)

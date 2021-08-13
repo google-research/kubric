@@ -14,6 +14,7 @@ from convert import stage0
 from convert import stage1
 from convert import stage2
 from convert import stage3
+from convert import stage35
 from convert import stage4
 
 # --- python3.7 needed by suprocess 'capture output'
@@ -125,6 +126,7 @@ class Functor(object):
       if 1 in stages: stage1(object_folder, logger)
       if 2 in stages: stage2(object_folder, logger)
       if 3 in stages: properties = stage3(object_folder, logger)
+      if 35 in stages: stage35(object_folder, logger)
       if 4 in stages: stage4(object_folder, logger)
       return properties
 
@@ -142,7 +144,7 @@ if __name__ == '__main__':
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
-  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4"])
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "35", "4"])
   args = parser.parse_args()
 
   # --- specify and communicate logging policy
