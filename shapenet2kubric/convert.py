@@ -161,8 +161,8 @@ def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
   bpy.ops.wm.read_factory_settings(use_empty=True)
   bpy.context.scene.world = bpy.data.worlds.new("World")
 
-  with RedirectStream(stream=sys.stdout, filename=str(log_path)):
-    with io.StringIO() as fstdout:  # < scratch stdout buffer
+  with io.StringIO() as fstdout:  # < scratch stdout buffer
+    with RedirectStream(stream=sys.stdout, filename=str(log_path)):
       with redirect_stdout(fstdout):  # < also suppresses python stdout
         bpy.ops.import_scene.gltf(filepath=str(source_path), loglevel=50)
 
@@ -198,8 +198,8 @@ def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
         # store new visual geometry
         bpy.ops.export_scene.gltf(filepath=str(target_path), check_existing=True)
 
-  with open(str(log_path), mode='a') as f:
-    f.write(fstdout.getvalue())
+    with open(str(log_path), mode='a') as f:
+      f.write(fstdout.getvalue())
 
   if not target_path.is_file():
     logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
