@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 import io
 import json
-import sys
 import trimesh
 import numpy as np
 from pathlib import Path
 from contextlib import redirect_stderr, redirect_stdout
 
+
 class ObjectPropertiesException(Exception):
   def __init__(self, message):
     super().__init__(message)
 
-def get_object_properties(obj_path:Path):
-  with io.StringIO() as fstdout: #< scratch file buffer 
-    with redirect_stdout(fstdout): #< captures python stdout
-      with redirect_stderr(fstdout): #< captures python stderr
+
+def get_object_properties(obj_path: Path):
+  with io.StringIO() as fstdout:  # < scratch file buffer
+    with redirect_stdout(fstdout):  # < captures python stdout
+      with redirect_stderr(fstdout):  # < captures python stderr
         tmesh = _get_tmesh(str(obj_path))
     
     # --- normal execution of trimesh should be output-less
@@ -33,6 +34,7 @@ def get_object_properties(obj_path:Path):
   }
   return properties
 
+
 def _get_tmesh(obj_fd):
   scene_or_mesh = trimesh.load_mesh(obj_fd, process=False)
   if isinstance(scene_or_mesh, trimesh.Scene):
@@ -48,9 +50,10 @@ def _get_tmesh(obj_fd):
   # tmesh.apply_translation(-center_mass)
   return tmesh
 
-def _merge_meshes(yourList):
-  vertice_list = [mesh.vertices for mesh in yourList]
-  faces_list = [mesh.faces for mesh in yourList]
+
+def _merge_meshes(your_list):
+  vertice_list = [mesh.vertices for mesh in your_list]
+  faces_list = [mesh.faces for mesh in your_list]
   faces_offset = np.cumsum([v.shape[0] for v in vertice_list])
   faces_offset = np.insert(faces_offset, 0, 0)[:-1]
 
@@ -60,6 +63,7 @@ def _merge_meshes(yourList):
 
   merged__meshes = trimesh.Trimesh(vertices, faces)
   return merged__meshes
+
 
 if __name__ == '__main__':
   # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj'

@@ -8,7 +8,7 @@ import tqdm
 import json
 from datetime import datetime
 from shapenet_denylist import invalid_model
-from shapenet_denylist import __shapenet_list__
+from shapenet_denylist import __shapenet_set__
 
 from convert import stage0
 from convert import stage1
@@ -17,7 +17,7 @@ from convert import stage3
 from convert import stage4
 
 # --- python3.7 needed by suprocess 'capture output'
-assert sys.version_info.major>=3 and sys.version_info.minor>=7
+assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -26,12 +26,13 @@ assert sys.version_info.major>=3 and sys.version_info.minor>=7
 logger = multiprocessing.get_logger()
 logger.setLevel(logging.DEBUG)
 
-def setup_logging(datadir:str):
+
+def setup_logging(datadir: str):
   # see: see https://docs.python.org/3/library/multiprocessing.html#logging
   formatter = logging.Formatter('[%(levelname)s/%(processName)s] %(message)s')
 
   # --- sends DEBUG+ logs to file
-  datadir = Path(args.datadir)
+  datadir = Path(datadir)
   logpath = datadir / 'shapenet2kubric.log'
   fh = logging.FileHandler(logpath, mode='w')
   fh.setLevel(logging.DEBUG)
@@ -52,11 +53,13 @@ def setup_logging(datadir:str):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+
 def shapenet_objects_dirs(datadir: str):
   """Returns a list of pathlib.Path folders, one per object."""
   taxonomy_path = Path(datadir) / 'taxonomy.json'
   if not taxonomy_path.is_file():
-    logging.fatal(f'Verify that "{str(datadir)}" is a valid shapenet folder, as the taxonomy file was not found at "{str(taxonomy_path)}"')
+    logging.fatal(f'Verify that "{str(datadir)}" is a valid shapenet folder, as the taxonomy file '
+                  f'was not found at "{str(taxonomy_path)}"')
 
   logging.info(f"gathering shapenet folders: {datadir}")
   object_folders = list()
@@ -66,8 +69,8 @@ def shapenet_objects_dirs(datadir: str):
   logging.debug(f"gathered object folders: {object_folders}")
 
   # --- remove invalid folders
-  logging.debug(f"dropping problemantic folders: {__shapenet_list__}")
-  object_folders = [folder for folder in object_folders if not invalid_model(folder) ]
+  logging.debug(f"dropping problemantic folders: {__shapenet_set__}")
+  object_folders = [folder for folder in object_folders if not invalid_model(folder)]
 
   # TODO: add objects w/o materials to the denylist?
   # if not os.path.exists(obj_path.replace('.obj', '.mtl')):
@@ -77,6 +80,7 @@ def shapenet_objects_dirs(datadir: str):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
+
 
 def parfor(collection, functor, num_processes, manifest_path):
   # --- launches jobs in parallel
@@ -102,6 +106,7 @@ def parfor(collection, functor, num_processes, manifest_path):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+
 class Functor(object):
   def __init__(self, stages):
     self.stages = stages
@@ -113,6 +118,7 @@ class Functor(object):
   
     stages = self.stages
     logger = self.logger
+    properties = None
     
     try:
       if 0 in stages: stage0(object_folder, logger)
@@ -129,6 +135,7 @@ class Functor(object):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

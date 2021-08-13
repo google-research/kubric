@@ -16,11 +16,12 @@ import pybullet as pb
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage0(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage0 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'visual_geometry.glb'
@@ -43,11 +44,12 @@ def stage0(object_folder:Path, logger=_DEFAULT_LOGGER):
   if not target_path.is_file():
     logger.error(f'Post-condition failed, file does not exist "{target_path}"')
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage1(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage1 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'model_watertight.obj'
@@ -68,11 +70,12 @@ def stage1(object_folder:Path, logger=_DEFAULT_LOGGER):
   if not target_path.is_file():
     logger.error(f'stage1 post-condition failed, file does not exist "{target_path}"')
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
     
-def stage2(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage2 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'model_watertight.obj'
   target_path = object_folder / 'kubric' / 'collision_geometry.obj'
@@ -91,12 +94,13 @@ def stage2(object_folder:Path, logger=_DEFAULT_LOGGER):
   # --- post-condition
   if not target_path.is_file():
     logger.error(f'stage2 post-condition failed, file does not exist "{target_path}"')
-  
+
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
   logger.debug(f'stage3 running on "{object_folder}"')
@@ -134,6 +138,7 @@ def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
 
   return properties
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -148,7 +153,8 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json') 
-  
+
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -162,7 +168,7 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-if __name__=='__main__':
+if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--model', default='02933112/718f8fe82bc186a086d53ab0fe94e911')

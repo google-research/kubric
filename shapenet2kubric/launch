@@ -6,22 +6,21 @@ import os
 import re
 import sys
 import subprocess
-from pathlib import Path
 
 # --- python3.7 needed by suprocess 'capture output'
-assert sys.version_info.major>=3 and sys.version_info.minor>=7
+assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
 
 # --- default folders
 SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
 BLENDER_EXEC = '~/Applications/Blender.app/Contents/MacOS/Blender'
-RIFLE_MODEL='04090263/18807814a9cefedcd957eaf7f4edb205'
-CHAIR_MODEL='03001627/865551d21a4b2c09ad484915511ccff6'
+RIFLE_MODEL = '04090263/18807814a9cefedcd957eaf7f4edb205'
+CHAIR_MODEL = '03001627/865551d21a4b2c09ad484915511ccff6'
+
 
 def bash(shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   command = f"""
   docker run --rm --interactive \
-    --user `id -u`:`id -g` \
     --volume {shapenet_root}:/ShapeNetCore.v2 \
     --volume $PWD:/shapenet2kubric \
     kubricdockerhub/shapenet:latest \
@@ -29,7 +28,8 @@ def bash(shapenet_root=SHAPENET_ROOT):
   """
   _execute(command)
 
-def parfor(num_processes=4, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT, stop_after=0):
+
+def parfor(num_processes=4, stages=(0, 1, 2, 3, 4), shapenet_root=SHAPENET_ROOT, stop_after=0):
   """e.g. launch parfor 4 [0,1,2] ~/datasets/ShapeNetCore.v2 4"""
   shapenet_root = os.path.expanduser(shapenet_root)
   stages = ' '.join(str(stage) for stage in stages)
@@ -47,7 +47,8 @@ def parfor(num_processes=4, stages=[0,1,2,3,4], shapenet_root=SHAPENET_ROOT, sto
   """
   _execute(command)
 
-def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=[0,1,2,3,4]):
+
+def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=(0, 1, 2, 3, 4)):
   """e.g. launch convert 04090263/18807814a9cefedcd957eaf7f4edb205"""
   shapenet_root = os.path.expanduser(shapenet_root)
   stages = ' '.join(str(stage) for stage in stages)
@@ -64,15 +65,18 @@ def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=[0,1,2,3,4]):
   """
   _execute(command)
 
+
 def blender(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT):
   shapenet_root = os.path.expanduser(shapenet_root)
   blender = os.path.expanduser(BLENDER_EXEC)
   _execute(f'{blender} --python load_model.py -- --datadir={shapenet_root} --model={model}')
 
+
 def completion():
   """Updates fire's bash completion."""
-  _execute('launch -- --completion > .launch-completion')
+  _execute('./launch -- --completion > .launch-completion')
   print('to enable completion, run "source .launch-completion"')
+
 
 def _execute(command_string):
   command_string = re.sub(' +', ' ', command_string)
@@ -80,7 +84,8 @@ def _execute(command_string):
   print(command_string)
   retobj = subprocess.run(command_string, shell=True, check=False)
   if retobj.returncode != 0:
-    print("ERROR: process returned with error code {retobj.returncode}")
+    print(f"ERROR: process returned with error code {retobj.returncode}")
+
 
 if __name__ == '__main__':
   fire.Fire()
