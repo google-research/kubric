@@ -25,13 +25,7 @@ except IOError:
 # --- compute the version (for both nightly and normal)
 now = datetime.datetime.now()
 VERSION = "{}.{}.{}".format(now.year, now.month, now.day)
-curr_path = os.path.dirname(__file__)
-ini_file_path = os.path.join(curr_path, "kubric/__init__.py")
-ini_file_lines = list(open(ini_file_path))
-with open(ini_file_path, "w") as f:
-  for line in ini_file_lines:
-    f.write(line.replace("__version__ = \"HEAD\"",
-                         "__version__ = \"{}\"".format(VERSION)))
+
 
 setuptools.setup(
     name="kubric",
@@ -58,3 +52,12 @@ setuptools.setup(
     ],
     python_requires='>=3.7',
 )
+
+# --- add a version to the built file
+curr_path = os.path.dirname(__file__)
+ini_file_path = os.path.join(curr_path, "build/lib/kubric/__init__.py")
+ini_file_lines = list(open(ini_file_path))
+with open(ini_file_path, "w") as f:
+  for line in ini_file_lines:
+    f.write(line.replace("__version__ = \"HEAD\"",
+                         "__version__ = \"{}\"".format(VERSION)))
