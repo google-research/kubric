@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import datetime
 import setuptools
 
 try:
@@ -20,21 +22,26 @@ try:
 except IOError:
   README = ""
 
-
-__version__ = None
-
-with open("kubric/version.py") as f:
-  exec(f.read(), globals())
-
+# --- compute the version (for both nightly and normal)
+now = datetime.datetime.now()
+VERSION = "{}.{}.{}".format(now.year, now.month, now.day)
+curr_path = os.path.dirname(__file__)
+ini_file_path = os.path.join(curr_path, "kubric/__init__.py")
+ini_file_lines = list(open(ini_file_path))
+with open(ini_file_path, "w") as f:
+  for line in ini_file_lines:
+    f.write(line.replace("__version__ = \"HEAD\"",
+                         "__version__ = \"{}\"".format(VERSION)))
 
 setuptools.setup(
     name="kubric",
-    version="0.1",
+    version=VERSION,
     author="Kubric team",
     author_email="kubric+dev@google.com",
     description="A data generation pipeline for creating semi-realistic synthetic multi-object "
                 "videos with rich annotations such as instance segmentation, depth maps, "
                 "and optical flow.",
+    license="Apache 2.0",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/google-research/kubric",
