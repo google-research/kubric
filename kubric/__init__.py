@@ -14,6 +14,9 @@
 
 """Root of the kubric module."""
 
+# --- auto-computed by setup.py, source version is always at HEAD
+__version__ = "HEAD"
+
 from kubric.core.scene import Scene
 
 from kubric.core.assets import Asset
@@ -77,7 +80,6 @@ from kubric.utils import save_as_pkl
 from kubric.utils import save_as_json
 from kubric.utils import done
 from kubric.utils import str2path
-from kubric.version import __version__
 
 
 # TODO: remove and add a test that checks pathlib should NOT be imported?
