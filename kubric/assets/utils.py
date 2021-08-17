@@ -65,19 +65,20 @@ def get_random_kubasic_object(
     raise ValueError(f"Unknown object set {objects_set}")
 
   size_label, size = randomness.sample_sizes(size_strategy)
-  color_label, color = randomness.sample_color(color_strategy)
+  color_label, random_color = randomness.sample_color(color_strategy)
   material_name = rng.choice(["Metal", "Rubber"])
   obj = asset_source.create(name=f"{size_label} {color_label} {material_name} {shape_name}",
                             asset_id=shape_name, scale=size)
 
   if material_name == "Metal":
-    obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=1.0, roughness=0.2, ior=2.5)
+    obj.material = kb.PrincipledBSDFMaterial(color=random_color, metallic=1.0, roughness=0.2,
+                                             ior=2.5)
     obj.friction = 0.4
     obj.restitution = 0.3
     obj.mass *= 2.7 * size**3
   else:  # material_name == "Rubber"
-    obj.material = kb.PrincipledBSDFMaterial(color=color, metallic=0., ior=1.25, roughness=0.7,
-                                             specular=0.33)
+    obj.material = kb.PrincipledBSDFMaterial(color=random_color, metallic=0., ior=1.25,
+                                             roughness=0.7, specular=0.33)
     obj.friction = 0.8
     obj.restitution = 0.7
     obj.mass *= 1.1 * size**3
@@ -86,7 +87,7 @@ def get_random_kubasic_object(
       "shape": shape_name.lower(),
       "size": size,
       "material": material_name.lower(),
-      "color": color.rgb,
+      "color": random_color.rgb,
   }
   return obj
 
@@ -105,6 +106,7 @@ def add_hdri_dome(hdri_source, scene, background_hdri=None):
           "filename": "Dome",
       })
   scene.add(dome)
+  # pylint: disable=import-outside-toplevel
   from kubric.renderer import Blender
   import bpy
   blender_renderer = [v for v in scene.views if isinstance(v, Blender)]

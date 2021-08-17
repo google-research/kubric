@@ -14,12 +14,11 @@
 
 import numpy as np
 from typing import Sequence
-from kubric.core import assets
-from kubric.core import objects
+from kubric import core
 from kubric.custom_types import ArrayLike
 
 
-def compute_visibility(segmentation: np.ndarray, assets: Sequence[assets.Asset]):
+def compute_visibility(segmentation: np.ndarray, assets: Sequence[core.Asset]):
   """Compute how many pixels are visible for each instance at each frame.
 
   Args:
@@ -34,8 +33,8 @@ def compute_visibility(segmentation: np.ndarray, assets: Sequence[assets.Asset])
 
 def adjust_segmentation_idxs(
     segmentation: ArrayLike,
-    old_assets_list: Sequence[assets.Asset],
-    new_assets_list: Sequence[assets.Asset],
+    old_assets_list: Sequence[core.Asset],
+    new_assets_list: Sequence[core.Asset],
     ignored_label: int = 0):
   """Replaces segmentation ids with either asset.segmentation_id or the index in new_assets_list.
 
@@ -44,7 +43,7 @@ def adjust_segmentation_idxs(
   """
   new_segmentation = np.zeros_like(segmentation)
   for i, asset in enumerate(old_assets_list, start=1):
-    if isinstance(asset, objects.PhysicalObject) and asset.segmentation_id is not None:
+    if isinstance(asset, core.PhysicalObject) and asset.segmentation_id is not None:
       new_segmentation[segmentation == i] = asset.segmentation_id
     elif asset in new_assets_list:
       new_segmentation[segmentation == i] = new_assets_list.index(asset) + 1
@@ -53,7 +52,7 @@ def adjust_segmentation_idxs(
   return new_segmentation
 
 
-def compute_bboxes(segmentation: ArrayLike, asset_list: Sequence[assets.Asset]):
+def compute_bboxes(segmentation: ArrayLike, asset_list: Sequence[core.Asset]):
   for k, asset in enumerate(asset_list, start=1):
     asset.metadata["bboxes"] = []
     asset.metadata["bbox_frames"] = []

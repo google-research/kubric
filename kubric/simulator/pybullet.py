@@ -66,19 +66,16 @@ class PyBullet(core.View):
     # TODO(klausg): unobserve
 
   @add_asset.register(core.Camera)
-  def _add_object(self, obj: core.Camera) -> Optional[int]:
+  def _add_object(self, obj: core.Camera) -> None:
     logger.debug("Ignored camera %s", obj)
-    return None
 
   @add_asset.register(core.Material)
-  def _add_object(self, obj: core.Material) -> Optional[int]:
+  def _add_object(self, obj: core.Material) -> None:
     logger.debug("Ignored material %s", obj)
-    return None
 
   @add_asset.register(core.Light)
-  def _add_object(self, obj: core.Light) -> Optional[int]:
+  def _add_object(self, obj: core.Light) -> None:
     logger.debug("Ignored light %s", obj)
-    return None
 
   @add_asset.register(core.Cube)
   def _add_object(self, obj: core.Cube) -> Optional[int]:

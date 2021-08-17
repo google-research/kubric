@@ -26,10 +26,30 @@ class Camera(objects.Object3D):
   def _get_background_default(self):
     return True
 
+  @property
+  def intrinsics(self):
+    raise NotImplementedError
+
+  def project_point(self, point3d, frame=None):
+    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
+    with self.at_frame(frame):
+      homo_transform = np.linalg.inv(self.matrix_world)
+      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
+      homo_intrinsics[:, :3] = self.intrinsics
+
+      point4d = np.concatenate([point3d, [1.]])
+      projected = homo_intrinsics @ homo_transform @ point4d
+      image_coords = projected / projected[2]
+      image_coords[2] = np.sign(projected[2])
+      return image_coords
+
 
 class UndefinedCamera(Camera, UndefinedAsset):
   """ Marker object that indicates that a camera instance attribute has not been set. """
-  pass
+
+  @property
+  def intrinsics(self):
+    raise NotImplementedError
 
 
 class PerspectiveCamera(Camera):
@@ -48,7 +68,6 @@ class PerspectiveCamera(Camera):
   """
 
   focal_length = tl.Float(50)
-
   sensor_width = tl.Float(36)
 
   def __init__(self,
@@ -93,21 +112,9 @@ class PerspectiveCamera(Camera):
         [0,   0,   -1],
     ])
 
-  def project_point(self, point3d, frame=None):
-    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
-    with self.at_frame(frame):
-      homo_transform = np.linalg.inv(self.matrix_world)
-      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
-      homo_intrinsics[:, :3] = self.intrinsics
-
-      point4d = np.concatenate([point3d, [1.]])
-      projected = homo_intrinsics @ homo_transform @ point4d
-      image_coords = projected / projected[2]
-      image_coords[2] = np.sign(projected[2])
-      return image_coords
-
 
 class OrthographicCamera(Camera):
+  """A :class:`Camera` that uses orthographic projection."""
   orthographic_scale = tl.Float(6.0)
 
   def __init__(self, orthographic_scale=6.0, position=(0., 0., 0.),
@@ -125,16 +132,3 @@ class OrthographicCamera(Camera):
         [0, fy,  0],
         [0,   0,   -1],
     ])
-
-  def project_point(self, point3d, frame=None):
-    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
-    with self.at_frame(frame):
-      homo_transform = np.linalg.inv(self.matrix_world)
-      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
-      homo_intrinsics[:, :3] = self.intrinsics
-
-      point4d = np.concatenate([point3d, [1.]])
-      projected = homo_intrinsics @ homo_transform @ point4d
-      image_coords = projected / projected[2]
-      image_coords[2] = np.sign(projected[2])
-      return image_coords

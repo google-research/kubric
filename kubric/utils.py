@@ -244,10 +244,10 @@ def save_as_pkl(filename, data):
 
 
 class NumpyEncoder(json.JSONEncoder):
-  def default(self, obj):
-    if isinstance(obj, np.ndarray):
-      return obj.tolist()
-    return json.JSONEncoder.default(self, obj)
+  def default(self, o):
+    if isinstance(o, np.ndarray):
+      return o.tolist()
+    return json.JSONEncoder.default(self, o)
 
 
 def save_as_json(filename, data):
@@ -318,7 +318,7 @@ def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
 
 def write_palette_png(data: np.array, path_prefix: PathLike,
                       palette: np.ndarray = None):
-  """"""
+  """Writes grayscale data as pngs to path using a fixed palette (e.g. for segmentations)."""
   assert len(data.shape) == 4, data.shape
 
   if data.dtype in [np.uint16, np.uint32, np.uint64]:
@@ -395,7 +395,8 @@ def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write
         write_single_record,
         path_prefix=path_prefix,
         scalings=scalings,
-        lock=lock)
+        lock=lock,
+        segmentation_palette=segmentation_palette)
     pool.map(write_single_record_fn, args)
     pool.close()
     pool.join()
