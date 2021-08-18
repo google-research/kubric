@@ -11,23 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""A simple example w/o advanced dependencies."""
 
 import logging
 import kubric as kb
-from kubric.renderer.blender import Blender as KubricRenderer
 
-logging.basicConfig(level="INFO")
+logging.basicConfig(level="DEBUG")
+print(f'kubric version: {kb.__version__}')
 
 # --- create scene and attach a renderer to it
 scene = kb.Scene(resolution=(256, 256))
-renderer = KubricRenderer(scene)
 
 # --- populate the scene with objects, lights, cameras
 scene += kb.Cube(name="floor", scale=(10, 10, 0.1), position=(0, 0, -0.1))
 scene += kb.Sphere(name="ball", scale=1, position=(0, 0, 1.))
 scene += kb.DirectionalLight(name="sun", position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
 scene += kb.PerspectiveCamera(name="camera", position=(3, -1, 4), look_at=(0, 0, 1))
-
-# --- render (and save the blender file)
-renderer.save_state("output/helloworld.blend")
-renderer.render_still("output/helloworld.png")
