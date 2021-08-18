@@ -67,7 +67,7 @@ pylint:
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build
-	python3 setup.py sdist bdist_wheel
+	python3 setup.py sdist bdist_wheel --microversioning
 	python3 -m twine check dist/*
 	python3 -m twine upload -u kubric --repository testpypi dist/*
 
