@@ -9,16 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
-    - name: Install python requirements
+    
+    - name: Install packaging requirements
       run: |
         python -m pip install --upgrade pip
-        pip install -U -r requirements.txt
+        pip install -U packaging
         pip install -U setuptools
+        pip install -U wheel
         pip install -U twine
+    
     - name: Build package and upload to test.pypi
       env:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
