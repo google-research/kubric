@@ -29,7 +29,10 @@ _DEFAULT_LOGGER = logging.getLogger(__name__)
 def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage0 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
-  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+  target_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
   
   # --- pre-condition
   if not source_path.is_file():
@@ -59,6 +62,9 @@ def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'model_watertight.obj'
 
+  if target_path.is_file():
+    return  # stage already completed; skipping
+
   # --- pre-condition
   if not source_path.is_file():
     logger.error(f'stage1 pre-condition failed, file does not exist "{source_path}"')
@@ -87,6 +93,9 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
   log_path = object_folder / 'kubric' / 'stage2_logs.txt'
   redirect_log_path = str(object_folder / 'kubric' / 'stage2_stdout.txt')
 
+  if target_path.is_file():
+    return  # stage already completed; skipping
+
   # --- pre-condition
   if not source_path.is_file():
     logger.error(f'stage2 pre-condition failed, file does not exist "{source_path}"')
@@ -105,7 +114,7 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
+def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
   logger.debug(f'stage3 running on "{object_folder}"')
@@ -148,13 +157,15 @@ def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
+def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage3.5 running on "{object_folder}"')
 
-  source_path = object_folder / 'kubric' / 'visual_geometry.glb'
-  source_backup_path = object_folder / 'kubric' / 'visual_geometry_bak.glb'
-  log_path = object_folder / 'kubric' / 'stage3.5_logs.txt'
+  source_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
+  log_path = object_folder / 'kubric' / 'stage3_logs.txt'
   target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
 
   asset_id = str(object_folder.relative_to(object_folder.parent.parent))
 
@@ -193,7 +204,7 @@ def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
         bpy.context.active_object.name = asset_id
 
         # rename the source file
-        source_path.rename(source_backup_path)
+        #source_path.rename(source_backup_path)
 
         # store new visual geometry
         bpy.ops.export_scene.gltf(filepath=str(target_path), check_existing=True)
@@ -203,17 +214,18 @@ def stage35(object_folder: Path, logger=_DEFAULT_LOGGER):
 
   if not target_path.is_file():
     logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
-  if not source_backup_path.is_file():
-    logger.error(f'stage3 post-condition failed, file does not exist "{source_backup_path}"')
 
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
+def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage4 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
 
   # --- dumps file into tar (pre-conditions auto-verified by exceptions)
   with tarfile.open(target_path, 'w:gz') as tar:
@@ -222,13 +234,8 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json') 
 
-
-
-
-
-
 # TODO: cleanup
-# def stage5():
+# def stage6():
 #   import shutil
 #   shutil.rmtree(str(object_folder / 'kubric'))
 
@@ -255,6 +262,6 @@ if __name__ == '__main__':
   if 0 in stages: stage0(object_folder, logger)
   if 1 in stages: stage1(object_folder, logger)
   if 2 in stages: stage2(object_folder, logger)
-  if 3 in stages: properties = stage3(object_folder, logger)
-  if 35 in stages: stage35(object_folder, logger)
-  if 4 in stages: stage4(object_folder, logger)
+  if 3 in stages: stage3(object_folder, logger)
+  if 4 in stages: properties = stage4(object_folder, logger)
+  if 5 in stages: stage5(object_folder, logger)

@@ -14,8 +14,9 @@ from convert import stage0
 from convert import stage1
 from convert import stage2
 from convert import stage3
-from convert import stage35
+
 from convert import stage4
+from convert import stage5
 
 # --- python3.7 needed by suprocess 'capture output'
 assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
@@ -87,8 +88,8 @@ def parfor(collection, functor, num_processes, manifest_path):
   # --- launches jobs in parallel
   dataset_properties = list()
   with tqdm.tqdm(total=len(collection)) as pbar:
-    with multiprocessing.Pool(num_processes) as pool:
-      for counter, properties in enumerate(pool.imap(functor, collection)):
+    with multiprocessing.Pool(num_processes, maxtasksperchild=1) as pool:
+      for counter, properties in enumerate(pool.imap_unordered(functor, collection)):
         logger.debug(f"Processed {counter}/{len(collection)}")
         dataset_properties.append(properties)
         pbar.update(1)
@@ -125,9 +126,9 @@ class Functor(object):
       if 0 in stages: stage0(object_folder, logger)
       if 1 in stages: stage1(object_folder, logger)
       if 2 in stages: stage2(object_folder, logger)
-      if 3 in stages: properties = stage3(object_folder, logger)
-      if 35 in stages: stage35(object_folder, logger)
-      if 4 in stages: stage4(object_folder, logger)
+      if 3 in stages: stage3(object_folder, logger)
+      if 4 in stages: properties = stage4(object_folder, logger)
+      if 5 in stages: stage5(object_folder, logger)
       return properties
 
     except Exception as e:
