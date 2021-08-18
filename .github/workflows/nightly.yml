@@ -1,4 +1,4 @@
-name: Deploy kubric to test.pypi
+name: nightly.yml
 
 on:
   # schedule:
