@@ -1,0 +1,37 @@
+name: Deploy kubric to test.pypi
+
+on:
+  # schedule:
+  #   # * is a special character in YAML so you have to quote this string
+  #   # runs daily at 00:30 am
+  #   - cron:  '30 0 * * *'
+  # temporary condition for testing
+  push:
+    branches:
+      - pypi
+
+jobs:
+  deploy:
+    if: github.repository == 'google-research/kubric'  # prevents action from running on forks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install python requirements
+      run: |
+        python -m pip install --upgrade pip
+        pip install -U -r requirements.txt
+        pip install -U setuptools
+        pip install -U twine
+    - name: Build package and upload to test.pypi
+      env:
+        TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+    - name: Test execution
+      run: |
+        python setup.py sdist bdist_wheel
+        twine check dist/*
+        twine upload --repository testpypi dist/*
