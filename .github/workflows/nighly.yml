@@ -5,9 +5,9 @@ on:
   #   # * is a special character in YAML so you have to quote this string
   #   # runs daily at 00:30 am
   #   - cron:  '30 0 * * *'
-  pull_request:
-    paths: '**.py'
-
+  push:
+    branches:
+      - pypi
 jobs:
   deploy:
     if: github.repository == 'google-research/kubric'  # prevents action from running on forks
