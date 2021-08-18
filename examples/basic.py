@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""A simple example w/o advanced dependencies."""
+"""A simple example w/o advanced (bullet/blender) dependencies."""
 
 import logging
 import kubric as kb
