@@ -13,6 +13,8 @@
 # limitations under the License.
 """A simple example w/o advanced (bullet/blender) dependencies."""
 
+# TODO: this should become the "post-processing" example? 
+
 import logging
 import kubric as kb
 
