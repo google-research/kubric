@@ -27,11 +27,11 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
 # WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
-blender_push: blender
+blender/push: blender
 	docker push kubricdockerhub/blender:latest
-kubruntu_push: kubruntu
+kubruntu/push: kubruntu
 	docker push kubricdockerhub/kubruntu:latest
-kubruntudev_push: kubruntudev
+kubruntudev/push: kubruntudev
 	docker push kubricdockerhub/kubruntudev:latest
 
 # --- documentation (requires "apt-get install python3-sphinx")
@@ -66,14 +66,14 @@ pylint:
 	pylint --rcfile=.pylintrc $(LINT)
 
 # --- manually publishes the package to pypi
-pypi_test_write: clean_build
+pypi_test/write: clean_build
 	python3 setup.py sdist bdist_wheel
 	python3 -m twine check dist/*
 	python3 -m twine upload -u kubric --repository testpypi dist/*
 
 # --- checks the published package
 # --no-cache-dir --force-reinstall
-pypi_test_read:
+pypi_test/read:
 	@virtualenv --quiet --system-site-packages -p python3 /tmp/testenv
 	@/tmp/testenv/bin/pip3 install \
 		--upgrade \
