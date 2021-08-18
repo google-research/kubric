@@ -31,6 +31,6 @@ jobs:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
       run: |
-        python setup.py sdist bdist_wheel
+        python setup.py sdist bdist_wheel --microversioning
         twine check dist/*
         twine upload --repository testpypi dist/*
