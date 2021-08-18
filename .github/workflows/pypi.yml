@@ -31,5 +31,10 @@ jobs:
         echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
 
     - name: executing setup w/ a particular tag
+      env:
+        TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
       run: |
         python3 setup.py sdist bdist_wheel --tag=${{ steps.get_version.outputs.VERSION }}
+        twine check dist/*
+        twine upload --repository testpypi dist/*
