@@ -2,8 +2,6 @@ name: pypi.yml
 
 on:
   push:
-    branches:    
-      - main
     tags:        
       - '*'
 
