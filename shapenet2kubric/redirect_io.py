@@ -2,6 +2,7 @@
 import ctypes
 import os
 
+
 class RedirectStream(object):
   """A simple class to redirect stdout/err to file.
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import io
 import json
-import sys
 import trimesh
 import logging
 import numpy as np
 from pathlib import Path
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
+
 
 class ObjectPropertiesException(Exception):
   def __init__(self, message):
@@ -29,6 +29,7 @@ def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
   }
   return properties
 
+
 def _get_tmesh(obj_fd):
   scene_or_mesh = trimesh.load_mesh(obj_fd, process=False)
   if isinstance(scene_or_mesh, trimesh.Scene):
@@ -44,9 +45,10 @@ def _get_tmesh(obj_fd):
   # tmesh.apply_translation(-center_mass)
   return tmesh
 
-def _merge_meshes(yourList):
-  vertice_list = [mesh.vertices for mesh in yourList]
-  faces_list = [mesh.faces for mesh in yourList]
+
+def _merge_meshes(your_list):
+  vertice_list = [mesh.vertices for mesh in your_list]
+  faces_list = [mesh.faces for mesh in your_list]
   faces_offset = np.cumsum([v.shape[0] for v in vertice_list])
   faces_offset = np.insert(faces_offset, 0, 0)[:-1]
 
@@ -56,6 +58,7 @@ def _merge_meshes(yourList):
 
   merged__meshes = trimesh.Trimesh(vertices, faces)
   return merged__meshes
+
 
 if __name__ == '__main__':
   # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj'

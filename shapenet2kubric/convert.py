@@ -1,29 +1,38 @@
 # pylint: disable=logging-fstring-interpolation
 # see: https://docs.python.org/3/library/subprocess.html
 
-import sys
 import argparse
+from contextlib import redirect_stdout
+import io
+import json
+import logging
 from pathlib import Path
 import subprocess
-import logging
-import multiprocessing as mp
-from redirect_io import RedirectStream  #< duplicate?
+import sys
+import tarfile
+
+
+import bpy
+import pybullet as pb
+
+from redirect_io import RedirectStream  # < duplicate?
 from trimesh_utils import get_object_properties
 from urdf_template import URDF_TEMPLATE
-import tarfile
-import json
-import pybullet as pb
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage0(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage0 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
-  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+  target_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
   
   # --- pre-condition
   if not source_path.is_file():
@@ -43,14 +52,18 @@ def stage0(object_folder:Path, logger=_DEFAULT_LOGGER):
   if not target_path.is_file():
     logger.error(f'Post-condition failed, file does not exist "{target_path}"')
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage1(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage1 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'model_watertight.obj'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
 
   # --- pre-condition
   if not source_path.is_file():
@@ -68,16 +81,20 @@ def stage1(object_folder:Path, logger=_DEFAULT_LOGGER):
   if not target_path.is_file():
     logger.error(f'stage1 post-condition failed, file does not exist "{target_path}"')
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
     
-def stage2(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage2 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'model_watertight.obj'
   target_path = object_folder / 'kubric' / 'collision_geometry.obj'
   log_path = object_folder / 'kubric' / 'stage2_logs.txt'
   redirect_log_path = str(object_folder / 'kubric' / 'stage2_stdout.txt')
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
 
   # --- pre-condition
   if not source_path.is_file():
@@ -91,12 +108,13 @@ def stage2(object_folder:Path, logger=_DEFAULT_LOGGER):
   # --- post-condition
   if not target_path.is_file():
     logger.error(f'stage2 post-condition failed, file does not exist "{target_path}"')
-  
+
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
   logger.debug(f'stage3 running on "{object_folder}"')
@@ -134,13 +152,80 @@ def stage3(object_folder:Path, logger=_DEFAULT_LOGGER):
 
   return properties
 
+
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
+def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
+  logger.debug(f'stage3.5 running on "{object_folder}"')
+
+  source_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
+  log_path = object_folder / 'kubric' / 'stage3_logs.txt'
+  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
+
+  asset_id = str(object_folder.relative_to(object_folder.parent.parent))
+
+  bpy.ops.wm.read_factory_settings(use_empty=True)
+  bpy.context.scene.world = bpy.data.worlds.new("World")
+
+  with io.StringIO() as fstdout:  # < scratch stdout buffer
+    with RedirectStream(stream=sys.stdout, filename=str(log_path)):
+      with redirect_stdout(fstdout):  # < also suppresses python stdout
+        bpy.ops.import_scene.gltf(filepath=str(source_path), loglevel=50)
+
+        bpy.ops.object.select_all(action='DESELECT')
+
+        for obj in bpy.data.objects:
+          # remove duplicate vertices
+          bpy.context.view_layer.objects.active = obj
+          bpy.ops.object.mode_set(mode='EDIT')
+          bpy.ops.mesh.remove_doubles(threshold=1e-06)
+          bpy.ops.object.mode_set(mode='OBJECT')
+          # disable auto-smoothing
+          obj.data.use_auto_smooth = False
+          # split edges with an angle above 70 degrees (1.22 radians)
+          m = obj.modifiers.new("EdgeSplit", "EDGE_SPLIT")
+          m.split_angle = 1.22173
+          bpy.ops.object.modifier_apply(modifier="EdgeSplit")
+          # move every face an epsilon in the direction of its normal, to reduce clipping artifacts
+          m = obj.modifiers.new("Displace", "DISPLACE")
+          m.strength = 0.00001
+          bpy.ops.object.modifier_apply(modifier="Displace")
+
+        # join all objects together
+        bpy.ops.object.select_all(action='SELECT')
+        bpy.ops.object.join()
+
+        # set the name of the asset
+        bpy.context.active_object.name = asset_id
+
+        # rename the source file
+        #source_path.rename(source_backup_path)
+
+        # store new visual geometry
+        bpy.ops.export_scene.gltf(filepath=str(target_path), check_existing=True)
+
+    with open(str(log_path), mode='a') as f:
+      f.write(fstdout.getvalue())
+
+  if not target_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
   logger.debug(f'stage4 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
 
   # --- dumps file into tar (pre-conditions auto-verified by exceptions)
   with tarfile.open(target_path, 'w:gz') as tar:
@@ -148,13 +233,9 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json') 
-  
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
 
 # TODO: cleanup
-# def stage5():
+# def stage6():
 #   import shutil
 #   shutil.rmtree(str(object_folder / 'kubric'))
 
@@ -162,7 +243,7 @@ def stage4(object_folder:Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-if __name__=='__main__':
+if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--model', default='02933112/718f8fe82bc186a086d53ab0fe94e911')
@@ -181,5 +262,6 @@ if __name__=='__main__':
   if 0 in stages: stage0(object_folder, logger)
   if 1 in stages: stage1(object_folder, logger)
   if 2 in stages: stage2(object_folder, logger)
-  if 3 in stages: properties = stage3(object_folder, logger)
-  if 4 in stages: stage4(object_folder, logger)
+  if 3 in stages: stage3(object_folder, logger)
+  if 4 in stages: properties = stage4(object_folder, logger)
+  if 5 in stages: stage5(object_folder, logger)

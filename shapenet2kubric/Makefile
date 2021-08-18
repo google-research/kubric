@@ -25,7 +25,7 @@ convert:
 		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
 		--volume $(SHAPENETDST):/ShapeNetCore.v2.kubric \
 		kubricdockerhub/shapenet:latest \
-		python3.7 shapenet2kubric/convert.py \
+		python shapenet2kubric/convert.py \
 			--datadir "/ShapeNetCore.v2" \
 			--outdir "/ShapeNetCore.v2.kubric"
 
@@ -68,7 +68,7 @@ parfor:
 		--volume $(PWD):/shapenet2kubric \
 		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
 		kubricdockerhub/shapenet:latest \
-		python3.7 parfor.py
+		python parfor.py
 
 # --- Downloads ShapeNetCore.v2 (25GB download, resumed by --continue in wget)
 download:
