@@ -15,6 +15,7 @@
 import os
 import datetime
 import setuptools
+from uuid import uuid4
 
 try:
   with open("README.md", "r", encoding="utf-8") as fh:
@@ -24,7 +25,8 @@ except IOError:
 
 # --- Compute the version (for both nightly and normal)
 now = datetime.datetime.now()
-VERSION = "{}.{}.{}.13".format(now.year, now.month, now.day)
+hashkey = uuid4().hex[0:8]
+VERSION = "{}.{}.{}.v14".format(now.year, now.month, now.day, hashkey)
 
 # --- Auto-update the build version in the library
 curr_path = os.path.dirname(__file__)
