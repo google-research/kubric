@@ -67,7 +67,7 @@ pylint:
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build
-	python3 setup.py sdist bdist_wheel --microversioning
+	python3 setup.py sdist bdist_wheel --secondly
 	python3 -m twine check dist/*
 	python3 -m twine upload -u kubric --repository testpypi dist/*
 
@@ -76,11 +76,20 @@ pypi_test/write: clean_build
 pypi_test/read:
 	@virtualenv --quiet --system-site-packages -p python3 /tmp/testenv
 	@/tmp/testenv/bin/pip3 install \
-		--upgrade --quiet \
+		--upgrade --no-cache-dir \
 		--index-url https://test.pypi.org/simple \
 		--extra-index-url https://pypi.org/simple \
-		kubric==$${VERSION}
+		kubric-secondly==$${VERSION}
 	@/tmp/testenv/bin/python3 examples/basic.py
+
+# --- tagging (+auto-push to pypi via actions)
+tag:
+	git log --pretty=oneline
+	@read -p "shah of commit to tag: " SHAH
+	@read -p "tag name (e.g. v0.1): " TAG
+	@read -p "tag description: " MESSAGE
+	git tag -a $${TAG} -m $${MESSAGE} $${SHAH}
+	git push origin --tags
 
 # --- trashes the folders created by "python3 setup.py"
 clean_build:
