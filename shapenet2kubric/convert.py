@@ -127,7 +127,7 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
     logger.error(f'stage3 pre-condition failed, file does not exist "{source_path}"')
 
   # --- body1: object.urdf file
-  properties = get_object_properties(source_path)
+  properties = get_object_properties(source_path, logger)
   properties['id'] = str(object_folder.relative_to(object_folder.parent.parent))
   properties['density'] = 1
   properties['friction'] = .5
