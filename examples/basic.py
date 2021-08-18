@@ -19,7 +19,7 @@ import logging
 import kubric as kb
 
 logging.basicConfig(level="DEBUG")
-print(f'kubric version: {kb.__version__}')
+print(f"executing '{__file__}' with kubric=={kb.__version__}")
 
 # --- create scene and attach a renderer to it
 scene = kb.Scene(resolution=(256, 256))

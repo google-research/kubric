@@ -72,14 +72,14 @@ pypi_test/write: clean_build
 	python3 -m twine upload -u kubric --repository testpypi dist/*
 
 # --- checks the published package
-# --no-cache-dir --force-reinstall
+# USAGE: make pypi_test/read VERSION=2021.8.18.5.26.53
 pypi_test/read:
 	@virtualenv --quiet --system-site-packages -p python3 /tmp/testenv
 	@/tmp/testenv/bin/pip3 install \
-		--upgrade \
+		--upgrade --quiet \
 		--index-url https://test.pypi.org/simple \
 		--extra-index-url https://pypi.org/simple \
-		kubric==2021.8.17.13
+		kubric==$${VERSION}
 	@/tmp/testenv/bin/python3 examples/basic.py
 
 # --- trashes the folders created by "python3 setup.py"
