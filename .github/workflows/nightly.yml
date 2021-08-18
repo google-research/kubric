@@ -26,6 +26,9 @@ jobs:
         pip install -U -r requirements.txt
         pip install -U setuptools
         pip install -U twine
+    - name: Check if changes in branch are executed
+      run: |
+        echo "I have been executed"
     - name: Build package and upload to test.pypi
       env:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
