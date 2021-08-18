@@ -12,37 +12,59 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import argparse
 import os
+import re
 import sys
 import datetime
 import setuptools
 from datetime import datetime
+from pathlib import Path
+from packaging import version
 
-try:
-  with open("README.md", "r", encoding="utf-8") as fh:
-    README = fh.read()
-except IOError:
-  README = ""
+parser = argparse.ArgumentParser(allow_abbrev=False)
+parser.add_argument('--tag', type=str, default=None, help="use v1.2.3 syntax")
+parser.add_argument('--nightly', action='store_true', help="automatic version, e.g. '2021.8.18'")
+parser.add_argument('--secondly', action='store_true', help="automatic version, e.g. '2021.8.18.16.13.12'")
+# --- remove known args from sys.argv (setup.py compliant)
+args, sys.argv = parser.parse_known_args()
 
 # --- Compute the version (for both nightly and normal)
 now = datetime.now()
-VERSION = f"{now.year}.{now.month}.{now.day}"
+VERSION = None
+if args.tag is not None:
+  assert len(args.tag)>1 and args.tag[0]=="v"
+  VERSION = args.tag[1:]
+  NAME="kubric"
+if args.nightly:
+  VERSION = f"{now.year}.{now.month}.{now.day}"
+  NAME="kubric-nigthly"
+if args.secondly or VERSION is None:  #< contingency plan
+  VERSION = f"{now.year}.{now.month}.{now.day}.{now.hour}.{now.minute}.{now.second}"
+  NAME="kubric-secondly"
+try:
+  version.Version(VERSION)  #< assert if regex fails
+except version.InvalidVersion as err:
+  print(str(err) + f"\nVersion must match the regex: {version.VERSION_PATTERN}")
 
-# --- Adds an ever more verbose version
-if "--microversioning" in sys.argv:
-  sys.argv.remove("--microversioning")
-  VERSION += f".{now.hour}.{now.minute}.{now.second}"
+def set_version_in_file(version="HEAD"):
+  ini_file_path = Path(__file__).parent / "kubric" / "__init__.py"
+  ini_file_lines = list(open(ini_file_path))
+  with open(ini_file_path, "w") as f:
+    for line in ini_file_lines:
+      if line.startswith("__version__"):
+        f.write("__version__ = \"{}\"\n".format(version))
+      else:
+        f.write(line)
 
 # --- Auto-update the build version in the library
-curr_path = os.path.dirname(__file__)
-ini_file_path = os.path.join(curr_path, "kubric/__init__.py")
-ini_file_lines = list(open(ini_file_path))
-with open(ini_file_path, "w") as f:
-  for line in ini_file_lines:
-    if line.startswith("__version__"):
-      f.write("__version__ = \"{}\"\n".format(VERSION))
-    else:
-      f.write(line)
+set_version_in_file(VERSION)
+
+# --- cache readme into a string
+README = ""
+if Path("README.md").exists():
+  with open("README.md", "r", encoding="utf-8") as fh:
+    README = fh.read()
 
 # --- Extract the dependencies
 REQS = [line.strip() for line in open("requirements.txt")]
@@ -50,7 +72,7 @@ INSTALL_PACKAGES = [line for line in REQS if not line.startswith("#")]
 
 # --- Build the whl file
 setuptools.setup(
-    name="kubric",
+    name=NAME,
     version=VERSION,
     author="Kubric team",
     author_email="kubric+dev@google.com",
@@ -74,3 +96,6 @@ setuptools.setup(
     ],
     python_requires='>=3.7',
 )
+
+# --- Revert the version in the local folder
+set_version_in_file("HEAD")
