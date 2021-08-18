@@ -191,7 +191,7 @@ renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-kb.save_as_json(output_dir / "metadata.json", {
+kb.write_json(filename=output_dir / "metadata.json", data={
     "metadata": kb.get_scene_metadata(scene, seed=seed),
     "camera": kb.get_camera_info(scene.camera),
     "instances": kb.get_instance_info(scene),

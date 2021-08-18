@@ -177,7 +177,7 @@ elif FLAGS.background == "hdri":
 
   dome = kb.assets.utils.add_hdri_dome(hdri_source, scene, background_hdri)
   renderer._set_ambient_light_hdri(background_hdri.filename)
-  scene_metadata["background"] = kb.str2path(background_hdri.filename).stem
+  scene_metadata["background"] = kb.as_path(background_hdri.filename).stem
 
 
 def sample_point_in_half_sphere_shell(inner_radius, outer_radius):
@@ -341,12 +341,12 @@ kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-kb.save_as_json(output_dir / "metadata.json", {
+kb.write_json(filename=output_dir / "metadata.json", data={
     "metadata": kb.get_scene_metadata(scene, **scene_metadata),
     "camera": kb.get_camera_info(scene.camera),
     "instances": kb.get_instance_info(scene, assets_subset=visible_foreground_assets),
 })
-kb.save_as_json(output_dir / "events.json", {
+kb.write_json(filename=output_dir / "events.json", data={
     "collisions":  kb.process_collisions(collisions, scene, assets_subset=visible_foreground_assets),
 })
 

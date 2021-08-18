@@ -27,31 +27,22 @@
 # limitations under the License.
 import argparse
 import collections
-import colorsys
 import copy
-import functools
-import io
-import json
 import logging
 import multiprocessing
 import multiprocessing.pool
 import pathlib
-import pickle
 import pprint
 import shutil
 import sys
 import tempfile
-import threading
-from typing import Dict, Tuple
 
-import imageio
 import numpy as np
-import png
-import tensorflow as tf
+
 import tensorflow_datasets.public_api as tfds
 
-from kubric.custom_types import PathLike
 from kubric import core
+from kubric import file_io
 
 logger = logging.getLogger(__name__)
 
@@ -209,13 +200,9 @@ def process_collisions(collisions, scene, assets_subset=None):
 # File IO helpers
 # --------------------------------------------------------------------------------------------------
 
-def str2path(path: str) -> PathLike:
-  return tfds.core.as_path(path)
-
-
 def setup_directories(flags):
   assert flags.scratch_dir is not None
-  scratch_dir = str2path(flags.scratch_dir)
+  scratch_dir = file_io.as_path(flags.scratch_dir)
   if scratch_dir.exists():
     logging.info("Deleting content of old scratch-dir: %s", scratch_dir)
     shutil.rmtree(scratch_dir)
@@ -235,191 +222,6 @@ def is_local_path(path):
     return False
   else:
     return True
-
-
-def save_as_pkl(filename, data):
-  with tf.io.gfile.GFile(filename, "wb") as fp:
-    logging.info("Writing to '%s'", fp.name)
-    pickle.dump(data, fp)
-
-
-class NumpyEncoder(json.JSONEncoder):
-  def default(self, o):
-    if isinstance(o, np.ndarray):
-      return o.tolist()
-    return json.JSONEncoder.default(self, o)
-
-
-def save_as_json(filename, data):
-  with tf.io.gfile.GFile(filename, "wb") as fp:
-    logging.info("Writing to '%s'", fp.name)
-    json.dump(data, fp, sort_keys=True, indent=4, cls=NumpyEncoder)
-
-
-def write_scaled_png(data: np.array, path_prefix: PathLike) -> Dict[str, float]:
-  """Writes data as pngs to path and optionally returns rescaling values.
-
-  data is expected to be of shape [B, H, W, C] and has to have
-  between 1 and 4 channels. A two channel image is padded using a zero channel.
-  uint8 and uint16 are written as is.
-  other dtypes are rescaled to uint16. When rescaling, this method returns the
-  min and max values of the original data.
-
-  Args:
-    data: the image to be written
-    path_prefix: the path prefix to write to
-
-  Returns:
-    {"min": value, "max": value} if rescaling was applied, None otherwise.
-  """
-  assert len(data.shape) == 4, data.shape
-  scaling = None
-  if data.dtype in [np.uint32, np.uint64]:
-    max_value = np.amax(data)
-    if max_value > 65535:
-      logger.warning("max_value %d exceeds uint16 bounds for %s.",
-                     max_value, path_prefix)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.float32, np.float64]:
-    min_value = np.amin(data)
-    max_value = np.amax(data)
-    scaling = {"min": min_value.item(), "max": max_value.item()}
-    data = (data - min_value) * 65535 / (max_value - min_value)
-    data = data.astype(np.uint16)
-  elif data.dtype in [np.uint8, np.uint16]:
-    pass
-  else:
-    raise NotImplementedError(f"Cannot handle {data.dtype}.")
-  bitdepth = 8 if data.dtype == np.uint8 else 16
-  greyscale = (data.shape[-1] == 1)
-  alpha = (data.shape[-1] == 4)
-  w = png.Writer(data.shape[1], data.shape[2], greyscale=greyscale,
-                 bitdepth=bitdepth, alpha=alpha)
-  for i in range(data.shape[0]):
-    img = data[i].copy()
-    if img.shape[-1] == 2:
-      # Pad two-channel images with a zero channel.
-      img = np.concatenate([img, np.zeros_like(img[..., :1])], axis=-1)
-    # pypng expects 2d arrays
-    # see https://pypng.readthedocs.io/en/latest/ex.html#reshaping
-    img = img.reshape(img.shape[0], -1)
-    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
-      w.write(fp, img)
-  return scaling
-
-
-def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
-  """Get a list of colors where the first is black and the rest are evenly spaced in HSL space."""
-  hues = np.linspace(0, 1, int(n_colors) + 1)[:-1]
-  hues = (hues + first_hue) % 1
-  palette = [(0., 0., 0.)] + [colorsys.hls_to_rgb(h_i, lightness, saturation) for h_i in hues]
-  return np.round(np.array(palette) * 255).astype(np.uint8)
-
-
-def write_palette_png(data: np.array, path_prefix: PathLike,
-                      palette: np.ndarray = None):
-  """Writes grayscale data as pngs to path using a fixed palette (e.g. for segmentations)."""
-  assert len(data.shape) == 4, data.shape
-
-  if data.dtype in [np.uint16, np.uint32, np.uint64]:
-    max_value = np.amax(data)
-    if max_value > 255:
-      logger.warning("max_value %d exceeds uint bounds for %s.",
-                     max_value, path_prefix)
-    data = data.astype(np.uint8)
-  elif data.dtype == np.uint8:
-    pass
-  else:
-    raise NotImplementedError(f"Cannot handle {data.dtype}.")
-  assert data.shape[-1] == 1, "Must be grayscale"
-  if palette is None:
-    palette = hls_palette(np.max(data) + 1)
-
-  w = png.Writer(data.shape[1], data.shape[2], palette=palette, bitdepth=8)
-  for i in range(data.shape[0]):
-    img = data[i, :, :, 0]  # pypng expects 2d arrays
-    with tf.io.gfile.GFile(f"{path_prefix}_{i:05d}.png", "wb") as fp:
-      w.write(fp, img)
-
-
-def write_tiff(
-    all_imgs: np.ndarray,
-    path_prefix: PathLike,
-) -> Dict[str, float]:
-  """Save single-channel float images as tiff.."""
-  assert len(all_imgs.shape) == 4
-  assert all_imgs.shape[-1] == 1  # Single channel image
-  assert all_imgs.dtype in [np.float32, np.float64]
-  for i, img in enumerate(all_imgs):
-    path = path_prefix.parent / f"{path_prefix.name}_{i:05d}.tiff"
-
-    # Save tiff in an intermediate buffer
-    buffer = io.BytesIO()
-    imageio.imwrite(buffer, img, format=".tif")
-    path.write_bytes(buffer.getvalue())
-  return {"min": float(all_imgs.min()), "max": float(all_imgs.max())}
-
-
-def write_single_record(
-    kv: Tuple[str, np.array],
-    path_prefix: PathLike,
-    scalings: Dict[str, Dict[str, float]],
-    lock: threading.Lock,
-    segmentation_palette=None,
-):
-  """Write single record."""
-  key = kv[0]
-  img = kv[1]
-  if key == "depth":
-    scaling = write_tiff(img, path_prefix / key)
-  elif key == "segmentation":
-    write_palette_png(img, path_prefix / key, segmentation_palette)
-    scaling = None
-  else:
-    scaling = write_scaled_png(img, path_prefix / key)
-  if scaling is not None:
-    with lock:
-      scalings[key] = scaling
-
-
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16,
-                     segmentation_palette=None):
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
-  scalings = {}
-  lock = threading.Lock()
-  num_threads = min(len(data.items()), max_write_threads)
-  with multiprocessing.pool.ThreadPool(num_threads) as pool:
-    args = [(key, img) for key, img in data.items()]  # pylint: disable=unnecessary-comprehension
-    write_single_record_fn = functools.partial(
-        write_single_record,
-        path_prefix=path_prefix,
-        scalings=scalings,
-        lock=lock,
-        segmentation_palette=segmentation_palette)
-    pool.map(write_single_record_fn, args)
-    pool.close()
-    pool.join()
-
-  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
-    json.dump(scalings, fp)
-
-
-def read_png(path: PathLike):
-  path = tfds.core.as_path(path)
-  png_reader = png.Reader(bytes=path.read_bytes())
-  width, height, pngdata, info = png_reader.read()
-  del png_reader
-  bitdepth = info["bitdepth"]
-  if bitdepth == 8:
-    dtype = np.uint8
-  elif bitdepth == 16:
-    dtype = np.uint16
-  else:
-    raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
-  plane_count = info["planes"]
-  pngdata = np.vstack(list(map(dtype, pngdata)))
-  return pngdata.reshape((height, width, plane_count))
 
 
 # --------------------------------------------------------------------------------------------------

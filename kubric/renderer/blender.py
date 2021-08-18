@@ -32,8 +32,8 @@ from kubric import core
 from kubric.core.assets import UndefinedAsset
 from kubric.redirect_io import RedirectStream
 from kubric.renderer import blender_utils
-from kubric import utils
-from kubric.utils import PathLike
+from kubric import file_io
+from kubric.file_io import PathLike
 
 logger = logging.getLogger(__name__)
 
@@ -50,16 +50,27 @@ class Blender(core.View):
                background_transparency=False,
                verbose: bool = False,
                custom_scene: Optional[str] = None,
-  ):
+               ):
     """
     Args:
       scene: the kubric scene this class will observe
-      scratch_dir: TODO
-      adaptive_sampling: TODO
-      use_denoising: TODO
-      samples_per_pixel: TODO
-      background_transparency: TODO
+      scratch_dir: Blender always writes the rendered images to disk. The scratch_dir is the
+        (temporary) directory used for that. The results are read into memory by kubric,
+        immediately after the rendering is done, so the contents of this directory can
+        be discarded afterwards.
+      adaptive_sampling: Adjust the number of rays cast based on the complexity of the patch
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html#adaptive-sampling)
+      use_denoising: Use the blender denoiser to improve the image quality.
+        (see https://docs.blender.org/manual/en/latest/render/layers/denoising.html#denoising)
+      samples_per_pixel: Number of rays cast per pixel
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html#adaptive-sampling)
+      background_transparency: Render the background transparent.
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/film.html#transparent)
       verbose: when False, blender stdout is redirected to stdnull
+      custom_scene: By default (None) Blender is initialized with an empty scene.
+        If this argument is set to the path for a `.blend` file, then that scene is loaded instead.
+        Note that this scene only affects the rendering output. It is not accessible from Kubric and
+        not taken into account by the simulator.
     """
     self.scratch_dir = tempfile.mkdtemp() if scratch_dir is None else scratch_dir
     self.ambient_node = None
@@ -109,7 +120,7 @@ class Blender(core.View):
     if value is None:
       self._scratch_dir = None
     else:
-      self._scratch_dir = kb.str2path(value)
+      self._scratch_dir = kb.as_path(value)
 
   @property
   def adaptive_sampling(self) -> bool:
@@ -156,28 +167,23 @@ class Blender(core.View):
       self.exr_output_node.mute = False
       self.exr_output_node.base_path = str(path_prefix)
 
-  def save_state(self, path: Optional[PathLike] = None, pack_textures: bool = True):
+  def save_state(self, path: PathLike, pack_textures: bool = True):
     """Saves the '.blend' blender file to disk.
 
-    If a path is provided, the .blend file will be saved there.
-    If it is not provided, the self.scratch_dir will be used.
-    If neither is provided, an assertion will be raised.
     If a file with the same path exists, it is overwritten.
     """
     # first write to a temporary file, and later copy
     # (because blender cannot write to gcs buckets etc.)
     tmp_path = self.scratch_dir / "scene.blend"
+    # ensure file does NOT exist (as otherwise "scene.blend1" is created instead of "scene.blend")
+    kb.as_path(tmp_path).unlink(missing_ok=True)
 
     # --- ensure directory exists
-    parent = kb.str2path(tmp_path).parent
+    parent = kb.as_path(tmp_path).parent
     if not parent.exists():
       parent.mkdir(parents=True)
 
-    # --- ensure file does NOT exist (as otherwise "foo.blend1" is created after "foo.blend")
-    kb.str2path(path).unlink(missing_ok=True)
-
     # --- save the file; see https://github.com/google-research/kubric/issues/96
-
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
@@ -188,17 +194,13 @@ class Blender(core.View):
           print(fstdout.getvalue())
 
     # --- if a scratch_dir was specified
-    if path is not None:
-      path = kb.str2path(path)
-      logger.info("Saving '%s'", path)
-      tf.io.gfile.copy(tmp_path, path, overwrite=True)
-    else:
-      logger.info("Saved to '%s'", tmp_path)
-
+    path = kb.as_path(path)
+    logger.info("Saving '%s'", path)
+    tf.io.gfile.copy(tmp_path, path, overwrite=True)
 
   def render(self,
              frames: Optional[Sequence[int]] = None,
-  ) -> Dict[str, np.ndarray]:
+             ) -> Dict[str, np.ndarray]:
     """Renders the animation.
 
     Args:
@@ -231,31 +233,40 @@ class Blender(core.View):
     # --- post process the rendered frames
     return self.postprocess(self.scratch_dir)
 
-  def render_still(self, png_filepath: PathLike):
-    """Renders a single frame of the scene to png_filepath."""
+  def render_still(self, frame: Optional[int] = None):
+    """Render a single frame (first frame by default).
 
-    # --- set where to render PNGs
-    assert str(png_filepath).endswith(".png")
-    bpy.context.scene.render.filepath = png_filepath
+    Args:
+    frame: Which frame to render (defaults to scene.frame_start).
 
-    # --- render
-    with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      bpy.ops.render.render(animation=False, write_still=True)
-    logger.info("Rendered frame '%s'", png_filepath)
+    Returns:
+    A dictionary with the following entries:
+      - "rgba": shape = (height, width, 4)
+      - "segmentation": shape = (height, width, 1) (int)
+      - "backward_flow": shape = (height, width, 2)
+      - "forward_flow": shape = (height, width, 2)
+      - "depth": shape = (height, width, 1)
+      - "uv": shape = (height, width, 3)
+      - "normal": shape = (height, width, 3)
+    """
+    frame = self.scene.frame_start if frame is None else frame
+    result = self.render(frames=[frame])
+    return {k: v[0] for k, v in result.items()}
 
   def postprocess(self, from_dir: PathLike):
     from_dir = tfds.core.as_path(from_dir)
     # --- collect all layers for all frames
     data_stack = {}
-    for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
-      exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
-      png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
+    list_of_exr_frames = sorted((from_dir / "exr").glob("*.exr"))
+
+    for exr_filename in list_of_exr_frames:
+      png_filename = from_dir / "images" / (exr_filename.stem + ".png")
 
       layers = blender_utils.get_render_layers_from_exr(exr_filename)
       data = {k: layers[k] for k in
               ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
-      data["rgba"] = utils.read_png(png_filename)
+      data["rgba"] = file_io.read_png(png_filename)
       data["segmentation"] = layers["segmentation_indices"][:, :, :1]
       for key in data:
         if key in data_stack:
@@ -270,7 +281,8 @@ class Blender(core.View):
         data_stack["segmentation"], self.scene.assets)
     return data_stack
 
-  def clear_and_reset_blender_scene(self, verbose: bool = False, custom_scene: str = None):
+  @staticmethod
+  def clear_and_reset_blender_scene(verbose: bool = False, custom_scene: str = None):
     """ Resets Blender to an entirely empty scene (or a custom one)."""
     with RedirectStream(stream=sys.stdout, disabled=verbose):
       bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -284,7 +296,6 @@ class Blender(core.View):
   def add_asset(self, asset: core.Asset) -> Any:
     raise NotImplementedError(f"Cannot add {asset!r}")
 
-  @singledispatchmethod
   def remove_asset(self, asset: core.Asset) -> None:
     if self in asset.linked_objects:
       blender_obj = asset.linked_objects[self]

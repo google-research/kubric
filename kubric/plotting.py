@@ -12,10 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import colorsys
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+
+
+def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
+  """Get a list of colors where the first is black and the rest are evenly spaced in HSL space."""
+  hues = np.linspace(0, 1, int(n_colors) + 1)[:-1]
+  hues = (hues + first_hue) % 1
+  palette = [(0., 0., 0.)] + [colorsys.hls_to_rgb(h_i, lightness, saturation) for h_i in hues]
+  return np.round(np.array(palette) * 255).astype(np.uint8)
 
 
 def get_image_plot(width, height, nrows=1, ncols=1, display_dpi=1):

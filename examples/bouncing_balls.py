@@ -172,11 +172,11 @@ kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-kb.save_as_json(output_dir / "metadata.json", {
+kb.write_json(filename=output_dir / "metadata.json", data={
     "metadata": kb.get_scene_metadata(scene, **scene_metadata),
     "instances": kb.get_instance_info(scene, assets_subset=visible_foreground_assets),
 })
-kb.save_as_json(output_dir / "events.json", {
+kb.write_json(filename=output_dir / "events.json", data={
     "collisions":  kb.process_collisions(collisions, scene, assets_subset=visible_foreground_assets),
 })
 

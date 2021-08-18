@@ -191,7 +191,7 @@ renderer.postprocess(from_dir=scratch_dir, to_dir=output_dir)
 
 # --- Metadata
 logging.info("Collecting and storing metadata for each object.")
-kb.save_as_pkl(output_dir / "metadata.pkl", {
+kb.write_pkl(filename=output_dir / "metadata.pkl", data={
     "metadata": kb.get_scene_metadata(scene, seed=seed),
     "camera": kb.get_camera_info(scene.camera),
     "instances": kb.get_instance_info(scene),
