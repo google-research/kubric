@@ -8,17 +8,11 @@ from pathlib import Path
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
 
-
-class ObjectPropertiesException(Exception):
-  def __init__(self, message):
-    super().__init__(message)
-
 def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
   # --- override the trimesh logger
   trimesh.util.log = logger
 
   tmesh = _get_tmesh(str(obj_path))
-
   def rounda(x): return np.round(x, decimals=6).tolist()
   def roundf(x): return float(np.round(x, decimals=6))
   properties = {
