@@ -12,13 +12,13 @@ URDF_TEMPLATE = """
                      iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
         </inertial>
         <visual>
-            <origin xyz="0 0 0" />
+            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
             <geometry>
-                <mesh filename="visual_geometry.glb" />
+                <mesh filename="collision_geometry.obj" />
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0" />
+            <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
             <geometry>
                 <mesh filename="collision_geometry.obj" />
             </geometry>
