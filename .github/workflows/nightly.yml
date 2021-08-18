@@ -1,15 +1,8 @@
 name: nightly.yml
 
 on:
-  # schedule:
-  #   # * is a special character in YAML so you have to quote this string
-  #   # runs daily at 00:30 am
-  #   - cron:  '30 0 * * *'
-  # temporary condition for testing
-  push:
-    branches:
-      - pypi
-
+  schedule:
+    - cron:  '30 0 * * *' #< runs daily at 00:30 am
 jobs:
   deploy:
     if: github.repository == 'google-research/kubric'  # prevents action from running on forks
@@ -26,14 +19,11 @@ jobs:
         pip install -U -r requirements.txt
         pip install -U setuptools
         pip install -U twine
-    - name: Check if changes in branch are executed
-      run: |
-        echo "I have been executed"
     - name: Build package and upload to test.pypi
       env:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
       run: |
-        python setup.py sdist bdist_wheel --microversioning
+        python setup.py sdist bdist_wheel
         twine check dist/*
         twine upload --repository testpypi dist/*
