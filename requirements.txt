@@ -1,14 +1,12 @@
-OpenEXR
 apache-beam[gcp]
 bidict
-cloudml-hypertune
 dataclasses
+cloudml-hypertune
 google-cloud-storage
 imageio
 munch
 numpy>=1.17
 pandas
-pybullet
 pypng
 pyquaternion
 scikit-learn

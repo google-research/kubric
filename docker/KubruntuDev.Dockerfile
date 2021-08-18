@@ -20,18 +20,25 @@ WORKDIR /kubric
 
 # --- copy requirements in workdir
 COPY requirements.txt .
+COPY requirements_full.txt .
 COPY requirements_dev.txt .
 COPY docs/requirements.txt ./requirements_docs.txt
 
-# --- Install Python dependencies
-RUN pip install --upgrade pip wheel && \
-    pip install --upgrade -r requirements.txt && \
-    pip install --upgrade -r requirements_dev.txt && \
-    pip install --upgrade -r requirements_docs.txt && \
-    rm -f requirements.txt requirements_dev.txt requirements_docs.txt
+# --- install python dependencies
+RUN pip install --upgrade pip wheel
+RUN pip install --upgrade -r requirements.txt
+RUN pip install --upgrade -r requirements_full.txt
+RUN pip install --upgrade -r requirements_dev.txt
+RUN pip install --upgrade -r requirements_docs.txt
 
-# --- Silences tensorflow
+# --- cleanup
+RUN rm -f requirements.txt 
+RUN rm -f requirements_full.txt
+RUN rm -f requirements_dev.txt 
+RUN rm -f requirements_docs.txt
+
+# --- silences tensorflow
 ENV TF_CPP_MIN_LOG_LEVEL="3"
 
-# --- Allows "import kubric" w/o install
+# --- allows "import kubric" w/o install
 ENV PYTHONPATH="/kubric"
