@@ -18,7 +18,7 @@ from convert import stage3
 from convert import stage4
 from convert import stage5
 
-# --- python3.7 needed by suprocess 'capture output'
+# --- python3.7 needed by subprocess 'capture output'
 assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
 
 # ------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ if __name__ == '__main__':
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
-  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "35", "4"])
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
   args = parser.parse_args()
 
   # --- specify and communicate logging policy

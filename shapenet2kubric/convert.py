@@ -114,17 +114,45 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
+  logger.debug(f'stage3 running on "{object_folder}"')
+
+  source_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
+  log_path = object_folder / 'kubric' / 'stage3_logs.txt'
+  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
+
+  if target_path.is_file():
+    return  # stage already completed; skipping
+
+  asset_id = str(object_folder.relative_to(object_folder.parent.parent))
+
+  command_string = f"python bpy_clean_mesh.py " \
+                   f"--source_path={source_path} --target_path={target_path} " \
+                   f"--asset_id={asset_id} > {log_path}"
+
+  retobj = subprocess.run(command_string, shell=True, check=True)
+  if retobj.returncode != 0:
+    logger.error(f'stage3 failed with return code {retobj.returncode}')
+
+  if not target_path.is_file():
+    logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
 def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
 
-  logger.debug(f'stage3 running on "{object_folder}"')
+  logger.debug(f'stage4 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'collision_geometry.obj'
   target_urdf_path = object_folder / 'kubric' / 'object.urdf'
   target_json_path = object_folder / 'kubric' / 'data.json'
 
   # --- pre-condition
   if not source_path.is_file():
-    logger.error(f'stage3 pre-condition failed, file does not exist "{source_path}"')
+    logger.error(f'stage4 pre-condition failed, file does not exist "{source_path}"')
 
   # --- body1: object.urdf file
   properties = get_object_properties(source_path, logger)
@@ -146,9 +174,9 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   
   # --- post-condition
   if not target_urdf_path.is_file():
-    logger.error(f'stage3 post-condition failed, file does not exist "{target_urdf_path}"')
+    logger.error(f'stage4 post-condition failed, file does not exist "{target_urdf_path}"')
   if not target_json_path.is_file():
-    logger.error(f'stage3 post-condition failed, file does not exist "{target_json_path}"')
+    logger.error(f'stage4 post-condition failed, file does not exist "{target_json_path}"')
 
   return properties
 
@@ -157,71 +185,8 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage3.5 running on "{object_folder}"')
-
-  source_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
-  log_path = object_folder / 'kubric' / 'stage3_logs.txt'
-  target_path = object_folder / 'kubric' / 'visual_geometry.glb'
-
-  if target_path.is_file():
-    return  # stage already completed; skipping
-
-  asset_id = str(object_folder.relative_to(object_folder.parent.parent))
-
-  bpy.ops.wm.read_factory_settings(use_empty=True)
-  bpy.context.scene.world = bpy.data.worlds.new("World")
-
-  with io.StringIO() as fstdout:  # < scratch stdout buffer
-    with RedirectStream(stream=sys.stdout, filename=str(log_path)):
-      with redirect_stdout(fstdout):  # < also suppresses python stdout
-        bpy.ops.import_scene.gltf(filepath=str(source_path), loglevel=50)
-
-        bpy.ops.object.select_all(action='DESELECT')
-
-        for obj in bpy.data.objects:
-          # remove duplicate vertices
-          bpy.context.view_layer.objects.active = obj
-          bpy.ops.object.mode_set(mode='EDIT')
-          bpy.ops.mesh.remove_doubles(threshold=1e-06)
-          bpy.ops.object.mode_set(mode='OBJECT')
-          # disable auto-smoothing
-          obj.data.use_auto_smooth = False
-          # split edges with an angle above 70 degrees (1.22 radians)
-          m = obj.modifiers.new("EdgeSplit", "EDGE_SPLIT")
-          m.split_angle = 1.22173
-          bpy.ops.object.modifier_apply(modifier="EdgeSplit")
-          # move every face an epsilon in the direction of its normal, to reduce clipping artifacts
-          m = obj.modifiers.new("Displace", "DISPLACE")
-          m.strength = 0.00001
-          bpy.ops.object.modifier_apply(modifier="Displace")
-
-        # join all objects together
-        bpy.ops.object.select_all(action='SELECT')
-        bpy.ops.object.join()
-
-        # set the name of the asset
-        bpy.context.active_object.name = asset_id
-
-        # rename the source file
-        #source_path.rename(source_backup_path)
-
-        # store new visual geometry
-        bpy.ops.export_scene.gltf(filepath=str(target_path), check_existing=True)
-
-    with open(str(log_path), mode='a') as f:
-      f.write(fstdout.getvalue())
-
-  if not target_path.is_file():
-    logger.error(f'stage3 post-condition failed, file does not exist "{target_path}"')
-
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
 def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage4 running on "{object_folder}"')
+  logger.debug(f'stage5 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
 
   if target_path.is_file():
