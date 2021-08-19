@@ -38,7 +38,7 @@ if args.tag is not None:
   NAME="kubric"
 if args.nightly:
   VERSION = f"{now.year}.{now.month}.{now.day}"
-  NAME="kubric-nigthly"
+  NAME="kubric-nightly"
 if args.secondly or VERSION is None:  #< contingency plan
   VERSION = f"{now.year}.{now.month}.{now.day}.{now.hour}.{now.minute}.{now.second}"
   NAME="kubric-secondly"
