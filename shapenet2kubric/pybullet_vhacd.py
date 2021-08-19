@@ -26,38 +26,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM kubricdockerhub/blender:latest
+import argparse
+import pybullet as pb
 
-# --- Install system dep
-RUN apt-get update --fix-missing
-RUN apt-get -y install cmake
-RUN apt-get -y install wget
 
-# --- install obj2gltf (REQUIRED)
-RUN apt install -y nodejs
-RUN apt install -y npm
-RUN npm install -g npm@6.9.0
-RUN npm install -g obj2gltf@3.1.0
+def compute_collision_mesh(source_path: str, target_path: str, stdout_path: str):
+  pb.vhacd(source_path, target_path, stdout_path)
 
-## -- Install python package dependencies
-## using force-reinstall to avoid leaking pre-installed packages from python3.6
-## such as numpy, which can lead to strange errors.
-RUN python -m pip install --upgrade pip
-RUN python -m pip install --upgrade numpy
-RUN python -m pip install --upgrade pybullet
-RUN python -m pip install --upgrade trimesh
-RUN python -m pip install --upgrade Image
-RUN python -m pip install --upgrade tqdm
 
-# --- build/install manifoldplus, make "manifold" binary available in path
-RUN apt-get update --fix-missing
-RUN apt-get install -y git
-WORKDIR /
-RUN git clone https://github.com/hjwdzh/ManifoldPlus.git
-WORKDIR /ManifoldPlus
-RUN git submodule update --init --recursive
-RUN bash compile.sh
-ENV PATH="/ManifoldPlus/build:$PATH"
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--source_path', type=str)
+  parser.add_argument('--target_path', type=str)
+  parser.add_argument('--stdout_path', type=str)
+  args = parser.parse_args()
 
-# --- final startup folder
-WORKDIR /shapenet2kubric
+  compute_collision_mesh(stdout_path=args.stdout_path,
+                         source_path=args.source_path,
+                         target_path=args.target_path)

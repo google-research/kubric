@@ -1,9 +1,35 @@
+# Copyright 2021 The Kubric Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Copyright 2021 The Kubric Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # pylint: disable=logging-fstring-interpolation
 # see: https://docs.python.org/3/library/subprocess.html
 
 import argparse
-from contextlib import redirect_stdout
-import io
 import json
 import logging
 from pathlib import Path
@@ -11,11 +37,6 @@ import subprocess
 import sys
 import tarfile
 
-
-import bpy
-import pybullet as pb
-
-from redirect_io import RedirectStream  # < duplicate?
 from trimesh_utils import get_object_properties
 from urdf_template import URDF_TEMPLATE
 
@@ -27,11 +48,11 @@ _DEFAULT_LOGGER = logging.getLogger(__name__)
 # ------------------------------------------------------------------------------
 
 def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage0 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
 
   if target_path.is_file():
+    logger.debug(f'skipping stage0 on "{object_folder}"')
     return  # stage already completed; skipping
   
   # --- pre-condition
@@ -39,6 +60,7 @@ def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
     logger.error(f'stage0 pre-condition failed, file does not exist "{source_path}"')
 
   # --- body
+  logger.debug(f'stage0 running on "{object_folder}"')
   cmd = f'obj2gltf -i {source_path} -o {target_path}'
   retobj = subprocess.run(cmd, capture_output=True, shell=True, text=True)
   if 'ENOENT' in retobj.stdout:
@@ -58,11 +80,11 @@ def stage0(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 
 def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage1 running on "{object_folder}"')
   source_path = object_folder / 'models' / 'model_normalized.obj'
   target_path = object_folder / 'kubric' / 'model_watertight.obj'
 
   if target_path.is_file():
+    logger.debug(f'skipping stage1 on "{object_folder}"')
     return  # stage already completed; skipping
 
   # --- pre-condition
@@ -70,10 +92,11 @@ def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
     logger.error(f'stage1 pre-condition failed, file does not exist "{source_path}"')
 
   # --- body
+  logger.debug(f'stage1 running on "{object_folder}"')
   cmd = f'manifold --input {source_path} --output {target_path}'
   retobj = subprocess.run(cmd, capture_output=True, shell=True, text=True)
   if retobj.returncode != 0:
-    logger.error(f'obj2gltf failed on "f{object_folder}"')
+    logger.error(f'manifold failed on "f{object_folder}"')
     if retobj.stdout != '': logger.error(f'{retobj.stdout}')
     if retobj.stderr != '': logger.error(f'{retobj.stderr}')
 
@@ -87,13 +110,13 @@ def stage1(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
     
 def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage2 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'model_watertight.obj'
   target_path = object_folder / 'kubric' / 'collision_geometry.obj'
   log_path = object_folder / 'kubric' / 'stage2_logs.txt'
-  redirect_log_path = str(object_folder / 'kubric' / 'stage2_stdout.txt')
+  stdout_path = str(object_folder / 'kubric' / 'stage2_stdout.txt')
 
   if target_path.is_file():
+    logger.debug(f'skipping stage2 on "{object_folder}"')
     return  # stage already completed; skipping
 
   # --- pre-condition
@@ -101,9 +124,15 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
     logger.error(f'stage2 pre-condition failed, file does not exist "{source_path}"')
 
   # --- body
+  logger.debug(f'stage2 running on "{object_folder}"')
   # TODO: how to monitor errors? should we move to "raw" VHCD?
-  with RedirectStream(stream=sys.stdout, filename=str(log_path)):
-    pb.vhacd(str(source_path), str(target_path), str(redirect_log_path))
+  command_string = f"python pybullet_vhacd.py " \
+                   f"--source_path={source_path} --target_path={target_path} " \
+                   f"--stdout_path={stdout_path} > {log_path}"
+
+  retobj = subprocess.run(command_string, shell=True, check=True)
+  if retobj.returncode != 0:
+    logger.error(f'stage2 failed with return code {retobj.returncode}')
 
   # --- post-condition
   if not target_path.is_file():
@@ -115,14 +144,14 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 
 def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage3 running on "{object_folder}"')
-
   source_path = object_folder / 'kubric' / 'visual_geometry_pre.glb'
   log_path = object_folder / 'kubric' / 'stage3_logs.txt'
   target_path = object_folder / 'kubric' / 'visual_geometry.glb'
 
   if target_path.is_file():
+    logger.debug(f'skipping stage3 on "{object_folder}"')
     return  # stage already completed; skipping
+  logger.debug(f'stage3 running on "{object_folder}"')
 
   asset_id = str(object_folder.relative_to(object_folder.parent.parent))
 
@@ -144,8 +173,6 @@ def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
 
 def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
-
-  logger.debug(f'stage4 running on "{object_folder}"')
   source_path = object_folder / 'kubric' / 'collision_geometry.obj'
   target_urdf_path = object_folder / 'kubric' / 'object.urdf'
   target_json_path = object_folder / 'kubric' / 'data.json'
@@ -153,6 +180,7 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # --- pre-condition
   if not source_path.is_file():
     logger.error(f'stage4 pre-condition failed, file does not exist "{source_path}"')
+  logger.debug(f'stage4 running on "{object_folder}"')
 
   # --- body1: object.urdf file
   properties = get_object_properties(source_path, logger)
@@ -186,18 +214,22 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 
 def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
-  logger.debug(f'stage5 running on "{object_folder}"')
   target_path = object_folder / 'kubric.tar.gz'
 
   if target_path.is_file():
+    logger.debug(f'skipping stage5 on "{object_folder}"')
     return  # stage already completed; skipping
+  logger.debug(f'stage5 running on "{object_folder}"')
 
   # --- dumps file into tar (pre-conditions auto-verified by exceptions)
   with tarfile.open(target_path, 'w:gz') as tar:
     tar.add(object_folder / 'kubric' / 'visual_geometry.glb')
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf')
-    tar.add(object_folder / 'kubric' / 'data.json') 
+    tar.add(object_folder / 'kubric' / 'data.json')
+
+  if not target_path.is_file():
+    logger.error(f'stage5 post-condition failed, file does not exist "{target_path}"')
 
 # TODO: cleanup
 # def stage6():

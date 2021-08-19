@@ -1,6 +1,34 @@
 #!/usr/bin/env python3
-import io
+# Copyright 2021 The Kubric Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Copyright 2021 The Kubric Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
+import sys
 import trimesh
 import logging
 import numpy as np
@@ -12,6 +40,7 @@ _DEFAULT_LOGGER = logging.getLogger(__name__)
 class ObjectPropertiesException(Exception):
   def __init__(self, message):
     super().__init__(message)
+
 
 def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
   # --- override the trimesh logger
@@ -61,10 +90,7 @@ def _merge_meshes(your_list):
 
 
 if __name__ == '__main__':
-  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/models/model_normalized.obj'
-  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/model_watertight.obj'
-  # model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/04090263/18807814a9cefedcd957eaf7f4edb205/kubric/collision_geometry.obj'
-  model = '/Users/atagliasacchi/datasets/ShapeNetCore.v2/02958343/b3ffbbb2e8a5376d4ed9aac513001a31/models/model_normalized.obj'
+  model = 'ShapeNetCore.v2/02958343/b3ffbbb2e8a5376d4ed9aac513001a31/models/model_normalized.obj'
 
   # --- setup logger (→stdout)
   logger = logging.getLogger(__name__)
