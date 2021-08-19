@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+# Copyright 2021 The Kubric Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Copyright 2021 The Kubric Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# pylint: disable=missing-function-docstring
+
+import fire
+import os
+import re
+import sys
+import subprocess
+
+# --- python3.7 needed by suprocess 'capture output'
+assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
+
+# --- default folders
+SHAPENET_ROOT = '~/datasets/ShapeNetCore.v2'
+RIFLE_MODEL = '04090263/18807814a9cefedcd957eaf7f4edb205'
+CHAIR_MODEL = '03001627/865551d21a4b2c09ad484915511ccff6'
+POLICE_CAR_MODEL = '02958343/114b662c64caba81bb07f8c2248e54bc'
+
+
+def bash(shapenet_root=SHAPENET_ROOT):
+  shapenet_root = os.path.expanduser(shapenet_root)
+  command = f"""
+  docker run --rm --interactive \
+    --volume {shapenet_root}:/ShapeNetCore.v2 \
+    --volume $PWD:/shapenet2kubric \
+    kubricdockerhub/shapenet:latest \
+    /bin/bash -l
+  """
+  _execute(command)
+
+
+def parfor(num_processes=4, stages=(0, 1, 2, 3, 4, 5), shapenet_root=SHAPENET_ROOT, stop_after=0):
+  """e.g. launch parfor 4 [0,1,2] ~/datasets/ShapeNetCore.v2 4"""
+  shapenet_root = os.path.expanduser(shapenet_root)
+  stages = ' '.join(str(stage) for stage in stages)
+  command = f"""
+  docker run --rm --interactive \
+    --user `id -u`:`id -g` \
+    --volume $PWD:/shapenet2kubric \
+    --volume {shapenet_root}:/ShapeNetCore.v2 \
+    kubricdockerhub/shapenet:latest \
+    python parfor.py \
+      --datadir /ShapeNetCore.v2 \
+      --num_processes {num_processes} \
+      --stop_after {stop_after} \
+      --stages {stages}
+  """
+  _execute(command)
+
+
+def convert(model=RIFLE_MODEL, shapenet_root=SHAPENET_ROOT, stages=(0, 1, 2, 3, 4, 5)):
+  """e.g. launch convert 04090263/18807814a9cefedcd957eaf7f4edb205"""
+  shapenet_root = os.path.expanduser(shapenet_root)
+  stages = ' '.join(str(stage) for stage in stages)
+  command = f"""
+  docker run --rm --interactive \
+    --user `id -u`:`id -g` \
+    --volume $PWD:/shapenet2kubric \
+    --volume {shapenet_root}:/ShapeNetCore.v2 \
+    kubricdockerhub/shapenet:latest \
+    python convert.py \
+      --datadir=/ShapeNetCore.v2 \
+      --model={model} \
+      --stages {stages}
+  """
+  _execute(command)
+
+
+def completion():
+  """Updates fire's bash completion."""
+  _execute('./launch -- --completion > .launch-completion')
+  print('to enable completion, run "source .launch-completion"')
+
+
+def _execute(command_string):
+  command_string = re.sub(' +', ' ', command_string)
+  command_string = command_string.replace('\n',' ')
+  print(command_string)
+  retobj = subprocess.run(command_string, shell=True, check=False)
+  if retobj.returncode != 0:
+    print(f"ERROR: process returned with error code {retobj.returncode}")
+
+
+if __name__ == '__main__':
+  fire.Fire()
