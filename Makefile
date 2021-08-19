@@ -1,4 +1,15 @@
+# share same shell, allows multiline, stop on error
+.ONESHELL:
+# which shell to share
+SHELL = /bin/bash
+# terminate on first error within a recipe
+.SHELLFLAGS += -e
+# even w/ unchanged dependencies this targes will always be executed
 .PHONY: clean docs
+
+# --- checks we are using a .ONESHELL capable make
+checkmakeversion:
+	@if [[ $(MAKE_VERSION) < 3.82 ]] ; then echo "ERROR: make>=3.82 needed"; exit 1; fi
 
 # --- Blender (preinstalled blender)
 blender: docker/Blender.Dockerfile
@@ -16,11 +27,11 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
 # WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
-blender_push: blender
+blender/push: blender
 	docker push kubricdockerhub/blender:latest
-kubruntu_push: kubruntu
+kubruntu/push: kubruntu
 	docker push kubricdockerhub/kubruntu:latest
-kubruntudev_push: kubruntudev
+kubruntudev/push: kubruntudev
 	docker push kubricdockerhub/kubruntudev:latest
 
 # --- documentation (requires "apt-get install python3-sphinx")
@@ -31,38 +42,53 @@ docs: $(shell find docs )
 docs_server:
 	cd docs/_build/html && python3 -m http.server 8000
 
-# --- shared variables for example executions
-UID:=$(shell id -u)
-GID:=$(shell id -g)
-
 # --- one-liners for executing examples
-examples/helloworld:
-	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
-examples/simulator:
-	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
-examples/klevr:
-	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
-examples/katr:
-	docker run --rm --interactive --user $(UID):$(GID) --volume $(PWD):/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
-		
+examples/helloworld: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
+examples/simulator: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
+examples/klevr: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
+examples/katr: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
+				
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
 # 	make pytest TEST=test/test_core.py
 # 	make pytest TEST=test/test_core.py::test_asset_name_readonly
 TEST = test/
 pytest:
-	docker run --rm --interactive --volume $(PWD):/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
+	docker run --rm --interactive --volume `pwd`:/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
 
 # --- runs pylint on the entire "kubric/" subfolder
 LINT = ./kubric
 pylint:
 	pylint --rcfile=.pylintrc $(LINT)
 
-clean:
-	python3 setup.py clean --all
+# --- manually publishes the package to pypi
+pypi_test/write: clean_build
+	python3 setup.py sdist bdist_wheel --microversioning
+	python3 -m twine check dist/*
+	python3 -m twine upload -u kubric --repository testpypi dist/*
+
+# --- checks the published package
+# USAGE: make pypi_test/read VERSION=2021.8.18.5.26.53
+pypi_test/read:
+	@virtualenv --quiet --system-site-packages -p python3 /tmp/testenv
+	@/tmp/testenv/bin/pip3 install \
+		--upgrade --quiet \
+		--index-url https://test.pypi.org/simple \
+		--extra-index-url https://pypi.org/simple \
+		kubric==$${VERSION}
+	@/tmp/testenv/bin/python3 examples/basic.py
+
+# --- trashes the folders created by "python3 setup.py"
+clean_build:
+	rm -rf dist
+	rm -rf build
 	rm -rf kubric.egg-info
+
+clean: clean_build
 	rm -rf `find . -name "__pycache__"`
 	rm -rf `find . -name ".pytest_cache"`
-	rm -rf dist
 	cd docs && $(MAKE) clean
-

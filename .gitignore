@@ -12,3 +12,5 @@ build/
 dist/
 *.egg-info/
 *.blend*
+shapenet2kubric/shapenet2kubric.log
+examples/KuBasic/Cone/*

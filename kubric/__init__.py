@@ -14,6 +14,9 @@
 
 """Root of the kubric module."""
 
+# --- auto-computed by setup.py, source version is always at HEAD
+__version__ = "HEAD"
+
 from kubric.core.scene import Scene
 
 from kubric.core.assets import Asset

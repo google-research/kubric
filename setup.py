@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import sys
+import datetime
 import setuptools
+from datetime import datetime
 
 try:
   with open("README.md", "r", encoding="utf-8") as fh:
@@ -20,21 +24,41 @@ try:
 except IOError:
   README = ""
 
+# --- Compute the version (for both nightly and normal)
+now = datetime.now()
+VERSION = f"{now.year}.{now.month}.{now.day}"
 
-__version__ = None
+# --- Adds an ever more verbose version
+if "--microversioning" in sys.argv:
+  sys.argv.remove("--microversioning")
+  VERSION += f".{now.hour}.{now.minute}.{now.second}"
 
-with open("kubric/version.py") as f:
-  exec(f.read(), globals())
+# --- Auto-update the build version in the library
+curr_path = os.path.dirname(__file__)
+ini_file_path = os.path.join(curr_path, "kubric/__init__.py")
+ini_file_lines = list(open(ini_file_path))
+with open(ini_file_path, "w") as f:
+  for line in ini_file_lines:
+    if line.startswith("__version__"):
+      f.write("__version__ = \"{}\"\n".format(VERSION))
+    else:
+      f.write(line)
 
+# --- Extract the dependencies
+REQS = [line.strip() for line in open("requirements.txt")]
+INSTALL_PACKAGES = [line for line in REQS if not line.startswith("#")]
 
+# --- Build the whl file
 setuptools.setup(
     name="kubric",
-    version="0.1",
+    version=VERSION,
     author="Kubric team",
     author_email="kubric+dev@google.com",
     description="A data generation pipeline for creating semi-realistic synthetic multi-object "
                 "videos with rich annotations such as instance segmentation, depth maps, "
                 "and optical flow.",
+    license="Apache 2.0",
+    install_requires=INSTALL_PACKAGES,
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/google-research/kubric",
@@ -42,7 +66,6 @@ setuptools.setup(
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 3.7",
-        "License :: OSI Approved ::  Apache Software License",
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: Apache Software License",

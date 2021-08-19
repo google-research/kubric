@@ -1,0 +1,36 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.140.1/containers/python-3
+{
+  "name": "shapenet",
+  
+  // --- OPTION A: loads from pre-built container
+  "image": "docker.io/kubricdockerhub/shapenet:latest",
+  
+  // --- OPTION B: builds container (extremely slow... 2h built time!)
+  // "build": {
+  //   "dockerfile": "Dockerfile",
+  //   "context": ".",
+  // },
+  
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "python.pythonPath": "/usr/bin/python3.9",
+  },
+
+  // Which folders to mount
+  "mounts": [
+    "source=${localEnv:HOME}/datasets/ShapeNetCore.v2.dummy,target=/ShapeNetCore.v2.dummy,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/datasets/ShapeNetCore.v2,target=/ShapeNetCore.v2,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.bash_profile,target=/root/.bashrc,type=bind,consistency=cached"
+  ],
+  
+  "userEnvProbe": "loginInteractiveShell",
+
+  // starts a login shell (i.e. loads /root/.bash_profile)
+  // "postAttachCommand": "source /root/.bash_profile",
+
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-python.python"
+  ],
+}
