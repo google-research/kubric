@@ -98,6 +98,10 @@ __shapenet_set__ = {
   '02958343/66be76d60405c58ae02ca9d4b3cbc724',  # missing many textures',
   '02958343/db14f415a203403e2d7d789814cae761',  # missing many textures',
   '02958343/662cd6478fa3dd482d7d789814cae761',  # missing many textures',
+
+  '03991062/58535fe2845a3427ff1ebd5836684919',  # blender mesh cleanup timeout
+  '03001627/c5c4e6110fbbf5d3d83578ca09f86027',  # blender mesh cleanup timeout
+  '04530566/c79c87dcf17a40f698501ff072a5cd78',  # blender mesh cleanup timeout
 }
 
 

@@ -43,6 +43,7 @@ from convert import stage2
 from convert import stage3
 from convert import stage4
 from convert import stage5
+from convert import stage6
 
 # --- python3.7 needed by subprocess 'capture output'
 assert sys.version_info.major >= 3 and sys.version_info.minor >= 7
@@ -155,6 +156,7 @@ class Functor(object):
       if 3 in stages: stage3(object_folder, logger)
       if 4 in stages: properties = stage4(object_folder, logger)
       if 5 in stages: stage5(object_folder, logger)
+      if 6 in stages: stage6(object_folder, logger)
       return properties
 
     except Exception as e:
@@ -171,7 +173,7 @@ if __name__ == '__main__':
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
   parser.add_argument('--num_processes', default=8, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
-  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5"])
+  parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5", "6"])
   args = parser.parse_args()
 
   # --- specify and communicate logging policy
