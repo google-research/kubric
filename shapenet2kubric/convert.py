@@ -177,7 +177,7 @@ def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
 def get_asset_id_and_category(object_folder: Path) -> Tuple[str, str, str]:
   category_id = str(object_folder.parent.relative_to(object_folder.parent.parent))
   asset_id = str(object_folder.relative_to(object_folder.parent))
-  category_name = CATEGORY_NAMES['category_id']
+  category_name = CATEGORY_NAMES[category_id]
   return asset_id, category_id, category_name
 
 
