@@ -28,7 +28,7 @@
 
 import argparse
 import logging
-import bpy
+from kubric.safeimport.bpy import bpy
 
 from kubric.assets.asset_preprocessing import export_collection
 

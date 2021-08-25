@@ -17,7 +17,6 @@ import logging
 import sys
 from typing import Dict, Sequence
 
-import bpy
 import numpy as np
 import OpenEXR
 import Imath
@@ -26,6 +25,7 @@ import sklearn.utils
 from kubric import core
 from kubric.custom_types import AddAssetFunction
 from kubric.redirect_io import RedirectStream
+from kubric.safeimport.bpy import bpy
 
 
 def clear_and_reset_blender_scene(verbose=False):

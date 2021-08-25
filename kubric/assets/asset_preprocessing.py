@@ -20,9 +20,9 @@ import pathlib
 import tarfile
 import shutil
 
-import bpy
 import numpy as np
 import trimesh
+from kubric.safeimport.bpy import bpy
 
 
 URDF_TEMPLATE = """
