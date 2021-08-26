@@ -235,10 +235,14 @@ def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
 
   # --- dumps file into tar (pre-conditions auto-verified by exceptions)
   with tarfile.open(target_path, 'w:gz') as tar:
-    tar.add(object_folder / 'kubric' / 'visual_geometry.glb')
-    tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
-    tar.add(object_folder / 'kubric' / 'object.urdf')
-    tar.add(object_folder / 'kubric' / 'data.json')
+    tar.add(object_folder / 'kubric' / 'visual_geometry.glb',
+            arcname='visual_geometry.glb')
+    tar.add(object_folder / 'kubric' / 'collision_geometry.obj',
+            arcname='collision_geometry.obj')
+    tar.add(object_folder / 'kubric' / 'object.urdf',
+            arcname='object.urdf')
+    tar.add(object_folder / 'kubric' / 'data.json',
+            arcname='data.json')
 
   if not target_path.is_file():
     logger.error(f'stage5 post-condition failed, file does not exist "{target_path}"')
