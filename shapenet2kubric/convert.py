@@ -197,7 +197,7 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   asset_id, category_id, category_name = get_asset_id_and_category(object_folder)
   properties['category_id'] = category_id
   properties['category_name'] = category_name
-  properties['id'] = asset_id
+  properties['id'] = f'{category_id}_{asset_id}'
   properties['friction'] = .5
   urdf_str = URDF_TEMPLATE.format(**properties)
   with open(target_urdf_path, 'w') as fd:
@@ -251,10 +251,11 @@ def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
 def stage6(object_folder: Path, logger=_DEFAULT_LOGGER):
   asset_id, category_id, category_name = get_asset_id_and_category(object_folder)
   source_path = object_folder / 'kubric.tar.gz'
-  target_path = object_folder.parent.parent / 'kubric' / (asset_id + '.tar.gz')
+  target_path = object_folder.parent.parent / 'kubric' / f'{category_id}_{asset_id}.tar.gz'
 
   if target_path.is_file():
     logger.debug(f'skipping stage6 on "{object_folder}"')
+    return
 
   if not source_path.is_file():
     logger.error(f'stage6 pre-condition failed, file does not exist "{source_path}"')
