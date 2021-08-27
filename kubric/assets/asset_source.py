@@ -72,14 +72,14 @@ class AssetSource:
         tar.extractall(self.local_dir)
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
-    json_path = self.local_dir / object_id / "data.json"
+    json_path = self.local_dir / "data.json"
     with open(json_path, "r") as f:
       properties = json.load(f)
       logging.debug("Loaded properties %s", repr(properties))
 
     # paths
-    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"][0]
-    urdf_path = self.local_dir /object_id / properties["paths"]["urdf"][0]
+    vis_path = self.local_dir / properties["paths"]["visual_geometry"]
+    urdf_path = self.local_dir / properties["paths"]["urdf"]
 
     return urdf_path, vis_path, properties
 

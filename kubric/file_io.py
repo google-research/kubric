@@ -29,11 +29,11 @@
 import contextlib
 import functools
 import logging
+import io
 import json
 import multiprocessing
 import pickle
-import threading
-from typing import Any, Dict, Tuple
+from typing import Any, Dict
 
 import imageio
 import numpy as np
@@ -79,6 +79,11 @@ def write_json(data: Any, filename: PathLike) -> None:
     json.dump(data, fp, sort_keys=True, indent=4, cls=_NumpyEncoder)
 
 
+def read_json(filename: PathLike) -> Any:
+  with gopen(filename, "r") as fp:
+    return json.load(fp, )
+
+
 class _NumpyEncoder(json.JSONEncoder):
   def default(self, o):
     if isinstance(o, np.ndarray):
@@ -94,13 +99,14 @@ def write_png(data: np.array, filename: PathLike) -> None:
     if max_value > 65535:
       logger.warning("max_value %d exceeds uint16 bounds for %s.",
                      max_value, filename)
+      raise ValueError(f"max value of {max_value} exceeds uint16 bounds for {filename}")
     data = data.astype(np.uint16)
   elif data.dtype in [np.float32, np.float64]:
     min_value = np.amin(data)
     max_value = np.amax(data)
-    assert min_value >= 0.0, min_value
-    assert max_value <= 1.0, max_value
-
+    if min_value < 0.0 or max_value > 1.0:
+      raise ValueError(f"Values need to be in range [0, 1] but got [{min_value}, {max_value}] "
+                       f"for {filename}")
     data = (data * 65535).astype(np.uint16)
   elif data.dtype in [np.uint8, np.uint16]:
     pass
@@ -172,77 +178,12 @@ def write_scaled_png(data: np.array, filename: PathLike) -> Dict[str, float]:
   return scaling
 
 
-def write_tiff(data: np.ndarray, filename: PathLike):
-  """Save data as as tif image (which natively supports float values)."""
-  assert data.ndim == 3, data.shape
-  assert data.shape[2] in [1, 3, 4], "Must be grayscale, RGB, or RGBA"
-
-  with gopen(filename, "wb") as fp:
-    imageio.imwrite(fp, data, format=".tif")
-
-
-def write_many_threaded(data: np.ndarray, path_template: PathLike, write_fn=write_png,
-                        max_write_threads=16, **kwargs):
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
-  num_threads = min(len(data.shape[0]), max_write_threads)
-  with multiprocessing.pool.ThreadPool(num_threads) as pool:
-    args = [(img, str(path_template).format(i)) for i, img in enumerate(data)]
-    write_single_image_fn = lambda arg: write_fn(arg[0], arg[1], **kwargs)
-    pool.map(write_single_image_fn, args)
-    pool.close()
-    pool.join()
-
-def write_single_record(
-    kv: Tuple[str, np.array],
-    path_prefix: PathLike,
-    scalings: Dict[str, Dict[str, float]],
-    lock: threading.Lock,
-    segmentation_palette=None,
-):
-  """Write single record."""
-  key = kv[0]
-  img = kv[1]
-  if key == "depth":
-    scaling = write_tiff(img, path_prefix / key)
-  elif key == "segmentation":
-    write_palette_png(img, path_prefix / key, segmentation_palette)
-    scaling = None
-  else:
-    scaling = write_scaled_png(img, path_prefix / key)
-  if scaling is not None:
-    with lock:
-      scalings[key] = scaling
-
-
-def write_image_dict(data: Dict[str, np.array], path_prefix: PathLike, max_write_threads=16,
-    segmentation_palette=None):
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
-  scalings = {}
-  lock = threading.Lock()
-  num_threads = min(len(data.items()), max_write_threads)
-  with multiprocessing.pool.ThreadPool(num_threads) as pool:
-    args = [(key, img) for key, img in data.items()]  # pylint: disable=unnecessary-comprehension
-    write_single_record_fn = functools.partial(
-        write_single_record,
-        path_prefix=path_prefix,
-        scalings=scalings,
-        lock=lock,
-        segmentation_palette=segmentation_palette)
-    pool.map(write_single_record_fn, args)
-    pool.close()
-    pool.join()
-
-  with tf.io.gfile.GFile(path_prefix / "data_ranges.json", "w") as fp:
-    json.dump(scalings, fp)
-
-
-def read_png(path: PathLike):
-  path = tfds.core.as_path(path)
-  png_reader = png.Reader(bytes=path.read_bytes())
+def read_png(filename: PathLike, rescale_range=None) -> np.ndarray:
+  filename = as_path(filename)
+  png_reader = png.Reader(bytes=filename.read_bytes())
   width, height, pngdata, info = png_reader.read()
   del png_reader
+
   bitdepth = info["bitdepth"]
   if bitdepth == 8:
     dtype = np.uint8
@@ -250,6 +191,148 @@ def read_png(path: PathLike):
     dtype = np.uint16
   else:
     raise NotImplementedError(f"Unsupported bitdepth: {bitdepth}")
+
   plane_count = info["planes"]
   pngdata = np.vstack(list(map(dtype, pngdata)))
+  if rescale_range is not None:
+    minv, maxv = rescale_range
+    pngdata = pngdata / 2**bitdepth * (maxv - minv) + minv
+
   return pngdata.reshape((height, width, plane_count))
+
+
+def write_tiff(data: np.ndarray, filename: PathLike):
+  """Save data as as tif image (which natively supports float values)."""
+  assert data.ndim == 3, data.shape
+  assert data.shape[2] in [1, 3, 4], "Must be grayscale, RGB, or RGBA"
+
+  buffer = io.BytesIO()
+  imageio.imwrite(buffer, data, format="tiff")
+  filename = as_path(filename)
+  filename.write_bytes(buffer.getvalue())
+
+
+def read_tiff(filename: PathLike) -> np.ndarray:
+  filename = as_path(filename)
+  img = imageio.imread(filename.read_bytes(), format="tiff")
+  if img.ndim == 2:
+    img = img[:, :, None]
+  return img
+
+
+def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
+                      max_write_threads=16, **kwargs):
+  """Write a batch of images to a series of files using a ThreadPool.
+  Args:
+    data: Batch of images to write. Shape = (batch_size, height, width, channels)
+    path_template: a template for the filenames (e.g. "rgb_frame_{:05d}.png").
+      Will be formatted with the index of the image.
+    write_fn: the function used for writing the image to disk.
+      Must take an image array as its first and a filename as its second argument.
+      May take other keyword arguments. (Defaults to the write_png function)
+    max_write_threads: number of threads to use for writing images. (default = 16)
+    **kwargs: additional kwargs to pass to the write_fn.
+  """
+  # Pre-load image libs to avoid race-condition in multi-thread.
+  imageio.plugins.tifffile.load_lib()
+  num_threads = min(data.shape[0], max_write_threads)
+  with multiprocessing.pool.ThreadPool(num_threads) as pool:
+    args = [(img, path_template.format(i)) for i, img in enumerate(data)]
+
+    def write_single_image_fn(arg):
+      write_fn(*arg, **kwargs)
+
+    pool.imap_unordered(write_single_image_fn, args)
+    pool.close()
+    pool.join()
+
+
+def write_rgb_batch(data, directory, file_template="rgb_{:05d}.png", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 3, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
+def write_rgba_batch(data, directory, file_template="rgba_{:05d}.png", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 4, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
+def write_uv_batch(data, directory, file_template="uv_{:05d}.png", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 3, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
+def write_normal_batch(data, directory, file_template="normal_{:05d}.png", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 3, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
+def write_depth_batch(data, directory, file_template="depth_{:05d}.tiff", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 1, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_tiff, max_write_threads=max_write_threads)
+
+
+def write_segmentation_batch(data, directory, file_template="segmentation_{:05d}.png",
+                             max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 1, data.shape
+  assert data.dtype == np.uint8, data.dtype
+  path_template = str(as_path(directory) / file_template)
+  palette = plotting.hls_palette(np.max(data) + 1)
+  multi_write_image(data, path_template, write_fn=write_palette_png,
+                    max_write_threads=max_write_threads, palette=palette)
+
+
+def write_flow_batch(data, directory, file_template="flow_{:05d}.png", name="flow",
+                     max_write_threads=16, range_file="data_ranges.json"):
+  assert data.ndim == 4 and data.shape[-1] == 2, data.shape
+  assert data.dtype in [np.float32, np.float64], data.dtype
+  directory = as_path(directory)
+  path_template = str(directory / file_template)
+  range_file_path = directory / range_file
+  min_value = np.min(data)
+  max_value = np.max(data)
+  scaling = {"min": min_value.item(), "max": max_value.item()}
+  data = (data - min_value) * 65535 / (max_value - min_value)
+  data = data.astype(np.uint16)
+  multi_write_image(data, path_template, write_fn=write_png,
+                    max_write_threads=max_write_threads)
+
+  if range_file_path.exists():
+    ranges = read_json(range_file_path)
+  else:
+    ranges = {}
+  ranges[name] = scaling
+  write_json(ranges, range_file_path)
+
+
+write_forward_flow_batch = functools.partial(write_flow_batch, name="forward_flow",
+                                             file_template="forward_flow_{:05d}.png")
+write_backward_flow_batch = functools.partial(write_flow_batch, name="backward_flow",
+                                              file_template="backward_flow_{:05d}.png")
+
+DEFAULT_WRITERS = {
+    "rgb": write_rgb_batch,
+    "rgba": write_rgba_batch,
+    "depth": write_depth_batch,
+    "uv": write_uv_batch,
+    "normal": write_normal_batch,
+    "flow": write_flow_batch,
+    "forward_flow": write_forward_flow_batch,
+    "backward_flow": write_backward_flow_batch,
+    "segmentation": write_segmentation_batch,
+}
+
+
+def write_image_dict(data_dict: Dict[str, np.ndarray], directory: PathLike,
+                     file_templates: Dict[str, str] = (), max_write_threads=16):
+  for key, data in data_dict.items():
+    if key in file_templates:
+      DEFAULT_WRITERS[key](data, directory, file_template=file_templates[key],
+                           max_write_threads=max_write_threads)
+    else:
+      DEFAULT_WRITERS[key](data, directory, max_write_threads=max_write_threads)
