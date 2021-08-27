@@ -1,0 +1,43 @@
+name: pypi.yml
+
+on:
+  push:
+    tags:        
+      - '*'
+
+jobs:
+  deploy:
+    if: github.repository == 'google-research/kubric'  # prevents action from running on forks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install packaging requirements
+      run: |
+        python -m pip install --upgrade pip
+        pip install -U packaging
+        pip install -U setuptools
+        pip install -U wheel
+        pip install -U twine
+
+    - name: fetching the git tag that triggered the action
+      id: get_version
+      run: |
+        echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
+    - name: executing setup w/ a particular tag
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        # NOTE: for use with `twine upload --repository testpypi dist/*`
+        # TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
+        # TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+      run: |
+        python3 setup.py sdist bdist_wheel --tag=${{ steps.get_version.outputs.VERSION }}
+        twine check dist/*
+        twine upload dist/*

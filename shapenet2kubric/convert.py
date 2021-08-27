@@ -33,10 +33,13 @@ import argparse
 import json
 import logging
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tarfile
+from typing import Tuple
 
+from shapenet_synsets import CATEGORY_NAMES
 from trimesh_utils import get_object_properties
 from urdf_template import URDF_TEMPLATE
 
@@ -171,6 +174,13 @@ def stage3(object_folder: Path, logger=_DEFAULT_LOGGER):
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
+def get_asset_id_and_category(object_folder: Path) -> Tuple[str, str, str]:
+  category_id = str(object_folder.parent.relative_to(object_folder.parent.parent))
+  asset_id = str(object_folder.relative_to(object_folder.parent))
+  category_name = CATEGORY_NAMES[category_id]
+  return asset_id, category_id, category_name
+
+
 def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
   source_path = object_folder / 'kubric' / 'collision_geometry.obj'
@@ -184,8 +194,10 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
 
   # --- body1: object.urdf file
   properties = get_object_properties(source_path, logger)
-  properties['id'] = str(object_folder.relative_to(object_folder.parent.parent))
-  properties['density'] = 1
+  asset_id, category_id, category_name = get_asset_id_and_category(object_folder)
+  properties['category_id'] = category_id
+  properties['category_name'] = category_name
+  properties['id'] = f'{category_id}_{asset_id}'
   properties['friction'] = .5
   urdf_str = URDF_TEMPLATE.format(**properties)
   with open(target_urdf_path, 'w') as fd:
@@ -223,18 +235,40 @@ def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
 
   # --- dumps file into tar (pre-conditions auto-verified by exceptions)
   with tarfile.open(target_path, 'w:gz') as tar:
-    tar.add(object_folder / 'kubric' / 'visual_geometry.glb')
-    tar.add(object_folder / 'kubric' / 'collision_geometry.obj')
-    tar.add(object_folder / 'kubric' / 'object.urdf')
-    tar.add(object_folder / 'kubric' / 'data.json')
+    tar.add(object_folder / 'kubric' / 'visual_geometry.glb',
+            arcname='visual_geometry.glb')
+    tar.add(object_folder / 'kubric' / 'collision_geometry.obj',
+            arcname='collision_geometry.obj')
+    tar.add(object_folder / 'kubric' / 'object.urdf',
+            arcname='object.urdf')
+    tar.add(object_folder / 'kubric' / 'data.json',
+            arcname='data.json')
 
   if not target_path.is_file():
     logger.error(f'stage5 post-condition failed, file does not exist "{target_path}"')
 
-# TODO: cleanup
-# def stage6():
-#   import shutil
-#   shutil.rmtree(str(object_folder / 'kubric'))
+
+def stage6(object_folder: Path, logger=_DEFAULT_LOGGER):
+  asset_id, category_id, category_name = get_asset_id_and_category(object_folder)
+  source_path = object_folder / 'kubric.tar.gz'
+  target_path = object_folder.parent.parent / 'kubric' / f'{category_id}_{asset_id}.tar.gz'
+
+  if target_path.is_file():
+    logger.debug(f'skipping stage6 on "{object_folder}"')
+    return
+
+  if not source_path.is_file():
+    logger.error(f'stage6 pre-condition failed, file does not exist "{source_path}"')
+    return
+
+  logger.debug(f'stage6 running on "{object_folder}"')
+
+  target_path.parent.mkdir(exist_ok=True)
+  shutil.move(str(source_path), str(target_path))
+  #shutil.rmtree(str(object_folder / 'kubric'))
+
+  if not target_path.is_file():
+    logger.error(f'stage6 post-condition failed, file does not exist "{target_path}"')
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -262,3 +296,4 @@ if __name__ == '__main__':
   if 3 in stages: stage3(object_folder, logger)
   if 4 in stages: properties = stage4(object_folder, logger)
   if 5 in stages: stage5(object_folder, logger)
+  if 6 in stages: stage6(object_folder, logger)

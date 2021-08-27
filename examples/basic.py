@@ -13,7 +13,7 @@
 # limitations under the License.
 """A simple example w/o advanced (bullet/blender) dependencies."""
 
-# TODO: this should become the "post-processing" example? 
+# TODO(klausg): this should become the "post-processing" example that shows GIFs in matplotlib? 
 
 import logging
 import kubric as kb
@@ -21,10 +21,8 @@ import kubric as kb
 logging.basicConfig(level="DEBUG")
 print(f"executing '{__file__}' with kubric=={kb.__version__}")
 
-# --- create scene and attach a renderer to it
+# --- create a dummy scene
 scene = kb.Scene(resolution=(256, 256))
-
-# --- populate the scene with objects, lights, cameras
 scene += kb.Cube(name="floor", scale=(10, 10, 0.1), position=(0, 0, -0.1))
 scene += kb.Sphere(name="ball", scale=1, position=(0, 0, 1.))
 scene += kb.DirectionalLight(name="sun", position=(-1, -0.5, 3), look_at=(0, 0, 0), intensity=1.5)
