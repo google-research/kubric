@@ -43,6 +43,8 @@ docs_server:
 	cd docs/_build/html && python3 -m http.server 8000
 
 # --- one-liners for executing examples
+examples/basic: checkmakeversion
+	python3 examples/basic.py
 examples/helloworld: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
 examples/simulator: checkmakeversion

@@ -28,11 +28,11 @@
 import logging
 import pathlib
 
-import bpy
 import numpy as np
 import kubric as kb
 from kubric.renderer.blender import Blender as KubricRenderer
 from kubric.simulator.pybullet import PyBullet as KubricSimulator
+from kubric.safeimport.bpy import bpy
 
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]

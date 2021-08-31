@@ -19,7 +19,7 @@ import sys
 from contextlib import redirect_stdout
 from typing import Any, Optional, Union
 
-import bpy
+from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow_datasets.public_api as tfds
