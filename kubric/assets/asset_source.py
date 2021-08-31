@@ -69,17 +69,17 @@ class AssetSource:
       tf.io.gfile.copy(remote_path, local_path)
 
       with tarfile.open(local_path, "r:gz") as tar:
-        tar.extractall(self.local_dir)
+        tar.extractall(self.local_dir / object_id)
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
-    json_path = self.local_dir / "data.json"
+    json_path = self.local_dir / object_id / "data.json"
     with open(json_path, "r") as f:
       properties = json.load(f)
       logging.debug("Loaded properties %s", repr(properties))
 
     # paths
-    vis_path = self.local_dir / properties["paths"]["visual_geometry"]
-    urdf_path = self.local_dir / properties["paths"]["urdf"]
+    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"]
+    urdf_path = self.local_dir / object_id / properties["paths"]["urdf"]
 
     return urdf_path, vis_path, properties
 

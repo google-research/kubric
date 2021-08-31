@@ -17,7 +17,7 @@ blender: docker/Blender.Dockerfile
 
 # --- Keeps dist/*.wheel file up to date
 dist: setup.py $(shell find ./kubric -name "*.py")
-	python3 setup.py bdist_wheel
+	python3 setup.py sdist bdist_wheel
 
 # --- Kubruntu (preinstalled blender+kubric)
 kubruntu: dist docker/Kubruntu.Dockerfile

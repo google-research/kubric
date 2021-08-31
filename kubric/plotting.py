@@ -13,10 +13,7 @@
 # limitations under the License.
 
 import colorsys
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 
 
 def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
@@ -28,6 +25,8 @@ def hls_palette(n_colors, first_hue=0.01, lightness=.5, saturation=.7):
 
 
 def get_image_plot(width, height, nrows=1, ncols=1, display_dpi=1):
+  import matplotlib.pyplot as plt
+
   fig, axes = plt.subplots(figsize=(width*ncols, height*nrows), nrows=nrows, ncols=ncols,
                            sharex=True, sharey=True, dpi=display_dpi)
   if nrows == ncols == 1:
@@ -66,6 +65,8 @@ def plot_uv(uv, ax=None):
 
 
 def plot_segmentation(seg, ax=None, palette=None, num_objects=None):
+  import seaborn as sns
+
   if ax is None:
     _, ax = get_image_plot(seg.shape[1], seg.shape[0])
   if num_objects is None:
@@ -81,6 +82,7 @@ def plot_segmentation(seg, ax=None, palette=None, num_objects=None):
 
 
 def plot_flow(vec, ax=None, flow_mag_range=None):
+  import matplotlib
   if ax is None:
     _, ax = get_image_plot(vec.shape[1], vec.shape[0])
   direction = (np.arctan2(vec[:, :, 0], vec[:, :, 1]) + np.pi) / (2 * np.pi)
@@ -103,6 +105,8 @@ def plot_normal(norm, ax=None):
 
 
 def plot_bboxes(seg, ax=None, linewidth=100, num_objects=None, palette=None):
+  import seaborn as sns
+  import matplotlib
   if ax is None:
     _, ax = get_image_plot(seg.shape[1], seg.shape[0])
   if num_objects is None:
@@ -122,6 +126,7 @@ def plot_bboxes(seg, ax=None, linewidth=100, num_objects=None, palette=None):
 
 
 def plot_center_of_mass(objects, ax, frames=slice(None, None), palette=None):
+  import seaborn as sns
   num_objects = len(objects) + 1  # background
   if palette is None:
     palette = [(0., 0., 0.)] + sns.color_palette("hls", num_objects)
@@ -131,6 +136,7 @@ def plot_center_of_mass(objects, ax, frames=slice(None, None), palette=None):
 
 
 def plot_object_collisions(collisions, ax, frame, num_objects=None, palette=None):
+  import seaborn as sns
   if num_objects is None:
     num_objects = np.max([c["instances"] for c in collisions]) + 1  # background
   if palette is None:
