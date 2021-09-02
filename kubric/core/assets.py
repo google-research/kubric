@@ -50,7 +50,7 @@ class Asset(tl.HasTraits):
 
     # --- Change the basename used by the UID creation mechanism
     name = self.__class__.__name__ if "name" not in kwargs else kwargs["name"]
-    self.set_trait("name", name)  #< force set (read-only)
+    self.set_trait("name", name)  # < force set (read-only)
     kwargs.pop("name", None)
 
     # --- Initialize attributes
@@ -76,7 +76,7 @@ class Asset(tl.HasTraits):
     # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
     # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
     name_counter = next_global_count(self.name)
-    if name_counter==0:
+    if name_counter == 0:
       return f"{self.name}"
     else:
       return f"{self.name}.{name_counter:03d}"

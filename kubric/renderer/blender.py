@@ -38,6 +38,7 @@ from kubric.file_io import PathLike
 logger = logging.getLogger(__name__)
 
 
+# noinspection PyUnresolvedReferences
 class Blender(core.View):
   """ An implementation of a rendering backend in Blender/Cycles."""
 
@@ -201,7 +202,7 @@ class Blender(core.View):
   def render(self,
              frames: Optional[Sequence[int]] = None,
              ) -> Dict[str, np.ndarray]:
-    """Renders the animation.
+    """Renders all frames (or a subset) of the animation and returns images as a dict of arrays.
 
     Args:
       frames: list of frames to render (defaults to range(scene.frame_start, scene.frame_end+1)).

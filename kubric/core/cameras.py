@@ -85,7 +85,7 @@ class PerspectiveCamera(Camera):
     Setting the :py:attr:`field_of_view` will internally adjust the :py:obj:`focal_length` (fl),
     but keep the :py:attr:`sensor_width`.
     """
-    return 2 * np.arctan(self.sensor_width / (2 * self.focal_length))
+    return 2 * np.arctan2(self.sensor_width / 2, self.focal_length)
 
   @field_of_view.setter
   def field_of_view(self, fov: float) -> None:
