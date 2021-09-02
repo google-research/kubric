@@ -27,7 +27,7 @@
 # limitations under the License.
 
 import argparse
-import bpy
+from kubric.safeimport.bpy import bpy
 
 
 def cleanup_mesh(asset_id: str, source_path: str, target_path: str):

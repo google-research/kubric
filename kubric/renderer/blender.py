@@ -20,7 +20,7 @@ from contextlib import redirect_stdout
 from typing import Any, Dict, Optional, Sequence, Union
 import tempfile
 
-import bpy
+from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow as tf
