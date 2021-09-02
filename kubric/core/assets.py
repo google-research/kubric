@@ -35,11 +35,6 @@ class Asset(tl.HasTraits):
     uid: an unique identifier auto-generated from self.name (e.g. "name", "name.001" , ...)
     background: TODO(klausg)
     metadata: TODO(klausg)
-
-  Attributes:
-    scenes: TODO(klausg)
-    keyframes: TODO(klausg)
-    linked_objects: TODO(klausg)
   """
 
   name = tl.Unicode(read_only=True)
@@ -60,8 +55,13 @@ class Asset(tl.HasTraits):
 
     # --- Initialize attributes
     self.linked_objects = {}
+    # """Docstring for linked_objects TODO (klausg)."""
+
     self.scenes = []
+    # """Docstring for scenes TODO (klausg)."""
+
     self.keyframes = collections.defaultdict(dict)
+    # """Docstring for keyframes TODO (klausg)."""
 
     # --- Initialize traits
     super().__init__(**kwargs)

@@ -114,16 +114,17 @@ def move_until_no_overlap(asset, simulator, spawn_region=((-1, -1, -1), (1, 1, 1
 def sample_color(
     strategy: str,
     rng: np.random.RandomState = default_rng()
-) -> Tuple[Optional[str], color.Color]:
+    ) -> Tuple[Optional[str], color.Color]:
   """Sample a random color according to a given strategy.
-  Args
+
+  Args:
     strategy (str): One of
-      - "clevr": Sample one of the 8 colors used in the CLEVR dataset.
-        (blue, brown, cyan, gray, green, purple, red, and yellow)
-      - "uniform_hue": Sample a color with value and saturation equal to one and a random hue.
-      - specific color name: Do not sample randomly; Instead return the requested color directly.
-        Can be one of aqua, black, blue, fuchsia, green, gray, lime, maroon, navy, olive, purple,
-        red, silver, teal, white, or yellow.
+    * "clevr": Sample one of the 8 colors used in the CLEVR dataset.
+      (blue, brown, cyan, gray, green, purple, red, and yellow)
+    * "uniform_hue": Sample a color with value and saturation equal to one and a random hue.
+    * specific color name: Do not sample randomly; Instead return the requested color directly.
+      Can be one of aqua, black, blue, fuchsia, green, gray, lime, maroon, navy, olive, purple,
+      red, silver, teal, white, or yellow.
 
   """
   if strategy == "gray":
@@ -140,7 +141,8 @@ def sample_color(
 def sample_sizes(
     strategy: str,
     rng: np.random.RandomState = default_rng()
-) -> Tuple[Optional[str], float]:
+    ) -> Tuple[Optional[str], float]:
+  """Sample a random (asset) size according to a given strategy."""
   if strategy == "clevr":
     size_label = rng.choice(list(CLEVR_SIZES.keys()))
     size = CLEVR_SIZES[size_label]
@@ -152,3 +154,16 @@ def sample_sizes(
   else:
     raise ValueError(f"Unknown size sampling strategy {strategy}")
 
+
+def sample_point_in_half_sphere_shell(
+    inner_radius: float,
+    outer_radius: float,
+    rng: np.random.RandomState = default_rng()
+    ) -> Tuple[float, float, float]:
+  """Uniformly sample points that are in a given distance range from the origin and with z >= 0."""
+  while True:
+    v = rng.uniform((-outer_radius, -outer_radius, 0),
+                    (outer_radius, outer_radius, outer_radius))
+    len_v = np.linalg.norm(v)
+    if inner_radius <= len_v <= outer_radius:
+      return tuple(v)

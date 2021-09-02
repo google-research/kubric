@@ -35,10 +35,6 @@ sys.path.insert(0, os.path.abspath('..'))
 
 __version__ = "None"
 
-# read version without importing kubric (to avoid missing bpy dependency problems)
-with open('../kubric/version.py') as f:
-  exec(f.read(), globals())
-
 # -- Project information -----------------------------------------------------
 
 project = "Kubric"

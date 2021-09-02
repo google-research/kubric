@@ -166,7 +166,7 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
 scene_metadata = {"num_instances": len(visible_foreground_assets)}
 
 # Save to image files
-kb.utils.write_image_dict(data_stack, output_dir)
+kb.write_image_dict(data_stack, output_dir)
 
 kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground_assets)
 

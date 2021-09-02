@@ -51,11 +51,3 @@ kubric.utils module
    :members:
    :undoc-members:
    :show-inheritance:
-
-kubric.version module
----------------------
-
-.. automodule:: kubric.version
-   :members:
-   :undoc-members:
-   :show-inheritance:

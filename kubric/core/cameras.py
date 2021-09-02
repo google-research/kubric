@@ -56,9 +56,6 @@ class PerspectiveCamera(Camera):
   """ A :class:`Camera` that uses perspective projection.
 
   Args:
-    focal_length (float)
-
-  Attributes:
     focal_length (float): The focal length of the camera lens in `mm`.
                           `Default = 50`
 

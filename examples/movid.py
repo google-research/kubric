@@ -180,18 +180,9 @@ elif FLAGS.background == "hdri":
   scene_metadata["background"] = kb.as_path(background_hdri.filename).stem
 
 
-def sample_point_in_half_sphere_shell(inner_radius, outer_radius):
-  while True:
-    v = rng.uniform((-outer_radius, -outer_radius, 0),
-                    (outer_radius, outer_radius, outer_radius))
-    len_v = np.linalg.norm(v)
-    if inner_radius <= len_v <= outer_radius:
-      return v
-
-
 def get_linear_camera_motion_start_end(inner_radius=8., outer_radius=12.):
   while True:
-    camera_start = sample_point_in_half_sphere_shell(inner_radius, outer_radius)
+    camera_start = kb.sample_point_in_half_sphere_shell(inner_radius, outer_radius)
     movement_speed = rng.uniform(low=0., high=FLAGS.max_camera_movement)
     direction = rng.rand(3) - 0.5
     movement = direction / np.linalg.norm(direction) * movement_speed
@@ -208,7 +199,7 @@ if FLAGS.camera == "clevr":
   scene.camera.position = [7.48113, -6.50764, 5.34367] + rng.rand(3)
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "random":
-  scene.camera.position = sample_point_in_half_sphere_shell(8., 12.)
+  scene.camera.position = kb.sample_point_in_half_sphere_shell(8., 12.)
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "linear_movement":
   camera_start, camera_end = get_linear_camera_motion_start_end()
@@ -334,7 +325,7 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     visible_foreground_assets)
 scene_metadata["num_instances"] = len(visible_foreground_assets)
 # Save to image files
-kb.utils.write_image_dict(data_stack, output_dir)
+kb.write_image_dict(data_stack, output_dir)
 
 kb.post_processing.compute_bboxes(data_stack["segmentation"], visible_foreground_assets)
 

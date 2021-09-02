@@ -280,7 +280,7 @@ def write_depth_batch(data, directory, file_template="depth_{:05d}.tiff", max_wr
 def write_segmentation_batch(data, directory, file_template="segmentation_{:05d}.png",
                              max_write_threads=16):
   assert data.ndim == 4 and data.shape[-1] == 1, data.shape
-  assert data.dtype == np.uint8, data.dtype
+  assert data.dtype in [np.uint8, np.uint16, np.uint32, np.uint64], data.dtype
   path_template = str(as_path(directory) / file_template)
   palette = plotting.hls_palette(np.max(data) + 1)
   multi_write_image(data, path_template, write_fn=write_palette_png,

@@ -67,6 +67,7 @@ from kubric.randomness import rotation_sampler
 from kubric.randomness import position_sampler
 from kubric.randomness import resample_while
 from kubric.randomness import move_until_no_overlap
+from kubric.randomness import sample_point_in_half_sphere_shell
 
 from kubric.post_processing import compute_visibility
 from kubric.post_processing import compute_bboxes
@@ -78,6 +79,10 @@ from kubric.file_io import write_json
 from kubric.file_io import write_png
 from kubric.file_io import write_palette_png
 from kubric.file_io import write_scaled_png
+from kubric.file_io import write_tiff
+from kubric.file_io import write_image_dict
+from kubric.file_io import read_png
+from kubric.file_io import read_tiff
 
 from kubric.utils import ArgumentParser
 from kubric.utils import done

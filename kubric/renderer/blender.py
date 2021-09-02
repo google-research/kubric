@@ -241,13 +241,13 @@ class Blender(core.View):
 
     Returns:
     A dictionary with the following entries:
-      - "rgba": shape = (height, width, 4)
-      - "segmentation": shape = (height, width, 1) (int)
-      - "backward_flow": shape = (height, width, 2)
-      - "forward_flow": shape = (height, width, 2)
-      - "depth": shape = (height, width, 1)
-      - "uv": shape = (height, width, 3)
-      - "normal": shape = (height, width, 3)
+    - "rgba": shape = (height, width, 4)
+    - "segmentation": shape = (height, width, 1) (int)
+    - "backward_flow": shape = (height, width, 2)
+    - "forward_flow": shape = (height, width, 2)
+    - "depth": shape = (height, width, 1)
+    - "uv": shape = (height, width, 3)
+    - "normal": shape = (height, width, 3)
     """
     frame = self.scene.frame_start if frame is None else frame
     result = self.render(frames=[frame])
