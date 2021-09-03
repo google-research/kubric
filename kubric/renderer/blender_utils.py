@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import functools
+import sys
 from typing import Dict, Sequence
 
 import numpy as np
@@ -31,7 +32,6 @@ def clear_and_reset_blender_scene(verbose=False):
   with RedirectStream(stream=sys.stdout, disabled=verbose):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.context.scene.world = bpy.data.worlds.new("World")
-
 
 
 def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:

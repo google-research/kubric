@@ -60,13 +60,13 @@ class Blender(core.View):
         immediately after the rendering is done, so the contents of this directory can
         be discarded afterwards.
       adaptive_sampling: Adjust the number of rays cast based on the complexity of the patch
-        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html#adaptive-sampling)
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html)
       use_denoising: Use the blender denoiser to improve the image quality.
         (see https://docs.blender.org/manual/en/latest/render/layers/denoising.html#denoising)
       samples_per_pixel: Number of rays cast per pixel
-        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html#adaptive-sampling)
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html)
       background_transparency: Render the background transparent.
-        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/film.html#transparent)
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/film.html)
       verbose: when False, blender stdout is redirected to stdnull
       custom_scene: By default (None) Blender is initialized with an empty scene.
         If this argument is set to the path for a `.blend` file, then that scene is loaded instead.

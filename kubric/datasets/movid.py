@@ -62,7 +62,7 @@ class Movid(tfds.core.BeamBasedBuilder):
     "1.0.0": "initial release",
     "1.1.0": "fixed segmentation, and various other minor issues"
   }
-
+  # pylint disable=unexpected-keyword-arg
   BUILDER_CONFIGS = [
       MovidConfig(
           name="E_256x256",

@@ -73,7 +73,7 @@ class AssetSource:
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
     json_path = self.local_dir / object_id / "data.json"
-    with open(json_path, "r") as f:
+    with open(json_path, "r", encoding="utf-8") as f:
       properties = json.load(f)
       logging.debug("Loaded properties %s", repr(properties))
 
