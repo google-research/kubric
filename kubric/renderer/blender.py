@@ -194,8 +194,9 @@ class Blender(core.View):
         if self.verbose:
           print(fstdout.getvalue())
 
-    # --- if a scratch_dir was specified
+    # copy to target path
     path = kb.as_path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)  # ensure directory exists
     logger.info("Saving '%s'", path)
     tf.io.gfile.copy(tmp_path, path, overwrite=True)
 
