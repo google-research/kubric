@@ -95,3 +95,15 @@ def test_scale_coversion(obj):
 
   with pytest.raises(tl.TraitError):
     obj.scale = (1.2, 1.1)
+
+
+def test_vectors_scale_and_quaternions_not_writable(obj):
+  # see https://github.com/google-research/kubric/issues/142
+  with pytest.raises(ValueError):
+    obj.position[0] = 0
+
+  with pytest.raises(ValueError):
+    obj.scale[0] = 0
+
+  with pytest.raises(ValueError):
+    obj.quaternion[0] = 0

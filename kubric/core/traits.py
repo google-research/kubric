@@ -30,6 +30,7 @@ class Vector3D(tl.TraitType):
     if value.shape != (3,):
       self.error(obj, value)
     else:
+      value.setflags(write=False)
       return value
 
 
@@ -47,6 +48,7 @@ class Scale(tl.TraitType):
     if value.shape != (3,):
       self.error(obj, value)
     else:
+      value.setflags(write=False)
       return value
 
 
@@ -60,6 +62,7 @@ class Quaternion(tl.TraitType):
     if value.shape != (4,):
       self.error(obj, value)
     else:
+      value.setflags(write=False)
       return value
 
 
