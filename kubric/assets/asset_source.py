@@ -69,19 +69,24 @@ class AssetSource:
       tf.io.gfile.copy(remote_path, local_path)
 
       with tarfile.open(local_path, "r:gz") as tar:
-        tar.extractall(self.local_dir)
+        tar.extractall(self.local_dir / object_id)
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
     json_path = self.local_dir / object_id / "data.json"
-    with open(json_path, "r") as f:
+    with open(json_path, "r", encoding="utf-8") as f:
       properties = json.load(f)
       logging.debug("Loaded properties %s", repr(properties))
 
     # paths
-    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"][0]
-    urdf_path = self.local_dir /object_id / properties["paths"]["urdf"][0]
+    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"]
+    urdf_path = self.local_dir / object_id / properties["paths"]["urdf"]
 
     return urdf_path, vis_path, properties
+
+  def get_test_split(self, fraction=0.1):
+    held_out_objects = list(self.db.sample(frac=fraction, replace=False, random_state=42)["id"])
+    train_objects = [i for i in self.db["id"] if i not in held_out_objects]
+    return train_objects, held_out_objects
 
 
 class TextureSource:
@@ -113,3 +118,8 @@ class TextureSource:
       logging.debug("Copying %s to %s", str(remote_path), str(local_path))
       tf.io.gfile.copy(remote_path, local_path)
     return local_path
+
+  def get_test_split(self, fraction=0.1):
+    held_out_textures = list(self.db.sample(frac=fraction, replace=False, random_state=42)["id"])
+    train_textures = [i for i in self.db["id"] if i not in held_out_textures]
+    return train_textures, held_out_textures

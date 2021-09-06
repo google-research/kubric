@@ -85,12 +85,12 @@ class View(abc.ABC):
                                       name=trait_name, new=value, old=value))
 
   def remove(self, asset: Asset) -> None:
+    # use the view-specific remove function to delete the view-object
+    self.remove_asset(asset)
+
     # remove the view-object from the dict of linked objects
     if self in asset.linked_objects:
       del asset.linked_objects[self]
-
-    # use the view-specific remove function to delete the view-object
-    self.remove_asset(asset)
 
   @abc.abstractmethod
   def add_asset(self, asset: Asset) -> Any:

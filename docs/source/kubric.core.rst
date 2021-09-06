@@ -7,7 +7,7 @@ kubric.core
    :show-inheritance:
 
 kubric.core.assets
-----------------
+------------------
 
 .. automodule:: kubric.core.assets
    :members:

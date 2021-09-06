@@ -95,7 +95,7 @@ def create_trimesh_from_obj(obj):
     raise ValueError("Mesh is not watertight (has holes)!")
   if not tmesh.is_winding_consistent:
     raise ValueError("Mesh is not winding consistent!")
-  if tmesh.body_count > 1:
+  if tmesh.body_count() > 1:
     raise ValueError("Mesh consists of more than one connected component (bodies)!")
 
   return tmesh
@@ -234,7 +234,7 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
     urdf_path = save_urdf(output_path, properties)
     vis_path = save_visual_geometry(obj, output_path)
 
-    if tmesh.is_convex:
+    if tmesh.is_convex():
       coll_path = save_collision_geometry(obj, output_path)
     else:
       print("Creating collision geometry...")
@@ -289,7 +289,7 @@ def save_visual_geometry(obj, output_path):
 def save_urdf(output_path, properties):
   urdf_path = output_path / "object.urdf"
   print(urdf_path)
-  with open(urdf_path, "w") as f:
+  with open(urdf_path, "w", encoding="utf-8") as f:
     f.write(URDF_TEMPLATE.format(**properties))
   return urdf_path
 
@@ -297,7 +297,7 @@ def save_urdf(output_path, properties):
 def save_properties(output_path, properties):
   json_path = output_path / "data.json"
   print(json_path)
-  with open(json_path, "w") as f:
+  with open(json_path, "w", encoding="utf-8") as f:
     json.dump(properties, f, indent=4, sort_keys=True)
   return json_path
 
@@ -308,5 +308,5 @@ def export_collection(collection_name, output_folder):
   for obj in bpy.data.collections[collection_name].all_objects:
     details_list.append(kubricify(output_folder, obj))
 
-  with open(output_folder / "manifest.json", "w") as f:
+  with open(output_folder / "manifest.json", "w", encoding="utf-8") as f:
     json.dump(details_list, f, indent=4, sort_keys=True)

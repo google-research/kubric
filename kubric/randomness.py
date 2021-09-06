@@ -15,9 +15,29 @@
 
 import numpy as np
 import pyquaternion as pyquat
+from typing import Optional, Tuple
 
 from kubric.core import color
 from kubric.core import objects
+
+
+CLEVR_COLORS = {
+    "blue": color.Color(42/255, 75/255, 215/255),
+    "brown": color.Color(129/255, 74/255, 25/255),
+    "cyan": color.Color(41/255, 208/255, 208/255),
+    "gray": color.Color(87/255, 87/255, 87/255),
+    "green": color.Color(29/255, 105/255, 20/255),
+    "purple": color.Color(129/255, 38/255, 192/255),
+    "red": color.Color(173/255, 35/255, 35/255),
+    "yellow": color.Color(255/255, 238/255, 5/255),
+}
+
+
+# the sizes of objects to sample from
+CLEVR_SIZES = {
+    "small": 0.7,
+    "large": 1.4,
+}
 
 
 def default_rng():
@@ -89,3 +109,61 @@ def move_until_no_overlap(asset, simulator, spawn_region=((-1, -1, -1), (1, 1, 1
                         condition=simulator.check_overlap,
                         max_trials=max_trials,
                         rng=rng)
+
+
+def sample_color(
+    strategy: str,
+    rng: np.random.RandomState = default_rng()
+    ) -> Tuple[Optional[str], color.Color]:
+  """Sample a random color according to a given strategy.
+
+  Args:
+    strategy (str): One of
+    * "clevr": Sample one of the 8 colors used in the CLEVR dataset.
+      (blue, brown, cyan, gray, green, purple, red, and yellow)
+    * "uniform_hue": Sample a color with value and saturation equal to one and a random hue.
+    * specific color name: Do not sample randomly; Instead return the requested color directly.
+      Can be one of aqua, black, blue, fuchsia, green, gray, lime, maroon, navy, olive, purple,
+      red, silver, teal, white, or yellow.
+
+  """
+  if strategy == "gray":
+    return "gray", color.get_color("gray")
+  elif strategy == "clevr":
+    color_label = rng.choice(list(CLEVR_COLORS.keys()))
+    return color_label, CLEVR_COLORS[color_label]
+  elif strategy == "uniform_hue":
+    return None, random_hue_color(rng=rng)
+  else:
+    raise ValueError(f"Unknown color sampling strategy {strategy}")
+
+
+def sample_sizes(
+    strategy: str,
+    rng: np.random.RandomState = default_rng()
+    ) -> Tuple[Optional[str], float]:
+  """Sample a random (asset) size according to a given strategy."""
+  if strategy == "clevr":
+    size_label = rng.choice(list(CLEVR_SIZES.keys()))
+    size = CLEVR_SIZES[size_label]
+    return size_label, size
+  elif strategy == "uniform":
+    return None, rng.uniform(0.7, 1.4)
+  elif strategy == "const":
+    return None, 1
+  else:
+    raise ValueError(f"Unknown size sampling strategy {strategy}")
+
+
+def sample_point_in_half_sphere_shell(
+    inner_radius: float,
+    outer_radius: float,
+    rng: np.random.RandomState = default_rng()
+    ) -> Tuple[float, float, float]:
+  """Uniformly sample points that are in a given distance range from the origin and with z >= 0."""
+  while True:
+    v = rng.uniform((-outer_radius, -outer_radius, 0),
+                    (outer_radius, outer_radius, outer_radius))
+    len_v = np.linalg.norm(v)
+    if inner_radius <= len_v <= outer_radius:
+      return tuple(v)

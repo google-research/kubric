@@ -40,11 +40,43 @@ Or ask Blender to render an image (from the given camera):
 
 .. code-block:: python
   
-  renderer.render_still("helloworld.png")
+  layers = renderer.render_still()
   
+
+The result is a dictionary of numpy arrays, each containing one layer of information exported by kubric.
+The relevant layers for now are:
+
+* the image (:code:`layers["rgba"]`)
+* the corresponding depth map (:code:`layers["depth"]`)
+* the (instance) segmentation map (:code:`layers["segmentation"]`)
+
+We can save these array as PNG images using:
+
+.. code-block:: python
+
+  kb.write_png(frame["rgba"], "output/helloworld.png")
+  kb.write_palette_png(frame["segmentation"], "output/helloworld_segmentation.png")
+  scale = kb.write_scaled_png(frame["depth"], "output/helloworld_depth.png")
+  logging.info("Depth scale: %s", scale)
+
+where the first line saves the RGBA image as a regular PNG, the second one saves the segmentation as
+a grayscale PNG but with an associated palette that makes it easier to visually see the segments,
+and the third line stores the depth map as a 16bit PNG after rescaling the values.
+This is necessary to accommodate the float32 depth values.
+
 .. image:: /images/helloworld.png
    :width: 200pt
-   :alt: Image rendered by Kubric (via Blender) 
+   :alt: Image rendered by Kubric (via Blender)
+   :align: center
+
+.. image:: /images/helloworld_depth.png
+   :width: 200pt
+   :alt: Depth image rendered by Kubric (via Blender)
+   :align: center
+
+.. image:: /images/helloworld_segmentation.png
+   :width: 200pt
+   :alt: Segmentation image rendered by Kubric (via Blender)
    :align: center
 
 -------

@@ -35,11 +35,6 @@ class Asset(tl.HasTraits):
     uid: an unique identifier auto-generated from self.name (e.g. "name", "name.001" , ...)
     background: TODO(klausg)
     metadata: TODO(klausg)
-
-  Attributes:
-    scenes: TODO(klausg)
-    keyframes: TODO(klausg)
-    linked_objects: TODO(klausg)
   """
 
   name = tl.Unicode(read_only=True)
@@ -55,13 +50,18 @@ class Asset(tl.HasTraits):
 
     # --- Change the basename used by the UID creation mechanism
     name = self.__class__.__name__ if "name" not in kwargs else kwargs["name"]
-    self.set_trait("name", name)  #< force set (read-only)
+    self.set_trait("name", name)  # < force set (read-only)
     kwargs.pop("name", None)
 
     # --- Initialize attributes
     self.linked_objects = {}
+    # """Docstring for linked_objects TODO (klausg)."""
+
     self.scenes = []
+    # """Docstring for scenes TODO (klausg)."""
+
     self.keyframes = collections.defaultdict(dict)
+    # """Docstring for keyframes TODO (klausg)."""
 
     # --- Initialize traits
     super().__init__(**kwargs)
@@ -76,7 +76,7 @@ class Asset(tl.HasTraits):
     # e.g. if self.name="Cube", the UIDs of the first three: {"Cube", "Cube.001", "Cube.002"}
     # Matches blender naming logic, and allows lexicographical sorting of the first 999 instances.
     name_counter = next_global_count(self.name)
-    if name_counter==0:
+    if name_counter == 0:
       return f"{self.name}"
     else:
       return f"{self.name}.{name_counter:03d}"
@@ -148,7 +148,6 @@ class Asset(tl.HasTraits):
                           self.active_scene.frame_end+1))
     return np.array([self.get_value_at(name, frame=f, interpolation=interpolation)
                      for f in frames], dtype=np.float32)
-
 
   def __hash__(self):
     return hash(self.uid)

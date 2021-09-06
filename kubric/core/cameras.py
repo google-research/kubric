@@ -19,7 +19,6 @@ from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
 
 
-
 class Camera(objects.Object3D):
   """ Base class for all types of cameras. """
 
@@ -27,19 +26,36 @@ class Camera(objects.Object3D):
   def _get_background_default(self):
     return True
 
+  @property
+  def intrinsics(self):
+    raise NotImplementedError
+
+  def project_point(self, point3d, frame=None):
+    """ Compute the image space coordinates [0, 1] for a given point in world coordinates."""
+    with self.at_frame(frame):
+      homo_transform = np.linalg.inv(self.matrix_world)
+      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
+      homo_intrinsics[:, :3] = self.intrinsics
+
+      point4d = np.concatenate([point3d, [1.]])
+      projected = homo_intrinsics @ homo_transform @ point4d
+      image_coords = projected / projected[2]
+      image_coords[2] = np.sign(projected[2])
+      return image_coords
+
 
 class UndefinedCamera(Camera, UndefinedAsset):
   """ Marker object that indicates that a camera instance attribute has not been set. """
-  pass
+
+  @property
+  def intrinsics(self):
+    raise NotImplementedError
 
 
 class PerspectiveCamera(Camera):
   """ A :class:`Camera` that uses perspective projection.
 
   Args:
-    focal_length (float)
-
-  Attributes:
     focal_length (float): The focal length of the camera lens in `mm`.
                           `Default = 50`
 
@@ -49,7 +65,6 @@ class PerspectiveCamera(Camera):
   """
 
   focal_length = tl.Float(50)
-
   sensor_width = tl.Float(36)
 
   def __init__(self,
@@ -70,7 +85,7 @@ class PerspectiveCamera(Camera):
     Setting the :py:attr:`field_of_view` will internally adjust the :py:obj:`focal_length` (fl),
     but keep the :py:attr:`sensor_width`.
     """
-    return 2 * np.arctan(self.sensor_width / (2 * self.focal_length))
+    return 2 * np.arctan2(self.sensor_width / 2, self.focal_length)
 
   @field_of_view.setter
   def field_of_view(self, fov: float) -> None:
@@ -83,7 +98,7 @@ class PerspectiveCamera(Camera):
 
   @property
   def intrinsics(self):
-    width, height = self.active_scene.resolution
+    width, height = 1., 1.  # self.active_scene.resolution
     f_x = self.focal_length / self.sensor_width * width
     f_y = self.focal_length / self.sensor_height * height
     p_x = width / 2.
@@ -94,21 +109,9 @@ class PerspectiveCamera(Camera):
         [0,   0,   -1],
     ])
 
-  def project_point(self, point3d, frame=None):
-    """ Compute the image space coordinates (in pixels) for a given point in world coordinates."""
-    with self.at_frame(frame):
-      homo_transform = np.linalg.inv(self.matrix_world)
-      homo_intrinsics = np.zeros((3, 4), dtype=np.float32)
-      homo_intrinsics[:, :3] = self.intrinsics
-
-      point4d = np.concatenate([point3d, [1.]])
-      projected = homo_intrinsics @ homo_transform @ point4d
-      image_coords = projected / projected[2]
-      image_coords[2] = np.sign(projected[2])
-      return image_coords
-
 
 class OrthographicCamera(Camera):
+  """A :class:`Camera` that uses orthographic projection."""
   orthographic_scale = tl.Float(6.0)
 
   def __init__(self, orthographic_scale=6.0, position=(0., 0., 0.),
@@ -116,3 +119,13 @@ class OrthographicCamera(Camera):
     super().__init__(orthographic_scale=orthographic_scale, position=position,
                      quaternion=quaternion, up=up, front=front, look_at=look_at, euler=euler,
                      **kwargs)
+
+  @property
+  def intrinsics(self):
+    fx = fy = 2.0 / self.orthographic_scale
+
+    return np.array([
+        [fx, 0,  0],
+        [0, fy,  0],
+        [0,   0,   -1],
+    ])

@@ -20,14 +20,6 @@ kubric.assets.asset\_source module
    :undoc-members:
    :show-inheritance:
 
-kubric.assets.klevr module
---------------------------
-
-.. automodule:: kubric.assets.klevr
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 kubric.assets.utils module
 --------------------------
 

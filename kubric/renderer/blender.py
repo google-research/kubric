@@ -17,26 +17,28 @@ import io
 import logging
 import sys
 from contextlib import redirect_stdout
-from typing import Any, Optional, Union
+from typing import Any, Dict, Optional, Sequence, Union
+import tempfile
 
 from kubric.safeimport.bpy import bpy
 
 import numpy as np
+import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
 
 import kubric as kb
-import kubric.post_processing
 from kubric import core
 from kubric.core.assets import UndefinedAsset
 from kubric.redirect_io import RedirectStream
 from kubric.renderer import blender_utils
-from kubric import utils
-from kubric.utils import PathLike
+from kubric import file_io
+from kubric.file_io import PathLike
 
 logger = logging.getLogger(__name__)
 
 
+# noinspection PyUnresolvedReferences
 class Blender(core.View):
   """ An implementation of a rendering backend in Blender/Cycles."""
 
@@ -47,18 +49,31 @@ class Blender(core.View):
                use_denoising=True,
                samples_per_pixel=128,
                background_transparency=False,
-               verbose: bool=False):
+               verbose: bool = False,
+               custom_scene: Optional[str] = None,
+               ):
     """
     Args:
       scene: the kubric scene this class will observe
-      scratch_dir: TODO
-      adaptive_sampling: TODO
-      use_denoising: TODO
-      samples_per_pixel: TODO
-      background_transparency: TODO
+      scratch_dir: Blender always writes the rendered images to disk. The scratch_dir is the
+        (temporary) directory used for that. The results are read into memory by kubric,
+        immediately after the rendering is done, so the contents of this directory can
+        be discarded afterwards.
+      adaptive_sampling: Adjust the number of rays cast based on the complexity of the patch
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html)
+      use_denoising: Use the blender denoiser to improve the image quality.
+        (see https://docs.blender.org/manual/en/latest/render/layers/denoising.html#denoising)
+      samples_per_pixel: Number of rays cast per pixel
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/sampling.html)
+      background_transparency: Render the background transparent.
+        (see https://docs.blender.org/manual/en/latest/render/cycles/render_settings/film.html)
       verbose: when False, blender stdout is redirected to stdnull
+      custom_scene: By default (None) Blender is initialized with an empty scene.
+        If this argument is set to the path for a `.blend` file, then that scene is loaded instead.
+        Note that this scene only affects the rendering output. It is not accessible from Kubric and
+        not taken into account by the simulator.
     """
-    self.scratch_dir = scratch_dir
+    self.scratch_dir = tempfile.mkdtemp() if scratch_dir is None else scratch_dir
     self.ambient_node = None
     self.ambient_hdri_node = None
     self.illum_mapping_node = None
@@ -68,7 +83,7 @@ class Blender(core.View):
     self.verbose = verbose
 
     # blender has a default scene on load, so we clear everything first
-    blender_utils.clear_and_reset_blender_scene(self.verbose)
+    self.clear_and_reset_blender_scene(self.verbose, custom_scene=custom_scene)
     self.blender_scene = bpy.context.scene
 
     # the ray-tracing engine is set here because it affects the availability of some features
@@ -106,7 +121,7 @@ class Blender(core.View):
     if value is None:
       self._scratch_dir = None
     else:
-      self._scratch_dir = kb.str2path(value)
+      self._scratch_dir = kb.as_path(value)
 
   @property
   def adaptive_sampling(self) -> bool:
@@ -153,109 +168,107 @@ class Blender(core.View):
       self.exr_output_node.mute = False
       self.exr_output_node.base_path = str(path_prefix)
 
-  def save_state(self, path: PathLike=None, pack_textures: bool=True):
+  def save_state(self, path: PathLike, pack_textures: bool = True):
     """Saves the '.blend' blender file to disk.
 
-    If a path is provided, the .blend file will be saved there.
-    If it is not provided, the self.scratch_dir will be used.
-    If neither is provided, an assertion will be raised.
     If a file with the same path exists, it is overwritten.
     """
-    # --- if a scratch_dir was specified
-    if path is None and self.scratch_dir is not None:
-      path = str(self.scratch_dir / "scene.blend")
-    assert path is not None, "Neither self.scratch-dir nor path has been specified"
+    # first write to a temporary file, and later copy
+    # (because blender cannot write to gcs buckets etc.)
+    tmp_path = self.scratch_dir / "scene.blend"
+    # ensure file does NOT exist (as otherwise "scene.blend1" is created instead of "scene.blend")
+    kb.as_path(tmp_path).unlink(missing_ok=True)
 
     # --- ensure directory exists
-    parent = kb.str2path(path).parent
+    parent = kb.as_path(tmp_path).parent
     if not parent.exists():
       parent.mkdir(parents=True)
 
-    # --- ensure file does NOT exist (as otherwise "foo.blend1" is created after "foo.blend")
-    kb.str2path(path).unlink(missing_ok=True)
-
     # --- save the file; see https://github.com/google-research/kubric/issues/96
-    logger.info("Saving '%s'", path)
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
-          bpy.ops.wm.save_mainfile(filepath=path)
-          if pack_textures: bpy.ops.file.pack_all()
-        if self.verbose: print(fstdout.getvalue())
+          if pack_textures:
+            bpy.ops.file.pack_all()
+          bpy.ops.wm.save_mainfile(filepath=str(tmp_path))
+        if self.verbose:
+          print(fstdout.getvalue())
+
+    # copy to target path
+    path = kb.as_path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)  # ensure directory exists
+    logger.info("Saving '%s'", path)
+    tf.io.gfile.copy(tmp_path, path, overwrite=True)
 
   def render(self,
-             png_filepath: PathLike = None,
-             exr_filepath: PathLike = None):
-    """Renders the animation.
+             frames: Optional[Sequence[int]] = None,
+             ) -> Dict[str, np.ndarray]:
+    """Renders all frames (or a subset) of the animation and returns images as a dict of arrays.
 
     Args:
-        png_filepath: the folder where the `frame_*.png` files will be rendered
-        exr_filepath: the folder where the `frame_*.exr` files will be rendered
-        verbose:      limits the output generated by blender while rendering
-
-    Notes:
-      - Filepaths are provided in the "foo/bar/frames_" format, for which blender will
-        generate {"foo/bar/frames_0", "foo/bar/frames_1", ...}.
-      - If `self.scratch_dir` is specified, *_filepath are optional.
+      frames: list of frames to render (defaults to range(scene.frame_start, scene.frame_end+1)).
+    Returns:
+      A dictionary with the following entries:
+        - "rgba": shape = (nr_frames, height, width, 4)
+        - "segmentation": shape = (nr_frames, height, width, 1) (int)
+        - "backward_flow": shape = (nr_frames, height, width, 2)
+        - "forward_flow": shape = (nr_frames, height, width, 2)
+        - "depth": shape = (nr_frames, height, width, 1)
+        - "uv": shape = (nr_frames, height, width, 3)
+        - "normal": shape = (nr_frames, height, width, 3)
     """
-
-    # --- if a scratch_dir was specified
-    if png_filepath is None and exr_filepath is None and self.scratch_dir is not None:
-      logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
-      png_filepath = str(self.scratch_dir / "images" / "frame_")
-      exr_filepath = str(self.scratch_dir / "exr" / "frame_")
-
-    # --- sets blender internal properties
-    assert png_filepath is not None, "Neither self.scratch-dir nor path has been specified"
-    bpy.context.scene.render.filepath = str(png_filepath)
-
-    # --- optionally (erx_filepath=None) renders EXR
-    self.set_exr_output_path(exr_filepath)
-
-    # --- notify the logger when a frame has been rendered
-    #     TODO: can we get this also for the EXR output?
-    def render_notification(scene):
-      logger.info("Rendered frame '%s'", scene.render.frame_path())
-    bpy.app.handlers.render_write.append(render_notification)
-
+    logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
+    self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
     # --- starts rendering
+    if frames is None:
+      frames = range(self.scene.frame_start, self.scene.frame_end + 1)
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      bpy.ops.render.render(animation=True, write_still=False)
+      for frame_nr in frames:
+        bpy.context.scene.frame_set(frame_nr)
+        # When writing still images Blender doesn't append the frame number to the png path.
+        # (but for exr it does, so we only adjust the png path)
+        bpy.context.scene.render.filepath = str(
+            self.scratch_dir / "images" / f"frame_{frame_nr:04d}.png")
+        bpy.ops.render.render(animation=False, write_still=True)
+        logger.info("Rendered frame '%s'", bpy.context.scene.render.filepath)
 
-  def render_still(self, png_filepath:PathLike):
-    """Renders a single frame of the scene to png_filepath."""
+    # --- post process the rendered frames
+    return self.postprocess(self.scratch_dir)
 
-    # --- set where to render PNGs
-    assert str(png_filepath).endswith(".png")
-    bpy.context.scene.render.filepath = png_filepath
+  def render_still(self, frame: Optional[int] = None):
+    """Render a single frame (first frame by default).
 
-    # --- render
-    with RedirectStream(stream=sys.stdout, disabled=self.verbose):
-      bpy.ops.render.render(animation=False, write_still=True)
-    logger.info("Rendered frame '%s'", png_filepath)
+    Args:
+    frame: Which frame to render (defaults to scene.frame_start).
 
-  def postprocess(self, from_dir: PathLike, to_dir=PathLike):
+    Returns:
+    A dictionary with the following entries:
+    - "rgba": shape = (height, width, 4)
+    - "segmentation": shape = (height, width, 1) (int)
+    - "backward_flow": shape = (height, width, 2)
+    - "forward_flow": shape = (height, width, 2)
+    - "depth": shape = (height, width, 1)
+    - "uv": shape = (height, width, 3)
+    - "normal": shape = (height, width, 3)
+    """
+    frame = self.scene.frame_start if frame is None else frame
+    result = self.render(frames=[frame])
+    return {k: v[0] for k, v in result.items()}
+
+  def postprocess(self, from_dir: PathLike):
     from_dir = tfds.core.as_path(from_dir)
-    to_dir = tfds.core.as_path(to_dir)
-
-    # --- split objects into foreground and background sets
-    fg_objects = [obj for obj in self.scene.assets if obj.background is False]
-    bg_objects = [obj for obj in self.scene.assets if obj.background is True]
-
     # --- collect all layers for all frames
     data_stack = {}
-    for frame_id in range(self.scene.frame_start, self.scene.frame_end + 1):
-      exr_filename = from_dir / "exr" / f"frame_{frame_id:04d}.exr"
-      png_filename = from_dir / "images" / f"frame_{frame_id:04d}.png"
+    list_of_exr_frames = sorted((from_dir / "exr").glob("*.exr"))
 
-      # TODO(klausg): this is blender specific, should not be IN the blender module?
-      layers = blender_utils.get_render_layers_from_exr(exr_filename,
-                                                                 bg_objects,
-                                                                 fg_objects)
+    for exr_filename in list_of_exr_frames:
+      png_filename = from_dir / "images" / (exr_filename.stem + ".png")
+
+      layers = blender_utils.get_render_layers_from_exr(exr_filename)
       data = {k: layers[k] for k in
               ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
-      data["rgba"] = utils.read_png(png_filename)
+      data["rgba"] = file_io.read_png(png_filename)
       data["segmentation"] = layers["segmentation_indices"][:, :, :1]
       for key in data:
         if key in data_stack:
@@ -264,17 +277,27 @@ class Blender(core.View):
           data_stack[key] = [data[key]]
     for key in data_stack:
       data_stack[key] = np.stack(data_stack[key], axis=0)
-    # Save to image files
-    utils.write_image_dict(data_stack, to_dir)
-    # compute bounding boxes
-    instance_bboxes = kubric.post_processing.compute_bboxes(data_stack["segmentation"])
-    utils.save_as_json(to_dir / "bboxes.json", instance_bboxes)
+
+    # map the Blender cryptomatte hashes to asset indices
+    data_stack["segmentation"] = blender_utils.replace_cryptomatte_hashes_by_asset_index(
+        data_stack["segmentation"], self.scene.assets)
+    return data_stack
+
+  @staticmethod
+  def clear_and_reset_blender_scene(verbose: bool = False, custom_scene: str = None):
+    """ Resets Blender to an entirely empty scene (or a custom one)."""
+    with RedirectStream(stream=sys.stdout, disabled=verbose):
+      bpy.ops.wm.read_factory_settings(use_empty=True)
+      if custom_scene is None:
+        bpy.context.scene.world = bpy.data.worlds.new("World")
+      else:
+        logger.info("Loading scene from '%s'", custom_scene)
+        bpy.ops.wm.open_mainfile(filepath=custom_scene)
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
     raise NotImplementedError(f"Cannot add {asset!r}")
 
-  @singledispatchmethod
   def remove_asset(self, asset: core.Asset) -> None:
     if self in asset.linked_objects:
       blender_obj = asset.linked_objects[self]
@@ -322,33 +345,35 @@ class Blender(core.View):
       return None  # if there is no render file, then ignore this object
     _, _, extension = obj.render_filename.rpartition(".")
     with RedirectStream(stream=sys.stdout, disabled=self.verbose):  # reduce the logging noise
-      if extension == "obj":
-        bpy.ops.import_scene.obj(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
-      elif extension in ["glb", "gltf"]:
-        bpy.ops.import_scene.gltf(filepath=obj.render_filename,
-                                  **obj.render_import_kwargs)
-        # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
-        # here we are interested only in the meshes, so delete everything else
-        non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
-        bpy.ops.object.delete({"selected_objects": non_mesh_objects})
-        bpy.ops.object.join()
-      elif extension == "fbx":
-        bpy.ops.import_scene.fbx(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
-      elif extension in ["x3d", "wrl"]:
-        bpy.ops.import_scene.x3d(filepath=obj.render_filename,
-                                 **obj.render_import_kwargs)
+      with io.StringIO() as fstdout:  # < scratch stdout buffer
+        with redirect_stdout(fstdout):  # < also suppresses python stdout
+          if extension == "obj":
+            bpy.ops.import_scene.obj(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
+          elif extension in ["glb", "gltf"]:
+            bpy.ops.import_scene.gltf(filepath=obj.render_filename,
+                                      **obj.render_import_kwargs)
+            # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
+            # here we are interested only in the meshes, so delete everything else
+            non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
+            bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+            bpy.ops.object.join()
+          elif extension == "fbx":
+            bpy.ops.import_scene.fbx(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
+          elif extension in ["x3d", "wrl"]:
+            bpy.ops.import_scene.x3d(filepath=obj.render_filename,
+                                     **obj.render_import_kwargs)
 
-      elif extension == "blend":
-        # for now we require the paths to be encoded in the render_import_kwargs. That is:
-        # - filepath = dir / "Object" / object_name
-        # - directory = dir / "Object"
-        # - filename = object_name
+          elif extension == "blend":
+            # for now we require the paths to be encoded in the render_import_kwargs. That is:
+            # - filepath = dir / "Object" / object_name
+            # - directory = dir / "Object"
+            # - filename = object_name
 
-        bpy.ops.wm.append(**obj.render_import_kwargs)
-      else:
-        raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
+            bpy.ops.wm.append(**obj.render_import_kwargs)
+          else:
+            raise ValueError(f"Unknown file-type: '{extension}' for {obj}")
 
     assert len(bpy.context.selected_objects) == 1
     blender_obj = bpy.context.selected_objects[0]
@@ -574,11 +599,13 @@ class Blender(core.View):
       self.blender_scene.world.node_tree.links.remove(link)
     self.ambient_node.inputs["Color"].default_value = color
 
-  def _set_ambient_light_hdri(self, hdri_filepath=None, hdri_rotation=(0., 0., 0.)):
+  def _set_ambient_light_hdri(self, hdri_filepath=None, hdri_rotation=(0., 0., 0.), strength=1.0):
     # ensure hdri_node is connected
     self.blender_scene.world.node_tree.links.new(self.ambient_hdri_node.outputs.get("Color"),
                                                  self.ambient_node.inputs.get("Color"))
     self.ambient_hdri_node.image = bpy.data.images.load(hdri_filepath, check_existing=True)
+    self.ambient_node.inputs["Strength"].default_value = strength
+
     self.illum_mapping_node.inputs.get("Rotation").default_value = hdri_rotation
 
   def _set_background_color(self, color=core.get_color("black")):

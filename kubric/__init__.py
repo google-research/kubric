@@ -67,20 +67,31 @@ from kubric.randomness import rotation_sampler
 from kubric.randomness import position_sampler
 from kubric.randomness import resample_while
 from kubric.randomness import move_until_no_overlap
+from kubric.randomness import sample_point_in_half_sphere_shell
+
+from kubric.post_processing import compute_visibility
+from kubric.post_processing import compute_bboxes
+from kubric.post_processing import adjust_segmentation_idxs
+
+from kubric.file_io import as_path
+from kubric.file_io import write_pkl
+from kubric.file_io import write_json
+from kubric.file_io import write_png
+from kubric.file_io import write_palette_png
+from kubric.file_io import write_scaled_png
+from kubric.file_io import write_tiff
+from kubric.file_io import write_image_dict
+from kubric.file_io import read_png
+from kubric.file_io import read_tiff
 
 from kubric.utils import ArgumentParser
-from kubric.utils import setup_logging
-from kubric.utils import log_my_flags
-from kubric.utils import setup_directories
-from kubric.utils import get_scene_metadata
-from kubric.utils import get_instance_info
-from kubric.utils import get_camera_info
-from kubric.utils import process_collisions
-from kubric.utils import save_as_pkl
-from kubric.utils import save_as_json
 from kubric.utils import done
-from kubric.utils import str2path
+from kubric.utils import get_camera_info
+from kubric.utils import get_instance_info
+from kubric.utils import get_scene_metadata
+from kubric.utils import log_my_flags
+from kubric.utils import process_collisions
 
-
-# TODO: remove and add a test that checks pathlib should NOT be imported?
-from tensorflow_datasets.core.utils.generic_path import as_path
+from kubric.utils import setup
+from kubric.utils import setup_directories
+from kubric.utils import setup_logging
