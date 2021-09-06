@@ -27,7 +27,7 @@ from kubric.custom_types import ArrayLike
 
 def ensure_3d_vector(x: ArrayLike) -> np.ndarray:
   x = np.asarray(x, dtype=np.float64)
-  if not x.shape == (3,):
+  if x.shape != (3,):
     raise ValueError(f"Expected shape=(3,), got {x.shape}")
   return x
 

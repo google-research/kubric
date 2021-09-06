@@ -25,7 +25,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# pylint: disable=line-too-long
+# pylint: disable=line-too-long, unexpected-keyword-arg
 """TODO(klausg): description."""
 
 import dataclasses
@@ -62,7 +62,7 @@ class Movid(tfds.core.BeamBasedBuilder):
     "1.0.0": "initial release",
     "1.1.0": "fixed segmentation, and various other minor issues"
   }
-  # pylint disable=unexpected-keyword-arg
+
   BUILDER_CONFIGS = [
       MovidConfig(
           name="E_256x256",

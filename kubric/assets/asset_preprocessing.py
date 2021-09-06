@@ -95,7 +95,7 @@ def create_trimesh_from_obj(obj):
     raise ValueError("Mesh is not watertight (has holes)!")
   if not tmesh.is_winding_consistent:
     raise ValueError("Mesh is not winding consistent!")
-  if tmesh.body_count > 1:
+  if tmesh.body_count() > 1:
     raise ValueError("Mesh consists of more than one connected component (bodies)!")
 
   return tmesh
@@ -234,7 +234,7 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
     urdf_path = save_urdf(output_path, properties)
     vis_path = save_visual_geometry(obj, output_path)
 
-    if tmesh.is_convex:
+    if tmesh.is_convex():
       coll_path = save_collision_geometry(obj, output_path)
     else:
       print("Creating collision geometry...")
