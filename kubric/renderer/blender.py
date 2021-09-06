@@ -122,6 +122,7 @@ class Blender(core.View):
       self._scratch_dir = None
     else:
       self._scratch_dir = kb.as_path(value)
+      self._scratch_dir.mkdir(parents=True, exist_ok=True)
 
   @property
   def adaptive_sampling(self) -> bool:

@@ -158,8 +158,17 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
     output["depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
     flow = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
-    output["backward_flow"] = flow[..., :2]
-    output["forward_flow"] = flow[..., 2:]
+    # Blender exports forward and backward flow in a single image,
+    # and uses (-delta_col, delta_row) format, but we prefer (delta_row, delta_col)
+    # also use normalized coords that range from (0, 0) at the top left to (1, 1) at bottom right
+    output["backward_flow"] = np.zeros_like(flow[..., :2])
+    output["backward_flow"][..., 0] = flow[..., 1] / flow.shape[-3]
+    output["backward_flow"][..., 1] = -flow[..., 0] / flow.shape[-2]
+
+    output["forward_flow"] = np.zeros_like(flow[..., 2:])
+    output["forward_flow"][..., 0] = flow[..., 3] / flow.shape[-3]
+    output["forward_flow"][..., 1] = -flow[..., 2] / flow.shape[-2]
+
   if "Normal" in layer_names:
     # range: [-1, 1]
     data = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])

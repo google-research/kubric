@@ -13,6 +13,9 @@
 # limitations under the License.
 
 from kubric.renderer import blender_utils
+import kubric as kb
+from kubric.renderer.blender import Blender
+import numpy as np
 
 # a large list of cryptomatte ids that were manually extracted
 # (100 may be overkill. But I did have the first 29 succeed only to fail at Object_30)
@@ -56,3 +59,46 @@ name_to_crypto = [
 def test_mm3hash():
   for name, expected in name_to_crypto:
     assert blender_utils.mm3hash(name) == expected
+
+
+def test_optical_flow(tmpdir):
+  # --- create scene and attach a renderer to it
+  scene = kb.Scene(resolution=(7, 7), frame_end=2)
+
+  renderer = Blender(scene)
+
+  # --- populate the scene with two balls and a cameras
+  ball_horiz = kb.Sphere(name="ball_horiz", scale=1, position=(0, 1, 1.))
+  ball_vert = kb.Sphere(name="ball_vert", scale=1, position=(1, 0, 1.))
+  scene += ball_horiz
+  scene += ball_vert
+  scene += kb.PerspectiveCamera(name="camera", position=(1e-5, 0, 20), look_at=(0, 0, 0))
+  # make the balls move horizontally to the right, and vertically down
+  # these motions should correspond to positive optical flow
+  ball_horiz.keyframe_insert("position", 0)
+  ball_horiz.position = (0, 10, 1)
+  ball_horiz.keyframe_insert("position", 5)
+
+  ball_vert.keyframe_insert("position", 0)
+  ball_vert.position = (10, 0, 1)
+  ball_vert.keyframe_insert("position", 5)
+
+  frames = renderer.render()
+
+  # assert flow for vertical ball (at bottom) is [>0, =0]
+  assert np.max(frames["backward_flow"][1, -1, :, 0]) >= 0.05
+  assert np.min(frames["backward_flow"][1, -1, :, 0]) >= 0.
+  assert np.all(np.abs(frames["backward_flow"][1, -1, :, 1]) < 1e-5)
+  assert np.max(frames["forward_flow"][1, -1, :, 0]) >= 0.05
+  assert np.min(frames["forward_flow"][1, -1, :, 0]) >= 0.0
+  assert np.all(np.abs(frames["forward_flow"][1, -1, :, 1]) < 1e-5)
+
+  # assert flow for horizontal ball (at the right side) is [=0, >0]
+  assert np.all(np.abs(frames["backward_flow"][1, :, -1, 0]) < 1e-5)
+  assert np.max(frames["backward_flow"][1, :, -1, 1]) >= 0.05
+  assert np.min(frames["backward_flow"][1, :, -1, 1]) >= 0.
+  assert np.all(np.abs(frames["forward_flow"][1, :, -1, 0]) < 1e-5)
+  assert np.max(frames["forward_flow"][1, :, -1,  1]) >= 0.05
+  assert np.min(frames["forward_flow"][1, :, -1,  1]) >= 0.0
+
+
