@@ -13,7 +13,10 @@
 # limitations under the License.
 
 from kubric.renderer import blender_utils
-import kubric as kb
+
+from kubric.core.scene import Scene
+from kubric.core import cameras
+from kubric.core import objects
 from kubric.renderer.blender import Blender
 import numpy as np
 
@@ -63,16 +66,16 @@ def test_mm3hash():
 
 def test_optical_flow():
   # --- create scene and attach a renderer to it
-  scene = kb.Scene(resolution=(7, 7), frame_end=2)
+  scene = Scene(resolution=(7, 7), frame_end=2)
 
   renderer = Blender(scene)
 
   # --- populate the scene with two balls and a cameras
-  ball_horiz = kb.Sphere(name="ball_horiz", scale=1, position=(0, 1, 1.))
-  ball_vert = kb.Sphere(name="ball_vert", scale=1, position=(1, 0, 1.))
+  ball_horiz = objects.Sphere(name="ball_horiz", scale=1, position=(0, 1, 1.))
+  ball_vert = objects.Sphere(name="ball_vert", scale=1, position=(1, 0, 1.))
   scene += ball_horiz
   scene += ball_vert
-  scene += kb.PerspectiveCamera(name="camera", position=(1e-5, 0, 20), look_at=(0, 0, 0))
+  scene += cameras.PerspectiveCamera(name="camera", position=(1e-5, 0, 20), look_at=(0, 0, 0))
   # make the balls move horizontally to the right, and vertically down
   # these motions should correspond to positive optical flow
   ball_horiz.keyframe_insert("position", 0)
@@ -103,13 +106,13 @@ def test_optical_flow():
 
 
 def test_depth(tmpdir):
-  scene = kb.Scene(resolution=(5, 7), frame_end=1)
+  scene = Scene(resolution=(5, 7), frame_end=1)
 
   renderer = Blender(scene)
 
   # --- populate the scene with a cameras inside a large ball
-  scene += kb.Sphere(scale=10, position=(0, 0, 0.))
-  scene += kb.PerspectiveCamera(name="camera", position=(0, 0, 0), look_at=(1, 0, 0))
+  scene += objects.Sphere(scale=10, position=(0, 0, 0.))
+  scene += cameras.PerspectiveCamera(name="camera", position=(0, 0, 0), look_at=(1, 0, 0))
 
   # the depth map should give a constant value equal to the radius of the sphere
   frames = renderer.render_still()
