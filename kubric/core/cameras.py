@@ -17,6 +17,7 @@ import traitlets as tl
 
 from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
+from kubric.custom_types import ArrayLike
 
 
 class Camera(objects.Object3D):
@@ -43,13 +44,12 @@ class Camera(objects.Object3D):
       image_coords[2] = np.sign(projected[2])
       return image_coords
 
+  def z_to_depth(self, depth: ArrayLike) -> np.ndarray:
+    raise NotImplementedError
+
 
 class UndefinedCamera(Camera, UndefinedAsset):
   """ Marker object that indicates that a camera instance attribute has not been set. """
-
-  @property
-  def intrinsics(self):
-    raise NotImplementedError
 
 
 class PerspectiveCamera(Camera):
@@ -108,6 +108,23 @@ class PerspectiveCamera(Camera):
         [0, -f_y, -p_y],
         [0,   0,   -1],
     ])
+
+  def z_to_depth(self, z: ArrayLike) -> np.ndarray:
+    z = np.array(z)
+    assert z.ndim >= 3
+    h, w, channels = z.shape[-3:]
+
+    pixel_centers_x = (np.arange(-w/2, w/2, dtype=np.float32) + 0.5) / w * self.sensor_width
+    pixel_centers_y = (np.arange(-h/2, h/2, dtype=np.float32) + 0.5) / h * self.sensor_height
+    squared_distance_from_center = np.sum(np.square(np.meshgrid(
+        pixel_centers_x,  # X-Axis (columns)
+        pixel_centers_y,  # Y-Axis (rows)
+        indexing='xy',
+    )), axis=0)
+
+    depth_scaling = np.sqrt(1 + squared_distance_from_center / self.focal_length**2)
+    depth_scaling = depth_scaling.reshape((1,) * (z.ndim - 3) + depth_scaling.shape + (1,))
+    return z * depth_scaling
 
 
 class OrthographicCamera(Camera):

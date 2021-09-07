@@ -45,7 +45,7 @@ def get_clevr_lights(
 
   # jitter lights
   for light in lights:
-    light.position += rng.rand(3) * light_jitter
+    light.position = light.position + rng.rand(3) * light_jitter
     light.look_at((0, 0, 0))
 
   return lights

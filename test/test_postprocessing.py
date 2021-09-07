@@ -61,7 +61,7 @@ def test_mm3hash():
     assert blender_utils.mm3hash(name) == expected
 
 
-def test_optical_flow(tmpdir):
+def test_optical_flow():
   # --- create scene and attach a renderer to it
   scene = kb.Scene(resolution=(7, 7), frame_end=2)
 
@@ -102,3 +102,15 @@ def test_optical_flow(tmpdir):
   assert np.min(frames["forward_flow"][1, :, -1,  1]) >= 0.0
 
 
+def test_depth(tmpdir):
+  scene = kb.Scene(resolution=(5, 7), frame_end=1)
+
+  renderer = Blender(scene)
+
+  # --- populate the scene with a cameras inside a large ball
+  scene += kb.Sphere(scale=10, position=(0, 0, 0.))
+  scene += kb.PerspectiveCamera(name="camera", position=(0, 0, 0), look_at=(1, 0, 0))
+
+  # the depth map should give a constant value equal to the radius of the sphere
+  frames = renderer.render_still()
+  np.testing.assert_allclose(frames["depth"], 10, atol=0.01)
