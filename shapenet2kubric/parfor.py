@@ -87,8 +87,9 @@ def shapenet_objects_dirs(datadir: str):
   """Returns a list of pathlib.Path folders, one per object."""
   taxonomy_path = Path(datadir) / 'taxonomy.json'
   if not taxonomy_path.is_file():
-    logging.fatal(f'Verify that "{str(datadir)}" is a valid shapenet folder, as the taxonomy file '
-                  f'was not found at "{str(taxonomy_path)}"')
+    raise RuntimeError(f'Verify that "{str(datadir)}" is a valid shapenet '
+                       f'folder, as the taxonomy file was not found at '
+                       f'"{str(taxonomy_path)}"')
 
   logging.info(f"gathering shapenet folders: {datadir}")
   object_folders = list()
