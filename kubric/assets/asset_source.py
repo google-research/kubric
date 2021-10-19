@@ -77,7 +77,7 @@ class AssetSource:
           tar.extractall(self.local_dir)
         else:
           # tarfile contains files only, so extract into a new directory
-          assert f"data.json" in list_of_files, list_of_files
+          assert "data.json" in list_of_files, list_of_files
           tar.extractall(self.local_dir / object_id)
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 

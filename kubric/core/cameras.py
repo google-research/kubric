@@ -44,7 +44,7 @@ class Camera(objects.Object3D):
       image_coords[2] = np.sign(projected[2])
       return image_coords
 
-  def z_to_depth(self, depth: ArrayLike) -> np.ndarray:
+  def z_to_depth(self, z: ArrayLike) -> np.ndarray:
     raise NotImplementedError
 
 
@@ -112,14 +112,14 @@ class PerspectiveCamera(Camera):
   def z_to_depth(self, z: ArrayLike) -> np.ndarray:
     z = np.array(z)
     assert z.ndim >= 3
-    h, w, channels = z.shape[-3:]
+    h, w, _ = z.shape[-3:]
 
     pixel_centers_x = (np.arange(-w/2, w/2, dtype=np.float32) + 0.5) / w * self.sensor_width
     pixel_centers_y = (np.arange(-h/2, h/2, dtype=np.float32) + 0.5) / h * self.sensor_height
     squared_distance_from_center = np.sum(np.square(np.meshgrid(
         pixel_centers_x,  # X-Axis (columns)
         pixel_centers_y,  # Y-Axis (rows)
-        indexing='xy',
+        indexing="xy",
     )), axis=0)
 
     depth_scaling = np.sqrt(1 + squared_distance_from_center / self.focal_length**2)

@@ -22,6 +22,7 @@ from kubric.core.assets import Asset
 
 
 class Vector3D(tl.TraitType):
+  """Trait for 3D vectors (such as position)."""
   default_value = np.zeros(shape=[3], dtype=np.float32)
   info_text = "a 3D vector of floats"
 

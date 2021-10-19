@@ -373,11 +373,11 @@ class Movid(tfds.core.BeamBasedBuilder):
     if self.builder_config.shape_info == "CLEVR":
       instance_features["shape_label"] = tfds.features.ClassLabel(names=["Cube", "Cylinder", "Sphere"])
       instance_features["size_label"] = tfds.features.ClassLabel(names=["small", "large"])
-      instance_features["size"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+      instance_features["size"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32)
       instance_features["material_label"] = tfds.features.ClassLabel(names=["Metal", "Rubber"])
       instance_features["color_label"] = tfds.features.ClassLabel(names=[
           "blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"])
-      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32)
 
     elif self.builder_config.shape_info == "KuBasic":
       instance_features["shape_label"] = tfds.features.ClassLabel(names=[
@@ -385,7 +385,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           "Teapot", "Suzanne"])
       instance_features["size"] = tf.float32
       instance_features["material_label"] = tfds.features.ClassLabel(names=["Metal", "Rubber"])
-      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32)
 
     return tfds.core.DatasetInfo(
         builder=self,
