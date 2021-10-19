@@ -31,9 +31,6 @@ docker run --rm --interactive \
     python3 examples/klevr.py
 ```
 
-![KLEVR: a CLEVR scene rendered by Kubric](https://kubric.readthedocs.io/en/latest/_images/KLEVR.gif)
-
-
 ## Requirements
 - A pipeline for conveniently generating video data. 
 - Physics simulation for automatically generating physical interactions between multiple objects.
