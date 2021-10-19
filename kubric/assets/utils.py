@@ -86,8 +86,10 @@ def get_random_kubasic_object(
   obj.metadata = {
       "shape": shape_name.lower(),
       "size": size,
+      "size_label": size_label,
       "material": material_name.lower(),
       "color": random_color.rgb,
+      "color_label": color_label,
   }
   return obj
 

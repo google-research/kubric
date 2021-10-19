@@ -53,6 +53,7 @@ class MovidConfig(tfds.core.BuilderConfig):
   validation_ratio: float = 0.1
   train_val_path: str = None
   test_split_paths: Dict[str, str] = dataclasses.field(default_factory=dict)
+  shape_info: str = "None"  # also export shape, material, color, size (for A and B)
 
 
 class Movid(tfds.core.BeamBasedBuilder):
@@ -197,12 +198,59 @@ class Movid(tfds.core.BeamBasedBuilder):
           }
       ),
       MovidConfig(
+          name="CC_256x256",
+          description="Dynamic objects, moving camera, full resolution of 256x256",
+          height=256,
+          width=256,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_cc_v11",
+          test_split_paths={
+              # "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_cc_v11_testobj",
+              # "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              # "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              # "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="CC_128x128",
+          description="Dynamic objects, moving camera, downscaled to  128x128",
+          height=128,
+          width=128,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_cc_v11",
+          test_split_paths={
+              # "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobj",
+              # "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              # "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              # "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
+          }
+      ),
+      MovidConfig(
+          name="CC_64x64",
+          description="Static objects, moving camera, downscaled to 64x64",
+          height=64,
+          width=64,
+          validation_ratio=0.1,
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_cc_v11",
+          test_split_paths={
+              # "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobj",
+              # "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testbg",
+              # "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testobjbg",
+              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testsame",
+              # "test_many": "gs://research-brain-kubric-xgcp/jobs/movid_c_v11_testmany",
+          }
+      ),
+
+      MovidConfig(
           name="B_256x256",
           description="Random color background, Kubasic objects, random camera, full resolution of 256x256",
           height=256,
           width=256,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          shape_info="KuBasic",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
@@ -218,6 +266,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           width=128,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          shape_info="KuBasic",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
@@ -233,6 +282,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           width=64,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_b_v11",
+          shape_info="KuBasic",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testobj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_b_v11_testbg",
@@ -248,6 +298,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           width=256,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          shape_info="CLEVR",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
@@ -263,6 +314,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           width=128,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          shape_info="CLEVR",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
@@ -278,6 +330,7 @@ class Movid(tfds.core.BeamBasedBuilder):
           width=64,
           validation_ratio=0.1,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_a_v11",
+          shape_info="CLEVR",
           test_split_paths={
               "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_obj",
               "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_a_v11_test_bg",
@@ -296,6 +349,44 @@ class Movid(tfds.core.BeamBasedBuilder):
     w = self.builder_config.width
     s = 24
 
+    instance_features = {
+        "asset_id": tfds.features.Text(),
+        "is_dynamic": tfds.features.Tensor(shape=(), dtype=tf.bool),
+        "mass": tf.float32,
+        "friction": tf.float32,
+        "restitution": tf.float32,
+
+        "positions": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+        "quaternions": tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
+        "velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+        "angular_velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
+        "bboxes_3d": tfds.features.Tensor(shape=(s, 8, 3), dtype=tf.float32),
+
+        "image_positions": tfds.features.Tensor(shape=(s, 2), dtype=tf.float32),
+        "bboxes": tfds.features.Sequence(
+            tfds.features.BBoxFeature()),
+        "bbox_frames": tfds.features.Sequence(
+            tfds.features.Tensor(shape=(), dtype=tf.int32)),
+        "visibility": tfds.features.Tensor(shape=(s,), dtype=tf.uint16),
+    }
+
+    if self.builder_config.shape_info == "CLEVR":
+      instance_features["shape_label"] = tfds.features.ClassLabel(names=["Cube", "Cylinder", "Sphere"])
+      instance_features["size_label"] = tfds.features.ClassLabel(names=["small", "large"])
+      instance_features["size"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+      instance_features["material_label"] = tfds.features.ClassLabel(names=["Metal", "Rubber"])
+      instance_features["color_label"] = tfds.features.ClassLabel(names=[
+          "blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"])
+      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+
+    elif self.builder_config.shape_info == "KuBasic":
+      instance_features["shape_label"] = tfds.features.ClassLabel(names=[
+          "Cube", "Cylinder", "Sphere", "Cone", "Torus", "Gear", "TorusKnot", "Sponge", "Spot",
+          "Teapot", "Suzanne"])
+      instance_features["size"] = tf.float32
+      instance_features["material_label"] = tfds.features.ClassLabel(names=["Metal", "Rubber"])
+      instance_features["color"] = tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+
     return tfds.core.DatasetInfo(
         builder=self,
         description=_DESCRIPTION,
@@ -312,25 +403,7 @@ class Movid(tfds.core.BeamBasedBuilder):
                 "backward_flow_range": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
             },
             "background": tfds.features.Text(),
-            "instances": tfds.features.Sequence(feature={
-                "asset_id": tfds.features.Text(),
-                "is_dynamic": tfds.features.Tensor(shape=(), dtype=tf.bool),
-                "mass": tf.float32,
-                "friction": tf.float32,
-                "restitution": tf.float32,
-
-                "positions": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-                "quaternions": tfds.features.Tensor(shape=(s, 4), dtype=tf.float32),
-                "velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-                "angular_velocities": tfds.features.Tensor(shape=(s, 3), dtype=tf.float32),
-
-                "image_positions": tfds.features.Tensor(shape=(s, 2), dtype=tf.float32),
-                "bboxes": tfds.features.Sequence(
-                    tfds.features.BBoxFeature()),
-                "bbox_frames": tfds.features.Sequence(
-                    tfds.features.Tensor(shape=(), dtype=tf.int32)),
-                "visibility": tfds.features.Tensor(shape=(s,), dtype=tf.uint16),
-            }),
+            "instances": tfds.features.Sequence(feature=instance_features),
             "camera": {
                 "focal_length": tf.float32,
                 "sensor_width": tf.float32,
@@ -420,10 +493,10 @@ class Movid(tfds.core.BeamBasedBuilder):
 
       assert len(metadata["instances"]) == num_instances, f"{len(metadata['instances'])} != {num_instances}"
 
-      assert "depth" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
+      # assert "depth" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
       assert "forward_flow" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
       assert "backward_flow" in data_ranges, f"ERROR {key}\t{video_dir}\t{data_ranges}"
-      depth_min, depth_max = data_ranges["depth"]["min"], data_ranges["depth"]["max"]
+      # depth_min, depth_max = data_ranges["depth"]["min"], data_ranges["depth"]["max"]
 
       rgba_frame_paths = [video_dir / f"rgba_{f:05d}.png" for f in range(num_frames)]
       segmentation_frame_paths = [video_dir / f"segmentation_{f:05d}.png" for f in range(num_frames)]
@@ -434,6 +507,44 @@ class Movid(tfds.core.BeamBasedBuilder):
       normal_frame_paths = [video_dir / f"normal_{f:05d}.png" for f in range(num_frames)]
 
       scale = 256 / target_size[0]
+
+      depth_frames = np.array([subsample_nearest_neighbor(read_tiff(frame_path), target_size)
+                               for frame_path in depth_frame_paths])
+      depth_min, depth_max = np.min(depth_frames), np.max(depth_frames)
+      depth_frames_uint16 = convert_float_to_uint16(depth_frames, depth_min, depth_max)
+
+      def get_instance_info(obj):
+        instance_info = {
+            "asset_id": obj["asset_id"],
+            "is_dynamic": bool(obj["is_dynamic"]),
+            "mass": obj["mass"],
+            "friction": obj["friction"],
+            "restitution": obj["restitution"],
+            "positions": np.array(obj["positions"], np.float32),
+            "quaternions": np.array(obj["quaternions"], np.float32),
+            "velocities": np.array(obj["velocities"], np.float32),
+            "angular_velocities": np.array(obj["angular_velocities"], np.float32),
+            "bboxes_3d": np.array(obj["bboxes_3d"], np.float32),
+            "image_positions": np.array(obj["image_positions"], np.float32),
+            "bboxes": [tfds.features.BBox(*bbox) for bbox in obj["bboxes"]],
+            "bbox_frames": np.array(obj["bbox_frames"], dtype=np.uint16),
+            "visibility": np.array(obj["visibility"], dtype=np.uint16),
+        }
+        if self.builder_config.shape_info == "CLEVR":
+          instance_info["shape_label"] = obj["shape_label"]
+          instance_info["size_label"] = obj["size_label"]
+          instance_info["size"] = obj["size"]
+          instance_info["material_label"] = obj["material"]
+          instance_info["color_label"] = obj["color_label"]
+          instance_info["color"] = obj["color"]
+
+        elif self.builder_config.shape_info == "KuBasic":
+          instance_info["shape_label"] = obj["shape_label"]
+          instance_info["size"] = obj["size"]
+          instance_info["material_label"] = obj["material"]
+          instance_info["color"] = obj["color"]
+        return instance_info
+
       return key, {
           "metadata": {
               "video_name": os.fspath(key),
@@ -448,21 +559,7 @@ class Movid(tfds.core.BeamBasedBuilder):
                                       data_ranges["backward_flow"]["max"] / scale],
           },
           "background": metadata["metadata"]["background"],
-          "instances": [{
-              "asset_id": obj.get("asset_id", f"{obj['material']} {obj['shape']}"),
-              "is_dynamic": bool(obj["is_dynamic"]),
-              "mass": obj["mass"],
-              "friction": obj["friction"],
-              "restitution": obj["restitution"],
-              "positions": np.array(obj["positions"], np.float32),
-              "quaternions": np.array(obj["quaternions"], np.float32),
-              "velocities": np.array(obj["velocities"], np.float32),
-              "angular_velocities": np.array(obj["angular_velocities"], np.float32),
-              "image_positions": np.array(obj["image_positions"], np.float32),
-              "bboxes": [tfds.features.BBox(*bbox) for bbox in obj["bboxes"]],
-              "bbox_frames": np.array(obj["bbox_frames"], dtype=np.uint16),
-              "visibility": np.array(obj["visibility"], dtype=np.uint16),
-          } for i, obj in enumerate(metadata["instances"])],
+          "instances": [get_instance_info(obj) for obj in metadata["instances"]],
           "camera": {
               "focal_length": metadata["camera"]["focal_length"],
               "sensor_width": metadata["camera"]["sensor_width"],
@@ -489,10 +586,7 @@ class Movid(tfds.core.BeamBasedBuilder):
                            for frame_path in fwd_flow_frame_paths],
           "backward_flow": [subsample_nearest_neighbor(read_png(frame_path)[..., :2], target_size)
                             for frame_path in bwd_flow_frame_paths],
-          "depth": [convert_float_to_uint16(subsample_nearest_neighbor(read_tiff(frame_path),
-                                                                       target_size),
-                                            depth_min, depth_max)
-                    for frame_path in depth_frame_paths],
+          "depth": depth_frames_uint16,
           "uv": [subsample_nearest_neighbor(read_png(frame_path), target_size)
                  for frame_path in uv_frame_paths],
           "normal": [subsample_nearest_neighbor(read_png(frame_path), target_size)

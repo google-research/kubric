@@ -173,6 +173,11 @@ def get_instance_info(scene, assets_subset=None):
     info["image_positions"] = np.array([scene.camera.project_point(point3d=p, frame=f)[:2]
                                         for f, p in zip(frame_range, info["positions"])],
                                        dtype=np.float32)
+    bboxes3d = []
+    for frame in frame_range:
+      with instance.at_frame(frame):
+        bboxes3d.append(instance.bbox_3d)
+    info["bboxes_3d"] = np.stack(bboxes3d)
     instance_info.append(info)
   return instance_info
 

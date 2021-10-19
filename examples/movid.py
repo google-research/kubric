@@ -70,6 +70,12 @@ MOVid-C
   --min_num_static_objects=0 --max_num_static_objects=0
   --save_state=False
 
+MOVid-CC
+  --camera=linear_movement --background=hdri --objects_set=gso
+  --min_num_dynamic_objects=3 --max_num_dynamic_objects=10
+  --min_num_static_objects=0 --max_num_static_objects=0
+  --save_state=False
+
 MOVid-D
   --camera=random --background=hdri --objects_set=gso
   --min_num_dynamic_objects=1 --max_num_dynamic_objects=3
@@ -120,7 +126,7 @@ parser.add_argument("--background", choices=["clevr", "colored", "hdri"], defaul
 parser.add_argument("--backgrounds_split", choices=["train", "test"], default="train")
 
 # Configuration for the camera
-parser.add_argument("--camera", choices=["clevr", "random", "linear_movement"], default="clevr")
+parser.add_argument("--camera", choices=["clevr", "katr", "random", "linear_movement"], default="clevr")
 parser.add_argument("--max_camera_movement", type=float, default=4.0)
 
 # Configuration for the source of the assets
@@ -194,6 +200,10 @@ def get_linear_camera_motion_start_end(inner_radius=8., outer_radius=12.):
 
 logging.info("Setting up the Camera...")
 scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32)
+if FLAGS.camera == "katr":
+  scene.camera = kb.PerspectiveCamera(focal_length=35., sensor_width=32,
+                                      position=(7.5, -6.5, 4.5))
+  scene.camera.look_at((0, 0, 2))
 if FLAGS.camera == "clevr":
   # Specific position + jitter + look at origin
   scene.camera.position = [7.48113, -6.50764, 5.34367] + rng.rand(3)
@@ -209,7 +219,7 @@ if FLAGS.camera == "linear_movement":
   # forward and backward flow are still consistent for the last and first frames
   for frame in range(FLAGS.frame_start - 1, FLAGS.frame_end + 2):
     interp = (frame - FLAGS.frame_start + 1) / (FLAGS.frame_end - FLAGS.frame_start + 3)
-    scene.camera.position = interp * camera_start + (1 - interp) * camera_end
+    scene.camera.position = interp * np.array(camera_start) + (1 - interp) * np.array(camera_end)
     scene.camera.look_at((0, 0, 0))
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
