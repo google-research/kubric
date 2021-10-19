@@ -353,6 +353,7 @@ class Blender(core.View):
         with redirect_stdout(fstdout):  # < also suppresses python stdout
           if extension == "obj":
             bpy.ops.import_scene.obj(filepath=obj.render_filename,
+                                     use_split_objects=False,
                                      **obj.render_import_kwargs)
           elif extension in ["glb", "gltf"]:
             bpy.ops.import_scene.gltf(filepath=obj.render_filename,
@@ -362,6 +363,13 @@ class Blender(core.View):
             non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
             bpy.ops.object.delete({"selected_objects": non_mesh_objects})
             bpy.ops.object.join()
+            # By default gltf objects are loaded with a different rotation than obj files
+            # here we compensate for that to ensure alignment between pybullet and blender
+            assert len(bpy.context.selected_objects) == 1
+            blender_obj = bpy.context.selected_objects[0]
+            blender_obj.rotation_quaternion = (0.707107, -0.707107, 0, 0)
+            bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
+
           elif extension == "fbx":
             bpy.ops.import_scene.fbx(filepath=obj.render_filename,
                                      **obj.render_import_kwargs)
