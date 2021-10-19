@@ -62,7 +62,7 @@ def get_active_object():
 def get_vertices_and_faces(obj):
   bmesh = obj.data  # TODO: verify that this is a mesh object?
   vertices = np.array([v.co for v in bmesh.vertices])
-  faces = np.array([[v for v in p.vertices] for p in bmesh.polygons if len(p.vertices) > 2])  # pylint: disable=unnecessary-comprehension
+  faces = np.array([list(p.vertices) for p in bmesh.polygons if len(p.vertices) > 2])  # pylint: disable=unnecessary-comprehension
   return vertices, faces
 
 

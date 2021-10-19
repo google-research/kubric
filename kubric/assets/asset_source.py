@@ -69,7 +69,16 @@ class AssetSource:
       tf.io.gfile.copy(remote_path, local_path)
 
       with tarfile.open(local_path, "r:gz") as tar:
-        tar.extractall(self.local_dir / object_id)
+        list_of_files = tar.getnames()
+
+        if object_id in list_of_files and tar.getmember(object_id).isdir():
+          # tarfile contains directory with name object_id, so we can just extract
+          assert f"{object_id}/data.json" in list_of_files, list_of_files
+          tar.extractall(self.local_dir)
+        else:
+          # tarfile contains files only, so extract into a new directory
+          assert f"data.json" in list_of_files, list_of_files
+          tar.extractall(self.local_dir / object_id)
         logging.debug("Extracted %s", repr([m.name for m in tar.getmembers()]))
 
     json_path = self.local_dir / object_id / "data.json"
@@ -78,8 +87,14 @@ class AssetSource:
       logging.debug("Loaded properties %s", repr(properties))
 
     # paths
-    vis_path = self.local_dir / object_id / properties["paths"]["visual_geometry"]
-    urdf_path = self.local_dir / object_id / properties["paths"]["urdf"]
+    vis_path = properties["paths"]["visual_geometry"]
+    if isinstance(vis_path, list):
+      vis_path = vis_path[0]
+    vis_path = self.local_dir / object_id / vis_path
+    urdf_path = properties["paths"]["urdf"]
+    if isinstance(urdf_path, list):
+      urdf_path = urdf_path[0]
+    urdf_path = self.local_dir / object_id / urdf_path
 
     return urdf_path, vis_path, properties
 
