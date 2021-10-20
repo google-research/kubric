@@ -48,6 +48,9 @@ class AssetSource:
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
+  def __del__(self):
+    self.local_dir.rmtree()
+
   def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
     sim_filename, vis_filename, properties = self.fetch(asset_id)
@@ -121,6 +124,9 @@ class TextureSource:
       assets_list = [p.name for p in self.remote_dir.iterdir()]
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
+
+  def __del__(self):
+    self.local_dir.rmtree()
 
   def create(self, texture_name: str, **kwargs) -> materials.Texture:
     texture_path = self.fetch(texture_name)
