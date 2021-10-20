@@ -25,9 +25,9 @@ jobs:
     
     - name: Build package and upload to test.pypi
       env:
-        TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel --nightly
         twine check dist/*
-        twine upload --repository testpypi dist/*
+        twine upload dist/*
