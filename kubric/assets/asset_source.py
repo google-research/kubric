@@ -99,6 +99,16 @@ class AssetSource:
     return urdf_path, vis_path, properties
 
   def get_test_split(self, fraction=0.1):
+    """
+    Generates a train/test split for the asset source.
+
+    Args:
+      fraction: the fraction of the asset source to use for the heldout set.
+      
+    Returns:
+      train_objects: list of asset ID strings
+      held_out_objects: list of asset ID strings
+    """
     held_out_objects = list(self.db.sample(frac=fraction, replace=False, random_state=42)["id"])
     train_objects = [i for i in self.db["id"] if i not in held_out_objects]
     return train_objects, held_out_objects

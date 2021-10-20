@@ -97,7 +97,7 @@ def look_at_quat(
   return tuple(pyquat.Quaternion(matrix=(rotation_matrix1.T @ rotation_matrix2)))
 
 
-def euler_to_quat(euler_angles):
+def _euler_to_quat(euler_angles):
   """ Convert three (euler) angles around XYZ to a single quaternion."""
   q1 = pyquat.Quaternion(axis=[1., 0., 0.], angle=euler_angles[0])
   q2 = pyquat.Quaternion(axis=[0., 1., 0.], angle=euler_angles[1])
@@ -126,7 +126,7 @@ class Object3D(assets.Asset):
       quaternion = look_at_quat(position, look_at, up, front)
     elif euler is not None:
       assert look_at is None and quaternion is None
-      quaternion = euler_to_quat(euler)
+      quaternion = _euler_to_quat(euler)
     elif quaternion is None:
       quaternion = (1., 0., 0., 0.)
 

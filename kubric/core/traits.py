@@ -15,6 +15,7 @@
 
 import numpy as np
 import traitlets as tl
+import pyquaternion as pyquat
 
 from kubric.core import color
 from kubric.core.assets import UndefinedAsset
@@ -59,6 +60,9 @@ class Quaternion(tl.TraitType):
   info_text = "a 4D vector (WXYZ quaternion) of floats"
 
   def validate(self, obj, value):
+    if isinstance(value, pyquat.Quaternion):
+      value = tuple(value)
+    
     value = np.array(value, dtype=np.float32)
     if value.shape != (4,):
       self.error(obj, value)

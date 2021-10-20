@@ -47,15 +47,9 @@ from kubric.core.objects import Sphere
 from kubric.core.objects import Cube
 from kubric.core.objects import FileBasedObject
 
-from kubric.core.traits import Vector3D
-from kubric.core.traits import Scale
-from kubric.core.traits import Quaternion
-from kubric.core.traits import RGB
-from kubric.core.traits import RGBA
-from kubric.core.traits import AssetInstance
-
 from kubric.custom_types import AddAssetFunction
 from kubric.custom_types import PathLike
+from kubric.custom_types import Quaternion
 
 from kubric import assets
 from kubric.assets import AssetSource
