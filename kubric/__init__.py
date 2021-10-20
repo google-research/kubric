@@ -50,8 +50,9 @@ from kubric.core.objects import Sphere
 from kubric.core.objects import Cube
 from kubric.core.objects import FileBasedObject
 
-from kubric.typing import AddAssetFunction
-from kubric.typing import PathLike
+from kubric.custom_types import AddAssetFunction
+from kubric.custom_types import PathLike
+from kubric.custom_types import Quaternion
 
 from kubric import assets
 from kubric.assets import AssetSource
