@@ -23,12 +23,15 @@ For instructions, please refer to [https://kubric.readthedocs.io](https://kubric
 
 Assuming you have docker installed, to generate the data above simply execute:
 ```
-docker pull docker pull kubricdockerhub/kubruntu
+git clone https://github.com/google-research/kubric.git
+cd kubrick
+docker pull kubricdockerhub/kubruntu
 docker run --rm --interactive \
-    --user $(id -u):$(id -g) \
-    --volume "$PWD:/kubric" \
-    kubricdockerhub/kubruntu \
-    python3 examples/klevr.py
+           --user $(id -u):$(id -g) \
+           --volume "$(pwd):/kubric" \
+           kubricdockerhub/kubruntu \
+           /usr/bin/python3 examples/helloworld.py
+ls output
 ```
 
 ## Requirements
