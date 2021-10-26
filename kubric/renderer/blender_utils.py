@@ -61,7 +61,8 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
   return _func
 
 
-def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObject00")):
+def set_up_exr_output_node(default_layers=("Image", "Depth"),
+                           aux_layers=("UV", "Normal", "CryptoObject00", "ObjectCoordinates")):
   """ Set up the blender compositor nodes required for exporting EXR files.
 
   The filename can then be set with:
@@ -78,6 +79,9 @@ def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObje
 
   # the render node has outputs for all the rendered layers
   render_node = tree.nodes.new(type="CompositorNodeRLayers")
+  render_node_aux = tree.nodes.new(type="CompositorNodeRLayers")
+  render_node_aux.name = "Render Layers Aux"
+  render_node_aux.layer = "AuxOutputs"
 
   # create a new FileOutput node
   out_node = tree.nodes.new(type="CompositorNodeOutputFile")
@@ -85,9 +89,13 @@ def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObje
   out_node.format.file_format = "OPEN_EXR_MULTILAYER"
 
   out_node.file_slots.clear()
-  for layer_name in layers:
+  for layer_name in default_layers:
     out_node.file_slots.new(layer_name)
     links.new(render_node.outputs.get(layer_name), out_node.inputs.get(layer_name))
+
+  for layer_name in aux_layers:
+    out_node.file_slots.new(layer_name)
+    links.new(render_node_aux.outputs.get(layer_name), out_node.inputs.get(layer_name))
 
   # manually convert to RGBA. See:
   # https://blender.stackexchange.com/questions/175621/incorrect-vector-pass-output-no-alpha-zero-values/175646#175646
@@ -96,28 +104,65 @@ def set_up_exr_output_node(layers=("Image", "Depth", "UV", "Normal", "CryptoObje
   for channel in "RGBA":
     links.new(split_rgba.outputs.get(channel), combine_rgba.inputs.get(channel))
   out_node.file_slots.new("Vector")
-  links.new(render_node.outputs.get("Vector"), split_rgba.inputs.get("Image"))
+  links.new(render_node_aux.outputs.get("Vector"), split_rgba.inputs.get("Image"))
   links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
   return out_node
+
+
+def add_coordinate_material():
+  """Create a special material for generating object-coordinates as a separate output pass."""
+  mat = bpy.data.materials.new("KubricObjectCoordinatesOverride")
+
+  mat.use_nodes = True
+  bsdf_node = mat.node_tree.nodes["Principled BSDF"]
+  mat.node_tree.nodes.remove(bsdf_node)
+  out_node = mat.node_tree.nodes["Material Output"]
+  mat.node_tree.nodes.remove(out_node)
+
+  tex_coordinates = mat.node_tree.nodes.new(type="ShaderNodeTexCoord")
+  aov_out_node = mat.node_tree.nodes.new(type="ShaderNodeOutputAOV")
+  aov_out_node.name = "ObjectCoordinates"
+  unused_mat_out_node = mat.node_tree.nodes.new(type="ShaderNodeOutputMaterial")
+
+  mat.node_tree.links.new(tex_coordinates.outputs.get("Generated"),
+                          aov_out_node.inputs.get("Color"))
+  mat.node_tree.links.new(tex_coordinates.outputs.get("Generated"),
+                          unused_mat_out_node.inputs.get("Surface"))
+
+  return mat
 
 
 def activate_render_passes(normal: bool = True,
                            optical_flow: bool = True,
                            segmentation: bool = True,
                            uv: bool = True):
-  view_layer = bpy.context.scene.view_layers[0]
-  view_layer.use_pass_vector = optical_flow
-  view_layer.use_pass_uv = uv
-  view_layer.use_pass_normal = normal  # surface normals
+  # We use two separate view layers
+  # 1) the default view layer renders the image and uses many samples per pixel
+  # 2) the aux view layer uses only 1 sample per pixel to avoid anti-aliasing
+  default_view_layer = bpy.context.scene.view_layers[0]
+  aux_view_layer = bpy.context.scene.view_layers.new("AuxOutputs")
+  aux_view_layer.samples = 1  # only use 1 ray per pixel to disable anti-aliasing
+  aux_view_layer.use_pass_z = False  # no need for a separate z-pass
+  aux_view_layer.material_override = add_coordinate_material()
+  object_coords_aov = aux_view_layer.aovs.add()
+  object_coords_aov.name = "ObjectCoordinates"
+  aux_view_layer.cycles.use_denoising = False
+
+  # For optical flow, uv, and normals we use the aux view layer
+  aux_view_layer.use_pass_vector = optical_flow
+  aux_view_layer.use_pass_uv = uv
+  aux_view_layer.use_pass_normal = normal  # surface normals
+  # We use the default view layer for segmentation, so that we can get
+  # anti-aliased crypto-matte
   if bpy.app.version >= (2, 93, 0):
-    view_layer.use_pass_cryptomatte_object = segmentation
+    aux_view_layer.use_pass_cryptomatte_object = segmentation
     if segmentation:
-      view_layer.pass_cryptomatte_depth = 2
+      aux_view_layer.pass_cryptomatte_depth = 2
   else:
-    view_layer.cycles.use_pass_crypto_object = segmentation
+    aux_view_layer.cycles.use_pass_crypto_object = segmentation
     if segmentation:
-      view_layer.cycles.pass_crypto_depth = 2
+      aux_view_layer.cycles.pass_crypto_depth = 2
 
 
 def read_channels_from_exr(exr: OpenEXR.InputFile, channel_names: Sequence[str]) -> np.ndarray:
@@ -194,6 +239,8 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
     alpha_channels = [n + "." + c for n in crypto_layers for c in "GA"]
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
+  if "ObjectCoordinates" in layer_names:
+    output["object_coordinates"] = read_channels_from_exr(exr, ["ObjectCoordinates.R", "ObjectCoordinates.G", "ObjectCoordinates.B"])
   return output
 
 

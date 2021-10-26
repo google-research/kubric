@@ -267,7 +267,7 @@ class Blender(core.View):
 
       layers = blender_utils.get_render_layers_from_exr(exr_filename)
       data = {k: layers[k] for k in
-              ["backward_flow", "forward_flow", "depth", "uv", "normal"]}
+              ["backward_flow", "forward_flow", "depth", "uv", "normal", "object_coordinates"]}
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
       data["rgba"] = file_io.read_png(png_filename)
       data["segmentation"] = layers["segmentation_indices"][:, :, :1]
