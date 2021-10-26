@@ -203,11 +203,14 @@ class Blender(core.View):
 
   def render(self,
              frames: Optional[Sequence[int]] = None,
+             ignore_missing_textures: bool = False,
              ) -> Dict[str, np.ndarray]:
     """Renders all frames (or a subset) of the animation and returns images as a dict of arrays.
 
     Args:
       frames: list of frames to render (defaults to range(scene.frame_start, scene.frame_end+1)).
+      ignore_missing_textures: if False then raise a RuntimeError when missing textures are
+        detected. Otherwise, proceed to render (with purple color instead of missing texture).
     Returns:
       A dictionary with the following entries:
         - "rgba": shape = (nr_frames, height, width, 4)
@@ -219,6 +222,9 @@ class Blender(core.View):
         - "normal": shape = (nr_frames, height, width, 3)
     """
     logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
+    missing_textures = sorted({img.filepath for img in bpy.data.images if not img.has_data})
+    if missing_textures and not ignore_missing_textures:
+      raise RuntimeError(f"Missing textures: {missing_textures}")
     self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
     # --- starts rendering
     if frames is None:
