@@ -49,7 +49,7 @@ from kubric.core.objects import FileBasedObject
 
 from kubric.custom_types import AddAssetFunction
 from kubric.custom_types import PathLike
-from kubric.custom_types import Quaternion
+from pyquat import Quaternion
 
 from kubric import assets
 from kubric.assets import AssetSource
