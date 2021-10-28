@@ -17,7 +17,7 @@ import traitlets as tl
 
 from kubric.core.assets import UndefinedAsset
 from kubric.core import objects
-from kubric.custom_types import ArrayLike
+from kubric.typing import ArrayLike
 
 
 class Camera(objects.Object3D):

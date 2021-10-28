@@ -13,7 +13,8 @@ parser.set_defaults(
   seed=1,
   frame_start=1,
   frame_end=30,
-  resolution=(256, 256),
+  width=64,
+  height=64,
 )
 FLAGS = parser.parse_args()
 

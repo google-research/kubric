@@ -16,6 +16,7 @@
 from typing import Any, Callable, Union, Sequence
 
 import numpy as np
+import pyquaternion as pyquat
 import tensorflow_datasets.public_api as tfds
 
 from kubric import core  # pylint: disable=unused-import

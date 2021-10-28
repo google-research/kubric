@@ -22,7 +22,7 @@ from typing import Optional, Union, Tuple
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core import materials
-from kubric.custom_types import ArrayLike
+from kubric.typing import ArrayLike
 
 
 def ensure_3d_vector(x: ArrayLike) -> np.ndarray:

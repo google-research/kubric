@@ -15,7 +15,7 @@
 import numpy as np
 from typing import Sequence
 from kubric import core
-from kubric.custom_types import ArrayLike
+from kubric.typing import ArrayLike
 
 
 def compute_visibility(segmentation: np.ndarray, assets: Sequence[core.Asset]):
