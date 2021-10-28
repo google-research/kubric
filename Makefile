@@ -60,14 +60,17 @@ examples/shapenet: checkmakeversion
 # USAGE:
 # 	make pytest TEST=test/test_core.py
 # 	make pytest TEST=test/test_core.py::test_asset_name_readonly
-TEST = test/
-pytest:
-	docker run --rm --interactive --volume `pwd`:/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $(TEST)
+pytest: checkmakeversion
+	@TARGET=$${TARGET:-test/}
+	echo "pytest (kubricdockerhub/kubruntudev) on folder" $${TARGET}
+	docker run --rm --interactive --volume `pwd`:/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $${TARGET}
 
 # --- runs pylint on the entire "kubric/" subfolder
-LINT = ./kubric
-pylint:
-	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $(LINT)
+# To run with options, e.g. `make pylint TARGET=./kubric/core`
+pylint: checkmakeversion
+	@TARGET=$${TARGET:-kubric/}
+	echo "running kubricdockerhub/kubruntudev pylint on" $${TARGET}
+	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build
