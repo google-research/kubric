@@ -128,10 +128,10 @@ class PyBullet(core.View):
                             useMaximalCoordinates=True)
     else:
       raise IOError(
-          "Unsupported format '{}' of file '{}'".format(path.suffix, path))
+          "Unsupported format '{path.suffix}' of file '{path}'")
 
     if obj_idx < 0:
-      raise IOError("Failed to load '{}'.".format(path))
+      raise IOError(f"Failed to load '{path}'")
 
     pb.changeDynamics(obj_idx, -1, contactProcessingThreshold=0)
 
@@ -321,7 +321,7 @@ def set_angular_velocity(object_idx, angular_velocity, asset):  # pylint: disabl
 
 def set_mass(object_idx, mass: float, asset):
   if mass < 0:
-    raise ValueError("mass cannot be negative ({})".format(mass))
+    raise ValueError(f"mass cannot be negative ({mass})")
   if not asset.static:
     pb.changeDynamics(object_idx, -1, mass=mass)
 
@@ -335,13 +335,13 @@ def set_static(object_idx, is_static, asset):
 
 def set_friction(object_idx, friction: float, asset):  # pylint: disable=unused-argument
   if friction < 0:
-    raise ValueError("friction cannot be negative ({})".format(friction))
+    raise ValueError("friction cannot be negative ({friction})")
   pb.changeDynamics(object_idx, -1, lateralFriction=friction)
 
 
 def set_restitution(object_idx, restitution: float, asset):  # pylint: disable=unused-argument
   if restitution < 0:
-    raise ValueError("restitution cannot be negative ({})".format(restitution))
+    raise ValueError("restitution cannot be negative ({restitution})")
   if restitution > 1:
-    raise ValueError("restitution should be below 1.0 ({})".format(restitution))
+    raise ValueError("restitution should be below 1.0 ({restitution})")
   pb.changeDynamics(object_idx, -1, restitution=restitution)

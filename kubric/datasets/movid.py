@@ -446,14 +446,16 @@ class Movid(tfds.core.BeamBasedBuilder):
     all_subdirs = [d for d in path.glob("*") if (d / "events.json").exists()]
     all_subdirs = sorted(all_subdirs, key=lambda x: int(x.name))
     all_subdirs = [str(d) for d in all_subdirs]
-    logging.info("Found %d sub-folders in master path: %s", len(all_subdirs), path)
+    logging.info("Found {subfolder} sub-folders in master path: {path}",
+        subfolders=len(all_subdirs), path=path)
 
     validation_ratio = self.builder_config.validation_ratio
     validation_examples = round(len(all_subdirs) * validation_ratio)
     training_examples = len(all_subdirs) - validation_examples
-    logging.info("Using %s of examples for validation for a total of %d",
-                 "{:.2%}".format(validation_ratio), validation_examples)
-    logging.info("Using the other %d examples for training", training_examples)
+    logging.info("Using {ratio} of examples for validation for a total of {examples}}",
+        ratio=validation_ratio, examples=validation_examples)
+    logging.info("Using the other {examples} examples for training",
+        examples=training_examples)
 
     splits = {
         tfds.Split.TRAIN: self._generate_examples(all_subdirs[:training_examples]),

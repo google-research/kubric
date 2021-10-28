@@ -46,20 +46,20 @@ class Color(NamedTuple):
   @classmethod
   def from_hsv(cls, h: float, s: float, v: float, alpha=1.0):
     if not 0 <= h <= 1:
-      raise ValueError("Hue has to be between 0.0 and 1.0 (was {})".format(h))
+      raise ValueError(f"Hue has to be between 0.0 and 1.0 (was {h})")
     if not 0 <= s <= 1:
-      raise ValueError("Saturation has to be between 0.0 and 1.0 (was {})".format(s))
+      raise ValueError(f"Saturation has to be between 0.0 and 1.0 (was {s})")
     if not 0 <= v <= 1:
-      raise ValueError("Value has to be between 0.0 and 1.0 (was {})".format(v))
+      raise ValueError(f"Value has to be between 0.0 and 1.0 (was {v})")
     return cls(*colorsys.hsv_to_rgb(h, s, v), a=alpha)
 
   @classmethod
   def from_hexint(cls, hexint: int, alpha: float = 1.0):
     """Create a Color instance from a hex integer like 0xaaff33 and an optional alpha value."""
     if not 0 <= hexint <= 0xffffff:
-      raise ValueError("hexint not [0x000000 ... 0xffffff] (was 0x{:06x})".format(hexint))
+      raise ValueError(f"hexint not [0x000000 ... 0xffffff] (was 0x{hexint:06x})")
     if not 0. <= alpha <= 1.0:
-      raise ValueError("alpha has to be between 0.0 and 1.0 (was {})".format(alpha))
+      raise ValueError(f"alpha has to be between 0.0 and 1.0 (was {alpha})")
     b = hexint & 255
     g = (hexint >> 8) & 255
     r = (hexint >> 16) & 255
