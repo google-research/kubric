@@ -57,7 +57,7 @@ logging.info(f"selected '{asset_id}'")
 # --- make object flat on X/Y and not penetrate floor
 obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
 # HACK: bounds are not updated after rotation! supposed to be obj.bounds[0][2]
-obj.position = obj.position - (0, 0, obj.bounds[0][1])  
+obj.position = obj.position - (0, 0, obj.aabbox[0][1])  
 
 obj.metadata = {
     "asset_id": obj.asset_id,
