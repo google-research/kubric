@@ -12,9 +12,9 @@ parser = kb.ArgumentParser()
 parser.set_defaults(
   seed=1,
   frame_start=1,
-  frame_end=30,
-  width=64,
-  height=64,
+  frame_end=5,
+  width=256,
+  height=256,
 )
 FLAGS = parser.parse_args()
 
@@ -56,8 +56,7 @@ logging.info(f"selected '{asset_id}'")
 
 # --- make object flat on X/Y and not penetrate floor
 obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
-# HACK: bounds are not updated after rotation! supposed to be obj.bounds[0][2]
-obj.position = obj.position - (0, 0, obj.aabbox[0][1])  
+obj.position = obj.position - (0, 0, obj.aabbox[0][2])  
 
 obj.metadata = {
     "asset_id": obj.asset_id,
