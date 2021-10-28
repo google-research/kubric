@@ -67,7 +67,7 @@ pytest:
 # --- runs pylint on the entire "kubric/" subfolder
 LINT = ./kubric
 pylint:
-	pylint --rcfile=.pylintrc $(LINT)
+	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $(LINT)
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build
