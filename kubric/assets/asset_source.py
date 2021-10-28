@@ -104,7 +104,7 @@ class AssetSource:
 
     Args:
       fraction: the fraction of the asset source to use for the heldout set.
-      
+
     Returns:
       train_objects: list of asset ID strings
       held_out_objects: list of asset ID strings

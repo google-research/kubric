@@ -17,6 +17,9 @@
 # --- auto-computed by setup.py, source version is always at HEAD
 __version__ = "HEAD"
 
+# --- basic kubric types
+from pyquaternion import Quaternion
+
 from kubric.core.scene import Scene
 
 from kubric.core.assets import Asset
@@ -49,8 +52,6 @@ from kubric.core.objects import FileBasedObject
 
 from kubric.typing import AddAssetFunction
 from kubric.typing import PathLike
-
-from pyquaternion import Quaternion
 
 from kubric import assets
 from kubric.assets import AssetSource
@@ -86,7 +87,6 @@ from kubric.utils import get_instance_info
 from kubric.utils import get_scene_metadata
 from kubric.utils import log_my_flags
 from kubric.utils import process_collisions
-
 from kubric.utils import setup
 from kubric.utils import setup_directories
 from kubric.utils import setup_logging

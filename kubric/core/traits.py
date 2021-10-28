@@ -62,7 +62,7 @@ class Quaternion(tl.TraitType):
   def validate(self, obj, value):
     if isinstance(value, pyquat.Quaternion):
       value = tuple(value)
-    
+
     value = np.array(value, dtype=np.float32)
     if value.shape != (4,):
       self.error(obj, value)
