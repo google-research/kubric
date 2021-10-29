@@ -83,7 +83,7 @@ class Asset(tl.HasTraits):
 
   def keyframe_insert(self, member: str, frame: int):
     if not self.has_trait(member):
-      raise KeyError("Unknown member \"{}\".".format(member))
+      raise KeyError(f"Unknown member '{member}'")
     self.keyframes[member][frame] = getattr(self, member)
 
     # use the traitlets observer system to notify all the AttributeSetters about the new keyframe
@@ -158,8 +158,7 @@ class Asset(tl.HasTraits):
     return self.uid == other.uid
 
   def __repr__(self):
-    traits = sorted(["{}={!r}".format(k, getattr(self, k))
-                     for k in self.trait_names() if k != "uid"])
+    traits = sorted([f"{k}={repr(getattr(self, k))}" for k in self.trait_names() if k != "uid"])
     if traits:
       return f"<{self.uid} {' '.join(traits)}>"
     else:

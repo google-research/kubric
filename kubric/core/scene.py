@@ -85,9 +85,8 @@ class Scene(tl.HasTraits):
     if proposed_step_rate <= 0:
       raise tl.TraitError(f"step_rate should be > 0, but was {proposed_step_rate}")
     if proposed_step_rate % self.frame_rate != 0:
-      raise tl.TraitError(
-          "step_rate should be a multiple of frame_rate, but {} % {} != 0".format(
-              proposed_step_rate, self.frame_rate))
+      raise tl.TraitError(f"step_rate should be a multiple of frame_rate, \
+        but {proposed_step_rate} % {self.frame_rate} != 0")
     return proposed_step_rate
 
   @tl.validate("frame_rate")
@@ -96,9 +95,8 @@ class Scene(tl.HasTraits):
     if proposed_frame_rate <= 0:
       raise tl.TraitError(f"frame_rate should be > 0, but was {proposed_frame_rate}")
     if self.step_rate % proposed_frame_rate != 0:
-      raise tl.TraitError(
-          "step_rate should be a multiple of frame_rate, but {} % {} != 0".format(
-              self.step_rate, proposed_frame_rate))
+      raise tl.TraitError(f"step_rate should be a multiple of frame_rate, but \
+        {self.step_rate} % {proposed_frame_rate} != 0")
     return proposed_frame_rate
 
   @property

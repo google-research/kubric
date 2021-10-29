@@ -90,6 +90,12 @@ class ArgumentParser(argparse.ArgumentParser):
       flags = super().parse_args(args=args)
     return flags
 
+  def set_defaults(self, **kwargs):
+    """Same as argparse.ArgumentParser.set_defaults() but with safety checks."""
+    valid_names = [action.dest for action in self._actions]
+    for key in kwargs:
+      assert key in valid_names, f"Specifying default for an undefined argument '{key}'"
+    super().set_defaults(**kwargs)
 
 # --------------------------------------------------------------------------------------------------
 # Helpers for workers
