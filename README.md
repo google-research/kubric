@@ -24,7 +24,7 @@ For instructions, please refer to [https://kubric.readthedocs.io](https://kubric
 Assuming you have docker installed, to generate the data above simply execute:
 ```
 git clone https://github.com/google-research/kubric.git
-cd kubrick
+cd kubric
 docker pull kubricdockerhub/kubruntu
 docker run --rm --interactive \
            --user $(id -u):$(id -g) \
