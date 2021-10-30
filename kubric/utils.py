@@ -43,6 +43,7 @@ import tensorflow_datasets.public_api as tfds
 
 from kubric import core
 from kubric import file_io
+from kubric import assets
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +120,7 @@ def log_my_flags(flags):
 def done():
   logging.info("Done!")
 
+  assets.ClosableResource.close_all()
   # -- report generated_images to hyperparameter tuner
   import hypertune  # pylint: disable=import-outside-toplevel
 

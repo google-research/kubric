@@ -95,11 +95,12 @@ import kubric as kb
 from kubric.simulator import PyBullet
 from kubric.renderer import Blender
 import numpy as np
+import pandas as pd
 
 
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
-STATIC_SPAWN_REGION = [(-7, -7, 0), (7, 7, 4)]
+STATIC_SPAWN_REGION = [(-7, -7, 0), (7, 7, 10)]
 DYNAMIC_SPAWN_REGION = [(-5, -5, 1), (5, 5, 5)]
 CAMERA_RANGE = [[-10, -10, 1], [10, 10, 3]]
 
@@ -136,7 +137,7 @@ parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_hav
 
 parser.add_argument("--no_save_state", dest="save_state", action="store_false")
 parser.add_argument("--save_state", dest="save_state", action="store_true")
-parser.set_defaults(save_state=True, frame_end=24, frame_rate=12, width=256, height=256)
+parser.set_defaults(save_state=True, frame_end=24, frame_rate=12, width=512, height=512)
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
@@ -188,13 +189,13 @@ elif FLAGS.background == "hdri":
 
 def get_linear_camera_motion_start_end(inner_radius=8., outer_radius=12.):
   while True:
-    camera_start = kb.sample_point_in_half_sphere_shell(inner_radius, outer_radius)
+    camera_start = np.array(kb.sample_point_in_half_sphere_shell(inner_radius, outer_radius)) + [0, 0, 0.1]
     movement_speed = rng.uniform(low=0., high=FLAGS.max_camera_movement)
     direction = rng.rand(3) - 0.5
     movement = direction / np.linalg.norm(direction) * movement_speed
     camera_end = camera_start + movement
     camera_end_length = np.linalg.norm(camera_end)
-    if (inner_radius <= camera_end_length <= outer_radius) and camera_end[2] > 0.:
+    if (inner_radius <= camera_end_length <= outer_radius) and camera_end[2] > 0.1:
       return camera_start, camera_end
 
 
@@ -209,7 +210,7 @@ if FLAGS.camera == "clevr":
   scene.camera.position = [7.48113, -6.50764, 5.34367] + rng.rand(3)
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "random":
-  scene.camera.position = kb.sample_point_in_half_sphere_shell(8., 12.)
+  scene.camera.position = np.array(kb.sample_point_in_half_sphere_shell(8., 12.)) + [0, 0, 0.1]
   scene.camera.look_at((0, 0, 0))
 if FLAGS.camera == "linear_movement":
   camera_start, camera_end = get_linear_camera_motion_start_end()
@@ -251,12 +252,23 @@ def add_random_object(spawn_region, rng, use_init_velocity=True):
         asset_source, objects_set="kubasic", color_strategy="uniform_hue",
         size_strategy="uniform", rng=rng)
   else:  # FLAGS.objects_set == "gso":
-    obj = asset_source.create(asset_id=rng.choice(active_split), scale=8.0,
+
+    scale = rng.uniform(0.5, 2.0)
+    asset_id = rng.choice(active_split)
+    obj = asset_source.create(asset_id=asset_id, scale=scale,
                               friction=0.5, restitution=0.5)
+    min_bounds, max_bounds = obj.bounds
+    max_dim = np.max(np.abs(min_bounds - max_bounds))
+    obj.scale = scale / max_dim
+
+    cat_name = "jft_category" if "jft_category" in asset_source.db.columns else "category_id"
+    category_id = int(asset_source.db[
+                      asset_source.db["id"] == asset_id].iloc[0][cat_name])
+    categories = sorted(pd.unique(asset_source.db[cat_name]))
     obj.metadata = {
+        "scale": scale,
         "asset_id": obj.asset_id,
-        "jft_category": asset_source.db[
-          asset_source.db["id"] == obj.asset_id].iloc[0]["jft_category"],
+        "category": categories.index(category_id),
     }
 
   if FLAGS.object_friction is not None:
@@ -312,6 +324,8 @@ if FLAGS.save_state:
 logging.info("Running the simulation ...")
 animation, collisions = simulator.run(frame_start=0, frame_end=scene.frame_end+1)
 
+all_bboxes = np.array([obj.aabbox for obj in scene.foreground_assets])
+scene_aabbox = all_bboxes[:, 0, :].min(), all_bboxes[:, 1, :].max()
 
 # --- Rendering
 if FLAGS.save_state:
@@ -334,6 +348,7 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     scene.assets,
     visible_foreground_assets)
 scene_metadata["num_instances"] = len(visible_foreground_assets)
+
 # Save to image files
 kb.write_image_dict(data_stack, output_dir)
 
@@ -351,4 +366,11 @@ kb.write_json(filename=output_dir / "events.json", data={
     "collisions":  kb.process_collisions(collisions, scene, assets_subset=visible_foreground_assets),
 })
 
-kb.done()
+try:
+  asset_source.close()
+  hdri_source.close()
+except NameError:
+  pass  # hdri source undefined
+finally:
+  kb.done()
+
