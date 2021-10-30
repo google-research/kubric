@@ -55,6 +55,8 @@ examples/katr: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/shapenet.py
+examples/lfn_dataset: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/lfn_dataset.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
