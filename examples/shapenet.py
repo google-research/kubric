@@ -1,3 +1,4 @@
+import os
 import logging
 import numpy as np
 
@@ -5,7 +6,7 @@ import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
 
 # --- WARNING: this path is not yet public
-source_path = "gs://kubric-public/ShapeNetCore.v2"
+source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/ShapeNetCore.v2")
 
 # --- CLI arguments (and modified defaults)
 parser = kb.ArgumentParser()
