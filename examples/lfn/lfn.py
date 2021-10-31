@@ -9,11 +9,11 @@ import os.path as osp
 from glob import glob
 # import random
 
-# --- WARNING: this path is not yet public
-source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/ShapeNetCore.v2")
-
 # --- CLI arguments (and modified defaults)
 parser = kb.ArgumentParser()
+parser.add_argument("--source_path", type=str,
+  default="gs://kubric-public/ShapeNetCore.v2",
+  help="location of shapenet data source.",)
 parser.set_defaults(
   seed=1,
   frame_start=0,
@@ -69,7 +69,7 @@ for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
 
 # idx = random.choice(sorted_list)
 # --- Fetch a random (airplane) asset
-asset_source = kb.AssetSource(source_path)
+asset_source = kb.AssetSource(FLAGS.source_path)
 ids = list(asset_source.db['id'])
 # ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
 asset_id = ids[FLAGS.seed % len(ids)] #< e.g. 02691156_10155655850468db78d106ce0a280f87
