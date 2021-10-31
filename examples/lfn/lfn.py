@@ -16,8 +16,8 @@ source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/ShapeNetCore.
 parser = kb.ArgumentParser()
 parser.set_defaults(
   seed=1,
-  frame_start=1,
-  frame_end=5,
+  frame_start=0,
+  frame_end=23,
   width=256,
   height=256,
 )
