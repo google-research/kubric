@@ -148,8 +148,8 @@ def add_material(name, obj, **properties):
       output_node.inputs['Surface'],
   )
 
-bpy.ops.wm.append(filename=osp.join(".", "MyMetal.blend", 'NodeTree', "MyMetal"))
-bpy.ops.wm.append(filename=osp.join(".", "Rubber.blend", 'NodeTree', "Rubber"))
+bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "MyMetal.blend", 'NodeTree', "MyMetal"))
+bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "Rubber.blend", 'NodeTree', "Rubber"))
 object = bpy.context.scene.objects[-1]
 
 rand_color = rng.uniform(0, 1, (3,))
