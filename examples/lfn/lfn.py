@@ -30,7 +30,7 @@ job_dir = kb.as_path(FLAGS.job_dir)
 rng = np.random.RandomState(FLAGS.seed)
 scene = kb.Scene.from_flags(FLAGS)
 
-data = np.load("dataset/cameras.npz")
+data = np.load("examples/lfn/cameras.npz")
 
 # --- Add a renderer
 renderer = KubricRenderer(scene,

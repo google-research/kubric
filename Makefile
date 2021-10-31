@@ -56,7 +56,7 @@ examples/katr: checkmakeversion
 examples/shapenet: checkmakeversion
 	docker run --rm --interactive --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/shapenet.py
 examples/lfn: checkmakeversion
-	docker run --rm --interactive --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/lfn.py
+	docker run --rm --interactive --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/lfn/lfn.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
