@@ -7,16 +7,17 @@
 # 
 # For example from the kubric directory a bash session can be started as:
 # 
-# docker run --rm --interactive
+# docker run --rm --interactive \
 #   --user $(id -u):$(id -g) \
-#   --volume "$PWD:/kubric" \
-#   --workdir "/kubric" \
+#   --volume "$PWD:/workspace" \
+#   --workdir "/workspace" \
 #   kubricdockerhub/kubruntudev:latest \
 #   /bin/bash
 
 FROM kubricdockerhub/blender:latest
 
-WORKDIR /kubric
+WORKDIR /workspace
+SHELL ["/bin/bash", "-c"]
 
 # --- copy requirements in workdir
 COPY requirements.txt .
@@ -40,5 +41,5 @@ RUN rm -f requirements_docs.txt
 # --- silences tensorflow
 ENV TF_CPP_MIN_LOG_LEVEL="3"
 
-# --- allows "import kubric" w/o install
-ENV PYTHONPATH="/kubric"
+# --- allows "import kubric" w/o install (as kubric is a subfolder of "/")
+ENV PYTHONPATH="/workspace"
