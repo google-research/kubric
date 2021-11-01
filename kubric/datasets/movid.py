@@ -103,10 +103,10 @@ class Movid(tfds.core.BeamBasedBuilder):
           validation_ratio=0.02,
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_e_v121",
           test_split_paths={
-              "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_obj",
-              "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_bg1",
-              "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_objbg",
-              "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_same2",
+              # "test_held_out_objects": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_obj",
+              # "test_held_out_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_bg1",
+              # "test_held_out_objects_and_backgrounds": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_objbg",
+              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_e_v11_test_same2",
           }
       ),
       # MovidConfig(
@@ -459,7 +459,7 @@ class Movid(tfds.core.BeamBasedBuilder):
     """Returns SplitGenerators."""
     del unused_dl_manager
     path = tfds.core.as_path(self.builder_config.train_val_path)
-    all_subdirs = [d for d in path.glob("*") if (d / "events.json").exists()]
+    all_subdirs = [d for d in path.iterdir()]  # if (d / "events.json").exists()]
     all_subdirs = sorted(all_subdirs, key=lambda x: int(x.name))
     all_subdirs = [str(d) for d in all_subdirs]
     logging.info("Found {subfolder} sub-folders in master path: {path}",
@@ -480,7 +480,7 @@ class Movid(tfds.core.BeamBasedBuilder):
 
     for key, path in self.builder_config.test_split_paths.items():
       path = tfds.core.as_path(path)
-      split_dirs = [d for d in path.glob("*") if (d / "events.json").exists()]
+      split_dirs = [d for d in path.iterdir()]  # if (d / "events.json").exists()]
       # sort the directories by their integer number
       split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
       logging.info("Found %d sub-folders in '%s' path: %s", len(split_dirs), key, path)
@@ -492,6 +492,26 @@ class Movid(tfds.core.BeamBasedBuilder):
     """Yields examples."""
 
     target_size = (self.builder_config.height, self.builder_config.width)
+
+    def _is_complete_dir(video_dir):
+      video_dir = tfds.core.as_path(video_dir)
+      filenames = [d.name for d in video_dir.iterdir()]
+      if not ("data_ranges.json" in filenames and
+              "metadata.json" in filenames and
+              "events.json" in filenames):
+        return False
+      nr_frames_per_category = {
+          key: len([fn for fn in filenames if fn.startswith(key)])
+          for key in ["rgba", "depth", "segmentation", "forward_flow",
+                      "backward_flow", "normal", "object_coordinates"]}
+
+      nr_expected_frames = nr_frames_per_category["rgba"]
+      if nr_expected_frames == 0:
+        return False
+      if not all(nr_frames == nr_expected_frames for nr_frames in nr_frames_per_category.values()):
+        return False
+
+      return True
 
     def _process_example(video_dir):
       video_dir = tfds.core.as_path(video_dir)
@@ -521,7 +541,6 @@ class Movid(tfds.core.BeamBasedBuilder):
       fwd_flow_frame_paths = [video_dir / f"forward_flow_{f:05d}.png" for f in range(num_frames)]
       bwd_flow_frame_paths = [video_dir / f"backward_flow_{f:05d}.png" for f in range(num_frames)]
       depth_frame_paths = [video_dir / f"depth_{f:05d}.tiff" for f in range(num_frames)]
-      uv_frame_paths = [video_dir / f"uv_{f:05d}.png" for f in range(num_frames)]
       normal_frame_paths = [video_dir / f"normal_{f:05d}.png" for f in range(num_frames)]
       object_coordinates_frame_paths = [video_dir / f"object_coordinates_{f:05d}.png" for f in range(num_frames)]
 
@@ -613,14 +632,7 @@ class Movid(tfds.core.BeamBasedBuilder):
       }
 
     beam = tfds.core.lazy_imports.apache_beam
-    return beam.Create(directories) | beam.Map(_process_example)
-
-
-def _get_files_from_subdir(path: str) -> List[str]:
-  path = tfds.core.as_path(path)
-  files = [str(f) for f in path.glob("frame*.pkl")]
-  logging.info("Found %d files in path: %s", len(files), path)
-  return files
+    return beam.Create(directories) | beam.Filter(_is_complete_dir) | beam.Map(_process_example)
 
 
 def subsample_nearest_neighbor(arr, size):

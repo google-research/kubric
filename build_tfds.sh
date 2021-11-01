@@ -6,7 +6,7 @@ GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
 JOB_NAME=${2}
-MACHINE_TYPE="n1-highmem-32"
+MACHINE_TYPE="n1-highmem-16"
 NUM_WORKERS=20
 
 if ! [[ $JOB_NAME =~ ^[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z0-9]$ ]]; then
