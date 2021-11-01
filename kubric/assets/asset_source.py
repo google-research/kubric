@@ -43,7 +43,7 @@ class ClosableResource:
   def close(self):
     try:
       self._set_of_open_resources.remove(self)
-    except ValueError:
+    except (ValueError, KeyError):
       pass  # not listed anymore. Ignore.
 
   @classmethod
