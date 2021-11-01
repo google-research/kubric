@@ -168,6 +168,7 @@ del data_stack["forward_flow"]
 del data_stack["backward_flow"]
 del data_stack["depth"]
 del data_stack["normal"]
+del data_stack["object_coordinates"]
 
 # --- Save to image files
 kb.file_io.write_image_dict(data_stack, job_dir)
