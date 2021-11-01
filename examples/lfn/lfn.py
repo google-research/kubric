@@ -153,7 +153,7 @@ add_material('MyMetal', object, Color=color)
 
 # --- Rendering
 logging.info("Rendering the scene ...")
-renderer.save_state(job_dir / "scene.blend")
+# renderer.save_state(job_dir / "scene.blend")  #< WARNING: uses lots of disk space
 data_stack = renderer.render()
 
 # --- Postprocessing
