@@ -107,11 +107,6 @@ def add_material(name, obj, **properties):
   mat.name = 'Material_%d' % mat_count
   mat.use_nodes = True
 
-  # Attach the new material to the active object
-  # Make sure it doesn't already have materials
-  # import pdb
-  # pdb.set_trace()
-
   for i in range(len(obj.material_slots)):
       bpy.ops.object.material_slot_remove({'object': obj})
 
@@ -162,7 +157,6 @@ renderer.save_state(job_dir / "scene.blend")
 data_stack = renderer.render()
 
 # --- Postprocessing
-kb.compute_visibility(data_stack["segmentation"], scene.assets)
 data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     data_stack["segmentation"],
     scene.assets,
