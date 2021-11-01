@@ -27,7 +27,7 @@ import tensorflow_datasets.public_api as tfds
 from typing import Optional
 import weakref
 
-from kubric.typing import PathLike
+from kubric.kubric_typing import PathLike
 from kubric.core import objects
 from kubric.core import materials
 

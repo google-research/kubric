@@ -22,7 +22,7 @@ import Imath
 import sklearn.utils
 
 from kubric import core
-from kubric.typing import AddAssetFunction, ArrayLike
+from kubric.kubric_typing import AddAssetFunction, ArrayLike
 from kubric.redirect_io import RedirectStream
 from kubric.safeimport.bpy import bpy
 

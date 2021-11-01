@@ -42,7 +42,7 @@ import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
 from kubric import plotting
-from kubric.typing import PathLike
+from kubric.kubric_typing import PathLike
 
 
 logger = logging.getLogger(__name__)

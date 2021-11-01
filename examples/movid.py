@@ -366,11 +366,5 @@ kb.write_json(filename=output_dir / "events.json", data={
     "collisions":  kb.process_collisions(collisions, scene, assets_subset=visible_foreground_assets),
 })
 
-try:
-  asset_source.close()
-  hdri_source.close()
-except NameError:
-  pass  # hdri source undefined
-finally:
-  kb.done()
+kb.done()
 
