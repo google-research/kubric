@@ -64,7 +64,7 @@ examples/lfn: checkmakeversion
 
 # --- one-liners for launching on GCP
 examples/lfn/launch: checkmakeversion
-	launch.sh remote examples/lfn/lfn.py lfn_v6 10000 100 --source_path=$${SHAPENET_GCP_BUCKET}
+	launch.sh local examples/lfn/lfn.py lfn_`date +"%Y-%m-%dT%H:%M:%S%Z"` 52423 4000 --source_path=$${SHAPENET_GCP_BUCKET}
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:

@@ -183,6 +183,7 @@ logging.info("Collecting and storing metadata for each object.")
 data = {
   "metadata": kb.get_scene_metadata(scene),
   "camera": kb.get_camera_info(scene.camera),
+  "instances": kb.get_instance_info(scene),
 }
 kb.file_io.write_json(filename=job_dir / "metadata.json", data=data)
 kb.done()
