@@ -14,6 +14,8 @@
 
 import json
 import logging
+import pathlib
+import shutil
 import tarfile
 import tempfile
 
@@ -23,21 +25,47 @@ import tensorflow_datasets.public_api as tfds
 
 
 from typing import Optional
+import weakref
 
-from kubric.typing import PathLike
+from kubric.kubric_typing import PathLike
 from kubric.core import objects
 from kubric.core import materials
 
 
-class AssetSource:
+class ClosableResource:
+  _set_of_open_resources = weakref.WeakSet()
+
+  def __init__(self):
+    super().__init__()
+    self.is_closed = False
+    self._set_of_open_resources.add(self)
+
+  def close(self):
+    try:
+      self._set_of_open_resources.remove(self)
+    except ValueError:
+      pass  # not listed anymore. Ignore.
+
+  @classmethod
+  def close_all(cls):
+    while True:
+      try:
+        r = cls._set_of_open_resources.pop()
+      except KeyError:
+        break
+      r.close()
+
+
+class AssetSource(ClosableResource):
   """TODO(klausg): documentation."""
 
   def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
+    super().__init__()
     self.remote_dir = tfds.core.as_path(path)
     name = self.remote_dir.name
     logging.info("Adding AssetSource '%s' with URI='%s'", name, self.remote_dir)
 
-    self.local_dir = tfds.core.as_path(tempfile.mkdtemp(prefix="assets", dir=scratch_dir))
+    self.local_dir = pathlib.Path(tempfile.mkdtemp(prefix="assets", dir=scratch_dir))
 
     manifest_path = self.remote_dir / "manifest.json"
     if manifest_path.exists():
@@ -48,8 +76,19 @@ class AssetSource:
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
-  def __del__(self):
-    self.local_dir.rmtree()
+  def close(self):
+    if self.is_closed:
+      return
+    try:
+      shutil.rmtree(self.local_dir)
+    finally:
+      super().close()
+
+  def __enter__(self):
+    return self
+
+  def __exit__(self, exc_type, exc_val, exc_tb):
+    self.close()
 
   def create(self, asset_id: str, **kwargs) -> objects.FileBasedObject:
     assert asset_id in self.db["id"].values, kwargs
@@ -117,10 +156,11 @@ class AssetSource:
     return train_objects, held_out_objects
 
 
-class TextureSource:
+class TextureSource(ClosableResource):
   """TODO(klausg): documentation."""
 
   def __init__(self, path: PathLike, scratch_dir: Optional[PathLike] = None):
+    super().__init__()
     self.remote_dir = tfds.core.as_path(path)
     name = self.remote_dir.name
     logging.info("Adding TextureSource '%s' with URI='%s'", name, self.remote_dir)
@@ -135,8 +175,19 @@ class TextureSource:
       self.db = pd.DataFrame(assets_list, columns=["id"])
       logging.info("No manifest file. Found %d assets.", self.db.shape[0])
 
-  def __del__(self):
-    self.local_dir.rmtree()
+  def close(self):
+    if self.is_closed:
+      return
+    try:
+      shutil.rmtree(self.local_dir)
+    finally:
+      super().close()
+
+  def __enter__(self):
+    return self
+
+  def __exit__(self, exc_type, exc_val, exc_tb):
+    self.close()
 
   def create(self, texture_name: str, **kwargs) -> materials.Texture:
     texture_path = self.fetch(texture_name)

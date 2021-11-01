@@ -42,7 +42,7 @@ import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
 from kubric import plotting
-from kubric.typing import PathLike
+from kubric.kubric_typing import PathLike
 
 
 logger = logging.getLogger(__name__)
@@ -271,6 +271,13 @@ def write_normal_batch(data, directory, file_template="normal_{:05d}.png", max_w
   multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
 
 
+def write_coordinates_batch(data, directory, file_template="object_coordinates_{:05d}.png",
+                            max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 3, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
 def write_depth_batch(data, directory, file_template="depth_{:05d}.tiff", max_write_threads=16):
   assert data.ndim == 4 and data.shape[-1] == 1, data.shape
   path_template = str(as_path(directory) / file_template)
@@ -325,6 +332,7 @@ DEFAULT_WRITERS = {
     "forward_flow": write_forward_flow_batch,
     "backward_flow": write_backward_flow_batch,
     "segmentation": write_segmentation_batch,
+    "object_coordinates": write_coordinates_batch,
 }
 
 

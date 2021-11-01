@@ -6,8 +6,13 @@ GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
 JOB_NAME=${2}
-MACHINE_TYPE="n1-highmem-32"
+MACHINE_TYPE="n1-highmem-16"
 NUM_WORKERS=20
+
+if ! [[ $JOB_NAME =~ ^[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z0-9]$ ]]; then
+  echo "Invalid job_name ($JOB_NAME); the name must consist of only the characters [-a-z0-9], starting with a letter and ending with a letter or number"
+  exit 1
+fi
 
 # create a pseudo-package in a temporary directory to ship the dataset code to dataflow workers
 # https://beam.apache.org/documentation/sdks/python-pipeline-dependencies/
