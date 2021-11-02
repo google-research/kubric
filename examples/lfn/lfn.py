@@ -50,7 +50,7 @@ scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
 # --- Fetch a random (airplane) asset
 asset_source = kb.AssetSource(FLAGS.source_path)
-ids = list(asset_source.db['id'])
+ids = list(asset_source.db["id"])
 # ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
 asset_id = ids[FLAGS.seed % len(ids)] #< e.g. 02691156_10155655850468db78d106ce0a280f87
 # asset_id = "{}_{}".format(idx[0], idx[1])
