@@ -159,9 +159,9 @@ def sample_point_in_sphere_shell_cap(
     inner_radius: float,
     outer_radius: float,
     min_height: float,
-    rng: np.random.RandomState = default_rng()    
+    rng: np.random.RandomState = default_rng()
     ) -> Tuple[float, float, float]:
-  """Uniformly sample points that are in a given distance range from the origin and with z >= min_height."""
+  """Uniformly sample points in a given distance range from the origin and with z >= min_height."""
   while True:
     v = rng.uniform((-outer_radius, -outer_radius, min_height),
                     (outer_radius, outer_radius, outer_radius))
@@ -173,7 +173,7 @@ def sample_point_in_sphere_shell_cap(
 def sample_point_in_half_sphere_shell(
     inner_radius: float,
     outer_radius: float,
-    rng: np.random.RandomState = default_rng()    
+    rng: np.random.RandomState = default_rng()
     ) -> Tuple[float, float, float]:
   """Uniformly sample points that are in a given distance range from the origin and with z >= 0."""
   return sample_point_in_sphere_shell_cap(inner_radius=inner_radius,
