@@ -7,6 +7,8 @@ from kubric.renderer import Blender as KubricRenderer
 import bpy
 import os.path as osp
 from glob import glob
+import mathutils
+import math
 # import random
 
 # --- CLI arguments (and modified defaults)
@@ -15,7 +17,7 @@ parser.add_argument("--source_path", type=str,
   default="gs://kubric-public/ShapeNetCore.v2",
   help="location of shapenet data source.",)
 parser.set_defaults(
-  seed=1,
+  seed=50000,
   frame_start=0,
   frame_end=23,
   width=256,
@@ -45,29 +47,7 @@ bpy.context.scene.render.resolution_y = FLAGS.height
 scene += kb.assets.utils.get_lfn_lights(rng=rng)
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
-# --- Add floor (~infinitely large sphere)
-scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000), background=True, static=True)
 
-# --- Keyframe the camera
-scene.camera = kb.PerspectiveCamera()
-for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
-  # scene.camera.position = (1, 1, 1)  #< frozen camera
-  mat = data['world_mat_inv_{}'.format(frame)]
-  scene.camera.position = mat[:3, -1][[0, 2, 1]]
-  scene.camera.look_at((0, 0, 0))
-  scene.camera.keyframe_insert("position", frame)
-  scene.camera.keyframe_insert("quaternion", frame)
-
-# files = sorted(glob("dataset/*/softras*"))
-# 
-# sorted_list = []
-# for f in files:
-#     id = f.split("/")[-2]
-#     for line in open(f, "r"):
-#         sorted_list.append((id, line.strip()))
-
-
-# idx = random.choice(sorted_list)
 # --- Fetch a random (airplane) asset
 asset_source = kb.AssetSource(FLAGS.source_path)
 ids = list(asset_source.db['id'])
@@ -79,7 +59,10 @@ logging.info(f"selected '{asset_id}'")
 
 # --- make object flat on X/Y and not penetrate floor
 obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
-obj.position = obj.position - (0, 0, obj.aabbox[0][2])  
+
+# --- Add floor (~infinitely large sphere)
+scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000 + obj.aabbox[0][2]), background=True, static=True)
+
 
 obj.metadata = {
     "asset_id": obj.asset_id,
@@ -87,6 +70,43 @@ obj.metadata = {
       asset_source.db["id"] == obj.asset_id].iloc[0]["category_name"],
 }
 scene.add(obj)
+object = bpy.context.scene.objects[-1]
+# 
+
+# Renormalize objects
+v_min = []
+v_max = []
+for i in range(3):
+    v_min.append(min([vertex.co[i] for vertex in object.data.vertices]))
+    v_max.append(max([vertex.co[i] for vertex in object.data.vertices]))
+
+v_min = mathutils.Vector(v_min)
+v_max = mathutils.Vector(v_max)
+scale = max(v_max - v_min)
+v_shift = (v_max - v_min) / 2 / scale
+# 
+for v in object.data.vertices:
+    v.co -= v_min
+    v.co /= scale
+    v.co -= v_shift
+    v.co *= 1.0
+
+scene.camera = kb.PerspectiveCamera()
+azimuths = np.linspace(0, 360., FLAGS.frame_end - FLAGS.frame_start + 2)
+counter = 0
+
+for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
+  # scene.camera.position = (1, 1, 1)  #< frozen camera
+  mat = data['world_mat_inv_{}'.format(frame)]
+  scene.camera.position = mat[:3, -1][[0, 2, 1]]
+  scene.camera.look_at((0, 0, 0))
+  scene.camera.keyframe_insert("position", frame)
+  scene.camera.keyframe_insert("quaternion", frame)
+
+  counter = counter + 1
+
+print("counter: ", counter)
+print("azimuth shape: ", azimuths.shape)
 
 def add_material(name, obj, **properties):
   """
@@ -145,7 +165,6 @@ def add_material(name, obj, **properties):
 
 bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "MyMetal.blend", 'NodeTree', "MyMetal"))
 bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "Rubber.blend", 'NodeTree', "Rubber"))
-object = bpy.context.scene.objects[-1]
 
 rand_color = rng.uniform(0, 1, (3,))
 color = (rand_color[0], rand_color[1], rand_color[2], 1)
