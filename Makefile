@@ -56,6 +56,10 @@ examples/katr: checkmakeversion
 examples/shapenet: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/shapenet.py
 
+# --- xmanager launch attempt
+examples/helloworld/xmanager:
+	~/.local/bin/xmanager launch launch.py
+
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
 # 	make pytest TEST=test/test_core.py
