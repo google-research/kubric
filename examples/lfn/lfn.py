@@ -170,9 +170,12 @@ rand_color = rng.uniform(0, 1, (3,))
 color = (rand_color[0], rand_color[1], rand_color[2], 1)
 add_material('MyMetal', object, Color=color)
 
+# --- Saving state;  WARNING: uses a lot of disk space
+# logging.info("Saving 'scene.blend' file...")
+# renderer.save_state(job_dir / "scene.blend")
+
 # --- Rendering
 logging.info("Rendering the scene ...")
-# renderer.save_state(job_dir / "scene.blend")  #< WARNING: uses lots of disk space
 data_stack = renderer.render()
 
 # --- Postprocessing
