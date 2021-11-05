@@ -66,7 +66,8 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
 
 
 def set_up_exr_output_node(default_layers=("Image", "Depth"),
-                           aux_layers=("UV", "Normal", "CryptoObject00", "ObjectCoordinates")):
+                           aux_layers=("UV", "Normal", "CryptoObject00", "ObjectCoordinates"),
+                           motion_blur=None):
   """ Set up the blender compositor nodes required for exporting EXR files.
 
   The filename can then be set with:
@@ -110,6 +111,20 @@ def set_up_exr_output_node(default_layers=("Image", "Depth"),
   out_node.file_slots.new("Vector")
   links.new(render_node_aux.outputs.get("Vector"), split_rgba.inputs.get("Image"))
   links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
+
+  if motion_blur is not None:
+    assert isinstance(motion_blur, float), motion_blur
+    # we then add a vector blur that uses optical flow to blur the image
+    motion_blur_node = tree.nodes.new(type="CompositorNodeVecBlur")
+    composite_out = tree.nodes.new(type="CompositorNodeComposite")
+    motion_blur_node.factor = motion_blur
+    motion_blur_node.use_curved = True
+    links.new(render_node.outputs.get("Image"), motion_blur_node.inputs.get("Image"))
+    links.new(render_node.outputs.get("Depth"), motion_blur_node.inputs.get("Z"))
+    links.new(render_node_aux.outputs.get("Vector"), motion_blur_node.inputs.get("Speed"))
+    links.remove(out_node.inputs.get("Image").links[0])
+    links.new(motion_blur_node.outputs.get("Image"), out_node.inputs.get("Image"))
+    links.new(motion_blur_node.outputs.get("Image"), composite_out.inputs.get("Image"))
 
   return out_node
 

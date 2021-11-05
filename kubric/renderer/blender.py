@@ -52,6 +52,7 @@ class Blender(core.View):
                background_transparency=False,
                verbose: bool = False,
                custom_scene: Optional[str] = None,
+               motion_blur: Optional[float] = None,
                ):
     """
     Args:
@@ -99,7 +100,7 @@ class Blender(core.View):
     self.samples_per_pixel = samples_per_pixel
     self.background_transparency = background_transparency
 
-    self.exr_output_node = blender_utils.set_up_exr_output_node()
+    self.exr_output_node = blender_utils.set_up_exr_output_node(motion_blur=motion_blur)
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
