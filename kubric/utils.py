@@ -25,6 +25,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from absl.flags import argparse_flags
 import argparse
 import collections
 import copy
@@ -36,6 +37,7 @@ import pprint
 import shutil
 import sys
 import tempfile
+
 
 import numpy as np
 
@@ -51,11 +53,11 @@ logger = logging.getLogger(__name__)
 # Kubric argparser
 # --------------------------------------------------------------------------------------------------
 
-class ArgumentParser(argparse.ArgumentParser):
+class ArgumentParser(argparse_flags.ArgumentParser):
   """An argumentparser with default options, and compatibility with the Blender REPL."""
 
   def __init__(self, *args, **kwargs):
-    argparse.ArgumentParser.__init__(self, *args, **kwargs)
+    super().__init__(*args, **kwargs)
 
     # --- default arguments for kubric
     self.add_argument("--frame_rate", type=int, default=24,
