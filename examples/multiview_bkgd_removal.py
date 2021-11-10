@@ -1,5 +1,14 @@
 """
 Worker file for the Multi-View Background removal dataset.
+
+This dataset creates a scene where a foreground object is to be distinguished
+from the background. Foreground objects are borrowed from shapnet. Backgrounds
+are from indoor scenes of polyhaven. All foreground objects are situated on top
+of a "table" which is gernated to be random in color. Instead of background
+removal with a single image. This dataset is special in that multiple images of
+the foreground object (taken from different camera poses) are given. This
+"multi-view" persepctive should be very helpful for background removal but is
+currently underexplored in the literature.
 """
 import logging
 import numpy as np
