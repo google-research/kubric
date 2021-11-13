@@ -15,3 +15,8 @@ dist/
 shapenet2kubric/shapenet2kubric.log
 examples/KuBasic/Cone/*
 Dockerfile
+
+**/semistatic
+**/semistatic_output
+**/south-building
+*.deb
