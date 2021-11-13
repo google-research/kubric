@@ -10,13 +10,15 @@ cat > Dockerfile <<EOF
 FROM kubricdockerhub/colmap:latest
 COPY script.sh /workspace/script.sh
 WORKDIR /workspace
-ENTRYPOINT ["/bin/bash", "script.sh"]
+ENTRYPOINT ["./script.sh"]
 EOF
 
 # --- Parameters for the launch
 TAG="gcr.io/$PROJECT_ID/colmap"
 docker build -f Dockerfile -t $TAG $PWD
 docker push $TAG
+
+echo "launching remotely to $1"
 
 # --- Launches the job on aiplatform
 gcloud beta ai-platform jobs submit training $JOB_NAME \

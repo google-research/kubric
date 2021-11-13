@@ -14,21 +14,20 @@ container/pull: container
 	docker pull kubricdockerhub/colmap:latest
 
 # --- launches the worker
-colmap:
+local:
 	nvidia-docker run --rm -ti \
 		--volume ${HOME}/.config/gcloud:/root/.config/gcloud \
 		--volume `pwd`:/workspace \
 		kubricdockerhub/colmap:latest \
-		/workspace/script.sh \
-			gs://kubric-public/colmap/input/semistatic0
+		script.sh gs://kubric-public/colmap/multi_shapenet_v0.5h5.20211105_0219/1
 
 # --- launch container on aiplatform (one job)
 launch:
-	./launch.sh gs://kubric-public/colmap/input/semistatic0
+	launch.sh gs://kubric-public/colmap/multi_shapenet_v0.5h5.20211105_0219/1
 
 # --- launches a sweep of jobs (whole folder)
-sweep:
-	./sweep.sh gs://kubric-public/colmap/input
+launch_sweep:
+	launch_sweep.sh gs://kubric-public/colmap/semistatic
 
 # --- launches an interactive bash session
 bash: container
