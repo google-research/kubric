@@ -22,7 +22,6 @@ DATASET_PATH="/workspace/workdir"
 # ------------------------------------------------------------------------------
 
 clear_workdir() {
-  rm -rf $DATASET_PATH
   mkdir -p $DATASET_PATH
   mkdir -p $DATASET_PATH/sparse
   mkdir -p $DATASET_PATH/dense
@@ -31,7 +30,6 @@ clear_workdir() {
 # --- copy input data in a local directory (trash previous work)
 bucket_to_local() {
   mkdir -p $DATASET_PATH/images
-  # gsutil -m rm -rf $SOURCE_PATH/workdir
   gsutil -m cp -r $SOURCE_PATH/rgba_*.png $DATASET_PATH/images >> $DATASET_PATH/log.txt 2>&1
 }
 
