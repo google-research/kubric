@@ -14,7 +14,7 @@ cat > /tmp/Dockerfile <<EOF
 EOF
 
 # --- control how many jobs are launched
-NR_SUBFOLDERS=6
+NR_SUBFOLDERS=8
 
 # --- Specify the hypertune configuration
 cat > /tmp/hypertune.yml << EOF
@@ -23,7 +23,7 @@ cat > /tmp/hypertune.yml << EOF
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
       maxTrials: $NR_SUBFOLDERS
-      maxParallelTrials: 6
+      maxParallelTrials: 8
       maxFailedTrials: $NR_SUBFOLDERS
       enableTrialEarlyStopping: False
       # --- each of these become an argparse argument
