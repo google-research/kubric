@@ -19,11 +19,15 @@ local:
 		--volume ${HOME}/.config/gcloud:/root/.config/gcloud \
 		--volume `pwd`:/workspace \
 		kubricdockerhub/colmap:latest \
-		script.sh gs://kubric-public/colmap/multi_shapenet_v0.5h5.20211105_0219/1
+		./colmap.sh \
+			gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219/1 \
+			gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219/1
 
 # --- launch container on aiplatform (one job)
 launch:
-	launch.sh gs://kubric-public/colmap/multi_shapenet_v0.5h5.20211105_0219/1
+	./launch.sh \
+		gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219/0 \
+		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219/0
 
 # --- launches a sweep of jobs (whole folder)
 launch_sweep:

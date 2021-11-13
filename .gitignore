@@ -16,3 +16,4 @@ shapenet2kubric/shapenet2kubric.log
 examples/KuBasic/Cone/*
 Dockerfile
 colmap/workdir/**
+**/__IGNORE__/**
