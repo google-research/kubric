@@ -6,13 +6,20 @@
 # --- avoids error for headless execution
 export QT_QPA_PLATFORM=offscreen
 
-SOURCE_PATH=$1
-OUTPUT_PATH=$2
+# --- brutal parsing
+ITEM_INDEX=${3/"--sceneid="/""}
+SOURCE_PATH=$1/$ITEM_INDEX
+OUTPUT_PATH=$2/$ITEM_INDEX
+
 echo "reading images from: '$SOURCE_PATH'"
 echo "saving results to: '$OUTPUT_PATH'"
 
 # --- sets up tmp directories
 DATASET_PATH="/workspace/workdir"
+
+# ------------------------------------------------------------------------------
+exit
+# ------------------------------------------------------------------------------
 
 clear_workdir() {
   rm -rf $DATASET_PATH

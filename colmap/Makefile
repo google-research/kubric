@@ -20,18 +20,22 @@ local:
 		--volume `pwd`:/workspace \
 		kubricdockerhub/colmap:latest \
 		./colmap.sh \
-			gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219/1 \
-			gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219/1
+			gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219 \
+			gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219 \
+			--sceneid=1
 
 # --- launch container on aiplatform (one job)
 launch:
 	./launch.sh \
-		gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219/0 \
-		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219/0
+		gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219 \
+		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219 \
+		--sceneid=2
 
 # --- launches a sweep of jobs (whole folder)
-launch_sweep:
-	launch_sweep.sh gs://kubric-public/colmap/semistatic
+launch_hypertune:
+	./launch_hypertune.sh \
+		gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219 \
+		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219
 
 # --- launches an interactive bash session
 bash: container
