@@ -23,11 +23,15 @@ colmap: container
 			gs://kubric-public/colmap/input/semistatic1 \
 			gs://kubric-public/colmap/output/semistatic1
 
-# --- launch container on aiplatform
-launch: container
+# --- launch container on aiplatform (one job)
+launch:
 	./launch.sh \
 		gs://kubric-public/colmap/input/semistatic3 \
 		gs://kubric-public/colmap/output/semistatic3
+
+# --- launches a sweep of jobs (whole folder)
+sweep:
+	./sweep.sh gs://kubric-public/colmap/input
 
 # --- launches an interactive bash session
 bash: container
