@@ -8,7 +8,7 @@ JOB_NAME="colmap_hypertune_`date +"%b%d_%H%M%S" | tr A-Z a-z`"
 # --- Container configuration
 cat > /tmp/Dockerfile <<EOF
   FROM kubricdockerhub/colmap:latest
-  COPY colmap.sh /workspace/colmap.sh
+  COPY colmap_default.sh /workspace/colmap.sh
   WORKDIR /workspace
   ENTRYPOINT ["./colmap.sh"]
 EOF
@@ -27,8 +27,8 @@ cat > /tmp/hypertune.yml << EOF
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 0
-        maxValue: 8
+        minValue: 9
+        maxValue: 17
 EOF
 
 # --- Parameters for the launch
