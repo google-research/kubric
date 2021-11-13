@@ -38,9 +38,9 @@ launch_hypertune:
 		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219
 
 # --- launches an interactive bash session
-bash: container
+bash:
 	nvidia-docker run --rm -ti \
-		kubricdockerhub/colmap:latest \
 		--volume ${HOME}/.config/gcloud:/root/.config/gcloud \
 		--volume `pwd`:/workspace \
+		kubricdockerhub/colmap:latest \
 		/bin/bash
