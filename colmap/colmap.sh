@@ -31,8 +31,8 @@ clear_workdir() {
 # --- copy input data in a local directory (trash previous work)
 bucket_to_local() {
   mkdir -p $DATASET_PATH/images
-  gsutil -m rm -rf $SOURCE_PATH/workdir
-  gsutil -m cp -r $SOURCE_PATH/rgba_*.png $DATASET_PATH/images
+  # gsutil -m rm -rf $SOURCE_PATH/workdir
+  gsutil -m cp -r $SOURCE_PATH/rgba_*.png $DATASET_PATH/images >> $DATASET_PATH/log.txt 2>&1
 }
 
 feature_extractor() {
@@ -88,7 +88,7 @@ stereo_fusion() {
 local_to_bucket() {
   # --- copy results back to bucket (but not the images)
   rm -rf $DATASET_PATH/images
-  gsutil -m cp -r $DATASET_PATH $OUTPUT_PATH
+  gsutil -m cp -r $DATASET_PATH $OUTPUT_PATH >> $DATASET_PATH/log.txt 2>&1
 }
 
 # --- manual pipeline (sasa)

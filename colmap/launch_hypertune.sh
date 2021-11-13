@@ -27,8 +27,8 @@ cat > /tmp/hypertune.yml << EOF
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 32
-        maxValue: 64
+        minValue: 0
+        maxValue: 16
 EOF
 
 # --- Parameters for the launch
