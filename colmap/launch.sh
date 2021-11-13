@@ -23,6 +23,6 @@ gcloud beta ai-platform jobs submit training $JOB_NAME \
   --region $REGION \
   --scale-tier custom --master-machine-type standard_v100 \
   --master-image-uri $TAG \
-  -- $1 $2
+  -- $1
 
 # gcloud ai-platform jobs stream-logs $JOB_NAME
