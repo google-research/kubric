@@ -23,8 +23,13 @@ echo "launching with arguments: $@"
 # --- Launches the job on aiplatform
 gcloud beta ai-platform jobs submit training $JOB_NAME \
   --region $REGION \
-  --scale-tier custom --master-machine-type standard_v100 \
+  --scale-tier custom --master-machine-type standard_p100 \
   --master-image-uri $TAG \
   -- $@
 
 # gcloud ai-platform jobs stream-logs $JOB_NAME
+
+# Compute Tiers
+# k80: --scale-tier custom --master-machine-type standard_gpu
+# p100: --scale-tier custom --master-machine-type standard_p100
+# v100: --scale-tier custom --master-machine-type standard_v100

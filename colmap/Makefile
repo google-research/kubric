@@ -22,14 +22,14 @@ local:
 		./colmap.sh \
 			gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219 \
 			gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219 \
-			--sceneid=1
+			--sceneid=0
 
 # --- launch container on aiplatform (one job)
 launch:
 	./launch.sh \
 		gs://kubric-public/colmap/input/multi_shapenet_v0.5h5.20211105_0219 \
 		gs://kubric-public/colmap/output/multi_shapenet_v0.5h5.20211105_0219 \
-		--sceneid=2
+		--sceneid=1
 
 # --- launches a sweep of jobs (whole folder)
 launch_hypertune:

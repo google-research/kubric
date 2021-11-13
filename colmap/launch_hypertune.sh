@@ -13,25 +13,22 @@ cat > /tmp/Dockerfile <<EOF
   ENTRYPOINT ["./colmap.sh"]
 EOF
 
-# --- control how many jobs are launched
-NR_SUBFOLDERS=8
-
 # --- Specify the hypertune configuration
 cat > /tmp/hypertune.yml << EOF
   trainingInput:
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: $NR_SUBFOLDERS
-      maxParallelTrials: 8
-      maxFailedTrials: $NR_SUBFOLDERS
+      maxTrials: 16
+      maxParallelTrials: 16
+      maxFailedTrials: 16
       enableTrialEarlyStopping: False
       # --- each of these become an argparse argument
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 0
-        maxValue: $NR_SUBFOLDERS
+        minValue: 16
+        maxValue: 32
 EOF
 
 # --- Parameters for the launch
@@ -49,8 +46,10 @@ docker push $TAG
 # --- Launches the job on aiplatform
 gcloud beta ai-platform jobs submit training $JOB_NAME \
   --region $REGION \
-  --scale-tier basic \
+  --scale-tier custom --master-machine-type standard_p100 \
   --master-image-uri $TAG \
   --config /tmp/hypertune.yml \
   -- $@
 gcloud ai-platform jobs describe $JOB_NAME
+
+# For faster testing use "--scale-tier basic"
