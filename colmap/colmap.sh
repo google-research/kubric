@@ -85,12 +85,6 @@ stereo_fusion() {
     --output_path $DATASET_PATH/dense/fused.ply
 }
 
-poisson_mesher() {
-  colmap poisson_mesher \
-    --input_path $DATASET_PATH/dense/fused.ply \
-    --output_path $DATASET_PATH/dense/meshed-poisson.ply
-}
-
 local_to_bucket() {
   # --- copy results back to bucket (but not the images)
   rm -rf $DATASET_PATH/images
@@ -106,7 +100,6 @@ mapper
 image_undistorter
 patch_match_stereo
 stereo_fusion
-poisson_mesher
 local_to_bucket
 
 # --- Inform hypertune the job concluded
