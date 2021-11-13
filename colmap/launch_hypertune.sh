@@ -27,8 +27,8 @@ cat > /tmp/hypertune.yml << EOF
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 16
-        maxValue: 32
+        minValue: 32
+        maxValue: 64
 EOF
 
 # --- Parameters for the launch
@@ -46,10 +46,13 @@ docker push $TAG
 # --- Launches the job on aiplatform
 gcloud beta ai-platform jobs submit training $JOB_NAME \
   --region $REGION \
-  --scale-tier custom --master-machine-type standard_p100 \
+  --scale-tier custom \
+  --master-machine-type n1-highcpu-16 \
+  --master-accelerator count=1,type=nvidia-tesla-p100 \
   --master-image-uri $TAG \
   --config /tmp/hypertune.yml \
   -- $@
 gcloud ai-platform jobs describe $JOB_NAME
 
 # For faster testing use "--scale-tier basic"
+# https://cloud.google.com/ai-platform/training/docs/using-gpus
