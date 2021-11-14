@@ -54,7 +54,8 @@ colmap image_undistorter \
 colmap patch_match_stereo \
   --workspace_path $DATASET_PATH/dense \
   --workspace_format COLMAP \
-  --PatchMatchStereo.geom_consistency true
+  --PatchMatchStereo.geom_consistency true \
+  --PatchMatchStereo.window_radius 2 
 
 colmap stereo_fusion \
   --workspace_path $DATASET_PATH/dense \
