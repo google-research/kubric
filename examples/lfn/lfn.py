@@ -16,6 +16,7 @@ parser = kb.ArgumentParser()
 parser.add_argument("--source_path", type=str,
   default="gs://kubric-public/ShapeNetCore.v2",
   help="location of shapenet data source.",)
+parser.add_argument('--rubber', action='store_true', help='use rubber metal')
 parser.set_defaults(
   seed=50000,
   frame_start=0,
@@ -168,7 +169,11 @@ bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "Rubber.blend", 'NodeTree
 
 rand_color = rng.uniform(0, 1, (3,))
 color = (rand_color[0], rand_color[1], rand_color[2], 1)
-add_material('MyMetal', object, Color=color)
+
+if FLAGS.rubber:
+    add_material('Rubber', object, Color=color)
+else:
+    add_material('MyMetal', object, Color=color)
 
 # --- Saving state;  WARNING: uses a lot of disk space
 # logging.info("Saving 'scene.blend' file...")
