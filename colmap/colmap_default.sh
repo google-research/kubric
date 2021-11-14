@@ -31,7 +31,7 @@ gsutil -m cp -r $SOURCE_PATH/rgba_*.png $DATASET_PATH/images >> $DATASET_PATH/lo
 
 colmap feature_extractor \
   --database_path $DATASET_PATH/database.db \
-  --image_path $DATASET_PATH/images
+  --image_path $DATASET_PATH/images \
   --SiftExtraction.use_gpu 1
 
 colmap exhaustive_matcher \
@@ -41,7 +41,7 @@ colmap exhaustive_matcher \
 colmap mapper \
   --database_path $DATASET_PATH/database.db \
   --image_path $DATASET_PATH/images \
-  --output_path $DATASET_PATH/sparse
+  --output_path $DATASET_PATH/sparse \
   --Mapper.num_threads 16 \
   
 colmap image_undistorter \
