@@ -19,16 +19,16 @@ cat > /tmp/hypertune.yml << EOF
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: 8
-      maxParallelTrials: 8
-      maxFailedTrials: 8
+      maxTrials: 4
+      maxParallelTrials: 4
+      maxFailedTrials: 4
       enableTrialEarlyStopping: False
       # --- each of these become an argparse argument
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 16
-        maxValue: 23
+        minValue: 0
+        maxValue: 4
 EOF
 
 # --- Parameters for the launch
