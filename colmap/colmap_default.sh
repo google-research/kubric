@@ -67,10 +67,11 @@ rm -rf $DATASET_PATH/images
 gsutil -m cp -r $DATASET_PATH $OUTPUT_PATH >> $DATASET_PATH/log.txt 2>&1
 
 # --- Inform hypertune the job concluded
-cat > /tmp/hypertune_ok.py <<EOF
+cat > /tmp/hypertune_job_success.py <<EOF
 import hypertune
 hpt = hypertune.HyperTune()
 hpt.report_hyperparameter_tuning_metric(
     hyperparameter_metric_tag="answer",
     metric_value=42)
 EOF
+python3 /tmp/hypertune_job_success.py

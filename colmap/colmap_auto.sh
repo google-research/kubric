@@ -46,3 +46,4 @@ hpt.report_hyperparameter_tuning_metric(
     hyperparameter_metric_tag="answer",
     metric_value=42)
 EOF
+python3 /tmp/hypertune_job_success.py

@@ -1,9 +1,20 @@
 # WARNING: verify credentials are enabled "gcloud auth configure-docker"
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
+# --- query user for experiment description
+read -p "job description (default: ''): " JOB_DESC
+JOB_DESC=`echo $JOB_DESC | tr A-Z a-z`
+JOB_DESC="${JOB_DESC// /_}"
+
 PROJECT_ID="kubric-xgcp"
 REGION="us-central1"  #< WARNING: match region of bucket!
-JOB_NAME="colmap_hypertune_`date +"%b%d_%H%M%S" | tr A-Z a-z`"
+JOB_NAME="colmap_hypertune_`date +"%b%d_%H%M%S" | tr A-Z a-z`_$JOB_DESC"
+
+# --- configuration
+minValue=0
+maxValue=599 #< inclusive!!
+maxTrials=$(($maxValue-$minValue+1))
+maxParallelTrials=$(( $maxTrials < 50 ? $maxTrials : 50 ))
 
 # --- Container configuration
 cat > /tmp/Dockerfile <<EOF
@@ -19,16 +30,16 @@ cat > /tmp/hypertune.yml << EOF
     hyperparameters:
       goal: MAXIMIZE
       hyperparameterMetricTag: "answer"
-      maxTrials: 599
-      maxParallelTrials: 50
-      maxFailedTrials: 599
+      maxTrials: $maxTrials
+      maxParallelTrials: $maxParallelTrials
+      maxFailedTrials: $maxTrials
       enableTrialEarlyStopping: False
       # --- each of these become an argparse argument
       params:
       - parameterName: sceneid
         type: INTEGER
-        minValue: 0
-        maxValue: 599
+        minValue: $minValue
+        maxValue: $maxValue
 EOF
 
 # --- Parameters for the launch
