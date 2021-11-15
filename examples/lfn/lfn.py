@@ -45,6 +45,7 @@ bpy.context.scene.render.resolution_x = FLAGS.width
 bpy.context.scene.render.resolution_y = FLAGS.height
 
 # --- Add Klevr-like lights to the scene
+
 scene += kb.assets.utils.get_lfn_lights(rng=rng)
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
@@ -172,6 +173,7 @@ color = (rand_color[0], rand_color[1], rand_color[2], 1)
 
 if FLAGS.rubber:
     add_material('Rubber', object, Color=color)
+    object.cycles_visibility.shadow = False
 else:
     add_material('MyMetal', object, Color=color)
 
