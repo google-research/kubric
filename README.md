@@ -42,7 +42,8 @@ ls output
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
-## Citation
+## Bibtex
+```
 @article{greff2021kubric,
     title = {Kubric: a scalable dataset generator}, 
     author = {Klaus Greff and Francois Belletti and Lucas Beyer and Carl Doersch and
@@ -56,6 +57,7 @@ ls output
     booktitle = {arXiv preprint},
     year = {2021},
 }
+```
 
 
 
