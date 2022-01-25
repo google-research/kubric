@@ -119,7 +119,7 @@ def write_png(data: np.array, filename: PathLike) -> None:
   height, width, channels = data.shape
   greyscale = (channels == 1)
   alpha = (channels == 4)
-  w = png.Writer(height, width, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
+  w = png.Writer(width, height, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
 
   if channels == 2:
     # Pad two-channel images with a zero channel.
