@@ -51,7 +51,7 @@ ls output
               Florian Golemo and Charles Herrmann and Thomas Kipf and Abhijit Kundu and
               Dmitry Lagun and Issam Laradji and Hsueh-Ti (Derek) Liu and Henning Meyer and
               Yishu Miao and Derek Nowrouzezahrai and Cengiz Oztireli and Etienne Pot and
-              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi Sajjadi and Matan Sela and
+              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
               Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
               Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
     booktitle = {arXiv preprint},

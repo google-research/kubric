@@ -15,6 +15,7 @@
 
 import io
 import logging
+import os
 import sys
 from contextlib import redirect_stdout
 from typing import Any, Dict, Optional, Sequence, Union
@@ -88,6 +89,8 @@ class Blender(core.View):
 
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
+    self.use_gpu = os.getenv("KUBRIC_USE_GPU", 'False').lower() in ('true', '1', 't')
+
     blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
     self._setup_scene_shading()
 
@@ -156,6 +159,21 @@ class Blender(core.View):
   @background_transparency.setter
   def background_transparency(self, value: bool):
     self.blender_scene.render.film_transparent = value
+
+  @property
+  def use_gpu(self) -> bool:
+    return self.blender_scene.cycles.device == "GPU"
+
+  @use_gpu.setter
+  def use_gpu(self, value: bool):
+    self.blender_scene.cycles.device = "GPU" if value else "CPU"
+    if value:
+      # call get_devices() to let Blender detect GPU devices
+      bpy.context.preferences.addons["cycles"].preferences.get_devices()
+      devices_used = [d.name for d in bpy.context.preferences.addons["cycles"].preferences.devices
+                      if d.use]
+      logger.info("Using the following GPU Device(s): %s", devices_used)
+
 
   def set_exr_output_path(self, path_prefix: Optional[PathLike]):
     """Set the target path prefix for EXR output.
