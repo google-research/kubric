@@ -200,6 +200,9 @@ class Blender(core.View):
     path.parent.mkdir(parents=True, exist_ok=True)  # ensure directory exists
     logger.info("Saving '%s'", path)
     tf.io.gfile.copy(tmp_path, path, overwrite=True)
+  
+  def load_state(self, path: PathLike):
+    bpy.ops.wm.open_mainfile(filepath=path)
 
   def render(self,
              frames: Optional[Sequence[int]] = None,
@@ -243,7 +246,7 @@ class Blender(core.View):
     # --- post process the rendered frames
     return self.postprocess(self.scratch_dir)
 
-  def render_still(self, frame: Optional[int] = None):
+  def render_still(self, ignore_missing_textures: bool = False, frame: Optional[int] = None):
     """Render a single frame (first frame by default).
 
     Args:
@@ -260,7 +263,7 @@ class Blender(core.View):
     - "normal": shape = (height, width, 3)
     """
     frame = self.scene.frame_start if frame is None else frame
-    result = self.render(frames=[frame])
+    result = self.render(frames=[frame], ignore_missing_textures=ignore_missing_textures)
     return {k: v[0] for k, v in result.items()}
 
   def postprocess(self, from_dir: PathLike):
@@ -663,7 +666,6 @@ class AttributeSetter:
     if self.converter:
       # use converter if given
       new_value = self.converter(new_value)
-
     setattr(self.blender_obj, self.attribute, new_value)
 
 
