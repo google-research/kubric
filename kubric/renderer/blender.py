@@ -245,7 +245,7 @@ class Blender(core.View):
     """
     logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
     missing_textures = sorted({img.filepath for img in bpy.data.images
-                               if tuple(img.size) == (0, 0) and img.filepath})
+                               if tuple(img.size) == (0, 0) or img.filepath != ""})
     if missing_textures and not ignore_missing_textures:
       raise RuntimeError(f"Missing textures: {missing_textures}")
     self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
@@ -326,6 +326,9 @@ class Blender(core.View):
       else:
         logger.info("Loading scene from '%s'", custom_scene)
         bpy.ops.wm.open_mainfile(filepath=custom_scene)
+        dirname = os.path.dirname(custom_scene)
+        for img in bpy.data.images:
+          img.filepath = img.filepath.replace("//", dirname + "/")
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
