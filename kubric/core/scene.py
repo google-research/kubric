@@ -154,9 +154,6 @@ class Scene(tl.HasTraits):
 
     # --- if is a camera object, and none is set, set as the camera
     if isinstance(asset, Camera):
-      print('hiiii')
-      print(self.camera)
-      print(asset)
       self.camera = asset
 
   def __iadd__(self, asset: Union[Asset, List[Asset]]):
