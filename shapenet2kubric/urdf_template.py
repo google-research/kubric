@@ -29,9 +29,6 @@
 URDF_TEMPLATE = """
 <robot name="{id}">
     <link name="base">
-        <contact>
-            <lateral_friction value="{friction}" />  
-        </contact>
         <inertial>
             <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
             <mass value="{mass}" />
