@@ -42,7 +42,7 @@ tfds build $DATASET_CONFIG \
   --data_dir=$GCS_BUCKET/tensorflow_datasets \
   --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$JOB_NAME,\
 staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,\
-setup_file=$TEMP/setup.py,machine_type=$MACHINE_TYPE,num_workers=$NUM_WORKERS,experiments=upload_graph"
+setup_file=$TEMP/setup.py,machine_type=$MACHINE_TYPE,num_workers=$NUM_WORKERS,experiments=upload_graph,experiments=use_unsupported_python_version"
 
 
 
