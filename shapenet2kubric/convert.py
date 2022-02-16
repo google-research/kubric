@@ -218,6 +218,9 @@ def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   target_urdf_path = object_folder / 'kubric' / 'object.urdf'
   target_json_path = object_folder / 'kubric' / 'data.json'
 
+  if target_urdf_path.is_file() and target_json_path.is_file():
+    return
+
   # --- pre-condition
   if not source_path.is_file():
     logger.error(f'stage4 pre-condition failed, file does not exist "{source_path}"')
