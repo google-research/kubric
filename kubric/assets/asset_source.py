@@ -133,19 +133,29 @@ class AssetSource(ClosableResource):
 
     return {k: _adjust_path(v) for k, v in asset_kwargs.items()}
 
-  def create(self, asset_id: str, **kwargs) -> core.Asset:
+  def create(self, asset_id: str, add_metadata: bool = True, **kwargs) -> core.Asset:
     """
+    Create an instance of an asset by a given id.
+
+    Performs the following steps
     1. check if asset_id is found in manifest and retrieve entry
     2. determine Asset class and full path (can be remote or local cache or missing)
     3. if path is not none, then fetch and unpack the zipped asset to scratch_dir
     4. construct kwargs from asset_entry->kwargs, override with **kwargs and then
-       adjust paths (ones that start with “{{asset_dir}}”
-    5. create asset by calling constructor with kwargs and set metadata
-    6. return asset
+    adjust paths (ones that start with “{{asset_dir}}”
+    5. create asset by calling constructor with kwargs
+    6. set metadata (if add_metadata is True)
+    7. return asset
 
-    :param asset_id:
-    :param kwargs:
-    :return:
+    Args:
+        asset_id (str): the id of the asset to be created
+                        (corresponds to its key in the manifest file and
+                        typically also to the filename)
+        add_metadata (bool): whether to add the metadata from the asset to the instance
+        **kwargs: additional kwargs to be passed to the asset constructor
+
+    Returns:
+      An instance of the specified asset (subtype of kubric.core.Asset)
     """
     # find corresponding asset entry
     asset_entry = self._assets.get(asset_id)
@@ -164,12 +174,13 @@ class AssetSource(ClosableResource):
     asset_kwargs = asset_entry.get("kwargs", {})
     asset_kwargs.update(kwargs)
     asset_kwargs = self._adjust_paths(asset_kwargs, asset_dir)
-
+    if asset_type == core.FileBasedObject:
+      asset_kwargs["asset_id"] = asset_id
     # create the asset
     asset = asset_type(**asset_kwargs)
-
     # set the metadata
-    asset.metadata.update(asset_entry.get("metadata", {}))
+    if add_metadata:
+      asset.metadata.update(asset_entry.get("metadata", {}))
 
     return asset
 
