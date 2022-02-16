@@ -242,7 +242,7 @@ class Blender(core.View):
     """
     logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
     missing_textures = sorted({img.filepath for img in bpy.data.images
-                               if tuple(img.size) == (0, 0)})
+                               if tuple(img.size) == (0, 0) and img.filepath})
     if missing_textures and not ignore_missing_textures:
       raise RuntimeError(f"Missing textures: {missing_textures}")
     self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
