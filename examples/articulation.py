@@ -24,7 +24,7 @@ logging.basicConfig(level="INFO")
 parser = kb.ArgumentParser()
 FLAGS = parser.parse_args()
 # --- create scene and attach a renderer
-scene = kb.Scene(resolution=(256, 256))
+scene = kb.Scene(resolution=(512, 512))
 scene.frame_end = 60  # < numbers of frames to render
 scene.frame_rate = 24  # < rendering framerate
 
@@ -54,7 +54,7 @@ renderer.save_state("output/articulation.blend")
 # -- generate a gif
 with imageio.get_writer("output/summary.gif", mode="I") as writer:
     all_files = os.listdir("output/")
-    for frame in range(FLAGS.frame_start - 1, FLAGS.frame_end + 2):
+    for frame in range(scene.frame_start - 1, scene.frame_end + 2):
         image_files = [os.path.join("output", f) for f in all_files if str(frame).zfill(5) in f]
         image_files = [f for f in image_files if f.endswith(".png") and "coordinates" not in f]
         image_files = sorted(image_files)
