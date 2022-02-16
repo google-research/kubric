@@ -42,6 +42,19 @@ ls output
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
+## Rendering Animation
+An example of rendering animation from blender is given in examples/articulation.py
+```
+mkdir examples/KuBasic/rain_v22
+gcloud cp gs://research-brain-kubric-xgcp/articulation/* examples/KuBasic/rain_v22
+docker run --rm --interactive \
+           --user $(id -u):$(id -g) \
+           --volume "$(pwd):/kubric" \
+           kubricdockerhub/kubruntudev \
+           /usr/bin/python3 examples/articulation.py
+```
+![](docs/images/articulation.gif)
+
 ## Bibtex
 ```
 @article{greff2021kubric,
