@@ -20,6 +20,7 @@ import sys
 import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
+import numpy as np
 import tensorflow as tf
 from singledispatchmethod import singledispatchmethod
 
@@ -175,7 +176,8 @@ class PyBullet(core.View):
   def run(
       self,
       frame_start: int = 0,
-      frame_end: Optional[int] = None
+      frame_end: Optional[int] = None,
+      forces: Dict[int, Dict[int, Tuple[Tuple[float, float, float], float]]] = {},
   ) -> Tuple[Dict[core.PhysicalObject, Dict[str, list]], List[dict]]:
     """
     Run the physics simulation.
@@ -227,8 +229,22 @@ class PyBullet(core.View):
           })
 
       if current_step % steps_per_frame == 0:
+        current_frame = current_step // steps_per_frame
+
         for obj_idx in obj_idxs:
           position, quaternion = self.get_position_and_rotation(obj_idx)
+          if obj_idx in forces and current_frame in forces[obj_idx]:
+            force, bias = forces[obj_idx][current_frame]
+            # pb.applyExternalForce(objectUniqueId=obj_idx,
+            #                       linkIndex=-1,
+            #                       forceObj=force,
+            #                       posObj=position,
+            #                       flags=pb.WORLD_FRAME)
+            effective_force = np.array(force) - bias * np.array(position)
+            pb.resetBaseVelocity(objectUniqueId=obj_idx,
+                                 linearVelocity=effective_force)
+
+
           velocity, angular_velocity = self.get_velocities(obj_idx)
 
           animation[obj_idx]["position"].append(position)
