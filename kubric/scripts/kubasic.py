@@ -101,7 +101,26 @@ def kubricify(obj: bpy_types.Object, output_path: PathLike, asset_license):
         "collision_geometry": "collision_geometry.obj",
         "urdf": "object.urdf"
     }
-    file_io.write_json(properties, tmpdir / "data.json")
+
+    asset_entry = {
+        "id": properties["id"],
+        "asset_type": properties["asset_type"],
+        "license": asset_license,
+        "kwargs": {
+            "bounds": properties["bounds"],
+            "mass": properties["mass"],
+            "simulation_filename": "{asset_dir}/" + properties["paths"]["urdf"],
+            "render_filename": "{asset_dir}/" + properties["paths"]["visual_geometry"],
+        },
+        "metadata": {
+            "nr_faces": properties["nr_faces"],
+            "nr_vertices": properties["nr_vertices"],
+            "volume": properties["volume"],
+            "surface_area": properties["surface_area"],
+        },
+    }
+
+    file_io.write_json(asset_entry, tmpdir / "data.json")
 
     logger.info("exporting visual geometry")
     vis_path = tmpdir / properties["paths"]["visual_geometry"]
@@ -126,22 +145,7 @@ def kubricify(obj: bpy_types.Object, output_path: PathLike, asset_license):
       for p in tmpdir.glob("*"):
         tar.add(p, arcname=p.name)
 
-    return properties["id"], {
-        "asset_type": properties["asset_type"],
-        "license": asset_license,
-        "kwargs": {
-            "bounds": properties["bounds"],
-            "mass": properties["mass"],
-            "simulation_filename": properties["paths"]["urdf"],
-            "render_filename": properties["paths"]["visual_geometry"],
-        },
-        "metadata": {
-            "nr_faces": properties["nr_faces"],
-            "nr_vertices": properties["nr_vertices"],
-            "volume": properties["volume"],
-            "surface_area": properties["surface_area"],
-        },
-    }
+    return properties["id"], asset_entry
 
 
 def main(
