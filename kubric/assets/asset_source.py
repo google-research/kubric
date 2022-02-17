@@ -188,6 +188,7 @@ class AssetSource(ClosableResource):
     local_path = self.local_dir / (asset_id + ".tar.gz")
     if not local_path.exists():
       logging.debug("Copying %s to %s", str(asset_path), str(local_path))
+      local_path.parent.mkdir(parents=True, exist_ok=True)
       tf.io.gfile.copy(asset_path, local_path)
 
       with tarfile.open(local_path, "r:gz") as tar:
