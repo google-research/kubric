@@ -223,8 +223,8 @@ def kubricify(asset, source_dir, target_dir):
       "kwargs": {
           "bounds": properties["bounds"],
           "mass": properties["mass"],
-          "render_filename": vis_path.name,
-          "simulation_filename": urdf_path.name,
+          "render_filename": "{asset_dir}/" + vis_path.name,
+          "simulation_filename": "{asset_dir}/" + urdf_path.name,
       },
       "license": "CC BY-SA 4.0",
       "metadata": {
