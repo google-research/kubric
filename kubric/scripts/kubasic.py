@@ -178,7 +178,7 @@ def main(
 
   manifest = {
       "name": name,
-      "base_path": str(base_dir),
+      "data_dir": str(base_dir),
       "version": version,
       "assets": {}
   }

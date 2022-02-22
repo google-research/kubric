@@ -19,9 +19,7 @@ import tarfile
 import tempfile
 
 import numpy as np
-import pandas as pd
 import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
 import thefuzz.process
 
 from typing import Optional, Dict, Any, Type
@@ -68,22 +66,22 @@ class AssetSource(ClosableResource):
     manifest_path = file_io.as_path(manifest_path)
     manifest = file_io.read_json(manifest_path)
     name = manifest.get("name", manifest_path.stem)  # default to filename
-    base_path = manifest.get("base_path", manifest_path.parent)  # default to manifest dir
+    data_dir = manifest.get("data_dir", manifest_path.parent)  # default to manifest dir
     assets = manifest["assets"]
-    return cls(name=name, base_path=base_path, assets=assets, scratch_dir=scratch_dir)
+    return cls(name=name, data_dir=data_dir, assets=assets, scratch_dir=scratch_dir)
 
   def __init__(
       self,
       name: str,
-      base_path: PathLike,
+      data_dir: PathLike,
       assets: Dict[str, Any],
       scratch_dir: Optional[PathLike] = None
   ):
     super().__init__()
     self.name = name
-    self.base_path = file_io.as_path(base_path)
+    self.data_dir = file_io.as_path(data_dir)
     logging.info("Created AssetSource '%s' with '%d' assets at URI='%s'",
-                 name, len(assets), self.base_path)
+                 name, len(assets), self.data_dir)
     self.local_dir = pathlib.Path(tempfile.mkdtemp(prefix=name, dir=scratch_dir))
     self._assets = assets
 
@@ -118,7 +116,7 @@ class AssetSource(ClosableResource):
     elif path == "":
       path = f"{asset_id}.tar.gz"
 
-    return self.base_path / path
+    return self.data_dir / path
 
   @staticmethod
   def _adjust_paths(asset_kwargs: Dict[str, Any], asset_dir: PathLike) -> Dict[str, Any]:

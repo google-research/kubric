@@ -273,7 +273,7 @@ def main(
   manifest_path = "GSO.json"
   manifest = {
       "name": "GSO",
-      "base_path": str(target_dir),
+      "data_dir": str(target_dir),
       "version": "1.0",
       "assets": {k: v for k, v in assets_list}
   }

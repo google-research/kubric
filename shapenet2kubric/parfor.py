@@ -91,7 +91,7 @@ def shapenet_objects_dirs(datadir: str):
                        f'folder, as the taxonomy file was not found at '
                        f'"{str(taxonomy_path)}"')
 
-  logging.info(f"gathering shapenet folders: {datadir}")
+  logger.info(f"gathering shapenet folders: {datadir}")
   object_folders = list()
   categories = [x for x in Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
@@ -99,7 +99,7 @@ def shapenet_objects_dirs(datadir: str):
   logging.debug(f"gathered object folders: {object_folders}")
 
   # --- remove invalid folders
-  logging.debug(f"dropping problemantic folders: {__shapenet_set__}")
+  logger.debug(f"dropping problematic folders: {__shapenet_set__}")
   object_folders = [folder for folder in object_folders if not invalid_model(folder)]
 
   # TODO: add objects w/o materials to the denylist?

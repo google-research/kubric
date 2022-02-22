@@ -143,7 +143,7 @@ def main(
   manifest_path = "HDRI_haven.json"
   manifest = {
       "name": "HDRI_haven",
-      "base_path": str(target_dir),
+      "data_dir": str(target_dir),
       "version": "1.0",
       "assets": assets
   }
