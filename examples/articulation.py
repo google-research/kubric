@@ -39,8 +39,9 @@ frames = []
 logging.info(scene.frame_end)
 for frame in range(scene.frame_start - 1, scene.frame_end + 2):
     interp = float(frame - scene.frame_start + 1) / float(scene.frame_end - scene.frame_start + 3)
-    interp = np.abs(0.5-interp)
-    scene.camera.position = (-camera_radius*np.cos(interp*2*np.pi), -camera_radius*np.sin(interp*2*np.pi), 1.5)
+    scene.camera.position = (-camera_radius*np.sin(interp*2*np.pi),
+                             -camera_radius*np.abs(np.cos(interp*2*np.pi)),
+                              1.5)
     scene.camera.look_at((0, 0, 1.5))
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
