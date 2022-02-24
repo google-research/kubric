@@ -141,7 +141,7 @@ def sample_color(
 def sample_sizes(
     strategy: str,
     rng: np.random.RandomState = default_rng()
-    ) -> Tuple[Optional[str], float]:
+  ) -> Tuple[Optional[str], float]:
   """Sample a random (asset) size according to a given strategy."""
   if strategy == "clevr":
     size_label = rng.choice(list(CLEVR_SIZES.keys()))
@@ -158,11 +158,13 @@ def sample_sizes(
 def sample_point_in_half_sphere_shell(
     inner_radius: float,
     outer_radius: float,
+    offset: float = 0.,
     rng: np.random.RandomState = default_rng()
-    ) -> Tuple[float, float, float]:
-  """Uniformly sample points that are in a given distance range from the origin and with z >= 0."""
+  ) -> Tuple[float, float, float]:
+  """Uniformly sample points that are in a given distance range from the origin
+     and with z >= offset."""
   while True:
-    v = rng.uniform((-outer_radius, -outer_radius, 0),
+    v = rng.uniform((-outer_radius, -outer_radius, offset),
                     (outer_radius, outer_radius, outer_radius))
     len_v = np.linalg.norm(v)
     if inner_radius <= len_v <= outer_radius:

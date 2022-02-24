@@ -46,7 +46,7 @@ class Blender(core.View):
   def __init__(self,
                scene: core.Scene,
                scratch_dir=None,
-               adaptive_sampling=True,
+               adaptive_sampling=False,
                use_denoising=True,
                samples_per_pixel=128,
                background_transparency=False,

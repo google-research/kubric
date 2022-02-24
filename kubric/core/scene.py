@@ -70,6 +70,7 @@ class Scene(tl.HasTraits):
                background: color.Color = color.get_color("black")):
     self._assets = []
     self._views = []
+    self.metadata = {}
     super().__init__(frame_start=frame_start, frame_end=frame_end, frame_rate=frame_rate,
                      step_rate=step_rate, resolution=resolution, gravity=gravity, camera=camera,
                      ambient_illumination=ambient_illumination, background=background)
@@ -173,11 +174,22 @@ class Scene(tl.HasTraits):
 
   @staticmethod
   def from_flags(flags):
+    if isinstance(flags.resolution, str):
+      resolution = tuple(int(x) for x in flags.resolution.split("x"))
+      if len(resolution) == 1:
+        resolution = (resolution[0], resolution[0])
+    elif isinstance(flags.resolution, int):
+      resolution = (flags.resolution, flags.resolution)
+    else:
+      resolution = tuple(flags.resolution)
+    assert len(resolution) == 2, flags.resolution
+    assert all(isinstance(x, int) for x in resolution)
+
     return Scene(frame_start=flags.frame_start,
                  frame_end=flags.frame_end,
                  frame_rate=flags.frame_rate,
                  step_rate=flags.step_rate,
-                 resolution=(flags.width, flags.height))
+                 resolution=resolution)
 
   @tl.observe("camera", type="change")
   def _observe_camera(self, change):
