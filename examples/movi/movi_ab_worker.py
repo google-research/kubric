@@ -23,13 +23,11 @@ Objects:
 
 MOVid-A
   --camera=clevr --background=clevr --objects_set=clevr
-  --min_num_dynamic_objects=3 --max_num_dynamic_objects=10
-  --min_num_static_objects=0 --max_num_static_objects=0
+  --min_num_objects=3 --max_num_objects=10
 
 MOVid-B
   --camera=random --background=colored --objects_set=kubasic
-  --min_num_dynamic_objects=3 --max_num_dynamic_objects=10
-  --min_num_static_objects=0 --max_num_static_objects=0
+  --min_num_objects=3 --max_num_objects=10
 
 """
 
@@ -43,11 +41,10 @@ import numpy as np
 # --- Some configuration values
 # the region in which to place objects [(min), (max)]
 SPAWN_REGION = [(-5, -5, 1), (5, 5, 5)]
-CAMERA_RANGE = [[-10, -10, 1], [10, 10, 3]]
 VELOCITY_RANGE = [(-4., -4., 0.), (4., 4., 0.)]
 CLEVR_OBJECTS = ("cube", "cylinder", "sphere")
 KUBASIC_OBJECTS = ("cube", "cylinder", "sphere", "cone", "torus", "gear",
-                   "torusknot", "sponge", "spot", "teapot", "suzanne")
+                   "torus_knot", "sponge", "spot", "teapot", "suzanne")
 
 # --- CLI arguments
 parser = kb.ArgumentParser()
@@ -111,7 +108,7 @@ if FLAGS.camera == "clevr":  # Specific position + jitter
   scene.camera.position = [7.48113, -6.50764, 5.34367] + rng.rand(3)
 if FLAGS.camera == "random":  # Random position in half-sphere-shell
   scene.camera.position = kb.sample_point_in_half_sphere_shell(
-      inner_radius=8., outer_radius=12., offset=0.1)
+      inner_radius=7., outer_radius=9., offset=0.1)
 scene.camera.look_at((0, 0, 0))
 
 
@@ -181,6 +178,7 @@ if FLAGS.save_state:
   logging.info("Saving the renderer state to '%s' ",
                output_dir / "scene.blend")
   renderer.save_state(output_dir / "scene.blend")
+
 
 logging.info("Rendering the scene ...")
 data_stack = renderer.render()
