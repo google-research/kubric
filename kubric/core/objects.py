@@ -184,7 +184,7 @@ class PhysicalObject(Object3D):
 
   static = tl.Bool(False)
   mass = tl.Float(1.0)
-  friction = tl.Float(0.0)
+  friction = tl.Float(0.5)
   restitution = tl.Float(0.5)
 
   # TODO: a tuple of two numpy arrays is annoying to work with

@@ -146,3 +146,8 @@ class OrthographicCamera(Camera):
         [0, fy,  0],
         [0,   0,   -1],
     ])
+
+  def z_to_depth(self, z: ArrayLike) -> np.ndarray:
+    # not sure if depth is even well defined in orthographic
+    # for now just return the z value
+    return z

@@ -41,25 +41,21 @@ class ObjectPropertiesException(Exception):
   def __init__(self, message):
     super().__init__(message)
 
-
-def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
+def get_object_properties(obj_path:Path, logger=_DEFAULT_LOGGER, density=1.0):
   # --- override the trimesh logger
   trimesh.util.log = logger
 
-  tmesh = _get_tmesh(str(obj_path))
-
-  def rounda(x): return np.round(x, decimals=6).tolist()
-  def roundf(x): return float(np.round(x, decimals=6))
+  tmesh = get_tmesh(str(obj_path))
   properties = {
-    "bounds": rounda(tmesh.bounds),
-    "mass": roundf(tmesh.mass),
-    "center_mass": rounda(tmesh.center_mass),
-    "inertia": rounda(tmesh.moment_inertia),
+    "bounds": tmesh.bounds.tolist(),
+    "center_mass": tmesh.center_mass.tolist(),
+    "inertia": tmesh.moment_inertia.tolist(),
+    "mass": tmesh.volume * density,
   }
   return properties
 
 
-def _get_tmesh(obj_fd):
+def get_tmesh(obj_fd):
   scene_or_mesh = trimesh.load_mesh(obj_fd, process=False)
   if isinstance(scene_or_mesh, trimesh.Scene):
     mesh_list = [trimesh.Trimesh(vertices=g.vertices, faces=g.faces)

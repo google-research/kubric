@@ -135,6 +135,8 @@ parser.add_argument("--kubasic_assets_dir", type=str, default="gs://kubric-publi
 parser.add_argument("--gso_assets_dir", type=str, default="gs://kubric-public/GSO")
 parser.add_argument("--hdri_dir", type=str, default="gs://kubric-public/hdri_haven/4k")
 
+parser.add_argument("--max_motion_blur", type=float, default=0.0)
+
 parser.add_argument("--no_save_state", dest="save_state", action="store_false")
 parser.add_argument("--save_state", dest="save_state", action="store_true")
 parser.set_defaults(save_state=True, frame_end=24, frame_rate=12, width=512, height=512)
@@ -143,7 +145,9 @@ FLAGS = parser.parse_args()
 # --- Common setups & resources
 scene, rng, output_dir, scratch_dir = kb.setup(FLAGS)
 simulator = PyBullet(scene, scratch_dir)
-renderer = Blender(scene, scratch_dir, use_denoising=True, adaptive_sampling=False)
+motion_blur = rng.uniform(0, FLAGS.max_motion_blur)
+logging.info(f"Using motion blur strength {motion_blur}")
+renderer = Blender(scene, scratch_dir, use_denoising=True, adaptive_sampling=False, motion_blur=motion_blur)
 
 
 # --- Populate the scene
@@ -262,8 +266,8 @@ def add_random_object(spawn_region, rng, use_init_velocity=True):
     obj.scale = scale / max_dim
 
     cat_name = "jft_category" if "jft_category" in asset_source.db.columns else "category_id"
-    category_id = int(asset_source.db[
-                      asset_source.db["id"] == asset_id].iloc[0][cat_name])
+    category_id = asset_source.db[
+                      asset_source.db["id"] == asset_id].iloc[0][cat_name]
     categories = sorted(pd.unique(asset_source.db[cat_name]))
     obj.metadata = {
         "scale": scale,
