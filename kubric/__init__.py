@@ -43,6 +43,7 @@ from kubric.core.materials import Material
 from kubric.core.materials import UndefinedMaterial
 from kubric.core.materials import PrincipledBSDFMaterial
 from kubric.core.materials import FlatMaterial
+from kubric.core.materials import Texture
 
 from kubric.core.objects import Object3D
 from kubric.core.objects import PhysicalObject

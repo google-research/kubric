@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # pylint: disable=line-too-long, unexpected-keyword-arg
-"""TODO(klausg): description."""
-
 import dataclasses
 import json
 import logging
@@ -27,9 +25,131 @@ import tensorflow_datasets.public_api as tfds
 from typing import List, Dict, Union
 
 
-_DESCRIPTION = "TODO(klausg)."
+_DESCRIPTION = """
+A simple rigid-body simulation based on the CLEVR dataset.
+The scene consists of a gray floor, four light sources, a camera, and between 
+3 and 10 random objects.
+The camera position is randomly jittered in a small area around a fixed position
+and always points at the origin.
+The objects are randomly chosen from: 
+ - one three shapes [cube, sphere, cylinder], 
+ - scaled to one of two sizes [small, large], 
+ - have one of two materials [rubber, metal], 
+ - and one of eight colors [blue, brown, cyan, gray, green, purple, red, yellow]
 
-_CITATION = "TODO(klausg)."
+They are spawned without overlap in the region [(-5, -5, 1), (5, 5, 5)], and
+initialized with a random velocity from the range [(-4, -4, 0), (4, 4, 0)] 
+minus the position of the object to bias their trajectory towards the center of
+the scene.
+
+The scene is simulated for 2 seconds, with the physical properties of the 
+objects depending on the material:
+ - metal: friction=0.4, restitution=0.3, density=2.7
+ - rubber: friction=0.8, restitution=0.7, density=1.1
+ 
+The dataset contains approx 10k videos rendered at 256x256 pixels and 12fps.
+
+Each sample contains the following video-format data: 
+(s: sequence length, h: height, w: width)
+
+- "video": (s, h, w, 3) [uint8]  
+  The RGB frames.  
+- "segmentations": (s, h, w, 1) [uint8]
+  Instance segmentation as per-pixel object-id with background=0. 
+  Note: because of this the instance IDs used here are one higher than their
+  corresponding index in sample["instances"]. 
+- "depth": (s, h, w, 1) [uint16]
+  Distance of each pixel from the center of the camera.
+  (Note this is different from the z-value sometimes used, which measures the 
+  distance to the camera *plane*.)
+  The values are stored as uint16 and span the range specified in 
+  sample["metadata"]["depth_range"]. To convert them back to world-units 
+  use:  
+    minv, maxv = sample["metadata"]["depth_range"]
+    depth = sample["depth"] / 65535 * (maxv - minv) + minv
+- "forward_flow": (s, h, w, 2) [uint16]
+  Forward optical flow in the form (delta_row, delta_column).
+  The values are stored as uint16 and span the range specified in 
+  sample["metadata"]["forward_flow_range"]. To convert them back to pixels use:  
+    minv, maxv = sample["metadata"]["forward_flow_range"]
+    depth = sample["forward_flow"] / 65535 * (maxv - minv) + minv
+- "backward_flow": (s, h, w, 2) [uint16]
+  Backward optical flow in the form (delta_row, delta_column).
+  The values are stored as uint16 and span the range specified in 
+  sample["metadata"]["backward_flow_range"]. To convert them back to pixels use:  
+    minv, maxv = sample["metadata"]["backward_flow_range"]
+    depth = sample["backward_flow"] / 65535 * (maxv - minv) + minv
+- "normal": (s, h, w, 3) [uint16]
+  Surface normals for each pixel in world coordinates. 
+- "object_coordinates": (s, h, w, 3) [uint16]
+  Object coordinates encode the position of each point relative to the objects
+  bounding box (i.e. back-left-top (X=Y=Z=1) corner is white, 
+  while front-right-bottom (X=Y=Z=0) corner is black.)  
+
+Additionally there is rich instance-level information in sample["instances"]:
+- "mass": [float32]
+  Mass of the object used for simulation.
+- "friction": [float32]
+  Friction coefficient used for simulation.
+- "restitution": [float32]
+  Restitution coefficient (bounciness) used for simulation.
+- "positions": (s, 3) [float32]
+  Position of the object for each frame in world-coordinates.
+- "quaternions": (s, 4) [float32]
+  Rotation of the object for each frame as quaternions.
+- "velocities": (s, 3) [float32]
+  Velocity of the object for each frame.
+- "angular_velocities": (s, 3) [float32]
+  Angular velocity of the object for each frame. 
+- "bboxes_3d": (s, 8, 3) [float32]
+  World-space corners of the 3D bounding box around the object.
+- "image_positions": (s, 2) [float32]
+  Normalized (0, 1) image-space (2D) coordinates of the center of mass of the 
+  object for each frame. 
+- "bboxes": (None, 4) [float32]
+   The normalized image-space (2D) coordinates of the bounding box 
+   [ymin, xmin, ymax, xmax] for all the frames in which the object is visible
+   (as specified in bbox_frames).
+- "bbox_frames": (None,) [int]
+   A list of all the frames the object is visible. 
+- "visibility": (s,) [uint16]
+  Visibility of the object in number of pixels for each frame (can be 0).
+- "shape_label": ["cube", "cylinder", "sphere"]
+- "size_label": ["small", "large"]
+- "color": (3,) [float32]
+  Color of the object in RGB.
+- "color_label": ["blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"]
+- "material_label": ["metal", "rubber"]
+
+Information about the camera in sample["camera"] 
+(given for each frame eventhough the camera is static, so as to stay 
+consistent with other variants of the dataset):
+
+- "focal_length": [float32]
+- "sensor_width": [float32]
+- "field_of_view": [float32]
+- "positions": (s, 3) [float32]
+- "quaternions": (s, 4) [float32]
+
+
+And finally information about collision events in sample["events"]["collisions"]:
+
+- "instances": (2,)[uint16]
+  Indices of the two instance between which the collision happened. 
+  Note that collisions with the floor/background objects are marked with 65535
+- "frame": tf.int32,
+  Frame in which the collision happenend.
+- "force": tf.float32,
+  The force (strength) of the collision.
+- "position": tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+  Position of the collision event in 3D world coordinates.
+- "image_position": tfds.features.Tensor(shape=(2,), dtype=tf.float32),
+  Position of the collision event projected onto normalized 2D image coordinates.
+- "contact_normal": tfds.features.Tensor(shape=(3,), dtype=tf.float32),
+  The normal-vector of the contact (direction of the force).
+"""
+
+_CITATION = "TODO: kubric paper"
 
 
 @dataclasses.dataclass
@@ -56,7 +176,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
           description="Full resolution of 256x256",
           height=256,
           width=256,
-          validation_ratio=0.05,
+          validation_ratio=0.025,
           # train_val_path="/usr/local/google/home/klausg/movi_tmp",
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_a_regen_10k/",
           test_split_paths={
@@ -64,11 +184,11 @@ class MoviA(tfds.core.BeamBasedBuilder):
           }
       ),
       MoviAConfig(
-          name="E_128x128",
-          description="Downscaled to  128x128",
+          name="128x128",
+          description="Downscaled to 128x128",
           height=128,
           width=128,
-          validation_ratio=0.05,
+          validation_ratio=0.025,
           # train_val_path="/usr/local/google/home/klausg/movi_tmp",
           train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_a_regen_10k/",
           test_split_paths={
@@ -84,7 +204,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
     w = self.builder_config.width
     s = self.builder_config.num_frames
 
-    def get_movi_a_instance_features(seq_length: int):
+    def get_movid_a_instance_features(seq_length: int):
       features = get_instance_features(seq_length)
       features.update({
           "shape_label": tfds.features.ClassLabel(
@@ -119,7 +239,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
                                                             dtype=tf.float32),
             },
             "instances": tfds.features.Sequence(
-                feature=get_movi_a_instance_features(seq_length=s)),
+                feature=get_movid_a_instance_features(seq_length=s)),
             "camera": get_camera_features(s),
             "events": get_events_features(),
             # -----
@@ -187,7 +307,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
     def _process_example(video_dir):
       key, result, metadata = load_scene_directory(video_dir, target_size)
 
-      # add MOVi-A specific instance information:
+      # add MOVid-A specific instance information:
       for i, obj in enumerate(result["instances"]):
         obj["shape_label"] = metadata["instances"][i]["shape"]
         obj["size_label"] = metadata["instances"][i]["size_label"]
@@ -204,10 +324,9 @@ class MoviA(tfds.core.BeamBasedBuilder):
             beam.Map(_process_example))
 
 
-
-
 DEFAULT_LAYERS = ("rgba", "segmentation", "forward_flow", "backward_flow",
                   "depth", "normal", "object_coordinates")
+
 
 def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
   scene_dir = tfds.core.as_path(scene_dir)
