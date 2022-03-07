@@ -10,6 +10,7 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
+
 ![](docs/images/teaser.gif)
 
 > :warning: This project is in alpha stage and subject to extensive change.

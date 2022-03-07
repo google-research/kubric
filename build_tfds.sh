@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 DATASET_NAME=${1}  # has to be the same as the filename of DATASET_CONFIG
-DATASET_CONFIG="kubric/datasets/${DATASET_NAME}.py"
+DATASET_CONFIG="examples/movi/${DATASET_NAME}.py"
 GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
@@ -29,7 +29,7 @@ setuptools.setup(
     url="https://github.com/google-research/kubric",
     author="kubric authors",
     author_email="kubric@google.com",
-    install_requires=['tensorflow_datasets', 'pypng', 'imageio'],
+    install_requires=['tensorflow_datasets', 'pypng', 'imageio', 'kubric'],
     packages=setuptools.find_packages(),
 )
 EOF

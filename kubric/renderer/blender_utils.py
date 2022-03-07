@@ -214,17 +214,15 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
   output = {}
   if "Image" in layer_names:
     # Image is in RGBA format with range [0, inf]
-    # TODO: image is in HDR, so we need some tone-mapping
-    output["rgba"] = read_channels_from_exr(exr, ["Image.R", "Image.G", "Image.B", "Image.A"])
+    output["linear_rgba"] = read_channels_from_exr(exr, ["Image.R", "Image.G",
+                                                         "Image.B", "Image.A"])
   if "Depth" in layer_names:
     # range [0, 10000000000.0]  # the value 1e10 is used for background / infinity
-    # TODO: clip to a reasonable value. Is measured in meters so usual range is ~ [0, 10]
     output["depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
     flow = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
     # Blender exports forward and backward flow in a single image,
     # and uses (-delta_col, delta_row) format, but we prefer (delta_row, delta_col)
-    # also use normalized coords that range from (0, 0) at the top left to (1, 1) at bottom right
     output["backward_flow"] = np.zeros_like(flow[..., :2])
     output["backward_flow"][..., 0] = flow[..., 1]
     output["backward_flow"][..., 1] = -flow[..., 0]
@@ -235,12 +233,12 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
 
   if "Normal" in layer_names:
     # range: [-1, 1]
-    data = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
-    output["normal"] = ((data + 1) * 65535 / 2).astype(np.uint16)
+    output["normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
+
   if "UV" in layer_names:
     # range [0, 1]
-    data = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
-    output["uv"] = (data * 65535).astype(np.uint16)
+    output["uv"] = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
+
   if "CryptoObject00" in layer_names:
     # CryptoMatte stores the segmentation of Objects using two kinds of channels:
     #  - index channels (uint32) specify the object index for a pixel
@@ -408,3 +406,57 @@ def center_mesh_around_center_of_mass(obj):
     vert.co[0] -= tmesh.center_mass[0]
     vert.co[1] -= tmesh.center_mass[1]
     vert.co[2] -= tmesh.center_mass[2]
+
+
+def process_depth(exr_layers, scene):
+  # blender returns z values (distance to camera plane)
+  # convert them into depth (distance to camera center)
+  return scene.camera.z_to_depth(exr_layers["depth"])
+
+
+def process_z(exr_layers, scene):
+  # blender returns z values (distance to camera plane)
+  return exr_layers["depth"]
+
+
+def process_backward_flow(exr_layers, scene):
+  return exr_layers["backward_flow"]
+
+
+def process_forward_flow(exr_layers, scene):
+  return exr_layers["forward_flow"]
+
+
+def process_uv(exr_layers, scene):
+  # convert range [0, 1] to uint16
+  return (exr_layers["uv"].clip(0.0, 1.0) * 65535).astype(np.uint16)
+
+
+def process_normal(exr_layers, scene):
+  # convert range [-1, 1] to uint16
+  return ((exr_layers["normal"].clip(-1.0, 1.0) + 1) * 65535 / 2
+          ).astype(np.uint16)
+
+
+def process_object_coordinates(exr_layers, scene):
+  # sometimes these values can become ever so slightly negative (e.g. 1e-10)
+  # we clip them to [0, 1] to guarantee this range for further processing.
+  return (exr_layers["object_coordinates"].clip(0.0, 1.0) * 65535
+          ).astype(np.uint16)
+
+
+def process_segementation(exr_layers, scene):
+  # map the Blender cryptomatte hashes to asset indices
+  return replace_cryptomatte_hashes_by_asset_index(
+      exr_layers["segmentation_indices"][:, :, :1], scene.assets)
+
+
+def process_rgba(exr_layers, scene):
+  # map the Blender cryptomatte hashes to asset indices
+  return exr_layers["rgba"]
+
+
+def process_rgb(exr_layers, scene):
+  return exr_layers["rgba"][..., :3]
+
+
