@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-
+Very basic scenes that mimics 2D bouncing balls by using an orthographic camera,
+looking straight down.
 """
 
 import logging
@@ -34,9 +35,7 @@ parser.add_argument("--friction", type=float, default=.0)
 parser.add_argument("--shape", type=str, default="sphere")
 parser.add_argument("--color", type=str, default="uniform_hsv")
 
-parser.add_argument("--no_save_state", dest="save_state", action="store_false")
-parser.add_argument("--save_state", dest="save_state", action="store_true")
-parser.set_defaults(save_state=True, frame_end=24, frame_rate=12, width=128, height=128)
+parser.set_defaults(frame_end=24, frame_rate=12, width=128, height=128)
 FLAGS = parser.parse_args()
 
 # --- Common setups & resources
@@ -132,10 +131,9 @@ for color in colors:
   kb.resample_while(ball, samplers, simulator.check_overlap, rng=rng)
 
 # --- simulation
-if FLAGS.save_state:
-  logging.info("Saving the simulator state to '%s' before starting the simulation.",
-               output_dir / "scene.bullet")
-  simulator.save_state(output_dir / "scene.bullet")
+logging.info("Saving the simulator state to '%s' before starting the simulation.",
+             output_dir / "scene.bullet")
+simulator.save_state(output_dir / "scene.bullet")
 
 # Run dynamic objects simulation
 logging.info("Running the simulation ...")
@@ -143,10 +141,9 @@ animation, collisions = simulator.run(frame_start=0, frame_end=scene.frame_end+1
 
 
 # --- Rendering
-if FLAGS.save_state:
-  logging.info("Saving the renderer state to '%s' before starting the rendering.",
-               output_dir / "scene.blend")
-  renderer.save_state(output_dir / "scene.blend")
+logging.info("Saving the renderer state to '%s' before starting the rendering.",
+             output_dir / "scene.blend")
+renderer.save_state(output_dir / "scene.blend")
 
 logging.info("Rendering the scene ...")
 data_stack = renderer.render()

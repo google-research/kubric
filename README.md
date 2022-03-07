@@ -9,8 +9,10 @@
 A data generation pipeline for creating semi-realistic synthetic multi-object 
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
+![](docs/images/teaser.gif)
 
-> :warning: This project is pre-alpha work in progress and subject to extensive change.
+
+> :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
 We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
@@ -41,6 +43,17 @@ ls output
 - Realism: Ideally, the ability to span the entire complexity range from CLEVR all the way to real-world video such as YouTube8. This is clearly not feasible, but we would like to get as close as possible. 
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
+
+
+## Datasets
+* [Multi-Object Video (MOVi) Dataset](docs/datasets/movi/README.md)
+* [Texture-Structure in NeRF Dataset](docs/datasets/texture_structure/README.md)
+* [Long-Term Tracking](docs/datasets/long_term_tracking/README.md)
+* [Texture-Structure in NeRF](docs/datasets/texture_structure/README.md)
+* [Multi-View Object Matting](docs/datasets/multi_view_sod/README.md)
+* [Robust NeRF](docs/datasets/robust_nerf/README.md)
+* [ShapeNet renders](docs/datasets/shapenet/README.md)
+* [Metallic ShapeNet](docs/datasets/metallic_shapenet/README.md)
 
 ## Bibtex
 ```

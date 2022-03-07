@@ -26,7 +26,7 @@ from singledispatchmethod import singledispatchmethod
 from kubric import core
 from kubric.redirect_io import RedirectStream
 
-# --- removes the "pybullet build time: May 26 2021 18:52:36" message upon import
+# --- hides the "pybullet build time: May 26 2021 18:52:36" message on import
 with RedirectStream(stream=sys.stderr):
   import pybullet as pb
 
@@ -42,10 +42,13 @@ class PyBullet(core.View):
 
     # --- Set some parameters to fix the sticky-walls problem; see
     # https://github.com/bulletphysics/bullet3/issues/3094
-    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0., warmStartingFactor=0.,
-                                 useSplitImpulse=True, contactSlop=0., enableConeFriction=False,
+    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0.,
+                                 warmStartingFactor=0.,
+                                 useSplitImpulse=True,
+                                 contactSlop=0.,
+                                 enableConeFriction=False,
                                  deterministicOverlappingPairs=True)
-
+    # TODO: setTimeStep if scene.step_rate != 240 Hz
     super().__init__(scene, scene_observers={
         "gravity": [lambda change: pb.setGravity(*change.new)],
     })
@@ -82,8 +85,9 @@ class PyBullet(core.View):
     collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
-    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to
+    # fix the sticky walls issue;
+    # see https://github.com/bulletphysics/bullet3/issues/3094
     box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
                                  wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
     pb.changeDynamics(box_idx, -1, contactProcessingThreshold=0)
@@ -98,8 +102,9 @@ class PyBullet(core.View):
     collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
-    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to
+    # fix the sticky walls issue;
+    # see https://github.com/bulletphysics/bullet3/issues/3094
     sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
                                     wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
     pb.changeDynamics(sphere_idx, -1, contactProcessingThreshold=0)
@@ -121,10 +126,12 @@ class PyBullet(core.View):
     scale = obj.scale[0]
     assert obj.scale[1] == obj.scale[2] == scale, "Pybullet does not support non-uniform scaling"
 
-    # useMaximalCoordinates and contactProcessingThreshold are required to fix the sticky walls
-    # issue; see https://github.com/bulletphysics/bullet3/issues/3094
+    # useMaximalCoordinates and contactProcessingThreshold are required to
+    # fix the sticky walls issue;
+    # see https://github.com/bulletphysics/bullet3/issues/3094
     if path.suffix == ".urdf":
-      obj_idx = pb.loadURDF(str(path), useFixedBase=obj.static, globalScaling=scale,
+      obj_idx = pb.loadURDF(str(path), useFixedBase=obj.static,
+                            globalScaling=scale,
                             useMaximalCoordinates=True)
     else:
       raise IOError(

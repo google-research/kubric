@@ -13,6 +13,7 @@
 # limitations under the License.
 # pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
 
+import collections
 import io
 import logging
 import os
@@ -46,7 +47,7 @@ class Blender(core.View):
   def __init__(self,
                scene: core.Scene,
                scratch_dir=None,
-               adaptive_sampling=True,
+               adaptive_sampling=False,
                use_denoising=True,
                samples_per_pixel=128,
                background_transparency=False,
@@ -101,6 +102,19 @@ class Blender(core.View):
     self.background_transparency = background_transparency
 
     self.exr_output_node = blender_utils.set_up_exr_output_node(motion_blur=motion_blur)
+
+    self.post_processors = {
+        "backward_flow": blender_utils.process_backward_flow,
+        "forward_flow": blender_utils.process_forward_flow,
+        "depth": blender_utils.process_depth,
+        "z": blender_utils.process_z,
+        "uv": blender_utils.process_uv,
+        "normal": blender_utils.process_normal,
+        "object_coordinates": blender_utils.process_object_coordinates,
+        "segmentation": blender_utils.process_segementation,
+        "rgb": blender_utils.process_rgb,
+        "rgba": blender_utils.process_rgba,
+    }
 
     super().__init__(scene, scene_observers={
         "frame_start": [AttributeSetter(self.blender_scene, "frame_start")],
@@ -223,6 +237,10 @@ class Blender(core.View):
   def render(self,
              frames: Optional[Sequence[int]] = None,
              ignore_missing_textures: bool = False,
+             return_layers: Sequence[str] = ("rgba", "backward_flow",
+                                             "forward_flow", "depth",
+                                             "normal", "object_coordinates",
+                                             "segmentation"),
              ) -> Dict[str, np.ndarray]:
     """Renders all frames (or a subset) of the animation and returns images as a dict of arrays.
 
@@ -230,21 +248,23 @@ class Blender(core.View):
       frames: list of frames to render (defaults to range(scene.frame_start, scene.frame_end+1)).
       ignore_missing_textures: if False then raise a RuntimeError when missing textures are
         detected. Otherwise, proceed to render (with purple color instead of missing texture).
+      return_layers: list of layers to return. For possible values refer to
+        the Blender.post_processors dict. Defaults to ("backward_flow",
+        "forward_flow", "depth", "normal", "object_coordinates", "segmentation").
+
     Returns:
-      A dictionary with the following entries:
+      A dictionary with one entry for each return layer. By default:
         - "rgba": shape = (nr_frames, height, width, 4)
         - "segmentation": shape = (nr_frames, height, width, 1) (int)
         - "backward_flow": shape = (nr_frames, height, width, 2)
         - "forward_flow": shape = (nr_frames, height, width, 2)
         - "depth": shape = (nr_frames, height, width, 1)
-        - "uv": shape = (nr_frames, height, width, 3)
-        - "normal": shape = (nr_frames, height, width, 3)
+        - "object_coordinates": shape = (nr_frames, height, width, 3) (uint16)
+        - "normal": shape = (nr_frames, height, width, 3) (uint16)
     """
     logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
-    missing_textures = sorted({img.filepath for img in bpy.data.images
-                               if tuple(img.size) == (0, 0) and img.filepath})
-    if missing_textures and not ignore_missing_textures:
-      raise RuntimeError(f"Missing textures: {missing_textures}")
+    if not ignore_missing_textures:
+      self._check_missing_textures()
     self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
     # --- starts rendering
     if frames is None:
@@ -260,58 +280,72 @@ class Blender(core.View):
         logger.info("Rendered frame '%s'", bpy.context.scene.render.filepath)
 
     # --- post process the rendered frames
-    return self.postprocess(self.scratch_dir)
+    return self.postprocess(self.scratch_dir, return_layers=return_layers)
 
-  def render_still(self, frame: Optional[int] = None):
+  def _check_missing_textures(self):
+    missing_textures = sorted({img.filepath for img in bpy.data.images
+            if tuple(img.size) == (0, 0) and img.filepath})
+    if missing_textures:
+      raise RuntimeError(f"Missing textures: {missing_textures}")
+
+  def render_still(
+      self,
+      frame: Optional[int] = None,
+      ignore_missing_textures: bool = False,
+      return_layers: Sequence[str] = ("rgba", "backward_flow", "forward_flow",
+                                      "depth", "normal", "object_coordinates",
+                                      "segmentation"),
+  ):
     """Render a single frame (first frame by default).
 
     Args:
     frame: Which frame to render (defaults to scene.frame_start).
-
+    ignore_missing_textures: if False then raise a RuntimeError when missing textures are
+      detected. Otherwise, proceed to render (with purple color instead of missing texture).
+    return_layers: list of layers to return. For possible values refer to
+      the Blender.post_processors dict. Defaults to ("backward_flow",
+      "forward_flow", "depth", "normal", "object_coordinates", "segmentation").
     Returns:
-    A dictionary with the following entries:
-    - "rgba": shape = (height, width, 4)
-    - "segmentation": shape = (height, width, 1) (int)
-    - "backward_flow": shape = (height, width, 2)
-    - "forward_flow": shape = (height, width, 2)
-    - "depth": shape = (height, width, 1)
-    - "uv": shape = (height, width, 3)
-    - "normal": shape = (height, width, 3)
+    A dictionary with one entry for each return layer. By default:
+        - "rgba": shape = (height, width, 4)
+        - "segmentation": shape = (height, width, 1) (int)
+        - "backward_flow": shape = (height, width, 2)
+        - "forward_flow": shape = (height, width, 2)
+        - "depth": shape = (height, width, 1)
+        - "object_coordinates": shape = (height, width, 3) (uint16)
+        - "normal": shape = (height, width, 3) (uint16)
     """
     frame = self.scene.frame_start if frame is None else frame
-    result = self.render(frames=[frame])
+
+    result = self.render(frames=[frame],
+                         ignore_missing_textures=ignore_missing_textures,
+                         return_layers=return_layers)
     return {k: v[0] for k, v in result.items()}
 
-  def postprocess(self, from_dir: PathLike):
+  def postprocess(
+      self,
+      from_dir: PathLike,
+      return_layers: Sequence[str]):
+
     from_dir = tfds.core.as_path(from_dir)
     # --- collect all layers for all frames
-    data_stack = {}
-    list_of_exr_frames = sorted((from_dir / "exr").glob("*.exr"))
+    data_stack = collections.defaultdict(list)
+    exr_frames = sorted((from_dir / "exr").glob("*.exr"))
+    png_frames = [from_dir / "images" / (exr_filename.stem + ".png")
+                  for exr_filename in exr_frames]
 
-    for exr_filename in list_of_exr_frames:
-      png_filename = from_dir / "images" / (exr_filename.stem + ".png")
-
-      layers = blender_utils.get_render_layers_from_exr(exr_filename)
-      data = {k: layers[k] for k in
-              ["backward_flow", "forward_flow", "depth", "uv", "normal", "object_coordinates"]}
+    for exr_filename, png_filename in zip(exr_frames, png_frames):
+      source_layers = blender_utils.get_render_layers_from_exr(exr_filename)
       # Use the contrast-normalized PNG instead of the EXR for RGBA.
-      data["rgba"] = file_io.read_png(png_filename)
-      data["segmentation"] = layers["segmentation_indices"][:, :, :1]
-      for key in data:
-        if key in data_stack:
-          data_stack[key].append(data[key])
-        else:
-          data_stack[key] = [data[key]]
-    for key in data_stack:
-      data_stack[key] = np.stack(data_stack[key], axis=0)
+      source_layers["rgba"] = file_io.read_png(png_filename)
 
-    # map the Blender cryptomatte hashes to asset indices
-    data_stack["segmentation"] = blender_utils.replace_cryptomatte_hashes_by_asset_index(
-        data_stack["segmentation"], self.scene.assets)
+      for key in return_layers:
+        post_processor = self.post_processors[key]
+        data_stack[key].append(post_processor(source_layers, self.scene))
 
-    # convert z values (distance to camera plane) into depth (distance to camera center)
-    data_stack["depth"] = self.scene.camera.z_to_depth(data_stack["depth"])
-    return data_stack
+    return {key: np.stack(data_stack[key], axis=0)
+            for key in data_stack}
+
 
   @staticmethod
   def clear_and_reset_blender_scene(verbose: bool = False, custom_scene: str = None):
