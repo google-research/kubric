@@ -48,13 +48,13 @@ ls output
 
 ## Datasets
 * [Multi-Object Video (MOVi) Dataset](docs/datasets/movi/README.md)
-* [Texture-Structure in NeRF Dataset](docs/datasets/texture_structure/README.md)
-* [Long-Term Tracking](docs/datasets/long_term_tracking/README.md)
-* [Texture-Structure in NeRF](docs/datasets/texture_structure/README.md)
-* [Multi-View Object Matting](docs/datasets/multi_view_sod/README.md)
-* [Robust NeRF](docs/datasets/robust_nerf/README.md)
-* [ShapeNet renders](docs/datasets/shapenet/README.md)
-* [Metallic ShapeNet](docs/datasets/metallic_shapenet/README.md)
+* [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
+* [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
+* [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
+* [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
+* [Robust NeRF](https://github.com/google-research/kubric/issues/184)
+* [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
+* [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
 
 ## Bibtex
 ```
