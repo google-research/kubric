@@ -83,15 +83,12 @@ elif OBJ_TYPE == 'shapenet':
 
   # TODO: go to https://shapenet.org/ create an account and agree to the terms
   #       then find the URL for the kubric preprocessed ShapeNet and put it here:
-  # SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
-  # SHAPENET_PATH = "gs://tensorflow-graphics/public/60c9de9c410be30098c297ac/ShapeNetCore.v2"
+  SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
 
-  # if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
-  #   raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
-  #                   "agree to terms and conditions, and find the correct path.")
-  # asset_source = kb.AssetSource(SHAPENET_PATH)
-  asset_source = kb.AssetSource.from_manifest(
-      'gs://kubric-unlisted/assets/ShapeNetCore.v2.json')
+  if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
+    raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
+                     "agree to terms and conditions, and find the correct path.")
+  asset_source = kb.AssetSource.from_manifest(SHAPENET_PATH)
 
   if OBJNAME == 'car' or OBJNAME == 'car-no-tex':
     obj = asset_source.create(
