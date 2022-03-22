@@ -27,15 +27,17 @@ from typing import List, Dict, Union
 
 _DESCRIPTION = """
 A simple rigid-body simulation based on the CLEVR dataset.
-The scene consists of a gray floor, four light sources, a camera, and between 
+The scene consists of a randomly colored floor, four light sources, a camera, and between 
 3 and 10 random objects.
-The camera position is randomly jittered in a small area around a fixed position
+The camera position is sampled randomly in a half-sphere shell around the scene
 and always points at the origin.
+
 The objects are randomly chosen from: 
- - one three shapes [cube, sphere, cylinder], 
- - scaled to one of two sizes [small, large], 
+ - one of eleven shapes ("cube", "cylinder", "sphere", "cone", "torus", "gear",
+                         "torus_knot", "sponge", "spot", "teapot", "suzanne")
+ - scaled uniformly between 0.7 and 1.4, 
  - have one of two materials [rubber, metal], 
- - and one of eight colors [blue, brown, cyan, gray, green, purple, red, yellow]
+ - a uniformly random hue
 
 They are spawned without overlap in the region [(-5, -5, 1), (5, 5, 5)], and
 initialized with a random velocity from the range [(-4, -4, 0), (4, 4, 0)] 
@@ -115,10 +117,9 @@ Additionally there is rich instance-level information in sample["instances"]:
 - "visibility": (s,) [uint16]
   Visibility of the object in number of pixels for each frame (can be 0).
 - "shape_label": ["cube", "cylinder", "sphere"]
-- "size_label": ["small", "large"]
+- "scale": float between 0.7 and 1.4
 - "color": (3,) [float32]
   Color of the object in RGB.
-- "color_label": ["blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"]
 - "material_label": ["metal", "rubber"]
 
 Information about the camera in sample["camera"] 
@@ -130,6 +131,9 @@ consistent with other variants of the dataset):
 - "field_of_view": [float32]
 - "positions": (s, 3) [float32]
 - "quaternions": (s, 4) [float32]
+
+A single entry about the background:
+- "background_color": (3,) [float32]
 
 
 And finally information about collision events in sample["events"]["collisions"]:
@@ -153,8 +157,8 @@ _CITATION = "TODO: kubric paper"
 
 
 @dataclasses.dataclass
-class MoviAConfig(tfds.core.BuilderConfig):
-  """"Configuration for Multi-Object Video (MOVid) dataset."""
+class MoviBConfig(tfds.core.BuilderConfig):
+  """"Configuration for Multi-Object Video (MOVi) dataset."""
   height: int = 256
   width: int = 256
   num_frames: int = 24
@@ -163,36 +167,34 @@ class MoviAConfig(tfds.core.BuilderConfig):
   test_split_paths: Dict[str, str] = dataclasses.field(default_factory=dict)
 
 
-class MoviA(tfds.core.BeamBasedBuilder):
-  """DatasetBuilder for MOVi-A dataset."""
+class MoviB(tfds.core.BeamBasedBuilder):
+  """DatasetBuilder for Movi-B dataset."""
   VERSION = tfds.core.Version("1.0.0")
   RELEASE_NOTES = {
       "1.0.0": "initial release",
   }
 
   BUILDER_CONFIGS = [
-      MoviAConfig(
+      MoviBConfig(
           name="256x256",
           description="Full resolution of 256x256",
           height=256,
           width=256,
           validation_ratio=0.025,
           # train_val_path="/usr/local/google/home/klausg/movi_tmp",
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_a_regen_10k/",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_b_regen_10k/",
           test_split_paths={
-              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_a_regen_all_same",
           }
       ),
-      MoviAConfig(
+      MoviBConfig(
           name="128x128",
           description="Downscaled to 128x128",
           height=128,
           width=128,
           validation_ratio=0.025,
           # train_val_path="/usr/local/google/home/klausg/movi_tmp",
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_a_regen_10k/",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_b_regen_10k/",
           test_split_paths={
-              # "test_all_same": "gs://research-brain-kubric-xgcp/jobs/movid_a_regen_all_same",
           }
       ),
   ]
@@ -204,7 +206,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
     w = self.builder_config.width
     s = self.builder_config.num_frames
 
-    def get_movid_a_instance_features(seq_length: int):
+    def get_movi_b_instance_features(seq_length: int):
       features = get_instance_features(seq_length)
       features.update({
           "shape_label": tfds.features.ClassLabel(
@@ -238,8 +240,10 @@ class MoviA(tfds.core.BeamBasedBuilder):
                 "backward_flow_range": tfds.features.Tensor(shape=(2,),
                                                             dtype=tf.float32),
             },
+            "background_color": tfds.features.Tensor(shape=(3,),
+                                                     dtype=tf.float32),
             "instances": tfds.features.Sequence(
-                feature=get_movid_a_instance_features(seq_length=s)),
+                feature=get_movi_b_instance_features(seq_length=s)),
             "camera": get_camera_features(s),
             "events": get_events_features(),
             # -----
@@ -307,7 +311,7 @@ class MoviA(tfds.core.BeamBasedBuilder):
     def _process_example(video_dir):
       key, result, metadata = load_scene_directory(video_dir, target_size)
 
-      # add MOVid-A specific instance information:
+      # add Movi-B specific instance information:
       for i, obj in enumerate(result["instances"]):
         obj["shape_label"] = metadata["instances"][i]["shape"]
         obj["size_label"] = metadata["instances"][i]["size_label"]

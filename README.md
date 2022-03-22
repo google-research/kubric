@@ -47,7 +47,7 @@ ls output
 
 
 ## Datasets
-* [Multi-Object Video (MOVi) Dataset](docs/datasets/movi/README.md)
+* [Multi-Object Video (MOVi) Dataset](challenges/movi/README.md)
 * [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
 * [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
 * [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)

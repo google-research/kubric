@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 DATASET_NAME=${1}  # has to be the same as the filename of DATASET_CONFIG
-DATASET_CONFIG="examples/movi/${DATASET_NAME}.py"
+DATASET_CONFIG="${DATASET_NAME}.py"
 GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
