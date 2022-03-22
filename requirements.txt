@@ -4,6 +4,7 @@ dataclasses
 cloudml-hypertune
 google-cloud-storage
 imageio
+imageio-ffmpeg
 munch
 numpy>=1.17
 pandas
