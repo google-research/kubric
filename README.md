@@ -10,7 +10,10 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
-> :warning: This project is pre-alpha work in progress and subject to extensive change.
+
+![](docs/images/teaser.gif)
+
+> :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
 We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
@@ -56,6 +59,16 @@ docker run --rm --interactive \
            /usr/bin/python3 examples/articulation.py
 ```
 ![](docs/images/articulation.gif)
+
+## Datasets
+* [Multi-Object Video (MOVi) Dataset](docs/datasets/movi/README.md)
+* [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
+* [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
+* [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
+* [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
+* [Robust NeRF](https://github.com/google-research/kubric/issues/184)
+* [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
+* [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
 
 ## Bibtex
 ```

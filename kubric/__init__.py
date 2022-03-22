@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ from kubric.core.materials import Material
 from kubric.core.materials import UndefinedMaterial
 from kubric.core.materials import PrincipledBSDFMaterial
 from kubric.core.materials import FlatMaterial
+from kubric.core.materials import Texture
 
 from kubric.core.objects import Object3D
 from kubric.core.objects import PhysicalObject

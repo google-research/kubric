@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -131,7 +131,7 @@ class AssetSource(ClosableResource):
 
     return {k: _adjust_path(v) for k, v in asset_kwargs.items()}
 
-  def create(self, asset_id: str, add_metadata: bool = True, **kwargs) -> core.Asset:
+  def create(self, asset_id: str, add_metadata: bool = True, **kwargs) -> Type[core.Asset]:
     """
     Create an instance of an asset by a given id.
 
