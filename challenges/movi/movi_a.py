@@ -149,8 +149,21 @@ And finally information about collision events in sample["events"]["collisions"]
   The normal-vector of the contact (direction of the force).
 """
 
-_CITATION = "TODO: kubric paper"
-
+_CITATION = """\
+@inproceedings{greff2022kubric,
+title = {Kubric: a scalable dataset generator}, 
+    author = {Klaus Greff and Francois Belletti and Lucas Beyer and Carl Doersch and
+              Yilun Du and Daniel Duckworth and David J Fleet and Dan Gnanapragasam and
+              Florian Golemo and Charles Herrmann and Thomas Kipf and Abhijit Kundu and
+              Dmitry Lagun and Issam Laradji and Hsueh-Ti (Derek) Liu and Henning Meyer and
+              Yishu Miao and Derek Nowrouzezahrai and Cengiz Oztireli and Etienne Pot and
+              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
+              Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
+              Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
+    booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition, {CVPR}},
+    year = {2022},
+    publisher = {Computer Vision Foundation / {IEEE}},
+}"""
 
 @dataclasses.dataclass
 class MoviAConfig(tfds.core.BuilderConfig):

@@ -116,7 +116,8 @@ Additionally there is rich instance-level information in sample["instances"]:
    A list of all the frames the object is visible. 
 - "visibility": (s,) [uint16]
   Visibility of the object in number of pixels for each frame (can be 0).
-- "shape_label": ["cube", "cylinder", "sphere"]
+- "shape_label": ["cube", "cylinder", "sphere", "cone", "torus", "gear",
+                  "torus_knot", "sponge", "spot", "teapot", "suzanne"]
 - "scale": float between 0.7 and 1.4
 - "color": (3,) [float32]
   Color of the object in RGB.
@@ -153,8 +154,21 @@ And finally information about collision events in sample["events"]["collisions"]
   The normal-vector of the contact (direction of the force).
 """
 
-_CITATION = "TODO: kubric paper"
-
+_CITATION = """\
+@inproceedings{greff2022kubric,
+title = {Kubric: a scalable dataset generator}, 
+    author = {Klaus Greff and Francois Belletti and Lucas Beyer and Carl Doersch and
+              Yilun Du and Daniel Duckworth and David J Fleet and Dan Gnanapragasam and
+              Florian Golemo and Charles Herrmann and Thomas Kipf and Abhijit Kundu and
+              Dmitry Lagun and Issam Laradji and Hsueh-Ti (Derek) Liu and Henning Meyer and
+              Yishu Miao and Derek Nowrouzezahrai and Cengiz Oztireli and Etienne Pot and
+              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
+              Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
+              Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
+    booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition, {CVPR}},
+    year = {2022},
+    publisher = {Computer Vision Foundation / {IEEE}},
+}"""
 
 @dataclasses.dataclass
 class MoviBConfig(tfds.core.BuilderConfig):
@@ -210,13 +224,9 @@ class MoviB(tfds.core.BeamBasedBuilder):
       features = get_instance_features(seq_length)
       features.update({
           "shape_label": tfds.features.ClassLabel(
-              names=["cube", "cylinder", "sphere"]),
-          "size_label": tfds.features.ClassLabel(
-              names=["small", "large"]),
+              names=["cube", "cylinder", "sphere", "cone", "torus", "gear",
+                      "torus_knot", "sponge", "spot", "teapot", "suzanne"]),
           "color": tfds.features.Tensor(shape=(3,), dtype=tf.float32),
-          "color_label": tfds.features.ClassLabel(
-              names=["blue", "brown", "cyan", "gray",
-                     "green", "purple", "red", "yellow"]),
           "material_label": tfds.features.ClassLabel(
               names=["metal", "rubber"]),
       })
@@ -314,12 +324,9 @@ class MoviB(tfds.core.BeamBasedBuilder):
       # add Movi-B specific instance information:
       for i, obj in enumerate(result["instances"]):
         obj["shape_label"] = metadata["instances"][i]["shape"]
-        obj["size_label"] = metadata["instances"][i]["size_label"]
         obj["material_label"] = metadata["instances"][i]["material"]
         obj["color"] = np.array(metadata["instances"][i]["color"],
                                 dtype=np.float32)
-        obj["color_label"] = metadata["instances"][i]["color_label"]
-
       return key, result
 
     beam = tfds.core.lazy_imports.apache_beam
@@ -355,6 +362,7 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
           "num_frames": num_frames,
           "num_instances": metadata["metadata"]["num_instances"],
       },
+      "background_color": rgb_from_hexstr(metadata["metadata"]["background"]),
       "instances": [format_instance_information(obj)
                     for obj in metadata["instances"]],
       "camera": format_camera_information(metadata),
@@ -616,3 +624,35 @@ def read_tiff(filename: PathLike) -> np.ndarray:
     img = img[:, :, None]
   return img
 
+def rgb_from_hexstr(hexstr: str):
+  """Create a Color instance from a hex string like #ffaa22 or #11aa88ff.
+
+  Supports both long and short form (i.e. #ffffff is the same as #fff), and also an optional
+  alpha value (e.g. #112233ff or #123f).
+  """
+  if hexstr[0] == "#":  # get rid of leading #
+    hexstr = hexstr[1:]
+  if len(hexstr) == 3:
+    r = int(hexstr[0], 16) / 15.
+    g = int(hexstr[1], 16) / 15.
+    b = int(hexstr[2], 16) / 15.
+    return r, g, b
+  elif len(hexstr) == 4:
+    r = int(hexstr[0], 16) / 15.
+    g = int(hexstr[1], 16) / 15.
+    b = int(hexstr[2], 16) / 15.
+    a = int(hexstr[3], 16) / 15.
+    return r, g, b
+  elif len(hexstr) == 6:
+    r = int(hexstr[0:2], 16) / 255.0
+    g = int(hexstr[2:4], 16) / 255.0
+    b = int(hexstr[4:6], 16) / 255.0
+    return r, g, b
+  elif len(hexstr) == 8:
+    r = int(hexstr[0:2], 16) / 255.0
+    g = int(hexstr[2:4], 16) / 255.0
+    b = int(hexstr[4:6], 16) / 255.0
+    a = int(hexstr[6:8], 16) / 255.0
+    return r, g, b
+  else:
+    raise ValueError("invalid color hex string")
