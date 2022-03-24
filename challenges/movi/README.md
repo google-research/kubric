@@ -367,8 +367,96 @@ ds = tfds.load("movi_d", data_dir="gs://kubric-public/tfds")
 </details>
 
 ### MOVi-E
-(coming soon)
+![](images/movi_e_1.gif)
+![](images/movi_e_2.gif)
+![](images/movi_e_3.gif)
 
+MOVi-E introduces simple (linear) camera movement.
+The camera moves on a straight line with a random (but constant) velocity.
+The starting point is sampled randomly in a half-sphere shell around the scene 
+(inner_radius = 8, outer_radius = 12, and at least 0.1 abover the floor).
+From there the camera moves into a random direction between 0 and 4 units.
+This sampling process is repeated until a trajectory is found that starts and
+ends within the specified half-sphere shell around the center of the scene.
+The camera always points towards the origin.
+
+Generate single scene with the [movi_de_worker.py](movi_de_worker.py) script:
+```shell
+docker run --rm --interactive \
+  --user $(id -u):$(id -g)    \
+  --volume "$(pwd):/kubric"   \
+  kubricdockerhub/kubruntu    \
+  /usr/bin/python3 challenges/movi/movi_de_worker.py \
+  --camera=linear_movement
+```
+See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
+
+``` python
+ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
+```
+
+<details>
+  <summary>Sample format and shapes</summary>
+
+``` python
+{
+  "metadata": {
+    "video_name": int,
+    "depth_range": (2,),
+    "forward_flow_range": (2,),
+    "backward_flow_range": (2,),
+    "num_frames": 24,
+    "num_instances": int,
+    "height": 256,
+    "width": 256
+  },
+  "background": str
+  "camera": {
+    "field_of_view": 0.85755605,
+    "focal_length": 35.0,
+    "positions": (24, 3),
+    "quaternions": (24, 4),
+    "sensor_width": 32.0
+  },
+  "instances": {
+    "angular_velocities": (nr_instances, 24, 3),
+    "asset_id": (nr_instances,),
+    "bbox_frames": TensorShape([nr_instances, None]),
+    "bboxes": TensorShape([nr_instances, None, 4]),
+    "bboxes_3d": (nr_instances, 24, 8, 3),
+    "category": (nr_instances,),
+    "friction": (nr_instances,),
+    "image_positions": (nr_instances, 24, 2),
+    "is_dynamic': (nr_instances,)"
+    "mass": (nr_instances,),
+    "positions": (nr_instances, 24, 3),
+    "quaternions": (nr_instances, 24, 4),
+    "restitution": (nr_instances,),
+    "scale": (nr_instances,),
+    "velocities": (nr_instances, 24, 3),
+    "visibility": (nr_instances, 24)
+  },
+  
+  "events": {
+    "collisions": {
+      "contact_normal": (2778, 3),
+      "force": (2778,),
+      "frame": (2778,),
+      "image_position": (2778, 2),
+      "instances": (2778, 2),
+      "position": (2778, 3)
+    }
+  },
+  "depth": (24, 256, 256, 1),
+  "forward_flow": (24, 256, 256, 2),
+  "backward_flow": (24, 256, 256, 2),
+  "normal": (24, 256, 256, 3),
+  "object_coordinates": (24, 256, 256, 3),
+  "segmentations": (24, 256, 256, 1),
+  "video": (24, 256, 256, 3)
+}
+ ```
+</details>
 
 ## Annotations and Format
 Each sample is a dictionary which contains the following video-format data
