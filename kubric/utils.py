@@ -175,6 +175,8 @@ def get_instance_info(scene, assets_subset=None):
   assets_subset = scene.foreground_assets if assets_subset is None else assets_subset
   for instance in assets_subset:
     info = copy.copy(instance.metadata)
+    if hasattr(instance, "asset_id"):
+      info["asset_id"] = instance.asset_id
     info["positions"] = instance.get_values_over_time("position")
     info["quaternions"] = instance.get_values_over_time("quaternion")
     info["velocities"] = instance.get_values_over_time("velocity")

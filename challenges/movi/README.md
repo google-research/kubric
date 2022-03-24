@@ -241,6 +241,7 @@ ds = tfds.load("movi_c", data_dir="gs://kubric-public/tfds")
   },
   "instances": {
     "angular_velocities": (nr_instances, 24, 3),
+    "asset_id": (nr_instances,),
     "bbox_frames": TensorShape([nr_instances, None]),
     "bboxes": TensorShape([nr_instances, None, 4]),
     "bboxes_3d": (nr_instances, 24, 8, 3),
@@ -327,6 +328,7 @@ ds = tfds.load("movi_d", data_dir="gs://kubric-public/tfds")
   },
   "instances": {
     "angular_velocities": (nr_instances, 24, 3),
+    "asset_id": (nr_instances,),
     "bbox_frames": TensorShape([nr_instances, None]),
     "bboxes": TensorShape([nr_instances, None, 4]),
     "bboxes_3d": (nr_instances, 24, 8, 3),
