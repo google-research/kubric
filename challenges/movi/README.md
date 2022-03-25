@@ -3,6 +3,14 @@
 The MOVi dataset is really a series of five datasets (MOVi-A to MOVi-E) with increasing complexity.
 Each dataset consists of random scenes, each being a 2 second rigid body simulation with a few objects falling.
 The variants differ in various dimensions including the number and type of objects, background, camera position/movement, and wether all objects are tossed or if some remain static.
+Unless otherwise specified, each variant contains about 9.75k training images and 250 validation images, rendered at a resolution of 256x256 at 12fps for a total of 24 frames.
+Each dataset also comes with a downsampled variant at a resolution of 128x128. 
+They can be loaded like this:
+``` python
+ds = tfds.load("movi_a/256x256", data_dir="gs://kubric-public/tfds") 
+ds = tfds.load("movi_a/128x128", data_dir="gs://kubric-public/tfds") 
+```
+Refer to the [VisualizeMOVi.ipynb](VisualizeMOVi.ipynb) notebook for an example of loading and visualizing the datasets. 
 
 ## Variants
 ### MOVi-A
@@ -288,13 +296,13 @@ MOVi-D slightly increases scene complexity by using more objects with most of th
 Concretely each scene consists of 10-20 static objects and only 1-3 dynamic objects that are tossed onto the scene like in the other datasets.
 This variant is meant to test for larger number of objects, and the models ability to handle non-moving objects.
 
-Generate single scene with the [movi_de_worker.py](movi_de_worker.py) script:
+Generate single scene with the [movi_def_worker.py](movi_def_worker.py) script:
 ```shell
 docker run --rm --interactive \
   --user $(id -u):$(id -g)    \
   --volume "$(pwd):/kubric"   \
   kubricdockerhub/kubruntu    \
-  /usr/bin/python3 challenges/movi/movi_de_worker.py \
+  /usr/bin/python3 challenges/movi/movi_def_worker.py \
   --camera=fixed_random
 ```
 See [movi_d.py](movi_d.py) for the TFDS definition / conversion.
@@ -380,13 +388,13 @@ This sampling process is repeated until a trajectory is found that starts and
 ends within the specified half-sphere shell around the center of the scene.
 The camera always points towards the origin.
 
-Generate single scene with the [movi_de_worker.py](movi_de_worker.py) script:
+Generate single scene with the [movi_def_worker.py](movi_def_worker.py) script:
 ```shell
 docker run --rm --interactive \
   --user $(id -u):$(id -g)    \
   --volume "$(pwd):/kubric"   \
   kubricdockerhub/kubruntu    \
-  /usr/bin/python3 challenges/movi/movi_de_worker.py \
+  /usr/bin/python3 challenges/movi/movi_def_worker.py \
   --camera=linear_movement
 ```
 See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
@@ -459,8 +467,8 @@ ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds")
 </details>
 
 ## Annotations and Format
-Each sample is a dictionary which contains the following video-format data
-(`s: sequence length, h: height, w: width`):
+Each sample is a dictionary which contains the following data:
+(`s: sequence length, h: height, w: width, k: number of instances`):
 
 - **"video"**: `(s, h, w, 3) [uint8]`  
   The RGB frames.
@@ -497,77 +505,75 @@ Each sample is a dictionary which contains the following video-format data
   ```
 - **"normal"**: `(s, h, w, 3) [uint16]`  
   Surface normals for each pixel in world coordinates.
-- **"object_coordinates"**: (s, h, w, 3) [uint16]`  
+- **"object_coordinates"**: `(s, h, w, 3) [uint16]`  
   Object coordinates encode the position of each point relative to the objects
   bounding box (i.e. back-left-top (X=Y=Z=1) corner is white,
   while front-right-bottom (X=Y=Z=0) corner is black.)
-
-Additionally there is rich instance-level information within `sample["instances"]`.  
-*Note that the instances are sorted by their total visibility (descending), 
-i.e. the total number pixels they occupy throughout the video.*  
-- **"mass"**: `[float32]`  
-  Mass of the object used for simulation.
-- **"friction"**: `[float32]`  
-  Friction coefficient used for simulation.
-- **"restitution"**: `[float32]`  
-  Restitution coefficient (bounciness) used for simulation.
-- **"positions"**: `(s, 3) [float32]`  
-  Position of the object for each frame in world-coordinates.
-- **"quaternions"**: `(s, 4) [float32]`  
-  Rotation of the object for each frame as quaternions.
-- **"velocities"**: `(s, 3) [float32]`  
-  Velocity of the object for each frame.
-- **"angular_velocities"**: `(s, 3) [float32]`  
-  Angular velocity of the object for each frame.
-- **"bboxes_3d"**: `(s, 8, 3) [float32]`  
-  World-space corners of the 3D bounding box around the object.
-- **"image_positions"**: `(s, 2) [float32]`  
-  Normalized (0, 1) image-space (2D) coordinates of the center of mass of the
-  object for each frame.
-- **"bboxes"**: `(None, 4) [float32]`  
-  The normalized image-space (2D) coordinates of the bounding box
-  `[ymin, xmin, ymax, xmax]` for all the frames in which the object is visible
-  (as specified in bbox_frames).
-- **"bbox_frames"**: `(None,) [int]`  
-  A list of all the frames the object is visible.
-- **"visibility"**: `(s,) [uint16]`  
-  Visibility of the object in number of pixels for each frame (can be 0).
-
-Information about the camera in `sample["camera"]`
-(given for each frame even if the camera is static):
-
-- **"focal_length"**: `[float32]` 
-  Focal length of the camera in millimeters. 
-- **"sensor_width"**: `[float32]`  
-  Width of the sensor of the camera in millimeters.
-- **"field_of_view"**: `[float32]`
-  (horizontal) field of view angle of the camera in degrees.
-- **"positions"**: (s, 3) `[float32]`
-  Position of the camera for each frame in world-coordinates.
-- **"quaternions"**: (s, 4) `[float32]`
-  Rotation of the camera for each frame as quaternions.
-
-
-And finally information about collision events in `sample["events"]["collisions"]`:
-
-- **"instances"**: `(2,) [uint16]`
-  Indices of the two instance between which the collision happened.
-  Note that collisions with the floor/background objects are marked with 65535
-- **"frame"**: `[int32]`
-  Frame in which the collision happenend.
-- **"force"**: `[float32]`
-  The force (strength) of the collision.
-- **"position"**: `(3,) [float32]`
-  Position of the collision event in 3D world coordinates.
-- **"image_position"**: `(2,) [float32]`
-  Position of the collision event projected onto normalized 2D image coordinates.
-- **"contact_normal"**: `(3,) [float32]`
-  The normal-vector of the contact (direction of the force).
+- **"instances"**
+  Under this key there is rich instance-level information.  
+  *Note that the instances are sorted by their total visibility (descending), 
+  i.e. the total number pixels they occupy throughout the video.*  
+  - **"mass"**: `(k,) [float32]`  
+    Mass of the object used for simulation.
+  - **"friction"**: `(k,) [float32]`  
+    Friction coefficient used for simulation.
+  - **"restitution"**: `(k,) [float32]`  
+    Restitution coefficient (bounciness) used for simulation.
+  - **"positions"**: `(k, s, 3) [float32]`  
+    Position of the object for each frame in world-coordinates.
+  - **"quaternions"**: `(k, s, 4) [float32]`  
+    Rotation of the object for each frame as quaternions.
+  - **"velocities"**: `(k, s, 3) [float32]`  
+    Velocity of the object for each frame.
+  - **"angular_velocities"**: `(k, s, 3) [float32]`  
+    Angular velocity of the object for each frame.
+  - **"bboxes_3d"**: `(k, s, 8, 3) [float32]`  
+    World-space corners of the 3D bounding box around the object.
+  - **"image_positions"**: `(k, s, 2) [float32]`  
+    Normalized (0, 1) image-space (2D) coordinates of the center of mass of the
+    object for each frame.
+  - **"bboxes"**: `(k, None, 4) [float32]`  
+    The normalized image-space (2D) coordinates of the bounding box
+    `[ymin, xmin, ymax, xmax]` for all the frames in which the object is visible
+    (as specified in bbox_frames).
+  - **"bbox_frames"**: `(k, None) [int]`  
+    A list of all the frames the object is visible.
+  - **"visibility"**: `(k, s) [uint16]`  
+    Visibility of the object in number of pixels for each frame (can be 0).
+- **"camera"**
+  This key contains detailed information about the camera.
+  (given for each frame even if the camera is static):
+  - **"focal_length"**: `[float32]` 
+    Focal length of the camera in millimeters. 
+  - **"sensor_width"**: `[float32]`  
+    Width of the sensor of the camera in millimeters.
+  - **"field_of_view"**: `[float32]`
+    (horizontal) field of view angle of the camera in degrees.
+  - **"positions"**: `(s, 3) [float32]`
+    Position of the camera for each frame in world-coordinates.
+  - **"quaternions"**: `(s, 4) [float32]`
+    Rotation of the camera for each frame as quaternions.
+- **"events"**
+  - **"collisions"**
+    This key contains information about collision events.
+    - **"instances"**: `(2,) [uint16]`
+      Indices of the two instance between which the collision happened.
+      Note that collisions with the floor/background objects are marked with 65535
+    - **"frame"**: `[int32]`
+      Frame in which the collision happenend.
+    - **"force"**: `[float32]`
+      The force (strength) of the collision.
+    - **"position"**: `(3,) [float32]`
+      Position of the collision event in 3D world coordinates.
+    - **"image_position"**: `(2,) [float32]`
+      Position of the collision event projected onto normalized 2D image coordinates.
+    - **"contact_normal"**: `(3,) [float32]`
+      The normal-vector of the contact (direction of the force).
 
 
 ### Variant Specific Additional Information
 #### MOVi-A
-For each instance MOVi-A contains the following additional information:
+For each instance MOVi-A contains the following additional information under the `"instance"` key:
 - **"shape_label"**:  
   Choice of `["cube", "cylinder", "sphere"]`
 - **"size_label"**:  
@@ -599,7 +605,7 @@ MOVi-C has an additional (top-level) entry:
 - **"background"**: `str`  
   Name of the background HDRI.
 
-And for each instance MOVi-C contains the following additional information:
+And for each instance MOVi-C contains the following additional information under the `"instance"` key:
 - **"asset_id"**: `str`    
   Asset id from Google Scanned Objects dataset. 
 - **"scale"**: `[float32]`    
@@ -614,7 +620,7 @@ And for each instance MOVi-C contains the following additional information:
 
 
 #### MOVi-D and MOVi-E
-MOVi-D and E have the same information as MOVi-C, but for each instance there is an additional boolean:
+MOVi-D and E have the same information as MOVi-C, but for each instance there is an additional boolean under the `"instance"` key:
 - **"is_dynamic"**: `bool`    
   Indicating whether (at the start of the scene) the object
   is sitting on the floor (`False`) or is being tossed (`True`).
