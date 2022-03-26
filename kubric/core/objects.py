@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ from typing import Optional, Union, Tuple
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core import materials
-from kubric.typing import ArrayLike
+from kubric.kubric_typing import ArrayLike
 
 
 def ensure_3d_vector(x: ArrayLike) -> np.ndarray:
@@ -184,7 +184,7 @@ class PhysicalObject(Object3D):
 
   static = tl.Bool(False)
   mass = tl.Float(1.0)
-  friction = tl.Float(0.0)
+  friction = tl.Float(0.5)
   restitution = tl.Float(0.5)
 
   # TODO: a tuple of two numpy arrays is annoying to work with

@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Copyright 2021 The Kubric Authors
+# Copyright 2022 The Kubric Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ def shapenet_objects_dirs(datadir: str):
                        f'folder, as the taxonomy file was not found at '
                        f'"{str(taxonomy_path)}"')
 
-  logging.info(f"gathering shapenet folders: {datadir}")
+  logger.info(f"gathering shapenet folders: {datadir}")
   object_folders = list()
   categories = [x for x in Path(datadir).iterdir() if x.is_dir()]
   for category in categories:
@@ -99,7 +99,7 @@ def shapenet_objects_dirs(datadir: str):
   logging.debug(f"gathered object folders: {object_folders}")
 
   # --- remove invalid folders
-  logging.debug(f"dropping problemantic folders: {__shapenet_set__}")
+  logger.debug(f"dropping problematic folders: {__shapenet_set__}")
   object_folders = [folder for folder in object_folders if not invalid_model(folder)]
 
   # TODO: add objects w/o materials to the denylist?
@@ -161,8 +161,10 @@ class Functor(object):
       return properties
 
     except Exception as e:
+      import traceback
+
       logger.error(f'Pipeline exception on "{object_folder}"')
-      logger.debug(f'Exception details: {str(e)}')
+      logger.error(f'Exception details: {str(e)} {traceback.format_tb(e.__traceback__)}')
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -172,13 +174,14 @@ class Functor(object):
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--datadir', default='/ShapeNetCore.v2')
-  parser.add_argument('--num_processes', default=8, type=int)
+  parser.add_argument('--num_processes', default=48, type=int)
   parser.add_argument('--stop_after', default=0, type=int)
   parser.add_argument('--stages', nargs='+', default=["0", "1", "2", "3", "4", "5", "6"])
   args = parser.parse_args()
 
   # --- specify and communicate logging policy
   setup_logging(args.datadir)
+  logging.getLogger("trimesh").setLevel(logging.ERROR)
 
   # --- fetch which stages to execute
   stages = [int(stage) for stage in args.stages]

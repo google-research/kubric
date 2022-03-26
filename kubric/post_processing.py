@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 import numpy as np
 from typing import Sequence
 from kubric import core
-from kubric.typing import ArrayLike
+from kubric.kubric_typing import ArrayLike
 
 
 def compute_visibility(segmentation: np.ndarray, assets: Sequence[core.Asset]):

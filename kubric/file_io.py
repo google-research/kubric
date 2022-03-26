@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
 from kubric import plotting
-from kubric.typing import PathLike
+from kubric.kubric_typing import PathLike
 
 
 logger = logging.getLogger(__name__)
@@ -119,7 +119,7 @@ def write_png(data: np.array, filename: PathLike) -> None:
   height, width, channels = data.shape
   greyscale = (channels == 1)
   alpha = (channels == 4)
-  w = png.Writer(height, width, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
+  w = png.Writer(width, height, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
 
   if channels == 2:
     # Pad two-channel images with a zero channel.
@@ -206,10 +206,9 @@ def write_tiff(data: np.ndarray, filename: PathLike):
   assert data.ndim == 3, data.shape
   assert data.shape[2] in [1, 3, 4], "Must be grayscale, RGB, or RGBA"
 
-  buffer = io.BytesIO()
-  imageio.imwrite(buffer, data, format="tiff")
+  img_as_bytes = imageio.imwrite("<bytes>", data, format="tiff")
   filename = as_path(filename)
-  filename.write_bytes(buffer.getvalue())
+  filename.write_bytes(img_as_bytes)
 
 
 def read_tiff(filename: PathLike) -> np.ndarray:
@@ -233,8 +232,6 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
     max_write_threads: number of threads to use for writing images. (default = 16)
     **kwargs: additional kwargs to pass to the write_fn.
   """
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
   num_threads = min(data.shape[0], max_write_threads)
   with multiprocessing.pool.ThreadPool(num_threads) as pool:
     args = [(img, path_template.format(i)) for i, img in enumerate(data)]
@@ -242,7 +239,10 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
     def write_single_image_fn(arg):
       write_fn(*arg, **kwargs)
 
-    pool.imap_unordered(write_single_image_fn, args)
+    for result in pool.imap_unordered(write_single_image_fn, args):
+      if isinstance(result,  Exception):
+        logger.warning(f"Exception while writing image %s", result)
+
     pool.close()
     pool.join()
 
@@ -266,6 +266,13 @@ def write_uv_batch(data, directory, file_template="uv_{:05d}.png", max_write_thr
 
 
 def write_normal_batch(data, directory, file_template="normal_{:05d}.png", max_write_threads=16):
+  assert data.ndim == 4 and data.shape[-1] == 3, data.shape
+  path_template = str(as_path(directory) / file_template)
+  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+
+
+def write_coordinates_batch(data, directory, file_template="object_coordinates_{:05d}.png",
+                            max_write_threads=16):
   assert data.ndim == 4 and data.shape[-1] == 3, data.shape
   path_template = str(as_path(directory) / file_template)
   multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
@@ -325,6 +332,7 @@ DEFAULT_WRITERS = {
     "forward_flow": write_forward_flow_batch,
     "backward_flow": write_backward_flow_batch,
     "segmentation": write_segmentation_batch,
+    "object_coordinates": write_coordinates_batch,
 }
 
 
