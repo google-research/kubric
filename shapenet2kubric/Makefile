@@ -53,7 +53,7 @@ convert:
 		--volume $(SHAPENETSRC):/ShapeNetCore.v2 \
 		--volume $(SHAPENETDST):/ShapeNetCore.v2.kubric \
 		kubricdockerhub/shapenet:latest \
-		python shapenet2kubric/convert.py \
+		python convert.py \
 			--datadir "/ShapeNetCore.v2" \
 			--outdir "/ShapeNetCore.v2.kubric"
 

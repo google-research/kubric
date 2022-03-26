@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 DATASET_NAME=${1}  # has to be the same as the filename of DATASET_CONFIG
-DATASET_CONFIG="kubric/datasets/${DATASET_NAME}.py"
+DATASET_CONFIG="${DATASET_NAME}.py"
 GCP_PROJECT=kubric-xgcp
 GCS_BUCKET=gs://research-brain-kubric-xgcp
 REGION=us-central1
@@ -29,7 +29,7 @@ setuptools.setup(
     url="https://github.com/google-research/kubric",
     author="kubric authors",
     author_email="kubric@google.com",
-    install_requires=['tensorflow_datasets', 'pypng', 'imageio'],
+    install_requires=['tensorflow_datasets', 'pypng', 'imageio', 'kubric'],
     packages=setuptools.find_packages(),
 )
 EOF
@@ -42,7 +42,7 @@ tfds build $DATASET_CONFIG \
   --data_dir=$GCS_BUCKET/tensorflow_datasets \
   --beam_pipeline_options="runner=DataflowRunner,project=$GCP_PROJECT,job_name=$JOB_NAME,\
 staging_location=$GCS_BUCKET/binaries,temp_location=$GCS_BUCKET/temp,region=$REGION,\
-setup_file=$TEMP/setup.py,machine_type=$MACHINE_TYPE,num_workers=$NUM_WORKERS,experiments=upload_graph"
+setup_file=$TEMP/setup.py,machine_type=$MACHINE_TYPE,num_workers=$NUM_WORKERS,experiments=upload_graph,experiments=use_unsupported_python_version"
 
 
 
