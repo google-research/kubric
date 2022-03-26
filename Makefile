@@ -59,6 +59,8 @@ examples/katr: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/shapenet.py
+examples/keyframing: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/keyframing.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
@@ -74,7 +76,7 @@ pytest: checkmakeversion
 pylint: checkmakeversion
 	@TARGET=$${TARGET:-kubric/}
 	echo "running kubricdockerhub/kubruntudev pylint on" $${TARGET}
-	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
+	docker run --rm --interactive --volume  `pwd`:/workspace kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build
