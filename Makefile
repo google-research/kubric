@@ -34,6 +34,10 @@ kubruntu/push: kubruntu
 kubruntudev/push: kubruntudev
 	docker push kubricdockerhub/kubruntudev:latest
 
+# --- starts an interactive bash within the container
+kubruntudev/bash: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev bash
+
 # --- documentation (requires "apt-get install python3-sphinx")
 docs: $(shell find docs )
 	cd docs && $(MAKE) html
