@@ -29,7 +29,6 @@
 import contextlib
 import functools
 import logging
-import io
 import json
 import multiprocessing
 import pickle
@@ -241,7 +240,7 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
 
     for result in pool.imap_unordered(write_single_image_fn, args):
       if isinstance(result,  Exception):
-        logger.warning(f"Exception while writing image %s", result)
+        logger.warning("Exception while writing image %s", result)
 
     pool.close()
     pool.join()

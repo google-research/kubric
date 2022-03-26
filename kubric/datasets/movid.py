@@ -459,7 +459,7 @@ class Movid(tfds.core.BeamBasedBuilder):
     """Returns SplitGenerators."""
     del unused_dl_manager
     path = tfds.core.as_path(self.builder_config.train_val_path)
-    all_subdirs = [d for d in path.iterdir()]  # if (d / "events.json").exists()]
+    all_subdirs = list(path.iterdir())
     all_subdirs = sorted(all_subdirs, key=lambda x: int(x.name))
     all_subdirs = [str(d) for d in all_subdirs]
     logging.info("Found {subfolder} sub-folders in master path: {path}",
@@ -480,7 +480,7 @@ class Movid(tfds.core.BeamBasedBuilder):
 
     for key, path in self.builder_config.test_split_paths.items():
       path = tfds.core.as_path(path)
-      split_dirs = [d for d in path.iterdir()]  # if (d / "events.json").exists()]
+      split_dirs = list(path.iterdir())
       # sort the directories by their integer number
       split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
       logging.info("Found %d sub-folders in '%s' path: %s", len(split_dirs), key, path)
