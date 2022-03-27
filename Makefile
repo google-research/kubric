@@ -27,11 +27,11 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
 # WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
-blender/push: blender
+blender/push:
 	docker push kubricdockerhub/blender:latest
-kubruntu/push: kubruntu
+kubruntu/push:
 	docker push kubricdockerhub/kubruntu:latest
-kubruntudev/push: kubruntudev
+kubruntudev/push:
 	docker push kubricdockerhub/kubruntudev:latest
 
 # --- starts an interactive bash within the container
@@ -64,9 +64,9 @@ examples/keyframing: checkmakeversion
 
 # --- one-liners for executing challenges
 challenges/complex_brdf: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 challenges/complex_brdf/worker.py --source_path=$${SHAPENET_GCP_BUCKET}
-challenges/complex_brdf/launch: checkmakeversion
-	launch.sh hyper examples/lfn/lfn.py lfn_`date +"%Y%m%d_%H%M"` 52423 400 --source_path=$${SHAPENET_GCP_BUCKET}
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} kubricdockerhub/kubruntudev python3 challenges/complex_brdf/worker.py
+#challenges/complex_brdf/launch: checkmakeversion
+#	launch.sh hyper challenges/complex_brdf/worker.py lfn_`date +"%Y%m%d_%H%M"` 52423 400
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
