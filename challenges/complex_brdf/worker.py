@@ -1,4 +1,4 @@
-import os
+import pathlib
 import logging
 import numpy as np
 
@@ -16,13 +16,14 @@ parser = kb.ArgumentParser()
 parser.add_argument("--source_path", type=str,
   default="gs://kubric-public/ShapeNetCore.v2",
   help="location of shapenet data source.",)
-parser.add_argument('--rubber', action='store_true', help='use rubber metal')
+parser.add_argument('--rubber',
+  action='store_true',
+  help='use rubber metal')
 parser.set_defaults(
   seed=50000,
   frame_start=0,
   frame_end=23,
-  width=256,
-  height=256,
+  resolution=(256,256),
 )
 FLAGS = parser.parse_args()
 
@@ -33,7 +34,9 @@ job_dir = kb.as_path(FLAGS.job_dir)
 rng = np.random.RandomState(FLAGS.seed)
 scene = kb.Scene.from_flags(FLAGS)
 
-data = np.load("examples/lfn/cameras.npz")
+# --- Load the cameras
+local_path = pathlib.Path(__file__).parent.resolve()
+data = np.load(local_path / "cameras.npz")
 
 # --- Add a renderer
 renderer = KubricRenderer(scene,
@@ -41,8 +44,8 @@ renderer = KubricRenderer(scene,
   adaptive_sampling=False,
   background_transparency=True)
 
-bpy.context.scene.render.resolution_x = FLAGS.width
-bpy.context.scene.render.resolution_y = FLAGS.height
+bpy.context.scene.render.resolution_x = FLAGS.resolution[0]
+bpy.context.scene.render.resolution_y = FLAGS.resolution[1]
 
 # --- Add Klevr-like lights to the scene
 
@@ -51,7 +54,7 @@ scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
 
 # --- Fetch a random (airplane) asset
-asset_source = kb.AssetSource(FLAGS.source_path)
+asset_source = kb.AssetSource.from_manifest(FLAGS.source_path)
 ids = list(asset_source.db["id"])
 # ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
 asset_id = ids[FLAGS.seed % len(ids)] #< e.g. 02691156_10155655850468db78d106ce0a280f87

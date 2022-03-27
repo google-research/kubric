@@ -1,17 +1,9 @@
+import os
 import logging
 import numpy as np
 
 import kubric as kb
 from kubric.renderer import Blender
-
-# TODO: go to https://shapenet.org/ create an account and agree to the terms
-#       then find the URL for the kubric preprocessed ShapeNet and put it here:
-SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
-
-if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
-  raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
-                   "agree to terms and conditions, and find the correct path.")
-
 
 # --- CLI arguments
 parser = kb.ArgumentParser()
@@ -26,7 +18,10 @@ scene, rng, output_dir, scratch_dir = kb.setup(FLAGS)
 renderer = Blender(scene, scratch_dir,
                    samples_per_pixel=64,
                    background_transparency=True)
-shapenet = kb.AssetSource.from_manifest(SHAPENET_PATH)
+
+# --- Fetch shapenet
+source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/assets/ShapeNetCore.v2.json")
+shapenet = kb.AssetSource.from_manifest(source_path)
 
 # --- Add Klevr-like lights to the scene
 scene += kb.assets.utils.get_clevr_lights(rng=rng)
