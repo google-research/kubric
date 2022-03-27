@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ from kubric import randomness
 from kubric.core import color
 
 
-CLEVR_OBJECTS = ("Cube", "Cylinder", "Sphere")
-KUBASIC_OBJECTS = ("Cube", "Cylinder", "Sphere", "Cone", "Torus", "Gear", "TorusKnot",
-                   "Sponge", "Spot", "Teapot", "Suzanne")
+CLEVR_OBJECTS = ("cube", "cylinder", "sphere")
+KUBASIC_OBJECTS = ("cube", "cylinder", "sphere", "cone", "torus", "gear", "torusknot",
+                   "sponge", "spot", "teapot", "suzanne")
 
 
 def get_lfn_lights(

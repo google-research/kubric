@@ -34,9 +34,9 @@ kubruntu/push:
 kubruntudev/push:
 	docker push kubricdockerhub/kubruntudev:latest
 
-# --- runs interactive shell within container
-kubruntudev/bash:
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev /bin/bash
+# --- starts an interactive bash within the container
+kubruntudev/bash: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev bash
 
 # --- documentation (requires "apt-get install python3-sphinx")
 docs: $(shell find docs )
@@ -58,11 +58,13 @@ examples/klevr: checkmakeversion
 examples/katr: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
-	docker run --rm --interactive --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/shapenet.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/shapenet.py
+examples/keyframing: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/keyframing.py
+
+# --- one-liners for executing challenges
 examples/lfn: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/lfn/lfn.py --source_path=$${SHAPENET_GCP_BUCKET}
-
-# --- one-liners for launching on GCP
 examples/lfn/launch: checkmakeversion
 	launch.sh hyper examples/lfn/lfn.py lfn_`date +"%Y%m%d_%H%M"` 52423 400 --source_path=$${SHAPENET_GCP_BUCKET}
 
@@ -80,7 +82,7 @@ pytest: checkmakeversion
 pylint: checkmakeversion
 	@TARGET=$${TARGET:-kubric/}
 	echo "running kubricdockerhub/kubruntudev pylint on" $${TARGET}
-	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
+	docker run --rm --interactive --volume  `pwd`:/workspace kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build

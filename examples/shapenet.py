@@ -1,74 +1,69 @@
-import os
 import logging
 import numpy as np
 
 import kubric as kb
-from kubric.renderer import Blender as KubricRenderer
+from kubric.renderer import Blender
 
-# --- WARNING: this path is not yet public
-source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/ShapeNetCore.v2")
+# TODO: go to https://shapenet.org/ create an account and agree to the terms
+#       then find the URL for the kubric preprocessed ShapeNet and put it here:
+SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
 
-# --- CLI arguments (and modified defaults)
+if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
+  raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
+                   "agree to terms and conditions, and find the correct path.")
+
+
+# --- CLI arguments
 parser = kb.ArgumentParser()
 parser.set_defaults(
-  seed=1,
-  frame_start=1,
-  frame_end=5,
-  width=256,
-  height=256,
+    frame_end=5,
+    resolution=(512, 512),
 )
 FLAGS = parser.parse_args()
 
-# --- Common setups
-kb.utils.setup_logging(FLAGS.logging_level)
-kb.utils.log_my_flags(FLAGS)
-job_dir = kb.as_path(FLAGS.job_dir)
-rng = np.random.RandomState(FLAGS.seed)
-scene = kb.Scene.from_flags(FLAGS)
-
-# --- Add a renderer
-renderer = KubricRenderer(scene,
-  use_denoising=True,
-  adaptive_sampling=False,
-  background_transparency=True)
+# --- Common setups & resources
+scene, rng, output_dir, scratch_dir = kb.setup(FLAGS)
+renderer = Blender(scene, scratch_dir,
+                   samples_per_pixel=64,
+                   background_transparency=True)
+shapenet = kb.AssetSource.from_manifest(SHAPENET_PATH)
 
 # --- Add Klevr-like lights to the scene
 scene += kb.assets.utils.get_clevr_lights(rng=rng)
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
-# --- Add floor (~infinitely large sphere)
-scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000), background=True, static=True)
+# --- Add shadow-catcher floor
+floor = kb.Cube(name="floor", scale=(100, 100, 1), position=(0, 0, -1))
+scene += floor
+# Make the floor transparent except for catching shadows
+# Together with background_transparency=True (above) this results in
+# the background being transparent except for the object shadows.
+floor.linked_objects[renderer].cycles.is_shadow_catcher = True
 
 # --- Keyframe the camera
 scene.camera = kb.PerspectiveCamera()
 for frame in range(FLAGS.frame_start, FLAGS.frame_end + 1):
-  # scene.camera.position = (1, 1, 1)  #< frozen camera
-  scene.camera.position = kb.sample_point_in_half_sphere_shell(1.1, 1.2)
+  scene.camera.position = kb.sample_point_in_half_sphere_shell(1.5, 1.7, 0.1)
   scene.camera.look_at((0, 0, 0))
   scene.camera.keyframe_insert("position", frame)
   scene.camera.keyframe_insert("quaternion", frame)
 
 # --- Fetch a random (airplane) asset
-asset_source = kb.AssetSource(source_path)
-ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
-asset_id = rng.choice(ids) #< e.g. 02691156_10155655850468db78d106ce0a280f87
-obj = asset_source.create(asset_id=asset_id)
+airplane_ids = [name for name, spec in shapenet._assets.items()
+                if spec["metadata"]["category"] == "airplane"]
+
+asset_id = rng.choice(airplane_ids) #< e.g. 02691156_10155655850468db78d106ce0a280f87
+obj = shapenet.create(asset_id=asset_id)
 logging.info(f"selected '{asset_id}'")
 
 # --- make object flat on X/Y and not penetrate floor
-obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
+obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
 obj.position = obj.position - (0, 0, obj.aabbox[0][2])  
-
-obj.metadata = {
-    "asset_id": obj.asset_id,
-    "category": asset_source.db[
-      asset_source.db["id"] == obj.asset_id].iloc[0]["category_name"],
-}
 scene.add(obj)
 
 # --- Rendering
 logging.info("Rendering the scene ...")
-renderer.save_state(job_dir / "scene.blend")
+renderer.save_state(output_dir / "scene.blend")
 data_stack = renderer.render()
 
 # --- Postprocessing
@@ -78,21 +73,16 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     scene.assets,
     [obj]).astype(np.uint8)
 
-# --- Discard non-used information
-del data_stack["uv"]
-del data_stack["forward_flow"]
-del data_stack["backward_flow"]
-del data_stack["depth"]
-del data_stack["normal"]
-
-# --- Save to image files
-kb.file_io.write_image_dict(data_stack, job_dir)
+kb.file_io.write_rgba_batch(data_stack["rgba"], output_dir)
+kb.file_io.write_depth_batch(data_stack["depth"], output_dir)
+kb.file_io.write_segmentation_batch(data_stack["segmentation"], output_dir)
 
 # --- Collect metadata
 logging.info("Collecting and storing metadata for each object.")
 data = {
   "metadata": kb.get_scene_metadata(scene),
   "camera": kb.get_camera_info(scene.camera),
+  "object": kb.get_instance_info(scene, [obj])
 }
-kb.file_io.write_json(filename=job_dir / "metadata.json", data=data)
+kb.file_io.write_json(filename=output_dir / "metadata.json", data=data)
 kb.done()

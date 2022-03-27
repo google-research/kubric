@@ -26,7 +26,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM kubricdockerhub/blender:latest
+FROM kubricdockerhub/kubruntu:latest
 
 # --- Install system dep
 RUN apt-get update --fix-missing
