@@ -146,7 +146,7 @@ def test_physical_object_constructor_default_args():
   assert_allclose(obj.velocity, (0, 0, 0))
   assert_allclose(obj.angular_velocity, (0, 0, 0))
   assert obj.mass == 1.0
-  assert obj.friction == 0
+  assert obj.friction == 0.5
   assert obj.restitution == 0.5
   assert obj.static is False
   assert_allclose(obj.bounds, ((0, 0, 0), (0, 0, 0)))

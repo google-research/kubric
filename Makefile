@@ -75,7 +75,7 @@ challenges/complex_brdf: checkmakeversion
 pytest: checkmakeversion
 	@TARGET=$${TARGET:-test/}
 	echo "pytest (kubricdockerhub/kubruntudev) on folder" $${TARGET}
-	docker run --rm --interactive --volume `pwd`:/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $${TARGET}
+	docker run --rm --interactive --volume `pwd`:/workspace kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $${TARGET}
 
 # --- runs pylint on the entire "kubric/" subfolder
 # To run with options, e.g. `make pylint TARGET=./kubric/core`
