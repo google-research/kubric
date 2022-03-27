@@ -65,10 +65,9 @@ scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/assets/ShapeNetCore.v2.json")
 asset_source = kb.AssetSource.from_manifest(source_path)
 
-# --- Fetch a random (airplane) asset
+# --- Fetch a random asset from shapenet
 ids = list(asset_source._assets.keys())
-# ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
-asset_id = ids[FLAGS.seed % len(ids)] #< e.g. 02691156_10155655850468db78d106ce0a280f87
+asset_id = ids[FLAGS.seed % len(ids)]
 obj = asset_source.create(asset_id=asset_id)
 logging.info(f"selected '{asset_id}'")
 
