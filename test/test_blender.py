@@ -88,7 +88,7 @@ def test_blender_camera_assign_after_init(tmp_path):
 
 def test_blender_adaptive_sampling_default(tmp_path):
   renderer = blender.Blender(core.Scene(), tmp_path)
-  assert renderer.adaptive_sampling is False  # default should be True
+  assert renderer.adaptive_sampling is False
   assert renderer.blender_scene.cycles.use_adaptive_sampling is False
 
 
