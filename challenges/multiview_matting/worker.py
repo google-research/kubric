@@ -30,9 +30,20 @@ import numpy as np
 import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
 
+
+from kubric import file_io
 # --- WARNING: this path is not yet public
 source_path = (
-    "gs://tensorflow-graphics/public/60c9de9c410be30098c297ac/ShapeNetCore.v2")
+    "gs://kubric-unlisted/assets/ShapeNetCore.v2.json")
+
+
+
+manifest_path = file_io.as_path(source_path)
+manifest = file_io.read_json(manifest_path)
+# import pdb; pdb.set_trace()
+assets = manifest["assets"]
+name = manifest.get("name", manifest_path.stem)  # default to filename
+data_dir = manifest.get("data_dir", manifest_path.parent)  # default to manifest dir
 
 # --- CLI arguments (and modified defaults)
 parser = kb.ArgumentParser()
@@ -40,8 +51,7 @@ parser.set_defaults(
   seed=1,
   frame_start=1,
   frame_end=10,
-  width=128,
-  height=128,
+  resolution=(128, 128),
 )
 
 parser.add_argument("--backgrounds_split",
@@ -51,14 +61,45 @@ parser.add_argument("--dataset_mode",
 parser.add_argument("--hdri_dir",
                     type=str, default="gs://mv_bckgr_removal/hdri_haven/4k/")
                     # "/mnt/mydata/images/"
+parser.add_argument("--hdri_assets", type=str,
+                    default="gs://kubric-public/assets/HDRI_haven/HDRI_haven.json")
+parser.add_argument("--kubasic_assets", type=str,
+                    default="gs://kubric-public/assets/KuBasic/KuBasic.json")
 FLAGS = parser.parse_args()
+kubasic = kb.AssetSource.from_manifest(FLAGS.kubasic_assets)
+
 
 
 if FLAGS.dataset_mode == "hard":
   add_distractors = False
 
-def add_hdri_dome(hdri_source, scene, background_hdri=None):
-  dome_path = hdri_source.fetch("dome.blend")
+# def add_hdri_dome(hdri_source, scene, background_hdri=None):
+#   import pdb; pdb.set_trace()
+   
+#   # dome_path = hdri_source.fetch(hdri_source.data_dir.joinpath("dome.blend"), "dome.blend")
+#   dome_path = hdri_source.data_dir / ("dome.blend" + ".tar.gz")
+#   dome = kb.FileBasedObject(
+#       name="BackgroundDome",
+#       position=(0, 0, 0),
+#       static=True, background=True,
+#       simulation_filename=None,
+#       render_filename=str(dome_path),
+#       render_import_kwargs={
+#           "filepath": str(dome_path / "Object" / "Dome"),
+#           "directory": str(dome_path / "Object"),
+#           "filename": "Dome",
+#       })
+def add_hdri_dome(dome, scene, background_hdri=None):
+  # import pdb; pdb.set_trace()
+   
+  # dome_path = hdri_source.fetch(hdri_source.data_dir.joinpath("dome.blend"), "dome.blend")
+
+  import pdb; pdb.set_trace()
+  from pathlib import Path
+
+  dome_path = "/mnt/mydata/images/dome.blend"
+
+  
   dome = kb.FileBasedObject(
       name="BackgroundDome",
       position=(0, 0, 0),
@@ -66,8 +107,8 @@ def add_hdri_dome(hdri_source, scene, background_hdri=None):
       simulation_filename=None,
       render_filename=str(dome_path),
       render_import_kwargs={
-          "filepath": str(dome_path / "Object" / "Dome"),
-          "directory": str(dome_path / "Object"),
+          "filepath": str(Path(dome_path) / "Object" / "Dome"),
+          "directory": str(Path(dome_path) / "Object"),
           "filename": "Dome",
       })
   scene.add(dome)
@@ -98,13 +139,20 @@ renderer = KubricRenderer(scene,
   background_transparency=True)
 
 # --- Fetch a random asset
-asset_source = kb.AssetSource(source_path)
-all_ids = list(asset_source.db['id'])
+asset_source = kb.AssetSource.from_manifest(source_path)
+# all_ids = list(asset_source.db['id'])
+all_ids = [name for name, spec in asset_source._assets.items()]
+num_total_objs = len(all_ids)
 fraction = 0.1
-held_out_obj_ids = list(asset_source.db.sample(
-    frac=fraction, replace=False, random_state=42)["id"])
-train_obj_ids = [i for i in asset_source.db["id"] if
-                 i not in held_out_obj_ids]
+num_total_objs
+import random
+import math
+held_out_obj_ids = random.sample(all_ids, math.ceil(fraction * num_total_objs))
+
+# held_out_obj_ids = list(asset_source.db.sample(
+#     frac=fraction, replace=False, random_state=42)["id"])
+train_obj_ids = [id for id in all_ids if
+                 id not in held_out_obj_ids]
 
 if FLAGS.backgrounds_split == "train":
   asset_id = rng.choice(train_obj_ids)
@@ -122,10 +170,10 @@ obj_size = np.linalg.norm(obj.aabbox[1] - obj.aabbox[0])
 if add_distractors:
   obj_radius = np.linalg.norm(obj.aabbox[1][:2] - obj.aabbox[0][:2])
 obj_height = obj.aabbox[1][2] - obj.aabbox[0][2]
+
 obj.metadata = {
     "asset_id": obj.asset_id,
-    "category": asset_source.db[
-      asset_source.db["id"] == obj.asset_id].iloc[0]["category_name"],
+    "category": [spec for name, spec in asset_source._assets.items() if name == obj.asset_id][0]['metadata']["category"],
 }
 scene.add(obj)
 
@@ -152,9 +200,9 @@ if add_distractors:
 
     obj_height_2 = obj2.aabbox[1][2] - obj2.aabbox[0][2]
     obj2.metadata = {
-        "asset_id": obj.asset_id,
-        "category": asset_source.db[
-          asset_source.db["id"] == obj2.asset_id].iloc[0]["category_name"],
+      "asset_id": obj2.asset_id,
+      "category": [spec for name, spec in asset_source._assets.items()
+                   if name == obj2.asset_id][0]['metadata']["category"],
     }
     scene.add(obj2)
 
@@ -173,21 +221,30 @@ scene += table
 
 logging.info("Loading background HDRIs from %s", FLAGS.hdri_dir)
 
-hdri_source = kb.TextureSource(FLAGS.hdri_dir)
+# hdri_source = kb.TextureSource(FLAGS.hdri_dir)
+hdri_source = kb.AssetSource.from_manifest(FLAGS.hdri_assets)
+
 train_backgrounds, held_out_backgrounds = hdri_source.get_test_split(
     fraction=0.1)
+
 if FLAGS.backgrounds_split == "train":
   logging.info("Choosing one of the %d training backgrounds...",
                len(train_backgrounds))
-  background_hdri = hdri_source.create(texture_name=rng.choice(train_backgrounds))
+  background_hdri = hdri_source.create(asset_id=rng.choice(train_backgrounds))
 else:
   logging.info("Choosing one of the %d held-out backgrounds...",
                len(held_out_backgrounds))
   background_hdri = hdri_source.create(
-      texture_name=rng.choice(held_out_backgrounds))
-dome = kb.assets.utils.add_hdri_dome(hdri_source, scene, background_hdri)
+      asset_id=rng.choice(held_out_backgrounds))
+# dome = kb.assets.utils.add_hdri_dome(hdri_source, scene, background_hdri)
 
-dome = add_hdri_dome(hdri_source, scene, background_hdri)
+dome = kubasic.create(asset_id="dome", name="dome",
+                      friction=1.0,
+                      restitution=0.0,
+                      static=True, background=True)
+dome = add_hdri_dome(dome, scene, background_hdri)
+
+
 renderer._set_ambient_light_hdri(background_hdri.filename)
 # table = add_table(hdri_source, scene, background_hdri)
 
@@ -238,11 +295,13 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     [obj]).astype(np.uint8)
 
 # --- Discard non-used information
-del data_stack["uv"]
-del data_stack["forward_flow"]
-del data_stack["backward_flow"]
-del data_stack["depth"]
-del data_stack["normal"]
+# del data_stack["uv"]
+# del data_stack["forward_flow"]
+# del data_stack["backward_flow"]
+# del data_stack["depth"]
+# del data_stack["normal"]
+
+print(job_dir)
 
 # --- Save to image files
 kb.file_io.write_image_dict(data_stack, job_dir)
