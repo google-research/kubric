@@ -3,7 +3,7 @@
 # WARNING: verify credentials are enabled "gcloud auth application-default login"
 
 #JOB_NAME="kubric_$(date +"%b%d_%H%M%S" | tr A-Z a-z)"
-PROJECT_ID="tputryout"
+PROJECT_ID="kubric-xgcp"
 REGION="us-central1"  #< WARNING: match region of bucket!
 
 run_mode=${1}
@@ -16,16 +16,6 @@ NR_VIDEOS=${1}
 shift
 NR_WORKERS=${1}
 shift
-
-# bash launch.sh hyper examples/multiview_bkgd_removal.py rm_data8 1000 112
-# source_path = (
-#     "gs://tensorflow-graphics/public/60c9de9c410be30098c297ac/ShapeNetCore.v2")
-
-echo "Run Mode:" $run_mode
-echo "Worker File:" $worker_file
-echo "Job Name:" $JOB_NAME
-echo "Number of videos:" $NR_VIDEOS
-echo "Number of workers:" $NR_WORKERS
 
 
 if [[ "${run_mode}" == "dev" ]]
@@ -50,8 +40,8 @@ cat > /tmp/hypertune.yml << EOF
       params:
       - parameterName: seed
         type: INTEGER
-        minValue: 1001000
-        maxValue: 1002000
+        minValue: 1
+        maxValue: 1000000
 EOF
 
 
@@ -83,7 +73,7 @@ then
     --region $REGION \
     --scale-tier basic \
     --master-image-uri $TAG \
-    --job-dir "gs://mv_bckgr_removal/job_outputs/$JOB_NAME" \
+    --job-dir "gs://research-brain-kubric-xgcp/jobs/$JOB_NAME" \
     -- "$@"
 
   # --- Streams the job logs to local terminal
@@ -99,9 +89,8 @@ else   # hyper
     --scale-tier basic \
     --master-image-uri $TAG \
     --config /tmp/hypertune.yml \
-    --job-dir "gs://mv_bckgr_removal/job_outputs/$JOB_NAME" \
+    --job-dir "gs://research-brain-kubric-xgcp/jobs/$JOB_NAME" \
     -- "$@"
   gcloud ai-platform jobs describe $JOB_NAME
 fi
-
 
