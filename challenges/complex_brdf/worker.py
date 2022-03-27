@@ -87,7 +87,7 @@ scene += get_lights(rng=rng)
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
 # --- Fetch shapenet
- source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/assets/ShapeNetCore.v2.json")
+source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/assets/ShapeNetCore.v2.json")
 asset_source = kb.AssetSource.from_manifest(source_path)
 
 # --- Fetch a random asset from shapenet
