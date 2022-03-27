@@ -1,3 +1,17 @@
+# Copyright 2021 The Kubric Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Worker file for the Multi-View Background removal dataset.
 
@@ -17,7 +31,8 @@ import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
 
 # --- WARNING: this path is not yet public
-source_path = "gs://kubric-public/ShapeNetCore.v2"
+source_path = (
+    "gs://tensorflow-graphics/public/60c9de9c410be30098c297ac/ShapeNetCore.v2")
 
 # --- CLI arguments (and modified defaults)
 parser = kb.ArgumentParser()
@@ -25,17 +40,22 @@ parser.set_defaults(
   seed=1,
   frame_start=1,
   frame_end=10,
-  width=1024,
-  height=1024,
+  width=128,
+  height=128,
 )
 
 parser.add_argument("--backgrounds_split",
                     choices=["train", "test"], default="train")
+parser.add_argument("--dataset_mode",
+                    choices=["easy", "hard"], default="hard")
 parser.add_argument("--hdri_dir",
                     type=str, default="gs://mv_bckgr_removal/hdri_haven/4k/")
                     # "/mnt/mydata/images/"
 FLAGS = parser.parse_args()
 
+
+if FLAGS.dataset_mode == "hard":
+  add_distractors = False
 
 def add_hdri_dome(hdri_source, scene, background_hdri=None):
   dome_path = hdri_source.fetch("dome.blend")
@@ -99,7 +119,8 @@ obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
 obj.position = obj.position - (0, 0, obj.aabbox[0][2])
 
 obj_size = np.linalg.norm(obj.aabbox[1] - obj.aabbox[0])
-
+if add_distractors:
+  obj_radius = np.linalg.norm(obj.aabbox[1][:2] - obj.aabbox[0][:2])
 obj_height = obj.aabbox[1][2] - obj.aabbox[0][2]
 obj.metadata = {
     "asset_id": obj.asset_id,
@@ -108,11 +129,45 @@ obj.metadata = {
 }
 scene.add(obj)
 
+size_multiple = 1.
+if add_distractors:
+  distractor_locs = []
+  for i in range(4):
+    asset_id_2 = rng.choice(train_obj_ids)
+    obj2 = asset_source.create(asset_id=asset_id_2)
+    logging.info(f"selected '{asset_id}'")
+
+    # --- make object flat on X/Y and not penetrate floor
+    obj2.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
+    obj_2_radius = np.linalg.norm(obj2.aabbox[1][:2] - obj2.aabbox[0][:2])
+
+    position = rng.rand((2)) * 2 - 1
+    position /= np.linalg.norm(position)
+    position *= (obj_radius + obj_2_radius) / 2.
+
+    distractor_locs.append(-position)
+    obj2.position = obj2.position - (position[0], position[1], obj2.aabbox[0][2])
+
+    obj_size_2 = np.linalg.norm(obj2.aabbox[1] - obj2.aabbox[0])
+
+    obj_height_2 = obj2.aabbox[1][2] - obj2.aabbox[0][2]
+    obj2.metadata = {
+        "asset_id": obj.asset_id,
+        "category": asset_source.db[
+          asset_source.db["id"] == obj2.asset_id].iloc[0]["category_name"],
+    }
+    scene.add(obj2)
+
+  distractor_dir = np.vstack(distractor_locs)
+  distractor_dir /= np.linalg.norm(distractor_dir, axis=-1, keepdims=True)
+
+  size_multiple = 1.5
+
 material = kb.PrincipledBSDFMaterial(
     color=kb.Color.from_hsv(rng.uniform(), 1, 1),
     metallic=1.0, roughness=0.2, ior=2.5)
 
-table = kb.Cube(name="floor", scale=(obj_size, obj_size, 0.02),
+table = kb.Cube(name="floor", scale=(obj_size*size_multiple, obj_size*size_multiple, 0.02),
                 position=(0, 0, -0.02), material=material)
 scene += table
 
@@ -153,7 +208,11 @@ def sample_point_in_half_sphere_shell(
     v = rng.uniform((-outer_radius, -outer_radius, obj_height/1.2),
                     (outer_radius, outer_radius, obj_height))
     len_v = np.linalg.norm(v)
-    if inner_radius <= len_v <= outer_radius:
+    correct_angle = True
+    if add_distractors:
+      cam_dir = v[:2] / np.linalg.norm(v[:2])
+      correct_angle = np.all(np.dot(distractor_dir, cam_dir) < np.cos(np.pi / 9.))
+    if inner_radius <= len_v <= outer_radius and correct_angle:
       return tuple(v)
 
 # --- Keyframe the camera
