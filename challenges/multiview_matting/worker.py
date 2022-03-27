@@ -25,9 +25,11 @@ the foreground object (taken from different camera poses) are given. This
 currently underexplored in the literature.
 """
 
+import math
 from pathlib import Path
 import logging
 import numpy as np
+import tensorflow as tf
 
 import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
@@ -36,7 +38,12 @@ from kubric import file_io
 
 def add_hdri_dome(scene, background_hdri=None):
   """ Adding HDRI dome. """
-  dome_path = "/mnt/mydata/images/dome.blend"
+
+  # Download dome.blend
+  dome_path = Path("/kubric/dome.blend")
+  if not dome_path.exists():
+    tf.io.gfile.copy(FLAGS.hdri_dir + "dome.blend", dome_path)
+
   dome = kb.FileBasedObject(
       name="BackgroundDome",
       position=(0, 0, 0),
@@ -91,8 +98,8 @@ parser.add_argument("--hdri_dir",
                     type=str, default="gs://mv_bckgr_removal/hdri_haven/4k/")
 parser.add_argument("--hdri_assets", type=str,
                     default="gs://kubric-public/assets/HDRI_haven/HDRI_haven.json")
-
 FLAGS = parser.parse_args()
+
 
 if FLAGS.dataset_mode == "hard":
   add_distractors = True
@@ -113,13 +120,13 @@ renderer = KubricRenderer(scene,
 # --- Fetch a random asset
 asset_source = kb.AssetSource.from_manifest(source_path)
 # all_ids = list(asset_source.db['id'])
-all_ids = [name for name, spec in asset_source._assets.items()]
+all_ids = [name for name, unused_spec in asset_source._assets.items()]
 num_total_objs = len(all_ids)
 fraction = 0.1
-num_total_objs
-import random
-import math
-held_out_obj_ids = random.sample(all_ids, math.ceil(fraction * num_total_objs))
+
+rng_train_test_split = np.random.RandomState(1)
+rng_train_test_split.shuffle(all_ids)
+held_out_obj_ids = all_ids[:math.ceil(fraction * num_total_objs)]
 
 # held_out_obj_ids = list(asset_source.db.sample(
 #     frac=fraction, replace=False, random_state=42)["id"])
