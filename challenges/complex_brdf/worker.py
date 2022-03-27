@@ -1,6 +1,7 @@
 import pathlib
 import logging
 import numpy as np
+import os
 
 import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
@@ -8,23 +9,17 @@ import bpy
 import os.path as osp
 from glob import glob
 import mathutils
-import math
-# import random
 
 # --- CLI arguments (and modified defaults)
 parser = kb.ArgumentParser()
-parser.add_argument("--source_path", type=str,
-  default="gs://kubric-public/ShapeNetCore.v2",
-  help="location of shapenet data source.",)
-parser.add_argument('--rubber',
-  action='store_true',
-  help='use rubber metal')
 parser.set_defaults(
   seed=50000,
   frame_start=0,
   frame_end=23,
-  resolution=(256,256),
-)
+  resolution=(256,256))
+parser.add_argument('--rubber',
+  action='store_true',
+  help='use rubber metal')
 FLAGS = parser.parse_args()
 
 # --- Common setups
@@ -44,21 +39,22 @@ renderer = KubricRenderer(scene,
   adaptive_sampling=False,
   background_transparency=True)
 
+# TODO(klausg): why is this necessary?
 bpy.context.scene.render.resolution_x = FLAGS.resolution[0]
 bpy.context.scene.render.resolution_y = FLAGS.resolution[1]
 
 # --- Add Klevr-like lights to the scene
-
 scene += kb.assets.utils.get_lfn_lights(rng=rng)
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
 
+# --- Fetch shapenet
+source_path = os.getenv("SHAPENET_GCP_BUCKET", "gs://kubric-public/assets/ShapeNetCore.v2.json")
+asset_source = kb.AssetSource.from_manifest(source_path)
 
 # --- Fetch a random (airplane) asset
-asset_source = kb.AssetSource.from_manifest(FLAGS.source_path)
-ids = list(asset_source.db["id"])
+ids = list(asset_source._assets.keys())
 # ids = list(asset_source.db.loc[asset_source.db['id'].str.startswith('02691156')]['id'])
 asset_id = ids[FLAGS.seed % len(ids)] #< e.g. 02691156_10155655850468db78d106ce0a280f87
-# asset_id = "{}_{}".format(idx[0], idx[1])
 obj = asset_source.create(asset_id=asset_id)
 logging.info(f"selected '{asset_id}'")
 
@@ -68,17 +64,16 @@ obj.quaternion = kb.Quaternion(axis=[1,0,0], degrees=90)
 # --- Add floor (~infinitely large sphere)
 scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000 + obj.aabbox[0][2]), background=True, static=True)
 
-
 obj.metadata = {
     "asset_id": obj.asset_id,
-    "category": asset_source.db[
-      asset_source.db["id"] == obj.asset_id].iloc[0]["category_name"],
+    "category": asset_source._assets[asset_id]["metadata"]["category"]
+    # TODO(klausg): check this matches in the new API
+    # "category": asset_source.db[asset_source.db["id"] == obj.asset_id].iloc[0]["category_name"],
 }
 scene.add(obj)
 object = bpy.context.scene.objects[-1]
-# 
 
-# Renormalize objects
+# --- Renormalize objects
 v_min = []
 v_max = []
 for i in range(3):
@@ -168,8 +163,9 @@ def add_material(name, obj, **properties):
       output_node.inputs['Surface'],
   )
 
-bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "MyMetal.blend", 'NodeTree', "MyMetal"))
-bpy.ops.wm.append(filename=osp.join("./examples/lfn/", "Rubber.blend", 'NodeTree', "Rubber"))
+
+bpy.ops.wm.append(filename=str(local_path/"MyMetal.blend"/"NodeTree"/"MyMetal"))
+bpy.ops.wm.append(filename=str(local_path/"Rubber.blend"/"NodeTree"/"Rubber"))
 
 rand_color = rng.uniform(0, 1, (3,))
 color = (rand_color[0], rand_color[1], rand_color[2], 1)
@@ -194,16 +190,10 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     scene.assets,
     [obj]).astype(np.uint8)
 
-# --- Discard non-used information
-del data_stack["uv"]
-del data_stack["forward_flow"]
-del data_stack["backward_flow"]
-del data_stack["depth"]
-del data_stack["normal"]
-del data_stack["object_coordinates"]
-
 # --- Save to image files
-kb.file_io.write_image_dict(data_stack, job_dir)
+kb.file_io.write_rgba_batch(data_stack["rgba"], output_dir)
+kb.file_io.write_depth_batch(data_stack["depth"], output_dir)
+kb.file_io.write_segmentation_batch(data_stack["segmentation"], output_dir)
 
 # --- Collect metadata
 logging.info("Collecting and storing metadata for each object.")
