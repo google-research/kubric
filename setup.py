@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,7 @@
 # limitations under the License.
 
 import argparse
-import os
-import re
 import sys
-import datetime
 import setuptools
 from datetime import datetime
 from pathlib import Path
@@ -27,7 +24,8 @@ parser.add_argument('--tag', type=str, default=None, help="use v1.2.3 syntax")
 parser.add_argument('--nightly', action='store_true', help="automatic version, e.g. '2021.8.18'")
 parser.add_argument('--secondly', action='store_true', help="automatic version, e.g. '2021.8.18.16.13.12'")
 # --- remove known args from sys.argv (setup.py compliant)
-args, sys.argv = parser.parse_known_args()
+args, unknown = parser.parse_known_args()
+sys.argv = [sys.argv[0]] + unknown
 
 # --- Compute the version (for both nightly and normal)
 now = datetime.now()
@@ -87,14 +85,14 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.9",
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: Apache Software License",
         "Topic :: Multimedia :: Graphics :: 3D Rendering",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.9',
 )
 
 # --- Revert the version in the local folder

@@ -34,6 +34,10 @@ kubruntu/push: kubruntu
 kubruntudev/push: kubruntudev
 	docker push kubricdockerhub/kubruntudev:latest
 
+# --- starts an interactive bash within the container
+kubruntudev/bash: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev bash
+
 # --- documentation (requires "apt-get install python3-sphinx")
 docs: $(shell find docs )
 	cd docs && $(MAKE) html
@@ -46,15 +50,17 @@ docs_server:
 examples/basic: checkmakeversion
 	python3 examples/basic.py
 examples/helloworld: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/helloworld.py
 examples/simulator: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/simulator.py
 examples/klevr: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/klevr.py
 examples/katr: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/shapenet.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/shapenet.py
+examples/keyframing: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/keyframing.py
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
@@ -70,7 +76,7 @@ pytest: checkmakeversion
 pylint: checkmakeversion
 	@TARGET=$${TARGET:-kubric/}
 	echo "running kubricdockerhub/kubruntudev pylint on" $${TARGET}
-	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
+	docker run --rm --interactive --volume  `pwd`:/workspace kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build

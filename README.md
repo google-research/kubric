@@ -10,7 +10,10 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
-> :warning: This project is pre-alpha work in progress and subject to extensive change.
+
+![](docs/images/teaser.gif)
+
+> :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
 We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
@@ -42,8 +45,36 @@ ls output
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
-## Contributors
-[Klaus Greff](https://github.com/qwlouse) (Google), [Andrea Tagliasacchi](https://github.com/taiya) (Google and University of Toronto), Derek Liu (University of Toronto), Issam Laradji (McGill and MILA)
+
+## Datasets
+* [Multi-Object Video (MOVi) Dataset](challenges/movi/README.md)
+* [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
+* [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
+* [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
+* [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
+* [Robust NeRF](https://github.com/google-research/kubric/issues/184)
+* [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
+* [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
+
+## Bibtex
+```
+@article{greff2021kubric,
+    title = {Kubric: a scalable dataset generator}, 
+    author = {Klaus Greff and Francois Belletti and Lucas Beyer and Carl Doersch and
+              Yilun Du and Daniel Duckworth and David J Fleet and Dan Gnanapragasam and
+              Florian Golemo and Charles Herrmann and Thomas Kipf and Abhijit Kundu and
+              Dmitry Lagun and Issam Laradji and Hsueh-Ti (Derek) Liu and Henning Meyer and
+              Yishu Miao and Derek Nowrouzezahrai and Cengiz Oztireli and Etienne Pot and
+              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
+              Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
+              Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
+    booktitle = {arXiv preprint},
+    year = {2021},
+}
+```
+
+
+
 
 ## Disclaimer
 This is not an official Google Product

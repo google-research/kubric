@@ -14,3 +14,4 @@ dist/
 *.blend*
 shapenet2kubric/shapenet2kubric.log
 examples/KuBasic/Cone/*
+Dockerfile

@@ -43,7 +43,7 @@ cat > /tmp/hypertune.yml << EOF
       hyperparameterMetricTag: "answer"
       maxTrials: $NR_VIDEOS
       maxParallelTrials: $NR_WORKERS
-      maxFailedTrials: 10
+      maxFailedTrials: 100
       enableTrialEarlyStopping: False
 
       # --- each of these become an argparse argument

@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Copyright 2021 The Kubric Authors
+# Copyright 2022 The Kubric Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,8 +39,11 @@ import sys
 import tarfile
 from typing import Tuple
 
+import trimesh
+
 from shapenet_synsets import CATEGORY_NAMES
 from trimesh_utils import get_object_properties
+import trimesh_utils
 from urdf_template import URDF_TEMPLATE
 
 _DEFAULT_LOGGER = logging.getLogger(__name__)
@@ -133,7 +136,7 @@ def stage2(object_folder: Path, logger=_DEFAULT_LOGGER):
                    f"--source_path={source_path} --target_path={target_path} " \
                    f"--stdout_path={stdout_path} > {log_path}"
 
-  retobj = subprocess.run(command_string, shell=True, check=True)
+  retobj = subprocess.run(command_string, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
   if retobj.returncode != 0:
     logger.error(f'stage2 failed with return code {retobj.returncode}')
 
@@ -180,37 +183,90 @@ def get_asset_id_and_category(object_folder: Path) -> Tuple[str, str, str]:
   category_name = CATEGORY_NAMES[category_id]
   return asset_id, category_id, category_name
 
+def get_object_volume(obj_path:Path, logger=_DEFAULT_LOGGER, density=1.0):
+  # --- override the trimesh logger
+  trimesh.util.log = logger
+
+  tmesh = trimesh_utils.get_tmesh(str(obj_path))
+
+  properties = {
+      "volume": tmesh.volume,
+      "surface_area": tmesh.area,
+      "mass": tmesh.volume * density,
+  }
+  return properties
+
+def get_visual_properties(obj_path:Path, logger=_DEFAULT_LOGGER):
+  # --- override the trimesh logger
+  trimesh.util.log = logger
+
+  tmesh = trimesh_utils.get_tmesh(str(obj_path))
+
+  properties = {
+      "nr_vertices": len(tmesh.vertices),
+      "nr_faces": len(tmesh.faces),
+  }
+  return properties
+
+
 
 def stage4(object_folder: Path, logger=_DEFAULT_LOGGER):
   # TODO: we should probably use a mixture of model_normalized and model_wateright here?
   source_path = object_folder / 'kubric' / 'collision_geometry.obj'
+  watertight_mesh_path = object_folder / 'kubric' / 'model_watertight.obj'
+  vis_mesh_path = object_folder / 'kubric' / 'visual_geometry.glb'
   target_urdf_path = object_folder / 'kubric' / 'object.urdf'
   target_json_path = object_folder / 'kubric' / 'data.json'
+
+  if target_urdf_path.is_file() and target_json_path.is_file():
+    return
 
   # --- pre-condition
   if not source_path.is_file():
     logger.error(f'stage4 pre-condition failed, file does not exist "{source_path}"')
+  if not watertight_mesh_path.is_file():
+    logger.error(f'stage4 pre-condition failed, file does not exist "{watertight_mesh_path}"')
+  if not vis_mesh_path.is_file():
+    logger.error(f'stage4 pre-condition failed, file does not exist "{vis_mesh_path}"')
+
   logger.debug(f'stage4 running on "{object_folder}"')
 
   # --- body1: object.urdf file
   properties = get_object_properties(source_path, logger)
+  properties.update(get_object_volume(watertight_mesh_path))
+  properties.update(get_visual_properties(vis_mesh_path))
+
+
   asset_id, category_id, category_name = get_asset_id_and_category(object_folder)
-  properties['category_id'] = category_id
-  properties['category_name'] = category_name
-  properties['id'] = f'{category_id}_{asset_id}'
-  properties['friction'] = .5
+  properties["id"] = asset_id
   urdf_str = URDF_TEMPLATE.format(**properties)
   with open(target_urdf_path, 'w') as fd:
     fd.write(urdf_str)
 
   # --- body2: data.json file
-  properties['paths'] = {
-    'visual_geometry': 'visual_geometry.glb',
-    'collision_geometry': 'collision_geometry.obj',
-    'urdf': 'object.urdf',
+  asset_entry = {
+      "id": asset_id,
+      "asset_type": "FileBasedObject",
+      "kwargs": {
+          "bounds": properties["bounds"],
+          "mass": properties["mass"],
+          "render_filename": "visual_geometry.glb",
+          "simulation_filename": "object.urdf",
+      },
+      "license": "https://shapenet.org/terms",
+      "metadata": {
+          "category": category_name,
+          "category_id": category_id,
+          "watertight_mesh_filename": "model_watertight.obj",
+          "nr_faces": properties["nr_faces"],
+          "nr_vertices": properties["nr_vertices"],
+          "surface_area": properties["surface_area"],
+          "volume": properties["volume"],
+      }
   }
+
   with open(target_json_path, "w") as fd:
-    json.dump(properties, fd, indent=4, sort_keys=True)
+    json.dump(asset_entry, fd, indent=4, sort_keys=True)
   
   # --- post-condition
   if not target_urdf_path.is_file():
@@ -238,6 +294,8 @@ def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'visual_geometry.glb',
             arcname='visual_geometry.glb')
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj',
+            arcname='collision_geometry.obj')
+    tar.add(object_folder / 'kubric' / 'model_watertight.obj',
             arcname='collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf',
             arcname='object.urdf')
