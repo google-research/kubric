@@ -58,14 +58,14 @@ examples/klevr: checkmakeversion
 examples/katr: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/shapenet.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} kubricdockerhub/kubruntudev python3 examples/shapenet.py
 examples/keyframing: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/keyframing.py
 
 # --- one-liners for executing challenges
-examples/lfn: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/lfn/lfn.py --source_path=$${SHAPENET_GCP_BUCKET}
-examples/lfn/launch: checkmakeversion
+challenges/complex_brdf: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 challenges/complex_brdf/worker.py --source_path=$${SHAPENET_GCP_BUCKET}
+challenges/complex_brdf/launch: checkmakeversion
 	launch.sh hyper examples/lfn/lfn.py lfn_`date +"%Y%m%d_%H%M"` 52423 400 --source_path=$${SHAPENET_GCP_BUCKET}
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
