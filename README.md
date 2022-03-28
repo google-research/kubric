@@ -16,7 +16,7 @@ and optical flow.
 > :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
-We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
+We need better data for training and evaluating machine learning systems, especially in the collntext of unsupervised multi-object video understanding.
 Current systems succeed on [toy datasets](https://github.com/deepmind/multi_object_datasets), but fail on real-world data.
 Progress could be greatly accelerated if we had the ability to create suitable datasets of varying complexity on demand.
 Kubric is mainly built on-top of pybullet (for physics simulation) and Blender (for rendering); however, the code is kept modular to potentially support different rendering backends.
@@ -46,16 +46,22 @@ ls output
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
 
-## Datasets
-* [Multi-Object Video (MOVi) Dataset](challenges/movi/README.md)
-* [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
-* [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
-* [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
-* [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
-* [Robust NeRF](https://github.com/google-research/kubric/issues/184)
-* [Complex BRDF](challenges/complex_brdf/README.md)
-* [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
-* [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
+## Challenges and datasets
+These challenges are *dataset contributions* of the Kubric CVPR'22 paper:
+* [MOVi: Multi-Object Video](challenges/movi)
+* [Texture-Structure in NeRF](challenges/texture_structure_nerf)
+* [Pre-training Visual Representations](challenges/pretraining_visual)
+* [Robust NeRF](challenges/robust_nerf)
+* [Multi-View Object Matting](challenges/multiview_matting)
+* [Complex BRDFs](challenges/complex_brdf)
+* [Single View Reconstruction](challenges/single_view_reconstruction)
+* [Video Based Reconstruction](challenges/video_based_reconstruction)
+* [Point Tracking](challenges/multiview_matting)
+
+Pointers to additional datasets/workers:
+* [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)
+* [MultiShapeNet (from Scene Representation Transformer)](https://srt-paper.github.io)
+* [PsychoMonkeys (from Controllable Neural Radiance Fields)](https://github.com/kacperkan/conerf-kubric-dataset#readme)
 
 ## Bibtex
 ```
