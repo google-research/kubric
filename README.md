@@ -47,7 +47,7 @@ ls output
 
 
 ## Challenges and datasets
-Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public/data/NeSFDatasets).
+Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public).
 More specifically, these challenges are *dataset contributions* of the Kubric CVPR'22 paper:
 * [MOVi: Multi-Object Video](challenges/movi)
 * [Texture-Structure in NeRF](challenges/texture_structure_nerf)
