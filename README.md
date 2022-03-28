@@ -50,6 +50,7 @@ ls output
 These challenges are *dataset contributions* of the Kubric CVPR'22 paper:
 * [MOVi: Multi-Object Video](challenges/movi)
 * [Texture-Structure in NeRF](challenges/texture_structure_nerf)
+* [Optical Flow](challenges/optical_flow)
 * [Pre-training Visual Representations](challenges/pretraining_visual)
 * [Robust NeRF](challenges/robust_nerf)
 * [Multi-View Object Matting](challenges/multiview_matting)
