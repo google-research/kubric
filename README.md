@@ -47,7 +47,8 @@ ls output
 
 
 ## Challenges and datasets
-These challenges are *dataset contributions* of the Kubric CVPR'22 paper:
+Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public/data/NeSFDatasets).
+More specifically, these challenges are *dataset contributions* of the Kubric CVPR'22 paper:
 * [MOVi: Multi-Object Video](challenges/movi)
 * [Texture-Structure in NeRF](challenges/texture_structure_nerf)
 * [Optical Flow](challenges/optical_flow)
