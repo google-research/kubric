@@ -15,3 +15,5 @@ while in the hard challenge we additionally insert clutter.
 See example training images as well as ground truth masks
 from *easy* and *hard*:
 ![](images/challenge_illustrations.png)
+
+Please see the `worker.py` file to get a glimpse of how the data was generated.

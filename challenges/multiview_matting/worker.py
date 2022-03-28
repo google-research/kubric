@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Worker file for the Multi-View Background removal dataset.
+Worker file for the "Multi-view object matting" dataset.
 
 This dataset creates a scene where a foreground object is to be distinguished
 from the background. Foreground objects are borrowed from shapnet. Backgrounds
@@ -34,6 +34,15 @@ import tensorflow as tf
 import kubric as kb
 from kubric.renderer import Blender as KubricRenderer
 from kubric import file_io
+
+
+# TODO: go to https://shapenet.org/ create an account and agree to the terms
+#       then find the URL for the kubric preprocessed ShapeNet and put it here:
+SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
+
+if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
+  raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
+                   "agree to terms and conditions, and find the correct path.")
 
 
 def add_hdri_dome(scene, background_hdri=None):
@@ -69,12 +78,11 @@ def add_hdri_dome(scene, background_hdri=None):
       texture_node.image = bpy.data.images.load(background_hdri.filename)
   return dome
 
-
 # --- WARNING: this path is not yet public
-source_path = (
+SHAPENET_PATH = (
     "gs://kubric-unlisted/assets/ShapeNetCore.v2.json")
 
-manifest_path = file_io.as_path(source_path)
+manifest_path = file_io.as_path(SHAPENET_PATH)
 manifest = file_io.read_json(manifest_path)
 # import pdb; pdb.set_trace()
 assets = manifest["assets"]
@@ -118,7 +126,7 @@ renderer = KubricRenderer(scene,
   background_transparency=True)
 
 # --- Fetch a random asset
-asset_source = kb.AssetSource.from_manifest(source_path)
+asset_source = kb.AssetSource.from_manifest(SHAPENET_PATH)
 # all_ids = list(asset_source.db['id'])
 all_ids = [name for name, unused_spec in asset_source._assets.items()]
 num_total_objs = len(all_ids)
@@ -264,15 +272,8 @@ data_stack["segmentation"] = kb.adjust_segmentation_idxs(
     scene.assets,
     [obj]).astype(np.uint8)
 
-# --- Discard non-used information
-del data_stack["forward_flow"]
-del data_stack["backward_flow"]
-del data_stack["depth"]
-del data_stack["normal"]
-del data_stack["object_coordinates"]
-
-# --- Save to image files
-kb.file_io.write_image_dict(data_stack, job_dir)
+kb.file_io.write_rgba_batch(data_stack["rgba"], job_dir)
+kb.file_io.write_segmentation_batch(data_stack["segmentation"], job_dir)
 
 # --- Collect metadata
 logging.info("Collecting and storing metadata for each object.")
