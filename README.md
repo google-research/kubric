@@ -53,6 +53,7 @@ ls output
 * [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
 * [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
 * [Robust NeRF](https://github.com/google-research/kubric/issues/184)
+* [Complex BRDF](challenges/complex_brdf/README.md)
 * [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
 * [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
 
