@@ -273,7 +273,7 @@ class Sphere(PhysicalObject):
 class FileBasedObject(PhysicalObject):
   asset_id = tl.Unicode()
 
-  # TODO: use tfds.core.utils.type_utils.ReadWritePath instead
+  # TODO: use etils.Path instead
   simulation_filename = tl.Unicode(allow_none=True)
   render_filename = tl.Unicode(allow_none=True)
   render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())

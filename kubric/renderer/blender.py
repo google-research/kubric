@@ -327,7 +327,7 @@ class Blender(core.View):
       from_dir: PathLike,
       return_layers: Sequence[str]):
 
-    from_dir = tfds.core.as_path(from_dir)
+    from_dir = kb.as_path(from_dir)
     # --- collect all layers for all frames
     data_stack = collections.defaultdict(list)
     exr_frames = sorted((from_dir / "exr").glob("*.exr"))

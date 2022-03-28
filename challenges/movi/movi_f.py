@@ -292,7 +292,7 @@ class MoviF(tfds.core.BeamBasedBuilder):
   def _split_generators(self, unused_dl_manager: tfds.download.DownloadManager):
     """Returns SplitGenerators."""
     del unused_dl_manager
-    path = tfds.core.as_path(self.builder_config.train_val_path)
+    path = as_path(self.builder_config.train_val_path)
     all_subdirs = [str(d) for d in path.iterdir()]
     logging.info("Found %d sub-folders in master path: %s",
                  len(all_subdirs), path)
@@ -314,7 +314,7 @@ class MoviF(tfds.core.BeamBasedBuilder):
     }
 
     for key, path in self.builder_config.test_split_paths.items():
-      path = tfds.core.as_path(path)
+      path = as_path(path)
       split_dirs = [d for d in path.iterdir()]
       # sort the directories by their integer number
       split_dirs = sorted(split_dirs, key=lambda x: int(x.name))
@@ -353,7 +353,7 @@ DEFAULT_LAYERS = ("rgba", "segmentation", "forward_flow", "backward_flow",
 
 
 def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
-  scene_dir = tfds.core.as_path(scene_dir)
+  scene_dir = as_path(scene_dir)
   example_key = f"{scene_dir.name}"
 
   with tf.io.gfile.GFile(str(scene_dir / "data_ranges.json"), "r") as fp:
@@ -405,8 +405,8 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
 
   if "forward_flow" in layers:
     result["metadata"]["forward_flow_range"] = [
-        data_ranges["forward_flow"]["min"] / scale,
-        data_ranges["forward_flow"]["max"] / scale]
+        data_ranges["forward_flow"]["min"] / scale * 512,
+        data_ranges["forward_flow"]["max"] / scale * 512]
     result["forward_flow"] = [
         subsample_nearest_neighbor(read_png(frame_path)[..., :2],
                                    target_size)
@@ -414,8 +414,8 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
 
   if "backward_flow" in layers:
     result["metadata"]["backward_flow_range"] = [
-        data_ranges["backward_flow"]["min"] / scale,
-        data_ranges["backward_flow"]["max"] / scale]
+        data_ranges["backward_flow"]["min"] / scale * 512,
+        data_ranges["backward_flow"]["max"] / scale * 512]
     result["backward_flow"] = [
         subsample_nearest_neighbor(read_png(frame_path)[..., :2],
                                    target_size)
@@ -566,7 +566,7 @@ def subsample_avg(arr, size):
 
 
 def is_complete_dir(video_dir, layers=DEFAULT_LAYERS):
-  video_dir = tfds.core.as_path(video_dir)
+  video_dir = as_path(video_dir)
   filenames = [d.name for d in video_dir.iterdir()]
   if not ("data_ranges.json" in filenames and
           "metadata.json" in filenames and

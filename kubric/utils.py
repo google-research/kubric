@@ -37,9 +37,8 @@ import shutil
 import sys
 import tempfile
 
+from etils import epath
 import numpy as np
-
-import tensorflow_datasets.public_api as tfds
 
 from kubric import core
 from kubric import file_io
@@ -229,7 +228,7 @@ def setup_directories(flags):
   scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = tfds.core.as_path(flags.job_dir)
+  output_dir = epath.Path(flags.job_dir)
   output_dir.mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir
