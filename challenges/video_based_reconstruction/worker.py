@@ -27,22 +27,32 @@ import random
 from scipy.spatial import transform
 import pickle
 
-logging.basicConfig(level="INFO")  # < CRITICAL, ERROR, WARNING, INFO, DEBUG
+logging.basicConfig(level="INFO")
 
-ROT_CAM = False
-ROT_RANGE = 2 * np.pi  # np.pi / 4
-OBJNAME = 'airplane-no-tex'
-POSITION = (0, 0, 1)  # (0,0,0.2)
-VELOCITY = (0.5, 0, -1)  # (4,-4,0)
-OBJ_TYPE = 'shapenet'
-TEXTURE = False
-NO_MATERIAL = True
 
-random.seed(0)
+parser = kb.ArgumentParser()
+parser.add_argument("--rotate_camera", type=bool, default=False)
+parser.add_argument("--camera_rot_range", type=float, default=2 * np.pi)
+parser.add_argument("--object", choices=["cube", "torus", "car",
+                    "airplane", "chair", "table", "pillow"], default="cube")
+parser.add_argument("--extra_obj_texture", type=bool, default=False)
+parser.add_argument("--obj_texture_path", type=str,
+                    default="examples/tex/tex.jpg")
+parser.add_argument("--no_texture", type=bool, default=False)
+
+FLAGS = parser.parse_args()
+
+POSITION = (0, 0, 1)
+VELOCITY = (0.5, 0, -1)
+ANGULAR_VELOCITY = (0, 0, 5)
+
+out_dir = f"output/{FLAGS.object}"
+
+# random.seed(0)
 
 # --- create scene and attach a renderer and simulator
 scene = kb.Scene(resolution=(256, 256))
-scene.frame_end = 30   # < numbers of frames to render
+scene.frame_end = 30  # < numbers of frames to render
 scene.frame_rate = 24  # < rendering framerate
 scene.step_rate = 240  # < simulation framerate
 renderer = KubricBlender(scene)
@@ -62,93 +72,82 @@ color = kb.Color(r=1, g=0.1, b=0.1, a=1.0)
 # quaternion = [0.871342, 0.401984, -0.177436, 0.218378]
 material = kb.PrincipledBSDFMaterial(color=color)
 
-if OBJ_TYPE == 'cube':
-  obj = kb.Cube(name='cube', scale=0.3, velocity=VELOCITY, angular_velocity=[
-    0, 0, 0], position=POSITION, mass=0.2, restitution=1, material=material, friction=1, segmentation_id=2)
-  objname = 'cube'
-  # segmentation id doesn't seem to be working -- the segmentation mask still uses object id
+if FLAGS.object == "cube":
+  obj = kb.Cube(
+      name="cube",
+      scale=0.3,
+      velocity=VELOCITY,
+      position=POSITION,
+      mass=0.2,
+      restitution=1,
+      material=material,
+      friction=1,
+      segmentation_id=2
+  )
+  objname = "cube"
+  # segmentation id doesn"t seem to be working -- the segmentation mask still uses object id
 
-elif OBJ_TYPE == 'torus':
+elif FLAGS.object == "torus":
   # set up assets
-  asset_source = kb.AssetSource.from_manifest("gs://kubric-public/KuBasic")
+  asset_source = kb.AssetSource.from_manifest(
+      "gs://kubric-public/assets/KuBasic/KuBasic.json")
 
   obj = asset_source.create(name="torus",
-                            asset_id='Torus', scale=0.5)
-  objname = 'torus'
+                            asset_id="torus", scale=0.5)
+  objname = "torus"
   obj.material = material
   obj.position = POSITION
   obj.velocity = VELOCITY
 
-elif OBJ_TYPE == 'shapenet':
+else:
 
   # TODO: go to https://shapenet.org/ create an account and agree to the terms
   #       then find the URL for the kubric preprocessed ShapeNet and put it here:
-  SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
+  SHAPENET_PATH = "gs://kubric-unlisted/assets/ShapeNetCore.v2.json"
 
   if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
     raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
                      "agree to terms and conditions, and find the correct path.")
   asset_source = kb.AssetSource.from_manifest(SHAPENET_PATH)
 
-  if OBJNAME == 'car' or OBJNAME == 'car-no-tex':
+  if FLAGS.object == "car":
     obj = asset_source.create(
-        asset_id='02958343/d4d7d596cf08754e2dfac2620a0cf07b')
+        asset_id="02958343/d4d7d596cf08754e2dfac2620a0cf07b")
     obj.scale = 2
-    obj.angular_velocity = (0, 0, 5)
-  elif OBJNAME == 'car-rot-obj':
+  elif FLAGS.object == "airplane":
     obj = asset_source.create(
-        asset_id='02958343/d4d7d596cf08754e2dfac2620a0cf07b')
+        asset_id="02691156/a9b95631bcbefe9ad225a1c252daae25")
     obj.scale = 2
-    obj.angular_velocity = (0, 0, 5)
-  elif OBJNAME == 'airplane':
+  elif FLAGS.object == "chair":
     obj = asset_source.create(
-        asset_id='02691156/a9b95631bcbefe9ad225a1c252daae25')
-    obj.scale = 2
-  elif OBJNAME == 'airplane-rot-obj' or OBJNAME == 'airplane-no-tex':
-    obj = asset_source.create(
-        asset_id='02691156/a9b95631bcbefe9ad225a1c252daae25')
-    obj.scale = 2
-    obj.angular_velocity = (0, 0, 5)
-  elif OBJNAME == 'chair':
-    obj = asset_source.create(
-        asset_id='03001627/c375f006c3384e83c71d7f4874a478cb')
-    obj.scale = 1.5
-    scene.camera.position = (2, -2, 3)
-    scene.camera.look_at((0, 0, 0))
-  elif OBJNAME == 'chair-rot-obj':
-    obj = asset_source.create(
-        asset_id='03001627/c375f006c3384e83c71d7f4874a478cb')
+        asset_id="03001627/c375f006c3384e83c71d7f4874a478cb")
     obj.scale = 1.5
     scene.camera.position = (2, -2, 3)
     obj.angular_velocity = (0, 0, 5)
-    scene.camera.look_at((0, 0, 0))
-  elif OBJNAME == 'table-rot-obj':
+  elif FLAGS.object == "table":
     obj = asset_source.create(
-        asset_id='04379243/d5978095ef90e63375dc74e2f2f50364')
+        asset_id="04379243/d5978095ef90e63375dc74e2f2f50364")
     obj.scale = 2
-    obj.angular_velocity = (0, 0, 5)
     scene.camera.position = (2.5, -2.5, 2)
     scene.camera.look_at((0, 0, 0))
-  elif OBJNAME == 'pillow-rot-obj':
+  elif FLAGS.object == "pillow":
     obj = asset_source.create(
-        asset_id='03938244/b5cb58fb099204fea5c423249b53dbc4')
+        asset_id="03938244/b5cb58fb099204fea5c423249b53dbc4")
     obj.scale = 2
     POSITION = (0, 0, 0.2)
     VELOCITY = (0.5, 0, 0)
-    obj.angular_velocity = (0, 0, 5)
   else:
-    raise NotImplementedError
+    raise NotImplementedError("Object not supported")
   obj.position = POSITION
   obj.velocity = VELOCITY
+  obj.angular_velocity = ANGULAR_VELOCITY
   obj.metadata = {
       "asset_id": obj.asset_id,
   }
   obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
   objname = obj.name
-else:
-  raise NotImplementedError
 
-if TEXTURE:
+if FLAGS.extra_obj_texture:
   bpy_scene = bpy.context.scene
   obj.material = kb.PrincipledBSDFMaterial(name="material")
   obj.material.metallic = random.random()
@@ -160,13 +159,13 @@ if TEXTURE:
   tree = mat.node_tree
 
   mat_node = tree.nodes["Principled BSDF"]
-  tex_image = mat.node_tree.nodes.new('ShaderNodeTexImage')
-  tex_image.image = bpy.data.images.load('examples/tex/tex.jpg')
-  tree.links.new(mat_node.inputs['Base Color'], tex_image.outputs['Color'])
+  tex_image = mat.node_tree.nodes.new("ShaderNodeTexImage")
+  tex_image.image = bpy.data.images.load(FLAGS.obj_texture_path)
+  tree.links.new(mat_node.inputs["Base Color"], tex_image.outputs["Color"])
 else:
   scene += obj
 
-if NO_MATERIAL:
+if FLAGS.no_texture:
   for material in bpy.data.materials:
     material.user_clear()
     bpy.data.materials.remove(material)
@@ -174,7 +173,7 @@ if NO_MATERIAL:
 
 cam_params = []
 
-if ROT_CAM:
+if FLAGS.rotate_camera:
   # Render cameras at the same general distance from the origin, but at
   # different positions.
   #
@@ -187,10 +186,8 @@ if ROT_CAM:
   phi = np.arccos(original_camera_position[2] / r)  # (180 - elevation)
   theta = np.arccos(original_camera_position[0] / (r * np.sin(phi)))  # azimuth
   num_phi_values_per_theta = 1
-  theta_change = ROT_RANGE / \
+  theta_change = FLAGS.camera_rot_range / \
       ((scene.frame_end - scene.frame_start) / num_phi_values_per_theta)
-
-  # pdb.set_trace()
 
   for frame in range(scene.frame_start, scene.frame_end + 1):
     i = (frame - scene.frame_start)
@@ -242,40 +239,43 @@ simulator.run()
 
 # --- renders the output
 kb.as_path("output").mkdir(exist_ok=True)
-renderer.save_state(f"output/{OBJNAME}/{OBJNAME}.blend")
+renderer.save_state(f"{out_dir}/{FLAGS.object}.blend")
 frames_dict = renderer.render()
 
 
-with open(f'output/{OBJNAME}/frames.dict', 'wb') as file:
-  pickle.dump(frames_dict, file)
+# with open(f"{out_dir}/frames.dict", "wb") as file:
+#   pickle.dump(frames_dict, file)
 
-# kb.write_image_dict(frames_dict, f"output/{OBJNAME}")
+# kb.write_image_dict(frames_dict, f"{out_dir}")
 
 
 # convert segmentation mask to LASR style
 palette = [[0, 0, 0], [0, 0, 0], [128, 128, 128], [
     128, 128, 128], [128, 128, 128], [128, 128, 128]]
 kb.file_io.multi_write_image(
-    frames_dict['segmentation'],
-    str(kb.as_path(f"output/{OBJNAME}/LASR/Annotations/Full-Resolution/{OBJNAME}") / "{:05d}.png"),
+    frames_dict["segmentation"],
+    str(kb.as_path(
+        f"{out_dir}/LASR/Annotations/Full-Resolution/{FLAGS.object}") / "{:05d}.png"),
     write_fn=kb.write_palette_png,
     max_write_threads=16,
     palette=palette
-    )
+)
 kb.file_io.multi_write_image(
-    frames_dict['segmentation'],
-    str(kb.as_path(f"output/{OBJNAME}/LASR/Annotations/Full-Resolution/r{OBJNAME}") / "{:05d}.png"),
+    frames_dict["segmentation"],
+    str(kb.as_path(
+        f"{out_dir}/LASR/Annotations/Full-Resolution/r{FLAGS.object}") / "{:05d}.png"),
     write_fn=kb.write_palette_png,
     max_write_threads=16,
     palette=[[0, 0, 0], [0, 0, 0], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1]]
-    )
+)
 
 kb.file_io.multi_write_image(
-    frames_dict['rgba'],
-    str(kb.as_path(f"output/{OBJNAME}/LASR/JPEGImages/Full-Resolution/{OBJNAME}") / "{:05d}.png"),
+    frames_dict["rgba"],
+    str(kb.as_path(
+        f"{out_dir}/LASR/JPEGImages/Full-Resolution/{FLAGS.object}") / "{:05d}.png"),
     write_fn=kb.write_png,
     max_write_threads=16
-    )
+)
 
 
 # write optical flow and occlusion map in LASR format
@@ -319,26 +319,26 @@ def write_pfm(path, image, scale=1):
     image.tofile(file)
 
 
-fw = frames_dict['forward_flow'][:-1, ...] * 256
-bw = frames_dict['backward_flow'][1:, ...] * 256
-imgs = frames_dict['rgba']
+fw = frames_dict["forward_flow"][:-1, ...] * 256
+bw = frames_dict["backward_flow"][1:, ...] * 256
+imgs = frames_dict["rgba"]
 M, N = imgs.shape[1:3]
 
-occs = np.ones(fw.shape[:-1]).astype('float32')
+occs = np.ones(fw.shape[:-1]).astype("float32")
 
 
 os.makedirs(
-    f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/FlowFW/Full-Resolution/{FLAGS.object}", exist_ok=True)
 os.makedirs(
-    f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/FlowBW/Full-Resolution/{FLAGS.object}", exist_ok=True)
 os.makedirs(
-    f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/r{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/FlowFW/Full-Resolution/r{FLAGS.object}", exist_ok=True)
 os.makedirs(
-    f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/r{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/FlowBW/Full-Resolution/r{FLAGS.object}", exist_ok=True)
 os.makedirs(
-    f'output/{OBJNAME}/LASR/Camera/Full-Resolution/{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/Camera/Full-Resolution/{FLAGS.object}", exist_ok=True)
 os.makedirs(
-    f'output/{OBJNAME}/LASR/Camera/Full-Resolution/r{OBJNAME}', exist_ok=True)
+    f"{out_dir}/LASR/Camera/Full-Resolution/r{FLAGS.object}", exist_ok=True)
 
 # write flows into pfm
 for i in range(len(fw)):
@@ -351,42 +351,52 @@ for i in range(len(fw)):
   b = np.flip(b, 0)
 
   write_pfm(
-      f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/{OBJNAME}/flo-{i:05d}.pfm', f)
+      f"{out_dir}/LASR/FlowFW/Full-Resolution/{FLAGS.object}/flo-{i:05d}.pfm", f)
   write_pfm(
-      f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/{OBJNAME}/flo-{i+1:05d}.pfm', b)
-  write_pfm(f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/{OBJNAME}/occ-{i:05d}.pfm',
+      f"{out_dir}/LASR/FlowBW/Full-Resolution/{FLAGS.object}/flo-{i+1:05d}.pfm", b)
+  write_pfm(f"{out_dir}/LASR/FlowFW/Full-Resolution/{FLAGS.object}/occ-{i:05d}.pfm",
             np.ones_like(occs[i, ...]))
-  write_pfm(f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/{OBJNAME}/occ-{i+1:05d}.pfm',
+  write_pfm(f"{out_dir}/LASR/FlowBW/Full-Resolution/{FLAGS.object}/occ-{i+1:05d}.pfm",
             np.ones_like(occs[i, ...]))
 
   write_pfm(
-      f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/r{OBJNAME}/flo-{i:05d}.pfm', f)
+      f"{out_dir}/LASR/FlowFW/Full-Resolution/r{FLAGS.object}/flo-{i:05d}.pfm", f)
   write_pfm(
-      f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/r{OBJNAME}/flo-{i+1:05d}.pfm', b)
-  write_pfm(f'output/{OBJNAME}/LASR/FlowFW/Full-Resolution/r{OBJNAME}/occ-{i:05d}.pfm',
+      f"{out_dir}/LASR/FlowBW/Full-Resolution/r{FLAGS.object}/flo-{i+1:05d}.pfm", b)
+  write_pfm(f"{out_dir}/LASR/FlowFW/Full-Resolution/r{FLAGS.object}/occ-{i:05d}.pfm",
             np.ones_like(occs[i, ...]))
-  write_pfm(f'output/{OBJNAME}/LASR/FlowBW/Full-Resolution/r{OBJNAME}/occ-{i+1:05d}.pfm',
+  write_pfm(f"{out_dir}/LASR/FlowBW/Full-Resolution/r{FLAGS.object}/occ-{i+1:05d}.pfm",
             np.ones_like(occs[i, ...]))
 
 for i in range(len(cam_params)):
   # save camera parameters
   np.savetxt(
-      f'output/{OBJNAME}/LASR/Camera/Full-Resolution/{OBJNAME}/{i:05d}.txt', cam_params[i].T)
+      f"{out_dir}/LASR/Camera/Full-Resolution/{FLAGS.object}/{i:05d}.txt", cam_params[i].T)
   np.savetxt(
-      f'output/{OBJNAME}/LASR/Camera/Full-Resolution/r{OBJNAME}/{i:05d}.txt', cam_params[i].T)
+      f"{out_dir}/LASR/Camera/Full-Resolution/r{FLAGS.object}/{i:05d}.txt", cam_params[i].T)
 
 # write gif
 imageio.mimsave(
-    str(kb.as_path(f"output/{OBJNAME}/") / f"{OBJNAME}.gif"), frames_dict['rgba'])
+    str(kb.as_path(f"{out_dir}/") / f"{FLAGS.object}.gif"), frames_dict["rgba"])
 kb.file_io.write_flow_batch(
-    frames_dict['forward_flow'],
-    directory=f"output/{OBJNAME}/FlowFW", file_template="{:05d}.png", name="forward_flow",
+    frames_dict["forward_flow"],
+    directory=f"{out_dir}/FlowFW", file_template="{:05d}.png", name="forward_flow",
     max_write_threads=16
-    )
+)
 kb.file_io.write_flow_batch(
-    frames_dict['backward_flow'],
-    directory=f"output/{OBJNAME}/FlowBW",
+    frames_dict["backward_flow"],
+    directory=f"{out_dir}/FlowBW",
     file_template="{:05d}.png",
     name="backward_flow",
     max_write_threads=16
-    )
+)
+
+logging.info("Collecting and storing metadata for each object.")
+kb.write_json(filename=f"{out_dir}/metadata.json", data={
+    "flags": vars(FLAGS),
+    "metadata": kb.get_scene_metadata(scene),
+    "camera": kb.get_camera_info(scene.camera),
+    "instances": kb.get_instance_info(scene, [obj]),
+})
+
+kb.done()
