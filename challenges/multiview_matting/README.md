@@ -12,8 +12,9 @@ currently underexplored in the literature.
 The dataset is divided into two difficulties levels: *easy* and *hard*.
 For the easy challenge, scenes only contain one salient object within the scene,
 while in the hard challenge we additionally insert clutter.
-See example training images as well as ground truth masks
-from *easy* and *hard*:
-![](images/challenge_illustrations.png)
 
 Please see the `worker.py` file to get a glimpse of how the data was generated.
+
+See example training images as well as ground truth masks
+from *easy* and *hard*:
+![](teaser.jpg)
