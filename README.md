@@ -75,13 +75,10 @@ Pointers to additional datasets/workers:
               Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
               Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
               Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
-    booktitle = {arXiv preprint},
-    year = {2021},
+    booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year = {2022},
 }
 ```
-
-
-
 
 ## Disclaimer
 This is not an official Google Product
