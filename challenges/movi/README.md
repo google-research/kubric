@@ -566,10 +566,10 @@ docker run --rm --interactive \
   --camera=linear_movement
   --max_motion_blur=2.0
 ```
-See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
+See [movi_f.py](movi_f.py) for the TFDS definition / conversion.
 
 ``` python
-ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
+ds = tfds.load("movi_f", data_dir="gs://kubric-public/tfds") 
 ```
 #### Variant specific Annotation
 - **"metadata"**:
