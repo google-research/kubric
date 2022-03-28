@@ -78,10 +78,6 @@ def add_hdri_dome(scene, background_hdri=None):
       texture_node.image = bpy.data.images.load(background_hdri.filename)
   return dome
 
-# --- WARNING: this path is not yet public
-SHAPENET_PATH = (
-    "gs://kubric-unlisted/assets/ShapeNetCore.v2.json")
-
 manifest_path = file_io.as_path(SHAPENET_PATH)
 manifest = file_io.read_json(manifest_path)
 # import pdb; pdb.set_trace()
