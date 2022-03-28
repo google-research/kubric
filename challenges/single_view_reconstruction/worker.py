@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# NOTE: this worker is identical to the `shapenet_pretraining` challenge
+#       duplicated here mostly to guarantee self-containedness
+
 import logging
 
 import kubric as kb
