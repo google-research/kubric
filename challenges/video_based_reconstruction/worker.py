@@ -103,7 +103,7 @@ else:
 
   # TODO: go to https://shapenet.org/ create an account and agree to the terms
   #       then find the URL for the kubric preprocessed ShapeNet and put it here:
-  SHAPENET_PATH = "gs://kubric-unlisted/assets/ShapeNetCore.v2.json"
+  SHAPENET_PATH = "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json"
 
   if SHAPENET_PATH == "gs://KUBRIC_SHAPENET_PATH/ShapeNetCore.v2.json":
     raise ValueError("Wrong ShapeNet path. Please visit https://shapenet.org/ "
