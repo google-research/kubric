@@ -214,7 +214,7 @@ class MoviF(tfds.core.BeamBasedBuilder):
           height=128,
           width=128,
           validation_ratio=0.025,
-          train_val_path="research-brain-kubric-xgcp/jobs/movid_flow_v2_600_1/",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/movid_flow_v2_600_1/",
           test_split_paths={
           }
       ),
