@@ -56,7 +56,7 @@ These challenges are *dataset contributions* of the Kubric CVPR'22 paper:
 * [Complex BRDFs](challenges/complex_brdf)
 * [Single View Reconstruction](challenges/single_view_reconstruction)
 * [Video Based Reconstruction](challenges/video_based_reconstruction)
-* [Point Tracking](challenges/multiview_matting)
+* [Point Tracking](challenges/point_tracking)
 
 Pointers to additional datasets/workers:
 * [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)
