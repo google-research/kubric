@@ -30,8 +30,7 @@ image_size = (512, 512)
 scene = kb.Scene(resolution=image_size)
 scene.frame_start = 1
 scene.frame_end = 180  # < numbers of frames to render
-scene.frame_rate = 60  # < rendering framerate
-scene.step_rate = 180
+scene.frame_rate = 24 # < rendering framerate
 camera_radius = 0.7
 camera_height = 1.5
 camera_look_at = (0, 0, camera_height)
@@ -40,12 +39,9 @@ use_static_scene = False
 if use_static_scene:
     blend_file = "examples/KuBasic/rain_v22/rain_v2.1.blend"
     scratch_dir = "output/static"
-    time_remapping = 1
 else:
     blend_file = "examples/KuBasic/rain_v22/rain_v2.1_face_animated.blend"
     scratch_dir = "output/dynamic"
-    time_remapping = 3
-# scene.frame_rate = int(scene.frame_rate * time_remapping)
 
 scene += kb.DirectionalLight(name="sun", position=(10, -10, 1.5), look_at=(0, 0, 1), intensity=3.0)
 scene += kb.DirectionalLight(name="sun", position=(-10, -10, 1.5), look_at=(0, 0, 1), intensity=3.0)
@@ -57,18 +53,17 @@ frames = []
 
 for frame_nr in range(scene.frame_start - 1, scene.frame_end + 2):
     interp = float(frame_nr - scene.frame_start + 1) / float(scene.frame_end - scene.frame_start + 3)
-    scene.camera.position = (-camera_radius*np.sin(interp*10*np.pi),
-                             -camera_radius*np.abs(np.cos(interp*10*np.pi)),
-                              camera_height)
+    scene.camera.position = (-camera_radius*np.sin(interp*2*np.pi),
+                            -camera_radius*np.abs(np.cos(interp*2*np.pi)),
+                            camera_height)
     scene.camera.look_at(camera_look_at)
-    scene.camera.keyframe_insert("position", frame_nr)
-    scene.camera.keyframe_insert("quaternion", frame_nr)
+    scene.camera.keyframe_insert("position", frame_nr )
+    scene.camera.keyframe_insert("quaternion", frame_nr )
+
     kb.write_json(filename=f"{scratch_dir}/camera/frame_{frame_nr:04d}.json", data=
         kb.get_camera_info(scene.camera))
 
     frames.append(frame_nr)
-    if frame_nr > 2:
-        break
 
 frames_dict = renderer.render(frames=frames, ignore_missing_textures=True)
 kb.write_image_dict(frames_dict, f"{scratch_dir}/output/")
@@ -88,6 +83,8 @@ for frame in range(scene.frame_start - 1, scene.frame_end + 2):
     images = [imageio.imread(f, "PNG") for f in image_files]
     images = [np.dstack(3*[im[..., None]]) if len(im.shape) == 2 else im for im in images]
     images = [im[..., :3] if im.shape[2]>3 else im for im in images]
+    if len(images) % 2 == 1:
+        images += [np.zeros_like(images[0])]
     images = [np.hstack(images[:len(images)//2]), np.hstack(images[len(images)//2:])]
     images = np.vstack(images)
     gif_writer.append_data(images)
