@@ -73,6 +73,7 @@ More specifically, these challenges are *dataset contributions* of the Kubric CV
 * [Single View Reconstruction](challenges/single_view_reconstruction)
 * [Video Based Reconstruction](challenges/video_based_reconstruction)
 * [Point Tracking](challenges/point_tracking)
+* [Dynamic NeRF](challenges/dynamic_nerf)
 
 Pointers to additional datasets/workers:
 * [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)
