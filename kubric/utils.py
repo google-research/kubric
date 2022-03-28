@@ -37,9 +37,8 @@ import shutil
 import sys
 import tempfile
 
+from etils import epath
 import numpy as np
-
-import tensorflow_datasets.public_api as tfds
 
 from kubric import core
 from kubric import file_io
@@ -175,6 +174,8 @@ def get_instance_info(scene, assets_subset=None):
   assets_subset = scene.foreground_assets if assets_subset is None else assets_subset
   for instance in assets_subset:
     info = copy.copy(instance.metadata)
+    if hasattr(instance, "asset_id"):
+      info["asset_id"] = instance.asset_id
     info["positions"] = instance.get_values_over_time("position")
     info["quaternions"] = instance.get_values_over_time("quaternion")
     info["velocities"] = instance.get_values_over_time("velocity")
@@ -227,7 +228,7 @@ def setup_directories(flags):
   scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = tfds.core.as_path(flags.job_dir)
+  output_dir = epath.Path(flags.job_dir)
   output_dir.mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir

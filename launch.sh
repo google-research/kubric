@@ -18,13 +18,6 @@ NR_WORKERS=${1}
 shift
 
 
-if [[ "${run_mode}" == "dev" ]]
-then
-  SOURCE_TAG=kubricdockerhub/kubruntudev:latest
-else
-  SOURCE_TAG=kubricdockerhub/kubruntu:latest
-fi
-
 # --- Specify the hypertune configuration
 cat > /tmp/hypertune.yml << EOF
   trainingInput:
@@ -40,20 +33,18 @@ cat > /tmp/hypertune.yml << EOF
       params:
       - parameterName: seed
         type: INTEGER
-        minValue: 1
-        maxValue: 1000000
+        minValue: 0
+        maxValue: 52423
 EOF
 
 
 # --- The container configuration
 cat > Dockerfile <<EOF
-FROM ${SOURCE_TAG}
-
-COPY ${worker_file} /worker/worker.py
-WORKDIR /kubric
-ENTRYPOINT ["python3", "/worker/worker.py"]
+FROM kubricdockerhub/kubruntudev:latest
+COPY . /workspace
+WORKDIR /workspace
+ENTRYPOINT ["python3", "/workspace/${worker_file}"]
 EOF
-
 
 
 if [[ "${run_mode}" == "local" ]] || [[ "${run_mode}" == "dev" ]]
@@ -61,7 +52,7 @@ then
   # --- Launches the job locally
   TAG="local"
   docker build -f Dockerfile -t $TAG $PWD
-  docker run -v "`pwd`:/kubric" -v "`pwd`/../assets:/assets" $TAG  "$@"
+  docker run $TAG  "$@"
 elif [[ "${run_mode}" == "remote" ]]
 then
   # --- Parameters for the launch

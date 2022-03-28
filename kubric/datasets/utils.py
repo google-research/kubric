@@ -14,16 +14,18 @@
 # pylint: disable=line-too-long, unexpected-keyword-arg
 """TODO(klausg): description."""
 import json
+
 import numpy as np
 import tensorflow as tf
 import tensorflow_datasets as tfds
+
 from kubric import file_io
 
 DEFAULT_LAYERS = ("rgba", "segmentation", "forward_flow", "backward_flow",
                   "depth", "normal", "object_coordinates")
 
 def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
-  scene_dir = tfds.core.as_path(scene_dir)
+  scene_dir = file_io.as_path(scene_dir)
   example_key = f"{scene_dir.name}"
 
   with tf.io.gfile.GFile(str(scene_dir / "data_ranges.json"), "r") as fp:
@@ -234,7 +236,7 @@ def subsample_avg(arr, size):
 
 
 def is_complete_dir(video_dir, layers=DEFAULT_LAYERS):
-  video_dir = tfds.core.as_path(video_dir)
+  video_dir = file_io.as_path(video_dir)
   filenames = [d.name for d in video_dir.iterdir()]
   if not ("data_ranges.json" in filenames and
           "metadata.json" in filenames and

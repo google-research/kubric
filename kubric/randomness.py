@@ -81,6 +81,19 @@ def rotation_sampler(axis=None):
   return _sampler
 
 
+def bottom_sampler(region):
+  """Sample positions at the bottom of a region"""
+  region = np.array(region, dtype=np.float)
+
+  def _sampler(obj: objects.PhysicalObject, rng):
+    obj.position = (0, 0, 0)  # reset position to origin
+    effective_region = region - obj.aabbox
+    effective_region[1, 2] = effective_region[0, 2]  # only consider lowest Z
+    obj.position = rng.uniform(*effective_region)
+
+  return _sampler
+
+
 def position_sampler(region):
   region = np.array(region, dtype=np.float)
 

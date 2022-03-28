@@ -2,6 +2,7 @@ apache-beam[gcp]
 bidict
 # bpy   (the Blender python module. Cannot be pip-installed)
 dataclasses
+etils[epath_no_tf]
 cloudml-hypertune
 google-cloud-storage
 imageio

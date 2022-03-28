@@ -29,17 +29,16 @@
 import contextlib
 import functools
 import logging
-import io
 import json
 import multiprocessing
 import pickle
 from typing import Any, Dict
 
+from etils import epath
 import imageio
 import numpy as np
 import png
 import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
 
 from kubric import plotting
 from kubric.kubric_typing import PathLike
@@ -48,13 +47,13 @@ from kubric.kubric_typing import PathLike
 logger = logging.getLogger(__name__)
 
 
-def as_path(path: PathLike) -> tfds.core.ReadWritePath:
-  """Convert str or pathlike object to tfds.core.ReadWritePath.
+def as_path(path: PathLike) -> epath.Path:
+  """Convert str or pathlike object to epath.Path.
 
-  Instead of pathlib.Paths, we use the TFDS path because they transparently
-  support paths to GCS buckets such as "gs://kubric-public/GSO".
+  Instead of pathlib.Path, we use `epath` because it transparently
+  supports paths to GCS buckets such as "gs://kubric-public/GSO".
   """
-  return tfds.core.as_path(path)
+  return epath.Path(path)
 
 
 @contextlib.contextmanager
@@ -241,7 +240,7 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
 
     for result in pool.imap_unordered(write_single_image_fn, args):
       if isinstance(result,  Exception):
-        logger.warning(f"Exception while writing image %s", result)
+        logger.warning("Exception while writing image %s", result)
 
     pool.close()
     pool.join()

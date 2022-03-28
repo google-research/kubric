@@ -16,7 +16,7 @@ and optical flow.
 > :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
-We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
+We need better data for training and evaluating machine learning systems, especially in the collntext of unsupervised multi-object video understanding.
 Current systems succeed on [toy datasets](https://github.com/deepmind/multi_object_datasets), but fail on real-world data.
 Progress could be greatly accelerated if we had the ability to create suitable datasets of varying complexity on demand.
 Kubric is mainly built on-top of pybullet (for physics simulation) and Blender (for rendering); however, the code is kept modular to potentially support different rendering backends.
@@ -60,15 +60,24 @@ docker run --rm --interactive \
 ```
 ![](docs/images/articulation.gif)
 
-## Datasets
-* [Multi-Object Video (MOVi) Dataset](docs/datasets/movi/README.md)
-* [Texture-Structure in NeRF Dataset](https://github.com/google-research/kubric/issues/184)
-* [Long-Term Tracking](https://github.com/google-research/kubric/issues/184)
-* [Texture-Structure in NeRF](https://github.com/google-research/kubric/issues/184)
-* [Multi-View Object Matting](https://github.com/google-research/kubric/issues/184)
-* [Robust NeRF](https://github.com/google-research/kubric/issues/184)
-* [ShapeNet renders](https://github.com/google-research/kubric/issues/184)
-* [Metallic ShapeNet](https://github.com/google-research/kubric/issues/184)
+## Challenges and datasets
+Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public).
+More specifically, these challenges are *dataset contributions* of the Kubric CVPR'22 paper:
+* [MOVi: Multi-Object Video](challenges/movi)
+* [Texture-Structure in NeRF](challenges/texture_structure_nerf)
+* [Optical Flow](challenges/optical_flow)
+* [Pre-training Visual Representations](challenges/pretraining_visual)
+* [Robust NeRF](challenges/robust_nerf)
+* [Multi-View Object Matting](challenges/multiview_matting)
+* [Complex BRDFs](challenges/complex_brdf)
+* [Single View Reconstruction](challenges/single_view_reconstruction)
+* [Video Based Reconstruction](challenges/video_based_reconstruction)
+* [Point Tracking](challenges/point_tracking)
+
+Pointers to additional datasets/workers:
+* [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)
+* [MultiShapeNet (from Scene Representation Transformer)](https://srt-paper.github.io)
+* [PsychoMonkeys (from Controllable Neural Radiance Fields)](https://github.com/kacperkan/conerf-kubric-dataset#readme)
 
 ## Bibtex
 ```
@@ -82,13 +91,10 @@ docker run --rm --interactive \
               Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
               Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
               Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
-    booktitle = {arXiv preprint},
-    year = {2021},
+    booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year = {2022},
 }
 ```
-
-
-
 
 ## Disclaimer
 This is not an official Google Product
