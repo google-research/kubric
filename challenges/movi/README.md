@@ -12,6 +12,8 @@ ds = tfds.load("movi_a/128x128", data_dir="gs://kubric-public/tfds")
 ```
 Refer to the [VisualizeMOVi.ipynb](VisualizeMOVi.ipynb) notebook for an example of loading and visualizing the datasets. 
 
+Variants C, D, and E also include a `"test"` split with scenes that exclusively consist of held-out objects and background images to test generalization.  
+
 ## Variants
 ### MOVi-A
 ![](images/movi_a_1.gif)
@@ -44,8 +46,23 @@ See [movi_a.py](movi_a.py) for the TFDS definition / conversion.
 ``` python
 ds = tfds.load("movi_a", data_dir="gs://kubric-public/tfds") 
 ```
+#### Variant specific Annotations
+In addition to the general information (see below), MOVi-A contains the following additional information:
+- **"instance"**
+  - **"shape_label"**:  
+    Choice of `["cube", "cylinder", "sphere"]`
+  - **"size_label"**:  
+    Choice of `["small", "large"]`
+  - **"color"**: `(3,) [float32]`  
+    Color of the object in RGB.
+  - **"color_label"**:  
+    One of `["blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"]`
+  - **"material_label"**:  
+    One of `["metal", "rubber"]`
+
+
 <details>
-  <summary>Sample format and shapes</summary>
+  <summary>Full format and shapes</summary>
 
 ``` python
 {
@@ -137,8 +154,23 @@ See [movi_b.py](movi_b.py) for the TFDS definition / conversion.
 ``` python
 ds = tfds.load("movi_b", data_dir="gs://kubric-public/tfds") 
 ```
+
+#### Variant specific Annotations
+In addition to the general information (see below), MOVi-B contains the following additional information:
+- **"background_color"**: `(3,) [float32]`  
+  Color of the background in RGB.
+- **"instance"**
+  - **"shape_label"**:  
+    One of `["cube", "cylinder", "sphere", "cone", "torus", "gear", "torus_knot", "sponge", "spot", "teapot", "suzanne"]`
+  - **"scale"**: `[float32]`    
+    Scale of the object (between 0.7 and 1.4).
+  - **"color"**: `(3,) [float32]`  
+    Color of the object in RGB.
+  - **"material_label"**:  
+    One of `["metal", "rubber"]`
+
 <details>
-  <summary>Sample format and shapes</summary>
+  <summary>Full format and shapes</summary>
 
 ``` python
 {
@@ -224,8 +256,24 @@ See [movi_c.py](movi_c.py) for the TFDS definition / conversion.
 ``` python
 ds = tfds.load("movi_c", data_dir="gs://kubric-public/tfds") 
 ```
+#### Variant specific Annotation
+- **"background"**: `str`  
+  Name of the background HDRI.
+- **"instance"***:
+  - **"asset_id"**: `str`    
+    Asset id from Google Scanned Objects dataset.
+  - **"scale"**: `[float32]`    
+    Scale of the object (between 0.75 and 3.0).
+  - **"category"**:
+    One of `["Action Figures", "Bag", "Board Games",
+    "Bottles and Cans and Cups", "Camera",
+    "Car Seat", "Consumer Goods", "Hat",
+    "Headphones", "Keyboard", "Legos",
+    "Media Cases", "Mouse", "None", "Shoe",
+    "Stuffed Toys", "Toys"]`
+
 <details>
-  <summary>Sample format and shapes</summary>
+  <summary>Full format and shapes</summary>
 
 ``` python
 {
@@ -311,8 +359,27 @@ See [movi_d.py](movi_d.py) for the TFDS definition / conversion.
 ds = tfds.load("movi_d", data_dir="gs://kubric-public/tfds") 
 ```
 
+#### Variant specific Annotation
+- **"background"**: `str`  
+  Name of the background HDRI.
+- **"instance"***:
+  - **"asset_id"**: `str`    
+    Asset id from Google Scanned Objects dataset.
+  - **"scale"**: `[float32]`    
+    Scale of the object (between 0.75 and 3.0).
+  - **"category"**:
+    One of `["Action Figures", "Bag", "Board Games",
+    "Bottles and Cans and Cups", "Camera",
+    "Car Seat", "Consumer Goods", "Hat",
+    "Headphones", "Keyboard", "Legos",
+    "Media Cases", "Mouse", "None", "Shoe",
+    "Stuffed Toys", "Toys"]`
+  - **"is_dynamic"**: `bool`    
+    Indicating whether (at the start of the scene) the object
+    is sitting on the floor (`False`) or is being tossed (`True`).
+
 <details>
-  <summary>Sample format and shapes</summary>
+  <summary>Full format and shapes</summary>
 
 ``` python
 {
@@ -402,9 +469,27 @@ See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
 ``` python
 ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
 ```
-
+#### Variant specific Annotation
+- **"background"**: `str`  
+  Name of the background HDRI.
+- **"instance"***:
+  - **"asset_id"**: `str`    
+    Asset id from Google Scanned Objects dataset.
+  - **"scale"**: `[float32]`    
+    Scale of the object (between 0.75 and 3.0).
+  - **"category"**:
+    One of `["Action Figures", "Bag", "Board Games",
+    "Bottles and Cans and Cups", "Camera",
+    "Car Seat", "Consumer Goods", "Hat",
+    "Headphones", "Keyboard", "Legos",
+    "Media Cases", "Mouse", "None", "Shoe",
+    "Stuffed Toys", "Toys"]`
+  - **"is_dynamic"**: `bool`    
+    Indicating whether (at the start of the scene) the object
+    is sitting on the floor (`False`) or is being tossed (`True`).
+  
 <details>
-  <summary>Sample format and shapes</summary>
+  <summary>Full format and shapes</summary>
 
 ``` python
 {
@@ -465,6 +550,48 @@ ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds")
 }
  ```
 </details>
+
+### MOVi-F
+![](images/movi_f_1.gif)
+
+MOVi-F was generated for training optical flow predictors and is identical to MOVi-E except that it adds a random amount of motion blur to each video and was rendered in 512x512 resolution (with downscaled variants for 256x256 and 128x128).
+
+Generate single scene with the [movi_def_worker.py](movi_def_worker.py) script:
+```shell
+docker run --rm --interactive \
+  --user $(id -u):$(id -g)    \
+  --volume "$(pwd):/kubric"   \
+  kubricdockerhub/kubruntu    \
+  /usr/bin/python3 challenges/movi/movi_def_worker.py \
+  --camera=linear_movement
+  --max_motion_blur=2.0
+```
+See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
+
+``` python
+ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
+```
+#### Variant specific Annotation
+- **"metadata"**:
+  - **"motion_blur"**: `[float32]`  
+  The strength of motion blur between 0 and 2.
+- **"background"**: `str`  
+  Name of the background HDRI.
+- **"instance"***:
+  - **"asset_id"**: `str`    
+    Asset id from Google Scanned Objects dataset.
+  - **"scale"**: `[float32]`    
+    Scale of the object (between 0.75 and 3.0).
+  - **"category"**:
+    One of `["Action Figures", "Bag", "Board Games",
+    "Bottles and Cans and Cups", "Camera",
+    "Car Seat", "Consumer Goods", "Hat",
+    "Headphones", "Keyboard", "Legos",
+    "Media Cases", "Mouse", "None", "Shoe",
+    "Stuffed Toys", "Toys"]`
+  - **"is_dynamic"**: `bool`    
+    Indicating whether (at the start of the scene) the object
+    is sitting on the floor (`False`) or is being tossed (`True`).
 
 ## Annotations and Format
 Each sample is a dictionary which contains the following data:
@@ -569,58 +696,3 @@ Each sample is a dictionary which contains the following data:
       Position of the collision event projected onto normalized 2D image coordinates.
     - **"contact_normal"**: `(3,) [float32]`
       The normal-vector of the contact (direction of the force).
-
-
-### Variant Specific Additional Information
-#### MOVi-A
-For each instance MOVi-A contains the following additional information under the `"instance"` key:
-- **"shape_label"**:  
-  Choice of `["cube", "cylinder", "sphere"]`
-- **"size_label"**:  
-  Choice of `["small", "large"]`
-- **"color"**: `(3,) [float32]`  
-  Color of the object in RGB.
-- **"color_label"**:  
-  One of `["blue", "brown", "cyan", "gray", "green", "purple", "red", "yellow"]`
-- **"material_label"**:  
-  One of `["metal", "rubber"]`
-
-#### MOVi-B
-MOVi-B has an additional (top-level) entry:
-- **"background_color"**: `(3,) [float32]`  
-  Color of the background in RGB.
-
-And for each instance MOVi-B contains the following additional information:
-- **"shape_label"**:  
-  One of `["cube", "cylinder", "sphere", "cone", "torus", "gear", "torus_knot", "sponge", "spot", "teapot", "suzanne"]`
-- **"scale"**: `[float32]`    
-  Scale of the object (between 0.7 and 1.4).
-- **"color"**: `(3,) [float32]`  
-  Color of the object in RGB.
-- **"material_label"**:  
-  One of `["metal", "rubber"]`
-
-#### MOVi-C
-MOVi-C has an additional (top-level) entry:
-- **"background"**: `str`  
-  Name of the background HDRI.
-
-And for each instance MOVi-C contains the following additional information under the `"instance"` key:
-- **"asset_id"**: `str`    
-  Asset id from Google Scanned Objects dataset. 
-- **"scale"**: `[float32]`    
-  Scale of the object (between 0.75 and 3.0).
-- **"category"**: 
-  One of `["Action Figures", "Bag", "Board Games",
-  "Bottles and Cans and Cups", "Camera",
-  "Car Seat", "Consumer Goods", "Hat",
-  "Headphones", "Keyboard", "Legos",
-  "Media Cases", "Mouse", "None", "Shoe",
-  "Stuffed Toys", "Toys"]`
-
-
-#### MOVi-D and MOVi-E
-MOVi-D and E have the same information as MOVi-C, but for each instance there is an additional boolean under the `"instance"` key:
-- **"is_dynamic"**: `bool`    
-  Indicating whether (at the start of the scene) the object
-  is sitting on the floor (`False`) or is being tossed (`True`).
