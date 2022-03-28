@@ -10,10 +10,8 @@ A data generation pipeline for creating semi-realistic synthetic multi-object
 videos with rich annotations such as instance segmentation masks, depth maps, 
 and optical flow.
 
-
 ![](docs/images/teaser.gif)
 
-> :warning: This project is in alpha stage and subject to extensive change.
 
 ## Motivation and design
 We need better data for training and evaluating machine learning systems, especially in the collntext of unsupervised multi-object video understanding.
@@ -36,6 +34,8 @@ docker run --rm --interactive \
            /usr/bin/python3 examples/helloworld.py
 ls output
 ```
+
+Kubric employs **Blender 2.93** (see [here](https://github.com/google-research/kubric/blob/01a08d274234f32f2adc4f7d5666b39490f953ad/docker/Blender.Dockerfile#L48)), so if you want to inspect the generated `*.blend` scene file for interactive inspection (i.e. without needing to render the scene), please make sure you have installed the correct Blender version. 
 
 ## Requirements
 - A pipeline for conveniently generating video data. 
