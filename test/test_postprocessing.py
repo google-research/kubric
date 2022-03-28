@@ -19,6 +19,7 @@ from kubric.core import cameras
 from kubric.core import objects
 from kubric.renderer.blender import Blender
 import numpy as np
+import pytest
 
 # a large list of cryptomatte ids that were manually extracted
 # (100 may be overkill. But I did have the first 29 succeed only to fail at Object_30)
@@ -64,6 +65,7 @@ def test_mm3hash():
     assert blender_utils.mm3hash(name) == expected
 
 
+@pytest.mark.skip(reason="TODO(klausg)")
 def test_optical_flow():
   # --- create scene and attach a renderer to it
   scene = Scene(resolution=(7, 7), frame_end=2)

@@ -15,14 +15,13 @@ This completes the "installation", and any Kubric worker file can now be run as:
 
     docker run --rm --interactive \
         --user $(id -u):$(id -g) \
-        --volume "$PWD:/kubric" \
+        --volume "$PWD:/workspace" \
         kubricdockerhub/kubruntu \
         python3 examples/helloworld.py
 
 .. note::
-    The flag ``--user $(id -u):$(id -g)`` ensures commands executed within the container use the host user information 
-    in creating new files.
-    The flag ``--volume "HOST_DIR:CONTAINER_DIR"`` mounts the current directory into the ``/kubric`` container directory; this is a convenient way to pass files (like ``worker.py``) into the container and also get the output files back.
+    The flag ``--user $(id -u):$(id -g)`` ensures commands executed within the container use the host user information in creating new files.
+    The flag ``--volume "HOST_DIR:CONTAINER_DIR"`` mounts the current directory into the ``/workspace`` container directory; this is a convenient way to pass files (like ``worker.py``) into the container and also get the output files back.
     The flags ``--interactive`` allocates a pseudo-tty including STDIN for interactivity and finally ``--rm`` deletes the container (but not the image) after completion (optional to avoid clutter).
 
 

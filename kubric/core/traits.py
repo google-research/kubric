@@ -43,7 +43,7 @@ class Scale(tl.TraitType):
 
   def validate(self, obj, value):
     value = np.array(value, dtype=np.float32)
-    if value.shape == ():  # broadcast scalar Scale to 3D
+    if not value.shape:  # broadcast scalar Scale to 3D
       value = np.array([value, value, value], dtype=np.float32)
     elif value.shape == (1,):  # broadcast scalar Scale to 3D
       value = np.array([value[0], value[0], value[0]], dtype=np.float32)

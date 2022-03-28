@@ -31,6 +31,7 @@ from kubric.kubric_typing import PathLike
 
 
 class ClosableResource:
+  """TODO(klausg): documentation."""
   _set_of_open_resources = weakref.WeakSet()
 
   def __init__(self):
@@ -63,6 +64,12 @@ class AssetSource(ClosableResource):
       manifest_path: PathLike,
       scratch_dir: Optional[PathLike] = None
   ) -> "AssetSource":
+    if manifest_path == "gs://kubric-public/assets/ShapeNetCore.v2.json":
+      raise ValueError(f"The path `{manifest_path}` is a placeholder for the real path. "
+                       "Please visit https://shapenet.org, agree to terms and conditions."
+                       "After logging in, you will find the manifest URL here:"
+                       "https://shapenet.org/download/kubric")
+
     manifest_path = file_io.as_path(manifest_path)
     manifest = file_io.read_json(manifest_path)
     name = manifest.get("name", manifest_path.stem)  # default to filename
@@ -101,14 +108,14 @@ class AssetSource(ClosableResource):
 
   @staticmethod
   def _resolve_asset_type(asset_type: str) -> Type:
-    TYPES = {
+    types = {
         "FileBasedObject": core.FileBasedObject,
         "Texture": core.Texture,
     }
-    if asset_type not in TYPES:
+    if asset_type not in types:
       raise KeyError(f"Unknown asset_type {asset_type!r}. "
-                     f"Available types: {TYPES!r}")
-    return TYPES[asset_type]
+                     f"Available types: {types!r}")
+    return types[asset_type]
 
   def _resolve_asset_path(self, path: Optional[str], asset_id: str) -> Optional[PathLike]:
     if path is None:
@@ -158,7 +165,7 @@ class AssetSource(ClosableResource):
     # find corresponding asset entry
     asset_entry = self._assets.get(asset_id)
     if not asset_entry:
-      near_match, score = thefuzz.process.extractOne(asset_id, choices=self._assets.keys())
+      near_match, _ = thefuzz.process.extractOne(asset_id, choices=self._assets.keys())
       raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{near_match}'?")
 
     # determine type and path

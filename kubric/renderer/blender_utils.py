@@ -159,7 +159,10 @@ def activate_render_passes(normal: bool = True,
   # We use two separate view layers
   # 1) the default view layer renders the image and uses many samples per pixel
   # 2) the aux view layer uses only 1 sample per pixel to avoid anti-aliasing
-  default_view_layer = bpy.context.scene.view_layers[0]
+
+  # TODO(klausg): commented no-op line below, delete?
+  # default_view_layer = bpy.context.scene.view_layers[0]
+
   aux_view_layer = bpy.context.scene.view_layers.new("AuxOutputs")
   aux_view_layer.samples = 1  # only use 1 ray per pixel to disable anti-aliasing
   aux_view_layer.use_pass_z = False  # no need for a separate z-pass
@@ -257,7 +260,8 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
   if "ObjectCoordinates" in layer_names:
-    output["object_coordinates"] = read_channels_from_exr(exr, ["ObjectCoordinates.R", "ObjectCoordinates.G", "ObjectCoordinates.B"])
+    output["object_coordinates"] = read_channels_from_exr(exr,
+      ["ObjectCoordinates.R", "ObjectCoordinates.G", "ObjectCoordinates.B"])
   return output
 
 
@@ -376,11 +380,11 @@ def get_vertices_and_faces(obj: bpy_types.Object) -> Tuple[np.ndarray, np.ndarra
 def triangulate(objects):
   """ Convert all faces of given mesh objects to triangles. """
   with selected(objects):
-    bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.select_mode(use_extend=False, use_expand=False, type='FACE')
-    bpy.ops.mesh.select_all(action='SELECT')
-    bpy.ops.mesh.quads_convert_to_tris(quad_method='BEAUTY', ngon_method='BEAUTY')
-    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.ops.object.mode_set(mode="EDIT")
+    bpy.ops.mesh.select_mode(use_extend=False, use_expand=False, type="FACE")
+    bpy.ops.mesh.select_all(action="SELECT")
+    bpy.ops.mesh.quads_convert_to_tris(quad_method="BEAUTY", ngon_method="BEAUTY")
+    bpy.ops.object.mode_set(mode="OBJECT")
 
 
 def bpy_mesh_object_to_trimesh(obj):
@@ -393,7 +397,7 @@ def bpy_mesh_object_to_trimesh(obj):
     raise ValueError("Mesh is not watertight (has holes)!")
   if not tmesh.is_winding_consistent:
     raise ValueError("Mesh is not winding consistent!")
-  if tmesh.body_count > 1:
+  if tmesh.body_count() > 1:
     raise ValueError("Mesh consists of more than one connected component (bodies)!")
 
   return tmesh
@@ -414,49 +418,49 @@ def process_depth(exr_layers, scene):
   return scene.camera.z_to_depth(exr_layers["depth"])
 
 
-def process_z(exr_layers, scene):
+def process_z(exr_layers, scene):  # pylint: disable=unused-argument
   # blender returns z values (distance to camera plane)
   return exr_layers["depth"]
 
 
-def process_backward_flow(exr_layers, scene):
+def process_backward_flow(exr_layers, scene):  # pylint: disable=unused-argument
   return exr_layers["backward_flow"]
 
 
-def process_forward_flow(exr_layers, scene):
+def process_forward_flow(exr_layers, scene):  # pylint: disable=unused-argument
   return exr_layers["forward_flow"]
 
 
-def process_uv(exr_layers, scene):
+def process_uv(exr_layers, scene):  # pylint: disable=unused-argument
   # convert range [0, 1] to uint16
   return (exr_layers["uv"].clip(0.0, 1.0) * 65535).astype(np.uint16)
 
 
-def process_normal(exr_layers, scene):
+def process_normal(exr_layers, scene):  # pylint: disable=unused-argument
   # convert range [-1, 1] to uint16
   return ((exr_layers["normal"].clip(-1.0, 1.0) + 1) * 65535 / 2
           ).astype(np.uint16)
 
 
-def process_object_coordinates(exr_layers, scene):
+def process_object_coordinates(exr_layers, scene):  # pylint: disable=unused-argument
   # sometimes these values can become ever so slightly negative (e.g. 1e-10)
   # we clip them to [0, 1] to guarantee this range for further processing.
   return (exr_layers["object_coordinates"].clip(0.0, 1.0) * 65535
           ).astype(np.uint16)
 
 
-def process_segementation(exr_layers, scene):
+def process_segementation(exr_layers, scene):  # pylint: disable=unused-argument
   # map the Blender cryptomatte hashes to asset indices
   return replace_cryptomatte_hashes_by_asset_index(
       exr_layers["segmentation_indices"][:, :, :1], scene.assets)
 
 
-def process_rgba(exr_layers, scene):
+def process_rgba(exr_layers, scene):  # pylint: disable=unused-argument
   # map the Blender cryptomatte hashes to asset indices
   return exr_layers["rgba"]
 
 
-def process_rgb(exr_layers, scene):
+def process_rgb(exr_layers, scene):  # pylint: disable=unused-argument
   return exr_layers["rgba"][..., :3]
 
 
