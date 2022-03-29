@@ -34,5 +34,5 @@ Script parameters include:
 The script is configured to directly output data in format of LASR input. A folder with name `object` is created in `output` directory.
 - `<object>/FlowBW`, `<object>/FlowFW`: backward and forward optical flow images
 - `<object>/LASR/Annotations/Full-Resolution/(r)<object>`: object masks
-- `<object>/LASR/Camera/Full-Resolution/(r)<object>`: camera extrinsics in LASR's preferred format. Please refer to `<object>/metadata.json` for more readable camera parameters
+- `<object>/LASR/Camera/Full-Resolution/(r)<object>`: camera extrinsics in LASR's preferred format. Line 1: focal, line 2~3: x,y translation, line 4~7: WXYZ quaternion, line 8: z translation (depth).
 - `<object>/LASR/JPEGImages/Full-Resolution/(r)<object>`: object images
