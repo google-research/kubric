@@ -2,6 +2,8 @@
 
 This dataset mainly challenges the monocular video-based 3D reconstruction methods, such as [LASR](https://github.com/google/lasr). The dataset includes rigid objects from ShapeNet and non-rigid human animations built from [quaternius](https://quaternius.com).
 
+Rendered datasets avaliable at `gs://kubric-public/data/video_based_reconstruction`
+
 ![](images/airplane-rot-obj.gif)
 ![](images/human-2.gif)
 ![](images/textured-torus.gif)
