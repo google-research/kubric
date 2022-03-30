@@ -12,5 +12,4 @@ docker run --rm --interactive \
            /usr/bin/python3 challenges/dynamic_nerf/example.py
 ```
 
-
 ![](/docs/images/articulation.gif)
