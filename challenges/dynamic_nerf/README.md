@@ -13,4 +13,4 @@ docker run --rm --interactive \
 ```
 
 
-![](docs/images/articulation.gif)
+![](/docs/images/articulation.gif)
