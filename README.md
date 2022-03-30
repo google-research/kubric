@@ -45,21 +45,6 @@ Kubric employs **Blender 2.93** (see [here](https://github.com/google-research/k
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
-## Rendering Animation
-An example of rendering animation from blender is given in examples/articulation.py
-To render the following example, run:
-```
-mkdir examples/KuBasic/rain_v22
-gcloud cp gs://research-brain-kubric-xgcp/articulation/* examples/KuBasic/rain_v22/
-docker build -f docker/KubruntuDev.Dockerfile -t kubricdockerhub/kubruntudev:latest .
-docker run --rm --interactive \
-           --user $(id -u):$(id -g) \
-           --volume "$(pwd):/kubric" \
-           kubricdockerhub/kubruntudev \
-           /usr/bin/python3 examples/articulation.py
-```
-![](docs/images/articulation.gif)
-
 ## Challenges and datasets
 Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public).
 More specifically, these challenges are *dataset contributions* of the Kubric CVPR'22 paper:

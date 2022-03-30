@@ -11,4 +11,6 @@ docker run --rm --interactive \
            kubricdockerhub/kubruntudev \
            /usr/bin/python3 challenges/dynamic_nerf/example.py
 ```
+
+
 ![](docs/images/articulation.gif)
