@@ -11,4 +11,4 @@ In the teleport challenge, while most of the scene remains rigid, we add imposto
 In other words, the two datasets evaluate the sensitivity of unstructured (teleport) vs. structured (jitter) outliers in the training process. 
 
 Please see the worker.py file to get a glimpse of how the data was generated.
-![](teaser.jpg)
+![](teaser.png)
