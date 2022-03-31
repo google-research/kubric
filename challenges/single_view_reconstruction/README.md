@@ -11,5 +11,5 @@ See example of predicted images by SoftRas as well as ground truth masks:
 
 
 <p align="center" width="100%">
-    <img width="75%" src="teaser.png"> 
+    <img width="50%" src="teaser.png"> 
 </p>
