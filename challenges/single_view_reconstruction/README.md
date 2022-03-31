@@ -9,6 +9,7 @@ The dataset is divided into two difficulties levels: ``in-distribution'' and ``o
 
 See example of predicted images by SoftRas as well as ground truth masks:
 
-![](teaser.png)
 
-
+<p align="center" width="100%">
+    <img width="75%" src="teaser.png"> 
+</p>
