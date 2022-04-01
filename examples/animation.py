@@ -76,7 +76,7 @@ logging.basicConfig(level='INFO')
 parser = kb.ArgumentParser()
 FLAGS = parser.parse_args()
 
-
+tf.io.gfile.mkdir('examples/KuBasic/')
 tf.io.gfile.copy(
     'gs://kubric-public/data/pose_estimation/AnimationExample.zip', 
     'examples/KuBasic/AnimationExample.zip')
