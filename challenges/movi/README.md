@@ -1,5 +1,7 @@
 # Multi-Object Video (MOVi) datasets
 
+![](images/teaser.jpg)
+
 The MOVi dataset is really a series of five datasets (MOVi-A to MOVi-E) with increasing complexity.
 Each dataset consists of random scenes, each being a 2 second rigid body simulation with a few objects falling.
 The variants differ in various dimensions including the number and type of objects, background, camera position/movement, and wether all objects are tossed or if some remain static.
