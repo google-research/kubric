@@ -10,5 +10,6 @@ This challenge demonstrates that further research is still needed to fully addre
 In the teleport challenge, while most of the scene remains rigid, we add impostor non-static object (i.e. the monkey head) randomly within the scene bounds, while in the jitter challenge the impostor position jitters around a fixed position.
 In other words, the two datasets evaluate the sensitivity of unstructured (teleport) vs. structured (jitter) outliers in the training process. 
 
-Please see the worker.py file to get a glimpse of how the data was generated.
-![](teaser.png)
+Please see `worker.py` to get a glimpse of how the data was generated.
+
+<img src="teaser.png" width=50%>
