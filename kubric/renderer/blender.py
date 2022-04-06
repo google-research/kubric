@@ -17,7 +17,6 @@ import collections
 import io
 import logging
 import os
-import pdb
 import sys
 from contextlib import redirect_stdout
 from typing import Any, Dict, Optional, Sequence, Union
@@ -27,7 +26,6 @@ from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
 
 import kubric as kb
@@ -733,7 +731,7 @@ class KeyframeSetter:
 class VisibleShadowsSetter:
   # Custom as cannot use AttributeSetter as `setattr` in AttributeSetter
   # cannot take `cycles_visibility.shadow` as argument.
-  
+
   def __init__(self, blender_obj):
     self.blender_obj = blender_obj
 
