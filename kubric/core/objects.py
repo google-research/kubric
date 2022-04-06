@@ -112,14 +112,15 @@ class Object3D(assets.Asset):
     quaternion (vec4d): a (W, X, Y, Z) quaternion for describing the rotation.
     up (str): which direction to consider as "up" (required for look_at).
     front (str): which direction to consider as "front" (required for look_at).
+    visible_shadows (str): whether the object casts shadows on the scene.
   """
   position = ktl.Vector3D()
   quaternion = ktl.Quaternion()
-
   up = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="Y")
   front = tl.CaselessStrEnum(["X", "Y", "Z", "-X", "-Y", "-Z"], default_value="-Z")
+  cast_shadows = tl.Bool(default_value=True)
 
-  def __init__(self, position=(0., 0., 0.), quaternion=None,
+  def __init__(self, position=(0., 0., 0.), quaternion=None, cast_shadows=True,
                up="Y", front="-Z", look_at=None, euler=None, **kwargs):
     if look_at is not None:
       assert quaternion is None and euler is None
@@ -131,7 +132,7 @@ class Object3D(assets.Asset):
       quaternion = (1., 0., 0., 0.)
 
     super().__init__(position=position, quaternion=quaternion, up=up,
-                     front=front, **kwargs)
+                     front=front, cast_shadows=cast_shadows, **kwargs)
 
   def look_at(self, target):
     self.quaternion = look_at_quat(self.position, target, self.up, self.front)

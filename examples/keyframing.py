@@ -24,20 +24,22 @@ scene = kb.Scene(resolution=(256, 256), frame_start=1, frame_end=20)
 renderer = KubricRenderer(scene)
 
 # --- populate the scene with objects, lights, cameras
-scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000), background=True)
-scene += kb.Cube(name="floor", scale=(.5,.7,1.0), position=(0, 0, 1.1))
-scene += kb.PerspectiveCamera(name="camera", position=(3, -1, 4), look_at=(0, 0, 1))
+scene += kb.Sphere(name="floor", scale=1000, position=(0, 0, +1000), cast_shadows=False)
+scene += kb.Cube(name="cube", scale=(.5,.7,1.0), position=(0, 0, 1.1),
+                material=kb.FlatMaterial(color=kb.Color(.8, .1, .1)))
+scene += kb.PerspectiveCamera(name="camera", position=(6, -2, 8), look_at=(0, 0, 1))
 
 # --- Add Klevr-like lights to the scene
-scene += kb.assets.utils.get_clevr_lights()
 scene.ambient_illumination = kb.Color(0.05, 0.05, 0.05)
+sun = kb.DirectionalLight(name="sun", position=(5, 5, 5), look_at=(0, 0, 0), intensity=1.5)
+scene += sun
 
 # --- Keyframe a circular camera path around the object (use polar coordinates)
 # TODO: this seems to be pretty common logic, move it to a utility file?
-original_camera_position = (7.48113, -6.50764, 5.34367)
-r = np.sqrt(sum(a * a for a in original_camera_position))
-phi = np.arccos(original_camera_position[2] / r)
-theta = np.arccos(original_camera_position[0] / (r * np.sin(phi)))
+original_position = sun.position
+r = np.sqrt(sum(a * a for a in original_position))
+phi = np.arccos(original_position[2] / r)
+theta = np.arccos(original_position[0] / (r * np.sin(phi)))
 num_phi_values_per_theta = 1  #< only circular motion
 theta_change = (2 * np.pi) / ((scene.frame_end - scene.frame_start) / num_phi_values_per_theta)
 for frame in range(scene.frame_start, scene.frame_end + 1):
@@ -51,10 +53,10 @@ for frame in range(scene.frame_start, scene.frame_end + 1):
   z_shift_direction = (i % num_phi_values_per_theta) - 1
   z = z + z_shift_direction * 1.2
 
-  scene.camera.position = (x, y, z)
-  scene.camera.look_at((0, 0, 0))
-  scene.camera.keyframe_insert("position", frame)
-  scene.camera.keyframe_insert("quaternion", frame)
+  sun.position = (x, y, z)
+  sun.look_at((0, 0, 0))
+  sun.keyframe_insert("position", frame)
+  sun.keyframe_insert("quaternion", frame)
 
 # --- save scene for quick inspection
 renderer.save_state("output/keyframing.blend")
@@ -65,3 +67,7 @@ data_stack = renderer.render()
 # --- save output files
 output_dir = kb.as_path("output/")
 kb.file_io.write_rgba_batch(data_stack["rgba"], output_dir)
+
+# --- convert to gif using imagemagick (in terminal)
+# TODO: add imagemagick to container, so this can be automated?
+# convert -delay 20 -loop 0 output/rgba*  output/keyframing.gif

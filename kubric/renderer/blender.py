@@ -17,6 +17,7 @@ import collections
 import io
 import logging
 import os
+import pdb
 import sys
 from contextlib import redirect_stdout
 from typing import Any, Dict, Optional, Sequence, Union
@@ -729,6 +730,17 @@ class KeyframeSetter:
     self.blender_obj.keyframe_insert(self.attribute_path, frame=change.frame)
 
 
+class VisibleShadowsSetter:
+  # Custom as cannot use AttributeSetter as `setattr` in AttributeSetter
+  # cannot take `cycles_visibility.shadow` as argument.
+  
+  def __init__(self, blender_obj):
+    self.blender_obj = blender_obj
+
+  def __call__(self, change):
+    self.blender_obj.cycles_visibility.shadow = change.new
+
+
 def register_object3d_setters(obj, blender_obj):
   assert isinstance(obj, core.Object3D), f"{obj!r} is not an Object3D"
 
@@ -737,3 +749,6 @@ def register_object3d_setters(obj, blender_obj):
 
   obj.observe(AttributeSetter(blender_obj, "rotation_quaternion"), "quaternion")
   obj.observe(KeyframeSetter(blender_obj, "rotation_quaternion"), "quaternion", type="keyframe")
+
+  # --- Maps Object3D.cast_shadows to bpy.context.object.cycles_visibility.shadow
+  obj.observe(VisibleShadowsSetter(blender_obj), "cast_shadows")
