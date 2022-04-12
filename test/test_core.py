@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ def test_physical_object_constructor_default_args():
   assert_allclose(obj.velocity, (0, 0, 0))
   assert_allclose(obj.angular_velocity, (0, 0, 0))
   assert obj.mass == 1.0
-  assert obj.friction == 0
+  assert obj.friction == 0.5
   assert obj.restitution == 0.5
   assert obj.static is False
   assert_allclose(obj.bounds, ((0, 0, 0), (0, 0, 0)))

@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import contextlib
+import copy
 import functools
 import sys
-from typing import Dict, Sequence
+from typing import Dict, Sequence, Tuple, Union
 
+import bpy_types
 import numpy as np
 import OpenEXR
 import Imath
 import sklearn.utils
+import trimesh
 
 from kubric import core
 from kubric.kubric_typing import AddAssetFunction, ArrayLike
@@ -62,7 +66,8 @@ def prepare_blender_object(func: AddAssetFunction) -> AddAssetFunction:
 
 
 def set_up_exr_output_node(default_layers=("Image", "Depth"),
-                           aux_layers=("UV", "Normal", "CryptoObject00", "ObjectCoordinates")):
+                           aux_layers=("UV", "Normal", "CryptoObject00", "ObjectCoordinates"),
+                           motion_blur=None):
   """ Set up the blender compositor nodes required for exporting EXR files.
 
   The filename can then be set with:
@@ -107,6 +112,20 @@ def set_up_exr_output_node(default_layers=("Image", "Depth"),
   links.new(render_node_aux.outputs.get("Vector"), split_rgba.inputs.get("Image"))
   links.new(combine_rgba.outputs.get("Image"), out_node.inputs.get("Vector"))
 
+  if motion_blur is not None:
+    assert isinstance(motion_blur, float), motion_blur
+    # we then add a vector blur that uses optical flow to blur the image
+    motion_blur_node = tree.nodes.new(type="CompositorNodeVecBlur")
+    composite_out = tree.nodes.new(type="CompositorNodeComposite")
+    motion_blur_node.factor = motion_blur
+    motion_blur_node.use_curved = True
+    links.new(render_node.outputs.get("Image"), motion_blur_node.inputs.get("Image"))
+    links.new(render_node.outputs.get("Depth"), motion_blur_node.inputs.get("Z"))
+    links.new(render_node_aux.outputs.get("Vector"), motion_blur_node.inputs.get("Speed"))
+    links.remove(out_node.inputs.get("Image").links[0])
+    links.new(motion_blur_node.outputs.get("Image"), out_node.inputs.get("Image"))
+    links.new(motion_blur_node.outputs.get("Image"), composite_out.inputs.get("Image"))
+
   return out_node
 
 
@@ -140,7 +159,10 @@ def activate_render_passes(normal: bool = True,
   # We use two separate view layers
   # 1) the default view layer renders the image and uses many samples per pixel
   # 2) the aux view layer uses only 1 sample per pixel to avoid anti-aliasing
-  default_view_layer = bpy.context.scene.view_layers[0]
+
+  # TODO(klausg): commented no-op line below, delete?
+  # default_view_layer = bpy.context.scene.view_layers[0]
+
   aux_view_layer = bpy.context.scene.view_layers.new("AuxOutputs")
   aux_view_layer.samples = 1  # only use 1 ray per pixel to disable anti-aliasing
   aux_view_layer.use_pass_z = False  # no need for a separate z-pass
@@ -195,33 +217,31 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
   output = {}
   if "Image" in layer_names:
     # Image is in RGBA format with range [0, inf]
-    # TODO: image is in HDR, so we need some tone-mapping
-    output["rgba"] = read_channels_from_exr(exr, ["Image.R", "Image.G", "Image.B", "Image.A"])
+    output["linear_rgba"] = read_channels_from_exr(exr, ["Image.R", "Image.G",
+                                                         "Image.B", "Image.A"])
   if "Depth" in layer_names:
     # range [0, 10000000000.0]  # the value 1e10 is used for background / infinity
-    # TODO: clip to a reasonable value. Is measured in meters so usual range is ~ [0, 10]
     output["depth"] = read_channels_from_exr(exr, ["Depth.V"])
   if "Vector" in layer_names:
     flow = read_channels_from_exr(exr, ["Vector.R", "Vector.G", "Vector.B", "Vector.A"])
     # Blender exports forward and backward flow in a single image,
     # and uses (-delta_col, delta_row) format, but we prefer (delta_row, delta_col)
-    # also use normalized coords that range from (0, 0) at the top left to (1, 1) at bottom right
     output["backward_flow"] = np.zeros_like(flow[..., :2])
-    output["backward_flow"][..., 0] = flow[..., 1] / flow.shape[-3]
-    output["backward_flow"][..., 1] = -flow[..., 0] / flow.shape[-2]
+    output["backward_flow"][..., 0] = flow[..., 1]
+    output["backward_flow"][..., 1] = -flow[..., 0]
 
     output["forward_flow"] = np.zeros_like(flow[..., 2:])
-    output["forward_flow"][..., 0] = flow[..., 3] / flow.shape[-3]
-    output["forward_flow"][..., 1] = -flow[..., 2] / flow.shape[-2]
+    output["forward_flow"][..., 0] = flow[..., 3]
+    output["forward_flow"][..., 1] = -flow[..., 2]
 
   if "Normal" in layer_names:
     # range: [-1, 1]
-    data = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
-    output["normal"] = ((data + 1) * 65535 / 2).astype(np.uint16)
+    output["normal"] = read_channels_from_exr(exr, ["Normal.X", "Normal.Y", "Normal.Z"])
+
   if "UV" in layer_names:
     # range [0, 1]
-    data = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
-    output["uv"] = (data * 65535).astype(np.uint16)
+    output["uv"] = read_channels_from_exr(exr, ["UV.X", "UV.Y", "UV.Z"])
+
   if "CryptoObject00" in layer_names:
     # CryptoMatte stores the segmentation of Objects using two kinds of channels:
     #  - index channels (uint32) specify the object index for a pixel
@@ -240,7 +260,8 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
   if "ObjectCoordinates" in layer_names:
-    output["object_coordinates"] = read_channels_from_exr(exr, ["ObjectCoordinates.R", "ObjectCoordinates.G", "ObjectCoordinates.B"])
+    output["object_coordinates"] = read_channels_from_exr(exr,
+      ["ObjectCoordinates.R", "ObjectCoordinates.G", "ObjectCoordinates.B"])
   return output
 
 
@@ -271,3 +292,175 @@ def mm3hash(name):
   if exp in (0, 255):
     hash_32 ^= 1 << 23
   return hash_32
+
+
+@contextlib.contextmanager
+def selected(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
+  """ Contextmanager to select objects and to restore the prior selection after.
+
+  Selects all provided objects and marks the first one as active for the duration
+  of the context. Afterwards it restores the previous selection and active object.
+
+  Args:
+    objects:  Either a single object or a sequence of objects to select.
+  """
+  if not isinstance(objects, Sequence):
+    objects = [objects]
+  previous_selection = copy.copy(bpy.context.selected_objects)
+  previous_active = bpy.context.active_object
+
+  for obj in bpy.context.selected_objects:
+    obj.select_set(False)  # deselect everything
+  for obj in objects:
+    obj.select_set(True)  # select target objects
+  # set the active object to the first obj in obj_list
+  bpy.context.view_layer.objects.active = objects[0]
+
+  yield
+
+  for obj in bpy.context.selected_objects:
+    obj.select_set(False)  # deselect everything
+  for obj in previous_selection:
+    obj.select_set(True)  # re-select previous selected objects
+  # re-activate previous object
+  bpy.context.view_layer.objects.active = previous_active
+
+
+@contextlib.contextmanager
+def centered(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
+  """ Contextmanager that centers objects and restores their location afterwards.
+
+  Moves all provided objects to location (0, 0, 0) for the duration of the context,
+  and restores their prior position afterwards. Useful for exporting objects.
+  """
+  if not isinstance(objects, Sequence):
+    objects = [objects]
+
+  prev_pos = {obj: copy.copy(obj.location) for obj in objects}
+  for obj in objects:
+    obj.location = (0, 0, 0)
+
+  yield
+
+  for obj in objects:
+    obj.location = prev_pos[obj]
+
+
+def apply_transformations(
+    objects: Union[bpy_types.Object, Sequence[bpy_types.Object]],
+    position=False,
+    rotation=True,
+    scale=True
+):
+  """ Applies all selected transformations (integrate them into the mesh)."""
+  with selected(objects):
+    bpy.ops.object.transform_apply(location=position, rotation=rotation, scale=scale)
+
+
+def get_vertices_and_faces(obj: bpy_types.Object) -> Tuple[np.ndarray, np.ndarray]:
+  """ Get arrays of vertices and faces for a given blender mesh object.
+
+  WARNING: only works on triangulated meshes (no polygons with > 3 sides)
+
+  Args:
+    obj: Blender mesh object
+
+  Returns:
+    vertices: numpy array of vertex positions shape=(n_vertices, 3) dtype=float64
+    faces: numpy array of triangles as vertex indices shape=(n_faces, 3) dtype=int64
+  """
+  if not isinstance(obj.data, bpy_types.Mesh):
+    raise ValueError(f"Expected mesh object, but got {obj.name!r} which is {obj.type!r}")
+  bmesh = obj.data
+  vertices = np.array([v.co for v in bmesh.vertices])
+  faces = np.array([list(p.vertices) for p in bmesh.polygons if len(p.vertices) > 2])
+  return vertices, faces
+
+
+def triangulate(objects):
+  """ Convert all faces of given mesh objects to triangles. """
+  with selected(objects):
+    bpy.ops.object.mode_set(mode="EDIT")
+    bpy.ops.mesh.select_mode(use_extend=False, use_expand=False, type="FACE")
+    bpy.ops.mesh.select_all(action="SELECT")
+    bpy.ops.mesh.quads_convert_to_tris(quad_method="BEAUTY", ngon_method="BEAUTY")
+    bpy.ops.object.mode_set(mode="OBJECT")
+
+
+def bpy_mesh_object_to_trimesh(obj):
+  vertices, faces = get_vertices_and_faces(obj)
+  tmesh = trimesh.Trimesh(vertices=vertices, faces=faces)
+
+  if tmesh.is_empty:
+    raise ValueError("Mesh is empty!")
+  if not tmesh.is_watertight:
+    raise ValueError("Mesh is not watertight (has holes)!")
+  if not tmesh.is_winding_consistent:
+    raise ValueError("Mesh is not winding consistent!")
+  if tmesh.body_count() > 1:
+    raise ValueError("Mesh consists of more than one connected component (bodies)!")
+
+  return tmesh
+
+
+def center_mesh_around_center_of_mass(obj):
+  tmesh = bpy_mesh_object_to_trimesh(obj)
+
+  for vert in obj.data.vertices:
+    vert.co[0] -= tmesh.center_mass[0]
+    vert.co[1] -= tmesh.center_mass[1]
+    vert.co[2] -= tmesh.center_mass[2]
+
+
+def process_depth(exr_layers, scene):
+  # blender returns z values (distance to camera plane)
+  # convert them into depth (distance to camera center)
+  return scene.camera.z_to_depth(exr_layers["depth"])
+
+
+def process_z(exr_layers, scene):  # pylint: disable=unused-argument
+  # blender returns z values (distance to camera plane)
+  return exr_layers["depth"]
+
+
+def process_backward_flow(exr_layers, scene):  # pylint: disable=unused-argument
+  return exr_layers["backward_flow"]
+
+
+def process_forward_flow(exr_layers, scene):  # pylint: disable=unused-argument
+  return exr_layers["forward_flow"]
+
+
+def process_uv(exr_layers, scene):  # pylint: disable=unused-argument
+  # convert range [0, 1] to uint16
+  return (exr_layers["uv"].clip(0.0, 1.0) * 65535).astype(np.uint16)
+
+
+def process_normal(exr_layers, scene):  # pylint: disable=unused-argument
+  # convert range [-1, 1] to uint16
+  return ((exr_layers["normal"].clip(-1.0, 1.0) + 1) * 65535 / 2
+          ).astype(np.uint16)
+
+
+def process_object_coordinates(exr_layers, scene):  # pylint: disable=unused-argument
+  # sometimes these values can become ever so slightly negative (e.g. 1e-10)
+  # we clip them to [0, 1] to guarantee this range for further processing.
+  return (exr_layers["object_coordinates"].clip(0.0, 1.0) * 65535
+          ).astype(np.uint16)
+
+
+def process_segementation(exr_layers, scene):  # pylint: disable=unused-argument
+  # map the Blender cryptomatte hashes to asset indices
+  return replace_cryptomatte_hashes_by_asset_index(
+      exr_layers["segmentation_indices"][:, :, :1], scene.assets)
+
+
+def process_rgba(exr_layers, scene):  # pylint: disable=unused-argument
+  # map the Blender cryptomatte hashes to asset indices
+  return exr_layers["rgba"]
+
+
+def process_rgb(exr_layers, scene):  # pylint: disable=unused-argument
+  return exr_layers["rgba"][..., :3]
+
+

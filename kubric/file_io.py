@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,17 +29,16 @@
 import contextlib
 import functools
 import logging
-import io
 import json
 import multiprocessing
 import pickle
 from typing import Any, Dict
 
+from etils import epath
 import imageio
 import numpy as np
 import png
 import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
 
 from kubric import plotting
 from kubric.kubric_typing import PathLike
@@ -48,13 +47,13 @@ from kubric.kubric_typing import PathLike
 logger = logging.getLogger(__name__)
 
 
-def as_path(path: PathLike) -> tfds.core.ReadWritePath:
-  """Convert str or pathlike object to tfds.core.ReadWritePath.
+def as_path(path: PathLike) -> epath.Path:
+  """Convert str or pathlike object to epath.Path.
 
-  Instead of pathlib.Paths, we use the TFDS path because they transparently
-  support paths to GCS buckets such as "gs://kubric-public/GSO".
+  Instead of pathlib.Path, we use `epath` because it transparently
+  supports paths to GCS buckets such as "gs://kubric-public/GSO".
   """
-  return tfds.core.as_path(path)
+  return epath.Path(path)
 
 
 @contextlib.contextmanager
@@ -119,7 +118,7 @@ def write_png(data: np.array, filename: PathLike) -> None:
   height, width, channels = data.shape
   greyscale = (channels == 1)
   alpha = (channels == 4)
-  w = png.Writer(height, width, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
+  w = png.Writer(width, height, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
 
   if channels == 2:
     # Pad two-channel images with a zero channel.
@@ -206,10 +205,9 @@ def write_tiff(data: np.ndarray, filename: PathLike):
   assert data.ndim == 3, data.shape
   assert data.shape[2] in [1, 3, 4], "Must be grayscale, RGB, or RGBA"
 
-  buffer = io.BytesIO()
-  imageio.imwrite(buffer, data, format="tiff")
+  img_as_bytes = imageio.imwrite("<bytes>", data, format="tiff")
   filename = as_path(filename)
-  filename.write_bytes(buffer.getvalue())
+  filename.write_bytes(img_as_bytes)
 
 
 def read_tiff(filename: PathLike) -> np.ndarray:
@@ -233,8 +231,6 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
     max_write_threads: number of threads to use for writing images. (default = 16)
     **kwargs: additional kwargs to pass to the write_fn.
   """
-  # Pre-load image libs to avoid race-condition in multi-thread.
-  imageio.plugins.tifffile.load_lib()
   num_threads = min(data.shape[0], max_write_threads)
   with multiprocessing.pool.ThreadPool(num_threads) as pool:
     args = [(img, path_template.format(i)) for i, img in enumerate(data)]
@@ -242,7 +238,10 @@ def multi_write_image(data: np.ndarray, path_template: str, write_fn=write_png,
     def write_single_image_fn(arg):
       write_fn(*arg, **kwargs)
 
-    pool.imap_unordered(write_single_image_fn, args)
+    for result in pool.imap_unordered(write_single_image_fn, args):
+      if isinstance(result,  Exception):
+        logger.warning("Exception while writing image %s", result)
+
     pool.close()
     pool.join()
 

@@ -27,12 +27,16 @@ kubruntudev: docker/KubruntuDev.Dockerfile
 
 # --- Publish to (public) Docker Hub (needs authentication w/ user "kubricdockerhub")
 # WARNING: these pushes are done automatically by Github Actions upon push to the main branch.
-blender/push: blender
+blender/push:
 	docker push kubricdockerhub/blender:latest
-kubruntu/push: kubruntu
+kubruntu/push:
 	docker push kubricdockerhub/kubruntu:latest
-kubruntudev/push: kubruntudev
+kubruntudev/push:
 	docker push kubricdockerhub/kubruntudev:latest
+
+# --- starts an interactive bash within the container
+kubruntudev/bash: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev bash
 
 # --- documentation (requires "apt-get install python3-sphinx")
 docs: $(shell find docs )
@@ -46,15 +50,23 @@ docs_server:
 examples/basic: checkmakeversion
 	python3 examples/basic.py
 examples/helloworld: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/helloworld.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/helloworld.py
 examples/simulator: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/simulator.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/simulator.py
 examples/klevr: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/klevr.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/klevr.py
 examples/katr: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/katr.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/katr.py
 examples/shapenet: checkmakeversion
-	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/kubric kubricdockerhub/kubruntudev python3 examples/shapenet.py
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} kubricdockerhub/kubruntudev python3 examples/shapenet.py
+examples/keyframing: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/keyframing.py
+
+# --- one-liners for executing challenges
+challenges/complex_brdf: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} kubricdockerhub/kubruntudev python3 challenges/complex_brdf/worker.py
+#challenges/complex_brdf/launch: checkmakeversion
+#	launch.sh hyper challenges/complex_brdf/worker.py lfn_`date +"%Y%m%d_%H%M"` 52423 400
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
@@ -63,14 +75,14 @@ examples/shapenet: checkmakeversion
 pytest: checkmakeversion
 	@TARGET=$${TARGET:-test/}
 	echo "pytest (kubricdockerhub/kubruntudev) on folder" $${TARGET}
-	docker run --rm --interactive --volume `pwd`:/kubric kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $${TARGET}
+	docker run --rm --interactive --volume `pwd`:/workspace kubricdockerhub/kubruntudev pytest --disable-warnings --exitfirst $${TARGET}
 
 # --- runs pylint on the entire "kubric/" subfolder
 # To run with options, e.g. `make pylint TARGET=./kubric/core`
 pylint: checkmakeversion
 	@TARGET=$${TARGET:-kubric/}
 	echo "running kubricdockerhub/kubruntudev pylint on" $${TARGET}
-	docker run --rm --interactive --volume  `pwd`:/kubric kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
+	docker run --rm --interactive --volume  `pwd`:/workspace kubricdockerhub/kubruntudev pylint --rcfile=.pylintrc $${TARGET}
 
 # --- manually publishes the package to pypi
 pypi_test/write: clean_build

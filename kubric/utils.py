@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from absl.flags import argparse_flags
+
 import argparse
 import collections
 import copy
@@ -24,9 +25,8 @@ import shutil
 import sys
 import tempfile
 
+from etils import epath
 import numpy as np
-
-import tensorflow_datasets.public_api as tfds
 
 from kubric import core
 from kubric import file_io
@@ -54,14 +54,14 @@ class ArgumentParser(argparse_flags.ArgumentParser):
                       help="index of the first frame to render. "
                            "Note that simulation always starts at frame 0 (default: 1)")
     self.add_argument("--frame_end", type=int, default=24,
-                      help="index of the last frame to render (default: 24)")  # 1 second
+                      help="index of the last frame to render (default: 24)")
     self.add_argument("--logging_level", type=str, default="INFO")
     self.add_argument("--seed", type=int, default=None,
                       help="(int) seed for random sampling in the worker (default: None)")
-    self.add_argument("--width", type=int, default=512,
-                      help="width of the output image/video in pixels (default: 512)")
-    self.add_argument("--height", type=int, default=512,
-                      help="height of the output image/video in pixels (default: 512)")
+    self.add_argument("--resolution", type=str, default="512x512",
+                      help="height and width of rendered image/video in pixels"
+                           "Can be given as single number for square images or "
+                           "in the form {height}x{width}. (default: 512x512)")
     self.add_argument("--scratch_dir", type=str, default=tempfile.mkdtemp(),
                       help="local directory for storing intermediate files such as "
                            "downloaded assets, raw output of renderer, ... (default: temp dir)")
@@ -96,6 +96,7 @@ def setup(flags):
   seed = flags.seed if flags.seed else np.random.randint(0, 2147483647)
   rng = np.random.RandomState(seed=seed)
   scene = core.scene.Scene.from_flags(flags)
+  scene.metadata["seed"] = seed
 
   scratch_dir, output_dir = setup_directories(flags)
   return scene, rng, output_dir, scratch_dir
@@ -130,10 +131,13 @@ def done():
 
 def get_scene_metadata(scene, **kwargs):
   metadata = {
-      "width": scene.resolution[0],
-      "height": scene.resolution[1],
+      "resolution": scene.resolution,
+      "frame_rate": scene.frame_rate,
+      "step_rate": scene.step_rate,
+      "gravity": scene.gravity,
       "num_frames": scene.frame_end - scene.frame_start + 1,
   }
+  metadata.update(scene.metadata)
   metadata.update(kwargs)
   return metadata
 
@@ -158,6 +162,8 @@ def get_instance_info(scene, assets_subset=None):
   assets_subset = scene.foreground_assets if assets_subset is None else assets_subset
   for instance in assets_subset:
     info = copy.copy(instance.metadata)
+    if hasattr(instance, "asset_id"):
+      info["asset_id"] = instance.asset_id
     info["positions"] = instance.get_values_over_time("position")
     info["quaternions"] = instance.get_values_over_time("quaternion")
     info["velocities"] = instance.get_values_over_time("velocity")
@@ -210,7 +216,7 @@ def setup_directories(flags):
   scratch_dir.mkdir(parents=True)
   logging.info("Using scratch directory: %s", scratch_dir)
 
-  output_dir = tfds.core.as_path(flags.job_dir)
+  output_dir = epath.Path(flags.job_dir)
   output_dir.mkdir(parents=True, exist_ok=True)
   logging.info("Using output directory: %s", output_dir)
   return scratch_dir, output_dir

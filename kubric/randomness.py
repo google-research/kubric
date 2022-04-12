@@ -1,4 +1,4 @@
-# Copyright 2021 The Kubric Authors.
+# Copyright 2022 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,6 +81,19 @@ def rotation_sampler(axis=None):
   return _sampler
 
 
+def bottom_sampler(region):
+  """Sample positions at the bottom of a region"""
+  region = np.array(region, dtype=np.float)
+
+  def _sampler(obj: objects.PhysicalObject, rng):
+    obj.position = (0, 0, 0)  # reset position to origin
+    effective_region = region - obj.aabbox
+    effective_region[1, 2] = effective_region[0, 2]  # only consider lowest Z
+    obj.position = rng.uniform(*effective_region)
+
+  return _sampler
+
+
 def position_sampler(region):
   region = np.array(region, dtype=np.float)
 
@@ -141,7 +154,7 @@ def sample_color(
 def sample_sizes(
     strategy: str,
     rng: np.random.RandomState = default_rng()
-    ) -> Tuple[Optional[str], float]:
+  ) -> Tuple[Optional[str], float]:
   """Sample a random (asset) size according to a given strategy."""
   if strategy == "clevr":
     size_label = rng.choice(list(CLEVR_SIZES.keys()))
@@ -158,12 +171,16 @@ def sample_sizes(
 def sample_point_in_half_sphere_shell(
     inner_radius: float,
     outer_radius: float,
+    offset: float = 0.,
     rng: np.random.RandomState = default_rng()
-    ) -> Tuple[float, float, float]:
-  """Uniformly sample points that are in a given distance range from the origin and with z >= 0."""
+  ) -> Tuple[float, float, float]:
+  """Uniformly sample points that are in a given distance range from the origin
+     and with z >= offset."""
   while True:
-    v = rng.uniform((-outer_radius, -outer_radius, 0),
-                    (outer_radius, outer_radius, outer_radius))
-    len_v = np.linalg.norm(v)
-    if inner_radius <= len_v <= outer_radius:
-      return tuple(v)
+    xyz = rng.normal(0, 1, (3, ))  # normalize(3-dim standard normal) is distributed on the unit sphere surface
+    if xyz[2] < offset:  # if z is less than offset, rejection.
+      continue
+    xyz = xyz / np.linalg.norm(xyz)  # unit vector on the unit sphere surface
+    radius = rng.uniform(inner_radius**3, outer_radius**3) ** (1/3.)  # radius follows surface area of the sphere of radius r
+    xyz = xyz * radius  # projected to the sphere surface of radius r
+    return tuple(xyz.tolist())
