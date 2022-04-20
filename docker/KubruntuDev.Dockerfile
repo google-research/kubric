@@ -20,7 +20,8 @@ FROM kubricdockerhub/blender:latest
 WORKDIR /workspace
 
 # --- allows "import kubric" w/o install (via `--volume`, see Makefile)
-ENV PYTHONPATH="/workspace"
+ENV PYTHONPATH=/usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/usr/lib/python3.10/site-packages
+ENV PYTHONPATH="/workspace:$PYTHONPATH"
 
 # --- copy requirements in workdir
 COPY requirements.txt .
@@ -30,10 +31,7 @@ COPY docs/requirements.txt ./requirements_docs.txt
 
 # --- install python dependencies
 RUN pip install --upgrade pip wheel
-RUN pip install --upgrade -r requirements.txt
-RUN pip install --upgrade -r requirements_full.txt
-RUN pip install --upgrade -r requirements_dev.txt
-RUN pip install --upgrade -r requirements_docs.txt
+RUN pip install --upgrade -r requirements_full.txt -r requirements.txt -r requirements_dev.txt -r requirements_docs.txt
 
 # --- cleanup
 RUN rm -f requirements.txt 

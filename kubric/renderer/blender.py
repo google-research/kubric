@@ -91,6 +91,10 @@ class Blender(core.View):
 
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
+
+    # blender 3 turned this off by default
+    bpy.context.scene.view_layers["ViewLayer"].use_pass_z = True
+
     self.use_gpu = os.getenv("KUBRIC_USE_GPU", "False").lower() in ("true", "1", "t")
 
     blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
@@ -157,7 +161,7 @@ class Blender(core.View):
   @use_denoising.setter
   def use_denoising(self, value: bool):
     self.blender_scene.cycles.use_denoising = value
-    self.blender_scene.cycles.denoiser = "NLM"
+    self.blender_scene.cycles.denoiser = "OPENIMAGEDENOISE"
 
   @property
   def samples_per_pixel(self) -> int:

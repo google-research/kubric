@@ -10,7 +10,7 @@
 # Stage 1
 # #################################################################################################
 
-FROM ubuntu:20.04 as build
+FROM ubuntu:21.10 as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL C.UTF-8
@@ -21,7 +21,7 @@ WORKDIR /blenderpy
 # --- Install package dependencies
 RUN apt-get update --yes --fix-missing && \
     apt-get install --yes --quiet --no-install-recommends \
-      python3.9-dev \
+      python3.10-dev \
       build-essential \
       ca-certificates \
       libopenexr-dev \
@@ -36,16 +36,24 @@ RUN apt-get update --yes --fix-missing && \
       libxrandr-dev \
       libxinerama-dev \
       libglew-dev \
-      subversion
+      subversion \
+      python3-pip \
+      libopenvdb-dev \
+      libopenvdb-doc \
+      libopenvdb-tools \
+      libopenvdb7.1 \
+      python3-openvdb
 
-# make python3.9 the default python
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 10 && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 10
+
+# make python3.10 the default python
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 10
 
 # --- Clone and compile Blender
 
 # RUN git clone https://git.blender.org/blender.git
-RUN git clone https://github.com/blender/blender.git --branch blender-v2.93-release --depth 1
+RUN git clone https://github.com/blender/blender.git --tag v3.1.2 --depth 1
+RUN mv v3.1.2 blender
 
 RUN mkdir lib && \
     cd lib && \
@@ -59,15 +67,14 @@ RUN cd blender && \
 COPY ./docker/cycles_free_patch.txt /blenderpy/blender
 RUN cd blender && patch -p1 < /blenderpy/blender/cycles_free_patch.txt
 
-
-RUN cd blender && make -j8 bpy
+RUN cd blender && BUILD_CMAKE_ARGS="-D WITH_OPENVDB=ON" make -j8 bpy
 
 # #################################################################################################
 # Stage 2
 # #################################################################################################
 
 
-FROM ubuntu:20.04
+FROM ubuntu:21.10
 
 LABEL Author="kubric-team <kubric@google.com>"
 LABEL Title="Blender"
@@ -80,8 +87,8 @@ ENV LANG C.UTF-8
 # TODO: probably do not need all of them, or at least not in their dev version
 RUN apt-get update --yes --fix-missing && \
     apt-get install --yes --quiet --no-install-recommends --reinstall \
-      python3.9-dev \
-      python3.9-distutils \
+      python3.10-dev \
+      python3.10-distutils \
       build-essential \
       # for GIF creation
       imagemagick \
@@ -108,17 +115,30 @@ RUN apt-get update --yes --fix-missing && \
       libreadline-dev \
       libsqlite3-dev \
       #tk-dev \  # installs libpng-dev which leads to blender linking errors
-      uuid-dev
+      uuid-dev \
+      python3-pip \
+      libopenvdb-dev \
+      libopenvdb-doc \
+      libopenvdb-tools \
+      libopenvdb7.1 \
+      python3-openvdb
 
-# make python3.9 the default python and python3
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 10 && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 10
+# make python3.10 the default python and python3
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 10
 
-# install pip for python 3.9
+# install pip for python 3.10
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3.9 get-pip.py && \
+    python3.10 get-pip.py && \
     rm get-pip.py
 
-# install bpy module within python3.9 
-COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.9/dist-packages/
-COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.9/site-packages/2.93 /usr/local/lib/python3.9/dist-packages/2.93
+# install bpy module within python3.10 
+COPY --from=build /blenderpy/build_linux_bpy/bin/bpy.so /usr/local/lib/python3.10/dist-packages/
+COPY --from=build /blenderpy/lib/linux_centos7_x86_64/python/lib/python3.10/site-packages/3.2 /usr/local/lib/python3.10/dist-packages/3.2
+
+# obtain by combining 2 series of paths:
+# first:
+#    python3 -c 'import sys; print(sys.path)'
+# last:
+#    find /usr -name site-packages
+ENV PYTHONPATH=/usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/usr/lib/python3.10/site-packages
