@@ -14,7 +14,7 @@
 #   kubricdockerhub/kubruntudev:latest \
 #   /bin/bash
 
-FROM kubricdockerhub/blender:latest
+FROM kubricdockerhub/blender:blender312
 
 # --- working directory (entered on `docker run`)
 WORKDIR /workspace
