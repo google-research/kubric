@@ -89,8 +89,8 @@ def look_at_quat(
 
   # construct the desired coordinate basis front, right, up
   look_at_front = normalize(target - position)
-  look_at_right = normalize(np.cross(up, look_at_front), fallback=world_right)
-  look_at_up = normalize(np.cross(look_at_front, look_at_right), fallback=world_up)
+  look_at_right = normalize(np.cross(world_up, look_at_front), fallback=world_right)
+  look_at_up = normalize(np.cross(look_at_front, look_at_right))
 
   rotation_matrix1 = np.stack([look_at_right, look_at_up, look_at_front])
   rotation_matrix2 = np.stack([right, up, front])
