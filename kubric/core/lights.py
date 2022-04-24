@@ -33,7 +33,7 @@ class Light(objects.Object3D):
 
 class SpotLight(Light):
   spot_blend = tl.Float(1.)
-  spot_size = tl.Float(*(0.00, 180.00))
+  spot_size = tl.Float(np.pi / 4)
 
 
 class UndefinedLight(Light, UndefinedAsset):
