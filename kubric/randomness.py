@@ -177,8 +177,10 @@ def sample_point_in_half_sphere_shell(
   """Uniformly sample points that are in a given distance range from the origin
      and with z >= offset."""
   while True:
-    v = rng.uniform((-outer_radius, -outer_radius, offset),
-                    (outer_radius, outer_radius, outer_radius))
-    len_v = np.linalg.norm(v)
-    if inner_radius <= len_v <= outer_radius:
-      return tuple(v)
+    xyz = rng.normal(0, 1, (3, ))  # normalize(3-dim standard normal) is distributed on the unit sphere surface
+    if xyz[2] < offset:  # if z is less than offset, rejection.
+      continue
+    xyz = xyz / np.linalg.norm(xyz)  # unit vector on the unit sphere surface
+    radius = rng.uniform(inner_radius**3, outer_radius**3) ** (1/3.)  # radius follows surface area of the sphere of radius r
+    xyz = xyz * radius  # projected to the sphere surface of radius r
+    return tuple(xyz.tolist())
