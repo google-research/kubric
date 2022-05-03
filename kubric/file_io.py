@@ -118,7 +118,7 @@ def write_png(data: np.array, filename: PathLike) -> None:
   height, width, channels = data.shape
   greyscale = (channels == 1)
   alpha = (channels == 4)
-  w = png.Writer(width, height, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
+  w = png.Writer(width=width, height=height, greyscale=greyscale, bitdepth=bitdepth, alpha=alpha)
 
   if channels == 2:
     # Pad two-channel images with a zero channel.
@@ -152,7 +152,7 @@ def write_palette_png(data: np.array, filename: PathLike,
   if palette is None:
     palette = plotting.hls_palette(np.max(data) + 1)
 
-  w = png.Writer(height, width, palette=palette, bitdepth=8)
+  w = png.Writer(width=width, height=height, palette=palette, bitdepth=8)
   with gopen(filename, "wb") as fp:
     w.write(fp, data[:, :, 0])
 
