@@ -29,13 +29,13 @@ URDF_TEMPLATE = """
 <robot name="{id}">
     <link name="base">
         <contact>
-            <lateral_friction value="{friction}" />  
+            <lateral_friction value="{friction}" />
         </contact>
         <inertial>
             <origin xyz="{center_mass[0]} {center_mass[1]} {center_mass[2]}" />
             <mass value="{mass}" />
-            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}" 
-                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}" 
+            <inertia ixx="{inertia[0][0]}" ixy="{inertia[0][1]}"
+                     ixz="{inertia[0][2]}" iyy="{inertia[1][1]}"
                      iyz="{inertia[1][2]}" izz="{inertia[2][2]}" />
         </inertial>
         <visual>
@@ -95,7 +95,7 @@ def create_trimesh_from_obj(obj):
     raise ValueError("Mesh is not watertight (has holes)!")
   if not tmesh.is_winding_consistent:
     raise ValueError("Mesh is not winding consistent!")
-  if tmesh.body_count() > 1:
+  if tmesh.body_count > 1:
     raise ValueError("Mesh consists of more than one connected component (bodies)!")
 
   return tmesh
@@ -234,7 +234,7 @@ def kubricify(output_folder, obj=None, density=None, friction=None):
     urdf_path = save_urdf(output_path, properties)
     vis_path = save_visual_geometry(obj, output_path)
 
-    if tmesh.is_convex():
+    if tmesh.is_convex:
       coll_path = save_collision_geometry(obj, output_path)
     else:
       print("Creating collision geometry...")
