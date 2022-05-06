@@ -23,7 +23,6 @@ import tempfile
 from typing import Optional
 
 import bpy
-import bpy_types
 import numpy as np
 import pybullet as pb
 
@@ -80,7 +79,7 @@ def get_object_properties(obj, density=1.0):
   return properties
 
 
-def kubricify(obj: bpy_types.Object, output_path: PathLike, asset_license):
+def kubricify(obj: bpy.types.Object, output_path: PathLike, asset_license):
   logger.info("Kubricifying %s", obj.name)
   with tempfile.TemporaryDirectory() as tmpdir:
     tmpdir = file_io.as_path(tmpdir)
