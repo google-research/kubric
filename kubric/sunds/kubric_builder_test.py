@@ -79,6 +79,11 @@ class KubricBuilderTest(tfds.testing.DatasetBuilderTestCase):
     # used.
     cls._kubric_render_cm = cm
 
+  @classmethod
+  def tearDownClass(cls):
+    super().tearDownClass()
+    cls._kubric_render_cm.__exit__(None, None, None)
+
 
 if __name__ == "__main__":
   tfds.testing.test_main()
