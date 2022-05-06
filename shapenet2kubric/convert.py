@@ -296,7 +296,7 @@ def stage5(object_folder: Path, logger=_DEFAULT_LOGGER):
     tar.add(object_folder / 'kubric' / 'collision_geometry.obj',
             arcname='collision_geometry.obj')
     tar.add(object_folder / 'kubric' / 'model_watertight.obj',
-            arcname='collision_geometry.obj')
+            arcname='model_watertight.obj')
     tar.add(object_folder / 'kubric' / 'object.urdf',
             arcname='object.urdf')
     tar.add(object_folder / 'kubric' / 'data.json',

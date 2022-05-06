@@ -38,6 +38,7 @@ from kubric.core.lights import UndefinedLight
 from kubric.core.lights import DirectionalLight
 from kubric.core.lights import PointLight
 from kubric.core.lights import RectAreaLight
+from kubric.core.lights import SpotLight
 
 from kubric.core.materials import Material
 from kubric.core.materials import UndefinedMaterial

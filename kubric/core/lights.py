@@ -13,6 +13,7 @@
 # limitations under the License.
 """Kubric lights module."""
 
+import numpy as np
 import traitlets as tl
 
 from kubric.core import traits as ktl
@@ -29,6 +30,11 @@ class Light(objects.Object3D):
   @tl.default("background")
   def get_background_default(self):
     return True
+
+
+class SpotLight(Light):
+  spot_blend = tl.Float(1.)
+  spot_size = tl.Float(np.pi / 4)
 
 
 class UndefinedLight(Light, UndefinedAsset):
