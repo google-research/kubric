@@ -20,7 +20,6 @@ import tempfile
 
 import numpy as np
 import tensorflow as tf
-import thefuzz.process
 
 from typing import Optional, Dict, Any, Type
 import weakref
@@ -28,6 +27,23 @@ import weakref
 from kubric import core
 from kubric import file_io
 from kubric.kubric_typing import PathLike
+
+try:
+  import thefuzz.process
+
+  def get_near_match(query, choices):
+    near_match, _ = thefuzz.process.extractOne(query, choices=choices)
+    return near_match
+
+except ImportError:
+  import bisect
+
+  def get_near_match(query, choices):
+    sorted_choices = sorted(choices, key=lambda x: x.lower())
+    lower_sorted_choices = [x.lower() for x in sorted_choices]
+    i = bisect.bisect_left(lower_sorted_choices, query.lower())
+    i = max(min(i, len(sorted_choices) - 1), 0)
+    return sorted_choices[i]
 
 
 class ClosableResource:
@@ -165,7 +181,7 @@ class AssetSource(ClosableResource):
     # find corresponding asset entry
     asset_entry = self._assets.get(asset_id)
     if not asset_entry:
-      near_match, _ = thefuzz.process.extractOne(asset_id, choices=self._assets.keys())
+      near_match = get_near_match(asset_id, choices=self._assets.keys())
       raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{near_match}'?")
 
     # determine type and path
