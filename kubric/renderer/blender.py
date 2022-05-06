@@ -26,7 +26,6 @@ from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow as tf
-import tensorflow_datasets.public_api as tfds
 from singledispatchmethod import singledispatchmethod
 
 import kubric as kb
