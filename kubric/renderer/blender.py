@@ -478,7 +478,7 @@ class Blender(core.View):
   #@blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.SpotLight):  # pylint: disable=function-redefined
     spotlight = bpy.data.lights.new(obj.uid, "SPOT")
-    spotlight_obj = bpy.data.objects.new(obj.uid, SpotLight)
+    spotlight_obj = bpy.data.objects.new(obj.uid, core.SpotLight)
 
     register_object3d_setters(obj, spotlight_obj)
     obj.observe(AttributeSetter(spotlight, "color"), "color")
