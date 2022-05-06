@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import difflib
 import logging
 import pathlib
 import shutil
@@ -28,22 +29,7 @@ from kubric import core
 from kubric import file_io
 from kubric.kubric_typing import PathLike
 
-try:
-  import thefuzz.process
 
-  def get_near_match(query, choices):
-    near_match, _ = thefuzz.process.extractOne(query, choices=choices)
-    return near_match
-
-except ImportError:
-  import bisect
-
-  def get_near_match(query, choices):
-    sorted_choices = sorted(choices, key=lambda x: x.lower())
-    lower_sorted_choices = [x.lower() for x in sorted_choices]
-    i = bisect.bisect_left(lower_sorted_choices, query.lower())
-    i = max(min(i, len(sorted_choices) - 1), 0)
-    return sorted_choices[i]
 
 
 class ClosableResource:
@@ -181,8 +167,9 @@ class AssetSource(ClosableResource):
     # find corresponding asset entry
     asset_entry = self._assets.get(asset_id)
     if not asset_entry:
-      near_match = get_near_match(asset_id, choices=self._assets.keys())
-      raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{near_match}'?")
+      close_matches = difflib.get_close_matches(asset_id, possibilities=self._assets.keys(), n=1)
+      if close_matches:
+        raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{close_matches[0]}'?")
 
     # determine type and path
     asset_type = self._resolve_asset_type(asset_entry["asset_type"])
