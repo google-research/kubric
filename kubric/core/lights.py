@@ -13,6 +13,7 @@
 # limitations under the License.
 """Kubric lights module."""
 
+import numpy as np
 import traitlets as tl
 
 from kubric.core import traits as ktl
