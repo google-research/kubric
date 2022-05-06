@@ -70,6 +70,7 @@ def _render(
     frames: Optional[Sequence[int]] = None,
     *,
     num_frames: int,
+    **kwargs,
 ) -> dict[str, np.ndarray]:
   """Mocked render."""
   del frames
