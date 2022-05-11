@@ -63,7 +63,7 @@ More specifically, these challenges are *dataset contributions* of the Kubric CV
 Pointers to additional datasets/workers:
 * [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)
 * [MultiShapeNet (from Scene Representation Transformer)](https://srt-paper.github.io)
-* [PsychoMonkeys (from Controllable Neural Radiance Fields)](https://github.com/kacperkan/conerf-kubric-dataset#readme)
+* [SyntheticTrio(from Controllable Neural Radiance Fields)](https://github.com/kacperkan/conerf-kubric-dataset#readme)
 
 ## Bibtex
 ```
