@@ -209,10 +209,14 @@ rand_color = rng.uniform(0, 1, (3,))
 color = (rand_color[0], rand_color[1], rand_color[2], 1)
 
 if FLAGS.rubber:
-    add_material('Rubber', object, Color=color)
+  add_material('Rubber', object, Color=color)
+  if bpy.app.version > (3, 0, 0):
+    object.visible_shadow = False
+  else:
     object.cycles_visibility.shadow = False
+
 else:
-    add_material('MyMetal', object, Color=color)
+  add_material('MyMetal', object, Color=color)
 
 # --- Saving state;  WARNING: uses a lot of disk space
 # logging.info("Saving 'scene.blend' file...")

@@ -71,7 +71,10 @@ def add_hdri_dome(scene, background_hdri=None):
   blender_renderer = [v for v in scene.views if isinstance(v, Blender)]
   if blender_renderer:
     dome_blender = dome.linked_objects[blender_renderer[0]]
-    dome_blender.cycles_visibility.shadow = False
+    if bpy.app.version > (3, 0, 0):
+      dome_blender.visible_shadow = False
+    else:
+      dome_blender.cycles_visibility.shadow = False
     if background_hdri is not None:
       dome_mat = dome_blender.data.materials[0]
       texture_node = dome_mat.node_tree.nodes["Image Texture"]

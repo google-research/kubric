@@ -156,7 +156,9 @@ class Blender(core.View):
   @use_denoising.setter
   def use_denoising(self, value: bool):
     self.blender_scene.cycles.use_denoising = value
-    self.blender_scene.cycles.denoiser = "NLM"
+    if bpy.app.version < (3, 0, 0):
+      # NLM is removed since Blender 3. TODO: check if denoising still works
+      self.blender_scene.cycles.denoiser = "NLM"
 
   @property
   def samples_per_pixel(self) -> int:

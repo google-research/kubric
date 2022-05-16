@@ -151,22 +151,33 @@ def add_coordinate_material():
   return mat
 
 
-def activate_render_passes(normal: bool = True,
-                           optical_flow: bool = True,
-                           segmentation: bool = True,
-                           uv: bool = True):
+def activate_render_passes(
+    normal: bool = True,
+    optical_flow: bool = True,
+    segmentation: bool = True,
+    uv: bool = True,
+    depth: bool = True
+):
+
   # We use two separate view layers
   # 1) the default view layer renders the image and uses many samples per pixel
   # 2) the aux view layer uses only 1 sample per pixel to avoid anti-aliasing
 
-  # TODO(klausg): commented no-op line below, delete?
-  # default_view_layer = bpy.context.scene.view_layers[0]
+  # Starting in Blender 3.0 the depth-pass must be activated separately
+  if depth:
+    default_view_layer = bpy.context.scene.view_layers[0]
+    default_view_layer.use_pass_z = True
 
   aux_view_layer = bpy.context.scene.view_layers.new("AuxOutputs")
   aux_view_layer.samples = 1  # only use 1 ray per pixel to disable anti-aliasing
   aux_view_layer.use_pass_z = False  # no need for a separate z-pass
   aux_view_layer.material_override = add_coordinate_material()
-  object_coords_aov = aux_view_layer.aovs.add()
+  if hasattr(aux_view_layer, 'aovs'):
+    object_coords_aov = aux_view_layer.aovs.add()
+  else:
+    # seems that some versions of blender use this form instead
+    object_coords_aov = aux_view_layer.cycles.aovs.add()
+
   object_coords_aov.name = "ObjectCoordinates"
   aux_view_layer.cycles.use_denoising = False
 
@@ -401,7 +412,7 @@ def bpy_mesh_object_to_trimesh(obj):
 
   return tmesh
 
-
+# NLM is removed since Blender 3. TODO: check if denoising works
 def center_mesh_around_center_of_mass(obj):
   tmesh = bpy_mesh_object_to_trimesh(obj)
 

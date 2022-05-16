@@ -1,6 +1,7 @@
 import os
 import logging
 import numpy as np
+import bpy
 
 import kubric as kb
 from kubric.renderer import Blender
@@ -33,7 +34,10 @@ scene += floor
 # Make the floor transparent except for catching shadows
 # Together with background_transparency=True (above) this results in
 # the background being transparent except for the object shadows.
-floor.linked_objects[renderer].cycles.is_shadow_catcher = True
+if bpy.app.version > (3, 0, 0):
+  floor.linked_objects[renderer].is_shadow_catcher = True
+else:
+  floor.linked_objects[renderer].cycles.is_shadow_catcher = True
 
 # --- Keyframe the camera
 scene.camera = kb.PerspectiveCamera()
