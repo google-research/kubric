@@ -14,6 +14,8 @@
 
 # pylint: disable=function-redefined
 
+import functools
+import inspect
 import logging
 import pathlib
 import sys
@@ -33,31 +35,56 @@ with RedirectStream(stream=sys.stderr):
 logger = logging.getLogger(__name__)
 
 
+class _BulletClient:
+
+  def __init__(self, connection_mode: int):
+    self._client = pb.connect(connection_mode)
+
+  @property
+  def client(self):
+    return self._client
+
+  def __del__(self):
+    if self.client >= 0:
+      try:
+        self.disconnect()
+      except pb.error:
+        pass
+
+  def __getattr__(self, name):
+    attribute = getattr(pb, name)
+    if inspect.isbuiltin(attribute):
+      attribute = functools.partial(attribute, physicsClientId=self.client)
+    return attribute
+
+
 class PyBullet(core.View):
   """Adds physics simulation on top of kb.Scene using PyBullet."""
 
   def __init__(self, scene: core.Scene, scratch_dir=tempfile.mkdtemp()):
     self.scratch_dir = scratch_dir
-    self.physics_client = pb.connect(pb.DIRECT)  # pb.GUI
+    self._physics_client = _BulletClient(pb.DIRECT)  # pb.GUI
 
     # --- Set some parameters to fix the sticky-walls problem; see
     # https://github.com/bulletphysics/bullet3/issues/3094
-    pb.setPhysicsEngineParameter(restitutionVelocityThreshold=0.,
+    self._physics_client.setPhysicsEngineParameter(restitutionVelocityThreshold=0.,
                                  warmStartingFactor=0.,
                                  useSplitImpulse=True,
                                  contactSlop=0.,
                                  enableConeFriction=False,
                                  deterministicOverlappingPairs=True)
     # TODO: setTimeStep if scene.step_rate != 240 Hz
-    super().__init__(scene, scene_observers={
-        "gravity": [lambda change: pb.setGravity(*change.new)],
-    })
+    super().__init__(
+        scene,
+        scene_observers={
+            "gravity": [
+                lambda change: self._physics_client.setGravity(*change.new)
+            ],
+        })
 
-  def __del__(self):
-    try:
-      pb.disconnect()
-    except Exception:  # pylint: disable=broad-except
-      pass  # cleanup code. ignore errors
+  @property
+  def physics_client(self):
+    return self._physics_client.client
 
   @singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Optional[int]:
@@ -65,7 +92,7 @@ class PyBullet(core.View):
 
   def remove_asset(self, asset: core.Asset) -> None:
     if self in asset.linked_objects:
-      pb.removeBody(asset.linked_objects[self])
+      self._physics_client.removeBody(asset.linked_objects[self])
     # TODO(klausg): unobserve
 
   @add_asset.register(core.Camera)
@@ -82,16 +109,23 @@ class PyBullet(core.View):
 
   @add_asset.register(core.Cube)
   def _add_object(self, obj: core.Cube) -> Optional[int]:
-    collision_idx = pb.createCollisionShape(pb.GEOM_BOX, halfExtents=obj.scale)
+    collision_idx = self._physics_client.createCollisionShape(
+        pb.GEOM_BOX, halfExtents=obj.scale)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
     # useMaximalCoordinates and contactProcessingThreshold are required to
     # fix the sticky walls issue;
     # see https://github.com/bulletphysics/bullet3/issues/3094
-    box_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
-                                 wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
-    pb.changeDynamics(box_idx, -1, contactProcessingThreshold=0)
-    register_physical_object_setters(obj, box_idx)
+    box_idx = self._physics_client.createMultiBody(
+        mass,
+        collision_idx,
+        visual_idx,
+        obj.position,
+        wxyz2xyzw(obj.quaternion),
+        useMaximalCoordinates=True)
+    self._physics_client.changeDynamics(
+        box_idx, -1, contactProcessingThreshold=0)
+    register_physical_object_setters(obj, box_idx, self._physics_client)
 
     return box_idx
 
@@ -99,16 +133,23 @@ class PyBullet(core.View):
   def _add_object(self, obj: core.Sphere) -> Optional[int]:
     radius = obj.scale[0]
     assert radius == obj.scale[1] == obj.scale[2], obj.scale  # only uniform scaling
-    collision_idx = pb.createCollisionShape(pb.GEOM_SPHERE, radius=radius)
+    collision_idx = self._physics_client.createCollisionShape(
+        pb.GEOM_SPHERE, radius=radius)
     visual_idx = -1
     mass = 0 if obj.static else obj.mass
     # useMaximalCoordinates and contactProcessingThreshold are required to
     # fix the sticky walls issue;
     # see https://github.com/bulletphysics/bullet3/issues/3094
-    sphere_idx = pb.createMultiBody(mass, collision_idx, visual_idx, obj.position,
-                                    wxyz2xyzw(obj.quaternion), useMaximalCoordinates=True)
-    pb.changeDynamics(sphere_idx, -1, contactProcessingThreshold=0)
-    register_physical_object_setters(obj, sphere_idx)
+    sphere_idx = self._physics_client.createMultiBody(
+        mass,
+        collision_idx,
+        visual_idx,
+        obj.position,
+        wxyz2xyzw(obj.quaternion),
+        useMaximalCoordinates=True)
+    self._physics_client.changeDynamics(
+        sphere_idx, -1, contactProcessingThreshold=0)
+    register_physical_object_setters(obj, sphere_idx, self._physics_client)
 
     return sphere_idx
 
@@ -130,9 +171,11 @@ class PyBullet(core.View):
     # fix the sticky walls issue;
     # see https://github.com/bulletphysics/bullet3/issues/3094
     if path.suffix == ".urdf":
-      obj_idx = pb.loadURDF(str(path), useFixedBase=obj.static,
-                            globalScaling=scale,
-                            useMaximalCoordinates=True)
+      obj_idx = self._physics_client.loadURDF(
+          str(path),
+          useFixedBase=obj.static,
+          globalScaling=scale,
+          useMaximalCoordinates=True)
     else:
       raise IOError(
           "Unsupported format '{path.suffix}' of file '{path}'")
@@ -140,36 +183,41 @@ class PyBullet(core.View):
     if obj_idx < 0:
       raise IOError(f"Failed to load '{path}'")
 
-    pb.changeDynamics(obj_idx, -1, contactProcessingThreshold=0)
+    self._physics_client.changeDynamics(
+        obj_idx, -1, contactProcessingThreshold=0)
 
-    register_physical_object_setters(obj, obj_idx)
+    register_physical_object_setters(obj, obj_idx, self._physics_client)
     return obj_idx
 
   def check_overlap(self, obj: core.PhysicalObject) -> bool:
     obj_idx = obj.linked_objects[self]
 
-    body_ids = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
+    body_ids = [
+        self._physics_client.getBodyUniqueId(i)
+        for i in range(self._physics_client.getNumBodies())
+    ]
     for body_id in body_ids:
       if body_id == obj_idx:
         continue
-      overlap_points = pb.getClosestPoints(obj_idx, body_id, distance=0)
+      overlap_points = self._physics_client.getClosestPoints(
+          obj_idx, body_id, distance=0)
       if overlap_points:
         return True
     return False
 
   def get_position_and_rotation(self, obj_idx: int):
-    pos, quat = pb.getBasePositionAndOrientation(obj_idx)
+    pos, quat = self._physics_client.getBasePositionAndOrientation(obj_idx)
     return pos, xyzw2wxyz(quat)  # convert quaternion format
 
   def get_velocities(self, obj_idx: int):
-    velocity, angular_velocity = pb.getBaseVelocity(obj_idx)
+    velocity, angular_velocity = self._physics_client.getBaseVelocity(obj_idx)
     return velocity, angular_velocity
 
   def save_state(self, path: Union[pathlib.Path, str] = "scene.bullet"):
     """Receives a folder path as input."""
     assert self.scratch_dir is not None
     # first store in a temporary file and then copy, to support remote paths
-    pb.saveBullet(str(self.scratch_dir / "scene.bullet"))
+    self._physics_client.saveBullet(str(self.scratch_dir / "scene.bullet"))
     tf.io.gfile.copy(self.scratch_dir / "scene.bullet", path, overwrite=True)
 
   def run(
@@ -197,14 +245,17 @@ class PyBullet(core.View):
     steps_per_frame = self.scene.step_rate // self.scene.frame_rate
     max_step = (frame_end - frame_start + 1) * steps_per_frame
 
-    obj_idxs = [pb.getBodyUniqueId(i) for i in range(pb.getNumBodies())]
+    obj_idxs = [
+        self._physics_client.getBodyUniqueId(i)
+        for i in range(self._physics_client.getNumBodies())
+    ]
     animation = {obj_id: {"position": [], "quaternion": [], "velocity": [], "angular_velocity": []}
                  for obj_id in obj_idxs}
 
     collisions = []
     for current_step in range(max_step):
 
-      contact_points = pb.getContactPoints()
+      contact_points = self._physics_client.getContactPoints()
       for collision in contact_points:
         (contact_flag,
          body_a, body_b,
@@ -236,7 +287,7 @@ class PyBullet(core.View):
           animation[obj_idx]["velocity"].append(velocity)
           animation[obj_idx]["angular_velocity"].append(angular_velocity)
 
-      pb.stepSimulation()
+      self._physics_client.stepSimulation()
 
     animation = {asset: animation[asset.linked_objects[self]] for asset in self.scene.assets
                  if asset.linked_objects.get(self) in obj_idxs}
@@ -277,8 +328,14 @@ def wxyz2xyzw(wxyz):
   return x, y, z, w
 
 
-def register_physical_object_setters(obj: core.PhysicalObject, obj_idx):
+def register_physical_object_setters(obj: core.PhysicalObject, obj_idx,
+                                     physics_client: _BulletClient):
   assert isinstance(obj, core.PhysicalObject), f"{obj!r} is not a PhysicalObject"
+
+  def setter(object_idx, func):
+    def _callable(change):
+      return func(object_idx, change.new, change.owner, physics_client)
+    return _callable
 
   obj.observe(setter(obj_idx, set_position), "position")
   obj.observe(setter(obj_idx, set_quaternion), "quaternion")
@@ -291,64 +348,60 @@ def register_physical_object_setters(obj: core.PhysicalObject, obj_idx):
   obj.observe(setter(obj_idx, set_static), "static")
 
 
-def setter(object_idx, func):
-  def _callable(change):
-    return func(object_idx, change.new, change.owner)
-  return _callable
-
-
-def set_position(object_idx, position, asset):  # pylint: disable=unused-argument
+def set_position(object_idx, position, asset, physics_client: _BulletClient):  # pylint: disable=unused-argument
   # reuse existing quaternion
-  _, quaternion = pb.getBasePositionAndOrientation(object_idx)
+  _, quaternion = physics_client.getBasePositionAndOrientation(object_idx)
   # resetBasePositionAndOrientation zeroes out velocities, but we wish to conserve them
-  velocity, angular_velocity = pb.getBaseVelocity(object_idx)
-  pb.resetBasePositionAndOrientation(object_idx, position, quaternion)
-  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+  velocity, angular_velocity = physics_client.getBaseVelocity(object_idx)
+  physics_client.resetBasePositionAndOrientation(object_idx, position, quaternion)
+  physics_client.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_quaternion(object_idx, quaternion, asset):  # pylint: disable=unused-argument
+def set_quaternion(object_idx, quaternion, asset, physics_client: _BulletClient):  # pylint: disable=unused-argument
   quaternion = wxyz2xyzw(quaternion)  # convert quaternion format
   # reuse existing position
-  position, _ = pb.getBasePositionAndOrientation(object_idx)
+  position, _ = physics_client.getBasePositionAndOrientation(object_idx)
   # resetBasePositionAndOrientation zeroes out velocities, but we wish to conserve them
-  velocity, angular_velocity = pb.getBaseVelocity(object_idx)
-  pb.resetBasePositionAndOrientation(object_idx, position, quaternion)
-  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+  velocity, angular_velocity = physics_client.getBaseVelocity(object_idx)
+  physics_client.resetBasePositionAndOrientation(object_idx, position,
+                                                 quaternion)
+  physics_client.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_velocity(object_idx, velocity, asset):  # pylint: disable=unused-argument
-  _, angular_velocity = pb.getBaseVelocity(object_idx)  # reuse existing angular velocity
-  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+def set_velocity(object_idx, velocity, asset, physics_client: _BulletClient):  # pylint: disable=unused-argument
+  _, angular_velocity = physics_client.getBaseVelocity(object_idx)  # reuse existing angular velocity
+  physics_client.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_angular_velocity(object_idx, angular_velocity, asset):  # pylint: disable=unused-argument
-  velocity, _ = pb.getBaseVelocity(object_idx)  # reuse existing velocity
-  pb.resetBaseVelocity(object_idx, velocity, angular_velocity)
+def set_angular_velocity(object_idx, angular_velocity, asset,
+                         physics_client: _BulletClient):  # pylint: disable=unused-argument
+  velocity, _ = physics_client.getBaseVelocity(object_idx)  # reuse existing velocity
+  physics_client.resetBaseVelocity(object_idx, velocity, angular_velocity)
 
 
-def set_mass(object_idx, mass: float, asset):
+def set_mass(object_idx, mass: float, asset, physics_client: _BulletClient):
   if mass < 0:
     raise ValueError(f"mass cannot be negative ({mass})")
   if not asset.static:
-    pb.changeDynamics(object_idx, -1, mass=mass)
+    physics_client.changeDynamics(object_idx, -1, mass=mass)
 
 
-def set_static(object_idx, is_static, asset):
+def set_static(object_idx, is_static, asset, physics_client: _BulletClient):
   if is_static:
-    pb.changeDynamics(object_idx, -1, mass=0.)
+    physics_client.changeDynamics(object_idx, -1, mass=0.)
   else:
-    pb.changeDynamics(object_idx, -1, mass=asset.mass)
+    physics_client.changeDynamics(object_idx, -1, mass=asset.mass)
 
 
-def set_friction(object_idx, friction: float, asset):  # pylint: disable=unused-argument
+def set_friction(object_idx, friction: float, asset, physics_client: _BulletClient):  # pylint: disable=unused-argument
   if friction < 0:
     raise ValueError("friction cannot be negative ({friction})")
-  pb.changeDynamics(object_idx, -1, lateralFriction=friction)
+  physics_client.changeDynamics(object_idx, -1, lateralFriction=friction)
 
 
-def set_restitution(object_idx, restitution: float, asset):  # pylint: disable=unused-argument
+def set_restitution(object_idx, restitution: float, asset, physics_client: _BulletClient):  # pylint: disable=unused-argument
   if restitution < 0:
     raise ValueError("restitution cannot be negative ({restitution})")
   if restitution > 1:
     raise ValueError("restitution should be below 1.0 ({restitution})")
-  pb.changeDynamics(object_idx, -1, restitution=restitution)
+  physics_client.changeDynamics(object_idx, -1, restitution=restitution)
