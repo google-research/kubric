@@ -13,7 +13,6 @@
 # limitations under the License.
 from absl.flags import argparse_flags
 
-import argparse
 import collections
 import copy
 import logging

@@ -18,7 +18,6 @@ import functools
 import sys
 from typing import Dict, Sequence, Tuple, Union
 
-import bpy_types
 import numpy as np
 import OpenEXR
 import Imath
@@ -152,22 +151,33 @@ def add_coordinate_material():
   return mat
 
 
-def activate_render_passes(normal: bool = True,
-                           optical_flow: bool = True,
-                           segmentation: bool = True,
-                           uv: bool = True):
+def activate_render_passes(
+    normal: bool = True,
+    optical_flow: bool = True,
+    segmentation: bool = True,
+    uv: bool = True,
+    depth: bool = True
+):
+
   # We use two separate view layers
   # 1) the default view layer renders the image and uses many samples per pixel
   # 2) the aux view layer uses only 1 sample per pixel to avoid anti-aliasing
 
-  # TODO(klausg): commented no-op line below, delete?
-  # default_view_layer = bpy.context.scene.view_layers[0]
+  # Starting in Blender 3.0 the depth-pass must be activated separately
+  if depth:
+    default_view_layer = bpy.context.scene.view_layers[0]
+    default_view_layer.use_pass_z = True
 
   aux_view_layer = bpy.context.scene.view_layers.new("AuxOutputs")
   aux_view_layer.samples = 1  # only use 1 ray per pixel to disable anti-aliasing
   aux_view_layer.use_pass_z = False  # no need for a separate z-pass
   aux_view_layer.material_override = add_coordinate_material()
-  object_coords_aov = aux_view_layer.aovs.add()
+  if hasattr(aux_view_layer, 'aovs'):
+    object_coords_aov = aux_view_layer.aovs.add()
+  else:
+    # seems that some versions of blender use this form instead
+    object_coords_aov = aux_view_layer.cycles.aovs.add()
+
   object_coords_aov.name = "ObjectCoordinates"
   aux_view_layer.cycles.use_denoising = False
 
@@ -295,7 +305,7 @@ def mm3hash(name):
 
 
 @contextlib.contextmanager
-def selected(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
+def selected(objects: Union[bpy.types.Object, Sequence[bpy.types.Object]]):
   """ Contextmanager to select objects and to restore the prior selection after.
 
   Selects all provided objects and marks the first one as active for the duration
@@ -327,7 +337,7 @@ def selected(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
 
 
 @contextlib.contextmanager
-def centered(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
+def centered(objects: Union[bpy.types.Object, Sequence[bpy.types.Object]]):
   """ Contextmanager that centers objects and restores their location afterwards.
 
   Moves all provided objects to location (0, 0, 0) for the duration of the context,
@@ -347,7 +357,7 @@ def centered(objects: Union[bpy_types.Object, Sequence[bpy_types.Object]]):
 
 
 def apply_transformations(
-    objects: Union[bpy_types.Object, Sequence[bpy_types.Object]],
+    objects: Union[bpy.types.Object, Sequence[bpy.types.Object]],
     position=False,
     rotation=True,
     scale=True
@@ -357,7 +367,7 @@ def apply_transformations(
     bpy.ops.object.transform_apply(location=position, rotation=rotation, scale=scale)
 
 
-def get_vertices_and_faces(obj: bpy_types.Object) -> Tuple[np.ndarray, np.ndarray]:
+def get_vertices_and_faces(obj: bpy.types.Object) -> Tuple[np.ndarray, np.ndarray]:
   """ Get arrays of vertices and faces for a given blender mesh object.
 
   WARNING: only works on triangulated meshes (no polygons with > 3 sides)
@@ -369,7 +379,7 @@ def get_vertices_and_faces(obj: bpy_types.Object) -> Tuple[np.ndarray, np.ndarra
     vertices: numpy array of vertex positions shape=(n_vertices, 3) dtype=float64
     faces: numpy array of triangles as vertex indices shape=(n_faces, 3) dtype=int64
   """
-  if not isinstance(obj.data, bpy_types.Mesh):
+  if not isinstance(obj.data, bpy.types.Mesh):
     raise ValueError(f"Expected mesh object, but got {obj.name!r} which is {obj.type!r}")
   bmesh = obj.data
   vertices = np.array([v.co for v in bmesh.vertices])
@@ -402,7 +412,7 @@ def bpy_mesh_object_to_trimesh(obj):
 
   return tmesh
 
-
+# NLM is removed since Blender 3. TODO: check if denoising works
 def center_mesh_around_center_of_mass(obj):
   tmesh = bpy_mesh_object_to_trimesh(obj)
 

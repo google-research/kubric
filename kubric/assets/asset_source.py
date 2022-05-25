@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import difflib
+import functools
 import logging
 import pathlib
 import shutil
@@ -20,7 +22,6 @@ import tempfile
 
 import numpy as np
 import tensorflow as tf
-import thefuzz.process
 
 from typing import Optional, Dict, Any, Type
 import weakref
@@ -106,6 +107,31 @@ class AssetSource(ClosableResource):
   def __exit__(self, exc_type, exc_val, exc_tb):
     self.close()
 
+  @functools.cached_property
+  def db(self):
+    import pandas as pd
+    db = pd.DataFrame([{"id": k} | v["kwargs"] | v["metadata"]
+                       for k, v in self._assets.items()])
+
+    def get_category_id(x):
+      if x['category'] in self.categories:
+        return self.categories.index(x['category'])
+      else:
+        return np.nan
+
+    if "category_id" not in db:
+      db["category_id"] = db.apply(get_category_id, axis=1)
+    return db
+
+  @functools.cached_property
+  def categories(self):
+    return sorted(filter(None, {v["metadata"].get("category", "")
+                                for v in self._assets.values()}))
+
+  @functools.cached_property
+  def all_asset_ids(self):
+    return sorted(self._assets.keys())
+
   @staticmethod
   def _resolve_asset_type(asset_type: str) -> Type:
     types = {
@@ -165,8 +191,9 @@ class AssetSource(ClosableResource):
     # find corresponding asset entry
     asset_entry = self._assets.get(asset_id)
     if not asset_entry:
-      near_match, _ = thefuzz.process.extractOne(asset_id, choices=self._assets.keys())
-      raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{near_match}'?")
+      close_matches = difflib.get_close_matches(asset_id, possibilities=self.all_asset_ids, n=1)
+      if close_matches:
+        raise KeyError(f"Unknown asset with id='{asset_id}'. Did you mean '{close_matches[0]}'?")
 
     # determine type and path
     asset_type = self._resolve_asset_type(asset_entry["asset_type"])
@@ -218,14 +245,14 @@ class AssetSource(ClosableResource):
     Generates a train/test split for the asset source.
 
     Args:
-      fraction: the fraction of the asset source to use for the heldout set.
+      fraction: the fraction of the asset source to use for the held-out set.
 
     Returns:
       train_ids: list of asset ID strings
       test_ids: list of asset ID strings
     """
     rng = np.random.default_rng(42)
-    test_size = int(round(len(self._assets) * fraction))
-    test_ids = rng.choice(list(self._assets.keys()), size=test_size, replace=False)
-    train_ids = [i for i in self._assets if i not in test_ids]
+    test_size = int(round(len(self.all_asset_ids) * fraction))
+    test_ids = rng.choice(self.all_asset_ids, size=test_size, replace=False)
+    train_ids = [i for i in self.all_asset_ids if i not in test_ids]
     return train_ids, test_ids

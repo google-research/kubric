@@ -24,6 +24,8 @@ import tensorflow_datasets as tfds
 
 
 class HelloBeamWorker(kb.sunds.KubricBuilder):
+  """Testcase for the kubric beam worker"""
+
   VERSION = tfds.core.Version("1.0.0")
   RELEASE_NOTES = {
       "1.0.0": "Initial version",
@@ -44,9 +46,9 @@ class HelloBeamWorker(kb.sunds.KubricBuilder):
         "train": [self.SCENE_CONFIG.replace(seed=i) for i in range(10)],
     }
 
-  def generate_scene(self, config: kb.sunds.SceneConfig):
-    scene = config.as_scene()
-    renderer = kb.renderer.blender.Blender(scene, config.scratch_dir)
+  def generate_scene(self, scene_config: kb.sunds.SceneConfig):
+    scene = scene_config.as_scene()
+    renderer = kb.renderer.blender.Blender(scene, scene_config.scratch_dir)
     scene += kb.Cube(name="floor", scale=(10, 10, 0.1), position=(0, 0, -0.1))
     scene += kb.Sphere(name="ball", scale=1, position=(0, 0, 1.))
     scene += kb.DirectionalLight(
@@ -76,6 +78,11 @@ class KubricBuilderTest(tfds.testing.DatasetBuilderTestCase):
     # it. So we have to set `cls._kubric_render_cm = cm` even if it is never
     # used.
     cls._kubric_render_cm = cm
+
+  @classmethod
+  def tearDownClass(cls):
+    super().tearDownClass()
+    cls._kubric_render_cm.__exit__(None, None, None)
 
 
 if __name__ == "__main__":
