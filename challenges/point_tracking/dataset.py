@@ -3,7 +3,6 @@
 import functools
 import itertools
 
-from absl import logging
 import matplotlib.pyplot as plt
 import mediapy as media
 import numpy as np
@@ -17,6 +16,7 @@ MAX_SAMPLED_FRAC = .1
 MAX_SEG_ID = 22
 INPUT_SIZE = (None, 256, 256)
 STRIDE = 4  # Make sure this divides all axes of INPUT_SIZE
+
 
 def project_point(cam, point3d, num_frames):
   """Compute the image space coordinates [0, 1] for a set of points.
@@ -650,30 +650,27 @@ def create_point_tracking_dataset(
     repeat=True,
     vflip=False,
     random_crop=True,
-    num_frames=None,
     **kwargs):
   """Construct a dataset for point tracking using Kubric: go/kubric.
 
   Args:
     train_size: Tuple of 2 ints. Cropped output will be at this resolution
-    per_device_batch_size: Int. Number of videos per device.  If none, assume a
-      single device and use batch_size instead.
     shuffle_buffer_size: Int. Size of the shuffle buffer
     split: Which split to construct from Kubric.  Can be 'train' or
       'validation'.
-    batch_size: Int. batch size to use when not using multiple devices.
+    batch_dims: Sequence of ints. Add multiple examples into a batch of this
+      shape.
     repeat: Bool. whether to repeat the dataset.
     vflip: Bool. whether to vertically flip the dataset to test generalization.
     random_crop: Bool. whether to randomly crop videos
-    num_frames: Int determining which version of the dataset to load.  Can be
-      either 24 or 256.
     **kwargs: additional args to pass to tfds.load.
 
   Returns:
     The dataset generator.
   """
-  ds = tfds.load("movi_e/256x256",
-      data_dir="gs://kubric-public/tfds",
+  ds = tfds.load(
+      'movi_e/256x256',
+      data_dir='gs://kubric-public/tfds',
       shuffle_files=shuffle_buffer_size is not None,
       **kwargs)
 
@@ -681,12 +678,12 @@ def create_point_tracking_dataset(
   if repeat:
     ds = ds.repeat()
     ds = ds.map(
-      functools.partial(
-          add_tracks,
-          train_size=train_size,
-          vflip=vflip,
-          random_crop=random_crop),
-      num_parallel_calls=2)
+        functools.partial(
+            add_tracks,
+            train_size=train_size,
+            vflip=vflip,
+            random_crop=random_crop),
+        num_parallel_calls=2)
   if shuffle_buffer_size is not None:
     ds = ds.shuffle(shuffle_buffer_size)
 
@@ -695,10 +692,8 @@ def create_point_tracking_dataset(
 
   return ds
 
-def plot_tracks(rgb,
-                   points,
-                   occluded,
-                   trackgroup=None):
+
+def plot_tracks(rgb, points, occluded, trackgroup=None):
   """Plot tracks with matplotlib."""
   disp = []
   cmap = plt.cm.hsv
@@ -721,16 +716,16 @@ def plot_tracks(rgb,
     ax.axis('off')
     ax.imshow(rgb[i])
 
-    valid = points[:,i,0] > 0
-    valid = np.logical_and(valid, points[:,i,0] < rgb.shape[2] - 1)
-    valid = np.logical_and(valid, points[:,i,1] > 0)
-    valid = np.logical_and(valid, points[:,i,1] < rgb.shape[1] - 1)
+    valid = points[:, i, 0] > 0
+    valid = np.logical_and(valid, points[:, i, 0] < rgb.shape[2] - 1)
+    valid = np.logical_and(valid, points[:, i, 1] > 0)
+    valid = np.logical_and(valid, points[:, i, 1] < rgb.shape[1] - 1)
 
     colalpha = np.concatenate([colors[:, :-1], 1 - occluded[:, i:i + 1]],
                               axis=1)
     plt.scatter(
         points[valid, i, 0],
-        points[valid, i, 1], 
+        points[valid, i, 1],
         s=3,
         c=colalpha[valid],
     )
@@ -762,11 +757,13 @@ def plot_tracks(rgb,
 
 def main():
   ds = tfds.as_numpy(create_point_tracking_dataset(shuffle_buffer_size=None))
-  for i,data in enumerate(ds):
-    disp=plot_tracks(data['video']*.5+.5,data['target_points'],data['occluded'])
-    media.write_video(f'{i}.mp4',disp,fps=10)
+  for i, data in enumerate(ds):
+    disp = plot_tracks(data['video'] * .5 + .5, data['target_points'],
+                       data['occluded'])
+    media.write_video(f'{i}.mp4', disp, fps=10)
     if i > 10:
       break
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
   main()
