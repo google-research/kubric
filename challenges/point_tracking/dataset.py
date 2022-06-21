@@ -194,7 +194,7 @@ def get_camera_matrices(
   intrinsics = []
   matrix_world = []
   assert cam_quaternions.shape[0] == num_frames
-  for fr in range(cam_quaternions.shape[0]):
+  for frame_idx in range(cam_quaternions.shape[0]):
     focal_length = tf.cast(cam_focal_length, tf.float32)
     sensor_width = tf.cast(cam_sensor_width, tf.float32)
     f_x = focal_length / sensor_width
@@ -206,10 +206,10 @@ def get_camera_matrices(
             tf.stack([f_x, 0., -p_x]),
             tf.stack([0., -f_y, -p_y]),
             tf.stack([0., 0., -1.]),
-        ],),)
+        ]))
 
-    position = cam_positions[fr]
-    quat = cam_quaternions[fr]
+    position = cam_positions[frame_idx]
+    quat = cam_quaternions[frame_idx]
     rotation_matrix = rotation_matrix_3d.from_quaternion(
         tf.concat([quat[1:], quat[0:1]], axis=0))
     transformation = tf.concat(
@@ -300,29 +300,33 @@ def get_num_to_sample(counts):
   initializer = (0, TOTAL_TRACKS, 0)
 
   def scan_fn(prev_output, count_seg):
-    i = prev_output[0]
+    index = prev_output[0]
     remaining_needed = prev_output[1]
-    desired_frac = 1 / (tf.shape(seg_order)[0] - i)
-    num_to_sample = tf.minimum(
-        tf.cast(
-            tf.round(
-                tf.cast(count_seg, tf.float32) *
-                tf.cast(MAX_SAMPLED_FRAC, tf.float32)), tf.int32),
-        tf.cast(
-            tf.round(
-                tf.cast(remaining_needed, tf.float32) *
-                tf.cast(desired_frac, tf.float32)), tf.int32))
-    remaining_needed = remaining_needed - num_to_sample
-    return (i + 1, remaining_needed, num_to_sample)
+    desired_frac = 1 / (tf.shape(seg_order)[0] - index)
+    want_to_sample = (
+        tf.cast(remaining_needed, tf.float32) *
+        tf.cast(desired_frac, tf.float32))
+    want_to_sample = tf.cast(tf.round(want_to_sample), tf.int32)
+    max_to_sample = (
+        tf.cast(count_seg, tf.float32) * tf.cast(MAX_SAMPLED_FRAC, tf.float32))
+    max_to_sample = tf.cast(tf.round(max_to_sample), tf.int32)
+    num_to_sample = tf.minimum(want_to_sample, max_to_sample)
 
+    remaining_needed = remaining_needed - num_to_sample
+    return (index + 1, remaining_needed, num_to_sample)
+
+  # outputs 0 and 1 are just bookkeeping; output 2 is the actual number of
+  # points to sample per object.
   res = tf.scan(scan_fn, sorted_counts, initializer)[2]
   invert = tf.argsort(seg_order)
   num_to_sample = tf.gather(res, invert)
-  num_to_sample = tf.concat([
-      num_to_sample,
-      tf.zeros([MAX_SEG_ID - tf.shape(num_to_sample)[0]], dtype=tf.int32)
-  ],
-                            axis=0)
+  num_to_sample = tf.concat(
+      [
+          num_to_sample,
+          tf.zeros([MAX_SEG_ID - tf.shape(num_to_sample)[0]], dtype=tf.int32),
+      ],
+      axis=0,
+  )
   return num_to_sample
 
 
