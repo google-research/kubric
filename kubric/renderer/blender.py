@@ -537,6 +537,10 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(camera, "lens"), "focal_length", type="keyframe")
     obj.observe(AttributeSetter(camera, "sensor_width"), "sensor_width")
     obj.observe(KeyframeSetter(camera, "sensor_width"), "sensor_width", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_start"), "min_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
@@ -549,6 +553,10 @@ class Blender(core.View):
     register_object3d_setters(obj, camera_obj)
     obj.observe(AttributeSetter(camera, "ortho_scale"), "orthographic_scale")
     obj.observe(KeyframeSetter(camera, "ortho_scale"), "orthographic_scale", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_start"), "min_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)
