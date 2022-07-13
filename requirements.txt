@@ -16,6 +16,5 @@ scikit-learn
 singledispatchmethod
 tensorflow
 tensorflow-datasets>=4.1.0
-tensorflow-graphics
 traitlets
 trimesh
