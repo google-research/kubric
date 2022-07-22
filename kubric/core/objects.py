@@ -52,7 +52,7 @@ def are_orthogonal(x: ArrayLike, y: ArrayLike, eps: float = 1e-8) -> bool:
   y = np.asarray(y, dtype=np.float64)
   assert x.ndim == 1, x.shape
   assert y.ndim == 1, y.shape
-  return x.dot(y) < eps
+  return np.abs(x.dot(y)) < eps
 
 
 def convert_str_direction_to_vector(direction: str) -> np.ndarray:
