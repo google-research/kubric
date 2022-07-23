@@ -94,7 +94,7 @@ class PerspectiveCamera(Camera):
   @property
   def sensor_height(self):
     scene = self.active_scene
-    return self.sensor_width / scene.resolution[0] * scene.resolution[1]
+    return self.sensor_width / scene.resolution[1] * scene.resolution[0]
 
   @property
   def intrinsics(self):
