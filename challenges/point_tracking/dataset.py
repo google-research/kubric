@@ -681,17 +681,17 @@ def create_point_tracking_dataset(
   ds = ds[split]
   if repeat:
     ds = ds.repeat()
-    ds = ds.map(
-        functools.partial(
-            add_tracks,
-            train_size=train_size,
-            vflip=vflip,
-            random_crop=random_crop),
-        num_parallel_calls=2)
+  ds = ds.map(
+      functools.partial(
+          add_tracks,
+          train_size=train_size,
+          vflip=vflip,
+          random_crop=random_crop),
+      num_parallel_calls=2)
   if shuffle_buffer_size is not None:
     ds = ds.shuffle(shuffle_buffer_size)
 
-  for bs in batch_dims:
+  for bs in batch_dims[::-1]:
     ds = ds.batch(bs)
 
   return ds
