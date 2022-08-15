@@ -1,2 +1,5 @@
+matplotlib
+mediapy
 OpenEXR
 pybullet
+tensorflow-graphics
