@@ -3,3 +3,4 @@ mediapy
 OpenEXR
 pybullet
 tensorflow-graphics
+ml_collections

@@ -68,6 +68,12 @@ challenges/complex_brdf: checkmakeversion
 #challenges/complex_brdf/launch: checkmakeversion
 #	launch.sh hyper challenges/complex_brdf/worker.py lfn_`date +"%Y%m%d_%H%M"` 52423 400
 
+
+examples/watson: checkmakeversion
+	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace kubricdockerhub/kubruntudev python3 examples/watson.py
+examples/watson/launch: checkmakeversion
+	./launch.sh hyper examples/watson.py watson_`date +"%Y%m%d_%H%M"` 10 10
+
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:
 # 	make pytest TEST=test/test_core.py
