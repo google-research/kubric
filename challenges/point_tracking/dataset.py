@@ -242,6 +242,7 @@ def single_object_reproject(
     num_frames: Number of frames
     depth_map: Depth map video for the camera
     window: the window inside which we're sampling points
+    input_size: [height, width] of the input images.
 
   Returns:
     Position for each point, of shape [num_points, num_frames, 2], in pixel
@@ -412,11 +413,8 @@ def track_points(
   end_vec = [num_frames, window[2], window[3]]
 
   def extract_box(x):
-    x = x[
-            start_vec[0]::sampling_stride, 
-            start_vec[1]:window[2]:sampling_stride,
-            start_vec[2]:window[3]:sampling_stride,
-         ]
+    x = x[start_vec[0]::sampling_stride, start_vec[1]:window[2]:sampling_stride,
+          start_vec[2]:window[3]:sampling_stride]
     return x
 
   segmentations_box = extract_box(segmentations)
@@ -427,9 +425,9 @@ def track_points(
 
   cnt = tf.math.bincount(tf.cast(tf.reshape(segmentations_box, [-1]), tf.int32))
   num_to_sample = get_num_to_sample(
-      cnt, 
-      max_seg_id, 
-      max_sampled_frac, 
+      cnt,
+      max_seg_id,
+      max_sampled_frac,
       tracks_to_sample,
   )
   num_to_sample.set_shape([max_seg_id])
@@ -450,7 +448,10 @@ def track_points(
   # Construct pixel coordinates for each pixel within the window.
   window = tf.cast(window, tf.float32)
   z, y, x = tf.meshgrid(
-      *[tf.range(st, ed, sampling_stride) for st, ed in zip(start_vec, end_vec)],
+      *[
+          tf.range(st, ed, sampling_stride)
+          for st, ed in zip(start_vec, end_vec)
+      ],
       indexing='ij')
   pix_coords = tf.reshape(tf.stack([z, y, x], axis=-1), [-1, 3])
 
@@ -621,7 +622,7 @@ def add_tracks(data,
   shp = data['video'].shape.as_list()
   num_frames = shp[0]
   if any([s % sampling_stride != 0 for s in shp[:-1]]):
-    raise ValueError("All video dims must be a multiple of sampling_stride.")
+    raise ValueError('All video dims must be a multiple of sampling_stride.')
 
   bbox = tf.constant([0.0, 0.0, 1.0, 1.0], dtype=tf.float32, shape=[1, 1, 4])
   min_area = 0.3
@@ -707,7 +708,7 @@ def create_point_tracking_dataset(
     tracks_to_sample: Int. Total number of tracks to sample per video.
     sampling_stride: Int. For efficiency, query points are sampled from a
       random grid of this stride.
-    max_seg_id: Int. The maxium segment id in the video.  Note the size of 
+    max_seg_id: Int. The maxium segment id in the video.  Note the size of
       the to graph is proportional to this number, so prefer small values.
     max_sampled_frac: Float. The maximum fraction of points to sample from each
       object, out of all points that lie on the sampling grid.
