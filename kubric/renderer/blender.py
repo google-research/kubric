@@ -475,11 +475,11 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(sun, "energy"), "intensity", type="keyframe")
     return sun_obj
 
-  #@add_asset.register(core.SpotLight) # I think these are needed... ~MrX
-  #@blender_utils.prepare_blender_object
+  @add_asset.register(core.SpotLight) # I think these are needed... ~MrX
+  @blender_utils.prepare_blender_object
   def _add_asset(self, obj: core.SpotLight):  # pylint: disable=function-redefined
     spotlight = bpy.data.lights.new(obj.uid, "SPOT")
-    spotlight_obj = bpy.data.objects.new(obj.uid, core.SpotLight)
+    spotlight_obj = bpy.data.objects.new(obj.uid, spotlight)
 
     register_object3d_setters(obj, spotlight_obj)
     obj.observe(AttributeSetter(spotlight, "color"), "color")
