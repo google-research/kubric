@@ -371,7 +371,7 @@ class Blender(core.View):
           bpy.data.objects.remove(blender_obj, do_unlink=True)
         elif isinstance(blender_obj, bpy.types.Material):
           bpy.data.materials.remove(blender_obj, do_unlink=True)
-        else: since I'm missing a CLA check 
+        else:
           raise NotImplementedError(f"Cannot remove {asset!r}")
       except ReferenceError:
         pass  # In this case the object is already gone
