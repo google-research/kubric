@@ -371,7 +371,7 @@ class Blender(core.View):
           bpy.data.objects.remove(blender_obj, do_unlink=True)
         elif isinstance(blender_obj, bpy.types.Material):
           bpy.data.materials.remove(blender_obj, do_unlink=True)
-        else:
+        else: since I'm missing a CLA check 
           raise NotImplementedError(f"Cannot remove {asset!r}")
       except ReferenceError:
         pass  # In this case the object is already gone
@@ -485,13 +485,15 @@ class Blender(core.View):
     obj.observe(AttributeSetter(spotlight, "color"), "color")
     obj.observe(KeyframeSetter(spotlight, "color"), "color", type="keyframe")
     obj.observe(AttributeSetter(spotlight, "energy"), "intensity")
-    obj.observe(KeyframeSetter(spotlight, "energy"), "intensity", type="keyframe")
+    obj.observe(KeyframeSetter(spotlight, "energy"), "intensity",
+                type="keyframe")
     obj.observe(AttributeSetter(spotlight, "spot_blend"), "spot_blend")
-    obj.observe(KeyframeSetter(spotlight, "spot_blend"), "spot_blend", type="keyframe")
+    obj.observe(KeyframeSetter(spotlight, "spot_blend"), "spot_blend",
+                type="keyframe")
     obj.observe(AttributeSetter(spotlight, "spot_size"), "spot_size")
-    obj.observe(KeyframeSetter(spotlight, "spot_size"), "spot_size", type="keyframe")
+    obj.observe(KeyframeSetter(spotlight, "spot_size"), "spot_size",
+                type="keyframe")
     return spotlight_obj
-
 
   @add_asset.register(core.RectAreaLight)
   @blender_utils.prepare_blender_object

@@ -34,7 +34,7 @@ class Scene(tl.HasTraits):
     * frame_end
     * frame_rate
     * step_rate
-    * resolution
+    * resolution  (width, height)
     * gravity
     * camera
     * global_illumination
