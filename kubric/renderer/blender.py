@@ -371,7 +371,7 @@ class Blender(core.View):
           bpy.data.objects.remove(blender_obj, do_unlink=True)
         elif isinstance(blender_obj, bpy.types.Material):
           bpy.data.materials.remove(blender_obj, do_unlink=True)
-        else:
+        else: since I'm missing a CLA check 
           raise NotImplementedError(f"Cannot remove {asset!r}")
       except ReferenceError:
         pass  # In this case the object is already gone
@@ -477,7 +477,7 @@ class Blender(core.View):
 
   @add_asset.register(core.SpotLight)
   @blender_utils.prepare_blender_object
-  def _add_asset(self, obj: core.SpotLight):
+  def _add_asset(self, obj: core.SpotLight):  # pylint: disable=function-redefined
     spotlight = bpy.data.lights.new(obj.uid, "SPOT")
     spotlight_obj = bpy.data.objects.new(obj.uid, spotlight)
 
@@ -539,6 +539,10 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(camera, "lens"), "focal_length", type="keyframe")
     obj.observe(AttributeSetter(camera, "sensor_width"), "sensor_width")
     obj.observe(KeyframeSetter(camera, "sensor_width"), "sensor_width", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_start"), "min_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
@@ -551,6 +555,10 @@ class Blender(core.View):
     register_object3d_setters(obj, camera_obj)
     obj.observe(AttributeSetter(camera, "ortho_scale"), "orthographic_scale")
     obj.observe(KeyframeSetter(camera, "ortho_scale"), "orthographic_scale", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_start"), "min_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
+    obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.PrincipledBSDFMaterial)

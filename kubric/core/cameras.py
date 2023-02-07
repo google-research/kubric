@@ -21,7 +21,25 @@ from kubric.kubric_typing import ArrayLike
 
 
 class Camera(objects.Object3D):
-  """ Base class for all types of cameras. """
+  """ Base class for all types of cameras. 
+  
+  Args:
+    min_render_distance (float): The minimum rendering distance for the camera `m`.
+                          `Default = 0.1`
+
+    max_render_distance (float): The maximum rendering distance for the camera `m`.
+                          `Default = 1000.0`
+
+  """
+
+  min_render_distance = tl.Float(0.1)
+  max_render_distance = tl.Float(1000.0)
+
+  def __init__(self,
+               min_render_distance: float = 0.1,
+               max_render_distance: float = 1000.0, **kwargs):
+    super().__init__(min_render_distance = min_render_distance,
+                     max_render_distance = max_render_distance, **kwargs)
 
   @tl.default("background")
   def _get_background_default(self):
