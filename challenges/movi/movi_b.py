@@ -371,9 +371,9 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
 
   resolution = metadata["metadata"]["resolution"]
 
-  assert resolution[0] / target_size[0] == resolution[1] / target_size[1]
-  scale = resolution[0] / target_size[0]
-  assert scale == resolution[0] // target_size[0]
+  assert resolution[1] / target_size[0] == resolution[0] / target_size[1]
+  scale = resolution[1] / target_size[0]
+  assert scale == resolution[1] // target_size[0]
 
   paths = {
       key: [scene_dir / f"{key}_{f:05d}.png" for f in range(num_frames)]
