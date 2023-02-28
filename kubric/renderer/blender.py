@@ -423,6 +423,11 @@ class Blender(core.View):
             # here we are interested only in the meshes, so delete everything else
             non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
             bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+            # make sure one of the objects is active, otherwise join() fails.
+            # see https://blender.stackexchange.com/questions/132266/joining-all-meshes-in-any-context-gets-error
+            bpy.context.view_layer.objects.active = (
+                bpy.context.selected_objects[0]
+            )
             bpy.ops.object.join()
             # By default gltf objects are loaded with a different rotation than obj files
             # here we compensate for that to ensure alignment between pybullet and blender
