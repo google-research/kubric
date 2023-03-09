@@ -83,7 +83,7 @@ def rotation_sampler(axis=None):
 
 def bottom_sampler(region):
   """Sample positions at the bottom of a region"""
-  region = np.array(region, dtype=np.float)
+  region = np.array(region, dtype=np.float32)
 
   def _sampler(obj: objects.PhysicalObject, rng):
     obj.position = (0, 0, 0)  # reset position to origin
@@ -95,7 +95,7 @@ def bottom_sampler(region):
 
 
 def position_sampler(region):
-  region = np.array(region, dtype=np.float)
+  region = np.array(region, dtype=np.float32)
 
   def _sampler(obj: objects.PhysicalObject, rng):
     obj.position = (0, 0, 0)  # reset position to origin

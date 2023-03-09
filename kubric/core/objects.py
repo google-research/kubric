@@ -238,7 +238,7 @@ class PhysicalObject(Object3D):
   @property
   def bbox_3d(self):
     """ 3D bounding box as an array of 8 corners (shape = [8, 3])"""
-    bounds = np.array(self.bounds, dtype=np.float)
+    bounds = np.array(self.bounds, dtype=np.float32)
     # scale bounds:
     bounds *= self.scale
     # construct list of bbox corners
