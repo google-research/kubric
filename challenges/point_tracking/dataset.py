@@ -57,7 +57,9 @@ def unproject(coord, cam, depth):
   idx = coord[:, 0] * shp[1] + coord[:, 1]
   coord = tf.cast(coord[..., ::-1], tf.float32)
   shp = tf.cast(shp[1::-1], tf.float32)[tf.newaxis, ...]
-  projected_pt = coord / shp
+
+  # Need to convert from pixel to raster coordinate.
+  projected_pt = (coord + 0.5) / shp
 
   projected_pt = tf.concat(
       [
@@ -469,7 +471,10 @@ def track_points(
             tf.zeros(tf.shape(pt)[0:1])[tf.newaxis, :],
             tf.gather(num_to_sample, i))[0],
         lambda: tf.zeros([0], dtype=tf.int64))
+    # note: pt_coords is pixel coordinates, not raster coordinates.
     pt_coords = tf.gather(tf.boolean_mask(pix_coords, mask), idx)
+    
+    pixel_to_raster = tf.constant([0.0, 0.5, 0.5])[tf.newaxis,:]
 
     if obj_id == -1:
       # For the background object, no bounding box is available.  However,
@@ -487,14 +492,16 @@ def track_points(
         pt_3d.append(
             unproject(pt_coords_chunk[:, 1:], get_camera(fr), depth_map[fr]))
       pt = tf.concat(pt_3d, axis=0)
-      chosen_points.append(tf.concat(pt_coords_reorder, axis=0))
+      chosen_points.append(
+          tf.cast(tf.concat(pt_coords_reorder, axis=0), tf.float32) + 
+          pixel_to_raster)
       bbox = None
     else:
       # For any other object, we just use the point coordinates supplied by
       # kubric.
       pt = tf.gather(pt, idx)
       pt = pt / np.iinfo(np.uint16).max - .5
-      chosen_points.append(pt_coords)
+      chosen_points.append(tf.cast(pt_coords, tf.float32) + pixel_to_raster)
       # if obj_id>num_objects, then we won't have a box.  We also won't have
       # points, so just use a dummy to prevent tf from crashing.
       bbox = tf.cond(obj_id >= tf.shape(bboxes_3d)[0], lambda: bboxes_3d[0, :],
