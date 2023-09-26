@@ -485,6 +485,12 @@ See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
 ``` python
 ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
 ```
+
+or
+
+``` python
+ds = tfds.load("panning_movi_e", data_dir="gs://kubric-public/tfds") 
+```
 #### Variant specific Annotation
 - **"background"**: `str`  
   Name of the background HDRI.
