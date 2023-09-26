@@ -128,6 +128,37 @@ def get_linear_camera_motion_start_end(
         camera_end[2] > z_offset):
       return camera_start, camera_end
 
+def get_linear_lookat_motion_start_end(
+    inner_radius: float = 1.0,
+    outer_radius: float = 4.0,
+):
+  """Sample a linear path which goes through the workspace center."""
+  while True:
+    # Sample a point near the workspace center that the path travels through
+    camera_through = np.array(
+        kb.sample_point_in_half_sphere_shell(0.0, inner_radius, 0.0)
+    )
+    while True:
+      # Sample one endpoint of the trajectory
+      camera_start = np.array(
+          kb.sample_point_in_half_sphere_shell(0.0, outer_radius, 0.0)
+      )
+      if camera_start[-1] < inner_radius:
+        break
+
+    # Continue the trajectory beyond the point in the workspace center, so the
+    # final path passes through that point.
+    continuation = rng.rand(1) * 0.5
+    camera_end = camera_through + continuation * (camera_through - camera_start)
+
+    # Second point will probably be closer to the workspace center than the
+    # first point.  Get extra augmentation by randomly swapping first and last.
+    if rng.rand(1)[0] < 0.5:
+      tmp = camera_start
+      camera_start = camera_end
+      camera_end = tmp
+    return camera_start, camera_end
+
 
 # Camera
 logging.info("Setting up the Camera...")
@@ -136,10 +167,19 @@ if FLAGS.camera == "fixed_random":
   scene.camera.position = kb.sample_point_in_half_sphere_shell(
       inner_radius=7., outer_radius=9., offset=0.1)
   scene.camera.look_at((0, 0, 0))
-elif FLAGS.camera == "linear_movement":
+elif (
+    config.camera == "linear_movement"
+    or config.camera == "linear_movement_linear_lookat"
+):
+
+  is_panning = config.camera == "linear_movement_linear_lookat"
+  camera_inner_radius = 6.0 if is_panning else 8.0
   camera_start, camera_end = get_linear_camera_motion_start_end(
       movement_speed=rng.uniform(low=0., high=FLAGS.max_camera_movement)
   )
+  if is_panning:
+    lookat_start, lookat_end = get_linear_lookat_motion_start_end()
+
   # linearly interpolate the camera position between these two points
   # while keeping it focused on the center of the scene
   # we start one frame early and end one frame late to ensure that
@@ -149,7 +189,13 @@ elif FLAGS.camera == "linear_movement":
               (FLAGS.frame_end - FLAGS.frame_start + 3))
     scene.camera.position = (interp * np.array(camera_start) +
                              (1 - interp) * np.array(camera_end))
-    scene.camera.look_at((0, 0, 0))
+    if is_panning:
+      scene.camera.look_at(
+          interp * np.array(lookat_start)
+          + (1 - interp) * np.array(lookat_end)
+      )
+    else:
+      scene.camera.look_at((0, 0, 0))
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
 
