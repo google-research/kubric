@@ -466,10 +466,30 @@ docker run --rm --interactive \
   /usr/bin/python3 challenges/movi/movi_def_worker.py \
   --camera=linear_movement
 ```
+
+You can also generate the panning MOVi-E (a.k.a. panning Kubric) used to train
+[TAPIR](https://deepmind-tapir.github.io) with the following command:
+
+```shell
+docker run --rm --interactive \
+  --user $(id -u):$(id -g)    \
+  --volume "$(pwd):/kubric"   \
+  kubricdockerhub/kubruntu    \
+  /usr/bin/python3 challenges/movi/movi_def_worker.py \
+  --camera=linear_movement_linear_lookat \
+  --max_camera_motion=8.0
+```
+
 See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
 
 ``` python
 ds = tfds.load("movi_e", data_dir="gs://kubric-public/tfds") 
+```
+
+or
+
+``` python
+ds = tfds.load("panning_movi_e", data_dir="gs://kubric-public/tfds") 
 ```
 #### Variant specific Annotation
 - **"background"**: `str`  
