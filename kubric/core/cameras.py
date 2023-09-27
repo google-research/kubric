@@ -21,15 +21,13 @@ from kubric.kubric_typing import ArrayLike
 
 
 class Camera(objects.Object3D):
-  """ Base class for all types of cameras. 
-  
+  """Base class for all types of cameras.
+
   Args:
-    min_render_distance (float): The minimum rendering distance for the camera `m`.
-                          `Default = 0.1`
-
-    max_render_distance (float): The maximum rendering distance for the camera `m`.
-                          `Default = 1000.0`
-
+    min_render_distance (float): The minimum rendering distance for the camera
+      `m`. `Default = 0.1`
+    max_render_distance (float): The maximum rendering distance for the camera
+      `m`. `Default = 1000.0`
   """
 
   min_render_distance = tl.Float(0.1)
@@ -71,28 +69,54 @@ class UndefinedCamera(Camera, UndefinedAsset):
 
 
 class PerspectiveCamera(Camera):
-  """ A :class:`Camera` that uses perspective projection.
+  """A :class:`Camera` that uses perspective projection.
 
   Args:
-    focal_length (float): The focal length of the camera lens in `mm`.
-                          `Default = 50`
-
-    sensor_width (float): Horizontal size of the camera sensor in `mm`.
-                          `Default = 36`
-
+    focal_length (float): The focal length of the camera lens in `mm`. `Default
+      = 50`
+    sensor_width (float): Horizontal size of the camera sensor in `mm`. `Default
+      = 36`
+    shift_x (float): Principal point horizontal offset defined as fraction of
+      sensor width. `Default = 0.0`
+    shift_y (float): Principal point vertical offset defined as fraction of
+      sensor height. `Default = 0.0`
   """
 
   focal_length = tl.Float(50)
   sensor_width = tl.Float(36)
+  # Changing shift_x and shift_y is currently not supported in kubric. However,
+  # these values can be changed if only blender support is necessary as changing
+  # these will impact the blender camera principal point offsets.
+  shift_x = tl.Float(0.0)
+  shift_y = tl.Float(0.0)
 
-  def __init__(self,
-               focal_length: float = 50,
-               sensor_width: float = 36,
-               position=(0., 0., 0.),
-               quaternion=None, up="Y", front="-Z", look_at=None, euler=None, **kwargs):
-    super().__init__(focal_length=focal_length, sensor_width=sensor_width, position=position,
-                     quaternion=quaternion, up=up, front=front, look_at=look_at, euler=euler,
-                     **kwargs)
+  def __init__(
+      self,
+      focal_length: float = 50,
+      sensor_width: float = 36,
+      shift_x: float = 0.0,
+      shift_y: float = 0.0,
+      position=(0.0, 0.0, 0.0),
+      quaternion=None,
+      up="Y",
+      front="-Z",
+      look_at=None,
+      euler=None,
+      **kwargs
+  ):
+    super().__init__(
+        focal_length=focal_length,
+        sensor_width=sensor_width,
+        position=position,
+        quaternion=quaternion,
+        up=up,
+        front=front,
+        look_at=look_at,
+        euler=euler,
+        shift_x=shift_x,
+        shift_y=shift_y,
+        **kwargs
+    )
 
   @property
   def field_of_view(self) -> float:

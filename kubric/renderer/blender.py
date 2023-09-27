@@ -11,6 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Copyright 2023 The Kubric Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
 
 import collections
@@ -190,7 +204,6 @@ class Blender(core.View):
                       if d.use]
       logger.info("Using the following GPU Device(s): %s", devices_used)
 
-
   def set_exr_output_path(self, path_prefix: Optional[PathLike]):
     """Set the target path prefix for EXR output.
 
@@ -346,7 +359,6 @@ class Blender(core.View):
 
     return {key: np.stack(data_stack[key], axis=0)
             for key in data_stack}
-
 
   @staticmethod
   def clear_and_reset_blender_scene(verbose: bool = False, custom_scene: str = None):
@@ -548,6 +560,10 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
     obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
     obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "shift_x"), "shift_x")
+    obj.observe(KeyframeSetter(camera, "shift_x"), "shift_x", type="keyframe")
+    obj.observe(AttributeSetter(camera, "shift_y"), "shift_y")
+    obj.observe(KeyframeSetter(camera, "shift_y"), "shift_y", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
