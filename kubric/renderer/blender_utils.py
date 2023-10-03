@@ -1,3 +1,6 @@
+## This file is modified from the original Kubric source code.
+## OpenEXR and Imath related lines were commented out.
+
 # Copyright 2023 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

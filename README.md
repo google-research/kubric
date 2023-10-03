@@ -1,3 +1,11 @@
+## Note by redistributor
+
+The source code was modified for [World Models lecture series](https://deeplearning.jp/lectures/world-model-2023/#) by Matsuo Lab, the University of Tokyo.
+
+Specifically:
+
+- OpenEXR and Imath related lines were commented out in `kubric/renderer/blender_utils.py` to avoid build errors in Colab.
+
 # Kubric
 
 [![Blender](https://github.com/google-research/kubric/actions/workflows/blender.yml/badge.svg?branch=main)](https://github.com/google-research/kubric/actions/workflows/blender.yml)
