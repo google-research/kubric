@@ -16,7 +16,7 @@ docker run --rm --interactive \
 ```
 See [movi_f.py](../movi/movi_f.py) for the TFDS definition / conversion.
 
-Data is located at [gs://kubric-public/tfds/movi_f](https://pantheon.corp.google.com/storage/browser/kubric-public/tfds/movi_f) and can be loaded with:
+Data is located at [gs://kubric-public/tfds/movi_f](https://console.cloud.google.com/storage/browser/kubric-public/tfds/movi_f) and can be loaded with:
 ``` python
 ds = tfds.load("movi_f", data_dir="gs://kubric-public/tfds") 
 ```

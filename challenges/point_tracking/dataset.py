@@ -857,7 +857,7 @@ def create_point_tracking_dataset(
     max_sampled_frac=0.1,
     num_parallel_point_extraction_calls=16,
     **kwargs):
-  """Construct a dataset for point tracking using Kubric: go/kubric.
+  """Construct a dataset for point tracking using Kubric.
 
   Args:
     train_size: Tuple of 2 ints. Cropped output will be at this resolution
