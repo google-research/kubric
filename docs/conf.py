@@ -39,7 +39,7 @@ __version__ = "None"
 
 project = "Kubric"
 copyright = "2021 The Kubric Authors"
-author = 'The Kubric Authors.
+author = 'The Kubric Authors'
 # The full version, including alpha/beta/rc tags
 release = __version__
 
