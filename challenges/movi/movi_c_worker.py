@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Worker file for the Multi-Object Video (MOVi) C (and CC) datasets.
   * The number of objects is randomly chosen between
