@@ -191,7 +191,6 @@ class Blender(core.View):
                       if d.use]
       logger.info("Using the following GPU Device(s): %s", devices_used)
 
-
   def set_exr_output_path(self, path_prefix: Optional[PathLike]):
     """Set the target path prefix for EXR output.
 
@@ -347,7 +346,6 @@ class Blender(core.View):
 
     return {key: np.stack(data_stack[key], axis=0)
             for key in data_stack}
-
 
   @staticmethod
   def clear_and_reset_blender_scene(verbose: bool = False, custom_scene: str = None):
@@ -549,6 +547,10 @@ class Blender(core.View):
     obj.observe(KeyframeSetter(camera, "clip_start"), "min_render_distance", type="keyframe")
     obj.observe(AttributeSetter(camera, "clip_end"), "max_render_distance")
     obj.observe(KeyframeSetter(camera, "clip_end"), "max_render_distance", type="keyframe")
+    obj.observe(AttributeSetter(camera, "shift_x"), "shift_x")
+    obj.observe(KeyframeSetter(camera, "shift_x"), "shift_x", type="keyframe")
+    obj.observe(AttributeSetter(camera, "shift_y"), "shift_y")
+    obj.observe(KeyframeSetter(camera, "shift_y"), "shift_y", type="keyframe")
     return camera_obj
 
   @add_asset.register(core.OrthographicCamera)
