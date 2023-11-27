@@ -625,21 +625,26 @@ Each sample is a dictionary which contains the following data:
   Instance segmentation as per-pixel object-id with `background=0`.  
   *Note: because of this the instance IDs used here are one higher than their
   corresponding index in `sample["instances"]`.*
-- **"depth"**: `(s, h, w, 1) [uint16]`  
+- **"depth"**: `(s, h, w, 1) [float32]`  
   Distance of each pixel from the center of the camera.
   *(Note this is different from the z-value sometimes used, which measures the
   distance to the camera **plane**.)*  
-  The values are stored as `uint16` and span the range specified in
-  `sample["metadata"]["depth_range"]`. To convert them back to world-units
-  use:
+  Depth is stored in TIFF format using `float32`. Depth values are therefore in
+  the correct range and require no further rescaling based on `depth_range`.
+  Values are expressed in scene units.
+  Use `cv2` or `imageio` to read the depth data from file directly.
   ```python
-  minv, maxv = sample["metadata"]["depth_range"]
-  depth = sample["depth"] / 65535 * (maxv - minv) + minv
+  depth = cv2.imread(path_to_depth_tiff, cv2.IMREAD_UNCHANGED)[..., 1:3]
   ```
-- **"forward_flow"**: `(s, h, w, 2) [uint16]`  
+  or
+  ```python
+  depth = imageio.v2.imread(path_to_depth_tiff, format='tiff')
+  ```
+- **"forward_flow"**: `(s, h, w, 2) [float32]`  
   Forward optical flow in the form `(delta_row, delta_column)`.
-  The values are stored as `uint16` and span the range specified in
-  `sample["metadata"]["forward_flow_range"]`. To convert them back to pixels use:
+  The values are stored as `float32` and span the range specified in
+  `sample["metadata"]["forward_flow_range"]`. To convert them back to pixels
+  use:
   ```python
   minv, maxv = sample["metadata"]["forward_flow_range"]
   depth = sample["forward_flow"] / 65535 * (maxv - minv) + minv
@@ -701,7 +706,23 @@ Each sample is a dictionary which contains the following data:
   - **"positions"**: `(s, 3) [float32]`
     Position of the camera for each frame in world-coordinates.
   - **"quaternions"**: `(s, 4) [float32]`
-    Rotation of the camera for each frame as quaternions.
+    Rotation of the camera for each frame as quaternions. You can convert an
+    camera's quaternions to a rotation matrix $R$ using `pyquaternion`:
+    ```python
+    rot = pyquat.Quaternion(camera_quaternions).rotation_matrix
+    ```
+    The extrinsic camera matrix $E$ is obtained by concatenation of the
+    rotation matrix $R$ with the camera position $t$.
+    $$E = [R | t]$$
+    $E$ is a camera-to-world matrix encoding a transformation from homogenous
+    camera coordinates to homogenous world coordinates.
+    $$p_{world} = Tp_{camera}$$
+    In the default case, the positive Y values in the camera coordinate system
+    point upwards, positive Z values point backwards from the scene into the
+    camera, positive X values point leftwards.
+  - **"K"**: `(3, 3) [float64]` 
+    Intrinsic camera matrix &ndash; use `resolution` in metadata to convert to
+    pixel units.
 - **"events"**
   - **"collisions"**
     This key contains information about collision events.
