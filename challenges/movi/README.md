@@ -477,7 +477,7 @@ docker run --rm --interactive \
   kubricdockerhub/kubruntu    \
   /usr/bin/python3 challenges/movi/movi_def_worker.py \
   --camera=linear_movement_linear_lookat \
-  --max_camera_motion=8.0
+  --max_camera_movement=8.0
 ```
 
 See [movi_e.py](movi_e.py) for the TFDS definition / conversion.
