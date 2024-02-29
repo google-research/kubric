@@ -1,4 +1,4 @@
-# Copyright 2023 The Kubric Authors.
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -419,9 +419,13 @@ class Blender(core.View):
             bpy.ops.import_scene.gltf(filepath=obj.render_filename,
                                       **obj.render_import_kwargs)
             # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
-            # here we are interested only in the meshes, so delete everything else
-            non_mesh_objects = [obj for obj in bpy.context.selected_objects if obj.type != "MESH"]
-            bpy.ops.object.delete({"selected_objects": non_mesh_objects})
+            # here we are interested only in the meshes, we filter these out and join all meshes into one.
+            bpy.ops.object.select_all(action='DESELECT')
+            mesh = [m for m in bpy.context.scene.objects if m.type == 'MESH']
+            for ob in mesh:
+              ob.select_set(state=True)
+              bpy.context.view_layer.objects.active = ob
+
             # make sure one of the objects is active, otherwise join() fails.
             # see https://blender.stackexchange.com/questions/132266/joining-all-meshes-in-any-context-gets-error
             bpy.context.view_layer.objects.active = (
