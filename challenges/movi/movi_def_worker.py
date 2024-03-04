@@ -50,7 +50,7 @@ parser.add_argument("--floor_restitution", type=float, default=0.5)
 parser.add_argument("--backgrounds_split", choices=["train", "test"],
                     default="train")
 
-parser.add_argument("--camera", choices=["fixed_random", "linear_movement"],
+parser.add_argument("--camera", choices=["fixed_random", "linear_movement", "linear_movement_linear_lookat"],
                     default="fixed_random")
 parser.add_argument("--max_camera_movement", type=float, default=4.0)
 parser.add_argument("--max_motion_blur", type=float, default=0.0)
@@ -169,11 +169,11 @@ if FLAGS.camera == "fixed_random":
       inner_radius=7., outer_radius=9., offset=0.1)
   scene.camera.look_at((0, 0, 0))
 elif (
-    config.camera == "linear_movement"
-    or config.camera == "linear_movement_linear_lookat"
+    FLAGS.camera == "linear_movement"
+    or FLAGS.camera == "linear_movement_linear_lookat"
 ):
 
-  is_panning = config.camera == "linear_movement_linear_lookat"
+  is_panning = FLAGS.camera == "linear_movement_linear_lookat"
   camera_inner_radius = 6.0 if is_panning else 8.0
   camera_start, camera_end = get_linear_camera_motion_start_end(
       movement_speed=rng.uniform(low=0., high=FLAGS.max_camera_movement)
