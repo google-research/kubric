@@ -420,20 +420,28 @@ class Blender(core.View):
                                       **obj.render_import_kwargs)
             # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
             # here we are interested only in the meshes, we filter these out and join all meshes into one.
-            bpy.ops.object.select_all(action='DESELECT')
-            mesh = [m for m in bpy.context.scene.objects if m.type == 'MESH']
+            mesh = [m for m in bpy.context.selected_objects if m.type == "MESH"]
+            assert mesh
             for ob in mesh:
               ob.select_set(state=True)
               bpy.context.view_layer.objects.active = ob
 
             # make sure one of the objects is active, otherwise join() fails.
             # see https://blender.stackexchange.com/questions/132266/joining-all-meshes-in-any-context-gets-error
-            bpy.context.view_layer.objects.active = (
-                bpy.context.selected_objects[0]
-            )
+            bpy.context.view_layer.objects.active = mesh[0]
             bpy.ops.object.join()
-            # By default gltf objects are loaded with a different rotation than obj files
-            # here we compensate for that to ensure alignment between pybullet and blender
+
+            # Make sure to delete all remaining non-mesh objects. Note that for
+            # some reason deleting the non-mesh objets before joining removes
+            # parts of the meshes in some cases.
+            non_mesh_objects = [
+                obj
+                for obj in bpy.context.selected_objects
+                if obj.type != "MESH"
+            ]
+            with bpy.context.temp_override(selected_objects=non_mesh_objects):
+              bpy.ops.object.delete()
+
             assert len(bpy.context.selected_objects) == 1
             blender_obj = bpy.context.selected_objects[0]
             blender_obj.rotation_quaternion = (0.707107, -0.707107, 0, 0)
