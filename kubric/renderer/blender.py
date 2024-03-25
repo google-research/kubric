@@ -418,6 +418,14 @@ class Blender(core.View):
           elif extension in ["glb", "gltf"]:
             bpy.ops.import_scene.gltf(filepath=obj.render_filename,
                                       **obj.render_import_kwargs)
+
+            # Apply all transforms on objects before subselecting the mesh.
+            # This is optional to not break backwards compatibility.
+            if obj.glb_do_transform_apply_after_import:
+              bpy.ops.object.transform_apply(
+                  location=True, rotation=True, scale=True
+              )
+
             # gltf files often contain "Empty" objects as placeholders for camera / lights etc.
             # here we are interested only in the meshes, we filter these out and join all meshes into one.
             mesh = [m for m in bpy.context.selected_objects if m.type == "MESH"]
