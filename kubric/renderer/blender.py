@@ -27,7 +27,7 @@ from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow as tf
-from singledispatchmethod import singledispatchmethod
+from functools import singledispatchmethod
 
 import kubric as kb
 from kubric import core

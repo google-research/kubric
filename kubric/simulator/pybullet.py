@@ -23,7 +23,7 @@ import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
 import tensorflow as tf
-from singledispatchmethod import singledispatchmethod
+from functools import singledispatchmethod
 
 from kubric import core
 from kubric.redirect_io import RedirectStream
