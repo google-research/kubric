@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
-
 import collections
+import functools
 import io
 import logging
 import os
@@ -27,7 +26,6 @@ from kubric.safeimport.bpy import bpy
 
 import numpy as np
 import tensorflow as tf
-from singledispatchmethod import singledispatchmethod
 
 import kubric as kb
 from kubric import core
@@ -358,7 +356,7 @@ class Blender(core.View):
         logger.info("Loading scene from '%s'", custom_scene)
         bpy.ops.wm.open_mainfile(filepath=custom_scene)
 
-  @singledispatchmethod
+  @functools.singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
     raise NotImplementedError(f"Cannot add {asset!r}")
 

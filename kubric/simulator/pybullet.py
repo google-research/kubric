@@ -23,7 +23,6 @@ import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
 import tensorflow as tf
-from singledispatchmethod import singledispatchmethod
 
 from kubric import core
 from kubric.redirect_io import RedirectStream
@@ -86,7 +85,7 @@ class PyBullet(core.View):
   def physics_client(self):
     return self._physics_client.client
 
-  @singledispatchmethod
+  @functools.singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Optional[int]:
     raise NotImplementedError(f"Cannot add {asset!r}")
 
