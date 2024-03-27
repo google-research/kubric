@@ -15,27 +15,25 @@
 # pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
 
 import collections
+from contextlib import redirect_stdout
+import functools
 import io
 import logging
 import os
 import sys
-from contextlib import redirect_stdout
-from typing import Any, Dict, Optional, Sequence, Union
 import tempfile
-
-from kubric.safeimport.bpy import bpy
-
-import numpy as np
-import tensorflow as tf
-from singledispatchmethod import singledispatchmethod
+from typing import Any, Dict, Optional, Sequence, Union
 
 import kubric as kb
 from kubric import core
+from kubric import file_io
 from kubric.core.assets import UndefinedAsset
+from kubric.file_io import PathLike
 from kubric.redirect_io import RedirectStream
 from kubric.renderer import blender_utils
-from kubric import file_io
-from kubric.file_io import PathLike
+from kubric.safeimport.bpy import bpy
+import numpy as np
+import tensorflow as tf
 
 logger = logging.getLogger(__name__)
 
@@ -358,7 +356,7 @@ class Blender(core.View):
         logger.info("Loading scene from '%s'", custom_scene)
         bpy.ops.wm.open_mainfile(filepath=custom_scene)
 
-  @singledispatchmethod
+  @functools.singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
     raise NotImplementedError(f"Cannot add {asset!r}")
 
