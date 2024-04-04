@@ -22,10 +22,9 @@ import sys
 import tempfile
 from typing import Dict, List, Optional, Tuple, Union
 
-import tensorflow as tf
-
 from kubric import core
 from kubric.redirect_io import RedirectStream
+import tensorflow as tf
 
 # --- hides the "pybullet build time: May 26 2021 18:52:36" message on import
 with RedirectStream(stream=sys.stderr):
