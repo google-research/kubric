@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# pylint: disable=function-redefined (removes singledispatchmethod pylint errors)
-
 import collections
 from contextlib import redirect_stdout
 import functools
