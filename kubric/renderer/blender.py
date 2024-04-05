@@ -354,7 +354,7 @@ class Blender(core.View):
         logger.info("Loading scene from '%s'", custom_scene)
         bpy.ops.wm.open_mainfile(filepath=custom_scene)
 
-  @singledispatchmethod
+  @functools.singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
     raise NotImplementedError(f"Cannot add {asset!r}")
 
