@@ -86,7 +86,7 @@ class Blender(core.View):
     self.blender_scene = bpy.context.scene
 
     # the ray-tracing engine is set here because it affects the availability of some features
-    bpy.context.scene.render.engine = "CYCLES"
+    bpy.context.scene.render.engine = "CYCLES" # "BLENDER_EEVEE"
     self.use_gpu = os.getenv("KUBRIC_USE_GPU", "False").lower() in ("true", "1", "t")
 
     blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
@@ -621,6 +621,11 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission",
                 type="keyframe")
+    obj.observe(AttributeSetter(bsdf_node.inputs["Alpha"], "default_value"), "alpha")
+    obj.observe(KeyframeSetter(bsdf_node.inputs["Alpha"], "default_value"), "alpha",
+                type="keyframe")
+    
+
     return mat
 
   @add_asset.register(core.FlatMaterial)
