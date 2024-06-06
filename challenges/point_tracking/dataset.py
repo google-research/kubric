@@ -929,6 +929,7 @@ def add_tracks(data,
   )
   video = tf.slice(video, start, size)
   video = tf.image.resize(tf.cast(video, tf.float32), train_size)
+  video.set_shape([num_frames, train_size[0], train_size[1], 3])
   if vflip:
     video = video[:, ::-1, :, :]
     target_points = target_points * np.array([1, -1])
