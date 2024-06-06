@@ -16,14 +16,14 @@
 import dataclasses
 import json
 import logging
+from typing import List, Dict, Union
 
+from etils import epath
 import imageio
 import numpy as np
 import png
-
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
-from typing import List, Dict, Union
 
 
 _DESCRIPTION = """
@@ -572,11 +572,11 @@ def is_complete_dir(video_dir, layers=DEFAULT_LAYERS):
   return True
 
 
-PathLike = Union[str, tfds.core.ReadWritePath]
+PathLike = Union[str, epath.Path]
 
 
-def as_path(path: PathLike) -> tfds.core.ReadWritePath:
-  """Convert str or pathlike object to tfds.core.ReadWritePath.
+def as_path(path: PathLike) -> epath.Path:
+  """Convert str or pathlike object to epath.Path.
 
   Instead of pathlib.Paths, we use the TFDS path because they transparently
   support paths to GCS buckets such as "gs://kubric-public/GSO".
