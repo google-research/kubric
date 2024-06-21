@@ -65,8 +65,12 @@ examples/keyframing: checkmakeversion
 # --- one-liners for executing challenges
 challenges/complex_brdf: checkmakeversion
 	docker run --rm --interactive --user `id -u`:`id -g` --volume `pwd`:/workspace --env SHAPENET_GCP_BUCKET=$${SHAPENET_GCP_BUCKET} kubricdockerhub/kubruntudev python3 challenges/complex_brdf/worker.py
+
 #challenges/complex_brdf/launch: checkmakeversion
-#	launch.sh hyper challenges/complex_brdf/worker.py lfn_`date +"%Y%m%d_%H%M"` 52423 400
+#	./launch.sh hyper challenges/complex_brdf/worker.py lfn_`date +"%Y%m%d_%H%M"` 52423 400
+
+examples/shapenet/hyper: checkmakeversion
+	./launch.sh hyper examples/shapenet.py shapenet_`date +"%Y%m%d_%H%M"` 10 5
 
 # --- runs the test suite within the dev container (similar to test.yml), e.g.
 # USAGE:

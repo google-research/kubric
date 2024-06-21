@@ -14,7 +14,7 @@ and optical flow.
 
 
 ## Motivation and design
-We need better data for training and evaluating machine learning systems, especially in the collntext of unsupervised multi-object video understanding.
+We need better data for training and evaluating machine learning systems, especially in the context of unsupervised multi-object video understanding.
 Current systems succeed on [toy datasets](https://github.com/deepmind/multi_object_datasets), but fail on real-world data.
 Progress could be greatly accelerated if we had the ability to create suitable datasets of varying complexity on demand.
 Kubric is mainly built on-top of pybullet (for physics simulation) and Blender (for rendering); however, the code is kept modular to potentially support different rendering backends.

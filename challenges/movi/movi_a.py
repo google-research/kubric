@@ -1,28 +1,29 @@
-# Copyright 2022 The Kubric Authors
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 # pylint: disable=line-too-long, unexpected-keyword-arg
 import dataclasses
 import json
 import logging
+from typing import Dict, List, Union
 
+from etils import epath
 import imageio
 import numpy as np
 import png
-
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
-from typing import List, Dict, Union
 
 
 _DESCRIPTION = """
@@ -370,9 +371,9 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
 
   resolution = metadata["metadata"]["resolution"]
 
-  assert resolution[0] / target_size[0] == resolution[1] / target_size[1]
-  scale = resolution[0] / target_size[0]
-  assert scale == resolution[0] // target_size[0]
+  assert resolution[1] / target_size[0] == resolution[0] / target_size[1]
+  scale = resolution[1] / target_size[0]
+  assert scale == resolution[1] // target_size[0]
 
   paths = {
       key: [scene_dir / f"{key}_{f:05d}.png" for f in range(num_frames)]
@@ -571,11 +572,11 @@ def is_complete_dir(video_dir, layers=DEFAULT_LAYERS):
   return True
 
 
-PathLike = Union[str, tfds.core.ReadWritePath]
+PathLike = Union[str, epath.Path]
 
 
-def as_path(path: PathLike) -> tfds.core.ReadWritePath:
-  """Convert str or pathlike object to tfds.core.ReadWritePath.
+def as_path(path: PathLike) -> epath.Path:
+  """Convert str or pathlike object to epath.Path.
 
   Instead of pathlib.Paths, we use the TFDS path because they transparently
   support paths to GCS buckets such as "gs://kubric-public/GSO".

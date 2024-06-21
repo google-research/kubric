@@ -16,7 +16,7 @@
 import dataclasses
 import json
 import logging
-from typing import Dict, List, Union
+from typing import List, Dict, Union
 
 from etils import epath
 import imageio
@@ -32,9 +32,10 @@ The scene consists of a dome (half-sphere) onto which a random HDRI is projected
 which acts as background, floor and lighting.
 The scene contains between 10 and 20 random static objects, and between 1 and 3
 dynamic objects (tossed onto the others).
-The camera moves on a straight line with constant velocity.
+The camera moves on a straight line with constant velocity, and the lookat point
+follows a moving trajectory through the workspace center.
 The starting point is sampled randomly in a half-sphere shell around the scene,
-and from there the camera moves into a random direction with a random speed between 0 and 4.
+and from there the camera moves into a random direction with a random speed between 0 and 8.
 This sampling process is repeated until a trajectory is found that starts and 
 ends within the specified half-sphere shell around the center of the scene. 
 The camera always points towards the origin.
@@ -154,24 +155,18 @@ And finally information about collision events in sample["events"]["collisions"]
 """
 
 _CITATION = """\
-@inproceedings{greff2022kubric,
-title = {Kubric: a scalable dataset generator}, 
-    author = {Klaus Greff and Francois Belletti and Lucas Beyer and Carl Doersch and
-              Yilun Du and Daniel Duckworth and David J Fleet and Dan Gnanapragasam and
-              Florian Golemo and Charles Herrmann and Thomas Kipf and Abhijit Kundu and
-              Dmitry Lagun and Issam Laradji and Hsueh-Ti (Derek) Liu and Henning Meyer and
-              Yishu Miao and Derek Nowrouzezahrai and Cengiz Oztireli and Etienne Pot and
-              Noha Radwan and Daniel Rebain and Sara Sabour and Mehdi S. M. Sajjadi and Matan Sela and
-              Vincent Sitzmann and Austin Stone and Deqing Sun and Suhani Vora and Ziyu Wang and
-              Tianhao Wu and Kwang Moo Yi and Fangcheng Zhong and Andrea Tagliasacchi},
-    booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition, {CVPR}},
-    year = {2022},
-    publisher = {Computer Vision Foundation / {IEEE}},
+@article{doersch2023tapir,
+  title={TAPIR: Tracking Any Point with per-frame Initialization
+         and temporal Refinement},
+  author={Doersch, Carl and Yang, Yi and Vecerik, Mel and Gokay, Dilara and
+  Gupta, Ankush and Aytar, Yusuf and Carreira, Joao and Zisserman, Andrew},
+  journal={ICCV},
+  year={2023}
 }"""
 
 @dataclasses.dataclass
-class MoviEConfig(tfds.core.BuilderConfig):
-  """"Configuration for Multi-Object Video (MoviE) dataset."""
+class PanningMoviEConfig(tfds.core.BuilderConfig):
+  """"Configuration for Multi-Object Video (PanningMoviE) dataset."""
   height: int = 256
   width: int = 256
   num_frames: int = 24
@@ -180,34 +175,23 @@ class MoviEConfig(tfds.core.BuilderConfig):
   test_split_paths: Dict[str, str] = dataclasses.field(default_factory=dict)
 
 
-class MoviE(tfds.core.BeamBasedBuilder):
-  """DatasetBuilder for MOVi-E dataset."""
+class PanningMoviE(tfds.core.BeamBasedBuilder):
+  """DatasetBuilder for Panning MOVi-E dataset."""
   VERSION = tfds.core.Version("1.0.0")
   RELEASE_NOTES = {
       "1.0.0": "initial release",
   }
 
   BUILDER_CONFIGS = [
-      MoviEConfig(
+      PanningMoviEConfig(
           name="256x256",
           description="Full resolution of 256x256",
           height=256,
           width=256,
           validation_ratio=0.025,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_e_regen_10k/",
+          train_val_path="gs://research-brain-kubric-xgcp/jobs/panning_movi_e_regen_100k/",
           test_split_paths={
-              "test": "gs://research-brain-kubric-xgcp/jobs/movi_e_test_regen_1k/",
-          }
-      ),
-      MoviEConfig(
-          name="128x128",
-          description="Downscaled to 128x128",
-          height=128,
-          width=128,
-          validation_ratio=0.025,
-          train_val_path="gs://research-brain-kubric-xgcp/jobs/movi_e_regen_10k/",
-          test_split_paths={
-              "test": "gs://research-brain-kubric-xgcp/jobs/movi_e_test_regen_1k/",
+              "test": "gs://research-brain-kubric-xgcp/jobs/panning_movi_e_test_regen_1k/",
           }
       ),
   ]
@@ -220,7 +204,7 @@ class MoviE(tfds.core.BeamBasedBuilder):
     w = self.builder_config.width
     s = self.builder_config.num_frames
 
-    def get_movi_e_instance_features(seq_length: int):
+    def get_panning_movi_e_instance_features(seq_length: int):
       features = get_instance_features(seq_length)
       features.update({
           "asset_id": tfds.features.Text(),
@@ -256,7 +240,7 @@ class MoviE(tfds.core.BeamBasedBuilder):
             },
             "background": tfds.features.Text(),
             "instances": tfds.features.Sequence(
-                feature=get_movi_e_instance_features(seq_length=s)),
+                feature=get_panning_movi_e_instance_features(seq_length=s)),
             "camera": get_camera_features(s),
             "events": get_events_features(),
             # -----

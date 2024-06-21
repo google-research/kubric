@@ -1,16 +1,17 @@
-# Copyright 2022 The Kubric Authors
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 
 """
@@ -49,7 +50,7 @@ parser.add_argument("--floor_restitution", type=float, default=0.5)
 parser.add_argument("--backgrounds_split", choices=["train", "test"],
                     default="train")
 
-parser.add_argument("--camera", choices=["fixed_random", "linear_movement"],
+parser.add_argument("--camera", choices=["fixed_random", "linear_movement", "linear_movement_linear_lookat"],
                     default="fixed_random")
 parser.add_argument("--max_camera_movement", type=float, default=4.0)
 parser.add_argument("--max_motion_blur", type=float, default=0.0)
@@ -128,6 +129,37 @@ def get_linear_camera_motion_start_end(
         camera_end[2] > z_offset):
       return camera_start, camera_end
 
+def get_linear_lookat_motion_start_end(
+    inner_radius: float = 1.0,
+    outer_radius: float = 4.0,
+):
+  """Sample a linear path which goes through the workspace center."""
+  while True:
+    # Sample a point near the workspace center that the path travels through
+    camera_through = np.array(
+        kb.sample_point_in_half_sphere_shell(0.0, inner_radius, 0.0)
+    )
+    while True:
+      # Sample one endpoint of the trajectory
+      camera_start = np.array(
+          kb.sample_point_in_half_sphere_shell(0.0, outer_radius, 0.0)
+      )
+      if camera_start[-1] < inner_radius:
+        break
+
+    # Continue the trajectory beyond the point in the workspace center, so the
+    # final path passes through that point.
+    continuation = rng.rand(1) * 0.5
+    camera_end = camera_through + continuation * (camera_through - camera_start)
+
+    # Second point will probably be closer to the workspace center than the
+    # first point.  Get extra augmentation by randomly swapping first and last.
+    if rng.rand(1)[0] < 0.5:
+      tmp = camera_start
+      camera_start = camera_end
+      camera_end = tmp
+    return camera_start, camera_end
+
 
 # Camera
 logging.info("Setting up the Camera...")
@@ -136,10 +168,19 @@ if FLAGS.camera == "fixed_random":
   scene.camera.position = kb.sample_point_in_half_sphere_shell(
       inner_radius=7., outer_radius=9., offset=0.1)
   scene.camera.look_at((0, 0, 0))
-elif FLAGS.camera == "linear_movement":
+elif (
+    FLAGS.camera == "linear_movement"
+    or FLAGS.camera == "linear_movement_linear_lookat"
+):
+
+  is_panning = FLAGS.camera == "linear_movement_linear_lookat"
+  camera_inner_radius = 6.0 if is_panning else 8.0
   camera_start, camera_end = get_linear_camera_motion_start_end(
       movement_speed=rng.uniform(low=0., high=FLAGS.max_camera_movement)
   )
+  if is_panning:
+    lookat_start, lookat_end = get_linear_lookat_motion_start_end()
+
   # linearly interpolate the camera position between these two points
   # while keeping it focused on the center of the scene
   # we start one frame early and end one frame late to ensure that
@@ -149,7 +190,13 @@ elif FLAGS.camera == "linear_movement":
               (FLAGS.frame_end - FLAGS.frame_start + 3))
     scene.camera.position = (interp * np.array(camera_start) +
                              (1 - interp) * np.array(camera_end))
-    scene.camera.look_at((0, 0, 0))
+    if is_panning:
+      scene.camera.look_at(
+          interp * np.array(lookat_start)
+          + (1 - interp) * np.array(lookat_end)
+      )
+    else:
+      scene.camera.look_at((0, 0, 0))
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
 

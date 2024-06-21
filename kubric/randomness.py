@@ -1,4 +1,4 @@
-# Copyright 2022 The Kubric Authors.
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """Utilities to generate randomly generated quantities (rotations, positions, colors)."""
 
 import numpy as np
@@ -83,7 +84,7 @@ def rotation_sampler(axis=None):
 
 def bottom_sampler(region):
   """Sample positions at the bottom of a region"""
-  region = np.array(region, dtype=np.float)
+  region = np.array(region, dtype=np.float32)
 
   def _sampler(obj: objects.PhysicalObject, rng):
     obj.position = (0, 0, 0)  # reset position to origin
@@ -95,7 +96,7 @@ def bottom_sampler(region):
 
 
 def position_sampler(region):
-  region = np.array(region, dtype=np.float)
+  region = np.array(region, dtype=np.float32)
 
   def _sampler(obj: objects.PhysicalObject, rng):
     obj.position = (0, 0, 0)  # reset position to origin

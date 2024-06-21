@@ -26,7 +26,7 @@ cat > /tmp/hypertune.yml << EOF
       hyperparameterMetricTag: "answer"
       maxTrials: $NR_VIDEOS
       maxParallelTrials: $NR_WORKERS
-      maxFailedTrials: 100
+      maxFailedTrials: 10
       enableTrialEarlyStopping: False
 
       # --- each of these become an argparse argument
@@ -34,7 +34,7 @@ cat > /tmp/hypertune.yml << EOF
       - parameterName: seed
         type: INTEGER
         minValue: 0
-        maxValue: 52423
+        maxValue: 10
 EOF
 
 

@@ -1,4 +1,4 @@
-# Copyright 2022 The Kubric Authors.
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """Kubric objects."""
 
 import itertools
@@ -244,7 +245,7 @@ class PhysicalObject(Object3D):
   @property
   def bbox_3d(self):
     """ 3D bounding box as an array of 8 corners (shape = [8, 3])"""
-    bounds = np.array(self.bounds, dtype=np.float)
+    bounds = np.array(self.bounds, dtype=np.float32)
     # scale bounds:
     bounds *= self.scale
     # construct list of bbox corners
@@ -283,5 +284,10 @@ class FileBasedObject(PhysicalObject):
   simulation_filename = tl.Unicode(allow_none=True)
   render_filename = tl.Unicode(allow_none=True)
   render_import_kwargs = tl.Dict(key_trait=tl.ObjectName())
+
+  # If true, applies the transform to all loaded nodes after loading the GLB.
+  # This makes loading GLB files reproduce the expected workflow of Blender in
+  # UI, minus a 90 degree X-axis rotation applied after loading.
+  glb_do_transform_apply_after_import = tl.Bool(False)
 
   # TODO: trigger error when changing filenames or asset-id after the fact

@@ -1,16 +1,17 @@
-# Copyright 2022 The Kubric Authors
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 # pylint: disable=line-too-long, unexpected-keyword-arg
 """TODO(klausg): description."""
 import json
@@ -55,9 +56,9 @@ def load_scene_directory(scene_dir, target_size, layers=DEFAULT_LAYERS):
 
   resolution = metadata["metadata"]["resolution"]
 
-  assert resolution[0] / target_size[0] == resolution[1] / target_size[1]
-  scale = resolution[0] / target_size[0]
-  assert scale == resolution[0] // target_size[0]
+  assert resolution[1] / target_size[0] == resolution[0] / target_size[1]
+  scale = resolution[1] / target_size[0]
+  assert scale == resolution[1] // target_size[0]
 
   paths = {
       key: [scene_dir / f"{key}_{f:05d}.png" for f in range(num_frames)]

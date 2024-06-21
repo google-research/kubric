@@ -1,4 +1,4 @@
-# Copyright 2022 The Kubric Authors.
+# Copyright 2024 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class Scene(tl.HasTraits):
     * frame_end
     * frame_rate
     * step_rate
-    * resolution
+    * resolution  (width, height)
     * gravity
     * camera
     * global_illumination
