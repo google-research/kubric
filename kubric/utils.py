@@ -28,7 +28,7 @@ import tempfile
 from etils import epath
 import numpy as np
 
-from kubric import core
+from kubric.core import scene as kubric_scene
 from kubric import file_io
 
 logger = logging.getLogger(__name__)
@@ -95,7 +95,7 @@ def setup(flags):
 
   seed = flags.seed if flags.seed else np.random.randint(0, 2147483647)
   rng = np.random.RandomState(seed=seed)
-  scene = core.scene.Scene.from_flags(flags)
+  scene = kubric_scene.Scene.from_flags(flags)
   scene.metadata["seed"] = seed
 
   scratch_dir, output_dir = setup_directories(flags)

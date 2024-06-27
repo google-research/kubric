@@ -17,7 +17,7 @@ import traitlets as tl
 from kubric.core import traits as ktl
 from kubric.core import assets
 from kubric.core.assets import UndefinedAsset
-from kubric import core
+from kubric.core import color as core_color
 
 
 class Material(assets.Asset):
@@ -30,7 +30,7 @@ class UndefinedMaterial(Material, UndefinedAsset):
 
 class PrincipledBSDFMaterial(Material):
   """A physically based material suited for uniform colored plastic, rubber, metal, glass, etc..."""
-  color = ktl.RGBA(default_value=core.color.get_color("white"))
+  color = ktl.RGBA(default_value=core_color.get_color("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
   specular_tint = tl.Float(0.)
@@ -38,7 +38,7 @@ class PrincipledBSDFMaterial(Material):
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
   transmission_roughness = tl.Float(0)
-  emission = ktl.RGBA(default_value=core.color.get_color("black"))
+  emission = ktl.RGBA(default_value=core_color.get_color("black"))
 
 
 class FlatMaterial(Material):
@@ -50,7 +50,7 @@ class FlatMaterial(Material):
   The indirect_visibility flag controls if the object casts shadows, can be seen in reflections and
   emits light.
   """
-  color = ktl.RGBA(default_value=core.color.get_color("white"))
+  color = ktl.RGBA(default_value=core_color.get_color("white"))
   holdout = tl.Bool(False)
   indirect_visibility = tl.Bool(True)
 

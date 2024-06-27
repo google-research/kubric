@@ -16,7 +16,6 @@ from typing import Tuple, Union, List
 
 import traitlets as tl
 
-import kubric  # pylint: disable=unused-import
 from kubric.utils import next_global_count
 from kubric.core import color
 from kubric.core import traits as ktl
