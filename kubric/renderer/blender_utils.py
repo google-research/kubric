@@ -289,7 +289,11 @@ def replace_cryptomatte_hashes_by_asset_index(
   new_segmentation_ids = np.zeros_like(segmentation_ids)
   for idx, asset in enumerate(assets, start=1):
     asset_hash = mm3hash(asset.uid)
-    new_segmentation_ids[segmentation_ids == asset_hash] = idx
+    if hasattr(asset, "segmentation_id") and asset.segmentation_id is not None:
+      uid = asset.segmentation_id
+    else:
+      uid = idx
+    new_segmentation_ids[segmentation_ids == asset_hash] = uid
   return new_segmentation_ids
 
 
@@ -472,5 +476,3 @@ def process_rgba(exr_layers, scene):  # pylint: disable=unused-argument
 
 def process_rgb(exr_layers, scene):  # pylint: disable=unused-argument
   return exr_layers["rgba"][..., :3]
-
-
