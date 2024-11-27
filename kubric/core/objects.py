@@ -284,4 +284,11 @@ class FileBasedObject(PhysicalObject):
   # UI, minus a 90 degree X-axis rotation applied after loading.
   glb_do_transform_apply_after_import = tl.Bool(False)
 
+  # If true, uses a parenting approach instead of a join so that the asset
+  # represents a top-level Empty node in the scene. All existing objects
+  # without parents will be parented to this object. Any transform applied to
+  # this object will be applied to all children. For more details, see
+  # https://docs.blender.org/manual/en/latest/scene_layout/object/editing/parent.html
+  use_parenting_instead_of_join = tl.Bool(False)
+
   # TODO: trigger error when changing filenames or asset-id after the fact
