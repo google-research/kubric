@@ -1,17 +1,3 @@
-# Copyright 2024 The Kubric Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import collections
 from contextlib import redirect_stdout
 import functools
@@ -36,9 +22,16 @@ import tensorflow as tf
 logger = logging.getLogger(__name__)
 
 
-def add_top_level_empty_parent() -> Any:
-  """Adds an empty parent to scene and makes it the parent of all objects."""
-  parent_obj = bpy.data.objects.new("Empty", None)
+def add_top_level_empty_parent(name: str = "Empty") -> bpy.types.Object:
+  """Adds an empty parent to scene and makes it the parent of all objects.
+
+  Args:
+    name: The name of the empty parent.
+
+  Returns:
+    The newly created empty parent.
+  """
+  parent_obj = bpy.data.objects.new(name, None)
   parent_obj.rotation_mode = "QUATERNION"
   bpy.context.scene.collection.objects.link(parent_obj)
   for obj in bpy.context.scene.objects:
@@ -434,7 +427,7 @@ class Blender(core.View):
               )
 
             if obj.use_parenting_instead_of_join:
-              parent_obj = add_top_level_empty_parent()
+              parent_obj = add_top_level_empty_parent(obj.uid)
               bpy.ops.object.select_all(action="DESELECT")
               parent_obj.select_set(state=True)
             else:
