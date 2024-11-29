@@ -284,4 +284,22 @@ class FileBasedObject(PhysicalObject):
   # UI, minus a 90 degree X-axis rotation applied after loading.
   glb_do_transform_apply_after_import = tl.Bool(False)
 
+  # If true, uses a parenting approach instead of a join so that the asset
+  # represents a top-level Empty node in the scene. All existing objects
+  # without parents will be parented to this object. Any transform applied to
+  # this object will be applied to all children. For more details, see
+  # https://docs.blender.org/manual/en/latest/scene_layout/object/editing/parent.html
+  #
+  # Parenting avoids destroying things like animations and can preven
+  # accidental deletion of objects from the scene.
+  #
+  # This will break certain features of kubric like assigning meterials to
+  # assets or other functions that expect the asset to be a mesh. For
+  # example, when assigning segmentation_ids you may want to reconstruct
+  # kb.Asset recursively on the top-level empty and set the `segmentation_id`.
+  # Also when used with PyBullet for simulations, the non-animated collision
+  # mesh is used which can lead to unexpected behavior when an animated object
+  # is used in a physics simulation.
+  use_parenting_instead_of_join = tl.Bool(False)
+
   # TODO: trigger error when changing filenames or asset-id after the fact
