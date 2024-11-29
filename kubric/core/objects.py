@@ -1,17 +1,3 @@
-# Copyright 2024 The Kubric Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 """Kubric objects."""
 
 import itertools
@@ -289,6 +275,15 @@ class FileBasedObject(PhysicalObject):
   # without parents will be parented to this object. Any transform applied to
   # this object will be applied to all children. For more details, see
   # https://docs.blender.org/manual/en/latest/scene_layout/object/editing/parent.html
+  #
+  # Parenting avoids destroying things like animations and can preven
+  # accidental deletion of objects from the scene.
+  #
+  # This will break certain features of kubric like assigning meterials to
+  # assets or other functions that expect the asset to be a mesh. Also
+  # when used with PyBullet for simulations, the non-animated collision mesh is
+  # used which can lead to unexpected behavior when an animated object is used
+  # in a physics simulation.
   use_parenting_instead_of_join = tl.Bool(False)
 
   # TODO: trigger error when changing filenames or asset-id after the fact
