@@ -429,6 +429,11 @@ class Blender(core.View):
             bpy.ops.import_scene.obj(filepath=obj.render_filename,
                                      use_split_objects=False,
                                      **obj.render_import_kwargs)
+          elif extension in ["usd", "udsa", "usdz", "usdc"]:
+            bpy.ops.wm.usd_import(filepath=obj.render_filename)
+            parent_obj = add_top_level_empty_parent(obj.uid)
+            bpy.ops.object.select_all(action="DESELECT")
+            parent_obj.select_set(state=True)
           elif extension in ["glb", "gltf"]:
             bpy.ops.import_scene.gltf(filepath=obj.render_filename,
                                       **obj.render_import_kwargs)
