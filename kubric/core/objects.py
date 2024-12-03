@@ -124,6 +124,7 @@ class Object3D(assets.Asset):
                up="Y", front="-Z", look_at=None, euler=None, **kwargs):
     if look_at is not None:
       assert quaternion is None and euler is None
+      self.lookat = look_at
       quaternion = look_at_quat(position, look_at, up, front)
     elif euler is not None:
       assert look_at is None and quaternion is None
@@ -136,6 +137,11 @@ class Object3D(assets.Asset):
 
   def look_at(self, target):
     self.quaternion = look_at_quat(self.position, target, self.up, self.front)
+
+  def set_position(self, value):
+    self.position = value
+    self.look_at(self.lookat)
+    return None
 
   @property
   def rotation_matrix(self):
