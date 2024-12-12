@@ -45,7 +45,6 @@ Kubric employs **Blender 2.93** (see [here](https://github.com/google-research/k
 - Access to rich ground truth information about the objects in a scene for the purpose of evaluation (eg. object segmentations and properties)
 - Control the train/test split to evaluate compositionality and systematic generalization (for example on held-out combinations of features or objects)
 
-
 ## Challenges and datasets
 Generally, we store datasets for the challenges in this [Google Cloud Bucket](https://console.cloud.google.com/storage/browser/kubric-public).
 More specifically, these challenges are *dataset contributions* of the Kubric CVPR'22 paper:
@@ -59,6 +58,7 @@ More specifically, these challenges are *dataset contributions* of the Kubric CV
 * [Single View Reconstruction](challenges/single_view_reconstruction)
 * [Video Based Reconstruction](challenges/video_based_reconstruction)
 * [Point Tracking](challenges/point_tracking)
+* [Dynamic NeRF](challenges/dynamic_nerf)
 
 Pointers to additional datasets/workers:
 * [ToyBox (from Neural Semantic Fields)](https://nesf3d.github.io)

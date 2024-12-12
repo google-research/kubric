@@ -248,6 +248,9 @@ class Blender(core.View):
     path.parent.mkdir(parents=True, exist_ok=True)  # ensure directory exists
     logger.info("Saving '%s'", path)
     tf.io.gfile.copy(tmp_path, path, overwrite=True)
+  
+  def load_state(self, path: PathLike):
+    bpy.ops.wm.open_mainfile(filepath=path)
 
   def render(self,
              frames: Optional[Sequence[int]] = None,
@@ -278,8 +281,10 @@ class Blender(core.View):
         - "normal": shape = (nr_frames, height, width, 3) (uint16)
     """
     logger.info("Using scratch rendering folder: '%s'", self.scratch_dir)
-    if not ignore_missing_textures:
-      self._check_missing_textures()
+    missing_textures = sorted({img.filepath for img in bpy.data.images
+                               if tuple(img.size) == (0, 0) or len(img.filepath)>1})
+    if missing_textures and not ignore_missing_textures:
+      raise RuntimeError(f"Missing textures: {missing_textures}")
     self.set_exr_output_path(self.scratch_dir / "exr" / "frame_")
     # --- starts rendering
     if frames is None:
@@ -371,6 +376,9 @@ class Blender(core.View):
       else:
         logger.info("Loading scene from '%s'", custom_scene)
         bpy.ops.wm.open_mainfile(filepath=custom_scene)
+        dirname = os.path.dirname(custom_scene)
+        for img in bpy.data.images:
+          img.filepath = img.filepath.replace("//", dirname + "/")
 
   @functools.singledispatchmethod
   def add_asset(self, asset: core.Asset) -> Any:
@@ -799,7 +807,6 @@ class AttributeSetter:
     if self.converter:
       # use converter if given
       new_value = self.converter(new_value)
-
     setattr(self.blender_obj, self.attribute, new_value)
 
 

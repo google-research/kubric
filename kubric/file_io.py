@@ -256,11 +256,11 @@ def write_normal_batch(data, directory, file_template="normal_{:05d}.png", max_w
   multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
 
 
-def write_coordinates_batch(data, directory, file_template="object_coordinates_{:05d}.png",
+def write_coordinates_batch(data, directory, file_template="object_coordinates_{:05d}.tiff",
                             max_write_threads=16):
   assert data.ndim == 4 and data.shape[-1] == 3, data.shape
   path_template = str(as_path(directory) / file_template)
-  multi_write_image(data, path_template, write_fn=write_png, max_write_threads=max_write_threads)
+  multi_write_image(data, path_template, write_fn=write_tiff, max_write_threads=max_write_threads)
 
 
 def write_depth_batch(data, directory, file_template="depth_{:05d}.tiff", max_write_threads=16):

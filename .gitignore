@@ -4,6 +4,7 @@
 *.bullet
 .vscode/settings.json
 output/*
+output_tmp/*
 docs/_build
 .idea
 **/.ipynb_checkpoints
@@ -14,5 +15,6 @@ dist/
 *.blend*
 shapenet2kubric/shapenet2kubric.log
 examples/KuBasic/Cone/*
+examples/KuBasic/rain*/*
 Dockerfile
 output_tmp/*
