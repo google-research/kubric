@@ -1,21 +1,28 @@
 native_shapenet_assets:
   bench:
+    asset_id: "02828884/a73601ecef6e3cf9f155d75bbf62b80"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [1.5, 1.5, 1.5]
+    axis_aligned_half_extent: [0.66046348, 0.22015424, 0.28620075]
   pot: 
+    asset_id: "03991062/b384f62a88a2e5a8a127ca53341bcf9e"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [1.0, 1.0, 1.0]
+    axis_aligned_half_extent: [0.320213, 0.32021299, 0.216202]
   table:
+    asset_id: "04379243/ce1c3321de30433b16ec4c6284dcbcbe"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [1.0, 1.0, 1.0]
+    axis_aligned_half_extent: [0.288324, 0.288324, 0.294558]
   chair:
+    asset_id: "03001627/f3fa7bd00b76f6a87a8a6b9421844d96"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [1.0, 1.0, 1.0]
-
+    axis_aligned_half_extent: [0.20776901, 0.24758101, 0.384435]
 
 non_native_shapenet_assets:
   birdhouse:
@@ -23,20 +30,23 @@ non_native_shapenet_assets:
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [0.5, 0.5, 0.5]
+    axis_aligned_half_extent: [0.11663825, 0.16098425, 0.15423275]
 
   trashcan: 
     asset_id: "02747177/71f3b101a6d47811cb2a965e75be701c"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [1.0, 1.0, 1.0]
+    axis_aligned_half_extent: [0.265243, 0.26524849, 0.3365115]
 
   suv: 
     asset_id: "02958343/b18899d2b002ce0f80360680c1602c7d"
     location: [0.0, 0.0, 0.0]
     rotation: [0.0, 0.0, 0.0]
     scale: [2.5, 2.5, 2.5]
-  # willow:
-  #   asset_id: "10589027d90f301837f13e87016bccd1"
-  #   location: [0.0, 0.0, 0.0]
-  #   rotation: [0.0, 0.0, 0.0]
-  #   scale: [0.5, 0.5, 0.5]
+
+  tree:
+    axis_aligned_half_extent: [0.15, 0.15, 2.0]
+
+  rock:
+    axis_aligned_half_extent: [0.25, 0.25, 0.25]

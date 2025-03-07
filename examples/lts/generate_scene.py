@@ -190,6 +190,7 @@ for frame in range(1):
                 obj.position = obj.position - np.array([0, 0, obj.aabbox[0][2]]) 
 
                 scene.add(obj)
+
                 selected_objects.append(obj)
                 logging.info(f"selected '{asset_id}' from category '{category}'")
 
@@ -214,6 +215,7 @@ for frame in range(1):
                 scene.add(obj)
                 selected_objects.append(obj)
                 logging.info(f"selected '{asset_id}' from category '{category}'")
+
 
                 # Add a wooden cylinder column for birdhouse
                 if category == "birdhouse":
