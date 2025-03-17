@@ -161,6 +161,7 @@ for frame in range(1):
 
 
             obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
+            obj.quaternion = kb.Quaternion(axis=[0, 0, 1], degrees=asset_info["yaw"]) * obj.quaternion
             obj.scale = asset_info["scale"]
             obj.position = np.array(position)
             obj.position = obj.position - np.array([0, 0, obj.aabbox[0][2]]) 
@@ -176,6 +177,18 @@ for frame in range(1):
             add_cylinder_at_object(scene, obj)
             selected_objects[key] = obj
             logging.info(f"selected '{asset_id}' from category '{key}'")
+
+    # Add another bench rotated 90 degrees
+    new_bench_info = assets["native_shapenet_assets"]["bench"]
+    new_bench_id = new_bench_info["asset_id"]
+    new_bench = shapenet.create(asset_id=new_bench_id)
+    new_bench.scale = assets["native_shapenet_assets"]["bench"]["scale"]
+    new_bench.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
+    new_bench.quaternion =  kb.Quaternion(axis=[0, 0, 1], degrees=90) * new_bench.quaternion 
+    new_bench.position = np.array([0, 0, 0])
+    new_bench.position = new_bench.position - np.array([0, 0, new_bench.aabbox[0][2]])
+    scene += new_bench
+    add_cylinder_at_object(scene, new_bench)
 
 
 

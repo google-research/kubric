@@ -31,7 +31,7 @@ class SceneGenerationArgumentParser(ArgumentParser):
     super().__init__(*args, **kwargs)
 
     # --- default arguments for kubric
-    self.add_argument("--scene-filename", type=str, default="/kubric/examples/lts/scenarios/scene1.txt")
+    self.add_argument("--scene-filename", type=str, default="/kubric/examples/lts/scenarios/scene1/keypoints.txt")
     # self.add_argument("--job-dir", type=str, default="/home/jlidard/kubric/examples/lts/test_jobs",
     #                   help="target directory for storing the worker output (default: ./output)")
 
@@ -176,10 +176,8 @@ for frame in range(1):
                 asset_info = assets["native_shapenet_assets"][category]
                 # rotation = asset_info["rotation"]
 
-                asset_ids = [name for name, spec in shapenet._assets.items()
-                            if spec["metadata"]["category"].lower() == category.lower()]
+                asset_id = asset_info["asset_id"]
 
-                asset_id = rng.choice(asset_ids)
                 obj = shapenet.create(asset_id=asset_id)
 
                 obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
