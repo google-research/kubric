@@ -23,6 +23,7 @@ from kubric.renderer import Blender
 import yaml
 
 from kubric.utils import ArgumentParser
+from pprint import pprint
 
 class SceneGenerationArgumentParser(ArgumentParser):
   """An argumentparser with default options, and compatibility with the Blender REPL."""
@@ -57,10 +58,12 @@ with open(scene_filename, 'r') as file:
     scene_data = yaml.safe_load(file)
 
 instruction = scene_data["prompt"]
-geometry = {}
-for k,v in scene_data["observation"].items():
-    geometry[v["semantic_label"].lower() + "_" + k] = np.array(v["center"])
-print(geometry)
+geometry = scene_data["observation"]
+for k, v in geometry.items():
+    for k1, v1 in v.items():
+        geometry[k][k1] = np.array(v1)
+print('Geometry:')
+pprint(geometry)
 objects = scene_data
 
 # get intrinsics from blender
@@ -138,7 +141,7 @@ for frame in range(1):
     # add tree if requested
     for key in geometry.keys():
         if key.startswith("tree_"):
-            position = geometry[key]
+            position = geometry[key]["center"]
             obj = kb.FileBasedObject(
                 asset_id="custom", 
                 render_filename="/kubric/examples/lts/assets/tree/ImageToStl.com_model.obj", 
@@ -153,7 +156,7 @@ for frame in range(1):
 
         # add rock if requested
         if key.startswith("rock_"):
-            position = geometry[key]
+            position = geometry[key]["center"]
             obj = kb.FileBasedObject(
                 asset_id="custom", 
                 render_filename="/kubric/examples/lts/assets/rock/qroz9y5c1c6e.obj", 
@@ -162,6 +165,7 @@ for frame in range(1):
             )
             obj.scale = (0.1, 0.1, 0.1)
             obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
+
             # put the centroid of the box in a random position on the ground using the aabbox
             obj.position = position
             obj.position = obj.position - np.array([0, 0, obj.aabbox[0][2]]) 
@@ -172,7 +176,9 @@ for frame in range(1):
         for category in categories:
             print(category, key)
             if key.startswith(category):
-                position = geometry[key]
+                position = geometry[key]["center"]
+                yaw = geometry[key]["theta"]
+
                 asset_info = assets["native_shapenet_assets"][category]
                 # rotation = asset_info["rotation"]
 
@@ -181,6 +187,8 @@ for frame in range(1):
                 obj = shapenet.create(asset_id=asset_id)
 
                 obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
+                obj.quaternion = kb.Quaternion(axis=[0, 0, 1], degrees=yaw) * obj.quaternion
+
                 obj.scale = asset_info["scale"]  # Scale the object
                 obj.position = np.array(position)
 
@@ -194,13 +202,16 @@ for frame in range(1):
 
         for category in nonnative_categories:
             if key.startswith(category):
-                position = geometry[key]
+                position = geometry[key]["center"]
+                yaw = geometry[key]["theta"]
                 asset_info = assets["non_native_shapenet_assets"][category]
                 # rotation = asset_info["rotation"]
 
                 asset_id = asset_info["asset_id"]
                 obj = shapenet.create(asset_id=asset_id)
                 obj.quaternion = kb.Quaternion(axis=[1, 0, 0], degrees=90)
+                obj.quaternion = kb.Quaternion(axis=[0, 0, 1], degrees=yaw) * obj.quaternion
+
                 obj.scale = asset_info["scale"]  # Scale the object
                 obj.position = np.array(position) 
 
