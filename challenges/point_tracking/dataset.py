@@ -940,6 +940,9 @@ def add_tracks(data,
   relative_depth.set_shape([tracks_to_sample, num_frames])
   occluded.set_shape([tracks_to_sample, num_frames])
 
+  query_points *= [1, train_size[0] / shp[1], train_size[1] / shp[2]]
+  target_points *= [train_size[1] / shp[2], train_size[0] / shp[1]]
+
   # Crop the video to the sampled window, in a way which matches the coordinate
   # frame produced the track_points functions.
   start = tf.tensor_scatter_nd_update(
