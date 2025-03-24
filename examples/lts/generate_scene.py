@@ -140,7 +140,7 @@ for frame in range(1):
 
     # add tree if requested
     for key in geometry.keys():
-        if key.startswith("tree_"):
+        if key.lower().startswith("tree"):
             position = geometry[key]["center"]
             obj = kb.FileBasedObject(
                 asset_id="custom", 
@@ -155,7 +155,7 @@ for frame in range(1):
             scene += obj
 
         # add rock if requested
-        if key.startswith("rock_"):
+        if key.lower().startswith("rock"):
             position = geometry[key]["center"]
             obj = kb.FileBasedObject(
                 asset_id="custom", 
