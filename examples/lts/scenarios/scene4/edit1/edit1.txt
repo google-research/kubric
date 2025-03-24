@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.3, 0.3, 0.5),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a wall that hides the thing in the background',
+  description = 'Instructions: Use the provided example scene description to output a formatted version of the scene...',
+  initial_design = Design(
+    structures = {
+      linear_wall_1 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 1.0,
+        orientation = 'y-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_wall_2 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 1.0,
+        orientation = 'y-axis'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'y-axis'
+        ),
+        edit_description = 'Move the wall to (1, 0)',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt indicates the new location for the wall, making it straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 2.0,
+          height = 1.0,
+          orientation = 'y-axis'
+        ),
+        edit_description = 'Increase height to 1 meter',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The change in height is explicitly stated in the prompt.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,120 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit needed to transform the initial linear structure into the design goal structure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to CurvyPath'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to QuarterWedge'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to Circular'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to Serpentine'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to SemiCircular'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "The correct edit changes the structure from Linear to Circular, matching the design goal's shape with the same center and radius.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the shape to Circular while maintaining the location and radius involves comprehending the geometric transformation.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct edit needed to complete the transformation to meet the design goal height requirement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Increase the height to 1 meter'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the radius to 1.5 meters'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Revert to Linear but increase the height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to Rectangular shape'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "This edit increases the structure's height to match the design goal's requirement while keeping its circular shape unchanged.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task involves adjusting only a single parameter, the height, which is straightforward once the shape is correctly set.'
+    )
+  ]
+)

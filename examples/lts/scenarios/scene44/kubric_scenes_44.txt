@@ -1,0 +1,96 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.3, 0.3, 0.5),
+      center = (1.0, -1.0, 0.25),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.5, 0.5, 1.0),
+      center = (0.0, 1.0, 0.5),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.5, 0.5, 1.0),
+      center = (-1.0, 0.0, 0.5),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Add a dynamic flow radiating around the collection, but keep it lively and open.',
+  description = 'This scene involves constructing a tri-wedge pattern to create a vibrant enclosure around two objects. The task requires understanding spatial relationships and interpreting geometric properties such as radius, height, and gap size to achieve the desired design goal. Additionally, the design of the structure needs to be adjusted to enhance the visual appeal around the objects.',
+  initial_design = Design(
+    structures = {
+      circular_structure = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.8,
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      tri_wedge_structure = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.6
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.6
+        ),
+        edit_description = 'Change the shape to tri-wedge to add a dynamic flow.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt suggests adding dynamic flow and liveliness, which implies changing the structure shape to something less static and more open.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.6
+        ),
+        edit_description = 'Adjust the radius to 1.5 meters for a snug fit around the objects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Adjusting the radius for a snug fit requires spatial reasoning and ensuring the new radius accommodates all objects comfortably within the design goal's radius."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.6
+        ),
+        edit_description = 'Increase the gap to 95 degrees to maintain openness and visibility.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Deciding on the gap size involves balancing openness while ensuring it doesn't compromise the structural integrity of the design."
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.6
+        ),
+        edit_description = 'Increase the height to 0.6 meters for enhanced visual impact.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Increasing the height to create visual impact requires judging the aesthetic requirements and interpreting the prompt for a striking appearance.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be made to shrink the radius to 2 meters?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 5.0,
+            height = 0.25
+          ),
+          edit_description = 'Shrink the radius to 2 meters',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Reducing the radius while considering spatial constraints requires moderate reasoning.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a circular design with radius 3 meters'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            orientation = 'top_half',
+            height = 0.25
+          ),
+          edit_description = 'Change to a semicircular design with radius 2.5 meters'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.25
+          ),
+          edit_description = 'Change to a serpentine path with adjusted dimensions'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a curvy path design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit involves correctly reducing the radius of the quarter wedge as described in the edit requirement, while retaining the correct gap degrees and height.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires understanding the spatial configuration and how radius reduction impacts the design, which involves moderate reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit should be made to widen the gaps to 20 degrees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 20.0,
+            height = 0.25
+          ),
+          edit_description = 'Widen the gaps to 20 degrees',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Adjusting the gap size is straightforward once the radius is set.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 10.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a tri-wedge design with different gap degrees'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.5,
+            inner_radius = 1.5,
+            orientation = 'top_half',
+            height = 0.25
+          ),
+          edit_description = 'Change to a semi-ring design'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.25,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change to a linear design along the x-axis'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_center = (0.5, 0.0, 0.0),
+            right_length = 1.5,
+            height = 0.25
+          ),
+          edit_description = 'Change to an L-shaped design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This modification correctly adjusts the gap degree to 20, completing the requirement of widening the gaps while maintaining the correct radius and height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This modification follows straightforward logic once the radius is set correctly, involving basic geometric manipulation.'
+    )
+  ]
+)

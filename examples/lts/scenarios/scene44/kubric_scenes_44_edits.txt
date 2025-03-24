@@ -1,0 +1,239 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be applied to change the shape of the structure to add a dynamic flow?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Change the shape to tri-wedge to add a dynamic flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            height = 0.4
+          ),
+          edit_description = 'Use a circular shape to maintain uniformity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Change shape to semi-circular for half coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 120.0,
+            height = 0.4
+          ),
+          edit_description = 'Use a quarter wedge for a minimalistic approach.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'up',
+            height = 0.6
+          ),
+          edit_description = 'Change to serpentine for winding aesthetics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The tri-wedge shape is desired to create the dynamic flow specified in the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests adding dynamic flow and liveliness, which implies changing the structure shape to something less static and more open.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit adjusts the radius to ensure a snug fit around the objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Adjust the radius to 1.5 meters for a snug fit around the objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the design radius to ensure more space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Decrease the radius to 1.3 meters for a tighter fit.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 100.0,
+            height = 0.6
+          ),
+          edit_description = 'Adjust the gap but not the radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.7,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Set the radius to 1.7 meters for a balanced fit.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the radius to 1.5 meters aligns with the goal of having a snug, yet functional, fit around the specific objects.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Adjusting the radius for a snug fit requires spatial reasoning and ensuring the new radius accommodates all objects comfortably within the design goal's radius."
+    ),
+    2 : EditMCQA(
+      question = 'What edit should be made to maintain openness and visibility of the design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the gap to 95 degrees to maintain openness and visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.6
+          ),
+          edit_description = 'Decrease the gap to reduce visibility.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 120.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the gap significantly to prioritize openness.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.6
+          ),
+          edit_description = 'Adjust the gap to a moderate opening.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 80.0,
+            height = 0.6
+          ),
+          edit_description = 'Narrow the gap for a compact design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the gap to 95 degrees ensures that the openness and visibility requirements are met as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Deciding on the gap size involves balancing openness while ensuring it doesn't compromise the structural integrity of the design."
+    ),
+    3 : EditMCQA(
+      question = "Which edit should be made to enhance the design's visual impact?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters for enhanced visual impact.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Maintain the height for standard appearance.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.8
+          ),
+          edit_description = 'Increase the height further for maximum impact.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Moderately increase the height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the height for a low-profile look.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height to 0.6 meters enhances the visual impact as described in the design requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Increasing the height to create visual impact requires judging the aesthetic requirements and interpreting the prompt for a striking appearance.'
+    )
+  ]
+)

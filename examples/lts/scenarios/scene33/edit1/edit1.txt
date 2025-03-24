@@ -1,0 +1,90 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'Chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 1.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'Chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create an inviting space that provides open views and gentle protection.',
+  description = 'This scene involves constructing a semi-circle structure to provide a sense of enclosure but allowing for open views. The design focuses on arranging chairs in a semi-circle around a central point, with a protective outer structure.',
+  initial_design = Design(
+    structures = {
+      initial_structure = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'bottom_half',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      goal_structure = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'top_half',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_structure',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'bottom_half',
+          height = 0.3
+        ),
+        edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The original description specified a semi-circle, so understanding the transition to a semi-ring required consideration of the prompt's goal for open and protected views."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_structure',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'bottom_half',
+          height = 0.5
+        ),
+        edit_description = 'Adjust the height to 0.5 meters for better presence.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Increasing the height is directly mentioned as a design goal for enhancing presence.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_structure',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'top_half',
+          height = 0.5
+        ),
+        edit_description = 'Orient the structure as the top_half to emphasize the open view.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The orientation change aligns with the design goal of maintaining an open view, as stated.'
+      )
+    ]
+  )
+)

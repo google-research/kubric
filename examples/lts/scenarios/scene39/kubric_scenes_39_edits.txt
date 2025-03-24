@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which structure was added to ensure stability and contrast for the table?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular1 = Rectangular(
+                center = (2.0, -1.0, 0.0),
+                length = 1.0,
+                width = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a Rectangular structure:\n- center: (2.0, -1.0, 0)\n- length: 1.0\n- width: 0.5\n- height: 0.3',
+          target_parameter = 'rectangular1'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular1 = Circular(
+                center = (2.1, -1.2, 0.0),
+                radius = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a Circular structure:\n- center: (2.1, -1.2, 0)\n- radius: 1.0\n- height: 0.3',
+          target_parameter = 'circular1'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              triWedge1 = TriWedge(
+                center = (2.5, -1.5, 0.0),
+                radius = 1.0,
+                gap_degrees = 30.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a TriWedge structure:\n- center: (2.5, -1.5, 0)\n- radius: 1.0\n- gap_degrees: 30.0\n- height: 0.3',
+          target_parameter = 'triWedge1'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semiRing1 = SemiRing(
+                center = (1.8, -1.3, 0.0),
+                outer_radius = 1.1,
+                inner_radius = 0.9,
+                orientation = 'top_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = "Introduce a SemiRing structure:\n- center: (1.8, -1.3, 0)\n- outer_radius: 1.1\n- inner_radius: 0.9\n- orientation: 'top_half'\n- height: 0.3",
+          target_parameter = 'semiRing1'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine1 = Serpentine(
+                left_arc_center = (2.0, -1.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'up',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = "Introduce a Serpentine structure:\n- left_arc_center: (2.0, -1.0, 0)\n- radius: 1.0\n- left_arc_orientation: 'up'\n- height: 0.3",
+          target_parameter = 'serpentine1'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct structure added to ensure stability and contrast for the table is the Rectangular structure, as described in Edit 1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt clearly indicates enhancing the table's stability, suggesting a rectangular structure is appropriate."
+    ),
+    1 : EditMCQA(
+      question = 'Which structure was moved to ensure visual balance around the birdhouse?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiCircular1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure to maintain visual balance:\n- New center: (-0.5, 0.5, 0)'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiCircular1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure:\n- New center: (0.5, -0.5, 0)'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiCircular1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.7, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure:\n- New center: (-0.7, 1.0, 0)'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiCircular1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure:\n- New center: (0.0, 2.0, 0)'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiCircular1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure:\n- New center: (1.0, 0.5, 0)'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves moving the existing SemiCircular structure to a new center at (-0.5, 0.5, 0.0) for better spatial harmony.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt requests balance, determining the exact coordinates requires interpretation of spatial harmony.'
+    )
+  ]
+)

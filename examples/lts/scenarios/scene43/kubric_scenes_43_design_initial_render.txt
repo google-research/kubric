@@ -1,0 +1,51 @@
+{
+    "prompt": "I want a meandering path around the compact garden area to maintain a sense of flow and openness.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "bench_1": {
+            "extent": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.25,
+            "keypoints": [
+                [
+                    0.0,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.0,
+                    -0.0,
+                    -2.75
+                ]
+            ]
+        }
+    ]
+}

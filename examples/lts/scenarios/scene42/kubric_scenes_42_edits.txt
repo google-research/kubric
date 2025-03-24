@@ -1,0 +1,117 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be made to change the shape for a more dynamic enclosure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_planter1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the shape to a TriWedge for a more dynamic enclosure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_planter1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the shape to a QuarterWedge.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_planter1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the radius for more space.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'circular_planter1',
+          edit_description = 'Remove the circular planter.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              additional_circular_planter = Circular(
+                center = (0.7, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add an additional circular planter.',
+          target_parameter = 'radius'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit is changing the shape from a circular planter to a TriWedge to align with the design goal of a more dynamic enclosure.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'It can be inferred from the goal of creating a dynamic and inviting space, but requires creativity.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit should be made to increase the height for better coverage?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'tri_wedge1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for better coverage.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'tri_wedge1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for better coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters for even more coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'tri_wedge1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the height to 0.3 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'tri_wedge1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the shape to a Circular and increase the height to 0.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit is increasing the height to 0.5 meters as specified in the edit description for better coverage.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly suggests increasing the height for better coverage.'
+    )
+  ]
+)

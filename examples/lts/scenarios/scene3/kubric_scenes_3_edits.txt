@@ -1,0 +1,189 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be applied to change the profile to a semi-ring?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to serpentine'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to curvy path'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to semi-ring'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to circular'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to rectangular'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The semi-ring profile aligns with the design goal for a crescent shape, providing protection from the wind.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt specifies a crescent shape; switching to a semi-ring for protection involves understanding this profile better meets the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit should be applied to increase the height from 0.3 to 0.75 meters?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.8
+          ),
+          edit_description = 'Increase the height to 0.8 meters'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.75
+          ),
+          edit_description = 'Increase the height from 0.3 to 0.75 meters'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height from 0.3 to 0.5 meters'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 45.0,
+            height = 0.75
+          ),
+          edit_description = 'Increase the height using a quarter wedge strategy'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.75
+          ),
+          edit_description = 'Increase the height using a rectangular design'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The edit increases the height from 0.3 to 0.75 meters exactly as stated in the 'edits' instructions.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The height increase is explicitly stated in the 'edits' instructions."
+    ),
+    2 : EditMCQA(
+      question = 'What edit applies to change the orientation to top_half to match the wind direction?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 1.0,
+            orientation = 'top_half',
+            height = 0.75
+          ),
+          edit_description = 'Change the orientation to top_half to match the wind direction'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.75
+          ),
+          edit_description = 'Change the orientation to bottom_half'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Retain semi-circular profile but orient to top_half'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change orientation using linear axis method'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.75
+          ),
+          edit_description = 'Retain curvy path methodology with top_half orientation'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Changing the orientation to top_half is necessary for better wind protection as indicated by the design instructions.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Changing the orientation is prompted by the need to match wind protection, directly aligning with the edits instructions.'
+    )
+  ]
+)

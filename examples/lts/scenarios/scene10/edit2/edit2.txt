@@ -1,0 +1,100 @@
+Scene(
+  objects = {
+    pot1 = SceneObject(
+      extent = (0.3, 0.3, 0.3),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot1'
+    ),
+    trashcan1 = SceneObject(
+      extent = (0.5, 0.5, 1.0),
+      center = (1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan1'
+    ),
+    pot2 = SceneObject(
+      extent = (0.3, 0.3, 0.3),
+      center = (-1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot2'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a balanced circular pattern around the pots and trashcan for an aesthetically pleasing design and coverage.',
+  description = 'This scene involves constructing a triple-circle pattern to provide coverage around pots and a trashcan, ensuring symmetry by aligning them equidistantly. The goal is to interpret geometric properties such as center, radius, and height to achieve the design goal while ensuring the pattern is evenly distributed. Edits are made to refine the positioning for a balanced layout while keeping within constraints.',
+  initial_design = Design(
+    structures = {
+      circular_planter_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        height = 0.25
+      ),
+      circular_planter_2 = Circular(
+        center = (1.5, 1.5, 0.0),
+        radius = 0.75,
+        height = 0.25
+      ),
+      circular_planter_3 = Circular(
+        center = (-1.5, 1.5, 0.0),
+        radius = 0.75,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_planter_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        height = 0.25
+      ),
+      circular_planter_2 = Circular(
+        center = (1.5, 1.5, 0.0),
+        radius = 0.75,
+        height = 0.25
+      ),
+      circular_planter_3 = Circular(
+        center = (-1.5, 1.5, 0.0),
+        radius = 0.75,
+        height = 0.25
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_planter_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.75,
+          height = 0.25
+        ),
+        edit_description = 'Increase radius of Circular planter 1 to 0.75 to expand coverage.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt clearly states the need for increased coverage, making radius adjustment straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_planter_2',
+        NewDesignStructure = Circular(
+          center = (1.5, 1.5, 0.0),
+          radius = 0.75,
+          height = 0.25
+        ),
+        edit_description = 'Adjust the position of Circular planter 2 to (1.5, 1.5) for better symmetry with the center on the trashcan.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding of symmetry and center alignment with scene objects.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_planter_3',
+        NewDesignStructure = Circular(
+          center = (-1.5, 1.5, 0.0),
+          radius = 0.75,
+          height = 0.25
+        ),
+        edit_description = 'Adjust the position of Circular planter 3 to (-1.5, 1.5) for better symmetry with the center on the pot.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Similar to planter 2, requires adjusting position based on spatial arrangement and symmetry.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,37 @@
+{
+    "prompt": "Build a protective wall-like structure around the trashcan, not exceeding the specified area dimensions.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.75,
+            "keypoints": [
+                [
+                    -0.5,
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.5,
+                    0.0,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

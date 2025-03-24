@@ -1,0 +1,55 @@
+{
+    "prompt": "Build a rectangular brick planter next to the tree",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.5,
+                -2.0,
+                -0.5
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -0.25,
+                    -0.0,
+                    2.5
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    2.5
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    1.5
+                ],
+                [
+                    -0.25,
+                    -0.0,
+                    1.5
+                ],
+                [
+                    -0.25,
+                    -0.0,
+                    2.5
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

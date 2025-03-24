@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.5, 0.5, 0.3),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Birdhouse'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.4, 0.4, 0.6),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Trashcan'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create an artistic wave barrier to wrap around these curiosities.',
+  description = 'This scene involves forming a wave-like barrier to provide shelter around the objects in an artistic way. It requires aligning the undulating structure in harmony with the birdhouse and trashcan while maintaining a consistent pattern for visual appeal.',
+  initial_design = Design(
+    structures = {
+      sinewave_1 = CurvyPath(
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 2.0,
+        phase = 0.5,
+        height = 0.6
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      sinewave_1 = CurvyPath(
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 2.0,
+        phase = 0.5,
+        height = 0.6
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 2.0,
+          phase = 0.5,
+          height = 0.6
+        ),
+        edit_description = 'Change the design type to a SineWave.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Moderate understanding of transitioning design structures from one type to another with a specific characteristic.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'sinewave_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 2.0,
+          phase = 0.5,
+          height = 0.6
+        ),
+        edit_description = 'Increase the height from 0.3 to 0.6 to provide adequate shelter.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The instruction to change the height is straightforward and requires a simple parameter modification.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'sinewave_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 2.0,
+          phase = 0.5,
+          height = 0.6
+        ),
+        edit_description = 'Adjust the wave to harmoniously envelop both the birdhouse and trashcan while keeping a pleasant artistic flow.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'It requires artistic understanding to align a wave with objects aesthetically, necessitating design skills.'
+      )
+    ]
+  )
+)

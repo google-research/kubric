@@ -1,0 +1,180 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which of the following changes were made to the initial design to achieve the new design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure profile to SineWave and adjust the starting point to (1, -1).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.0, -1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the structure to follow a different path with lesser wavelength.'
+        ),
+        C = DeleteStructureEdit(
+          design_id = 'structure1',
+          edit_description = 'Remove the existing Serpentine structure.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              structure2 = Circular(
+                center = (-1.0, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a new circular barrier around the chair.',
+          target_parameter = 'structures'
+        ),
+        E = ModifyObjectEdit(
+          object_id = 'pot_1',
+          new_object = SceneObject(
+            extent = (0.3, 0.3, 0.5),
+            center = (-0.5, -1.0, 0.0),
+            theta = 45.0,
+            semantic_label = 'pot'
+          ),
+          edit_description = 'Rotate and reposition the pot for aesthetic balance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct choice changes the structure profile and starting point as per the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The structure change and point alignment require interpreting the desired aesthetic from the description.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit aligns the structure better with the pot and chair?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, -1.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Align the serpentine structure to start at a vicinity favorable position with the pot.'
+        ),
+        B = ModifyObjectEdit(
+          object_id = 'chair_1',
+          new_object = SceneObject(
+            extent = (0.5, 0.5, 1.0),
+            center = (1.5, 0.5, 0.0),
+            theta = 90.0,
+            semantic_label = 'chair'
+          ),
+          edit_description = 'Move the chair further to the right to provide more space for the structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.5, 0.0),
+            amplitude = 0.35,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Introduced a new CurvyPath that does not optimally align with existing pot and chair.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Shift the structure to better align with the pot and chair.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'structure1',
+          edit_description = 'Remove the existing Serpentine structure for complete redesign.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'This option involves shifting the structure for optimal alignment with the pot and chair.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies alignment with existing objects.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit modifies the amplitude and height for visibility and style?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Modify amplitude and height for visibility and style.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Modify the serpentine structure to a smaller, more compact design.'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              structure3 = Rectangular(
+                center = (0.0, 0.5, 0.0),
+                length = 1.0,
+                width = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular block for additional support.',
+          target_parameter = 'structures'
+        ),
+        D = ModifyObjectEdit(
+          object_id = 'pot_1',
+          new_object = SceneObject(
+            extent = (0.4, 0.4, 0.6),
+            center = (-1.0, -0.8, 0.0),
+            theta = 0.0,
+            semantic_label = 'pot'
+          ),
+          edit_description = 'Increase the size of the pot for enhanced prominence.'
+        ),
+        E = DeleteObjectEdit(
+          object_id = 'chair_1',
+          edit_description = 'Remove the chair to create more space for the garden elements.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option modifies amplitude and height, directly aligning with the style and visibility enhancement goal.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Adjusting for style requires subjective interpretation of the look and functionality.'
+    )
+  ]
+)

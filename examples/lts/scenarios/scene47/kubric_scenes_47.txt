@@ -1,0 +1,81 @@
+Scene(
+  objects = {
+    table_0 = SceneObject(
+      extent = (0.5, 1.0, 0.5),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    bench_0 = SceneObject(
+      extent = (0.5, 1.0, 0.5),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a flowing barrier to distinguish the seating spaces without enclosing them completely. Keep the height moderate.',
+  description = 'This scene involves creating a wavy pattern to separate two seating areas around a communal object. The scene requires interpreting spatial relationships between objects and integrating a periodic design to achieve a specific pattern.',
+  initial_design = Design(
+    structures = {
+      design_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        amplitude = 0.25,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_1 = Serpentine(
+        left_arc_center = (-1.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'up',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile to serpentine.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "The prompt's requirement of a 'flowing barrier' strongly suggests aligning to a serpentine profile."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the radius to 0.5 to match the intended curvature.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Interpreting 'flowing barrier' to require specific curvature involves some spatial reasoning."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "The prompt specifies 'height moderate', making explicit that a slight increase in height aligns with the goal."
+      )
+    ]
+  )
+)

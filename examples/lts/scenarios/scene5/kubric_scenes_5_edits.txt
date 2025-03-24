@@ -1,0 +1,201 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct way to modify the scene by moving the first rectangle to its new position?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 1.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Move the first rectangle to (-2, 1)'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, -1.0, 0.5),
+            length = 1.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Move the first rectangle to (-2, -1)'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 1.0, 0.5),
+            length = 1.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Move the first rectangle to (2, 1)'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.5),
+            length = 1.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Move the first rectangle to the origin'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 2.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Move the first rectangle to (-2, 1) with new length'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes moving the first rectangle to the position (-2, 1) with existing length and width of 1m.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly states to reposition the first rectangle to (-2, 1), making this an easy modification task.'
+    ),
+    1 : EditMCQA(
+      question = 'How would you modify the scene to reduce the height of the first rectangle?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 1.9,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the height'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 1.0),
+            length = 1.9,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Keep the original height'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.25),
+            length = 1.9,
+            width = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Reduce the height to 0.25m'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 2.0,
+            width = 1.0,
+            height = 1.0
+          ),
+          edit_description = 'Change both length and height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 1.9,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the height and increase width'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly reduces the height to the specified 0.5m while keeping the other parameters intact.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need to adjust the height to 0.5m requires understanding the design goal for a two-layer garden space.'
+    ),
+    2 : EditMCQA(
+      question = 'Which option accurately describes adding a second rectangle?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_structure_2 = Rectangular(
+                center = (-2.0, -1.0, 0.1),
+                length = 1.9,
+                width = 1.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add another rectangle to (-2, -1) at the desired height',
+          target_parameter = 'height'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_structure_3 = Rectangular(
+                center = (-2.0, 1.0, 0.1),
+                length = 1.9,
+                width = 1.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add another rectangle at wrong center',
+          target_parameter = 'height'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_structure_2 = Rectangular(
+                center = (0.0, 0.0, 0.1),
+                length = 1.9,
+                width = 1.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add another rectangle at the origin',
+          target_parameter = 'height'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_structure_2 = Rectangular(
+                center = (-2.0, -1.0, 0.5),
+                length = 1.9,
+                width = 1.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add another rectangle with wrong height',
+          target_parameter = 'height'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_structure_2 = Rectangular(
+                center = (-2.0, -1.0, 0.1),
+                length = 2.0,
+                width = 1.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add another rectangle with incorrect length',
+          target_parameter = 'height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately describes adding the second rectangle with the specified parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Aligning the second structure to meet height requirements and spatial relationship in design can involve intermediate spatial reasoning.'
+    )
+  ]
+)

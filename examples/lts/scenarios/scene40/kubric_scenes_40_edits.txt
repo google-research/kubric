@@ -1,0 +1,120 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change is required to the initial design to complete the first edit in the desired scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a TriWedge design.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'up',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a Serpentine design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height of the circular structure to 0.4 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a SemiCircular design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 45.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a QuarterWedge design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The initial edit specifies changing the shape to a TriWedge design with the same radius and height.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires transforming the entire structural shape and understanding the properties of a TriWedge.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification must be applied for the second edit in the design to achieve the goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height to 0.4 meters to meet the desired vibe criteria.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the height to 0.2 meters for closer comfort.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the radius to 1.8 meters to extend coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Change the shape to a Circular design with increased height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the shape to a QuarterWedge design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit involves adjusting the height from the initial 0.2 meters to the desired 0.4 meters as specified.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change is a straightforward parameter adjustment, only modifying the height.'
+    )
+  ]
+)

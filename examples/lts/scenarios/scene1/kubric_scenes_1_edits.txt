@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the path to meet the design goal?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -1.5, 0.0),
+            close_curve_leftmost_point = (0.5, -1.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a curvy path',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'The prompt clearly describes changing the path to follow a curvy pattern.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.75, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'up',
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to keep the serpentine design'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              additional_path = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 2.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a linear path as an additional structure',
+          target_parameter = 'length'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'path',
+          edit_description = 'Remove the path entirely'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a circular path'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification was to change the path structure to a curvy pattern, as stated in both the edit description and the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly instructs changing the path to a curvy pattern, making it easy to deduce the correct modification.'
+    )
+  ]
+)

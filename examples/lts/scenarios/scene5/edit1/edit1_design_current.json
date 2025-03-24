@@ -1,0 +1,55 @@
+{
+    "prompt": "Build a two-layer garden space where I can grow herbs behind the place to sit. Keep the height below a meter.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                1.5,
+                0.5,
+                1.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.5
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -2.5,
+                    0.050000000000000044,
+                    0.5
+                ],
+                [
+                    -2.5,
+                    1.95,
+                    0.5
+                ],
+                [
+                    -1.5,
+                    1.95,
+                    0.5
+                ],
+                [
+                    -1.5,
+                    0.050000000000000044,
+                    0.5
+                ],
+                [
+                    -2.5,
+                    0.050000000000000044,
+                    0.5
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

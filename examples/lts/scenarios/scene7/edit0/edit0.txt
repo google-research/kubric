@@ -1,0 +1,97 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, -3.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, -2.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, -1.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_4 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, 0.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_5 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, 1.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_6 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, 2.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_7 = SceneObject(
+      extent = (0.5, 0.5, 3.0),
+      center = (0.0, 3.0, 1.5),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Add some extra privacy beneath the trees without limiting my yard space too much',
+  description = 'This scene involves understanding spatial relationships, such as positioning a linear structure parallel to the wall to create space for planting bushes. It requires interpreting geometric properties like length, height, and distance from the wall to achieve the design goal. Additionally, the task involves resolving ambiguities in the instructions, such as determining the exact alignment and dimensions of the structure.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 3.0,
+        height = 0.3,
+        orientation = 'y-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 5.0,
+        height = 0.5,
+        orientation = 'y-axis'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 3.0,
+          height = 0.3,
+          orientation = 'y-axis'
+        ),
+        edit_description = 'Change the design profile to linear',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Interpreting the change from a flat rectangular shape to a linear design requires an understanding of spatial geometry and how such a change aligns with the existing structures in the scene.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 5.0,
+          height = 0.5,
+          orientation = 'y-axis'
+        ),
+        edit_description = 'Make it taller and longer',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Determining how much taller and longer to make the structure involves measurement interpretation and understanding of spatial relations with nearby objects such as the trees.'
+      )
+    ]
+  )
+)

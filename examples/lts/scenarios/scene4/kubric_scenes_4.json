@@ -1,0 +1,76 @@
+{
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.3,
+                0.3,
+                0.5
+            ],
+            "center": [
+                2.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "Instructions: Use the provided example scene description to output a formatted version of the scene...",
+    "prompt": "Build a wall that hides the thing in the background",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_wall_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        -1.0,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.9999999999999999,
+                        1.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_wall_2": [
+            {
+                "segment": 1,
+                "height": 1.0,
+                "keypoints": [
+                    [
+                        0.9999999999999999,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        1.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

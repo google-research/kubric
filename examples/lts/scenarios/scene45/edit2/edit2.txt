@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Compose a beautiful spiral-like enclosure to give the area a flowing, wave-like vibe.',
+  description = 'This scene involves arranging a pair of circular enclosures that create an artistic barrier between two objects, allowing for a visually appealing but functional design. It requires understanding the spatial layout, with a focus on preventing overlap and ensuring an elegant composition.',
+  initial_design = Design(
+    structures = {
+      serpentine1 = Serpentine(
+        left_arc_center = (0.0, 0.5, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'up',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine1 = Serpentine(
+        left_arc_center = (0.0, 0.5, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'up',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile to a serpentine path.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing the design from a semicircular to a serpentine requires understanding of both structures and how they fit spatially and aesthetically between the given objects.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.1
+        ),
+        edit_description = 'Adjust the arc center to (0, 0.5, 0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The adjustment of the arc center is straightforward considering the given design goal.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'up',
+          height = 0.1
+        ),
+        edit_description = 'Reduce the radius to 0.5 to fit perfectly between the objects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Determining the appropriate radius to ensure it fits between the objects requires an understanding of the spatial requirements and constraints of the scene.'
+      )
+    ]
+  )
+)

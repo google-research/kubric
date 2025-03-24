@@ -1,0 +1,139 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.5, 0.5, 5.0),
+      center = (-2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.5, 0.5, 5.0),
+      center = (0.0, -2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.5, 0.5, 5.0),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_4 = SceneObject(
+      extent = (0.5, 0.5, 5.0),
+      center = (0.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Build a short structure around the leafy things',
+  description = "This scene involves semantic unertainty, where the VLM has to understand that 'leafy things' means tree. In addition, the instruction is vague: leafy things can mean a single tree or multiple trees(as is the case here).",
+  initial_design = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (-2.0, 0.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_2 = Rectangular(
+        center = (0.0, -2.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_3 = Rectangular(
+        center = (2.0, 0.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_4 = Rectangular(
+        center = (0.0, 2.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (-2.0, 0.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_2 = Rectangular(
+        center = (0.0, -2.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_3 = Rectangular(
+        center = (2.0, 0.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      ),
+      rect_4 = Rectangular(
+        center = (0.0, 2.0, 0.0),
+        length = 0.5,
+        width = 0.5,
+        height = 0.25
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_2 = Rectangular(
+              center = (0.0, -2.0, 0.0),
+              length = 0.5,
+              width = 0.5,
+              height = 0.25
+            )
+          }
+        ),
+        edit_description = 'Add a rectangle to the tree at (0, -2)',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The edit requires understanding 'leafy things' as trees, and that the design goal specifies one rectangle per tree."
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_3 = Rectangular(
+              center = (2.0, 0.0, 0.0),
+              length = 0.5,
+              width = 0.5,
+              height = 0.25
+            )
+          }
+        ),
+        edit_description = 'Add a rectangle to the tree at (2, 0)',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The edit requires recognizing multiple 'leafy things' in the area, and that the design goal specifies adding rectangles to each."
+      ),
+      2 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_4 = Rectangular(
+              center = (0.0, 2.0, 0.0),
+              length = 0.5,
+              width = 0.5,
+              height = 0.25
+            )
+          }
+        ),
+        edit_description = 'Add a rectangle to the tree at (0, 2)',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Similar to previous edits, it involves understanding the broader context and applying the design goal to each 'leafy thing'."
+      )
+    ]
+  )
+)

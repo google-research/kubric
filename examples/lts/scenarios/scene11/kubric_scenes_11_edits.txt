@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to reposition the linear structure closer to the trashcan?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Move the linear structure closer to the trashcan to meet the protective requirement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Move the linear structure further to the right.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Move the linear structure to the left side behind the trashcan.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Extend the linear structure to completely encircle the trashcan.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 1.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Change the orientation of the linear structure to the y-axis and move it to the right.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly specifies moving the linear structure to the correct position (0.5, 0, 0) as stated in the design goal for optimal protection without enclosing the trashcan completely.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task requires understanding spatial positioning and moving the structure closer to the trashcan, which is straightforward given the clear instructions.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification ensures the linear structure remains within the specified area dimensions?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Adjust the position to (0.5, 0, 0) to ensure the structure is within the specified area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (3.0, 3.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Place the structure outside the specified dimensions.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 3.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Increase the size of the structure to extend beyond the area.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, -1.5, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Move the structure to a new position with a y-axis orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Shift the structure slightly away from the trashcan but within permissible area borders.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the position of the linear structure to (0.5, 0, 0), aligning it within the defined area, thus meeting the design criteria without exceeding spatial limits.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the given design to fit within a specific parameter (position) is a simple modification based on the provided specifications.'
+    )
+  ]
+)

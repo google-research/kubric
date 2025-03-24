@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit best represents changing the straight path to a serpentine design for fluidity?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.5
+          ),
+          edit_description = 'Update design to Serpentine'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Update design to Curvy Path'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Update design to Quarter Wedge'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 120.0,
+            height = 0.5
+          ),
+          edit_description = 'Update design to Tri Wedge'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Update design to Circular'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit changes the linear path to a serpentine path as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This requires changing the type of path from linear to serpentine, maintaining design continuity.'
+    ),
+    1 : EditMCQA(
+      question = "Which edit best represents adjusting the serpentine path's arc center and orientation to flow around the objects?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.5
+          ),
+          edit_description = "Adjust the serpentine path's arc center and orientation"
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the path to have a curvy flow'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Adjust to a semi-circular design'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Adjust to a semi-ring design'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 120.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust to a tri-wedge design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit specifies adjustment to maintain the serpentine path around the objects.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This involves spatial adjustments surrounding existing objects while maintaining the intended path flow.'
+    )
+  ]
+)

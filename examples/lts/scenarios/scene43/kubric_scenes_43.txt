@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    bench_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'I want a meandering path around the compact garden area to maintain a sense of flow and openness.',
+  description = 'This scene involves creating an enclosing pattern around a table to give a unique garden vibe. It requires understanding geometric relations like making sure it snugly fits without being too enclosed and providing consistent spacing in the setup.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (2.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.25,
+        orientation = 'x-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'up',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'up',
+          height = 0.5
+        ),
+        edit_description = 'Update design to Serpentine',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires changing path type and orientation to flow around objects while maintaining design intent.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'up',
+          height = 0.5
+        ),
+        edit_description = "Adjust the serpentine path's arc center and orientation to flow around the objects",
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Involves spatial adjustment and ensuring the serpentine path complements the garden layout without specific guidance on arc adjustments.'
+      )
+    ]
+  )
+)

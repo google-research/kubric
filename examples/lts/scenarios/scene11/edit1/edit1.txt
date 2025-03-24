@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a protective wall-like structure around the trashcan, not exceeding the specified area dimensions.',
+  description = 'This scene involves creating a linear structure to act as a boundary around a trashcan, providing a protective enclosure. It requires interpreting geometric properties such as length, height, " \n        "and center position to achieve the design goal of shielding the trashcan, while keeping the structure confined to a specific area. The task includes adjustments to the size and placement of the structure to meet these requirements.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.5, 0.0, 0.0),
+        length = 2.0,
+        height = 0.75,
+        orientation = 'x-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.5, 0.0, 0.0),
+        length = 2.0,
+        height = 0.75,
+        orientation = 'x-axis'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.5, 0.0, 0.0),
+          length = 2.0,
+          height = 0.75,
+          orientation = 'x-axis'
+        ),
+        edit_description = 'Move the linear structure closer to the trashcan to meet the protective requirement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The task requires understanding spatial positioning and moving the structure closer to the trashcan, which is straightforward given the clear instructions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.5, 0.0, 0.0),
+          length = 2.0,
+          height = 0.75,
+          orientation = 'x-axis'
+        ),
+        edit_description = 'Adjust the position to (0.5, 0, 0) to ensure the structure is within the specified area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Adjusting the given design to fit within a specific parameter (position) is a simple modification based on the provided specifications.'
+      )
+    ]
+  )
+)

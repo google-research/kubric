@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    table_1 = SceneObject(
+      extent = (0.0, 0.0, 0.0),
+      center = (1.5, -1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = "- Design a structure that helps the birdhouse feel more 'at home' while keeping the table well-situated.",
+  description = 'This scene involves creating a harmonious environment for the birdhouse and table by arranging structures that provide balance and contrast. The task requires understanding geometric properties, such as center, length, and width, and resolving ambiguities in the instructions to maintain aesthetic coherence.',
+  initial_design = Design(
+    structures = {
+      semiCircular1 = SemiCircular(
+        center = (0.0, 1.0, 0.0),
+        radius = 1.0,
+        orientation = 'top_half',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semiCircular1 = SemiCircular(
+        center = (-0.5, 0.5, 0.0),
+        radius = 1.0,
+        orientation = 'top_half',
+        height = 0.4
+      ),
+      rectangular1 = Rectangular(
+        center = (2.0, -1.0, 0.0),
+        length = 1.0,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rectangular1 = Rectangular(
+              center = (2.0, -1.0, 0.0),
+              length = 1.0,
+              width = 0.5,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Introduce a Rectangular structure:\n- center: (2.0, -1.0, 0)\n- length: 1.0\n- width: 0.5\n- height: 0.3',
+        target_parameter = 'rectangular1',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "The prompt clearly indicates enhancing the table's stability, suggesting a rectangular structure is appropriate."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiCircular1',
+        NewDesignStructure = SemiCircular(
+          center = (-0.5, 0.5, 0.0),
+          radius = 1.0,
+          orientation = 'top_half',
+          height = 0.4
+        ),
+        edit_description = 'Move the SemiCircular structure to maintain visual balance:\n- New center: (-0.5, 0.5, 0)',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'While the prompt requests balance, determining the exact coordinates requires interpretation of spatial harmony.'
+      )
+    ]
+  )
+)

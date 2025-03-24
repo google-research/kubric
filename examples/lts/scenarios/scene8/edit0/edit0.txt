@@ -1,0 +1,52 @@
+Scene(
+  objects = {
+    bench_0 = SceneObject(
+      extent = (1.0, 0.5, 0.5),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Build a round brick planter to make an isosceles pattern with the bench and pot',
+  description = 'This scene involves understanding spatial relationships, such as positioning objects to form an isosceles pattern with the bench and pot. It requires interpreting geometric properties like center, radius, and height to achieve the design goal of a circular planter. Additionally, the task involves resolving ambiguities in the instructions, such as determining the correct placement of the planter to maintain the specified pattern.',
+  initial_design = Design(
+    structures = {
+      circular_planter_0 = Circular(
+        center = (1.0, 2.0, 0.0),
+        radius = 0.5,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_planter_0 = Circular(
+        center = (1.0, 2.0, 0.0),
+        radius = 0.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_planter_0',
+        NewDesignStructure = Circular(
+          center = (1.0, 2.0, 0.0),
+          radius = 0.5,
+          height = 0.5
+        ),
+        edit_description = 'Move the planter to (1, 2) to keep the isosceles pattern.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The challenge is in interpreting the spatial relationships necessary to maintain an isosceles configuration with the given structures.'
+      )
+    ]
+  )
+)

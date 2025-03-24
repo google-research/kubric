@@ -1,0 +1,58 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification needed to achieve the design goal of maintaining an isosceles pattern in the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (1.0, 2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the planter to (1, 2) to keep the isosceles pattern.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (1.0, -2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Incorrect: Move the planter to (1, -2), which does not achieve the design goal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Incorrect: Move the planter to (0, 1), which disturbs the isosceles pattern.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (2.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Incorrect: Move the planter to (2, 1), which does not fulfill the pattern requirement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (3.0, 2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Incorrect: Move the planter to (3, 2), which maintains the wrong position.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Moving the planter to (1, 2) maintains the isosceles pattern intended with the bench and the pot.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in correctly visualizing and interpreting the spatial layout to achieve the isosceles pattern.'
+    )
+  ]
+)

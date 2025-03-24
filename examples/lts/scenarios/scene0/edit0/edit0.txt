@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.5, 0.5, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a rectangular brick planter next to the tree',
+  description = 'Scene 1',
+  initial_design = Design(
+    structures = {
+      rectangle_1 = Rectangular(
+        center = (2.0, 0.0, 0.0),
+        length = 0.5,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangle_1 = Rectangular(
+        center = (2.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangle_1',
+        NewDesignStructure = Rectangular(
+          center = (2.0, 0.0, 0.0),
+          length = 0.5,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Move the rectangle in front of the tree',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The edit directly follows from the instruction of moving the rectangle in front of the tree based on initial and goal centers.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangle_1',
+        NewDesignStructure = Rectangular(
+          center = (2.0, 0.0, 0.0),
+          length = 1.0,
+          width = 0.5,
+          height = 0.5
+        ),
+        edit_description = 'Swap the length and width to make the long end next to the tree',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The dimensions are easily swapped to make the long end next to the tree as instructed.'
+      )
+    ]
+  )
+)

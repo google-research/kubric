@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (1.0, 1.0, 5.0),
+      center = (-1.0, -1.0, 2.5),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (1.0, 1.0, 5.0),
+      center = (1.0, 1.0, 2.5),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Add a winding path that weaves elegantly through the arboreal giants.',
+  description = 'This scene involves constructing a serpentine path that makes its way between trees to provide an aesthetic garden layout. The serpentine path should introduce curves alongside a sense of flow while maintaining a subtle design.',
+  initial_design = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (-1.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'down',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      sinewave_path = CurvyPath(
+        far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+        close_curve_leftmost_point = (-0.5, -1.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 3.0,
+        phase = 1.570795,
+        height = 0.05
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+          close_curve_leftmost_point = (-0.5, -1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 3.0,
+          phase = 1.570795,
+          height = 0.05
+        ),
+        edit_description = 'Change the profile to a sine wave path, increasing the wave amplitude for a more elegant path.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt requires transformation from a simple serpentine to a more complex sine wave path which involves understanding changes in geometric properties.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+          close_curve_leftmost_point = (-0.5, -1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 3.0,
+          phase = 1.570795,
+          height = 0.05
+        ),
+        edit_description = 'Adjust the starting points to align between the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Moving starting points to align between existing objects like trees is straightforward based on provided positions.'
+      )
+    ]
+  )
+)

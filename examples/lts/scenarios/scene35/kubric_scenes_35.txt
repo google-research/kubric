@@ -1,0 +1,87 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.3, 0.3, 0.5),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.5, 0.5, 1.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Build a wavy structure to enclose these delightful features while allowing ample space for their beauty to shine.',
+  description = 'This scene involves creating a protective enclosure around garden elements with natural contours. The design must consider geometric properties like radius, angular gap, and height to align with the desired look.',
+  initial_design = Design(
+    structures = {
+      structure1 = Serpentine(
+        left_arc_center = (0.0, -0.5, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'up',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure1 = CurvyPath(
+        far_curve_leftmost_point = (1.0, -1.0, 0.0),
+        close_curve_leftmost_point = (1.0, -1.5, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, -1.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the structure profile to SineWave and adjust the starting point to (1, -1).',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The structure change and point alignment require interpreting the desired aesthetic from the description.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, -1.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.5
+        ),
+        edit_description = 'Shift the structure to better align with the pot and chair.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt clearly specifies alignment with existing objects.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, -1.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.5
+        ),
+        edit_description = 'Modify amplitude and height for visibility and style.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Adjusting for style requires subjective interpretation of the look and functionality.'
+      )
+    ]
+  )
+)

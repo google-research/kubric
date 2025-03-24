@@ -1,0 +1,64 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (1.0, 1.0, 0.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (1.0, 1.0, 0.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a calming circular sanctuary under the trees with ample space to relax.',
+  description = 'This scene involves creating an enclosure to provide a serene atmosphere under the trees, focusing on patterns and spacing. It requires interpreting spatial arrangements like radius and orientation to maintain symmetry.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 1.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'y-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 1.0, 0.0),
+        radius = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 1.0, 0.0),
+          radius = 1.0,
+          height = 0.2
+        ),
+        edit_description = 'Change the shape to Circular',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing geometric shape while preserving location.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 1.0, 0.0),
+          radius = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Only involves modifying the height parameter.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,131 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to change the profile to a sine wave path, increasing the wave amplitude for a more elegant path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            close_curve_leftmost_point = (-0.5, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Change the profile to a sine wave path, increasing the wave amplitude for a more elegant path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a quarter wedge which is not suitable for paths.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change the profile to a linear path which lacks the necessary curvature.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'top_half',
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a semi-circular path which does not fulfill the serpentine requirement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 30.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a tri-wedge, an unlikely path design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit to a sinewave path with specified geometry correctly follows instruction to replace the serpentine path with a sine wave pattern.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt requires transformation from a simple serpentine to a more complex sinewave path which involves understanding changes in geometric properties.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct edit to adjust the starting points to align between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            close_curve_leftmost_point = (-0.5, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Adjust the starting points to align between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.0,
+            wavelength = 0.0,
+            phase = 0.0,
+            height = 0.0
+          ),
+          edit_description = 'Remove all alignment and setup curvy path in default location.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 1.0,
+            left_width = 1.0,
+            right_width = 0.0,
+            right_length = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Add an L-shape path between the trees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.5,
+            inner_radius = 0.25,
+            orientation = 'top_half',
+            height = 0.1
+          ),
+          edit_description = 'A semi-ring path does not assist in aligning points.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.05
+          ),
+          edit_description = 'Change shape to a rectangular patch parallel to current path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the starting points to specific locations ensures alignment between the trees as intended.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Moving starting points to align between existing objects like trees is straightforward based on provided positions.'
+    )
+  ]
+)

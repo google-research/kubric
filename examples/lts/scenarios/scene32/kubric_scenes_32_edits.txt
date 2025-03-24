@@ -1,0 +1,188 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to change the design type to a SineWave?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Keep the same serpentine design and structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the design type to a SineWave.'
+        ),
+        C = DeleteStructureEdit(
+          design_id = 'serpentine_1',
+          edit_description = 'Remove the existing structure without replacement.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a circular structure in a different location.',
+          target_parameter = 'height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            orientation = 'top_half',
+            height = 0.6
+          ),
+          edit_description = 'Switch to a semi-circular design.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Answer B correctly changes the design type from Serpentine to a SineWave, which is required.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Moderate understanding of transitioning design structures from one type to another with a specific characteristic.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct modification to increase the height from 0.3 to 0.6 to provide adequate shelter?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height from 0.3 to 0.6.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height from 0.3 to 0.4.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height at 0.3 without change.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'serpentine_1',
+          edit_description = 'Remove the existing structure without replacement.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_structure = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.5,
+                gap_degrees = 90.0,
+                height = 0.6
+              )
+            }
+          ),
+          edit_description = 'Add a new structure with the desired height.',
+          target_parameter = 'height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Answer A correctly increases the height to 0.6 as specified in the edit requirement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The instruction to change the height is straightforward and requires a simple parameter modification.'
+    ),
+    2 : EditMCQA(
+      question = 'What is the correct modification to adjust the wave to harmoniously envelop both the birdhouse and trashcan while keeping a pleasant artistic flow?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Adjust the wave to harmoniously envelop both the birdhouse and trashcan.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 60.0,
+            height = 0.6
+          ),
+          edit_description = 'Switch to a triangular wedge shape design.'
+        ),
+        C = DeleteStructureEdit(
+          design_id = 'sinewave_1',
+          edit_description = 'Remove the sine wave to revert to the initial design.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_structure = LShape(
+                left_center = (0.0, -0.5, 0.0),
+                left_length = 1.0,
+                left_width = 0.5,
+                right_width = 0.5,
+                right_length = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce an L-shaped structure near the objects.',
+          target_parameter = 'aesthetic'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 2.0, 0.0),
+            close_curve_leftmost_point = (-2.0, -2.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 3.0,
+            phase = 1.0,
+            height = 0.9
+          ),
+          edit_description = 'Change curvature to a much larger scale.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Answer A maintains the structure's parameters while ensuring the wave harmoniously envelops both objects as intended.",
+      difficulty = 'hard',
+      explanation_of_difficulty = 'It requires artistic understanding to align a wave with objects aesthetically, necessitating design skills.'
+    )
+  ]
+)

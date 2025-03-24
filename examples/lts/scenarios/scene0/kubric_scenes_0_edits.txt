@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to move the rectangle in front of the tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle in front of the tree'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle to the origin'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 2.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle to the right of the tree'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, -2.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle to the left of the tree'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 0.0, 1.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle above the tree'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit in answer A moves the rectangle to the correct position in front of the tree as specified in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit directly follows from the instruction of moving the rectangle in front of the tree based on initial and goal centers.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct edit to swap the length and width to make the long end next to the tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Swap the length and width to make the long end next to the tree'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Keep the current dimensions'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the length to 1.5'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Make the rectangle a square'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Double the dimensions'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit in answer A correctly swaps the dimensions so that the long end is parallel to the tree as specified in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The dimensions are easily swapped to make the long end next to the tree as instructed.'
+    )
+  ]
+)

@@ -1,0 +1,182 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit changes the design profile to serpentine?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify design to a different wavy pattern.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Modify design to a semi-circular pattern.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to serpentine.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 60.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design to a wedge format.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Modify design to a rectangular profile.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C directly changes the design profile to the required serpentine form.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt's requirement of a 'flowing barrier' strongly suggests aligning to a serpentine profile."
+    ),
+    1 : EditMCQA(
+      question = "Which edit changes the structure's radius to 0.5?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 0.4 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 0.6 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 0.5 to match the intended curvature.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.45,
+            height = 0.3
+          ),
+          edit_description = 'Adjust radius to create a circular pattern.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.65,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Adjust radius to a semicircular form.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly changes the radius to 0.5, aligning with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Interpreting 'flowing barrier' to require specific curvature involves some spatial reasoning."
+    ),
+    2 : EditMCQA(
+      question = 'Which edit increases the height to 0.5 meters?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.6
+          ),
+          edit_description = 'Increase height to 0.6 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.4
+          ),
+          edit_description = 'Increase height to 0.4 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Maintain height at 0.3 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease height to 0.3 meters.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "Option C correctly increases the structure's height to the specified 0.5 meters.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt specifies 'height moderate', making explicit that a slight increase in height aligns with the goal."
+    )
+  ]
+)

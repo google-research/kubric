@@ -1,0 +1,84 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.2, 0.2, 0.2),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.3, 0.3, 0.4),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Could you create a protective loop around my items, allowing room to move freely?',
+  description = 'This scene involves constructing a semi-ring structure to create a protective barrier, using rocks and pots. The task involves understanding spatial relationships to avoid collisions between objects and the structure.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'top_half',
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'top_half',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.5,
+          orientation = 'top_half',
+          height = 0.25
+        ),
+        edit_description = 'Change the profile to a semi-ring',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt clearly requests a semi-ring shape.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'top_half',
+          height = 0.25
+        ),
+        edit_description = 'Increase the outer radius to 1.5',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt specifies the need for a larger protective structure.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'top_half',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The increased height is inferred from needing more coverage, but is not explicitly mentioned in the prompt.'
+      )
+    ]
+  )
+)

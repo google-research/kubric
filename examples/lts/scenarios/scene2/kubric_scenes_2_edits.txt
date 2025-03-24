@@ -1,0 +1,205 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit is needed to add a rectangle to the tree at (0, -2)?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, -2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, -2)',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The edit requires understanding 'leafy things' as trees, and that the design goal specifies one rectangle per tree."
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (2, 0)',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_4 = Rectangular(
+                center = (0.0, 2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, 2)',
+          target_parameter = 'center'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rect_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, -3.0, 0.0),
+            length = 0.7,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'rect_1',
+          edit_description = 'Remove the rectangle at (-2, 0)'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit adds a rectangle centered at (0, -2) as required by the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The challenge lies in identifying which tree corresponds to the vague term 'leafy things'."
+    ),
+    1 : EditMCQA(
+      question = 'What edit is needed to add a rectangle to the tree at (2, 0)?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (2, 0)',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The edit requires recognizing multiple 'leafy things' and understanding the design goal to add rectangles to each."
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, -2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, -2)',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_4 = Rectangular(
+                center = (0.0, 2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, 2)',
+          target_parameter = 'center'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'rect_1',
+          edit_description = 'Remove the rectangle at (-2, 0)'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rect_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, -3.0, 0.0),
+            length = 0.7,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit correctly adds a rectangle centered at (2, 0) as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The difficulty originates from interpreting 'leafy things' to mean trees at multiple locations."
+    ),
+    2 : EditMCQA(
+      question = 'What edit is needed to add a rectangle to the tree at (0, 2)?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rect_4 = Rectangular(
+                center = (0.0, 2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, 2)',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "Similar to previous edits, it involves understanding the broader context and applying the design goal to each 'leafy thing'."
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, -2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, -2)',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (2, 0)',
+          target_parameter = 'center'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'rect_1',
+          edit_description = 'Remove the rectangle at (-2, 0)'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rect_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, -3.0, 0.0),
+            length = 0.7,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit adds the rectangle to the tree located at (0, 2) as outlined in the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Interpreting 'leafy things' broadly can make identifying all necessary trees for editing challenging."
+    )
+  ]
+)

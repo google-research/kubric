@@ -1,0 +1,62 @@
+{
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves creating a linear structure to act as a boundary around a trashcan, providing a protective enclosure. It requires interpreting geometric properties such as length, height, \" \n        \"and center position to achieve the design goal of shielding the trashcan, while keeping the structure confined to a specific area. The task includes adjustments to the size and placement of the structure to meet these requirements.",
+    "prompt": "Build a protective wall-like structure around the trashcan, not exceeding the specified area dimensions.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.75,
+                "keypoints": [
+                    [
+                        -0.5,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.75,
+                "keypoints": [
+                    [
+                        -0.5,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

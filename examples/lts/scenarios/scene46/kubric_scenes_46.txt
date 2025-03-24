@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.3, 0.3, 0.6),
+      center = (2.0, 1.0, 0.3),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.4, 0.4, 0.8),
+      center = (-1.5, -1.5, 0.4),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = "Let's create a swirl around to add some motion vibes to the environment. Make sure we have room to access the bench comfortably.",
+  description = 'This scene involves creating a pattern that evokes the sense of a spiral or swirling effect around a central object.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'x-axis'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.5, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'up',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'up',
+          height = 0.3
+        ),
+        edit_description = 'Change the path profile to a serpentine to introduce a curve.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Recognizing the need for a serpentine structure requires understanding the desired swirl effect.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'up',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the path to ensure it wraps around the bench comfortably.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Ensuring the serpentine path does not interfere with accessing the bench is straightforward.'
+      )
+    ]
+  )
+)

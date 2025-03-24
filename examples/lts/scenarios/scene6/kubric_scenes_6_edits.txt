@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which of the following edits correctly adds a circular planter at (0, 1) with a radius of 0.5 and height of 0.05?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_2 = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 2 at (0, 1), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 2 at (1, 0), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_2 = Circular(
+                center = (0.0, -1.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 2 at (0, -1), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_2 = Circular(
+                center = (-1.0, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 2 at (-1, 0), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_2 = Circular(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 2 at (0.5, 0), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly places the circular planter at the coordinates (0, 1) with the specified radius and height, as mentioned in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The addition of a second circular planter directly follows the prompt's instruction to form a triangle, making use of the initial alignment already described."
+    ),
+    1 : EditMCQA(
+      question = 'Which of the following edits accurately introduces a circular planter at (0.5, 0) with a radius of 0.5 and height of 0.05?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_3 = Circular(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 3 at (0.5, 0), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_3 = Circular(
+                center = (0.0, 0.5, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 3 at (0, 0.5), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_3 = Circular(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 3 at (-0.5, 0), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_3 = Circular(
+                center = (0.0, -0.5, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 3 at (0, -0.5), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_3 = Circular(
+                center = (1.0, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add Circular planter 3 at (1, 1), radius 0.5, height 0.05',
+          target_parameter = 'structures'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly adds the circular planter at the specified location (0.5, 0) with the given radius and height, aligning well with the goal to form a triangle.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the exact position for the third planter requires spatial reasoning to ensure it completes the triangular formation as desired, derived from the context provided in the prompt.'
+    )
+  ]
+)

@@ -1,0 +1,180 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification would change the profile to enhance the symmetry of the structure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the profile to Tri-Wedge to enhance symmetry.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the design to Quarter-Wedge to make it more compact.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the profile to Circular for a round shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the design to Rectangular for a blocky look.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.25
+          ),
+          edit_description = 'Change the profile to Semi-Circular for half-circle symmetry.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The Tri-Wedge profile is the correct modification to enhance symmetry as the design goal states.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing the profile type requires understanding of the shape's role in symmetry."
+    ),
+    1 : EditMCQA(
+      question = 'Which edit reduces the radius to maintain the proximity to the pots?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Reduce the radius to maintain proximity to the pots.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 70.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the radius for a larger emphasis on design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
+          ),
+          edit_description = 'Keep the radius at maximum for full coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'up',
+            height = 0.25
+          ),
+          edit_description = 'Modify to a serpentine form for curve aesthetics.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Utilize a curvy path for varied distance aesthetics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The radius reduction to 1.0 maintains the design's alignment with the proximity of the pots.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Reducing radius is straightforward due to proximity reasoning.'
+    ),
+    2 : EditMCQA(
+      question = 'How can the height be increased to improve the visual prominence of the structure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height for a more pronounced appearance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.25
+          ),
+          edit_description = 'Lower the height to minimize presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.8
+          ),
+          edit_description = 'Drastically increase height for maximum visibility.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Widen the structure for surface coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_design',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the bottom half to lift visual interest.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height of the Tri-Wedge to 0.5 complements the design for improved visual prominence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing height is a simple adjustment for visibility.'
+    )
+  ]
+)

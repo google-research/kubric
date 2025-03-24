@@ -1,0 +1,245 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit changes the shape to TriWedge?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the shape as QuarterWedge'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the shape to TriWedge',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Shape change is directly mentioned in step.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the shape to Circular'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the shape to SemiCircular'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change the shape to Serpentine'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer, B, changes the structure to TriWedge, which is required by the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Shape change is directly mentioned in the edit description.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit correctly adjusts the radius to 1.5 meters?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1.5 meters',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Radius adjustment is a straightforward numerical update.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the radius to 1.8 meters'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the radius at 2.0 meters'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 1.0 meters'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the shape to Circular with radius 1.5 meters'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer, A, specifically adjusts the radius to 1.5 meters as mentioned in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Radius adjustment is a straightforward numerical update mentioned directly in the edit.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit increases the height to 0.5 meters?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Height increase is a straightforward numerical update.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the height to 0.4 meters'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change to a Circular shape with height 0.5 meters'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer, B, increases the height to 0.5 meters as required by the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height increase is a straightforward numerical update clearly stated in the edit.'
+    ),
+    3 : EditMCQA(
+      question = 'Which change opens up the gap to 95 degrees for easier access?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Keep the gap degrees at 70'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.5
+          ),
+          edit_description = 'Open up the gap to 85 degrees'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Open up the gap to 90 degrees'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Open up the gap to 95 degrees for easier access',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Gap adjustment is directly related to access enhancement mentioned in the prompt.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'goal_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 100.0,
+            height = 0.5
+          ),
+          edit_description = 'Open up the gap to 100 degrees'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct answer, D, opens up the gap to 95 degrees for easier access as specified in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Gap adjustment is straightforward and directly mentioned in the description.'
+    )
+  ]
+)
