@@ -1,0 +1,65 @@
+{
+    "prompt": "Create a winding path that connects the three trees to make an engaging garden trail.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_3": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                2.0,
+                -0.0,
+                2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    0.0,
+                    -0.0,
+                    2.0
+                ],
+                [
+                    0.0,
+                    -0.0,
+                    -2.0
+                ]
+            ]
+        }
+    ]
+}

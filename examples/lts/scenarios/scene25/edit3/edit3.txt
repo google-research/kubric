@@ -1,0 +1,97 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (1.0, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'bench'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.3, 0.3, 0.3),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Construct a protective semi-ring around the seating and potted area, providing open paths to the sides.',
+  description = 'This scene involves constructing a semi-ring-shaped structure around a bench and pot collection area while ensuring different spatial relationships. The goal is to surround the space with a protective structure, leaving open spaces for pathways. It requires interpreting geometric properties such as radius, orientation, and height and making adjustments to the design such as resizing and repositioning the profiles.',
+  initial_design = Design(
+    structures = {
+      structure_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.8,
+        inner_radius = 1.0,
+        orientation = 'top_half',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.8,
+        inner_radius = 1.0,
+        orientation = 'top_half',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.5,
+          orientation = 'bottom_half',
+          height = 0.3
+        ),
+        edit_description = 'Reducing the outer radius from 2.0 to 1.8 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'This step directly follows from the size reduction needed in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.0,
+          orientation = 'bottom_half',
+          height = 0.3
+        ),
+        edit_description = 'Adjusting the inner radius from 1.5 to 1.0 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Directly corresponds to the resize requirement for enclosing the space.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.0,
+          orientation = 'top_half',
+          height = 0.3
+        ),
+        edit_description = "Changing orientation to 'top_half'.",
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding the spatial layout to provide side openings.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.0,
+          orientation = 'top_half',
+          height = 0.5
+        ),
+        edit_description = 'Increasing the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The height increase is a direct attribute change specified in the goal.'
+      )
+    ]
+  )
+)

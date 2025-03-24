@@ -1,0 +1,103 @@
+{
+    "prompt": "Create a barrier that separates the trashcan from the table area without blocking too much open space.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530497,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                2.0,
+                -0.0,
+                -2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.5,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -0.75
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.5,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -2.25
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -2.25
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -1.25
+                ]
+            ],
+            "elements": [
+                1
+            ]
+        }
+    ]
+}

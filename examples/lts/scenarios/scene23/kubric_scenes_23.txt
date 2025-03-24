@@ -1,0 +1,76 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a shaded seating area using quarter-wedge structures to maximize comfort around the tree while keeping access to the picnic table clear.',
+  description = 'This scene involves creating a unique seating space within a garden, offering views and shade by positioning quarter-wedge structures around a tree. The design must consider the geometric properties to create a cohesive blend that complements the natural environment while providing comfort and aesthetics.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 3.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 20.0,
+        height = 0.5
+      ),
+      quarter_wedge_2 = QuarterWedge(
+        center = (1.5, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 20.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        edit_description = 'Change the circular design to two quarter-wedge structures for better aesthetic integration.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt explicitly asks for replacing the circular structure with quarter-wedges.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarter_wedge_1 = QuarterWedge(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.5,
+              gap_degrees = 20.0,
+              height = 0.5
+            ),
+            quarter_wedge_2 = QuarterWedge(
+              center = (1.5, 0.0, 0.0),
+              radius = 1.5,
+              gap_degrees = 20.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Overlap the quarter-wedge structures with adjusted gap degrees for optimized shading and access, ensuring one faces the picnic table.',
+        target_parameter = 'quarter-wedge gaps and placement',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The overlapping and gap degree adjustments require interpretation to ensure one faces the table.'
+      )
+    ]
+  )
+)

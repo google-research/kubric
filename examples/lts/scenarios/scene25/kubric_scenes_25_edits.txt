@@ -1,0 +1,150 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to replace the rectangular profile for optimal protection around the pot?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 1.8, 0.0),
+            left_length = 3.0,
+            left_width = 0.4,
+            right_center = (1.5, 1.0, 0.0),
+            right_length = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Replace the rectangular profile with an L-shaped structure to provide protection.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The complexity arises from correctly interpreting the spatial and geometric relationships needed to provide protection around the pot.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 1.8, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Replace the rectangular profile with a larger rectangular structure for more coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Replace the rectangular profile with a quarter wedge for aesthetic alignment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'up',
+            height = 0.4
+          ),
+          edit_description = 'Replace with a serpentine profile flanking the pot to create a wavy design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 1.5, 0.0),
+            radius = 0.5,
+            orientation = 'top_half',
+            height = 0.2
+          ),
+          edit_description = 'Replace with a semi-circular profile for a smoother transition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Answer A correctly interprets the prompt's requirement for an L-shaped structure that provides protection by enclosing the pot.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the correct geometric transformation requires understanding how the new L-shaped design offers more protection.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit correctly enhances the garden space aesthetics around the pot?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_planter_1 = Circular(
+                center = (-1.0, 1.5, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a circular planter to enhance aesthetics and complement the arrangement around the pot.',
+          target_parameter = 'arrangement around the pot',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Interpreting the general aesthetic improvement does not require complex spatial reasoning.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_planter_1 = SemiRing(
+                center = (-1.5, 1.5, 0.0),
+                outer_radius = 0.5,
+                inner_radius = 0.3,
+                orientation = 'bottom_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a semi-ring planter to provide an open aesthetic next to the bench.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              l_shaped_planter_1 = LShape(
+                left_center = (-0.5, 1.8, 0.0),
+                left_length = 1.5,
+                left_width = 0.4,
+                right_center = (-1.5, 1.0, 0.0),
+                right_length = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add an L-shaped planter to create a tiered effect around the pot.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              tri_wedge_planter_1 = TriWedge(
+                center = (-1.0, 2.0, 0.0),
+                radius = 0.4,
+                gap_degrees = 120.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a tri-wedge planter for a modern look next to the pot.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_planter_1 = Serpentine(
+                left_arc_center = (-1.0, 1.5, 0.0),
+                radius = 0.4,
+                left_arc_orientation = 'down',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a serpentine planter for dynamic flow in the design.',
+          target_parameter = 'arrangement around the pot'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Answer A accurately follows the prompt's instruction to add a circular planter, fulfilling the aesthetic requirement.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task of adding a circular planter is straightforward and directly aligns with the design goal described.'
+    )
+  ]
+)

@@ -1,0 +1,250 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                1.0,
+                1.0,
+                0.8
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.5,
+                0.5,
+                0.8
+            ],
+            "center": [
+                1.5,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves understanding spatial relationships, such as positioning an L-shaped structure to demarcate a seating area next to a trashcan. It requires interpreting geometric properties like center, length, width, and height to meet the design goal. The task also involves resolving ambiguities in the instructions, such as determining the correct alignment and dimensions of the L-shape while ensuring the trashcan remains accessible.",
+    "prompt": "Create an L-shaped barrier around the seating area near the table while maintaining access to the trashcan.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ],
+        "l_shape_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "l_shape_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        0.4,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.7999999999999999,
+                        0.30000000000000004,
+                        0.0
+                    ],
+                    [
+                        0.6,
+                        0.30000000000000004,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ]
+    }
+}

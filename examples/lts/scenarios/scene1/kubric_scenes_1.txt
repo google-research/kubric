@@ -1,0 +1,119 @@
+Scene(
+  category = 'Semantic',
+  objects = {
+    rock = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    bench = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (0.5, -1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    tree = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    pot = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (-1.5, -1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    trashcan = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (0.0, 2.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  description = "This scene evaluates the robot's ability to interpret semantic relationships when constructing complex designs.",
+  focal_objects = [
+    0 : 'pot'
+  ],
+  semantic_relationship = 'behind',
+  numeric_parameters = [
+    0 : 'center',
+    1 : 'radius',
+    2 : 'gap_degrees',
+    3 : 'height'
+  ],
+  lookup_parameters = [],
+  inferred_parameters = [],
+  num_edits = 3,
+  prompt = 'Design a tri-wedge structure behind the pot with a center at (-1.5, -1.5, 0) and a radius of 1. It should have a height of 0.5 meters, but the gap degrees are unspecified.',
+  initial_design = Design(
+    structures = {
+      InitialTriWedge = TriWedge(
+        center = (-1.5, -1.5, 0.0),
+        radius = 1.0,
+        gap_degrees = 120.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      GoalTriWedge = TriWedge(
+        center = (-1.5, -1.5, 0.0),
+        radius = 1.0,
+        gap_degrees = 120.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyDesignStructureEditWithDifficulty(
+        design_id = 'InitialTriWedge',
+        NewDesignStructure = TriWedge(
+          center = (-1.5, -1.5, 0.0),
+          radius = 1.0,
+          gap_degrees = 100.0,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the gap degrees from 120 to 100 to better match the general design goal direction.',
+        target_parameter = 'gap_degrees',
+        old_value = 120.0,
+        new_value = 100.0,
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt was ambiguous about the gap degrees, so a reasonable adjustment is needed.'
+      ),
+      1 : ModifyDesignStructureEditWithDifficulty(
+        design_id = 'InitialTriWedge',
+        NewDesignStructure = TriWedge(
+          center = (-1.5, -1.5, 0.0),
+          radius = 1.0,
+          gap_degrees = 100.0,
+          height = 0.4
+        ),
+        edit_description = 'Increase height from 0.3 to 0.4 to approach the specified height in the prompt.',
+        target_parameter = 'height',
+        old_value = 0.3,
+        new_value = 0.4,
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'This change gets closer to resolving the ambiguity regarding height.'
+      ),
+      2 : ModifyDesignStructureEditWithDifficulty(
+        design_id = 'InitialTriWedge',
+        NewDesignStructure = TriWedge(
+          center = (-1.5, -1.5, 0.0),
+          radius = 1.0,
+          gap_degrees = 100.0,
+          height = 0.5
+        ),
+        edit_description = 'Finalize the structure by increasing the height to 0.5, achieving the design goal.',
+        target_parameter = 'height',
+        old_value = 0.4,
+        new_value = 0.5,
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The final increase completes the expected height.'
+      )
+    ]
+  )
+)

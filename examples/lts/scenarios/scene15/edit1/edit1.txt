@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, -2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-2.0, 1.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (2.0, -1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a serpentine path that allows people to walk around the trees and benches.',
+  description = 'This scene involves understanding spatial relationships, such as positioning a serpentine pathway behind some trees and near benches. It requires interpreting geometric properties like center, radius, and height to achieve the design goal of a serpentine path. The task also involves resolving ambiguities in the instructions, such as determining the correct orientation to ensure proper alignment with the layout.',
+  initial_design = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (-2.0, 0.0, 0.0),
+        radius = 2.0,
+        left_arc_orientation = 'up',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (-2.0, 0.0, 0.0),
+        radius = 2.0,
+        left_arc_orientation = 'up',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-2.0, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'down',
+          height = 0.1
+        ),
+        edit_description = 'Move the path to have a left arc center at (-2, 0) to align it between the trees and benches.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding the spatial layout to position the path correctly.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-2.0, 0.0, 0.0),
+          radius = 2.0,
+          left_arc_orientation = 'up',
+          height = 0.1
+        ),
+        edit_description = 'Increase the radius to 2 meters for a nicer wrap around objects, change the left arc orientation to be facing up.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Involves interpreting the requirement for a larger radius and proper orientation.'
+      )
+    ]
+  )
+)

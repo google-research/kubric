@@ -1,0 +1,320 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                3.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves understanding spatial relationships to position two L-shaped structures to wrap around a tree and a bench. It requires interpreting geometric properties such as center, length, width, and height to achieve the design goal. The task also involves resolving ambiguities in the instructions, such as determining the correct alignment of the L-shaped structures around the objects.",
+    "prompt": "Design a seating and planting arrangement that wraps around the tree and extends to the bench, using two L-shaped structures.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "LShape1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        2.25,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        1.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        1.75,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.75,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ],
+        "LShape2": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -2.25,
+                        -2.0,
+                        0.0
+                    ],
+                    [
+                        -2.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        -2.0,
+                        0.0
+                    ],
+                    [
+                        -2.25,
+                        -2.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.75,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        1.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        2.25,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        1.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        1.75,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        2.25,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.75,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ],
+        "LShape2": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -2.25,
+                        -2.0,
+                        0.0
+                    ],
+                    [
+                        -2.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        -2.0,
+                        0.0
+                    ],
+                    [
+                        -2.25,
+                        -2.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            },
+            {
+                "segment": 2,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.75,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        -1.75,
+                        1.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    1
+                ]
+            }
+        ]
+    }
+}

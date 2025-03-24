@@ -1,0 +1,261 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the necessary design change to create a more dynamic movement in the path design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design profile to a Curvy path for more dynamic movement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 0.5, 0.1),
+            radius = 0.5,
+            orientation = 'top_half',
+            height = 0.2
+          ),
+          edit_description = 'Alter the design to a half-circle for aesthetic curvature.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.5, 0.1),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Keep the original linear path for directness.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 0.0, 0.5),
+            radius = 0.3,
+            left_arc_orientation = 'up',
+            height = 0.15
+          ),
+          edit_description = 'Create a serpentine path with flowing arcs.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.1),
+            radius = 0.5,
+            gap_degrees = 45.0,
+            height = 0.2
+          ),
+          edit_description = 'Implement a quarter wedge change for sharp direction shift.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "A Curvy path provides the non-linear, dynamic movement desired, aligning with the prompt's request for 'interesting' and 'meandering' characteristics.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'It requires understanding the need for non-linear movement to evoke exploration, interpreting abstract requirements into concrete structural changes.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the design change to ensure a noticeable but gentle wave in the path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.2,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the amplitude to 0.2 meters for subtle curvature.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.7,
+            wavelength = 2.1,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase the amplitude to 0.7 meters for a bold wave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = Circular(
+            center = (1.5, 0.5, 0.1),
+            radius = 0.75,
+            height = 0.1
+          ),
+          edit_description = 'Switch to a circular path for strong curvature.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 1.0,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Dramatically increase amplitude to 1.0 meters for high visual impact.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Setting the amplitude to 0.5 meters introduces noticeable yet gentle curvature, matching the requirement for an exploratory and engaging path.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Selecting an appropriate amplitude is a common and straightforward design consideration, balancing visual appeal with subtlety.'
+    ),
+    2 : EditMCQA(
+      question = 'What adjustment helps balance curve frequency with the path’s overall length?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 3.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase the wavelength to 3.5 meters for longer stretches between curves.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the wavelength to 1.5 meters for more frequent curves.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.5, 0.1),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Switch to a straight line for directness and ease.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = Circular(
+            center = (1.5, 0.5, 0.1),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Employ a circular design for consistent curve throughout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "A wavelength of 2.5 meters effectively balances the frequency of curves with the path's length, aligning the pacing of movement.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining wavelength requires insight into how it affects visual rhythm and spatial dynamics, a moderately interpretive task.'
+    ),
+    3 : EditMCQA(
+      question = 'What should be done to subtly raise the path above the grass, aligning with the park’s natural aesthetic?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.0
+          ),
+          edit_description = 'Keep the path level with the grass for minimal disruption.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (1.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Raise the path to 0.4 meters for pronounced visibility.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = TriWedge(
+            center = (1.5, 0.5, 0.1),
+            radius = 0.5,
+            gap_degrees = 120.0,
+            height = 0.2
+          ),
+          edit_description = 'Switch to a triangular wedge for distinctive elevation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = SemiRing(
+            center = (1.5, 0.5, 0.1),
+            outer_radius = 0.75,
+            inner_radius = 0.5,
+            orientation = 'top_half',
+            height = 0.2
+          ),
+          edit_description = 'Design a semi-ring to unify elevation with radial gesture.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Setting the height to 0.2 meters provides just enough elevation to distinguish the path without overwhelming the natural landscape.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting height to blend with surroundings is a straightforward task, often requiring simple consideration of context and subtlety.'
+    )
+  ]
+)

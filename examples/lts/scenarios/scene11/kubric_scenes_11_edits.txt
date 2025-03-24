@@ -1,0 +1,66 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to split the design into an L-shape?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_lshape',
+          NewDesignStructure = LShape(
+            left_center = (-2.0, 0.0, 0.0),
+            left_length = 4.0,
+            left_width = 0.5,
+            right_center = (0.0, 2.0, 0.0),
+            right_length = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Split the design into an L-shape.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_lshape',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 2.0, 0.0),
+            length = 3.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to a larger rectangular design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_lshape',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Transform into a linear structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_lshape',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, 2.0, 0.0),
+            close_curve_leftmost_point = (-1.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to a curvy path design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_lshape',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform to a circular design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes the transformation needed to split the initial rectangular design into an L-shape with specified dimensions.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The transformation requires understanding how to split a rectangular structure into an L-shape.'
+    )
+  ]
+)

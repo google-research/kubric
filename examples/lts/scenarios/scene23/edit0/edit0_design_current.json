@@ -1,0 +1,34 @@
+{
+    "prompt": "Build a shaded seating area using quarter-wedge structures to maximize comfort around the tree while keeping access to the picnic table clear.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                2.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": []
+}
