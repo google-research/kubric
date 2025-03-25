@@ -38,7 +38,7 @@ Scene(
           center = (0.0, 0.0, 0.0),
           radius = 1.0,
           orientation = 'top_half',
-          height = 0.8
+          height = 0.5
         ),
         edit_description = 'Change the line of tables to a semicircular arrangement with a radius of 1.0 meters.',
         difficult_to_deduce_from_prompt = 'easy',
@@ -49,19 +49,19 @@ Scene(
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 1.0,
-          orientation = 'top_half',
-          height = 0.8
+          orientation = 'bottom_half',
+          height = 0.5
         ),
-        edit_description = "Adjust orientation to 'top_half' so that the open side faces the camera for visibility.",
+        edit_description = "Adjust orientation to 'bottom_half' so that the open side faces the camera for visibility.",
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "Determining the 'top_half' orientation requires understanding the camera's position and intended seating direction."
+        exaplanation_of_diffuculty = "Determining the 'bottom_half' orientation requires understanding the camera's position and intended seating direction."
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_1',
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 1.0,
-          orientation = 'top_half',
+          orientation = 'bottom_half',
           height = 0.8
         ),
         edit_description = 'Ensure height remains consistent at 0.8 meters to match the design goal.',

@@ -45,10 +45,10 @@ Scene(
         NewDesignStructure = CurvyPath(
           far_curve_leftmost_point = (2.0, 0.5, 0.1),
           close_curve_leftmost_point = (1.0, 0.5, 0.1),
-          amplitude = 0.5,
-          wavelength = 2.5,
+          amplitude = 1,
+          wavelength = 1,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
         edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
         difficult_to_deduce_from_prompt = 'medium',
@@ -60,9 +60,9 @@ Scene(
           far_curve_leftmost_point = (2.0, 0.5, 0.1),
           close_curve_leftmost_point = (1.0, 0.5, 0.1),
           amplitude = 0.5,
-          wavelength = 2.5,
+          wavelength = 1,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
         edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
         difficult_to_deduce_from_prompt = 'easy',
@@ -76,7 +76,7 @@ Scene(
           amplitude = 0.5,
           wavelength = 2.5,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
         edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
         difficult_to_deduce_from_prompt = 'medium',

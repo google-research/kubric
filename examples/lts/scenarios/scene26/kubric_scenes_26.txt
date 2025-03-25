@@ -47,7 +47,7 @@ Scene(
           left_length = 1.0,
           left_width = 0.2,
           right_center = (0.5, 0.5, 0.0),
-          right_length = 0.2,
+          right_length = 1,
           height = 0.3
         ),
         edit_description = 'Change the design profile from linear to L-shape.',

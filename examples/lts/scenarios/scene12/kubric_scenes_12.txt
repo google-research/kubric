@@ -47,8 +47,8 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'Linear_1',
         NewDesignStructure = Serpentine(
-          left_arc_center = (-1.0, -0.5, 0.0),
-          radius = 1.0,
+          left_arc_center = (0, -1, 0.0),
+          radius = 0.5,
           left_arc_orientation = 'up',
           height = 0.1
         ),

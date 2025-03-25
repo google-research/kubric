@@ -36,8 +36,8 @@ Scene(
         design_id = 'SemiCircular_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 2.5,
-          gap_degrees = 20.0,
+          radius = 1,
+          gap_degrees = 5.0,
           height = 0.35
         ),
         edit_description = 'Change the design from SemiCircular to TriWedge to surround the birdhouse.',
@@ -49,7 +49,7 @@ Scene(
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
           radius = 2.5,
-          gap_degrees = 20.0,
+          gap_degrees = 5.0,
           height = 0.35
         ),
         edit_description = 'Increase the radius to offer more space for seating and connectivity.',

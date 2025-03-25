@@ -37,11 +37,11 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'rectangular_1',
         NewDesignStructure = LShape(
-          left_center = (-1.5, 0.0, 0.0),
-          left_length = 3.0,
+          left_center = (-1, 0.0, 0.0),
+          left_length = 1.0,
           left_width = 1.0,
-          right_center = (0.0, 1.5, 0.0),
-          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          right_length = 3,
           height = 0.5
         ),
         edit_description = 'Change the design profile to LShape',
@@ -54,8 +54,8 @@ Scene(
           left_center = (-1.5, 0.0, 0.0),
           left_length = 3.0,
           left_width = 1.0,
-          right_center = (0.0, 1.5, 0.0),
-          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          right_length = 3,
           height = 0.5
         ),
         edit_description = 'Adjust the left section centered at (-1.5, 0) with left_length=3 and left_width=1',

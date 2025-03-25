@@ -65,8 +65,8 @@ Scene(
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_path',
         NewDesignStructure = Serpentine(
-          left_arc_center = (-2.0, 0.0, 0.0),
-          radius = 2.0,
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 1.5,
           left_arc_orientation = 'up',
           height = 0.1
         ),

@@ -37,8 +37,8 @@ Scene(
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 30.0,
-          height = 0.4
+          gap_degrees = 5.0,
+          height = 0.2
         ),
         edit_description = 'Reduce the radius to 1.8 meters for a tighter fit.',
         difficult_to_deduce_from_prompt = 'medium',
@@ -49,10 +49,10 @@ Scene(
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 70.0,
-          height = 0.4
+          gap_degrees = 20.0,
+          height = 0.2
         ),
-        edit_description = 'Adjust the gap degrees to 70 to provide wider access paths.',
+        edit_description = 'Adjust the gap degrees to 20 to provide wider access paths.',
         difficult_to_deduce_from_prompt = 'easy',
         exaplanation_of_diffuculty = 'The idea of accessibility paths suggests increasing the gap degrees for better access.'
       ),
@@ -61,7 +61,7 @@ Scene(
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 70.0,
+          gap_degrees = 20.0,
           height = 0.5
         ),
         edit_description = 'Increase the height to 0.5 meters for a more prominent boundary.',
