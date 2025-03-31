@@ -1,0 +1,37 @@
+{
+    "prompt": "Arrange the tables to form a semicircular seating area that faces outward.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.5,
+                0.5,
+                0.8
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table_center"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.8,
+            "keypoints": [
+                [
+                    -9.184850993605148e-17,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    9.184850993605148e-17,
+                    1.5,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

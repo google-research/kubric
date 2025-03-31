@@ -1,12 +1,25 @@
 {
+<<<<<<< HEAD
     "prompt": "Build a protective wall-like structure around the trashcan, not exceeding the specified area dimensions.",
     "observation": {
         "trashcan_1": {
             "extent": [
+=======
+    "prompt": "Build an L-shaped border around the seating area to segment it from the rest of the garden.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                 0.0,
                 0.0,
                 0.0
             ],
+<<<<<<< HEAD
             "center": [
                 0.0,
                 0.0,
@@ -14,11 +27,72 @@
             ],
             "theta": 0.0,
             "semantic_label": "trashcan"
+=======
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_3": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        },
+        "chair_4": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 180.0,
+            "semantic_label": "chair"
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         }
     },
     "output": [
         {
             "segment": 1,
+<<<<<<< HEAD
             "height": 0.75,
             "keypoints": [
                 [
@@ -31,6 +105,72 @@
                     0.0,
                     0.0
                 ]
+=======
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -2.25,
+                    1.0,
+                    0.0
+                ],
+                [
+                    -2.25,
+                    3.0,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    3.0,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    1.0,
+                    0.0
+                ],
+                [
+                    -2.25,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.75,
+                    1.0,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    3.0,
+                    0.0
+                ],
+                [
+                    0.25,
+                    3.0,
+                    0.0
+                ],
+                [
+                    0.25,
+                    1.0,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                1
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             ]
         }
     ]

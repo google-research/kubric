@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What structural change allows the birdhouse to be surrounded by a seating structure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 20.0,
+            height = 0.35
+          ),
+          edit_description = 'Change the design from SemiCircular to TriWedge to surround the birdhouse.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.0,
+            orientation = 'bottom_half',
+            height = 0.35
+          ),
+          edit_description = 'Change the orientation to bottom half.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -1.0, 0.0),
+            length = 4.0,
+            height = 0.35,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Change the design to a linear structure along the y-axis.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.35
+          ),
+          edit_description = 'Change the design to a QuarterWedge to provide selective seating.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            height = 0.35
+          ),
+          edit_description = 'Change the design to a complete Circular seating.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A specifically describes changing the design from SemiCircular to TriWedge to surround the birdhouse, which matches the edit instruction.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the transformation from a semi-circular structure to a TriWedge based on the seating configuration requires spatial reasoning and knowledge of geometric design.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the seating area be adjusted to offer more space and connectivity?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 20.0,
+            height = 0.35
+          ),
+          edit_description = 'Increase the radius to offer more space for seating and connectivity.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 20.0,
+            height = 0.35
+          ),
+          edit_description = 'Decrease the radius for a more compact seating area.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to enhance visibility and connection.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 3.0,
+            inner_radius = 2.5,
+            orientation = 'top_half',
+            height = 0.35
+          ),
+          edit_description = 'Create a SemiRing with more space for seating.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -1.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'down',
+            height = 0.35
+          ),
+          edit_description = 'Add a Serpentine path to increase structural complexity.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the radius, which directly offers more space and connectivity and aligns with the edit instruction.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the radius is straightforward and directly aligns with the prompt to offer more space for seating.'
+    ),
+    2 : EditMCQA(
+      question = 'What modification should be made for optimizing access to the seating area?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 20.0,
+            height = 0.35
+          ),
+          edit_description = 'Set the gap to 20 degrees, optimizing access.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.35
+          ),
+          edit_description = 'Set the gap to 10 degrees, creating a more enclosed seating area.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.35,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change the design to a linear structure to optimize direct access.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            height = 0.35
+          ),
+          edit_description = 'Switch to a complete circular design for unrestricted access from all directions.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, -1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            right_length = 2.0,
+            height = 0.35
+          ),
+          edit_description = 'Create an L-Shape to provide varied access paths.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly sets the gap to 20 degrees, aligning with the instruction to optimize access.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Setting a specific gap is a clear requirement from the prompt and involves basic adjustment of the design specifications.'
+    )
+  ]
+)

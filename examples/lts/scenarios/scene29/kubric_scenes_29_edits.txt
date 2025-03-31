@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to reduce the radius to 1.8 meters for a tighter fit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to 1.8 meters for a tighter fit.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 30.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the gap degrees to 70 and increase the height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the gap degrees to 70 while keeping the radius at 2.0 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly reduces the radius to 1.8 meters, which is the specified modification.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests creating a boundary that fits closely around the table, implying a reduction in size.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification is needed to adjust the gap degrees to 70 for wider access paths?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to 1.8 meters for a tighter fit.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap degrees to 70 to provide wider access paths.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the gap degrees to 70 and height to 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.6,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to 1.6 meters and adjust the gap degrees to 70.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 50.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap degrees to 50 for narrower paths.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly updates the gap degrees to 70, facilitating wider access.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the gap degrees for accessibility is straightforward from the prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit would increase the height to 0.5 meters for a more prominent boundary?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for a more prominent boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap degrees without changing the height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Keep the original height of 0.4 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 30.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height while reducing the gap degrees.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase both the gap degrees and height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the height to 0.5 meters, ensuring a more prominent boundary.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The concept of creating a more prominent boundary clearly implies an increase in height.'
+    )
+  ]
+)

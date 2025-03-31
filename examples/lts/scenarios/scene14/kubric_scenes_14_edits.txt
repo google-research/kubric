@@ -1,0 +1,140 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What was edited in the Circular enclosure to meet the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the radius of the Circular enclosure to 1 meter and increase the height to 0.5 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Modify the radius of the Circular enclosure to 1.5 meters maintaining the height at 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.7
+          ),
+          edit_description = 'Increase the height of the Circular enclosure to 0.7 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift center to (1.0, 0.0, 0.0) and reduce the radius to 1 meter.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Convert to SemiCircular keeping the radius at 1 meter and height at 0.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves reducing the radius to 1 meter and increasing the height to 0.5 meters to match the design goal requirements.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The reduction of radius and height adjustment is straightforward with clear measurement instructions.'
+    ),
+    1 : EditMCQA(
+      question = 'What change was made to create the path leading to the tree?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_0 = CurvyPath(
+                far_curve_leftmost_point = (1.0, 0.0, 0.0),
+                close_curve_leftmost_point = (2.0, 0.0, 0.0),
+                amplitude = 0.15,
+                wavelength = 1.5,
+                phase = 0.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Design a SineWave path with the specified parameters, ensuring it leads to the tree.',
+          target_parameter = 'curvy_path_0'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_0 = Serpentine(
+                left_arc_center = (1.0, 0.0, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'up',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Create a Serpentine path ensuring it leads to the tree.',
+          target_parameter = 'curvy_path_0'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_0 = Linear(
+                center = (1.5, 0.0, 0.0),
+                length = 1.5,
+                height = 0.1,
+                orientation = 'x-axis'
+              )
+            }
+          ),
+          edit_description = 'Add a Linear path with a length of 1.5 meters leading to the tree.',
+          target_parameter = 'curvy_path_0'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_0 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 1.0,
+                inner_radius = 0.5,
+                orientation = 'bottom_half',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Implement a SemiRing path oriented on the bottom half towards the tree.',
+          target_parameter = 'curvy_path_0'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_0 = Circular(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Construct a circular path leading to the tree.',
+          target_parameter = 'curvy_path_0'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves adding a SineWave path with specified parameters that ensures it leads to the tree, matching the design goal provided.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The path involves a specific geometric configuration with parameters that must be derived and applied accurately.'
+    )
+  ]
+)

@@ -1,6 +1,7 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
+<<<<<<< HEAD
       question = 'What modification was made to the path to meet the design goal?',
       answers = {
         A = ModifyStructureEditWithDifficulty(
@@ -58,6 +59,111 @@ CounterFactualMCQASequence(
       explanation_of_correctness = 'The correct modification was to change the path structure to a curvy pattern, as stated in both the edit description and the design goal.',
       difficulty = 'easy',
       explanation_of_difficulty = 'The prompt clearly instructs changing the path to a curvy pattern, making it easy to deduce the correct modification.'
+=======
+      question = 'What edit is needed to adjust the gap degrees of the TriWedge for better alignment with the goal design?',
+      answers = {
+        A = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 100.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap degrees from 120 to 100 to align better with the general design goal.',
+          target_parameter = 'gap_degrees',
+          old_value = 120.0,
+          new_value = 100.0
+        ),
+        B = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 110.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the gap degrees from 120 to 110.',
+          target_parameter = 'gap_degrees',
+          old_value = 120.0,
+          new_value = 110.0
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the gap degrees to match the required design while option B suggests an incorrect adjustment.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt does not specify gap degrees directly, but a reasonable adjustment was easily deduced.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the height of the TriWedge be modified to achieve the design goal?',
+      answers = {
+        A = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 100.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase height from 0.3 to 0.4 as an intermediate step.',
+          target_parameter = 'height',
+          old_value = 0.3,
+          new_value = 0.4
+        ),
+        B = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 100.0,
+            height = 0.6
+          ),
+          edit_description = 'Incorrectly increase height to 0.6, exceeding the specified goal.',
+          target_parameter = 'height',
+          old_value = 0.3,
+          new_value = 0.6
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A takes a correct intermediate step towards the goal height, compatible with the prompt's guidance.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "The need for an intermediate height adjustment isn't specified directly, requiring some inference."
+    ),
+    2 : EditMCQA(
+      question = 'What is the final edit needed to reach the design height goal?',
+      answers = {
+        A = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 100.0,
+            height = 0.5
+          ),
+          edit_description = 'Finalize the design by increasing the height to the desired 0.5.',
+          target_parameter = 'height',
+          old_value = 0.4,
+          new_value = 0.5
+        ),
+        B = ModifyDesignStructureEdit(
+          design_id = 'InitialTriWedge',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 100.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase height to 0.45, falling short of the goal.',
+          target_parameter = 'height',
+          old_value = 0.4,
+          new_value = 0.45
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A achieves the design specification of height 0.5, completing the transition correctly.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The final increase meets the goal without ambiguity, directly following from earlier steps.'
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
     )
   ]
 )

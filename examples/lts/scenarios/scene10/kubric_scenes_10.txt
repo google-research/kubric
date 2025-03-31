@@ -1,5 +1,6 @@
 Scene(
   objects = {
+<<<<<<< HEAD
     pot_1 = SceneObject(
       extent = (0.0, 0.0, 0.0),
       center = (1.0, 0.0, 0.0),
@@ -23,11 +24,32 @@ Scene(
         length = 1.0,
         width = 2.0,
         height = 0.25
+=======
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a layered landscape pattern around the rock with uniform gaps.',
+  description = 'This scene involves arranging multiple semi-ring structures for aesthetic landscaping around a central rock. It requires understanding geometric properties like radius, orientation, and spacing to create a concentric design. The task also includes resolving ambiguities in positioning to maintain uniform gaps between the structures.',
+  initial_design = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 2.5,
+        inner_radius = 2.0,
+        orientation = 'top_half',
+        height = 0.3
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   design_goal = Design(
     structures = {
+<<<<<<< HEAD
       lshape1 = LShape(
         left_center = (1.0, 0.0, 0.0),
         left_length = 2.0,
@@ -35,11 +57,27 @@ Scene(
         right_width = 2.0,
         right_length = 1.0,
         height = 0.75
+=======
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 2.5,
+        inner_radius = 2.0,
+        orientation = 'top_half',
+        height = 0.3
+      ),
+      SemiRing_2 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 3.5,
+        inner_radius = 3.0,
+        orientation = 'top_half',
+        height = 0.3
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   edits = EditSequence(
     edits = [
+<<<<<<< HEAD
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'rectangle1',
         NewDesignStructure = LShape(
@@ -67,6 +105,31 @@ Scene(
         edit_description = 'Increase the height',
         difficult_to_deduce_from_prompt = 'easy',
         exaplanation_of_diffuculty = 'The edit is directly specified to increase the height.'
+=======
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            SemiRing_1 = SemiRing(
+              center = (0.0, 0.0, 0.0),
+              outer_radius = 2.5,
+              inner_radius = 2.0,
+              orientation = 'top_half',
+              height = 0.3
+            ),
+            SemiRing_2 = SemiRing(
+              center = (0.0, 0.0, 0.0),
+              outer_radius = 3.5,
+              inner_radius = 3.0,
+              orientation = 'top_half',
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 3.5 and inner_radius: 3.',
+        target_parameter = 'SemiRing_2',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The task clearly states to add a larger semi-ring outside the initial one.'
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     ]
   )

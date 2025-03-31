@@ -1,6 +1,7 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
+<<<<<<< HEAD
       question = 'What modification should be made to change the existing rectangular structure into an L-shape?',
       answers = {
         A = ModifyStructureEdit(
@@ -128,6 +129,86 @@ CounterFactualMCQASequence(
       explanation_of_correctness = 'The design goal requires the structure height to be 0.75.',
       difficulty = 'easy',
       explanation_of_difficulty = 'The edit is directly specified to increase the height to 0.75.'
+=======
+      question = 'Which edit will add a new larger semi-ring structure around the initial one while maintaining a concentric design with uniform gaps?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing_1 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 2.5,
+                inner_radius = 2.0,
+                orientation = 'top_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Re-adjust the semi-ring to a smaller outer_radius: 1.5 and inner_radius: 1',
+          target_parameter = 'SemiRing_1'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing_2 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 3.5,
+                inner_radius = 3.0,
+                orientation = 'top_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 3.5 and inner_radius: 3.',
+          target_parameter = 'SemiRing_2'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              Serpentine_1 = Serpentine(
+                left_arc_center = (-1.0, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'up',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Introduce a serpentine path oriented upwards.',
+          target_parameter = 'Serpentine_1'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular_1 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 2.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Insert a circular structure to the side.',
+          target_parameter = 'Circular_1'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              Linear_1 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 4.5,
+                height = 0.3,
+                orientation = 'x-axis'
+              )
+            }
+          ),
+          edit_description = 'Add a linear structure along the x-axis.',
+          target_parameter = 'Linear_1'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The task clearly requires adding a second larger semi-ring structure concentric to the first one, which matches option B.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit clearly outlines the addition of a larger semi-ring as per the prompt.'
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
     )
   ]
 )

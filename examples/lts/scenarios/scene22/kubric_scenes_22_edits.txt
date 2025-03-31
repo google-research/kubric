@@ -1,0 +1,145 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to change from a circular wall to accommodate different aesthetics in Scene 22?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular Wall',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 35.0,
+            height = 0.3
+          ),
+          edit_description = 'Change from a circular wall to quarter-wedge structures for varied aesthetics.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'The transition from a circular wall to a quarter-wedge structure given the description and prompt is straightforward, requiring simple interpretation of provided spatial requirements.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular Wall',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Change from a circular wall to a semicircular structure facing the top half.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Requires understanding of orientation adjustments along with aesthetic changes.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular Wall',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Switch from a circular wall to a tri-wedge structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Involves choosing a more complex structural form and adjusting parameters accordingly.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'Circular Wall',
+          edit_description = 'Remove the circular wall entirely.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              L-Shape = LShape(
+                left_center = (0.0, 0.0, 0.0),
+                left_length = 3.0,
+                left_width = 1.0,
+                right_center = (1.0, 0.0, 0.0),
+                right_length = 1.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add an L-Shape structure for a new aesthetic in place of the circular wall.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Demands thorough rethinking of the space layout and aesthetic function.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately reflects the intended change as described in the edit section, transitioning from a circular wall to quarter-wedge structures.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is simple given the clear correspondence between the goal and the provided design alteration, directly resolving the aesthetic shift mentioned.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification should be made to ensure the garden space in Scene 22 has appropriate radii and gaps?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Quarter-Wedge 2 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.5,
+                gap_degrees = 50.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Adjust the radii and gaps to ensure comfort and flow within the space.',
+          target_parameter = 'radius',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'This requires knowledge of spatial design and functionality, which involves interpretation beyond basic geometric changes.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              SemiRing = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 3.0,
+                inner_radius = 1.5,
+                orientation = 'bottom_half',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Create a semicircular ring adjusting radii for an open-plan outcome.',
+          target_parameter = 'orientation',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Creating and integrating semicircular rings involves more complex spatial calculations and aesthetic adjustments.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Linear Structure = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 4.0,
+                height = 0.5,
+                orientation = 'y-axis'
+              )
+            }
+          ),
+          edit_description = 'Introduce linear structures considering straight-line accessibility.',
+          target_parameter = 'length',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Introducing linear structures requires balancing between practicality and the circular intent of the design.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'Quarter-Wedge 1',
+          edit_description = 'Remove Quarter-Wedge 1 for a simpler design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Quarter-Wedge 1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.3
+          ),
+          edit_description = 'Alter Quarter-Wedge 1 to shift its center and adjust its gap slightly.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Changing centers and gaps within existing conditions requires an intermediate understanding of spatial specifics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A aligns with the intended modification of implementing a second quarter-wedge with specified parameters, fulfilling the scene’s goals of aesthetic complexity.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adapting the garden to feature articulated arcs while maintaining spatial coherence requires moderate design insight.'
+    )
+  ]
+)

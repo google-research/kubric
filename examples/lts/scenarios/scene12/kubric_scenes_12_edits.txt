@@ -1,0 +1,125 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What design profile change should be made to create a more engaging garden trail?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to serpentine for a more engaging path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to curvy path to connect the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a quarter wedge for creative layout.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to circular for a symmetrical design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.1,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Keep the current linear profile but realign to y-axis.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The scene description specifies a serpentine path for an engaging garden trail, matching the design profile update in option A.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Interpreting the scene description to select the appropriate design profile requires understanding the specified aesthetic.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification makes the path visually connect trees in a winding manner?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'up',
+            height = 0.1
+          ),
+          edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.2,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = "Adjust the path's curves to create more dynamic visual connection."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Serpentine_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 45.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a quarter wedge to create a visible arc.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Serpentine_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.1
+          ),
+          edit_description = 'Reconfigure to semicircular path for better connection visibility.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Serpentine_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 60.0,
+            height = 0.1
+          ),
+          edit_description = 'Change to a tri-wedge design to achieve a more triangular layout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the arc’s center and radius as described in option A aligns with the scene requirement for visually connecting the trees.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Determining the precise arc configurations requires understanding the spatial layout and the intended visual path among the trees.'
+    )
+  ]
+)

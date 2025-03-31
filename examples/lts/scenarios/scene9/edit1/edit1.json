@@ -1,6 +1,10 @@
 {
     "observation": {
+<<<<<<< HEAD
         "table_1": {
+=======
+        "table_0": {
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             "extent": [
                 1.0,
                 1.0,
@@ -14,7 +18,11 @@
             "theta": 0.0,
             "semantic_label": "table"
         },
+<<<<<<< HEAD
         "chair_1": {
+=======
+        "chair_0": {
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             "extent": [
                 0.5,
                 0.5,
@@ -28,7 +36,11 @@
             "theta": -90.0,
             "semantic_label": "chair"
         },
+<<<<<<< HEAD
         "chair_2": {
+=======
+        "chair_1": {
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             "extent": [
                 0.5,
                 0.5,
@@ -42,7 +54,11 @@
             "theta": 0.0,
             "semantic_label": "chair"
         },
+<<<<<<< HEAD
         "chair_3": {
+=======
+        "chair_2": {
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             "extent": [
                 0.5,
                 0.5,
@@ -56,7 +72,11 @@
             "theta": 90.0,
             "semantic_label": "chair"
         },
+<<<<<<< HEAD
         "chair_4": {
+=======
+        "chair_3": {
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             "extent": [
                 0.5,
                 0.5,
@@ -76,7 +96,11 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
+<<<<<<< HEAD
         "quarter_wedge_1": [
+=======
+        "quarter_wedge_0": [
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             {
                 "segment": 1,
                 "height": 0.25,
@@ -878,7 +902,11 @@
         ]
     },
     "goal_impl": {
+<<<<<<< HEAD
         "quarter_wedge_1": [
+=======
+        "quarter_wedge_0": [
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             {
                 "segment": 1,
                 "height": 0.25,

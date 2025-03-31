@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be applied to increase the radius of the semi-circular seating for the garden scene?',
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters for more space.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Increase the height of the existing seating.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Change the orientation to bottom_half.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Make the seating taller for a more upright posture.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Expand the radius to add even more space.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = "Option 'a' correctly increases the radius to 1.5 meters as described in the edit.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly suggests increasing the radius for more space, making it easy to identify.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit should be applied to change the orientation of the semi-circular seating towards the garden?',
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters for more space.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to bottom_half to open toward the garden path.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height for more comfortable seating.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Ensure the seating height complements garden aesthetics.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Increase both radius and height for added space and comfort.'
+        )
+      },
+      correct_answer = 'b',
+      explanation_of_correctness = "Option 'b' correctly changes the orientation to bottom_half, aligning with the garden path.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests an open orientation towards the path, making it straightforward.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit should be applied to increase the height of the semi-circular seating for improved comfort?',
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters for more space.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to bottom_half for better garden access.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the seating height to 0.5 meters for a comfortable seating experience.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Increase both radius and height for added space and comfort.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = '1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Ensure the seating height complements garden aesthetics.'
+        )
+      },
+      correct_answer = 'c',
+      explanation_of_correctness = "Option 'c' correctly adjusts the height to 0.5 meters, as required for comfortable seating.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests a comfortable seating experience, indicating the need for increased height.'
+    )
+  ]
+)

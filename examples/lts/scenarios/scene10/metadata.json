@@ -74,6 +74,7 @@
             512,
             512
         ],
+<<<<<<< HEAD
         "seed": 352787774,
         "step_rate": 240
     },
@@ -269,4 +270,10 @@
             "watertight_mesh_filename": "{asset_dir}/model_watertight.obj"
         }
     ]
+=======
+        "seed": 1700343193,
+        "step_rate": 240
+    },
+    "object": []
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
 }

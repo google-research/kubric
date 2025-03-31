@@ -1,5 +1,6 @@
 Scene(
   objects = {
+<<<<<<< HEAD
     trashcan_1 = SceneObject(
       extent = (0.0, 0.0, 0.0),
       center = (0.0, 0.0, 0.0),
@@ -17,22 +18,78 @@ Scene(
         length = 2.0,
         height = 0.75,
         orientation = 'x-axis'
+=======
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_4 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, 1.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Build an L-shaped border around the seating area to segment it from the rest of the garden.',
+  description = 'This scene involves spatial reasoning to position two L-shaped structures around a table and chairs arrangement. The task requires understanding geometric alignments and dimensions to achieve the desired design goal of providing a segmented seating area.',
+  initial_design = Design(
+    structures = {
+      initial_lshape = LShape(
+        left_center = (-2.0, 0.0, 0.0),
+        left_length = 4.0,
+        left_width = 0.5,
+        right_center = (0.0, 2.0, 0.0),
+        right_length = 0.5,
+        height = 0.5
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   design_goal = Design(
     structures = {
+<<<<<<< HEAD
       linear_1 = Linear(
         center = (0.5, 0.0, 0.0),
         length = 2.0,
         height = 0.75,
         orientation = 'x-axis'
+=======
+      final_lshape = LShape(
+        left_center = (-2.0, 2.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_center = (-2.0, -2.0, 0.0),
+        right_length = 2.0,
+        height = 0.5
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
+<<<<<<< HEAD
         design_id = 'linear_1',
         NewDesignStructure = Linear(
           center = (0.5, 0.0, 0.0),
@@ -55,6 +112,20 @@ Scene(
         edit_description = 'Adjust the position to (0.5, 0, 0) to ensure the structure is within the specified area.',
         difficult_to_deduce_from_prompt = 'easy',
         exaplanation_of_diffuculty = 'Adjusting the given design to fit within a specific parameter (position) is a simple modification based on the provided specifications.'
+=======
+        design_id = 'initial_lshape',
+        NewDesignStructure = LShape(
+          left_center = (-2.0, 0.0, 0.0),
+          left_length = 4.0,
+          left_width = 0.5,
+          right_center = (0.0, 2.0, 0.0),
+          right_length = 0.5,
+          height = 0.5
+        ),
+        edit_description = 'Split the design into an L-shape.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The transformation requires understanding how to split a rectangular structure into an L-shape.'
+>>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     ]
   )

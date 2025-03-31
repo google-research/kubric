@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which of the following edits moves the path to a left arc center of (-2, 0) to better align it between the trees and benches?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-2.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'down',
+            height = 0.1
+          ),
+          edit_description = 'Move the path to have a left arc center at (-2, 0) to align it between the trees and benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'up',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the path to have a left arc center at (-1.5, 0) and increase the radius slightly for a broader path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.5, 0.0, 0.0),
+            close_curve_leftmost_point = (-2.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a curvy shape with specified leftmost points for each curve.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = QuarterWedge(
+            center = (-2.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = 'Redesign the path with a quarter wedge structure at the new center point.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = TriWedge(
+            center = (-3.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 120.0,
+            height = 0.1
+          ),
+          edit_description = 'Alter the path to a tri-wedge shape centered further to the left.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Choice A correctly describes the movement of the path's center to the specified location.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding the spatial layout to position the path correctly.'
+    ),
+    1 : EditMCQA(
+      question = "Which edit increases the path's radius to 2 meters and changes the orientation to up?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-2.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'up',
+            height = 0.1
+          ),
+          edit_description = 'Increase the radius to 2 meters for a nicer wrap around objects, change the left arc orientation to be facing up.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Circular(
+            center = (-2.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.1
+          ),
+          edit_description = 'Convert the path structure to a circular layout with a larger radius.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = SemiCircular(
+            center = (-2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
+            height = 0.1
+          ),
+          edit_description = 'Redesign the path to a semi-circular top-half orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Linear(
+            center = (-2.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.1,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Reconfigure the path into a linear design along the y-axis.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path',
+          NewDesignStructure = QuarterWedge(
+            center = (-2.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = 'Switch the design to a quarter wedge shape with the specified radius.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly describes both the increase in radius and reorientation of the path.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Involves interpreting the requirement for a larger radius and proper orientation.'
+    )
+  ]
+)

@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a garden space with partial enclosures around the seating area using abstract shapes to promote relaxation.',
+  description = 'This scene involves creating a recreational garden space using multiple quarter-wedge structures to enclose a seating area harmoniously. It requires interpreting the use of angles and gaps to form an intricate design while ensuring usability and accessibility.',
+  initial_design = Design(
+    structures = {
+      Circular Wall = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 35.0,
+        height = 0.3
+      ),
+      Quarter-Wedge 2 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.5,
+        gap_degrees = 50.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Quarter-Wedge 1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 35.0,
+        height = 0.3
+      ),
+      Quarter-Wedge 2 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.5,
+        gap_degrees = 50.0,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular Wall',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 35.0,
+          height = 0.3
+        ),
+        edit_description = 'Change from a circular wall to quarter-wedge structures for varied aesthetics.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The transition from a circular wall to a quarter-wedge structure given the description and prompt is straightforward, requiring simple interpretation of provided spatial requirements.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            Quarter-Wedge 2 = QuarterWedge(
+              center = (0.0, 0.0, 0.0),
+              radius = 2.5,
+              gap_degrees = 50.0,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Adjust the radii and gaps to ensure comfort and flow within the space.',
+        target_parameter = 'radius',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'This requires knowledge of spatial design and functionality, which involves interpretation beyond basic geometric changes.'
+      )
+    ]
+  )
+)
