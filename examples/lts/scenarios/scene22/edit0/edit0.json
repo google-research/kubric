@@ -12,7 +12,7 @@
                 0.0
             ],
             "theta": 0.0,
-            "semantic_label": "table"
+            "semantic_label": "Table"
         },
         "chair_1": {
             "extent": [
@@ -26,7 +26,7 @@
                 0.0
             ],
             "theta": -90.0,
-            "semantic_label": "chair"
+            "semantic_label": "Chair"
         },
         "chair_2": {
             "extent": [
@@ -40,7 +40,7 @@
                 0.0
             ],
             "theta": 90.0,
-            "semantic_label": "chair"
+            "semantic_label": "Chair"
         }
     },
     "description": "This scene involves creating a recreational garden space using multiple quarter-wedge structures to enclose a seating area harmoniously. It requires interpreting the use of angles and gaps to form an intricate design while ensuring usability and accessibility.",
@@ -48,7 +48,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "Circular Wall": [
+        "circular_wall": [
             {
                 "segment": 1,
                 "height": 0.3,
@@ -850,7 +850,7 @@
         ]
     },
     "goal_impl": {
-        "Quarter-Wedge 1": [
+        "quarter_wedge_1": [
             {
                 "segment": 1,
                 "height": 0.3,
@@ -1650,7 +1650,7 @@
                 ]
             }
         ],
-        "Quarter-Wedge 2": [
+        "quarter_wedge_2": [
             {
                 "segment": 1,
                 "height": 0.3,

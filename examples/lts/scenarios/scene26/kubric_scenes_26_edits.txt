@@ -1,153 +1,143 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct modification to change the design profile from linear to an L-shape?',
+      question = 'What is the modification required to change the initial design to an L-shape with a right length of 1 meter?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'structure_0',
           NewDesignStructure = LShape(
             left_center = (0.5, 0.0, 0.0),
             left_length = 1.0,
             left_width = 0.2,
-            right_center = (0.5, 0.5, 0.0),
-            right_length = 0.2,
+            right_width = 0.0,
+            right_length = 0.0,
             height = 0.3
           ),
-          edit_description = 'Change the design profile from linear to L-shape.'
+          edit_description = 'Change the design profile from linear to L-shape, use right length=1.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Linear(
-            center = (0.5, 0.0, 0.0),
-            length = 1.2,
-            height = 0.3,
-            orientation = 'x-axis'
+          design_id = 'structure_0',
+          NewDesignStructure = Rectangular(
+            center = (0.5, -0.5, 0.0),
+            length = 1.0,
+            width = 0.2,
+            height = 0.3
           ),
-          edit_description = 'Expand the linear structure along the x-axis.'
+          edit_description = 'Change the design to a rectangular shape centered at (0.5, -0.5).'
         ),
         C = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'structure_0',
           NewDesignStructure = Circular(
-            center = (0.5, 0.0, 0.0),
+            center = (0.0, 0.0, 0.0),
             radius = 0.5,
             height = 0.3
           ),
-          edit_description = 'Change the design profile to a circular shape.'
+          edit_description = 'Change the design to a circular structure centered at the origin.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'structure_0',
           NewDesignStructure = SemiCircular(
             center = (0.5, 0.0, 0.0),
-            radius = 0.6,
+            radius = 0.5,
             orientation = 'top_half',
             height = 0.3
           ),
-          edit_description = 'Change the design profile to a semi-circular shape.'
+          edit_description = 'Change the design to a semi-circular structure with the top-half orientation centered at (0.5, 0.0).'
         ),
         E = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Rectangular(
+          design_id = 'structure_0',
+          NewDesignStructure = Linear(
             center = (0.5, 0.0, 0.0),
             length = 1.0,
-            width = 0.3,
-            height = 0.3
+            height = 0.3,
+            orientation = 'x-axis'
           ),
-          edit_description = 'Change the design profile to a rectangular shape.'
+          edit_description = 'Change the design to a linear shape centered at (0.5, 0.0) along the x-axis.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly transforms the linear structure into the specified L-shape with precise geometry as required by the design goal.',
+      explanation_of_correctness = 'The correct modification involves changing the initial linear design to an L-shape with a specified right length.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The prompt suggests creating an L-shape but requires interpretation of how to align and size both segments of the L-shape.'
+      explanation_of_difficulty = 'Adjusting the design from linear to L-shape requires understanding geometric alignment.'
     ),
     1 : EditMCQA(
-      question = 'What is the correct edit to add the right segment of the L-shape centered at (0.5, 0.5)?',
+      question = 'What is the addition required to complete the L-shape with a segment centered at (0.5, 0.5)?',
       answers = {
         A = AddStructureEdit(
           design = Design(
             structures = {
-              l_shape_1 = LShape(
-                left_center = (0.5, 0.0, 0.0),
-                left_length = 1.0,
-                left_width = 0.2,
-                right_center = (0.5, 0.5, 0.0),
-                right_length = 0.2,
+              structure_1 = Rectangular(
+                center = (0.5, 0.5, 0.0),
+                length = 0.2,
+                width = 0.2,
                 height = 0.3
               )
             }
           ),
           edit_description = 'Add the right segment of the L-shape centered at (0.5, 0.5) with a length of 0.2 meters and align with the left segment.',
-          target_parameter = 'right segment'
+          target_parameter = 'positioning'
         ),
         B = AddStructureEdit(
           design = Design(
             structures = {
-              l_shape_1 = LShape(
-                left_center = (0.5, 0.0, 0.0),
-                left_length = 0.8,
-                left_width = 0.2,
-                right_center = (0.5, -0.5, 0.0),
-                right_length = 0.2,
+              structure_1 = Circular(
+                center = (1.0, 1.0, 0.0),
+                radius = 0.4,
                 height = 0.3
               )
             }
           ),
-          edit_description = 'Add a segment perpendicular to the left segment, centered at (0.5, -0.5).',
-          target_parameter = 'right segment'
+          edit_description = 'Add a circular segment centered at (1.0, 1.0) with radius 0.4.',
+          target_parameter = 'size'
         ),
         C = AddStructureEdit(
           design = Design(
             structures = {
-              l_shape_1 = LShape(
-                left_center = (0.5, 0.0, 0.0),
-                left_length = 1.0,
-                left_width = 0.2,
-                right_center = (0.7, 0.7, 0.0),
-                right_length = 0.4,
-                height = 0.3
+              structure_1 = Linear(
+                center = (0.5, 1.0, 0.0),
+                length = 0.5,
+                height = 0.3,
+                orientation = 'x-axis'
               )
             }
           ),
-          edit_description = 'Add an extended right segment with length 0.4 meters centered at (0.7, 0.7).',
-          target_parameter = 'right segment'
+          edit_description = 'Add a linear segment centered at (0.5, 1.0) with length 0.5 aligned on the x-axis.',
+          target_parameter = 'orientation'
         ),
         D = AddStructureEdit(
           design = Design(
             structures = {
-              l_shape_1 = LShape(
-                left_center = (0.5, 0.0, 0.0),
-                left_length = 0.9,
-                left_width = 0.3,
-                right_center = (0.5, 0.5, 0.0),
-                right_length = 0.1,
+              structure_1 = SemiCircular(
+                center = (0.5, 0.5, 0.0),
+                radius = 0.3,
+                orientation = 'bottom_half',
                 height = 0.3
               )
             }
           ),
-          edit_description = 'Add a smaller right segment aligned with the left segment.',
-          target_parameter = 'right segment'
+          edit_description = 'Add a semi-circular segment centered at (0.5, 0.5) for the bottom-half.',
+          target_parameter = 'shape'
         ),
         E = AddStructureEdit(
           design = Design(
             structures = {
-              l_shape_1 = LShape(
-                left_center = (0.5, 0.0, 0.0),
-                left_length = 1.0,
-                left_width = 0.2,
-                right_center = (1.0, 0.5, 0.0),
-                right_length = 0.2,
+              structure_1 = SemiRing(
+                center = (0.5, 0.5, 0.0),
+                outer_radius = 0.5,
+                inner_radius = 0.3,
+                orientation = 'top_half',
                 height = 0.3
               )
             }
           ),
-          edit_description = 'Add the right segment of the L-shape centered at a different location (1.0, 0.5).',
-          target_parameter = 'right segment'
+          edit_description = 'Add a semi-ring segment centered at (0.5, 0.5) with top-half orientation.',
+          target_parameter = 'structure type'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly adds the right segment of the L-shape with the specified length and alignment with the left segment, fulfilling the design goal.',
+      explanation_of_correctness = 'The addition correctly places the right segment of the L-shape at the specified location and dimensions.',
       difficulty = 'hard',
-      explanation_of_difficulty = 'Aligning the right segment with appropriate length and keeping it consistent with the seating area boundary is challenging.'
+      explanation_of_difficulty = 'Adding a segment requires careful calculation of measurements and alignment.'
     )
   ]
 )

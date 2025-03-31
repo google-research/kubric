@@ -12,7 +12,7 @@ Scene(
   description = 'This scene involves creating a semi-circular seating arrangement in a garden to encourage relaxation, with the seating enclosing a birdhouse. The task requires understanding geometric relationships to ensure the structure is balanced and provides easy access. It involves geometric properties such as radius, height, and orientation.',
   initial_design = Design(
     structures = {
-      1 = SemiCircular(
+      seating = SemiCircular(
         center = (0.0, 0.0, 0.0),
         radius = 1.0,
         orientation = 'top_half',
@@ -22,7 +22,7 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      1 = SemiCircular(
+      seating = SemiCircular(
         center = (0.0, 0.0, 0.0),
         radius = 1.5,
         orientation = 'bottom_half',
@@ -33,7 +33,7 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = '1',
+        design_id = 'seating',
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 1.5,
@@ -42,10 +42,10 @@ Scene(
         ),
         edit_description = 'Increase the radius to 1.5 meters for more space.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly suggests increasing the radius for more space.'
+        exaplanation_of_diffuculty = 'The edit is straightforward as it directly refers to changing the radius for space.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = '1',
+        design_id = 'seating',
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 1.5,
@@ -54,10 +54,10 @@ Scene(
         ),
         edit_description = 'Change the orientation to bottom_half to open toward the garden path.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt indicates that the bench should provide easy access, implying an open orientation.'
+        exaplanation_of_diffuculty = 'The orientation change is simply described and easy to implement.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = '1',
+        design_id = 'seating',
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 1.5,
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters for a comfortable seating experience.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The prompt's context of comfort suggests increasing the height."
+        exaplanation_of_diffuculty = 'The height adjustment for comfort is straightforward from the prompt.'
       )
     ]
   )

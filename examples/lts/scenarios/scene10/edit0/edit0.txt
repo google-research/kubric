@@ -1,32 +1,5 @@
 Scene(
   objects = {
-<<<<<<< HEAD
-    pot_1 = SceneObject(
-      extent = (0.0, 0.0, 0.0),
-      center = (1.0, 0.0, 0.0),
-      theta = 0.0,
-      semantic_label = 'pot'
-    ),
-    trashcan_1 = SceneObject(
-      extent = (0.0, 0.0, 0.0),
-      center = (1.5, 1.5, 0.0),
-      theta = 0.0,
-      semantic_label = 'trashcan'
-    )
-  },
-  num_edits = 2,
-  prompt = 'Create a single structure to house the objects.',
-  description = 'This scene involves constructing an L-shaped pattern to house two objects',
-  initial_design = Design(
-    structures = {
-      rectangle1 = LShape(
-        left_center = (1.0, 0.0, 0.0),
-        left_length = 2.0,
-        left_width = 1.0,
-        right_width = 2.0,
-        right_length = 1.0,
-        height = 0.25
-=======
     rock_1 = SceneObject(
       extent = (0.25, 0.25, 0.25),
       center = (0.0, 0.0, 0.0),
@@ -39,93 +12,46 @@ Scene(
   description = 'This scene involves arranging multiple semi-ring structures for aesthetic landscaping around a central rock. It requires understanding geometric properties like radius, orientation, and spacing to create a concentric design. The task also includes resolving ambiguities in positioning to maintain uniform gaps between the structures.',
   initial_design = Design(
     structures = {
-      SemiRing_1 = SemiRing(
+      semi_ring_1 = SemiRing(
         center = (0.0, 0.0, 0.0),
         outer_radius = 2.5,
         inner_radius = 2.0,
         orientation = 'top_half',
         height = 0.3
       ),
-      SemiRing_2 = SemiRing(
+      semi_ring_2 = SemiRing(
         center = (0.0, 0.0, 0.0),
         outer_radius = 3.5,
         inner_radius = 3.0,
         orientation = 'top_half',
         height = 0.3
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   design_goal = Design(
     structures = {
-<<<<<<< HEAD
-      lshape1 = LShape(
-        left_center = (1.0, 0.0, 0.0),
-        left_length = 2.0,
-        left_width = 1.0,
-        right_width = 2.0,
-        right_length = 1.0,
-        height = 0.75
-=======
-      SemiRing_1 = SemiRing(
+      semi_ring_1 = SemiRing(
         center = (0.0, 0.0, 0.0),
         outer_radius = 2.5,
         inner_radius = 2.0,
         orientation = 'top_half',
         height = 0.3
       ),
-      SemiRing_2 = SemiRing(
+      semi_ring_2 = SemiRing(
         center = (0.0, 0.0, 0.0),
         outer_radius = 3.5,
         inner_radius = 3.0,
         orientation = 'top_half',
         height = 0.3
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   edits = EditSequence(
     edits = [
-<<<<<<< HEAD
-      0 : ModifyStructureEditWithDifficulty(
-        design_id = 'rectangle1',
-        NewDesignStructure = LShape(
-          left_center = (1.0, 0.0, 0.0),
-          left_length = 2.0,
-          left_width = 1.0,
-          right_width = 2.0,
-          right_length = 1.0,
-          height = 0.25
-        ),
-        edit_description = 'Change the shape to L-shape',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is direct and explicitly specified in the prompt.'
-      ),
-      1 : ModifyStructureEditWithDifficulty(
-        design_id = 'lshape1',
-        NewDesignStructure = LShape(
-          left_center = (1.0, 0.0, 0.0),
-          left_length = 2.0,
-          left_width = 1.0,
-          right_width = 2.0,
-          right_length = 1.0,
-          height = 0.75
-        ),
-        edit_description = 'Increase the height',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is directly specified to increase the height.'
-=======
       0 : AddStructureEditWithDifficulty(
         design = Design(
           structures = {
-            SemiRing_1 = SemiRing(
-              center = (0.0, 0.0, 0.0),
-              outer_radius = 2.5,
-              inner_radius = 2.0,
-              orientation = 'top_half',
-              height = 0.3
-            ),
-            SemiRing_2 = SemiRing(
+            semi_ring_2 = SemiRing(
               center = (0.0, 0.0, 0.0),
               outer_radius = 3.5,
               inner_radius = 3.0,
@@ -135,10 +61,9 @@ Scene(
           }
         ),
         edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 3.5 and inner_radius: 3.',
-        target_parameter = 'SemiRing_2',
+        target_parameter = 'outer_radius',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The task clearly states to add a larger semi-ring outside the initial one.'
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
+        exaplanation_of_diffuculty = 'The prompt explicitly states to create a layered pattern with additional structures, making the required addition straightforward.'
       )
     ]
   )

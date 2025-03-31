@@ -14,8 +14,8 @@ Scene(
     structures = {
       SemiCircular_1 = TriWedge(
         center = (0.0, 0.0, 0.0),
-        radius = 2.5,
-        gap_degrees = 20.0,
+        radius = 1.0,
+        gap_degrees = 5.0,
         height = 0.35
       )
     }
@@ -36,25 +36,25 @@ Scene(
         design_id = 'SemiCircular_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 2.5,
-          gap_degrees = 20.0,
+          radius = 1.0,
+          gap_degrees = 5.0,
           height = 0.35
         ),
-        edit_description = 'Change the design from SemiCircular to TriWedge to surround the birdhouse.',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding the transformation from a semi-circular structure to a TriWedge based on the seating configuration requires spatial reasoning and knowledge of geometric design.'
+        edit_description = 'Change the design from SemiCircular to TriWedge to surround the birdhouse, with radius 1 and gap degrees 5.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Transformation from SemiCircular to TriWedge is straightforward with provided parameters.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'TriWedge_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
           radius = 2.5,
-          gap_degrees = 20.0,
+          gap_degrees = 5.0,
           height = 0.35
         ),
-        edit_description = 'Increase the radius to offer more space for seating and connectivity.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the radius is straightforward and directly aligns with the prompt to offer more space for seating.'
+        edit_description = 'Increase the radius to offer more space for seating and connectivity, keep gap.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Adjusting radius required understanding spatial arrangement.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'TriWedge_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Set the gap to 20 degrees, optimizing access.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Setting a specific gap is a clear requirement from the prompt and involves basic adjustment of the design specifications.'
+        exaplanation_of_diffuculty = 'Changing gap to 20 degrees aligns with design goal.'
       )
     ]
   )

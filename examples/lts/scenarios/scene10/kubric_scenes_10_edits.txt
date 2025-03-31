@@ -1,156 +1,12 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-<<<<<<< HEAD
-      question = 'What modification should be made to change the existing rectangular structure into an L-shape?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'rectangle1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 0.25
-          ),
-          edit_description = 'Change the shape to L-shape'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'rectangle1',
-          NewDesignStructure = Circular(
-            center = (1.0, 0.0, 0.0),
-            radius = 1.25,
-            height = 0.25
-          ),
-          edit_description = 'Change the shape to Circular'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'rectangle1',
-          NewDesignStructure = SemiCircular(
-            center = (1.0, 0.0, 0.0),
-            radius = 1.25,
-            orientation = 'top_half',
-            height = 0.25
-          ),
-          edit_description = 'Change the shape to Semi-Circular'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'rectangle1',
-          NewDesignStructure = QuarterWedge(
-            center = (1.0, 0.0, 0.0),
-            radius = 1.25,
-            gap_degrees = 90.0,
-            height = 0.25
-          ),
-          edit_description = 'Change the shape to Quarter Wedge'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'rectangle1',
-          NewDesignStructure = Linear(
-            center = (1.0, 0.0, 0.0),
-            length = 1.25,
-            height = 0.25,
-            orientation = 'x-axis'
-          ),
-          edit_description = 'Change the shape to Linear'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The design goal specifies the need for an L-shape structure.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The edit is direct and explicitly specified in the prompt.'
-    ),
-    1 : EditMCQA(
-      question = 'What modification should be made to increase the height of the L-shape structure to meet the design goal?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'lshape1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 0.75
-          ),
-          edit_description = 'Increase the height'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'lshape1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Increase the height to 0.5'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'lshape1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 1.0
-          ),
-          edit_description = 'Increase the height to 1.0'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'lshape1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 0.25
-          ),
-          edit_description = 'Decrease the height to 0.25'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'lshape1',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 2.0,
-            right_length = 1.0,
-            height = 0.65
-          ),
-          edit_description = 'Increase the height to 0.65'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The design goal requires the structure height to be 0.75.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The edit is directly specified to increase the height to 0.75.'
-=======
-      question = 'Which edit will add a new larger semi-ring structure around the initial one while maintaining a concentric design with uniform gaps?',
+      question = 'What is the correct edit to add a larger semi-ring structure around the first one?',
       answers = {
         A = AddStructureEdit(
           design = Design(
             structures = {
-              SemiRing_1 = SemiRing(
-                center = (0.0, 0.0, 0.0),
-                outer_radius = 2.5,
-                inner_radius = 2.0,
-                orientation = 'top_half',
-                height = 0.3
-              )
-            }
-          ),
-          edit_description = 'Re-adjust the semi-ring to a smaller outer_radius: 1.5 and inner_radius: 1',
-          target_parameter = 'SemiRing_1'
-        ),
-        B = AddStructureEdit(
-          design = Design(
-            structures = {
-              SemiRing_2 = SemiRing(
+              semi_ring_2 = SemiRing(
                 center = (0.0, 0.0, 0.0),
                 outer_radius = 3.5,
                 inner_radius = 3.0,
@@ -160,55 +16,73 @@ CounterFactualMCQASequence(
             }
           ),
           edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 3.5 and inner_radius: 3.',
-          target_parameter = 'SemiRing_2'
+          target_parameter = 'outer_radius'
         ),
-        C = AddStructureEdit(
+        B = AddStructureEdit(
           design = Design(
             structures = {
-              Serpentine_1 = Serpentine(
-                left_arc_center = (-1.0, 0.0, 0.0),
-                radius = 1.0,
-                left_arc_orientation = 'up',
-                height = 0.25
-              )
-            }
-          ),
-          edit_description = 'Introduce a serpentine path oriented upwards.',
-          target_parameter = 'Serpentine_1'
-        ),
-        D = AddStructureEdit(
-          design = Design(
-            structures = {
-              Circular_1 = Circular(
-                center = (1.0, 0.0, 0.0),
-                radius = 2.0,
+              semi_ring_2 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 2.0,
+                inner_radius = 1.5,
+                orientation = 'top_half',
                 height = 0.3
               )
             }
           ),
-          edit_description = 'Insert a circular structure to the side.',
-          target_parameter = 'Circular_1'
+          edit_description = 'Add a smaller semi-ring structure around the first one with outer_radius: 2.0 and inner_radius: 1.5.',
+          target_parameter = 'outer_radius'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_ring_2 = SemiRing(
+                center = (1.0, 1.0, 0.0),
+                outer_radius = 3.5,
+                inner_radius = 3.0,
+                orientation = 'bottom_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = "Add another larager semi-ring structure around the first one with a different orientation 'bottom_half'.",
+          target_parameter = 'outer_radius'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_ring_2 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 3.5,
+                inner_radius = 1.0,
+                orientation = 'top_half',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a larger semi-ring structure around the first one with a larger gap; inner_radius: 1.0.',
+          target_parameter = 'outer_radius'
         ),
         E = AddStructureEdit(
           design = Design(
             structures = {
-              Linear_1 = Linear(
+              semi_ring_2 = SemiRing(
                 center = (0.0, 0.0, 0.0),
-                length = 4.5,
-                height = 0.3,
-                orientation = 'x-axis'
+                outer_radius = 2.5,
+                inner_radius = 2.0,
+                orientation = 'bottom_half',
+                height = 0.3
               )
             }
           ),
-          edit_description = 'Add a linear structure along the x-axis.',
-          target_parameter = 'Linear_1'
+          edit_description = "Add another identical semi-ring structure like the first one, but with orientation 'bottom_half'.",
+          target_parameter = 'outer_radius'
         )
       },
-      correct_answer = 'B',
-      explanation_of_correctness = 'The task clearly requires adding a second larger semi-ring structure concentric to the first one, which matches option B.',
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit instruction matches the design goal specified, which is to add a semi-ring structure concentrically outside the initial semi-ring.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The edit clearly outlines the addition of a larger semi-ring as per the prompt.'
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
+      explanation_of_difficulty = 'The prompt explicitly states to create a layered pattern with additional structures, making the correct addition straightforward to deduce.'
     )
   ]
 )

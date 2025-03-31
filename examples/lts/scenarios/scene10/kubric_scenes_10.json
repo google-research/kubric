@@ -1,23 +1,5 @@
 {
     "observation": {
-<<<<<<< HEAD
-        "pot_1": {
-            "extent": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "center": [
-                1.0,
-                0.0,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "pot"
-        },
-        "trashcan_1": {
-            "extent": [
-=======
         "rock_1": {
             "extent": [
                 0.25,
@@ -25,45 +7,10 @@
                 0.25
             ],
             "center": [
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                 0.0,
                 0.0,
                 0.0
             ],
-<<<<<<< HEAD
-            "center": [
-                1.5,
-                1.5,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "trashcan"
-        }
-    },
-    "description": "This scene involves constructing an L-shaped pattern to house two objects",
-    "prompt": "Create a single structure to house the objects.",
-    "initial_design": {},
-    "design_goal": {},
-    "initial_impl": {
-        "rectangle1": [
-            {
-                "segment": 1,
-                "height": 0.25,
-                "keypoints": [
-                    [
-                        0.0,
-                        -0.5,
-                        0.0
-                    ],
-                    [
-                        0.0,
-                        0.5,
-                        0.0
-                    ],
-                    [
-                        2.0,
-                        0.5,
-=======
             "theta": 0.0,
             "semantic_label": "rock"
         }
@@ -73,7 +20,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "SemiRing_1": [
+        "semi_ring_1": [
             {
                 "segment": 1,
                 "height": 0.3,
@@ -278,14 +225,10 @@
                     [
                         1.9753766811902755,
                         -0.3128689300804612,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                         0.0
                     ],
                     [
                         2.0,
-<<<<<<< HEAD
-                        -0.5,
-=======
                         1.2246467991473532e-16,
                         0.0
                     ],
@@ -332,66 +275,22 @@
                     [
                         0.31286893008046174,
                         1.9753766811902755,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                         0.0
                     ],
                     [
                         0.0,
-<<<<<<< HEAD
-                        -0.5,
-=======
                         2.0,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                         0.0
                     ]
                 ],
                 "elements": [
-<<<<<<< HEAD
-                    0
-=======
                     3
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                 ]
             }
         ]
     },
     "goal_impl": {
-<<<<<<< HEAD
-        "lshape1": [
-            {
-                "segment": 1,
-                "height": 0.75,
-                "keypoints": [
-                    [
-                        0.0,
-                        -0.5,
-                        0.0
-                    ],
-                    [
-                        2.0,
-                        -0.5,
-                        0.0
-                    ],
-                    [
-                        2.0,
-                        2.5,
-                        0.0
-                    ],
-                    [
-                        1.0,
-                        2.5,
-                        0.0
-                    ],
-                    [
-                        1.0,
-                        0.5,
-                        0.0
-                    ],
-                    [
-                        0.0,
-                        0.5,
-=======
-        "SemiRing_1": [
+        "semi_ring_1": [
             {
                 "segment": 1,
                 "height": 0.3,
@@ -646,14 +545,10 @@
                     [
                         0.31286893008046174,
                         1.9753766811902755,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                         0.0
                     ],
                     [
                         0.0,
-<<<<<<< HEAD
-                        -0.5,
-=======
                         2.0,
                         0.0
                     ]
@@ -663,7 +558,7 @@
                 ]
             }
         ],
-        "SemiRing_2": [
+        "semi_ring_2": [
             {
                 "segment": 1,
                 "height": 0.3,
@@ -676,15 +571,12 @@
                     [
                         1.5308084989341915e-17,
                         3.5,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                         0.0
                     ]
                 ],
                 "elements": [
                     0
                 ]
-<<<<<<< HEAD
-=======
             },
             {
                 "segment": 2,
@@ -932,7 +824,6 @@
                 "elements": [
                     3
                 ]
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             }
         ]
     }

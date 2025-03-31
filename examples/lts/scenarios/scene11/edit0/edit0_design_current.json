@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
-    "prompt": "Build a protective wall-like structure around the trashcan, not exceeding the specified area dimensions.",
-    "observation": {
-        "trashcan_1": {
-            "extent": [
-=======
     "prompt": "Build an L-shaped border around the seating area to segment it from the rest of the garden.",
     "observation": {
         "table_1": {
@@ -14,20 +8,10 @@
                 0.589116
             ],
             "center": [
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                 0.0,
                 0.0,
                 0.0
             ],
-<<<<<<< HEAD
-            "center": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "trashcan"
-=======
             "theta": 0.0,
             "semantic_label": "table"
         },
@@ -86,91 +70,51 @@
             ],
             "theta": 180.0,
             "semantic_label": "chair"
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         }
     },
     "output": [
         {
             "segment": 1,
-<<<<<<< HEAD
-            "height": 0.75,
-            "keypoints": [
-                [
-                    -0.5,
-                    0.0,
-                    0.0
-                ],
-                [
-                    1.5,
-                    0.0,
-                    0.0
-                ]
-=======
             "height": 0.5,
             "keypoints": [
                 [
-                    -2.25,
-                    -2.0,
+                    1.9,
+                    1.9,
                     0.0
                 ],
                 [
-                    -2.25,
-                    2.0,
+                    2.1,
+                    1.9,
                     0.0
                 ],
                 [
-                    -1.75,
-                    2.0,
+                    2.1,
+                    2.6,
                     0.0
                 ],
                 [
-                    -1.75,
-                    -2.0,
+                    1.1,
+                    2.6,
                     0.0
                 ],
                 [
-                    -2.25,
-                    -2.0,
+                    1.1,
+                    2.1,
+                    0.0
+                ],
+                [
+                    1.9,
+                    2.1,
+                    0.0
+                ],
+                [
+                    1.9,
+                    1.9,
                     0.0
                 ]
             ],
             "elements": [
                 0
-            ]
-        },
-        {
-            "segment": 2,
-            "height": 0.5,
-            "keypoints": [
-                [
-                    -1.75,
-                    1.5,
-                    0.0
-                ],
-                [
-                    -1.75,
-                    2.0,
-                    0.0
-                ],
-                [
-                    1.75,
-                    2.0,
-                    0.0
-                ],
-                [
-                    1.75,
-                    1.5,
-                    0.0
-                ],
-                [
-                    -1.75,
-                    1.5,
-                    0.0
-                ]
-            ],
-            "elements": [
-                1
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             ]
         }
     ]

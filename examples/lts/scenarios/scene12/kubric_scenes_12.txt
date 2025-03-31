@@ -24,17 +24,17 @@ Scene(
   description = "This scene involves constructing a serpentine pathway to connect a series of trees in an interesting, winding formation. It requires interpreting geometric properties such as arc centers and radius, while understanding the pathway's intended orientation and height.",
   initial_design = Design(
     structures = {
-      Linear_1 = Linear(
-        center = (0.0, 0.0, 0.0),
+      Linear = Linear(
+        center = (1.0, 0.0, 0.0),
         length = 4.0,
         height = 0.1,
-        orientation = 'x-axis'
+        orientation = 'y-axis'
       )
     }
   ),
   design_goal = Design(
     structures = {
-      Serpentine_1 = Serpentine(
+      Serpentine = Serpentine(
         left_arc_center = (-1.0, -0.5, 0.0),
         radius = 1.0,
         left_arc_orientation = 'up',
@@ -45,19 +45,19 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'Linear_1',
+        design_id = 'Linear',
         NewDesignStructure = Serpentine(
-          left_arc_center = (0, -1, 0.0),
+          left_arc_center = (0.0, -1.0, 0.0),
           radius = 0.5,
           left_arc_orientation = 'up',
           height = 0.1
         ),
         edit_description = 'Change the design profile to serpentine for a more engaging path.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the design profile requires interpreting the scene description to improve the aesthetic and engagement of the path.'
+        exaplanation_of_diffuculty = 'The transformation from a linear to a serpentine path involves altering the layout creatively to match the intended design while maintaining specified geometric constraints.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'Serpentine_1',
+        design_id = 'Serpentine',
         NewDesignStructure = Serpentine(
           left_arc_center = (-1.0, -0.5, 0.0),
           radius = 1.0,
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner.",
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Determining the precise arc centers and radius requires understanding the spatial layout and desired visual connection.'
+        exaplanation_of_diffuculty = 'Finding the precise arc center and radius to aesthetically and functionally connect all trees in a winding manner requires complex spatial reasoning and understanding of the geometric relationships between structures.'
       )
     ]
   )

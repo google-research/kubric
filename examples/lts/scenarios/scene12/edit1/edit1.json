@@ -48,7 +48,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "Serpentine_1": [
+        "Serpentine": [
             {
                 "segment": 1,
                 "height": 0.1,
@@ -272,7 +272,7 @@
         ]
     },
     "goal_impl": {
-        "Serpentine_1": [
+        "Serpentine": [
             {
                 "segment": 1,
                 "height": 0.1,

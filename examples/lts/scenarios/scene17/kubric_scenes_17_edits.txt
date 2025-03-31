@@ -1,162 +1,162 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What modification should be made to adjust the left part of LShape 1 to (2, 1) and the right part to (1, 2), ensuring it wraps around the tree?',
+      question = 'Which modification correctly adjusts the left part of LShape 1 to (2, 1) and the right part to (1, 2) to wrap around the tree?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'LShape1',
+          design_id = 'LShape 1',
           NewDesignStructure = LShape(
             left_center = (2.0, 1.0, 0.0),
             left_length = 2.0,
             left_width = 0.5,
-            right_center = (1.0, 1.5, 0.0),
-            right_length = 0.5,
-            height = 0.5
-          ),
-          edit_description = 'Slightly shift right part to alternative center.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'LShape1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (1.0, 2.0, 0.0),
+            right_width = 0.5,
             right_length = 0.5,
             height = 0.5
           ),
           edit_description = 'Adjust the left part of LShape 1 to (2, 1) and right part to (1, 2) to wrap around the tree.'
         ),
-        C = ModifyStructureEdit(
-          design_id = 'LShape2',
+        B = ModifyStructureEdit(
+          design_id = 'LShape 1',
           NewDesignStructure = LShape(
-            left_center = (2.0, 1.0, 0.0),
+            left_center = (1.5, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the LShape 1 slightly to fit better around the tree.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape 1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 2.0, 0.0),
             left_length = 1.0,
             left_width = 0.5,
-            right_center = (2.0, 2.0, 0.0),
+            right_width = 0.7,
             right_length = 0.5,
             height = 0.5
           ),
-          edit_description = 'Attempt to modify an unrelated structure.'
+          edit_description = 'Change the positions and dimensions for an alternative design.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'LShape1',
+          design_id = 'LShape 1',
           NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 2.0,
+            left_center = (2.5, 1.5, 0.0),
+            left_length = 2.5,
             left_width = 0.5,
-            right_center = (1.0, 2.0, 0.0),
+            right_width = 0.5,
             right_length = 0.5,
             height = 0.5
           ),
-          edit_description = 'Incorrect adjustment to left part coordinates.'
+          edit_description = 'A larger adjustment focusing on maximizing space.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'LShape1',
+          design_id = 'LShape 1',
           NewDesignStructure = LShape(
-            left_center = (2.0, 1.0, 0.0),
+            left_center = (3.0, 1.0, 0.0),
             left_length = 1.0,
             left_width = 0.5,
-            right_center = (1.0, 2.0, 0.0),
-            right_length = 1.0,
+            right_width = 0.5,
+            right_length = 1.5,
             height = 0.5
           ),
-          edit_description = 'Incorrect modification of left length.'
+          edit_description = 'Another variation emphasizing compactness.'
         )
       },
-      correct_answer = 'B',
-      explanation_of_correctness = 'Option B correctly describes the required modification to wrap LShape 1 around the tree as stated in the edit description.',
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A matches the required modifications stated in the edit description exactly.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The task requires an understanding of spatial positioning and ensuring proper alignment with the scene prompt.'
+      explanation_of_difficulty = 'Requires understanding of spatial adjustments to correctly align the structure around the tree.'
     ),
     1 : EditMCQA(
-      question = 'What is the correct edit to add a second LShape that extends towards the bench?',
+      question = 'Which modification correctly adds a second LShape with its left part centered at (-2, 0) and right part at (-1, q), extending towards the bench?',
       answers = {
         A = AddStructureEdit(
           design = Design(
             structures = {
-              LShape3 = LShape(
-                left_center = (-3.0, 0.0, 0.0),
-                left_length = 3.0,
+              LShape 2 = LShape(
+                left_center = (-2.0, 0.0, 0.0),
+                left_length = 4.0,
                 left_width = 0.5,
-                right_center = (-2.0, 2.0, 0.0),
+                right_width = 0.5,
                 right_length = 0.5,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Add an LShape going in the incorrect direction.',
-          target_parameter = 'structures'
+          edit_description = 'Add a second LShape with its left part centered at (-2, 0) and right part at (-1, q), extending towards the bench.',
+          target_parameter = 'positions of LShape 2'
         ),
         B = AddStructureEdit(
           design = Design(
             structures = {
-              LShape2 = LShape(
-                left_center = (-2.0, 0.0, 0.0),
-                left_length = 4.0,
+              LShape 2 = LShape(
+                left_center = (-1.0, 0.0, 0.0),
+                left_length = 3.0,
                 left_width = 0.5,
-                right_center = (-1.0, 2.0, 0.0),
-                right_length = 0.5,
+                right_width = 0.5,
+                right_length = 0.7,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Add a second LShape with its left part centered at (-2, 0) and right part at (-1, 2), extending towards the bench.',
-          target_parameter = 'structures'
+          edit_description = 'Position the second LShape differently for an alternative fit.',
+          target_parameter = 'positions of LShape 2'
         ),
         C = AddStructureEdit(
           design = Design(
             structures = {
-              LShape2 = LShape(
-                left_center = (0.0, -2.0, 0.0),
-                left_length = 4.0,
+              LShape 2 = LShape(
+                left_center = (-2.5, 0.0, 0.0),
+                left_length = 3.5,
                 left_width = 0.5,
-                right_center = (1.0, 3.0, 0.0),
+                right_width = 0.5,
                 right_length = 0.5,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Misplace new LShape with incorrect position values.',
-          target_parameter = 'structures'
+          edit_description = 'A wider layout intending to cover additional ground space.',
+          target_parameter = 'positions of LShape 2'
         ),
         D = AddStructureEdit(
           design = Design(
             structures = {
-              LShape2 = LShape(
-                left_center = (-2.0, 0.0, 0.0),
-                left_length = 4.0,
+              LShape 2 = LShape(
+                left_center = (-3.0, 0.0, 0.0),
+                left_length = 2.0,
                 left_width = 0.5,
-                right_center = (1.0, 1.0, 0.0),
-                right_length = 0.5,
+                right_width = 0.5,
+                right_length = 1.0,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Right center misaligned with description.',
-          target_parameter = 'structures'
+          edit_description = 'Adjust the second LShape to a more compact design.',
+          target_parameter = 'positions of LShape 2'
         ),
         E = AddStructureEdit(
           design = Design(
             structures = {
-              LShape2 = LShape(
-                left_center = (-1.0, 0.0, 0.0),
+              LShape 2 = LShape(
+                left_center = (-1.5, 0.0, 0.0),
                 left_length = 4.0,
                 left_width = 0.5,
-                right_center = (-1.0, 2.0, 0.0),
-                right_length = 0.5,
+                right_width = 0.5,
+                right_length = 0.8,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Improperly starts new LShape from (-1, 0).',
-          target_parameter = 'structures'
+          edit_description = 'Different approach extending the design toward the bench.',
+          target_parameter = 'positions of LShape 2'
         )
       },
-      correct_answer = 'B',
-      explanation_of_correctness = 'Option B correctly implements the addition of a second LShape accurately matching the design goal extension towards the bench.',
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A precisely aligns with the new structure's center and target direction as specified in the scene edit.",
       difficulty = 'hard',
-      explanation_of_difficulty = 'The task demands precise spatial understanding for positioning and alignment relative to the existing design.'
+      explanation_of_difficulty = 'Determining the proper positioning of the second LShape requires understanding its extension direction towards the bench correctly.'
     )
   ]
 )

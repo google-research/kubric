@@ -14,10 +14,10 @@ Scene(
     structures = {
       lshape_1 = LShape(
         left_center = (-1.5, 0.0, 0.0),
-        left_length = 3.0,
+        left_length = 4.0,
         left_width = 1.0,
-        right_center = (0.0, 1.5, 0.0),
-        right_length = 0.5,
+        right_width = 1.5,
+        right_length = 3.0,
         height = 0.5
       )
     }
@@ -28,8 +28,8 @@ Scene(
         left_center = (-1.5, 0.0, 0.0),
         left_length = 3.0,
         left_width = 1.0,
-        right_center = (0.0, 1.5, 0.0),
-        right_length = 0.5,
+        right_width = 1.5,
+        right_length = 3.0,
         height = 0.5
       )
     }
@@ -39,48 +39,44 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'rectangular_1',
         NewDesignStructure = LShape(
-          left_center = (-1.5, 0.0, 0.0),
-          left_length = 3.0,
+          left_center = (-1.0, 0.0, 0.0),
+          left_length = 1.0,
           left_width = 1.0,
-          right_center = (0.0, 1.5, 0.0),
-          right_length = 0.5,
+          right_width = 0.5,
+          right_length = 3.0,
           height = 0.5
         ),
         edit_description = 'Change the design profile to LShape',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing a rectangular profile to an LShape requires interpreting the spatial arrangement and dimensions from initial guidelines.'
+        exaplanation_of_diffuculty = 'The change from a rectangular shape to an LShape with specified dimensions involves both adding and altering the design, which requires spatial reasoning and alignment understanding.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
         NewDesignStructure = LShape(
           left_center = (-1.5, 0.0, 0.0),
-          left_length = 3.0,
+          left_length = 4.0,
           left_width = 1.0,
-          right_center = (0.0, 1.5, 0.0),
-          right_length = 0.5,
+          right_width = 0.5,
+          right_length = 3.0,
           height = 0.5
         ),
-        edit_description = 'Adjust the left section centered at (-1.5, 0) with left_length=3 and left_width=1',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The left section specifications are clearly outlined in the design goal.'
-      ),
-      2 : AddStructureEditWithDifficulty(
-        design = Design(
-          structures = {
-            lshape_1 = LShape(
-              left_center = (-1.5, 0.0, 0.0),
-              left_length = 3.0,
-              left_width = 1.0,
-              right_center = (0.0, 1.5, 0.0),
-              right_length = 0.5,
-              height = 0.5
-            )
-          }
-        ),
-        edit_description = 'Add the right section centered at (0, 1.5) with right_length=0.5 and align with the left section',
-        target_parameter = 'right_center and right_length',
+        edit_description = 'Adjust the left section to be centered at (-1.5, 0) with longer sides',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The alignment and dimensions of the right section require an understanding of both spatial relations and the design intention.'
+        exaplanation_of_diffuculty = 'Adjusting the left side requires understanding the positional shift and size increase, a task needing dimensional awareness.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape_1',
+        NewDesignStructure = LShape(
+          left_center = (-1.5, 0.0, 0.0),
+          left_length = 4.0,
+          left_width = 1.0,
+          right_width = 1.5,
+          right_length = 3.0,
+          height = 0.5
+        ),
+        edit_description = 'Change right width to 1.5 and align with the left section',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Increasing the right width requires simple width adjustment and alignment understanding, making it relatively straightforward.'
       )
     ]
   )

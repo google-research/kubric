@@ -1,10 +1,10 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What edit should be applied to increase the radius of the semi-circular seating for the garden scene?',
+      question = 'What is the edit made to increase the radius of the semi-circular seating for more space?',
       answers = {
-        a = ModifyStructureEdit(
-          design_id = '1',
+        A = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.5,
@@ -13,67 +13,57 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Increase the radius to 1.5 meters for more space.'
         ),
-        b = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase the height of the existing seating.'
-        ),
-        c = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.5
-          ),
-          edit_description = 'Change the orientation to bottom_half.'
-        ),
-        d = ModifyStructureEdit(
-          design_id = '1',
+        B = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             orientation = 'top_half',
-            height = 0.5
+            height = 0.3
           ),
-          edit_description = 'Make the seating taller for a more upright posture.'
+          edit_description = 'Keep the radius at 1.0 meters.'
         ),
-        e = ModifyStructureEdit(
-          design_id = '1',
+        C = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
-            radius = 2.0,
+            radius = 1.5,
             orientation = 'bottom_half',
             height = 0.3
           ),
-          edit_description = 'Expand the radius to add even more space.'
+          edit_description = 'Change the orientation to bottom_half without changing the radius.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Change the orientation and increase the height but not the radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'top_half',
+            height = 0.4
+          ),
+          edit_description = 'Slightly increase the radius to 1.2 meters.'
         )
       },
-      correct_answer = 'a',
-      explanation_of_correctness = "Option 'a' correctly increases the radius to 1.5 meters as described in the edit.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit modifies the semi-circular seating structure by increasing its radius to 1.5 meters as specified in the edit description.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt directly suggests increasing the radius for more space, making it easy to identify.'
+      explanation_of_difficulty = 'The radius change is directly referenced in the edit description, making it straightforward to identify.'
     ),
     1 : EditMCQA(
-      question = 'What edit should be applied to change the orientation of the semi-circular seating towards the garden?',
+      question = 'What is the edit made to change the orientation of the semi-circular seating to bottom_half?',
       answers = {
-        a = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase the radius to 1.5 meters for more space.'
-        ),
-        b = ModifyStructureEdit(
-          design_id = '1',
+        A = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.5,
@@ -82,100 +72,110 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Change the orientation to bottom_half to open toward the garden path.'
         ),
-        c = ModifyStructureEdit(
-          design_id = '1',
+        B = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to top_half.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             orientation = 'bottom_half',
             height = 0.5
           ),
-          edit_description = 'Increase the height for more comfortable seating.'
+          edit_description = 'Change the orientation and adjust the height.'
         ),
-        d = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 0.5
-          ),
-          edit_description = 'Ensure the seating height complements garden aesthetics.'
-        ),
-        e = ModifyStructureEdit(
-          design_id = '1',
+        D = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.5,
             orientation = 'bottom_half',
             height = 0.5
           ),
-          edit_description = 'Increase both radius and height for added space and comfort.'
+          edit_description = 'Change both orientation and height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Slight adjustment to radius and orientation.'
         )
       },
-      correct_answer = 'b',
-      explanation_of_correctness = "Option 'b' correctly changes the orientation to bottom_half, aligning with the garden path.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit aligns with the description by changing the orientation of the semi-circular seating to bottom_half.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt suggests an open orientation towards the path, making it straightforward.'
+      explanation_of_difficulty = 'The orientation change is clearly specified in the edit description, making it easily identifiable.'
     ),
     2 : EditMCQA(
-      question = 'Which edit should be applied to increase the height of the semi-circular seating for improved comfort?',
+      question = 'What is the edit made to increase the height of the semi-circular seating for a comfortable seating experience?',
       answers = {
-        a = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase the radius to 1.5 meters for more space.'
-        ),
-        b = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Change the orientation to bottom_half for better garden access.'
-        ),
-        c = ModifyStructureEdit(
-          design_id = '1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.5
-          ),
-          edit_description = 'Adjust the seating height to 0.5 meters for a comfortable seating experience.'
-        ),
-        d = ModifyStructureEdit(
-          design_id = '1',
+        A = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.5,
             orientation = 'bottom_half',
             height = 0.5
           ),
-          edit_description = 'Increase both radius and height for added space and comfort.'
+          edit_description = 'Increase the height to 0.5 meters for a comfortable seating experience.'
         ),
-        e = ModifyStructureEdit(
-          design_id = '1',
+        B = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Maintain the current height without changes.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = "Increase the height to 0.5 meters but don't change orientation."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'seating',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             orientation = 'bottom_half',
             height = 0.5
           ),
-          edit_description = 'Ensure the seating height complements garden aesthetics.'
+          edit_description = 'Increase both height and orientation, but revert radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'bottom_half',
+            height = 0.4
+          ),
+          edit_description = 'Slight increase in height to 0.4 meters.'
         )
       },
-      correct_answer = 'c',
-      explanation_of_correctness = "Option 'c' correctly adjusts the height to 0.5 meters, as required for comfortable seating.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit addresses the need for a comfortable seating experience by increasing the height to 0.5 meters as specified.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt suggests a comfortable seating experience, indicating the need for increased height.'
+      explanation_of_difficulty = 'The height change is clearly stated in the edit description, making it easy to identify.'
     )
   ]
 )

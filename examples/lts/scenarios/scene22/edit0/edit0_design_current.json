@@ -13,7 +13,7 @@
                 0.0
             ],
             "theta": 0.0,
-            "semantic_label": "table"
+            "semantic_label": "Table"
         },
         "chair_1": {
             "extent": [
@@ -27,7 +27,7 @@
                 0.0
             ],
             "theta": -90.0,
-            "semantic_label": "chair"
+            "semantic_label": "Chair"
         },
         "chair_2": {
             "extent": [
@@ -41,7 +41,7 @@
                 0.0
             ],
             "theta": 90.0,
-            "semantic_label": "chair"
+            "semantic_label": "Chair"
         }
     },
     "output": [

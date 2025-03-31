@@ -24,7 +24,7 @@ Scene(
   description = 'This scene involves creating a sunshade structure using two overlapping semicircular designs to protect a seating area made of chairs and a table. It requires understanding geometric properties such as radius, height, and orientation to achieve the design goal. Additionally, the task involves resolving ambiguities in the instructions, such as determining the correct placement and dimensions of the semicircular structures.',
   initial_design = Design(
     structures = {
-      semitircular_1 = SemiCircular(
+      SemiCircular_structure_1 = SemiCircular(
         center = (0.0, 0.0, 0.0),
         radius = 1.5,
         orientation = 'bottom_half',
@@ -34,13 +34,13 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      semitircular_1 = SemiCircular(
+      SemiCircular_structure_1 = SemiCircular(
         center = (0.0, 0.0, 0.0),
         radius = 2.0,
         orientation = 'top_half',
         height = 1.0
       ),
-      semitircular_2 = SemiCircular(
+      SemiCircular_structure_2 = SemiCircular(
         center = (0.0, 1.0, 0.0),
         radius = 2.0,
         orientation = 'bottom_half',
@@ -51,7 +51,7 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'semitircular_1',
+        design_id = 'SemiCircular_structure_1',
         NewDesignStructure = SemiCircular(
           center = (0.0, 0.0, 0.0),
           radius = 2.0,
@@ -60,12 +60,18 @@ Scene(
         ),
         edit_description = "Change the orientation to 'top_half' for structure 1 and increase the radius to 2 meters.",
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding the direction for the orientation and deciding the correct radius requires interpretation of the geometric requirements for shade.'
+        exaplanation_of_diffuculty = 'The modification requires understanding of geometric properties and orientation in 3D space.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
           structures = {
-            semitircular_2 = SemiCircular(
+            SemiCircular_structure_1 = SemiCircular(
+              center = (0.0, 0.0, 0.0),
+              radius = 2.0,
+              orientation = 'top_half',
+              height = 1.0
+            ),
+            SemiCircular_structure_2 = SemiCircular(
               center = (0.0, 1.0, 0.0),
               radius = 2.0,
               orientation = 'bottom_half',
@@ -73,10 +79,10 @@ Scene(
             )
           }
         ),
-        edit_description = 'Add SemiCircular structure 2 to overlap with the first and complete the sunshade.',
-        target_parameter = 'semitircular_2',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Determining the correct position and overlap for optimal shading involves understanding spatial arrangement.'
+        edit_description = "Add SemiCircular structure 2 (center=(0, 1, 0), radius=2, orientation='bottom_half', height=1.0) to overlap with the first and complete the sunshade.",
+        target_parameter = 'structures',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = "Adding a new structure requires understanding of the scene's spatial configuration and how overlapping entities interact."
       )
     ]
   )

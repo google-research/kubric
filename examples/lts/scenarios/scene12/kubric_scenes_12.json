@@ -48,19 +48,19 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "Linear_1": [
+        "Linear": [
             {
                 "segment": 1,
                 "height": 0.1,
                 "keypoints": [
                     [
+                        0.9999999999999999,
                         -2.0,
-                        0.0,
                         0.0
                     ],
                     [
+                        1.0000000000000002,
                         2.0,
-                        0.0,
                         0.0
                     ]
                 ]
@@ -68,7 +68,7 @@
         ]
     },
     "goal_impl": {
-        "Serpentine_1": [
+        "Serpentine": [
             {
                 "segment": 1,
                 "height": 0.1,

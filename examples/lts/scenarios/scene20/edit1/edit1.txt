@@ -2,13 +2,13 @@ Scene(
   objects = {
     bench_1 = SceneObject(
       extent = (0.44030848, 1.32092696, 0.5724015),
-      center = (1.0, 0.0, 0.28620075),
-      theta = -90.0,
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
       semantic_label = 'bench'
     ),
     rock_1 = SceneObject(
       extent = (0.5, 0.5, 0.5),
-      center = (1.0, 1.0, 0.25),
+      center = (1.0, 1.0, 0.0),
       theta = 0.0,
       semantic_label = 'rock'
     )
@@ -18,21 +18,21 @@ Scene(
   description = 'This scene involves creating a meandering Curvy path to add interest to a park layout while connecting two focal points: a bench and a rock. It requires interpreting geometric properties such as amplitude, wavelength, and phase to achieve the design goal. The task also involves resolving ambiguities in the instructions, such as determining path height and ensuring that it fits cohesively within the space.',
   initial_design = Design(
     structures = {
-      curvyPath_1 = CurvyPath(
-        far_curve_leftmost_point = (2.0, 0.5, 0.1),
-        close_curve_leftmost_point = (1.0, 0.5, 0.1),
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (2.0, 0.0, 0.0),
         amplitude = 0.5,
-        wavelength = 2.5,
+        wavelength = 1.0,
         phase = 0.0,
-        height = 0.2
+        height = 0.1
       )
     }
   ),
   design_goal = Design(
     structures = {
-      curvyPath_1 = CurvyPath(
-        far_curve_leftmost_point = (2.0, 0.5, 0.1),
-        close_curve_leftmost_point = (1.0, 0.5, 0.1),
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (2.0, 0.0, 0.0),
         amplitude = 0.5,
         wavelength = 2.5,
         phase = 0.0,
@@ -43,52 +43,52 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'linear_1',
+        design_id = 'LinearPath',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (2.0, 0.5, 0.1),
-          close_curve_leftmost_point = (1.0, 0.5, 0.1),
-          amplitude = 0.5,
-          wavelength = 2.5,
+          far_curve_leftmost_point = (1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (2.0, 0.0, 0.0),
+          amplitude = 1.0,
+          wavelength = 1.0,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
-        edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
+        edit_description = 'Change the design profile to a Curvy path for more dynamic movement, use amplitude=1, wavelength=1, height=0.1.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
+        exaplanation_of_diffuculty = "Understanding the need for a curvy path requires some interpretation of the prompt's call for 'exploration'."
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'curvyPath_1',
+        design_id = 'CurvyPath',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (2.0, 0.5, 0.1),
-          close_curve_leftmost_point = (1.0, 0.5, 0.1),
+          far_curve_leftmost_point = (1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (2.0, 0.0, 0.0),
           amplitude = 0.5,
-          wavelength = 2.5,
+          wavelength = 1.0,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
-        edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
+        edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave, keep wavelength and height unchanged.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
+        exaplanation_of_diffuculty = 'Changing amplitude to make the wave gentle is straightforward from the initial feedback.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'curvyPath_1',
+        design_id = 'CurvyPath',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (2.0, 0.5, 0.1),
-          close_curve_leftmost_point = (1.0, 0.5, 0.1),
+          far_curve_leftmost_point = (1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (2.0, 0.0, 0.0),
           amplitude = 0.5,
           wavelength = 2.5,
           phase = 0.0,
-          height = 0.2
+          height = 0.1
         ),
-        edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
+        edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length, keep height unchanged.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        exaplanation_of_diffuculty = 'Understanding the balance needed in wavelength suggests a grasp of spatial layout.'
       ),
       3 : ModifyStructureEditWithDifficulty(
-        design_id = 'curvyPath_1',
+        design_id = 'CurvyPath',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (2.0, 0.5, 0.1),
-          close_curve_leftmost_point = (1.0, 0.5, 0.1),
+          far_curve_leftmost_point = (1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (2.0, 0.0, 0.0),
           amplitude = 0.5,
           wavelength = 2.5,
           phase = 0.0,
@@ -96,7 +96,7 @@ Scene(
         ),
         edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
+        exaplanation_of_diffuculty = 'The change in height is a simple update influenced by aesthetic blending with the environment.'
       )
     ]
   )

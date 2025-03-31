@@ -48,7 +48,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "semitircular_1": [
+        "SemiCircular_structure_1": [
             {
                 "segment": 1,
                 "height": 1.0,
@@ -211,7 +211,7 @@
                 ]
             }
         ],
-        "semitircular_2": [
+        "SemiCircular_structure_2": [
             {
                 "segment": 1,
                 "height": 1.0,
@@ -376,7 +376,7 @@
         ]
     },
     "goal_impl": {
-        "semitircular_1": [
+        "SemiCircular_structure_1": [
             {
                 "segment": 1,
                 "height": 1.0,
@@ -539,7 +539,7 @@
                 ]
             }
         ],
-        "semitircular_2": [
+        "SemiCircular_structure_2": [
             {
                 "segment": 1,
                 "height": 1.0,

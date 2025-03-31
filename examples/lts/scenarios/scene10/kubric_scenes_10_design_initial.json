@@ -1,24 +1,4 @@
 {
-<<<<<<< HEAD
-    "prompt": "Create a single structure to house the objects.",
-    "observation": {
-        "pot_1": {
-            "extent": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "center": [
-                1.0,
-                0.0,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "pot"
-        },
-        "trashcan_1": {
-            "extent": [
-=======
     "prompt": "Design a layered landscape pattern around the rock with uniform gaps.",
     "observation": {
         "rock_1": {
@@ -28,45 +8,17 @@
                 0.25
             ],
             "center": [
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                 0.0,
                 0.0,
                 0.0
             ],
-<<<<<<< HEAD
-            "center": [
-                1.5,
-                1.5,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "trashcan"
-=======
             "theta": 0.0,
             "semantic_label": "rock"
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         }
     },
     "output": [
         {
             "segment": 1,
-<<<<<<< HEAD
-            "height": 0.25,
-            "keypoints": [
-                [
-                    0.0,
-                    -0.5,
-                    0.0
-                ],
-                [
-                    0.0,
-                    0.5,
-                    0.0
-                ],
-                [
-                    2.0,
-                    0.5,
-=======
             "height": 0.3,
             "keypoints": [
                 [
@@ -269,14 +221,10 @@
                 [
                     1.9753766811902755,
                     -0.3128689300804612,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                     0.0
                 ],
                 [
                     2.0,
-<<<<<<< HEAD
-                    -0.5,
-=======
                     1.2246467991473532e-16,
                     0.0
                 ],
@@ -323,25 +271,16 @@
                 [
                     0.31286893008046174,
                     1.9753766811902755,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                     0.0
                 ],
                 [
                     0.0,
-<<<<<<< HEAD
-                    -0.5,
-=======
                     2.0,
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
                     0.0
                 ]
             ],
             "elements": [
-<<<<<<< HEAD
-                0
-=======
                 3
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
             ]
         }
     ]

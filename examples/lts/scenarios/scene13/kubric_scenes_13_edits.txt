@@ -1,211 +1,73 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'Which modification correctly moves the L-shape to center its parts at (1.25, 1) and (0.5, 1.9)?',
+      question = 'How can the L-shape be modified to better achieve the design goal of separating the space between the table and trashcan?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 1.0,
-            height = 0.2
-          ),
-          edit_description = 'Move the L-shape to center its parts at (1.25, 1) and (0.5, 1.9).'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (1.0, 1.0, 0.0),
-            right_length = 1.0,
-            height = 0.2
-          ),
-          edit_description = 'Move the L-shape parts to (1.0, 1) and (1.0, 1.0).'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'barrier',
+          design_id = 'LShape1',
           NewDesignStructure = LShape(
             left_center = (1.5, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (0.5, 1.0, 0.0),
-            right_length = 1.0,
-            height = 0.2
+            left_length = 0.3,
+            left_width = 2.1,
+            right_width = 0.3,
+            right_length = 2.1,
+            height = 0.4
           ),
-          edit_description = 'Move the L-shape to center its parts at (1.5, 1) and (0.5, 1).'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (0.5, 0.5, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (1.5, 0.5, 0.0),
-            right_length = 1.0,
-            height = 0.2
-          ),
-          edit_description = 'Move the L-shape to center its parts at (0.5, 0.5) and (1.5, 0.5).'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.9, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (0.5, 1.0, 0.0),
-            right_length = 1.0,
-            height = 0.2
-          ),
-          edit_description = 'Move the L-shape to center its parts at (1.25, 1.9) and (0.5, 1.0).'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Choice A has the correct centers according to the edit instructions.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Understanding the correct center placement requires interpreting the coordinate adjustments.'
-    ),
-    1 : EditMCQA(
-      question = 'Which choice correctly adjusts the width of each L-shape segment to 0.2?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.2,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.2,
-            height = 0.2
-          ),
-          edit_description = 'Adjust the width of each segment to 0.2 to avoid blocking too much space.'
+          edit_description = "Moved the L-shape's left center slightly to the right, increased lengths and widths, and increased height slightly."
         ),
         B = ModifyStructureEdit(
-          design_id = 'barrier',
+          design_id = 'LShape1',
           NewDesignStructure = LShape(
             left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.1,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.1,
-            height = 0.2
-          ),
-          edit_description = 'Adjust the width of each segment to 0.1 to minimize space blocking.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.3,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.3,
-            height = 0.2
-          ),
-          edit_description = 'Adjust the width of each segment to 0.3 for better coverage.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.5,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.5,
-            height = 0.2
-          ),
-          edit_description = 'Maintain the width of each segment at 0.5.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.7,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.7,
-            height = 0.2
-          ),
-          edit_description = 'Increase the width of each segment to 0.7 for additional separation.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Choice A correctly sets the width to 0.2 as specified in the edit.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'The answer requires interpreting the impact of width on spatial coverage.'
-    ),
-    2 : EditMCQA(
-      question = 'Which option correctly adjusts the height of the L-shape to 0.5 for effective separation?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.2,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.2,
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.0,
             height = 0.5
           ),
-          edit_description = 'Adjust height to 0.5 for effective separation.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'barrier',
-          NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.2,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.2,
-            height = 0.3
-          ),
-          edit_description = 'Adjust height to 0.3 for more modest separation.'
+          edit_description = 'Moved and resized the L-shape to better separate the space between the table and trashcan as per the design goal.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'barrier',
+          design_id = 'LShape1',
           NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.2,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.2,
-            height = 0.7
+            left_center = (0.75, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 1.5,
+            right_width = 0.5,
+            right_length = 1.5,
+            height = 0.3
           ),
-          edit_description = 'Adjust height to 0.7 for greater impact.'
+          edit_description = 'Shifted the L-shape to the left, adjusted lengths and widths, and increased the height slightly.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'barrier',
+          design_id = 'LShape1',
           NewDesignStructure = LShape(
-            left_center = (1.0, 1.0, 0.0),
-            left_length = 1.0,
-            left_width = 0.5,
-            right_center = (1.0, 1.0, 0.0),
-            right_length = 1.0,
-            height = 0.2
+            left_center = (1.0, 0.5, 0.0),
+            left_length = 0.3,
+            left_width = 1.7,
+            right_width = 0.3,
+            right_length = 1.7,
+            height = 0.4
           ),
-          edit_description = 'Keep the original height for the barrier.'
+          edit_description = 'Moved the L-shape downwards, increased lengths and widths slightly, and slightly increased the height.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'barrier',
+          design_id = 'LShape1',
           NewDesignStructure = LShape(
-            left_center = (1.25, 1.0, 0.0),
-            left_length = 2.0,
-            left_width = 0.2,
-            right_center = (0.5, 1.9, 0.0),
-            right_length = 0.2,
-            height = 1.0
+            left_center = (1.2, 1.2, 0.0),
+            left_length = 0.25,
+            left_width = 1.9,
+            right_width = 0.25,
+            right_length = 1.9,
+            height = 0.45
           ),
-          edit_description = 'Increase height significantly to 1.0 for maximum effect.'
+          edit_description = "Adjusted the L-shape's positioning upwards and to the right, with moderate increases to lengths and widths, and slightly increased height."
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Choice A matches the required height adjustment to 0.5 for separation.',
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B matches the design goal parameters exactly, ensuring the L-shape fulfills the requirement to separate space without blocking access.',
       difficulty = 'medium',
-      explanation_of_difficulty = "Understanding height's role in separation effectiveness requires spatial reasoning."
+      explanation_of_difficulty = 'Understanding the spatial and geometric adjustments required makes this a medium difficulty task.'
     )
   ]
 )

@@ -1,146 +1,78 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What edit replaces the circular design with two quarter-wedge structures for better aesthetic integration?',
+      question = 'Which edit changes the initial circular design to the target quarter-wedge designs for aesthetic improvement?',
       answers = {
-        A = DeleteStructureEdit(
+        A = DeleteStructureEditWithDifficulty(
           design_id = 'circular_1',
-          edit_description = 'Change the circular design to two quarter-wedge structures for better aesthetic integration.'
-        ),
-        B = DeleteStructureEdit(
-          design_id = 'circular_1',
-          edit_description = 'Increase the height of the circular structure for better shading.'
-        ),
-        C = DeleteStructureEdit(
-          design_id = 'circular_1',
-          edit_description = 'Rotate the circular design by 90 degrees for a different orientation.'
-        ),
-        D = DeleteStructureEdit(
-          design_id = 'circular_1',
-          edit_description = 'Change the circular design to a serpentine structure.'
-        ),
-        E = DeleteStructureEdit(
-          design_id = 'circular_1',
-          edit_description = 'Replace the circular design with multiple linear structures.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The correct edit description matches the one provided to replace the circular design with two quarter-wedge structures.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt explicitly asks for replacing the circular structure with quarter-wedges.'
-    ),
-    1 : EditMCQA(
-      question = 'What edit involves overlapping the quarter-wedge structures with adjusted gap degrees for optimized shading and access, with one facing the picnic table?',
-      answers = {
-        A = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              quarter_wedge_1 = QuarterWedge(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.5,
-                gap_degrees = 20.0,
-                height = 0.5
-              ),
-              quarter_wedge_2 = QuarterWedge(
-                center = (1.5, 0.0, 0.0),
-                radius = 1.5,
-                gap_degrees = 20.0,
-                height = 0.5
-              )
-            }
-          ),
-          edit_description = 'Overlap the quarter-wedge structures with adjusted gap degrees for optimized shading and access, ensuring one faces the picnic table.',
-          target_parameter = 'quarter-wedge gaps and placement',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The overlapping and gap degree adjustments require interpretation to ensure one faces the table.'
+          edit_description = 'Remove the original circular design to accommodate new quarter-wedge structures.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'The prompt explicitly states the need to replace the circular structure with quarter-wedge structures.'
         ),
         B = AddStructureEditWithDifficulty(
           design = Design(
             structures = {
-              quarter_wedge_1 = QuarterWedge(
+              quarterwedge_1 = QuarterWedge(
                 center = (0.0, 0.0, 0.0),
                 radius = 1.5,
-                gap_degrees = 30.0,
+                gap_degrees = 20.0,
                 height = 0.5
               ),
-              quarter_wedge_2 = QuarterWedge(
+              quarterwedge_2 = QuarterWedge(
                 center = (1.5, 0.0, 0.0),
                 radius = 1.5,
-                gap_degrees = 30.0,
+                gap_degrees = 20.0,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Overlap the quarter-wedge structures with larger gaps for aesthetic purposes.',
-          target_parameter = 'quarter-wedge gaps and placement',
+          edit_description = 'Overlap and orient the quarter-wedge structures with adjusted parameters.',
+          target_parameter = 'gap_degrees',
           difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The prompt requires understanding the placement around the tree and the picnic table.'
-        ),
-        C = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              quarter_wedge_1 = QuarterWedge(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.0,
-                gap_degrees = 50.0,
-                height = 0.5
-              ),
-              quarter_wedge_2 = QuarterWedge(
-                center = (1.0, 0.0, 0.0),
-                radius = 1.0,
-                gap_degrees = 50.0,
-                height = 0.5
-              )
-            }
-          ),
-          edit_description = 'Add two small quarter-wedge structures with significant gaps for direct sunlight access.',
-          target_parameter = 'quarter-wedge placement around tree',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Requires significant extrapolation from the prompt to place the wedges correctly.'
-        ),
-        D = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              serpentine_1 = Serpentine(
-                left_arc_center = (0.0, 0.0, 0.0),
-                radius = 1.5,
-                left_arc_orientation = 'up',
-                height = 0.5
-              )
-            }
-          ),
-          edit_description = 'Change the circular design into a serpentine pattern for better flow.',
-          target_parameter = 'structure type and layout',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'A serpentine structure requires a different interpretation not directly inferable from a circular origin.'
-        ),
-        E = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              tri_wedge_1 = TriWedge(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.5,
-                gap_degrees = 15.0,
-                height = 0.5
-              ),
-              tri_wedge_2 = TriWedge(
-                center = (1.5, 0.0, 0.0),
-                radius = 1.5,
-                gap_degrees = 15.0,
-                height = 0.5
-              )
-            }
-          ),
-          edit_description = 'Implement tri-wedge structures aligned towards important functional areas.',
-          target_parameter = 'tri-wedge design aim',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Balancing the aesthetic with functional alignments requires additional reasoning.'
+          exaplanation_of_diffuculty = 'Some adjustments needed beyond the basic prompt instructions, requiring additional design understanding.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'This edit matches the requirement to use quarter-wedge structures as specified, with overlap and gap adjustments to face the picnic table.',
+      explanation_of_correctness = 'The correct edit is removing the initial circular structure, as specified directly by the prompt for transitioning to quarter-wedge designs.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit is straightforward due to clear instructions in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit achieves the overlap and orientation of quarter-wedge structures for optimized shading and table access?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          edit_description = 'Remove existing circular structure to introduce new designs.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Clear from prompt that circular design needs removal.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 20.0,
+                height = 0.5
+              ),
+              quarterwedge_2 = QuarterWedge(
+                center = (1.5, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 20.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Arrange the quarter-wedge structures with adjusted gap degrees for optimal performance.',
+          target_parameter = 'gap_degrees',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Requires considering spatial arrangement beyond explicit instructions.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'This edit focuses on configuring the layout of the new quarter-wedge structures as implied by the goal designs.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The task of overlapping and orienting wedge structures requires moderate interpretation of the prompt details.'
+      explanation_of_difficulty = 'Involves spatial reasoning and parameter adjustments not fully detailed in the prompt.'
     )
   ]
 )

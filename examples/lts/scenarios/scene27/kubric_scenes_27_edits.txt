@@ -1,184 +1,181 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What edit is necessary to change the line of tables to a semicircular arrangement with a radius of 1.0 meters?',
+      question = 'What change is needed to modify the linear design to a semicircular arrangement with a radius of 1.0 meters and height of 0.5?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'linear_design_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
-            orientation = 'top_half',
-            height = 0.8
+            orientation = 'bottom_half',
+            height = 0.5
           ),
-          edit_description = 'Change the line of tables to a semicircular arrangement with a radius of 1.0 meters.'
+          edit_description = 'Change the line of tables to a semicircular arrangement with a radius of 1.0 meters and height of 0.5.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'linear_design_1',
           NewDesignStructure = Circular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
-            height = 0.8
+            height = 0.5
           ),
-          edit_description = 'Change the line of tables to a circular arrangement.'
+          edit_description = 'Change the line of tables to a circular arrangement with a radius of 1.0 meters and height of 0.5.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'linear_design_1',
           NewDesignStructure = Rectangular(
             center = (0.0, 0.0, 0.0),
-            length = 2.0,
-            width = 0.5,
-            height = 0.8
+            length = 1.0,
+            width = 1.0,
+            height = 0.5
           ),
-          edit_description = 'Change the line of tables to a rectangular layout.'
+          edit_description = 'Change the line of tables to a rectangular arrangement with dimensions 1.0 meters by 1.0 meters and height of 0.5.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = LShape(
-            left_center = (0.0, 0.0, 0.0),
-            left_length = 1.5,
-            left_width = 0.5,
-            right_center = (1.5, 0.0, 0.0),
-            right_length = 1.5,
-            height = 0.8
+          design_id = 'linear_design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.8,
+            orientation = 'x-axis'
           ),
-          edit_description = 'Change the line of tables to an L-shaped design.'
+          edit_description = 'Extend the line of tables to a length of 3.0 meters with a height of 0.8.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'linear_design_1',
           NewDesignStructure = SemiRing(
             center = (0.0, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 1.0,
-            orientation = 'top_half',
-            height = 0.8
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'bottom_half',
+            height = 0.5
           ),
-          edit_description = 'Change the line of tables to a semi-ring layout.'
+          edit_description = 'Change the line of tables to a semi-ring arrangement with an outer radius of 1.0 meters, an inner radius of 0.8 meters, and a height of 0.5.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The correct modification involves changing the layout from a linear to a semi-circular pattern with the specified radius.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt directly specifies the arrangement to be a semicircular pattern with a 1.0-meter radius.'
+      explanation_of_correctness = 'The correct edit is to change the design from a linear to a semicircular arrangement with specified radius and height.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding geometric transformation and spatial reorientation.'
     ),
     1 : EditMCQA(
-      question = 'Which edit adjusts the orientation of the semicircular arrangement to "top_half"?',
+      question = 'What modification is necessary to adjust the orientation of the semicircular design so that the open side faces the camera?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Adjust orientation to "bottom_half" so that the open side faces the camera for visibility, keep height.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             orientation = 'top_half',
-            height = 0.8
+            height = 0.5
           ),
-          edit_description = "Adjust orientation to 'top_half' so that the open side faces the camera for visibility."
+          edit_description = 'Adjust orientation to "top_half" so that the open side is opposite the camera, keep height.'
         ),
-        B = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
+        C = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Increase the radius to 1.5 meters while keeping the orientation "bottom_half".'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'y-axis'
+          ),
+          edit_description = 'Rearrange the semicircular design into a linear design along the y-axis.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Modify the semicircular design to form a full circular arrangement with a radius of 1.0.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves setting the orientation so that the semicircle faces the camera for visibility.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Involves adjusting the orientation for visualization purpose.'
+    ),
+    2 : EditMCQA(
+      question = 'What is the correct adjustment to change the height of the semicircular design to match the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             orientation = 'bottom_half',
             height = 0.8
           ),
-          edit_description = "Adjust orientation to 'bottom_half' so that the open side faces away from the camera."
+          edit_description = 'Adjust height to 0.8 meters to match the design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.6
+          ),
+          edit_description = 'Adjust height to 0.6 meters, which is close but does not exactly match the design goal.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
+          design_id = 'semicircular_design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'bottom_half',
+            height = 0.8
+          ),
+          edit_description = 'Increase radius to 1.2 meters while setting the height to 0.8.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircular_design_1',
           NewDesignStructure = Circular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             height = 0.8
           ),
-          edit_description = 'Change the orientation to form a complete circle.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 2.0,
-            width = 0.5,
-            height = 0.8
-          ),
-          edit_description = 'Change to a rectangular orientation.'
+          edit_description = 'Change to a circular design with the same height of 0.8 meters.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
+          design_id = 'semicircular_design_1',
           NewDesignStructure = LShape(
             left_center = (0.0, 0.0, 0.0),
             left_length = 1.0,
             left_width = 0.5,
-            right_center = (1.0, 0.0, 0.0),
+            right_width = 0.5,
             right_length = 1.0,
             height = 0.8
           ),
-          edit_description = 'Change orientation to an L-shape.'
+          edit_description = 'Modify to an L-shape design with a height of 0.8 meters.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The correct change in orientation ensures the semicircle faces outward as per the design requirement.',
-      difficulty = 'medium',
-      explanation_of_difficulty = "Determining the 'top_half' orientation requires understanding the camera's position and intended seating direction."
-    ),
-    2 : EditMCQA(
-      question = 'How do you ensure the height remains consistent at 0.8 meters to match the design goal?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.8
-          ),
-          edit_description = 'Ensure height remains consistent at 0.8 meters to match the design goal.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.7
-          ),
-          edit_description = 'Adjust height to 0.7 meters.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.9
-          ),
-          edit_description = 'Adjust height to 0.9 meters.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = QuarterWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 90.0,
-            height = 0.8
-          ),
-          edit_description = 'Change structure type to QuarterWedge but keep height at 0.8 meters.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'semi_circular_1',
-          NewDesignStructure = TriWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 120.0,
-            height = 0.8
-          ),
-          edit_description = 'Change structure type to TriWedge but keep height at 0.8 meters.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The correct modification maintains the height of 0.8 meters as specified in both the initial and goal designs.',
+      explanation_of_correctness = 'The edit correctly adjusts the height to 0.8 meters, fulfilling the design goal criteria.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The height parameter was already specified in the initial and desired designs.'
+      explanation_of_difficulty = 'Simple height adjustment to match specified goal.'
     )
   ]
 )

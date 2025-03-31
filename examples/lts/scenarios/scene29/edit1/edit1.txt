@@ -1,7 +1,7 @@
 Scene(
   objects = {
     table_1 = SceneObject(
-      extent = (0.5, 0.5, 0.3),
+      extent = (0.288324, 0.288324, 0.294558),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
@@ -12,20 +12,20 @@ Scene(
   description = 'This scene involves positioning a geometric structure to create a clear boundary around a central gathering point. The structure needs to accommodate pathways for accessibility while maintaining spatial constraints.',
   initial_design = Design(
     structures = {
-      quarter_wedge_1 = QuarterWedge(
+      initial_boundary = QuarterWedge(
         center = (0.0, 0.0, 0.0),
         radius = 1.8,
-        gap_degrees = 70.0,
-        height = 0.4
+        gap_degrees = 20.0,
+        height = 0.2
       )
     }
   ),
   design_goal = Design(
     structures = {
-      quarter_wedge_1 = QuarterWedge(
+      goal_boundary = QuarterWedge(
         center = (0.0, 0.0, 0.0),
         radius = 1.8,
-        gap_degrees = 70.0,
+        gap_degrees = 20.0,
         height = 0.5
       )
     }
@@ -33,40 +33,40 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'quarter_wedge_1',
+        design_id = 'initial_boundary',
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 30.0,
-          height = 0.4
+          gap_degrees = 5.0,
+          height = 0.2
         ),
-        edit_description = 'Reduce the radius to 1.8 meters for a tighter fit.',
+        edit_description = 'Reduce the radius to 1.8 meters for a tighter fit, use gap degree 5, height at 0.2.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt suggests creating a boundary that fits closely around the table which implies reducing its size.'
+        exaplanation_of_diffuculty = 'The radius and gap degree changes are straightforward, but the height alteration contributes to a more nuanced understanding of physical constraints.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'quarter_wedge_1',
+        design_id = 'initial_boundary',
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 70.0,
-          height = 0.4
+          gap_degrees = 20.0,
+          height = 0.2
         ),
-        edit_description = 'Adjust the gap degrees to 70 to provide wider access paths.',
+        edit_description = 'Adjust the gap degrees to 20 to provide wider access paths, keep height.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The idea of accessibility paths suggests increasing the gap degrees for better access.'
+        exaplanation_of_diffuculty = 'Changing the gap degree for wider access points is a direct interpretation of the prompt.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'quarter_wedge_1',
+        design_id = 'initial_boundary',
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 1.8,
-          gap_degrees = 70.0,
+          gap_degrees = 20.0,
           height = 0.5
         ),
         edit_description = 'Increase the height to 0.5 meters for a more prominent boundary.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'A more prominent boundary naturally implies increasing the height of the structure.'
+        exaplanation_of_diffuculty = 'Increasing height is a simple alteration to make the boundary more noticeable.'
       )
     ]
   )

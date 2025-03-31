@@ -52,7 +52,7 @@ Scene(
           phase = 1.570795,
           height = 0.05
         ),
-        edit_description = 'Change the profile to a sine wave path with top start point at (0.5, -1, 0), increasing the wave amplitude for a more elegant path.',
+        edit_description = 'Change the profile to a sine wave path, increasing the wave amplitude for a more elegant path.',
         difficult_to_deduce_from_prompt = 'medium',
         exaplanation_of_diffuculty = 'Based on the prompt, deducing the amplitude and new starting point requires interpretation and understanding of design intention.'
       ),
