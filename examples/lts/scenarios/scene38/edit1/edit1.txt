@@ -1,14 +1,14 @@
 Scene(
   objects = {
     tree_1 = SceneObject(
-      extent = (0.3, 0.3, 1.0),
+      extent = (0.15, 0.15, 2.0),
       center = (0.0, -1.0, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
     ),
     trashcan_1 = SceneObject(
-      extent = (0.5, 0.5, 0.75),
-      center = (1.5, 1.5, 0.0),
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (1.0, 0.5, 0.0),
       theta = 0.0,
       semantic_label = 'trashcan'
     )
@@ -19,10 +19,10 @@ Scene(
   initial_design = Design(
     structures = {
       sinewave_1 = CurvyPath(
-        far_curve_leftmost_point = (0.0, -1.0, 0.0),
-        close_curve_leftmost_point = (1.5, 1.5, 0.0),
-        amplitude = 0.25,
-        wavelength = 1.5,
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (0.0, -0.8, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.7,
         phase = 0.5,
         height = 0.1
       )
@@ -31,8 +31,8 @@ Scene(
   design_goal = Design(
     structures = {
       sinewave_1 = CurvyPath(
-        far_curve_leftmost_point = (0.0, -1.0, 0.0),
-        close_curve_leftmost_point = (1.5, 1.5, 0.0),
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (0.0, -0.8, 0.0),
         amplitude = 0.25,
         wavelength = 1.5,
         phase = 0.5,
@@ -45,30 +45,30 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (0.0, -1.0, 0.0),
-          close_curve_leftmost_point = (1.5, 1.5, 0.0),
-          amplitude = 0.2,
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (0.0, -0.8, 0.0),
+          amplitude = 0.25,
           wavelength = 1.5,
           phase = 0.5,
           height = 0.1
         ),
         edit_description = 'Change the profile to a SineWave',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The task requires understanding the difference between a Serpentine and a SineWave and making geometric adjustments.'
+        exaplanation_of_diffuculty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'sinewave_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (0.0, -1.0, 0.0),
-          close_curve_leftmost_point = (1.5, 1.5, 0.0),
-          amplitude = 0.25,
-          wavelength = 1.5,
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (0.0, -0.8, 0.0),
+          amplitude = 0.3,
+          wavelength = 1.7,
           phase = 0.5,
           height = 0.1
         ),
         edit_description = 'Adjust the amplitude and wavelength to align more harmoniously with the natural elements',
-        difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'The task requires a nuanced understanding of the visual harmony in relation to the existing scene elements.'
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony."
       )
     ]
   )

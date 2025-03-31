@@ -2,9 +2,9 @@
     "observation": {
         "table_1": {
             "extent": [
-                0.0,
-                0.0,
-                0.0
+                0.288324,
+                0.288324,
+                0.294558
             ],
             "center": [
                 -1.0,
@@ -14,11 +14,11 @@
             "theta": 0.0,
             "semantic_label": "table"
         },
-        "pot_1": {
+        "pot_3": {
             "extent": [
-                0.0,
-                0.0,
-                0.0
+                0.320213,
+                0.32021299,
+                0.216202
             ],
             "center": [
                 1.5,
@@ -34,7 +34,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "serpentine1": [
+        "curvy_path_1": [
             {
                 "segment": 1,
                 "height": 0.1,
@@ -258,7 +258,7 @@
         ]
     },
     "goal_impl": {
-        "serpentine1": [
+        "serpentine_1": [
             {
                 "segment": 1,
                 "height": 0.1,

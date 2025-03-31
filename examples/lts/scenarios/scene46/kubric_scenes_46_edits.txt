@@ -1,13 +1,13 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct modification to introduce a curve to the path?',
+      question = 'Based on the scene modifications, which edit correctly changes the linear path to add a curved element?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'linear_1',
           NewDesignStructure = Serpentine(
             left_arc_center = (0.5, 0.0, 0.0),
-            radius = 1.0,
+            radius = 1.5,
             left_arc_orientation = 'up',
             height = 0.3
           ),
@@ -16,23 +16,23 @@ CounterFactualMCQASequence(
         B = ModifyStructureEdit(
           design_id = 'linear_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, 0.0, 0.0),
-            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            far_curve_leftmost_point = (0.5, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
             amplitude = 0.5,
             wavelength = 1.0,
             phase = 0.0,
-            height = 0.3
+            height = 0.2
           ),
-          edit_description = 'Alter to a CurvyPath with specified curve points.'
+          edit_description = 'Alter the path profile to mimic a curvy path with equal curves.'
         ),
         C = ModifyStructureEdit(
           design_id = 'linear_1',
           NewDesignStructure = Circular(
-            center = (0.5, 0.0, 0.0),
+            center = (0.5, 0.5, 0.0),
             radius = 1.0,
-            height = 0.3
+            height = 0.2
           ),
-          edit_description = 'Replace with a Circular path to introduce circular motion.'
+          edit_description = 'Transform the path into a circular path around a central point.'
         ),
         D = ModifyStructureEdit(
           design_id = 'linear_1',
@@ -40,87 +40,25 @@ CounterFactualMCQASequence(
             center = (0.5, 0.0, 0.0),
             radius = 1.0,
             gap_degrees = 90.0,
-            height = 0.3
+            height = 0.2
           ),
-          edit_description = 'Use a QuarterWedge for angular motion.'
+          edit_description = 'Replace the path with a quarter wedge structure for better access.'
         ),
         E = ModifyStructureEdit(
           design_id = 'linear_1',
-          NewDesignStructure = LShape(
-            left_center = (0.5, 0.0, 0.0),
-            left_length = 1.0,
-            left_width = 0.2,
-            right_width = 0.2,
-            right_length = 1.0,
-            height = 0.3
-          ),
-          edit_description = 'Transform into an LShape for sharp turns.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'A serpentine curve matches the design goal requiring introduction of a swirling effect.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Recognizing the need for a serpentine structure requires understanding the desired swirl effect.'
-    ),
-    1 : EditMCQA(
-      question = 'How should the path be adjusted to ensure it wraps around the bench comfortably?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.5, 0.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.3
-          ),
-          edit_description = 'Ensure the existing serpentine path avoids the bench.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.5, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Adjust the path to a semi-circular form.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'serpentine_1',
           NewDesignStructure = TriWedge(
-            center = (0.5, 0.0, 0.0),
-            radius = 1.5,
-            gap_degrees = 120.0,
-            height = 0.3
+            center = (0.5, 0.5, 0.0),
+            radius = 0.8,
+            gap_degrees = 60.0,
+            height = 0.2
           ),
-          edit_description = 'Change to a TriWedge design.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = Rectangular(
-            center = (0.5, 0.0, 0.0),
-            length = 1.0,
-            width = 0.5,
-            height = 0.3
-          ),
-          edit_description = 'Use a rectangular design for more walking space.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = SemiRing(
-            center = (0.5, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Use a semi-ring to create a partial arc pathway.'
+          edit_description = 'Modify the path to a tri wedge to create focal points.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The goal is simply to ensure the existing serpentine path does not interfere with access to the bench.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'Ensuring the serpentine path does not interfere with accessing the bench is straightforward.'
+      explanation_of_correctness = 'Option A is correct because it introduces a serpentine path, as specified in the design goal, to introduce a curve that enhances motion vibes around the bench.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Identifying how a serpentine path aligns with the goal of enhancing motion vibes requires understanding how different path shapes affect the environmental aesthetic.'
     )
   ]
 )

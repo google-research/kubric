@@ -3,31 +3,31 @@
     "observation": {
         "tree_1": {
             "extent": [
-                1.0,
-                -5.0,
-                -1.0
+                0.15,
+                -2.0,
+                -0.15
             ],
             "center": [
                 -1.0,
-                -2.5,
+                -0.0,
                 1.0
             ],
             "theta": 0.0,
-            "semantic_label": "Tree"
+            "semantic_label": "tree"
         },
         "tree_2": {
             "extent": [
-                1.0,
-                -5.0,
-                -1.0
+                0.15,
+                -2.0,
+                -0.15
             ],
             "center": [
                 1.0,
-                -2.5,
+                -0.0,
                 -1.0
             ],
             "theta": 0.0,
-            "semantic_label": "Tree"
+            "semantic_label": "tree"
         }
     },
     "output": [

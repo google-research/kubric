@@ -1,25 +1,25 @@
 {
     "prompt": "Enclose the cozy corner with a pleasant shape to make it inviting, leaving enough room for occupants and pathways.",
     "observation": {
-        "chair_1": {
+        "chair1": {
             "extent": [
-                0.5,
-                0.5,
-                0.5
+                0.49516202,
+                0.41553802,
+                0.76887
             ],
             "center": [
                 0.0,
                 -0.5,
                 0.0
             ],
-            "theta": 0.0,
+            "theta": -90.0,
             "semantic_label": "chair"
         },
-        "table_1": {
+        "table1": {
             "extent": [
-                0.5,
-                0.5,
-                0.75
+                0.576648,
+                0.576648,
+                0.589116
             ],
             "center": [
                 0.0,
@@ -29,18 +29,18 @@
             "theta": 0.0,
             "semantic_label": "table"
         },
-        "bench_1": {
+        "bench1": {
             "extent": [
-                1.5,
-                0.5,
-                0.5
+                0.44030848,
+                1.32092696,
+                0.5724015
             ],
             "center": [
                 1.0,
                 0.0,
                 0.0
             ],
-            "theta": 0.0,
+            "theta": -90.0,
             "semantic_label": "bench"
         }
     },

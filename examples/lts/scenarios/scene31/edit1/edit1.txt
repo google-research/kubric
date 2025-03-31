@@ -1,19 +1,19 @@
 Scene(
   objects = {
-    chair1 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (-1.0, 0.0, 0.0),
-      theta = 0.0,
+      theta = -90.0,
       semantic_label = 'chair'
     ),
-    chair2 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (1.0, 0.0, 0.0),
-      theta = 0.0,
+      theta = -90.0,
       semantic_label = 'chair'
     ),
-    table1 = SceneObject(
-      extent = (1.0, 1.0, 0.5),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
       center = (0.0, -1.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
@@ -24,20 +24,20 @@ Scene(
   description = 'This scene involves constructing a protective circular structure around a vibrant chair setup while leaving ample space for entry and exit. The design should evoke a sense of openness and protection simultaneously.',
   initial_design = Design(
     structures = {
-      goal_structure = TriWedge(
+      TriWedge_1 = TriWedge(
         center = (0.0, 0.0, 0.0),
-        radius = 1.5,
-        gap_degrees = 70.0,
+        radius = 2.0,
+        gap_degrees = 5.0,
         height = 0.3
       )
     }
   ),
   design_goal = Design(
     structures = {
-      goal_structure = TriWedge(
+      TriWedge_1 = TriWedge(
         center = (0.0, 0.0, 0.0),
-        radius = 1.5,
-        gap_degrees = 95.0,
+        radius = 2.0,
+        gap_degrees = 15.0,
         height = 0.5
       )
     }
@@ -45,52 +45,52 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'initial_structure',
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 5.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the shape to TriWedge with radius 1 meter',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Changing the structure type and radius is straightforward and directly impacts the design's encircling nature."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
           radius = 2.0,
-          gap_degrees = 70.0,
+          gap_degrees = 5.0,
           height = 0.3
         ),
-        edit_description = 'Change the shape to TriWedge',
+        edit_description = 'Adjust the radius from 1 to 2 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Shape change is directly mentioned in step.'
-      ),
-      1 : ModifyStructureEditWithDifficulty(
-        design_id = 'goal_structure',
-        NewDesignStructure = TriWedge(
-          center = (0.0, 0.0, 0.0),
-          radius = 1.5,
-          gap_degrees = 70.0,
-          height = 0.3
-        ),
-        edit_description = 'Adjust the radius to 1.5 meters',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Radius adjustment is a straightforward numerical update.'
+        exaplanation_of_diffuculty = 'The radius adjustment is a clear requirement for accommodating the seating arrangement.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'goal_structure',
+        design_id = 'TriWedge_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 1.5,
-          gap_degrees = 70.0,
+          radius = 2.0,
+          gap_degrees = 5.0,
           height = 0.5
         ),
         edit_description = 'Increase the height to 0.5 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Height increase is a straightforward numerical update.'
+        exaplanation_of_diffuculty = 'The height adjustment is simple and aligns with the goal of adding protection.'
       ),
       3 : ModifyStructureEditWithDifficulty(
-        design_id = 'goal_structure',
+        design_id = 'TriWedge_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 1.5,
-          gap_degrees = 95.0,
+          radius = 2.0,
+          gap_degrees = 15.0,
           height = 0.5
         ),
-        edit_description = 'Open up the gap to 95 degrees for easier access',
+        edit_description = 'Open up the gap to 15 degrees for easier access',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Gap adjustment is directly related to access enhancement mentioned in the prompt.'
+        exaplanation_of_diffuculty = 'Modifying the gap degree is an intuitive change to facilitate entry and exit without blocking flow.'
       )
     ]
   )

@@ -1,13 +1,13 @@
 Scene(
   objects = {
     pot_1 = SceneObject(
-      extent = (0.3, 0.3, 0.5),
+      extent = (0.320213, 0.32021299, 0.216202),
       center = (-1.0, -1.0, 0.0),
       theta = 0.0,
       semantic_label = 'pot'
     ),
     chair_1 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (1.0, 0.0, 0.0),
       theta = 90.0,
       semantic_label = 'chair'
@@ -18,10 +18,10 @@ Scene(
   description = 'This scene involves creating a protective enclosure around garden elements with natural contours. The design must consider geometric properties like radius, angular gap, and height to align with the desired look.',
   initial_design = Design(
     structures = {
-      structure1 = CurvyPath(
-        far_curve_leftmost_point = (1.0, -1.0, 0.0),
-        close_curve_leftmost_point = (1.0, -1.5, 0.0),
-        amplitude = 0.3,
+      serpentine_0 = CurvyPath(
+        far_curve_leftmost_point = (0.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.0, 0.5, 0.0),
+        amplitude = 0.2,
         wavelength = 2.0,
         phase = 0.0,
         height = 0.5
@@ -30,9 +30,9 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      structure1 = CurvyPath(
-        far_curve_leftmost_point = (1.0, -1.0, 0.0),
-        close_curve_leftmost_point = (1.0, -1.5, 0.0),
+      sinewave_0 = CurvyPath(
+        far_curve_leftmost_point = (0.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.0, 0.5, 0.0),
         amplitude = 0.3,
         wavelength = 2.0,
         phase = 0.0,
@@ -43,46 +43,46 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure1',
+        design_id = 'serpentine_0',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (1.0, -1.0, 0.0),
-          close_curve_leftmost_point = (1.0, -1.5, 0.0),
-          amplitude = 0.3,
+          far_curve_leftmost_point = (0.5, 0.0, 0.0),
+          close_curve_leftmost_point = (0.0, 0.5, 0.0),
+          amplitude = 0.2,
           wavelength = 2.0,
           phase = 0.0,
           height = 0.5
         ),
-        edit_description = 'Change the structure profile to SineWave and adjust the starting point to (1, -1).',
+        edit_description = 'Change the structure profile to SineWave with far point (0.5,0) and close curve (0,0.5), amplitude 0.2',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The structure change and point alignment require interpreting the desired aesthetic from the description.'
+        exaplanation_of_diffuculty = 'Understanding the exact geometric modifications needed to switch to a SineWave profile from a Serpentine structure and adjusting the amplitude is moderately complex.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure1',
+        design_id = 'sinewave_0',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (1.0, -1.0, 0.0),
-          close_curve_leftmost_point = (1.0, -1.5, 0.0),
-          amplitude = 0.3,
+          far_curve_leftmost_point = (0.0, 0.0, 0.0),
+          close_curve_leftmost_point = (0.5, 0.5, 0.0),
+          amplitude = 0.2,
           wavelength = 2.0,
           phase = 0.0,
           height = 0.5
         ),
-        edit_description = 'Shift the structure to better align with the pot and chair.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt clearly specifies alignment with existing objects.'
+        edit_description = 'Adjust the far starting point to (0,0) and close starting point to (0.5, 0.5), shift to align better with the pot and chair.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Aligned repositioning requires consideration of both existing features and intended structure aesthetics, posing a significant challenge.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure1',
+        design_id = 'sinewave_0',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (1.0, -1.0, 0.0),
-          close_curve_leftmost_point = (1.0, -1.5, 0.0),
+          far_curve_leftmost_point = (0.0, 0.0, 0.0),
+          close_curve_leftmost_point = (0.5, 0.5, 0.0),
           amplitude = 0.3,
           wavelength = 2.0,
           phase = 0.0,
-          height = 0.5
+          height = 0.4
         ),
         edit_description = 'Modify amplitude and height for visibility and style.',
-        difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Adjusting for style requires subjective interpretation of the look and functionality.'
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The adjustment of amplitude and height is straightforward as it directly pertains to visual and design goals.'
       )
     ]
   )

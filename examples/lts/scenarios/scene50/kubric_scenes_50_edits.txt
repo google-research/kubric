@@ -1,131 +1,142 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct edit to change the profile to a sine wave path, increasing the wave amplitude for a more elegant path?',
+      question = 'What is the correct modification to create a sine wave path with a top start point at (0.5, -1, 0) and an increased wave amplitude for a more elegant path?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'serpentine_path',
+          design_id = 'serpentine_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            far_curve_leftmost_point = (0.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -1.0, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Change the profile to a sine wave path with top start point at (0.5, -1, 0), increasing the wave amplitude for a more elegant path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -1.0, 0.0),
             close_curve_leftmost_point = (-0.5, -1.0, 0.0),
             amplitude = 0.5,
             wavelength = 3.0,
             phase = 1.570795,
             height = 0.05
           ),
-          edit_description = 'Change the profile to a sine wave path, increasing the wave amplitude for a more elegant path.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = QuarterWedge(
-            center = (-1.0, 0.0, 0.0),
-            radius = 0.5,
-            gap_degrees = 90.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the profile to a quarter wedge which is not suitable for paths.'
+          edit_description = 'Modify the path to have a smaller amplitude and different starting point.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = Linear(
-            center = (-1.0, 0.0, 0.0),
-            length = 1.0,
-            height = 0.1,
-            orientation = 'x-axis'
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -1.0, 0.0),
+            amplitude = 0.6,
+            wavelength = 2.5,
+            phase = 1.570795,
+            height = 0.05
           ),
-          edit_description = 'Change the profile to a linear path which lacks the necessary curvature.'
+          edit_description = 'Adjust the wave properties to create a more narrow path.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = SemiCircular(
-            center = (-1.0, 0.0, 0.0),
-            radius = 0.5,
-            orientation = 'top_half',
-            height = 0.1
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.7,
+            wavelength = 3.5,
+            phase = 1.570795,
+            height = 0.05
           ),
-          edit_description = 'Change the profile to a semi-circular path which does not fulfill the serpentine requirement.'
+          edit_description = 'Position the curve start further out with a slightly adjusted amplitude.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = TriWedge(
-            center = (-1.0, 0.0, 0.0),
-            radius = 0.5,
-            gap_degrees = 30.0,
-            height = 0.1
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            close_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            amplitude = 0.8,
+            wavelength = 2.8,
+            phase = 1.570795,
+            height = 0.05
           ),
-          edit_description = 'Change the profile to a tri-wedge, an unlikely path design.'
+          edit_description = 'Set a negative starting point with increased amplitude to shift the wave dynamics.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The edit to a sinewave path with specified geometry correctly follows instruction to replace the serpentine path with a sine wave pattern.',
+      explanation_of_correctness = 'Option A correctly changes the path to start at the specified point and increases the amplitude as described in the edit requirement.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The prompt requires transformation from a simple serpentine to a more complex sinewave path which involves understanding changes in geometric properties.'
+      explanation_of_difficulty = 'Deducing the correct amplitude and new starting point requires interpreting the goal of an elegant path design from the provided prompt.'
     ),
     1 : EditMCQA(
-      question = 'What is the correct edit to adjust the starting points to align between the trees?',
+      question = "How should the path's starting points be modified to correctly align it between the trees according to the design goal?",
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'serpentine_path',
+          design_id = 'serpentine_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
-            close_curve_leftmost_point = (-0.5, -1.0, 0.0),
-            amplitude = 0.5,
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -1.0, 0.0),
+            amplitude = 0.75,
             wavelength = 3.0,
             phase = 1.570795,
             height = 0.05
           ),
-          edit_description = 'Adjust the starting points to align between the trees.'
+          edit_description = 'Adjust the starting points to align between the trees according to the design goal.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'serpentine_path',
+          design_id = 'serpentine_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, 0.0, 0.0),
-            close_curve_leftmost_point = (0.0, 0.0, 0.0),
-            amplitude = 0.0,
-            wavelength = 0.0,
-            phase = 0.0,
-            height = 0.0
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (-0.5, -1.5, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
           ),
-          edit_description = 'Remove all alignment and setup curvy path in default location.'
+          edit_description = 'Start the path from entirely different points away from the trees.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 1.0, 0.0),
-            left_length = 1.0,
-            left_width = 1.0,
-            right_width = 0.0,
-            right_length = 0.0,
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
             height = 0.05
           ),
-          edit_description = 'Add an L-shape path between the trees.'
+          edit_description = 'Set the starting points centrally in the scene.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = SemiRing(
-            center = (0.0, 0.0, 0.0),
-            outer_radius = 0.5,
-            inner_radius = 0.25,
-            orientation = 'top_half',
-            height = 0.1
-          ),
-          edit_description = 'A semi-ring path does not assist in aligning points.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'serpentine_path',
-          NewDesignStructure = Rectangular(
-            center = (-1.0, 0.0, 0.0),
-            length = 1.0,
-            width = 0.5,
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 2.0, 0.0),
+            close_curve_leftmost_point = (1.5, 2.0, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
             height = 0.05
           ),
-          edit_description = 'Change shape to a rectangular patch parallel to current path.'
+          edit_description = 'Set the path to start with points further out in the scene.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (-1.0, -0.5, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Slightly adjust the starting points towards the center of the scene.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Adjusting the starting points to specific locations ensures alignment between the trees as intended.',
+      explanation_of_correctness = 'Option A correctly aligns the starting points between the trees, fulfilling the design goal requirements as described.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'Moving starting points to align between existing objects like trees is straightforward based on provided positions.'
+      explanation_of_difficulty = 'The adjustments needed for alignment between specific given points in the scene are straightforward, given the visualization in the description.'
     )
   ]
 )

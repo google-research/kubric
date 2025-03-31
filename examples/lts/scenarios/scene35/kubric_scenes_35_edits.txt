@@ -1,180 +1,193 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'Which of the following changes were made to the initial design to achieve the new design goal?',
+      question = 'What modification was made to change the structure profile to SineWave?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure1',
+          design_id = 'serpentine_0',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.0, -1.5, 0.0),
-            amplitude = 0.3,
+            far_curve_leftmost_point = (0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.5, 0.0),
+            amplitude = 0.2,
             wavelength = 2.0,
             phase = 0.0,
             height = 0.5
           ),
-          edit_description = 'Change the structure profile to SineWave and adjust the starting point to (1, -1).'
+          edit_description = 'Change the structure profile to SineWave with far point (0.5,0) and close curve (0,0.5), amplitude 0.2'
         ),
         B = ModifyStructureEdit(
-          design_id = 'structure1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.0, -1.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.4
+          design_id = 'serpentine_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.3
           ),
-          edit_description = 'Change the structure to follow a different path with lesser wavelength.'
+          edit_description = 'Change to a QuarterWedge structure with a center point at the origin.'
         ),
-        C = DeleteStructureEdit(
-          design_id = 'structure1',
-          edit_description = 'Remove the existing Serpentine structure.'
-        ),
-        D = AddStructureEdit(
-          design = Design(
-            structures = {
-              structure2 = Circular(
-                center = (-1.0, 0.0, 0.0),
-                radius = 0.5,
-                height = 0.3
-              )
-            }
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 120.0,
+            height = 0.3
           ),
-          edit_description = 'Add a new circular barrier around the chair.',
-          target_parameter = 'structures'
+          edit_description = 'Modify the design to a TriWedge structure with 120-degree gap.'
         ),
-        E = ModifyObjectEdit(
-          object_id = 'pot_1',
-          new_object = SceneObject(
-            extent = (0.3, 0.3, 0.5),
-            center = (-0.5, -1.0, 0.0),
-            theta = 45.0,
-            semantic_label = 'pot'
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_0',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'y-axis'
           ),
-          edit_description = 'Rotate and reposition the pot for aesthetic balance.'
+          edit_description = 'Alter the design to a Linear structure aligned with the y-axis.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_0',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the design into a Rectangular structure.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The correct choice changes the structure profile and starting point as per the design goal.',
+      explanation_of_correctness = 'Option A correctly describes the change from a Serpentine to a SineWave profile with specific coordinates and amplitude.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The structure change and point alignment require interpreting the desired aesthetic from the description.'
+      explanation_of_difficulty = 'Understanding the exact geometric modifications needed to switch to a SineWave profile from a Serpentine structure and adjusting the amplitude is moderately complex.'
     ),
     1 : EditMCQA(
-      question = 'What edit aligns the structure better with the pot and chair?',
+      question = 'What adjustments were made to better align the structure with the pot and chair?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (1.0, -1.5, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.3
+          design_id = 'sinewave_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.5
           ),
-          edit_description = 'Align the serpentine structure to start at a vicinity favorable position with the pot.'
+          edit_description = 'Adjust the far starting point to (0,0) and close starting point to (0.5, 0.5), shift to align better with the pot and chair.'
         ),
-        B = ModifyObjectEdit(
-          object_id = 'chair_1',
-          new_object = SceneObject(
-            extent = (0.5, 0.5, 1.0),
-            center = (1.5, 0.5, 0.0),
-            theta = 90.0,
-            semantic_label = 'chair'
+        B = ModifyStructureEdit(
+          design_id = 'sinewave_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.5
           ),
-          edit_description = 'Move the chair further to the right to provide more space for the structure.'
+          edit_description = 'Move far points to negative axis for alignment, adjusting phase.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'structure1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.0, -1.5, 0.0),
-            amplitude = 0.35,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.3
+          design_id = 'sinewave_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.5
           ),
-          edit_description = 'Introduced a new CurvyPath that does not optimally align with existing pot and chair.'
+          edit_description = 'Transition to a Circular profile centered at the origin for alignment.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'structure1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.0, -1.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 2.0,
-            phase = 0.0,
+          design_id = 'sinewave_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'top_half',
             height = 0.5
           ),
-          edit_description = 'Shift the structure to better align with the pot and chair.'
+          edit_description = 'Adapt to a SemiCircular structure for easier alignment.'
         ),
-        E = DeleteStructureEdit(
-          design_id = 'structure1',
-          edit_description = 'Remove the existing Serpentine structure for complete redesign.'
+        E = ModifyStructureEdit(
+          design_id = 'sinewave_0',
+          NewDesignStructure = Linear(
+            center = (1.0, -1.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Switch to Linear covering from left to right on x-axis.'
         )
       },
-      correct_answer = 'D',
-      explanation_of_correctness = 'This option involves shifting the structure for optimal alignment with the pot and chair.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt clearly specifies alignment with existing objects.'
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes moving the sine wave endpoints to align better with garden elements.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Aligned repositioning requires consideration of both existing features and intended structure aesthetics, posing a significant challenge.'
     ),
     2 : EditMCQA(
-      question = 'Which edit modifies the amplitude and height for visibility and style?',
+      question = 'How was the structure modified to enhance visibility and style?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure1',
+          design_id = 'sinewave_0',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.0, -1.5, 0.0),
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
             amplitude = 0.3,
             wavelength = 2.0,
             phase = 0.0,
-            height = 0.5
+            height = 0.4
           ),
           edit_description = 'Modify amplitude and height for visibility and style.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'structure1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.5, 0.0, 0.0),
-            radius = 0.5,
-            left_arc_orientation = 'up',
+          design_id = 'sinewave_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase amplitude and decrease wavelength for a more dynamic look.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'sinewave_0',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
             height = 0.3
           ),
-          edit_description = 'Modify the serpentine structure to a smaller, more compact design.'
+          edit_description = 'Change to SemiRing for a differentiated appearance.'
         ),
-        C = AddStructureEdit(
-          design = Design(
-            structures = {
-              structure3 = Rectangular(
-                center = (0.0, 0.5, 0.0),
-                length = 1.0,
-                width = 0.5,
-                height = 0.3
-              )
-            }
+        D = ModifyStructureEdit(
+          design_id = 'sinewave_0',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
           ),
-          edit_description = 'Add a rectangular block for additional support.',
-          target_parameter = 'structures'
+          edit_description = 'Redefine as Rectangular to display clearly.'
         ),
-        D = ModifyObjectEdit(
-          object_id = 'pot_1',
-          new_object = SceneObject(
-            extent = (0.4, 0.4, 0.6),
-            center = (-1.0, -0.8, 0.0),
-            theta = 0.0,
-            semantic_label = 'pot'
+        E = ModifyStructureEdit(
+          design_id = 'sinewave_0',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.2,
+            right_width = 0.2,
+            right_length = 1.0,
+            height = 0.4
           ),
-          edit_description = 'Increase the size of the pot for enhanced prominence.'
-        ),
-        E = DeleteObjectEdit(
-          object_id = 'chair_1',
-          edit_description = 'Remove the chair to create more space for the garden elements.'
+          edit_description = 'Configure to LShape for standout structure.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'This option modifies amplitude and height, directly aligning with the style and visibility enhancement goal.',
-      difficulty = 'hard',
-      explanation_of_difficulty = 'Adjusting for style requires subjective interpretation of the look and functionality.'
+      explanation_of_correctness = 'Option A accurately reflects the adjustment of amplitude and height to achieve better stylistic and visibility outcomes.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustment of amplitude and height is straightforward as it directly pertains to visual and design goals.'
     )
   ]
 )

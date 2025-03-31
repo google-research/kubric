@@ -1,11 +1,11 @@
 {
     "prompt": "Create a blend of textures and shapes to make this area look harmonious, like a garden sanctuary.",
     "observation": {
-        "pot_1": {
+        "pot1": {
             "extent": [
-                0.5,
-                0.5,
-                0.5
+                0.320213,
+                0.32021299,
+                0.216202
             ],
             "center": [
                 0.0,
@@ -13,13 +13,13 @@
                 0.0
             ],
             "theta": 0.0,
-            "semantic_label": "pot1"
+            "semantic_label": "pot"
         },
-        "pot_2": {
+        "pot2": {
             "extent": [
-                0.5,
-                0.5,
-                0.5
+                0.320213,
+                0.32021299,
+                0.216202
             ],
             "center": [
                 0.0,
@@ -27,7 +27,7 @@
                 0.0
             ],
             "theta": 0.0,
-            "semantic_label": "pot2"
+            "semantic_label": "pot"
         }
     },
     "output": [

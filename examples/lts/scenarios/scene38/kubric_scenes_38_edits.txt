@@ -1,14 +1,14 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change is made to modify the original design into a SineWave form?',
+      question = 'What is the edit applied to transform the initial serpentine structure into a sine wave?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'serpentine_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.5, 1.5, 0.0),
-            amplitude = 0.2,
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.25,
             wavelength = 1.5,
             phase = 0.5,
             height = 0.1
@@ -17,59 +17,59 @@ CounterFactualMCQASequence(
         ),
         B = ModifyStructureEdit(
           design_id = 'serpentine_1',
-          NewDesignStructure = QuarterWedge(
+          NewDesignStructure = Linear(
             center = (0.75, 0.25, 0.0),
-            radius = 0.5,
-            gap_degrees = 90.0,
-            height = 0.1
+            length = 1.0,
+            height = 0.1,
+            orientation = 'y-axis'
           ),
-          edit_description = 'Change the profile to a QuarterWedge'
+          edit_description = 'Change the profile to a straight line'
         ),
         C = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = TriWedge(
-            center = (0.75, 0.25, 0.0),
-            radius = 0.5,
-            gap_degrees = 120.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the profile to a TriWedge'
-        ),
-        D = ModifyStructureEdit(
           design_id = 'serpentine_1',
           NewDesignStructure = Circular(
             center = (0.75, 0.25, 0.0),
             radius = 0.5,
             height = 0.1
           ),
-          edit_description = 'Change the profile to a Circular'
+          edit_description = 'Change the profile to a circular path'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Rectangular(
+            center = (0.75, 0.25, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a rectangular form'
         ),
         E = ModifyStructureEdit(
           design_id = 'serpentine_1',
-          NewDesignStructure = SemiCircular(
+          NewDesignStructure = TriWedge(
             center = (0.75, 0.25, 0.0),
             radius = 0.5,
-            orientation = 'top_half',
+            gap_degrees = 60.0,
             height = 0.1
           ),
-          edit_description = 'Change the profile to a SemiCircular'
+          edit_description = 'Change the profile to a tri-wedge pattern'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The change modifies the design profile from Serpentine to SineWave, which matches the design goal.',
+      explanation_of_correctness = "The correct change is adjusting the profile to match the goal's sine wave parameters.",
       difficulty = 'medium',
-      explanation_of_difficulty = 'The task requires understanding the difference between a Serpentine and a SineWave and making geometric adjustments.'
+      explanation_of_difficulty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
     ),
     1 : EditMCQA(
-      question = 'What adjustment is made to align the SineWave more harmoniously with the natural elements?',
+      question = 'What modifications were made to the sine wave to better align with the natural elements?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'sinewave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.5, 1.5, 0.0),
-            amplitude = 0.25,
-            wavelength = 1.5,
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.7,
             phase = 0.5,
             height = 0.1
           ),
@@ -78,52 +78,56 @@ CounterFactualMCQASequence(
         B = ModifyStructureEdit(
           design_id = 'sinewave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.5, 1.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.8,
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
             phase = 0.5,
             height = 0.1
           ),
-          edit_description = 'Increase the amplitude and wavelength'
+          edit_description = 'Make the wave less prominent and decrease its impact'
         ),
         C = ModifyStructureEdit(
           design_id = 'sinewave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.5, 1.5, 0.0),
-            amplitude = 0.2,
-            wavelength = 1.5,
-            phase = 1.0,
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.5,
             height = 0.1
           ),
-          edit_description = 'Change the phase to create a variation in the pattern'
+          edit_description = 'Increase prominence and make the wave more dynamic'
         ),
         D = ModifyStructureEdit(
           design_id = 'sinewave_1',
-          NewDesignStructure = Circular(
-            center = (0.75, 0.25, 0.0),
-            radius = 0.75,
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.15,
+            wavelength = 1.2,
+            phase = 0.5,
             height = 0.1
           ),
-          edit_description = 'Change the profile to a Circular path for better harmony'
+          edit_description = 'Reduce the wave parameters to create subtlety'
         ),
         E = ModifyStructureEdit(
           design_id = 'sinewave_1',
-          NewDesignStructure = SemiRing(
-            center = (0.75, 0.25, 0.0),
-            outer_radius = 0.75,
-            inner_radius = 0.5,
-            orientation = 'top_half',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.3,
+            phase = 0.5,
             height = 0.1
           ),
-          edit_description = 'Switch to a SemiRing layout to compliment the natural elements'
+          edit_description = 'Make slight adjustments to better fit the landscape'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'This adjustment fine-tunes the wave to better fit the surrounding natural context, aligning with the task description.',
-      difficulty = 'hard',
-      explanation_of_difficulty = 'The task requires a nuanced understanding of the visual harmony in relation to the existing scene elements.'
+      explanation_of_correctness = 'The goal was to slightly adjust the amplitude and wavelength to better blend in with the natural environment.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony."
     )
   ]
 )

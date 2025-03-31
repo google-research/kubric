@@ -1,13 +1,23 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change is made to transform the linear structure into a sine wave, providing flow and harmony?',
+      question = 'What is the correct modification to change the profile for flow and harmony?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'up',
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to a serpentine curve.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
             amplitude = 0.3,
             wavelength = 1.5,
             phase = 0.0,
@@ -15,59 +25,49 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Change the profile to a SineWave to provide flow and harmony.'
         ),
-        B = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = QuarterWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 90.0,
-            height = 0.3
-          ),
-          edit_description = 'Alter shape to a Quarter Wedge to introduce angled flow.'
-        ),
         C = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = TriWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 120.0,
-            height = 0.3
-          ),
-          edit_description = 'Change to a TriWedge for a triangular formation.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Linear(
-            center = (0.0, 0.0, 0.0),
-            length = 2.0,
-            height = 0.5,
-            orientation = 'y-axis'
-          ),
-          edit_description = 'Increase height of the Linear structure to dominate space.'
-        ),
-        E = ModifyStructureEdit(
           design_id = 'linear_1',
           NewDesignStructure = Circular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
             height = 0.3
           ),
-          edit_description = 'Switch to a Circular form for even enclosure.'
+          edit_description = 'Change the profile to a circular shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change orientation to the x-axis.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the profile to a rectangular shape.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'A CurvyPath with sine wave parameters follows the edit description provided in the initial scene setup.',
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct change involves transforming the linear design into a sine wave, achieving the flow and harmony objectives.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'Changing the structure to a sine wave requires understanding the spatial flow implied by the prompt.'
+      explanation_of_difficulty = 'The transition from a linear to a curvy structure aligns with the flow requirement but needs understanding of wave mechanics.'
     ),
     1 : EditMCQA(
-      question = "Which modification increases the wavy pattern's height, enhancing its presence and impact?",
+      question = 'What modification alters the design to increase height for more presence and impact?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'linear_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
             amplitude = 0.3,
             wavelength = 1.5,
             phase = 0.0,
@@ -76,62 +76,60 @@ CounterFactualMCQASequence(
           edit_description = 'Increase the height for more presence and impact.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.4,
-            phase = 0.0,
-            height = 0.5
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.7,
+            orientation = 'y-axis'
           ),
-          edit_description = 'Enhance amplitude for greater vertical movement.'
+          edit_description = 'Increase the height of the linear structure.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 1.5,
+            phase = 0.0,
             height = 0.3
           ),
-          edit_description = 'Change to SemiCircular flowing design.'
+          edit_description = 'Increase the amplitude instead.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = SemiRing(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
             center = (0.0, 0.0, 0.0),
-            outer_radius = 1.0,
-            inner_radius = 0.5,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Adopt a SemiRing shape to envelope space.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 2.0,
-            width = 1.0,
+            radius = 1.0,
             height = 0.5
           ),
-          edit_description = 'Form a rectangular barrier for maximum coverage.'
+          edit_description = 'Change it to a circular structure with increased height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Change to a semi-circular design with increased radius and height.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Changing the sine wave height to 0.5 matches the design goal of increased presence.',
+      explanation_of_correctness = 'The correct modification increases height for greater presence and visual impact while maintaining existing design curves.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The need for increased structural presence is straightforward from the prompt.'
+      explanation_of_difficulty = 'Adjusting height is a straightforward enhancement for impact and presence.'
     ),
     2 : EditMCQA(
-      question = 'Which edit ensures the wavy pattern wraps around the pots smoothly without collisions?',
+      question = 'Which modification ensures the wavy pattern wraps smoothly around the pots without collision?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'linear_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
             amplitude = 0.3,
             wavelength = 1.5,
             phase = 0.0,
@@ -140,45 +138,53 @@ CounterFactualMCQASequence(
           edit_description = 'Ensure the wavy pattern wraps around the pots smoothly without collisions.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-1.0, 0.0, 0.0),
-            radius = 0.5,
-            left_arc_orientation = 'up',
+          design_id = 'linear_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'top_half',
             height = 0.5
           ),
-          edit_description = 'Adopt a Serpentine shape with upward arcs.'
+          edit_description = 'Change to a semi-ring with outer and inner radii to avoid pot collisions.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = LShape(
-            left_center = (-1.0, 0.0, 0.0),
-            left_length = 1.0,
-            left_width = 0.2,
-            right_width = 0.3,
-            right_length = 1.0,
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
             height = 0.5
           ),
-          edit_description = 'Form an LShape to integrate with spatial areas.'
+          edit_description = 'Change to a tri-wedge to create natural boundaries.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = Circular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.1,
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.5, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'down',
             height = 0.5
           ),
-          edit_description = 'Adopt a Circular path for even distribution.'
+          edit_description = 'Use a serpentine path to wrap around the pots.'
         ),
-        E = DeleteStructureEdit(
-          design_id = 'sinewave_1',
-          edit_description = 'Remove sinewave structure for reduced complexity.'
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Switch to an L-shape for more angular design.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "Ensuring the sine wave wraps smoothly with the parameters given, matches the edit description's requirements.",
+      explanation_of_correctness = 'Ensuring smooth wrapping of the wavy pattern around the pots without collisions requires appropriate curve parameters.',
       difficulty = 'hard',
-      explanation_of_difficulty = 'Ensuring the sine wave wraps smoothly without collisions while preserving design elements is complex.'
+      explanation_of_difficulty = 'Ensuring non-collision requires spatial understanding and precise calculation.'
     )
   ]
 )

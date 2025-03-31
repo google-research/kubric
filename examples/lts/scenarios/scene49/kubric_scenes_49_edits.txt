@@ -1,10 +1,10 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'How should the Sine Wave structure be modified to achieve the goal of wrapping around the existing objects?',
+      question = 'How should the SineWave be edited to relocate the start points to wrap around the existing objects while keeping other parameters the same?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
@@ -13,199 +13,199 @@ CounterFactualMCQASequence(
             phase = 0.0,
             height = 0.2
           ),
-          edit_description = 'Keep the start points unchanged.'
+          edit_description = 'Relocate the start points to wrap around the existing objects, keep other parameters.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, -1.0, 0.0),
-            close_curve_leftmost_point = (2.0, -1.0, 0.0),
-            amplitude = 0.25,
-            wavelength = 1.2,
-            phase = 0.0,
-            height = 0.3
-          ),
-          edit_description = 'Shift the start points to the right.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Relocate start points to wrap around objects.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
-            close_curve_leftmost_point = (0.0, 0.0, 0.0),
-            amplitude = 0.1,
-            wavelength = 0.9,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Move start points behind initial objects.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (0.5, -1.0, 0.0),
-            amplitude = 0.25,
+            far_curve_leftmost_point = (1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.2,
             wavelength = 1.0,
             phase = 0.0,
             height = 0.2
           ),
-          edit_description = 'Start further back but maintain similar spacing.'
+          edit_description = 'Relocate to incorrect coordinates.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Incorrectly changes all parameters to match design goal.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Relocates points to different incorrect position.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.0, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Partially correct, but not optimal placement.'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = 'Option C correctly relocates the start points to align the wave as a barrier around the tree and rock.',
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly relocates the start points to wrap around the existing objects without changing other parameters.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'Requires understanding of spatial relationships and ensuring no collisions.'
+      explanation_of_difficulty = 'Determining the correct placement for wrapping without overlap is moderately challenging given the spatial constraints and the need to avoid collisions.'
     ),
     1 : EditMCQA(
-      question = "What change to the Sine Wave's amplitude helps achieve the desired broader wave effect?",
+      question = 'How should the SineWave be edited to adjust the amplitude from 0.2 to 0.3 and adjust wavelength to 3 for a broader wave effect, keeping the height the same?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.15,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Decrease the amplitude slightly.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.25,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Increase the amplitude moderately.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
             amplitude = 0.3,
-            wavelength = 1.5,
+            wavelength = 3.0,
             phase = 0.0,
-            height = 0.4
+            height = 0.2
           ),
-          edit_description = 'Adjust the amplitude for a broader wave effect.'
+          edit_description = 'Adjust the amplitude from 0.2 to 0.3 and adjust wavelength to 3 for a broader wave effect, keep height the same.'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+        B = ModifyStructureEdit(
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
             amplitude = 0.2,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Maintain amplitude but change the wavelength.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.3,
             wavelength = 1.0,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Keep amplitude broader and original wavelength intact.'
-        )
-      },
-      correct_answer = 'C',
-      explanation_of_correctness = 'Option C correctly modifies the amplitude to 0.3, resulting in a broader wave effect, which matches the design goal.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'A straightforward transformation requiring basic amplitude adjustment.'
-    ),
-    2 : EditMCQA(
-      question = 'How can the Sine Wave be altered to create a more substantial barrier using height adjustments?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.3
-          ),
-          edit_description = 'Decrease the height for a less substantial presence.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'sinewave_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, -0.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.5,
             phase = 0.0,
             height = 0.2
           ),
-          edit_description = 'Maintain the height at the initial level.'
+          edit_description = 'Incorrectly retains the original amplitude and wavelength.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Incorrectly increases amplitude too much.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
             amplitude = 0.3,
-            wavelength = 1.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increases amplitude correctly but incorrectly sets wavelength.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Incorrectly increases the height as well.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly adjusts the amplitude and wavelength as specified while keeping other parameters unchanged.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This edit is straightforward as it involves increasing the amplitude and wavelength based on simple parameters.'
+    ),
+    2 : EditMCQA(
+      question = 'How should the SineWave be edited to increase the height for a more substantial barrier?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 3.0,
             phase = 0.0,
             height = 0.4
           ),
           edit_description = 'Increase the height for a more substantial barrier.'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+        B = ModifyStructureEdit(
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
             amplitude = 0.3,
-            wavelength = 1.5,
+            wavelength = 3.0,
             phase = 0.0,
-            height = 0.5
+            height = 0.2
           ),
-          edit_description = 'Elevate the height excessively.'
+          edit_description = 'Incorrectly retains the original height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.6
+          ),
+          edit_description = 'Incorrectly increases the height too much.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Incorrectly increases amplitude along with the height.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'sinewave_1',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
             far_curve_leftmost_point = (0.0, -0.5, 0.0),
             close_curve_leftmost_point = (0.5, -0.5, 0.0),
             amplitude = 0.3,
-            wavelength = 1.5,
+            wavelength = 2.7,
             phase = 0.0,
-            height = 0.25
+            height = 0.4
           ),
-          edit_description = 'Slightly increase the height for a moderate effect.'
+          edit_description = 'Incorrectly adjusts wavelength along with the height.'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = 'Option C correctly increases the height to 0.4, which matches the design goal, providing a more substantial barrier.',
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A increases the height correctly for a more substantial barrier, without other changes.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'Simple height adjustment based on size specifications.'
+      explanation_of_difficulty = 'Increasing the height to make a more prominent barrier is a simple linear adjustment.'
     )
   ]
 )

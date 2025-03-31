@@ -1,129 +1,121 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct edit to change the design from SemiCircular to a flowing pattern?',
+      question = 'What is the correct edit to change the design from SemiCircular to a more flowing pattern?',
       answers = {
-        A = ModifyStructureEditWithDifficulty(
-          design_id = 'design_1',
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, 1.0, 0.0),
-            close_curve_leftmost_point = (0.5, -1.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.5,
-            phase = 0.5,
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
+            phase = 0.0,
             height = 0.25
           ),
-          edit_description = 'Change the design from SemiCircular to SineWave to create a more flowing pattern.',
-          difficult_to_deduce_from_prompt = 'easy',
-          exaplanation_of_diffuculty = 'The prompt directly requests changing from a semi-circular to a flowing sine wave pattern.'
+          edit_description = 'Change the design from SemiCircular to SineWave to create a more flowing pattern, with amplitude 0.1 and wavelength 1.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'design_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.5, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'bottom_half',
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
             height = 0.25
           ),
-          edit_description = 'Invert the SemiCircular design to the bottom half.'
+          edit_description = 'Change the design from SemiCircular to a Circular pattern, maintaining the same center and height.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'design_1',
-          NewDesignStructure = Linear(
-            center = (0.5, 0.0, 0.0),
-            length = 1.0,
-            height = 0.25,
-            orientation = 'x-axis'
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.75, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.25
           ),
-          edit_description = 'Change the design to a Linear structure along the x-axis.'
+          edit_description = 'Change the design from SemiCircular to QuarterWedge to create a 30-degree wedge pattern.'
         ),
         D = DeleteStructureEdit(
-          design_id = 'design_1',
-          edit_description = 'Remove the SemiCircular design.'
+          design_id = 'SemiCircular_1',
+          edit_description = 'Delete the SemiCircular structure to create an open space.'
         ),
-        E = AddStructureEdit(
-          design = Design(
-            structures = {
-              design_3 = Circular(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.0,
-                height = 0.25
-              )
-            }
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = LShape(
+            left_center = (0.75, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 0.25,
+            right_width = 0.25,
+            right_length = 0.5,
+            height = 0.25
           ),
-          edit_description = 'Add a new Circular design around the existing setup.',
-          target_parameter = 'radius'
+          edit_description = 'Change the design from SemiCircular to LShape to replace the circular flow with a more angular pattern.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The prompt specifies the edit needed to change from a SemiCircular to a more flowing SineWave pattern, which is achieved with option A.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt directly suggests the type of edit required, making it straightforward to deduce the correct answer.'
+      explanation_of_correctness = 'Choice A is correct because it changes the design from SemiCircular to a CurvyPath (SineWave) that fulfills the goal of creating a more flowing pattern.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The transformation from SemiCircular to SineWave requires interpreting spatial concepts to align with the prompt's depiction of flow and motion."
     ),
     1 : EditMCQA(
-      question = 'What adjusts the amplitude and wavelength to make the design more dynamic and swirling?',
+      question = 'How can the amplitude and wavelength be adjusted to make the design more dynamic and swirling?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'design_2',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, 1.0, 0.0),
-            close_curve_leftmost_point = (0.5, -1.0, 0.0),
-            amplitude = 0.6,
-            wavelength = 1.6,
-            phase = 0.5,
-            height = 0.25
-          ),
-          edit_description = 'Increase amplitude and wavelength slightly for more dynamics.'
-        ),
-        B = ModifyStructureEditWithDifficulty(
-          design_id = 'design_2',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, 1.0, 0.0),
-            close_curve_leftmost_point = (0.5, -1.0, 0.0),
-            amplitude = 0.5,
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.3,
             wavelength = 1.5,
-            phase = 0.5,
+            phase = 0.0,
             height = 0.25
           ),
-          edit_description = 'Adjust the amplitude and wavelength to give the design a more dynamic and swirling appearance.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'While the prompt hints at a dynamic flow, the specific adjustment values require interpretation.'
+          edit_description = 'Adjust the amplitude and wavelength to give the design a more dynamic and swirling appearance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the amplitude and wavelength to make the design broader and less swirling.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'design_2',
+          design_id = 'SineWave_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.5, 1.0, 0.0),
-            close_curve_leftmost_point = (0.5, -1.0, 0.0),
-            amplitude = 0.4,
-            wavelength = 1.4,
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Reduce the amplitude and wavelength to make the design more compact and less dynamic.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'SineWave_1',
+          edit_description = 'Remove the SineWave to create space for a new design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SineWave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
             phase = 0.5,
             height = 0.25
           ),
-          edit_description = 'Decrease amplitude and wavelength slightly for less dynamics.'
-        ),
-        D = AddStructureEdit(
-          design = Design(
-            structures = {
-              design_4 = Linear(
-                center = (0.0, 0.0, 0.0),
-                length = 2.0,
-                height = 0.25,
-                orientation = 'y-axis'
-              )
-            }
-          ),
-          edit_description = 'Add a Linear design for contrast.',
-          target_parameter = 'length'
-        ),
-        E = DeleteStructureEdit(
-          design_id = 'design_2',
-          edit_description = 'Remove the SineWave design.'
+          edit_description = 'Vary the phase only for subtle changes to the design appearance.'
         )
       },
-      correct_answer = 'B',
-      explanation_of_correctness = "Option B directly follows the prompt's requirement for a more dynamic and swirling design through amplitude and wavelength adjustment.",
-      difficulty = 'medium',
-      explanation_of_difficulty = 'The prompt provides a general sense for what is needed, but the precise values for dynamic changes need interpretation, making it moderately challenging.'
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A provides a moderate change in amplitude and wavelength, creating a more dynamic and swirling pattern, aligning with the design goal.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Understanding and achieving the desired dynamic and swirling pattern based on amplitude and wavelength adjustments is complex and needs an in-depth spatial relation interpretation.'
     )
   ]
 )

@@ -3,9 +3,9 @@
     "observation": {
         "birdhouse_1": {
             "extent": [
-                0.5,
-                -0.3,
-                -0.5
+                0.16098425,
+                -0.15423275,
+                -0.11663825
             ],
             "center": [
                 1.0,
@@ -13,13 +13,13 @@
                 -1.0
             ],
             "theta": 0.0,
-            "semantic_label": "Birdhouse"
+            "semantic_label": "birdhouse"
         },
         "trashcan_1": {
             "extent": [
-                0.4,
-                -0.6,
-                -0.4
+                0.26524849,
+                -0.3365115,
+                -0.265243
             ],
             "center": [
                 -1.0,
@@ -27,7 +27,7 @@
                 1.0
             ],
             "theta": 0.0,
-            "semantic_label": "Trashcan"
+            "semantic_label": "trashcan"
         }
     },
     "output": [

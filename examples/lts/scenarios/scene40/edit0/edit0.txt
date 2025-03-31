@@ -1,19 +1,19 @@
 Scene(
   objects = {
     chair_1 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (-1.0, 0.0, 0.0),
       theta = 90.0,
       semantic_label = 'chair'
     ),
     chair_2 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (0.0, 1.0, 0.0),
       theta = 180.0,
       semantic_label = 'chair'
     ),
     chair_3 = SceneObject(
-      extent = (0.5, 0.5, 1.0),
+      extent = (0.24758101, 0.20776901, 0.384435),
       center = (1.0, 0.0, 0.0),
       theta = -90.0,
       semantic_label = 'chair'
@@ -24,9 +24,9 @@ Scene(
   description = 'This scene involves constructing a unique enclosure pattern around a seating arrangement of chairs to create a tranquil environment. It requires interpreting complex spatial relationships and geometric structures like a TriWedge, ensuring the enclosure provides sufficient open space while maintaining a soothing vibe.',
   initial_design = Design(
     structures = {
-      initial_structure = TriWedge(
+      structure_1 = TriWedge(
         center = (0.0, 0.0, 0.0),
-        radius = 1.5,
+        radius = 2.0,
         gap_degrees = 95.0,
         height = 0.2
       )
@@ -34,9 +34,9 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      goal_structure = TriWedge(
+      structure_1 = TriWedge(
         center = (0.0, 0.0, 0.0),
-        radius = 1.5,
+        radius = 2.0,
         gap_degrees = 95.0,
         height = 0.4
       )
@@ -45,28 +45,28 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'initial_structure',
+        design_id = 'structure_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 1.5,
+          radius = 2.0,
           gap_degrees = 95.0,
           height = 0.2
         ),
         edit_description = 'Change the shape to a TriWedge design.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Requires changing the entire structural shape from Circular to a specific TriWedge format, interpreting the intended effect of spatial patterns.'
+        exaplanation_of_diffuculty = 'This change involves transforming a circular design into a more complex geometric structure, a TriWedge, which requires spatial reasoning beyond simple shape adjustment.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'goal_structure',
+        design_id = 'structure_1',
         NewDesignStructure = TriWedge(
           center = (0.0, 0.0, 0.0),
-          radius = 1.5,
+          radius = 2.0,
           gap_degrees = 95.0,
           height = 0.4
         ),
         edit_description = 'Adjust the height to 0.4 meters to meet the desired vibe criteria.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The modification involves adjusting a single parameter, the height, to meet specified criteria.'
+        exaplanation_of_diffuculty = 'The height adjustment is a straightforward parameter change, aiming to meet the specific ambiance criteria.'
       )
     ]
   )

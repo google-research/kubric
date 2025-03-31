@@ -1,188 +1,189 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change was made to transform the structure into a SemiRing with distinct inner and outer radii?',
+      question = 'Which of the following changes converts the structure to a semi-ring with distinct inner and outer radii while maintaining the top_half orientation?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = Circular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            height = 0.3
-          ),
-          edit_description = 'Changed to a Circular structure.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Changed to a larger SemiCircular shape.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'initial_structure',
+          design_id = 'structure_1',
           NewDesignStructure = SemiRing(
             center = (0.0, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 1.0,
+            outer_radius = 2.5,
+            inner_radius = 2.0,
+            orientation = 'top_half',
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii, orientation top_half.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a full Circular with a radius of 2.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
             orientation = 'bottom_half',
             height = 0.3
           ),
-          edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii.'
+          edit_description = 'Change the structure to a SemiCircular with a larger radius of 2.5 meters, orientation bottom_half.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'initial_structure',
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a QuarterWedge with a radius of 1.5 meters and a 90-degree gap.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
           NewDesignStructure = Linear(
             center = (0.0, 0.0, 0.0),
-            length = 1.5,
+            length = 2.0,
             height = 0.3,
             orientation = 'x-axis'
           ),
-          edit_description = 'Reformed structure into Linear design.'
+          edit_description = 'Change the structure to a Linear form with a length of 2.0 meters aligned along the x-axis.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly changes the design structure to a SemiRing, which matches the edit description provided to transform it into a semi-ring with defined radii and orientation.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The transformation to a SemiRing from a SemiCircular structure is explicitly outlined in the edit description, making it straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification increases the height to 0.5 meters for better presence?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.5,
+            inner_radius = 2.0,
+            orientation = 'top_half',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters for better presence.'
         ),
-        E = ModifyStructureEdit(
-          design_id = 'initial_structure',
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.5,
+            inner_radius = 2.0,
+            orientation = 'bottom_half',
+            height = 0.3
+          ),
+          edit_description = 'Change orientation to bottom_half, maintain height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 60.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to a TriWedge with a height of 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
           NewDesignStructure = Rectangular(
             center = (0.0, 0.0, 0.0),
             length = 1.0,
             width = 0.5,
             height = 0.3
           ),
-          edit_description = 'Altered to a Rectangular design.'
-        )
-      },
-      correct_answer = 'C',
-      explanation_of_correctness = 'Changing to a SemiRing with distinct inner and outer radii was part of the design transformation to offer a semi-enclosed space.',
-      difficulty = 'medium',
-      explanation_of_difficulty = "The original description specified a semi-circle, so understanding the transition to a semi-ring required consideration of the prompt's goal for open and protected views."
-    ),
-    1 : EditMCQA(
-      question = "How was the structure's presence enhanced?",
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = SemiRing(
-            center = (0.0, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.5
-          ),
-          edit_description = 'Adjust the height to 0.5 meters for better presence.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Mimicking the design goal by inverting the orientation.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = SemiRing(
-            center = (0.0, 0.0, 0.0),
-            outer_radius = 1.0,
-            inner_radius = 0.5,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Modified inner radius for different form.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, 0.0, 0.0),
-            radius = 1.2,
-            left_arc_orientation = 'up',
-            height = 0.5
-          ),
-          edit_description = 'Switched structure to a Serpentine shape for prominence.'
+          edit_description = 'Change to a Rectangular structure with a height of 0.3 meters.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = TriWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            gap_degrees = 90.0,
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
             height = 0.5
           ),
-          edit_description = 'Adjusted orientation to TriWedge with increased height.'
+          edit_description = 'Change to a CurvyPath with amplitude of 0.5 and height of 0.5 meters.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Increasing the height enhances the presence and aligns with the design shift to make the structure more noticeable.',
+      explanation_of_correctness = 'Option A correctly increases the height of the existing SemiRing to 0.5 meters as provided in the edit description.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'Increasing the height is directly mentioned as a design goal for enhancing presence.'
+      explanation_of_difficulty = 'The prompt and the edit both clearly indicate the need to increase the height for presence, making the change easy to understand.'
     ),
     2 : EditMCQA(
-      question = 'What modification was made to emphasize the open view?',
+      question = 'How would you orient the structure to emphasize open views?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'initial_structure',
+          design_id = 'structure_1',
           NewDesignStructure = SemiRing(
             center = (0.0, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 1.0,
+            outer_radius = 2.5,
+            inner_radius = 2.0,
+            orientation = 'bottom_half',
+            height = 0.5
+          ),
+          edit_description = 'Orient the structure as the bottom_half to emphasize the open view.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.5,
+            inner_radius = 2.0,
             orientation = 'top_half',
             height = 0.5
           ),
-          edit_description = 'Orient the structure as the top_half to emphasize the open view.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = QuarterWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 45.0,
-            height = 0.3
-          ),
-          edit_description = 'Converted to a QuarterWedge with a refined gap.'
+          edit_description = 'Maintain top_half orientation to focus views upwards.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'initial_structure',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, 0.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.0,
-            phase = 0.0,
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'bottom_half',
             height = 0.3
           ),
-          edit_description = 'Redesigned to a CurvyPath structure.'
+          edit_description = 'Revert to SemiCircular with bottom_half orientation.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'initial_structure',
+          design_id = 'structure_1',
           NewDesignStructure = Linear(
             center = (0.0, 0.0, 0.0),
-            length = 1.0,
+            length = 2.0,
             height = 0.3,
             orientation = 'y-axis'
           ),
-          edit_description = 'Shifted to a Linear shape offering straight perspectives.'
+          edit_description = 'Linearize the structure along the y-axis for horizontal openness.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'initial_structure',
+          design_id = 'structure_1',
           NewDesignStructure = LShape(
-            left_center = (0.0, 0.0, 0.0),
+            left_center = (-0.5, 0.0, 0.0),
             left_length = 1.0,
             left_width = 0.5,
             right_width = 0.5,
             right_length = 1.0,
-            height = 0.3
+            height = 0.5
           ),
-          edit_description = 'Refined to an LShape providing cornered vision.'
+          edit_description = 'Change to LShape to support structural variety.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Changing the orientation to top_half allowed the structure to maintain an open view, as aligned with the design goal.',
+      explanation_of_correctness = 'Option A aligns with the edit description to orient the structure as bottom_half, promoting open views aligned with the design goal.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The orientation change aligns with the design goal of maintaining an open view, as stated.'
+      explanation_of_difficulty = 'The orientation edit is driven by the direct prompt for openness and is simple to apply once identified.'
     )
   ]
 )

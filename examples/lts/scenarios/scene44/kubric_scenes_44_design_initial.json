@@ -3,42 +3,42 @@
     "observation": {
         "pot_1": {
             "extent": [
-                0.3,
-                0.3,
-                0.5
+                0.640426,
+                0.640426,
+                0.432404
             ],
             "center": [
                 1.0,
                 -1.0,
-                0.25
+                0.0
             ],
             "theta": 0.0,
             "semantic_label": "pot"
         },
         "trashcan_1": {
             "extent": [
-                0.5,
-                0.5,
-                1.0
+                0.530486,
+                0.530497,
+                0.673023
             ],
             "center": [
                 0.0,
                 1.0,
-                0.5
+                0.0
             ],
             "theta": 0.0,
             "semantic_label": "trashcan"
         },
         "trashcan_2": {
             "extent": [
-                0.5,
-                0.5,
-                1.0
+                0.530486,
+                0.530497,
+                0.673023
             ],
             "center": [
                 -1.0,
                 0.0,
-                0.5
+                0.0
             ],
             "theta": 0.0,
             "semantic_label": "trashcan"

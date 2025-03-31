@@ -1,22 +1,22 @@
 Scene(
   objects = {
     chair_1 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+      extent = (0.49516202, 0.41553802, 0.76887),
       center = (0.0, -1.0, 0.0),
       theta = 0.0,
-      semantic_label = 'Chair'
+      semantic_label = 'chair'
     ),
     chair_2 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+      extent = (0.49516202, 0.41553802, 0.76887),
       center = (1.0, 0.0, 0.0),
       theta = 90.0,
-      semantic_label = 'Chair'
+      semantic_label = 'chair'
     ),
     chair_3 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+      extent = (0.49516202, 0.41553802, 0.76887),
       center = (0.0, 1.0, 0.0),
       theta = 180.0,
-      semantic_label = 'Chair'
+      semantic_label = 'chair'
     )
   },
   num_edits = 3,
@@ -24,21 +24,21 @@ Scene(
   description = 'This scene involves constructing a semi-circle structure to provide a sense of enclosure but allowing for open views. The design focuses on arranging chairs in a semi-circle around a central point, with a protective outer structure.',
   initial_design = Design(
     structures = {
-      initial_structure = SemiCircular(
+      structure_1 = SemiCircular(
         center = (0.0, 0.0, 0.0),
-        radius = 1.0,
-        orientation = 'bottom_half',
+        radius = 2.0,
+        orientation = 'top_half',
         height = 0.3
       )
     }
   ),
   design_goal = Design(
     structures = {
-      goal_structure = SemiRing(
+      structure_1 = SemiRing(
         center = (0.0, 0.0, 0.0),
-        outer_radius = 1.5,
-        inner_radius = 1.0,
-        orientation = 'top_half',
+        outer_radius = 2.5,
+        inner_radius = 2.0,
+        orientation = 'bottom_half',
         height = 0.5
       )
     }
@@ -46,43 +46,43 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'initial_structure',
+        design_id = 'structure_1',
         NewDesignStructure = SemiRing(
           center = (0.0, 0.0, 0.0),
-          outer_radius = 1.5,
-          inner_radius = 1.0,
-          orientation = 'bottom_half',
+          outer_radius = 2.5,
+          inner_radius = 2.0,
+          orientation = 'top_half',
           height = 0.3
         ),
-        edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii.',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The original description specified a semi-circle, so understanding the transition to a semi-ring required consideration of the prompt's goal for open and protected views."
+        edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii, orientation top_half.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Expanding a semicircular shape to a semi-ring is a straightforward transition inspired by the prompt to increase openness and enclose slightly.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'initial_structure',
+        design_id = 'structure_1',
         NewDesignStructure = SemiRing(
           center = (0.0, 0.0, 0.0),
-          outer_radius = 1.5,
-          inner_radius = 1.0,
-          orientation = 'bottom_half',
+          outer_radius = 2.5,
+          inner_radius = 2.0,
+          orientation = 'top_half',
           height = 0.5
         ),
         edit_description = 'Adjust the height to 0.5 meters for better presence.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the height is directly mentioned as a design goal for enhancing presence.'
+        exaplanation_of_diffuculty = 'The prompt suggests the semi-enclosed nature, making the height adjustment notably clear to ensure presence.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'initial_structure',
+        design_id = 'structure_1',
         NewDesignStructure = SemiRing(
           center = (0.0, 0.0, 0.0),
-          outer_radius = 1.5,
-          inner_radius = 1.0,
-          orientation = 'top_half',
+          outer_radius = 2.5,
+          inner_radius = 2.0,
+          orientation = 'bottom_half',
           height = 0.5
         ),
-        edit_description = 'Orient the structure as the top_half to emphasize the open view.',
+        edit_description = 'Orient the structure as the bottom_half to emphasize the open view.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The orientation change aligns with the design goal of maintaining an open view, as stated.'
+        exaplanation_of_diffuculty = "Reorienting to the bottom_half aligns with the prompt's intent for openness."
       )
     ]
   )

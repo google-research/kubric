@@ -1,126 +1,124 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'Which edit best represents changing the straight path to a serpentine design for fluidity?',
+      question = 'What modification is needed to change the straight path to a serpentine design for fluidity?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.5
-          ),
-          edit_description = 'Update design to Serpentine'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'structure_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, 0.0, 0.0),
-            close_curve_leftmost_point = (0.5, 0.5, 0.0),
-            amplitude = 0.2,
-            wavelength = 1.0,
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
             phase = 0.0,
             height = 0.25
           ),
-          edit_description = 'Update design to Curvy Path'
+          edit_description = 'Introduce a serpentine path with adjusted corners'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'up',
+            height = 0.25
+          ),
+          edit_description = 'Change the straight path to a serpentine design for fluidity, arc center is at (-1, -1, 0)'
         ),
         C = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = QuarterWedge(
-            center = (1.0, 1.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 90.0,
-            height = 0.5
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
           ),
-          edit_description = 'Update design to Quarter Wedge'
+          edit_description = 'Adjust path to circular to encircle the garden'
         ),
         D = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.25
+          ),
+          edit_description = 'Implement a quarter wedge structure for variability'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
           NewDesignStructure = TriWedge(
             center = (1.0, 1.0, 0.0),
             radius = 1.0,
             gap_degrees = 120.0,
-            height = 0.5
-          ),
-          edit_description = 'Update design to Tri Wedge'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Circular(
-            center = (1.0, 1.0, 0.0),
-            radius = 0.5,
             height = 0.25
           ),
-          edit_description = 'Update design to Circular'
+          edit_description = 'Add tri-wedge feature around the garden structures'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The edit changes the linear path to a serpentine path as specified.',
+      correct_answer = 'B',
+      explanation_of_correctness = 'This matches the description given with serpentine and arc center at (-1, -1, 0).',
       difficulty = 'medium',
-      explanation_of_difficulty = 'This requires changing the type of path from linear to serpentine, maintaining design continuity.'
+      explanation_of_difficulty = 'Changing the path to serpentine is straightforward, but selecting an appropriate arc center requires spatial reasoning.'
     ),
     1 : EditMCQA(
-      question = "Which edit best represents adjusting the serpentine path's arc center and orientation to flow around the objects?",
+      question = "What is the correct adjustment to the serpentine path's arc center and orientation to ensure it flows around the objects?",
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'serpentine_1',
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.25,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Switch to linear path parallel to horizontal axis'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, -1.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Implement a rectangular enclosure'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
           NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, 0.0, 0.0),
-            radius = 1.0,
+            left_arc_center = (0.0, -1.0, 0.0),
+            radius = 1.5,
             left_arc_orientation = 'up',
             height = 0.5
           ),
-          edit_description = "Adjust the serpentine path's arc center and orientation"
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
-            close_curve_leftmost_point = (0.5, 0.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 2.0,
-            phase = 0.5,
-            height = 0.5
-          ),
-          edit_description = 'Adjust the path to have a curvy flow'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'top_half',
-            height = 0.5
-          ),
-          edit_description = 'Adjust to a semi-circular design'
+          edit_description = "Adjust the serpentine path's arc center to (0,-1,0) and orientation to flow around the objects"
         ),
         D = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = SemiRing(
-            center = (0.0, 0.0, 0.0),
-            outer_radius = 1.0,
-            inner_radius = 0.5,
-            orientation = 'bottom_half',
-            height = 0.5
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.0,
+            orientation = 'top_half',
+            height = 0.25
           ),
-          edit_description = 'Adjust to a semi-ring design'
+          edit_description = 'Introduce a semi-circular path with top-half alignment'
         ),
         E = ModifyStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = TriWedge(
-            center = (1.0, 1.0, 0.0),
-            radius = 0.8,
-            gap_degrees = 120.0,
-            height = 0.5
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 1.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'bottom_half',
+            height = 0.25
           ),
-          edit_description = 'Adjust to a tri-wedge design'
+          edit_description = 'Implement a semi-ring path for a layered effect'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The edit specifies adjustment to maintain the serpentine path around the objects.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'This involves spatial adjustments surrounding existing objects while maintaining the intended path flow.'
+      correct_answer = 'C',
+      explanation_of_correctness = 'Changes the arc center to (0, -1, 0) and ensures the path flows accordingly.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Determining the optimal arc center and ensuring it flows correctly around objects requires advanced spatial reasoning.'
     )
   ]
 )

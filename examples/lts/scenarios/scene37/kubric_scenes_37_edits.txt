@@ -1,120 +1,110 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct edit needed to transform the initial linear structure into the design goal structure?',
+      question = 'Which edit correctly changes the Linear structure to match the circular shape described in the design goal?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, 1.0, 0.0),
-            close_curve_leftmost_point = (0.0, 1.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.2
-          ),
-          edit_description = 'Change the shape to CurvyPath'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = QuarterWedge(
-            center = (0.0, 1.0, 0.0),
-            radius = 1.0,
-            gap_degrees = 90.0,
-            height = 0.2
-          ),
-          edit_description = 'Change the shape to QuarterWedge'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'linear_1',
+          design_id = 'linear_structure_1',
           NewDesignStructure = Circular(
             center = (0.0, 1.0, 0.0),
-            radius = 1.0,
+            radius = 1.5,
             height = 0.2
           ),
           edit_description = 'Change the shape to Circular'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'linear_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, 1.0, 0.0),
-            radius = 0.5,
-            left_arc_orientation = 'up',
-            height = 0.2
-          ),
-          edit_description = 'Change the shape to Serpentine'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'linear_1',
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 1.0, 0.0),
-            radius = 1.0,
+            radius = 1.5,
             orientation = 'top_half',
             height = 0.2
           ),
           edit_description = 'Change the shape to SemiCircular'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'x-axis'
+          ),
+          edit_description = 'Change the orientation to x-axis'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 1.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Change to Rectangular shape'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'linear_structure_1',
+          edit_description = 'Remove the Linear structure'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = "The correct edit changes the structure from Linear to Circular, matching the design goal's shape with the same center and radius.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit is to change the Linear structure into a Circular structure with a radius of 1.5 and height of 0.2 to match the design goal.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'Changing the shape to Circular while maintaining the location and radius involves comprehending the geometric transformation.'
+      explanation_of_difficulty = 'The prompt requires inferring from a linear to a circular arrangement which is a change in structure type.'
     ),
     1 : EditMCQA(
-      question = 'What is the correct edit needed to complete the transformation to meet the design goal height requirement?',
+      question = 'What modification is needed to increase the height of the Circular structure to match the design goal?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'circular_1',
+          design_id = 'circular_structure_1',
           NewDesignStructure = Circular(
             center = (0.0, 1.0, 0.0),
-            radius = 1.0,
-            height = 1.0
+            radius = 1.5,
+            height = 0.3
           ),
-          edit_description = 'Increase the height to 1 meter'
+          edit_description = 'Increase the height to 0.3 meters'
         ),
         B = ModifyStructureEdit(
-          design_id = 'circular_1',
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
           NewDesignStructure = Circular(
             center = (0.0, 1.0, 0.0),
             radius = 1.5,
             height = 0.5
           ),
-          edit_description = 'Change the radius to 1.5 meters'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'circular_1',
-          NewDesignStructure = Circular(
-            center = (0.0, 1.0, 0.0),
-            radius = 1.0,
-            height = 0.5
-          ),
           edit_description = 'Increase the height to 0.5 meters'
         ),
         D = ModifyStructureEdit(
-          design_id = 'circular_1',
-          NewDesignStructure = Linear(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
             center = (0.0, 1.0, 0.0),
-            length = 2.0,
-            height = 0.5,
-            orientation = 'y-axis'
+            radius = 1.5,
+            height = 0.6
           ),
-          edit_description = 'Revert to Linear but increase the height'
+          edit_description = 'Increase the height to 0.6 meters'
         ),
         E = ModifyStructureEdit(
-          design_id = 'circular_1',
-          NewDesignStructure = Rectangular(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
             center = (0.0, 1.0, 0.0),
-            length = 1.0,
-            width = 1.0,
-            height = 0.5
+            radius = 1.5,
+            height = 0.7
           ),
-          edit_description = 'Change to Rectangular shape'
+          edit_description = 'Increase the height to 0.7 meters'
         )
       },
       correct_answer = 'C',
-      explanation_of_correctness = "This edit increases the structure's height to match the design goal's requirement while keeping its circular shape unchanged.",
+      explanation_of_correctness = 'The correct answer increases the height of the Circular structure to 0.5 meters, matching the design goal.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The task involves adjusting only a single parameter, the height, which is straightforward once the shape is correctly set.'
+      explanation_of_difficulty = 'The increase in height to 0.5 meters is clearly specified and does not require complex inference.'
     )
   ]
 )

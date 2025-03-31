@@ -1,22 +1,22 @@
 Scene(
   objects = {
     pot1 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+      extent = (0.320213, 0.32021299, 0.216202),
       center = (0.0, -1.0, 0.0),
       theta = 0.0,
-      semantic_label = 'pot1'
+      semantic_label = 'pot'
+    ),
+    pot2 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
     ),
     rock_1 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+      extent = (0.25, 0.25, 0.25),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'rock'
-    ),
-    pot2 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
-      center = (0.0, 1.0, 0.0),
-      theta = 0.0,
-      semantic_label = 'pot2'
     )
   },
   num_edits = 2,
@@ -24,8 +24,8 @@ Scene(
   description = 'This scene involves interpreting spatial relationships to create a protective garden setup around two pots with a rock in between. The setup aims to create a calming, serpent-like flow around the objects while keeping a subtle, artistic balance.',
   initial_design = Design(
     structures = {
-      design_1 = SemiCircular(
-        center = (0.5, 0.0, 0.0),
+      SemiCircular_1 = SemiCircular(
+        center = (0.75, 0.0, 0.0),
         radius = 1.0,
         orientation = 'top_half',
         height = 0.25
@@ -34,11 +34,11 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      design_2 = CurvyPath(
-        far_curve_leftmost_point = (1.5, 1.0, 0.0),
-        close_curve_leftmost_point = (0.5, -1.0, 0.0),
+      SineWave_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        close_curve_leftmost_point = (1.0, -1.0, 0.0),
         amplitude = 0.5,
-        wavelength = 1.5,
+        wavelength = 2.0,
         phase = 0.5,
         height = 0.25
       )
@@ -47,32 +47,32 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'design_1',
+        design_id = 'SemiCircular_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (1.5, 1.0, 0.0),
-          close_curve_leftmost_point = (0.5, -1.0, 0.0),
-          amplitude = 0.5,
-          wavelength = 1.5,
-          phase = 0.5,
+          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, -1.0, 0.0),
+          amplitude = 0.1,
+          wavelength = 1.0,
+          phase = 0.0,
           height = 0.25
         ),
-        edit_description = 'Change the design from SemiCircular to SineWave to create a more flowing pattern.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly requests changing from a semi-circular to a flowing sine wave pattern.'
+        edit_description = 'Change the design from SemiCircular to SineWave to create a more flowing pattern, with amplitude 0.1 and wavelength 1.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The transformation from SemiCircular to SineWave requires interpreting spatial concepts to align with the prompt's depiction of flow and motion."
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'design_2',
+        design_id = 'SineWave_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (1.5, 1.0, 0.0),
-          close_curve_leftmost_point = (0.5, -1.0, 0.0),
-          amplitude = 0.5,
+          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, -1.0, 0.0),
+          amplitude = 0.3,
           wavelength = 1.5,
-          phase = 0.5,
+          phase = 0.0,
           height = 0.25
         ),
         edit_description = 'Adjust the amplitude and wavelength to give the design a more dynamic and swirling appearance.',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'While the prompt hints at a dynamic flow, the specific adjustment values require interpretation.'
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Understanding and achieving the desired dynamic and swirling pattern based on amplitude and wavelength adjustments is complex and needs an in-depth spatial relation interpretation.'
       )
     ]
   )

@@ -1,13 +1,13 @@
 Scene(
   objects = {
     pot_1 = SceneObject(
-      extent = (0.3, 0.3, 0.5),
+      extent = (0.320213, 0.32021299, 0.216202),
       center = (-1.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'pot'
     ),
     pot_2 = SceneObject(
-      extent = (0.3, 0.3, 0.5),
+      extent = (0.320213, 0.32021299, 0.216202),
       center = (1.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'pot'
@@ -19,7 +19,7 @@ Scene(
   initial_design = Design(
     structures = {
       linear_1 = Linear(
-        center = (0.0, 0.0, 0.0),
+        center = (0.0, 1.0, 0.0),
         length = 2.0,
         height = 0.3,
         orientation = 'y-axis'
@@ -28,9 +28,9 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      sinewave_1 = CurvyPath(
-        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-        close_curve_leftmost_point = (1.0, 0.0, 0.0),
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+        close_curve_leftmost_point = (1.0, 0.5, 0.0),
         amplitude = 0.3,
         wavelength = 1.5,
         phase = 0.0,
@@ -43,8 +43,8 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'linear_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-          close_curve_leftmost_point = (1.0, 0.0, 0.0),
+          far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+          close_curve_leftmost_point = (1.0, 0.5, 0.0),
           amplitude = 0.3,
           wavelength = 1.5,
           phase = 0.0,
@@ -52,13 +52,13 @@ Scene(
         ),
         edit_description = 'Change the profile to a SineWave to provide flow and harmony.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the structure to a sine wave requires understanding the spatial flow implied by the prompt.'
+        exaplanation_of_diffuculty = 'The transition from a linear to a curvy structure aligns with the flow requirement but needs understanding of wave mechanics.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'sinewave_1',
+        design_id = 'linear_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-          close_curve_leftmost_point = (1.0, 0.0, 0.0),
+          far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+          close_curve_leftmost_point = (1.0, 0.5, 0.0),
           amplitude = 0.3,
           wavelength = 1.5,
           phase = 0.0,
@@ -66,13 +66,13 @@ Scene(
         ),
         edit_description = 'Increase the height for more presence and impact.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The need for increased structural presence is straightforward from the prompt.'
+        exaplanation_of_diffuculty = 'Adjusting height is a straightforward enhancement for impact and presence.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'sinewave_1',
+        design_id = 'linear_1',
         NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
-          close_curve_leftmost_point = (1.0, 0.0, 0.0),
+          far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+          close_curve_leftmost_point = (1.0, 0.5, 0.0),
           amplitude = 0.3,
           wavelength = 1.5,
           phase = 0.0,
@@ -80,7 +80,7 @@ Scene(
         ),
         edit_description = 'Ensure the wavy pattern wraps around the pots smoothly without collisions.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Ensuring the sine wave wraps smoothly without collisions while preserving design elements is complex.'
+        exaplanation_of_diffuculty = 'Ensuring non-collision requires spatial understanding and precise calculation.'
       )
     ]
   )

@@ -1,13 +1,13 @@
 Scene(
   objects = {
     table_1 = SceneObject(
-      extent = (0.0, 0.0, 0.0),
+      extent = (0.288324, 0.288324, 0.294558),
       center = (-1.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     ),
-    pot_1 = SceneObject(
-      extent = (0.0, 0.0, 0.0),
+    pot_3 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
       center = (1.5, 1.5, 0.0),
       theta = 0.0,
       semantic_label = 'pot'
@@ -18,8 +18,8 @@ Scene(
   description = 'This scene involves arranging a pair of circular enclosures that create an artistic barrier between two objects, allowing for a visually appealing but functional design. It requires understanding the spatial layout, with a focus on preventing overlap and ensuring an elegant composition.',
   initial_design = Design(
     structures = {
-      semicircular1 = SemiCircular(
-        center = (0.0, 0.0, 0.0),
+      semi_circular_1 = SemiCircular(
+        center = (-1.0, 0.0, 0.0),
         radius = 1.0,
         orientation = 'bottom_half',
         height = 0.1
@@ -28,7 +28,7 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      serpentine1 = Serpentine(
+      serpentine_1 = Serpentine(
         left_arc_center = (0.0, 0.5, 0.0),
         radius = 0.5,
         left_arc_orientation = 'up',
@@ -39,31 +39,35 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'semicircular1',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (0.0, 0.5, 0.0),
-          radius = 0.5,
-          left_arc_orientation = 'up',
+        design_id = 'semi_circular_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+          close_curve_leftmost_point = (0.0, 0.0, 0.0),
+          amplitude = 0.25,
+          wavelength = 1.0,
+          phase = 0.0,
           height = 0.1
         ),
-        edit_description = 'Change the design profile to a serpentine path.',
+        edit_description = 'Change the design profile to a serpentine path with left arc center (0,0) and radius 0.25.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the design from a semicircular to a serpentine requires understanding of both structures and how they fit spatially and aesthetically between the given objects.'
+        exaplanation_of_diffuculty = 'The transformation to a CurvyPath needs an intermediary step of understanding serpentine and converting it to CurvyPath with acceptable parameters.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'semicircular1',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (0.0, 0.5, 0.0),
-          radius = 0.5,
-          left_arc_orientation = 'up',
+        design_id = 'curvy_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (0.0, 0.5, 0.0),
+          close_curve_leftmost_point = (0.0, 0.0, 0.0),
+          amplitude = 0.25,
+          wavelength = 1.0,
+          phase = 0.0,
           height = 0.1
         ),
         edit_description = 'Adjust the arc center to (0, 0.5, 0).',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The adjustment of the arc center is straightforward considering the given design goal.'
+        exaplanation_of_diffuculty = 'The change in far_curve_leftmost_point is direct from the instruction.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'serpentine1',
+        design_id = 'curvy_path_1',
         NewDesignStructure = Serpentine(
           left_arc_center = (0.0, 0.5, 0.0),
           radius = 0.5,
@@ -71,8 +75,8 @@ Scene(
           height = 0.1
         ),
         edit_description = 'Reduce the radius to 0.5 to fit perfectly between the objects.',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Determining the appropriate radius to ensure it fits between the objects requires an understanding of the spatial requirements and constraints of the scene.'
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Converting from CurvyPath back to Serpentine requires identifying that final specifications match the original target profile. Understanding adjustments to fit the space along the x-axis.'
       )
     ]
   )

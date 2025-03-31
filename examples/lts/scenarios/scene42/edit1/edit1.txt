@@ -1,21 +1,21 @@
 Scene(
   objects = {
-    chair_1 = SceneObject(
-      extent = (0.5, 0.5, 0.5),
+    chair1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
       center = (0.0, -0.5, 0.0),
-      theta = 0.0,
+      theta = -90.0,
       semantic_label = 'chair'
     ),
-    table_1 = SceneObject(
-      extent = (0.5, 0.5, 0.75),
+    table1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
       center = (0.0, 0.5, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     ),
-    bench_1 = SceneObject(
-      extent = (1.5, 0.5, 0.5),
+    bench1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
       center = (1.0, 0.0, 0.0),
-      theta = 0.0,
+      theta = -90.0,
       semantic_label = 'bench'
     )
   },
@@ -24,9 +24,9 @@ Scene(
   description = 'This scene involves creating a cozy garden nook using circular structures to accentuate the arrangement of seating. It requires understanding spatial relationships and how different geometric structures interact within space.',
   initial_design = Design(
     structures = {
-      tri_wedge1 = TriWedge(
+      tri_wedge = TriWedge(
         center = (0.5, 0.0, 0.0),
-        radius = 1.5,
+        radius = 3.0,
         gap_degrees = 95.0,
         height = 0.5
       )
@@ -34,9 +34,9 @@ Scene(
   ),
   design_goal = Design(
     structures = {
-      tri_wedge1 = TriWedge(
+      tri_wedge = TriWedge(
         center = (0.5, 0.0, 0.0),
-        radius = 1.5,
+        radius = 3.0,
         gap_degrees = 95.0,
         height = 0.5
       )
@@ -45,7 +45,7 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'circular_planter1',
+        design_id = 'circular_planter',
         NewDesignStructure = TriWedge(
           center = (0.5, 0.0, 0.0),
           radius = 1.5,
@@ -53,20 +53,20 @@ Scene(
           height = 0.25
         ),
         edit_description = 'Change the shape to a TriWedge for a more dynamic enclosure.',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'It can be inferred from the goal of creating a dynamic and inviting space, but requires creativity.'
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt suggests enclosing the corner, and a TriWedge provides a similar but more dynamic structure than a circular planter.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'tri_wedge1',
+        design_id = 'tri_wedge',
         NewDesignStructure = TriWedge(
           center = (0.5, 0.0, 0.0),
-          radius = 1.5,
+          radius = 3.0,
           gap_degrees = 95.0,
           height = 0.5
         ),
         edit_description = 'Increase the height to 0.5 meters for better coverage.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly suggests increasing the height for better coverage.'
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Increasing the height enhances the sense of enclosure and comfort, aligning with the prompt's focus on creating an inviting space."
       )
     ]
   )
