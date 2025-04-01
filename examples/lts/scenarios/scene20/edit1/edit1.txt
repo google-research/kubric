@@ -21,7 +21,7 @@ Scene(
       curvyPath_1 = CurvyPath(
         far_curve_leftmost_point = (2.0, 0.5, 0.1),
         close_curve_leftmost_point = (3.0, 0.5, 0.1),
-        amplitude = 0.25,
+        amplitude = 0.5,
         wavelength = 1.0,
         phase = 0.0,
         height = 0.05
