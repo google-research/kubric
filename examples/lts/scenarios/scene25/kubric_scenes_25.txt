@@ -1,13 +1,13 @@
 Scene(
   objects = {
     bench_1 = SceneObject(
-      extent = (0.22015424, 0.66046348, 0.28620075),
+      extent = (0.44030848, 1.32092696, 0.5724015),
       center = (0.0, 0.0, 0.0),
       theta = -90.0,
       semantic_label = 'bench'
     ),
     pot_1 = SceneObject(
-      extent = (0.320213, 0.32021299, 0.216202),
+      extent = (0.640426, 0.64042598, 0.432404),
       center = (0.0, 1.5, 0.0),
       theta = 0.0,
       semantic_label = 'pot'
@@ -18,10 +18,10 @@ Scene(
   description = 'This scene involves understanding spatial relationships to position two structures near a bench to create an aesthetic and functional arrangement. It requires interpreting geometric properties like length, height, and alignment to achieve the design goal. The task also involves resolving potential ambiguities in placing a circular and an L-shaped structure alongside the bench.',
   initial_design = Design(
     structures = {
-      rectangular_1 = Rectangular(
+      rectangular_structure_1 = Rectangular(
         center = (0.0, 1.5, 0.0),
-        length = 0.5,
-        width = 0.3,
+        length = 1.0,
+        width = 1.0,
         height = 0.2
       )
     }
@@ -29,16 +29,16 @@ Scene(
   design_goal = Design(
     structures = {
       circular_planter_1 = Circular(
-        center = (-1.0, 1.5, 0.0),
-        radius = 0.5,
+        center = (0.0, 1.5, 0.0),
+        radius = 0.7,
         height = 0.3
       ),
       l_shaped_structure_1 = LShape(
-        left_center = (0.5, 1.8, 0.0),
-        left_length = 3.0,
-        left_width = 0.4,
+        left_center = (1.5, 1.8, 0.0),
+        left_length = 0.4,
+        left_width = 3.0,
         right_width = 0.5,
-        right_length = 0.5,
+        right_length = 3.0,
         height = 0.5
       )
     }
@@ -46,33 +46,33 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'rectangular_1',
+        design_id = 'rectangular_structure_1',
         NewDesignStructure = LShape(
-          left_center = (0.5, 1.8, 0.0),
-          left_length = 3.0,
-          left_width = 0.4,
+          left_center = (1.5, 1.8, 0.0),
+          left_length = 0.4,
+          left_width = 3.0,
           right_width = 0.5,
-          right_length = 0.5,
+          right_length = 3.0,
           height = 0.5
         ),
         edit_description = 'Replace the rectangular profile with an L-shaped structure to provide protection.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Replacing a structure based on the provided goal offers clear guidance.'
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The complexity arises from correctly interpreting the spatial and geometric relationships needed to provide protection around the pot.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
           structures = {
             circular_planter_1 = Circular(
-              center = (-1.0, 1.5, 0.0),
-              radius = 0.5,
+              center = (0.0, 1.5, 0.0),
+              radius = 0.7,
               height = 0.3
             )
           }
         ),
         edit_description = 'Add a circular planter to enhance aesthetics and complement the arrangement around the pot.',
-        target_parameter = 'circular planter',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding the aesthetic enhancement requires spatial imagination beyond the basic functional requirement.'
+        target_parameter = 'arrangement around the pot',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Interpreting the general aesthetic improvement does not require complex spatial reasoning.'
       )
     ]
   )

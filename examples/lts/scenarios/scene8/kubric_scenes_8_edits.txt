@@ -1,58 +1,68 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct modification needed to achieve the design goal of maintaining an isosceles pattern in the scene?',
+      question = 'What edit will correctly position the circular planter to maintain an isosceles pattern with the bench and pot?',
       answers = {
-        A = ModifyStructureEdit(
+        A = ModifyStructureEditWithDifficulty(
           design_id = 'circular_planter_0',
           NewDesignStructure = Circular(
             center = (1.0, 2.0, 0.0),
             radius = 0.5,
             height = 0.5
           ),
-          edit_description = 'Move the planter to (1, 2) to keep the isosceles pattern.'
+          edit_description = 'Move the planter to (1, 2) to keep the isosceles pattern.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The challenge is in interpreting the spatial relationships necessary to maintain an isosceles configuration with the given structures.'
         ),
-        B = ModifyStructureEdit(
-          design_id = 'circular_planter_0',
-          NewDesignStructure = Circular(
-            center = (1.0, -2.0, 0.0),
-            radius = 0.5,
-            height = 0.5
-          ),
-          edit_description = 'Incorrect: Move the planter to (1, -2), which does not achieve the design goal.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'circular_planter_0',
-          NewDesignStructure = Circular(
-            center = (0.0, 1.0, 0.0),
-            radius = 0.5,
-            height = 0.5
-          ),
-          edit_description = 'Incorrect: Move the planter to (0, 1), which disturbs the isosceles pattern.'
-        ),
-        D = ModifyStructureEdit(
+        B = ModifyStructureEditWithDifficulty(
           design_id = 'circular_planter_0',
           NewDesignStructure = Circular(
             center = (2.0, 1.0, 0.0),
             radius = 0.5,
             height = 0.5
           ),
-          edit_description = 'Incorrect: Move the planter to (2, 1), which does not fulfill the pattern requirement.'
+          edit_description = 'Move the planter to (2, 1) which is incorrect as it does not maintain an isosceles pattern.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Maintaining isosceles pattern is not achievable with this edit.'
         ),
-        E = ModifyStructureEdit(
+        C = ModifyStructureEditWithDifficulty(
           design_id = 'circular_planter_0',
           NewDesignStructure = Circular(
-            center = (3.0, 2.0, 0.0),
+            center = (0.5, 0.5, 0.0),
             radius = 0.5,
             height = 0.5
           ),
-          edit_description = 'Incorrect: Move the planter to (3, 2), which maintains the wrong position.'
+          edit_description = 'Move the planter to (0.5, 0.5) which is incorrect as it disrupts the isosceles pattern.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'The chosen location does not satisfy the isosceles pattern condition.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (2.0, 2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the planter to (2, 2) which is incorrect as it fails the isosceles pattern requirement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Position does not form an isosceles pattern as intended.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (1.5, 1.5, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the planter to (1.5, 1.5) which is incorrect for creating an isosceles pattern.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Incorrect placement for an isosceles pattern.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Moving the planter to (1, 2) maintains the isosceles pattern intended with the bench and the pot.',
+      explanation_of_correctness = 'The correct answer places the planter at (1, 2) which maintains an isosceles triangle pattern with the bench at (0, 0) and the pot at (2, 0).',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The challenge lies in correctly visualizing and interpreting the spatial layout to achieve the isosceles pattern.'
+      explanation_of_difficulty = 'The difficulty lies in correctly understanding the spatial relationships required to achieve the pattern.'
     )
   ]
 )

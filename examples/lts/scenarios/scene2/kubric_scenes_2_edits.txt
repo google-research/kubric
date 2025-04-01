@@ -1,9 +1,9 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What edit is needed to add a rectangle to the tree at (0, -2)?',
+      question = 'For the task "Build a short structure around the leafy things", what edit correctly aligns with the goal of the design?',
       answers = {
-        A = AddStructureEditWithDifficulty(
+        A = AddStructureEdit(
           design = Design(
             structures = {
               rect_2 = Rectangular(
@@ -15,65 +15,91 @@ CounterFactualMCQASequence(
             }
           ),
           edit_description = 'Add a rectangle to the tree at (0, -2)',
-          target_parameter = 'center',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = "The edit requires understanding 'leafy things' as trees, and that the design goal specifies one rectangle per tree."
+          target_parameter = 'center'
         ),
         B = AddStructureEdit(
           design = Design(
             structures = {
-              rect_3 = Rectangular(
-                center = (2.0, 0.0, 0.0),
+              rect_5 = Rectangular(
+                center = (3.0, 0.0, 0.0),
                 length = 0.5,
                 width = 0.5,
                 height = 0.25
               )
             }
           ),
-          edit_description = 'Add a rectangle to the tree at (2, 0)',
+          edit_description = 'Add a rectangle to the tree at (3, 0)',
           target_parameter = 'center'
         ),
         C = AddStructureEdit(
           design = Design(
             structures = {
-              rect_4 = Rectangular(
-                center = (0.0, 2.0, 0.0),
+              rect_6 = Rectangular(
+                center = (0.0, 3.0, 0.0),
                 length = 0.5,
                 width = 0.5,
                 height = 0.25
               )
             }
           ),
-          edit_description = 'Add a rectangle to the tree at (0, 2)',
+          edit_description = 'Add a rectangle to the tree at (0, 3)',
           target_parameter = 'center'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'rect_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, -3.0, 0.0),
-            length = 0.7,
-            width = 0.7,
-            height = 0.3
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_7 = Rectangular(
+                center = (-3.0, 0.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
           ),
-          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
+          edit_description = 'Add a rectangle to the tree at (-3, 0)',
+          target_parameter = 'center'
         ),
-        E = DeleteStructureEdit(
-          design_id = 'rect_1',
-          edit_description = 'Remove the rectangle at (-2, 0)'
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_8 = Rectangular(
+                center = (0.0, 0.0, 3.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (0, 0)',
+          target_parameter = 'center'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'This edit adds a rectangle centered at (0, -2) as required by the prompt.',
+      explanation_of_correctness = "The description 'leafy things' implies trees, and the design goal involves adding rectangles at the base of each existing tree. The edit labeled 'A' correctly adds a structure to the specified tree, meeting the design's requirement.",
       difficulty = 'medium',
-      explanation_of_difficulty = "The challenge lies in identifying which tree corresponds to the vague term 'leafy things'."
+      explanation_of_difficulty = "The difficulty is medium because understanding 'leafy things' as trees requires semantic interpretation and aligning the prompt with the design goal."
     ),
     1 : EditMCQA(
-      question = 'What edit is needed to add a rectangle to the tree at (2, 0)?',
+      question = 'Which edit correctly adds a structure for the given edit description in the design goal?',
       answers = {
-        A = AddStructureEditWithDifficulty(
+        A = AddStructureEdit(
           design = Design(
             structures = {
-              rect_3 = Rectangular(
+              rect_9 = Rectangular(
+                center = (1.0, -1.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (1, -1)',
+          target_parameter = 'center'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_10 = Rectangular(
                 center = (2.0, 0.0, 0.0),
                 length = 0.5,
                 width = 0.5,
@@ -82,65 +108,77 @@ CounterFactualMCQASequence(
             }
           ),
           edit_description = 'Add a rectangle to the tree at (2, 0)',
-          target_parameter = 'center',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = "The edit requires recognizing multiple 'leafy things' and understanding the design goal to add rectangles to each."
-        ),
-        B = AddStructureEdit(
-          design = Design(
-            structures = {
-              rect_2 = Rectangular(
-                center = (0.0, -2.0, 0.0),
-                length = 0.5,
-                width = 0.5,
-                height = 0.25
-              )
-            }
-          ),
-          edit_description = 'Add a rectangle to the tree at (0, -2)',
           target_parameter = 'center'
         ),
         C = AddStructureEdit(
           design = Design(
             structures = {
-              rect_4 = Rectangular(
-                center = (0.0, 2.0, 0.0),
+              rect_11 = Rectangular(
+                center = (0.0, -1.0, 0.0),
                 length = 0.5,
                 width = 0.5,
                 height = 0.25
               )
             }
           ),
-          edit_description = 'Add a rectangle to the tree at (0, 2)',
+          edit_description = 'Add a rectangle to the tree at (0, -1)',
           target_parameter = 'center'
         ),
-        D = DeleteStructureEdit(
-          design_id = 'rect_1',
-          edit_description = 'Remove the rectangle at (-2, 0)'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'rect_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, -3.0, 0.0),
-            length = 0.7,
-            width = 0.7,
-            height = 0.3
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_12 = Rectangular(
+                center = (1.0, 1.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
           ),
-          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
+          edit_description = 'Add a rectangle to the tree at (1, 1)',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_13 = Rectangular(
+                center = (2.0, 2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (2, 2)',
+          target_parameter = 'center'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'This edit correctly adds a rectangle centered at (2, 0) as specified.',
+      correct_answer = 'B',
+      explanation_of_correctness = "The correct edit 'B' matches the edit description and fulfills the design goal by adding a rectangle at the right tree position.",
       difficulty = 'medium',
-      explanation_of_difficulty = "The difficulty originates from interpreting 'leafy things' to mean trees at multiple locations."
+      explanation_of_difficulty = 'The difficulty is medium because it entails correctly identifying the alignment between prompt instructions and design implementation.'
     ),
     2 : EditMCQA(
-      question = 'What edit is needed to add a rectangle to the tree at (0, 2)?',
+      question = 'Identify the appropriate edit to add a structure at the correct location based on the provided instruction.',
       answers = {
-        A = AddStructureEditWithDifficulty(
+        A = AddStructureEdit(
           design = Design(
             structures = {
-              rect_4 = Rectangular(
+              rect_14 = Rectangular(
+                center = (-2.0, 2.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (-2, 2)',
+          target_parameter = 'center'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_15 = Rectangular(
                 center = (0.0, 2.0, 0.0),
                 length = 0.5,
                 width = 0.5,
@@ -149,14 +187,26 @@ CounterFactualMCQASequence(
             }
           ),
           edit_description = 'Add a rectangle to the tree at (0, 2)',
-          target_parameter = 'center',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = "Similar to previous edits, it involves understanding the broader context and applying the design goal to each 'leafy thing'."
+          target_parameter = 'center'
         ),
-        B = AddStructureEdit(
+        C = AddStructureEdit(
           design = Design(
             structures = {
-              rect_2 = Rectangular(
+              rect_16 = Rectangular(
+                center = (-1.0, 1.0, 0.0),
+                length = 0.5,
+                width = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a rectangle to the tree at (-1, 1)',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_17 = Rectangular(
                 center = (0.0, -2.0, 0.0),
                 length = 0.5,
                 width = 0.5,
@@ -167,39 +217,25 @@ CounterFactualMCQASequence(
           edit_description = 'Add a rectangle to the tree at (0, -2)',
           target_parameter = 'center'
         ),
-        C = AddStructureEdit(
+        E = AddStructureEdit(
           design = Design(
             structures = {
-              rect_3 = Rectangular(
-                center = (2.0, 0.0, 0.0),
+              rect_18 = Rectangular(
+                center = (2.0, 1.0, 0.0),
                 length = 0.5,
                 width = 0.5,
                 height = 0.25
               )
             }
           ),
-          edit_description = 'Add a rectangle to the tree at (2, 0)',
+          edit_description = 'Add a rectangle to the tree at (2, 1)',
           target_parameter = 'center'
-        ),
-        D = DeleteStructureEdit(
-          design_id = 'rect_1',
-          edit_description = 'Remove the rectangle at (-2, 0)'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'rect_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, -3.0, 0.0),
-            length = 0.7,
-            width = 0.7,
-            height = 0.3
-          ),
-          edit_description = 'Change the dimensions of the rectangle at (-2, 0)'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'This edit adds the rectangle to the tree located at (0, 2) as outlined in the design goal.',
+      correct_answer = 'B',
+      explanation_of_correctness = "Answer 'B' is correct as it aligns with the design goal by providing a rectangle at the proper tree location.",
       difficulty = 'medium',
-      explanation_of_difficulty = "Interpreting 'leafy things' broadly can make identifying all necessary trees for editing challenging."
+      explanation_of_difficulty = "The question is medium in complexity due to the necessity of interpreting the correct location for the structure relative to the 'leafy things'."
     )
   ]
 )

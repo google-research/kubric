@@ -1,8 +1,8 @@
 Scene(
   objects = {
     table_1 = SceneObject(
-      extent = (0.576648, 0.576648, 0.589116),
-      center = (2.0, 0.0, 0.294558),
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (2.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     )
@@ -12,20 +12,20 @@ Scene(
   description = 'This scene involves building a semi-circular seating arrangement around a focal object. The task requires understanding spatial relationships to ensure the seating is symmetrically positioned and properly oriented. The goal is to interpret geometric aspects such as radius, height, and orientation for the semi-circular structure.',
   initial_design = Design(
     structures = {
-      SemiCircular_1 = SemiCircular(
+      semi_circular_bench_1 = SemiCircular(
         center = (2.0, 0.0, 0.0),
         radius = 1.5,
-        orientation = 'bottom_half',
+        orientation = 'concave',
         height = 0.5
       )
     }
   ),
   design_goal = Design(
     structures = {
-      SemiCircular_2 = SemiCircular(
+      semi_circular_bench_1 = SemiCircular(
         center = (2.0, 0.0, 0.0),
         radius = 1.5,
-        orientation = 'bottom_half',
+        orientation = 'concave',
         height = 0.5
       )
     }
@@ -33,40 +33,40 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'SemiCircular_1',
+        design_id = 'semi_circular_bench_1',
         NewDesignStructure = SemiCircular(
           center = (2.0, 0.0, 0.0),
           radius = 1.5,
-          orientation = 'top_half',
+          orientation = 'convex',
           height = 0.3
         ),
         edit_description = 'Increase the radius to 1.5 meters',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt clearly specifies the requirement for a radius of 1.5 meters.'
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing the radius requires spatial reasoning to maintain symmetry.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'SemiCircular_1',
+        design_id = 'semi_circular_bench_1',
         NewDesignStructure = SemiCircular(
           center = (2.0, 0.0, 0.0),
           radius = 1.5,
-          orientation = 'bottom_half',
+          orientation = 'concave',
           height = 0.3
         ),
-        edit_description = "Change the orientation to 'bottom_half'",
+        edit_description = 'Change the orientation to "concave"',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The prompt specifies the seating arrangement should have an open side away from the table, implying the 'bottom_half' orientation."
+        exaplanation_of_diffuculty = 'Orientation change is straightforward as it only involves flipping the structure.'
       ),
       2 : ModifyStructureEditWithDifficulty(
-        design_id = 'SemiCircular_1',
+        design_id = 'semi_circular_bench_1',
         NewDesignStructure = SemiCircular(
           center = (2.0, 0.0, 0.0),
           radius = 1.5,
-          orientation = 'bottom_half',
+          orientation = 'concave',
           height = 0.5
         ),
         edit_description = 'Increase the height to 0.5 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt requires attention to geometric aspects, which includes setting the height at 0.5 meters as part of audience comfort.'
+        exaplanation_of_diffuculty = 'Increasing height is a simple vertical adjustment.'
       )
     ]
   )

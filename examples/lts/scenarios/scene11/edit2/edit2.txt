@@ -33,7 +33,7 @@ Scene(
   },
   num_edits = 4,
   prompt = 'Build an L-shaped border around the seating area to segment it from the rest of the garden.',
-  description = 'This scene involves spatial reasoning to position two L-shaped structures around a table and chairs arrangement. The task requires understanding geometric alignments and dimensions to achieve the desired design goal of providing a segmented seating area.',
+  description = 'This scene involves spatial reasoning to position two L-shaped structures around \n    a table and chairs arrangement. The task requires understanding geometric alignments and dimensions to achieve the \n    desired design goal of providing a segmented seating area.',
   initial_design = Design(
     structures = {
       structure_1 = LShape(

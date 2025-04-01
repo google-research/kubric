@@ -1,144 +1,122 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct modification to align the path between the trees and benches?',
+      question = 'Which of the following modifications moves the serpentine path to align it between the trees and benches?',
       answers = {
-        A = ModifyStructureEditWithDifficulty(
+        A = ModifyStructureEdit(
           design_id = 'serpentine_1',
           NewDesignStructure = Serpentine(
             left_arc_center = (-0.5, -0.5, 0.0),
             radius = 1.0,
-            left_arc_orientation = 'down',
+            left_arc_orientation = 'convex',
             height = 0.1
           ),
-          edit_description = 'Move the path to align it between the trees and benches.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The position of the new left arc center requires thoughtful consideration of the alignment with benches and trees.'
+          edit_description = 'Move the path to align it between the trees and benches.'
         ),
-        B = ModifyStructureEditWithDifficulty(
+        B = ModifyStructureEdit(
           design_id = 'serpentine_1',
           NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, -1.0, 0.0),
-            radius = 1.2,
-            left_arc_orientation = 'up',
-            height = 0.1
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
           ),
-          edit_description = 'Move the path to center between the benches.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The new center might not achieve proper alignment with all objects.'
+          edit_description = 'Change path height to 0.2 meters.'
         ),
-        C = ModifyStructureEditWithDifficulty(
+        C = ModifyStructureEdit(
           design_id = 'serpentine_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
-            close_curve_leftmost_point = (0.0, -0.5, 0.0),
-            amplitude = 0.2,
-            wavelength = 1.0,
-            phase = 0.0,
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'concave',
             height = 0.1
           ),
-          edit_description = 'Convert the path to a curvy style with different properties.',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Changing structure type adds complexity to spatial understanding.'
+          edit_description = 'Change radius to 2 meters and orientation to concave.'
         ),
-        D = ModifyStructureEditWithDifficulty(
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Convert path shape to semicircular.'
+        ),
+        E = ModifyStructureEdit(
           design_id = 'serpentine_1',
           NewDesignStructure = Linear(
-            center = (-0.5, -0.5, 0.0),
-            length = 1.5,
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
             height = 0.1,
-            orientation = 'x-axis'
+            orientation = 'left-right'
           ),
-          edit_description = 'Change path to a linear form down the x-axis.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Linear alignment requires precise positioning parallel to existing objects.'
-        ),
-        E = ModifyStructureEditWithDifficulty(
-          design_id = 'serpentine_1',
-          NewDesignStructure = QuarterWedge(
-            center = (-0.5, -0.5, 0.0),
-            radius = 0.5,
-            gap_degrees = 90.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the path to a quarter wedge.',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Visualizing and fitting a wedge among the objects is challenging.'
+          edit_description = 'Convert path shape to linear.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "Choice 'A' correctly modifies the path by moving its center to align between trees and benches, matching the scene requirements.",
+      explanation_of_correctness = 'Option A aligns the serpentine path between the trees and benches while retaining the correct orientation and height.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The difficulty is medium due to the need to consider spatial alignment.'
+      explanation_of_difficulty = 'The new left arc center position requires consideration of the spatial arrangement of the trees and benches.'
     ),
     1 : EditMCQA(
-      question = 'What is the correct modification to increase the radius and change orientation for a nicer wrap around objects?',
+      question = 'Which modification increases the radius of the serpentine path for a nicer wrap around objects while keeping its orientation convex?',
       answers = {
-        A = ModifyStructureEditWithDifficulty(
+        A = ModifyStructureEdit(
           design_id = 'serpentine_2',
           NewDesignStructure = Serpentine(
             left_arc_center = (-0.5, -0.5, 0.0),
             radius = 1.5,
-            left_arc_orientation = 'up',
+            left_arc_orientation = 'convex',
             height = 0.1
           ),
-          edit_description = 'Increase the radius to 1.5 meters for a nicer wrap around objects, change the left arc orientation to be facing up.',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Increasing radius and orientation change requires understanding of spatial proximity and coverage around objects.'
+          edit_description = 'Increase the radius to 1.5 meters for a nicer wrap around objects, change the left arc orientation to be facing convex.'
         ),
-        B = ModifyStructureEditWithDifficulty(
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Move the path center to (0.0, 0.0, 0.0) and keep radius 1.0 meter.'
+        ),
+        C = ModifyStructureEdit(
           design_id = 'serpentine_2',
           NewDesignStructure = Serpentine(
             left_arc_center = (-0.5, -0.5, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'down',
+            radius = 1.5,
+            left_arc_orientation = 'concave',
             height = 0.1
           ),
-          edit_description = 'Reduce the radius with no orientation change.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Reduces coverage but stays simple with existing design principles.'
+          edit_description = 'Change orientation to concave and radius to 1.5 meters.'
         ),
-        C = ModifyStructureEditWithDifficulty(
+        D = ModifyStructureEdit(
           design_id = 'serpentine_2',
-          NewDesignStructure = Circular(
-            center = (0.0, 0.0, 0.0),
-            radius = 2.0,
-            height = 0.1
-          ),
-          edit_description = 'Convert path to circular for maximum coverage around all objects.',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Circular coverage maximizes area but might overlap unintended spaces.'
-        ),
-        D = ModifyStructureEditWithDifficulty(
-          design_id = 'serpentine_2',
-          NewDesignStructure = SemiRing(
+          NewDesignStructure = QuarterWedge(
             center = (-0.5, -0.5, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 0.5,
-            orientation = 'top_half',
+            radius = 1.5,
+            gap_degrees = 10.0,
             height = 0.1
           ),
-          edit_description = 'Change path to a semi-ring for partial coverage with overlapping concepts.',
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Design of semi-ring is complex due to integration with existing elements.'
+          edit_description = 'Convert path shape to quarter wedge.'
         ),
-        E = ModifyStructureEditWithDifficulty(
+        E = ModifyStructureEdit(
           design_id = 'serpentine_2',
           NewDesignStructure = Rectangular(
             center = (-0.5, -0.5, 0.0),
-            length = 2.0,
-            width = 1.0,
+            length = 1.0,
+            width = 0.5,
             height = 0.1
           ),
-          edit_description = 'Change path to a rectangular shape to encompass area between objects.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Rectangular orientation needs spatial adaptation from serpentine logic.'
+          edit_description = 'Convert path to rectangular form.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "Choice 'A' aligns with the design goal, increasing radius for better object coverage and changing orientation.",
+      explanation_of_correctness = 'Option A achieves the desired path aspect by altering the radius to 1.5 meters while maintaining the convex orientation.',
       difficulty = 'hard',
-      explanation_of_difficulty = 'The difficulty is hard due to spatial reasoning required for increased radius and orientation adjustment.'
+      explanation_of_difficulty = 'This modification needs a clear understanding of spatial coverage and orientation to wrap around features.'
     )
   ]
 )

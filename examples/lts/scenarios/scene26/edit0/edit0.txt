@@ -1,13 +1,13 @@
 Scene(
   objects = {
-    table_0 = SceneObject(
-      extent = (0.576648, 0.576648, 0.589116),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     ),
     trashcan_1 = SceneObject(
-      extent = (0.530486, 0.530497, 0.673023),
+      extent = (0.265243, 0.26524849, 0.3365115),
       center = (1.5, 1.5, 0.0),
       theta = 0.0,
       semantic_label = 'trashcan'
@@ -18,24 +18,24 @@ Scene(
   description = 'This scene involves understanding spatial relationships, such as positioning an L-shaped structure to demarcate a seating area next to a trashcan. It requires interpreting geometric properties like center, length, width, and height to meet the design goal. The task also involves resolving ambiguities in the instructions, such as determining the correct alignment and dimensions of the L-shape while ensuring the trashcan remains accessible.',
   initial_design = Design(
     structures = {
-      structure_0 = LShape(
+      linear_1 = LShape(
         left_center = (0.5, 0.0, 0.0),
         left_length = 1.0,
         left_width = 0.2,
-        right_width = 0.0,
-        right_length = 0.0,
+        right_width = 0.2,
+        right_length = 1.0,
         height = 0.3
       )
     }
   ),
   design_goal = Design(
     structures = {
-      structure_0 = LShape(
+      Lshape_1 = LShape(
         left_center = (0.5, 0.0, 0.0),
         left_length = 1.0,
         left_width = 0.2,
         right_width = 0.2,
-        right_length = 0.2,
+        right_length = 1.0,
         height = 0.3
       )
     }
@@ -43,34 +43,36 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure_0',
+        design_id = 'linear_1',
         NewDesignStructure = LShape(
           left_center = (0.5, 0.0, 0.0),
           left_length = 1.0,
           left_width = 0.2,
-          right_width = 0.0,
-          right_length = 0.0,
+          right_width = 0.2,
+          right_length = 1.0,
           height = 0.3
         ),
         edit_description = 'Change the design profile from linear to L-shape, use right length=1.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Adjusting the design from linear to L-shape requires understanding geometric alignment.'
+        exaplanation_of_diffuculty = 'The change involves interpreting the structure from a linear form to an L-shape, requiring a clear understanding of spatial configuration.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
           structures = {
-            structure_1 = Rectangular(
-              center = (0.5, 0.5, 0.0),
-              length = 0.2,
-              width = 0.2,
+            Lshape_2 = LShape(
+              left_center = (0.5, 0.5, 0.0),
+              left_length = 0.2,
+              left_width = 0.2,
+              right_width = 0.2,
+              right_length = 0.2,
               height = 0.3
             )
           }
         ),
         edit_description = 'Add the right segment of the L-shape centered at (0.5, 0.5) with a length of 0.2 meters and align with the left segment.',
-        target_parameter = 'positioning',
-        difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Adding a segment requires careful calculation of measurements and alignment.'
+        target_parameter = 'structure alignment',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Adding the right segment involves careful alignment with the left segment to create the L-shape, which requires spatial reasoning.'
       )
     ]
   )

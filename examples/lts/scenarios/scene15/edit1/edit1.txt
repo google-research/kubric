@@ -33,7 +33,7 @@ Scene(
       serpentine_2 = Serpentine(
         left_arc_center = (-0.5, -0.5, 0.0),
         radius = 1.5,
-        left_arc_orientation = 'up',
+        left_arc_orientation = 'convex',
         height = 0.1
       )
     }
@@ -43,7 +43,7 @@ Scene(
       serpentine_2 = Serpentine(
         left_arc_center = (-0.5, -0.5, 0.0),
         radius = 1.5,
-        left_arc_orientation = 'up',
+        left_arc_orientation = 'convex',
         height = 0.1
       )
     }
@@ -55,7 +55,7 @@ Scene(
         NewDesignStructure = Serpentine(
           left_arc_center = (-0.5, -0.5, 0.0),
           radius = 1.0,
-          left_arc_orientation = 'down',
+          left_arc_orientation = 'convex',
           height = 0.1
         ),
         edit_description = 'Move the path to align it between the trees and benches.',
@@ -67,10 +67,10 @@ Scene(
         NewDesignStructure = Serpentine(
           left_arc_center = (-0.5, -0.5, 0.0),
           radius = 1.5,
-          left_arc_orientation = 'up',
+          left_arc_orientation = 'convex',
           height = 0.1
         ),
-        edit_description = 'Increase the radius to 1.5 meters for a nicer wrap around objects, change the left arc orientation to be facing up.',
+        edit_description = 'Increase the radius to 1.5 meters for a nicer wrap around objects, change the left arc orientation to be facing convex.',
         difficult_to_deduce_from_prompt = 'hard',
         exaplanation_of_diffuculty = 'Increasing radius and orientation change requires understanding of spatial proximity and coverage around objects.'
       )

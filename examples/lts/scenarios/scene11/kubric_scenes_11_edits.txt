@@ -1,7 +1,7 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = "Which modification describes 'Splitting the design into an L-shape'?",
+      question = 'How can you transform the rectangular design into an L-shape?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'structure_1',
@@ -17,72 +17,54 @@ CounterFactualMCQASequence(
         ),
         B = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 0.8,
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 3.0,
             height = 0.5
           ),
-          edit_description = 'Move the left section to (2, 0, 0).'
+          edit_description = 'Shrink the rectangular design slightly.'
         ),
         C = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
-            right_width = 0.5,
-            right_length = 0.8,
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
             height = 0.5
           ),
-          edit_description = 'Set the left section’s length to 0.5 and width to 4.'
+          edit_description = 'Convert the design into a semi-circular shape.'
         ),
         D = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
-            right_width = 0.5,
-            right_length = 4.0,
-            height = 0.5
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            height = 0.5,
+            orientation = 'left-right'
           ),
-          edit_description = 'Set the right section’s length to 4 and width to 0.5.'
+          edit_description = 'Change the design to a linear structure.'
         ),
         E = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 3.5,
-            width = 3.5,
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.5,
             height = 0.5
           ),
-          edit_description = 'Revert to a rectangular shape.'
+          edit_description = 'Modify the structure to a tri-wedge shape.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "The edit description 'Split the design into an L-shape.' corresponds to creating an L-shape by modifying the initial rectangular structure into a specified L shape with given dimensions.",
+      explanation_of_correctness = 'The edit splits the design into an L-shape as required by the transformation goal.',
       difficulty = 'medium',
       explanation_of_difficulty = "The transformation from a rectangular shape to an L-shape requires understanding the final design outcome and applying an initial change that isn't fully defined in the prompt."
     ),
     1 : EditMCQA(
-      question = "Which modification describes 'Moving the left section to (2, 0, 0)'?",
+      question = 'How should the left section be repositioned according to the prompt?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 2.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Split the design into an L-shape.'
-        ),
-        B = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
             left_center = (2.0, 0.0, 0.0),
@@ -94,74 +76,64 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Move the left section to (2, 0, 0).'
         ),
-        C = ModifyStructureEdit(
+        B = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 0.2,
             right_width = 0.5,
             right_length = 0.8,
             height = 0.5
           ),
-          edit_description = 'Set the left section’s length to 0.5 and width to 4.'
+          edit_description = 'Move the left section to (1, 1, 0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (3.0, -1.0, 0.0),
+            left_length = 0.2,
+            left_width = 0.2,
+            right_width = 0.5,
+            right_length = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Set the left section at (3, -1, 0).'
         ),
         D = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
+            left_center = (-2.0, 0.0, 0.0),
+            left_length = 0.2,
+            left_width = 0.2,
             right_width = 0.5,
-            right_length = 4.0,
+            right_length = 0.8,
             height = 0.5
           ),
-          edit_description = 'Set the right section’s length to 4 and width to 0.5.'
+          edit_description = 'Position the left section at (-2, 0, 0).'
         ),
         E = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 3.5,
-            width = 3.5,
+          NewDesignStructure = LShape(
+            left_center = (0.0, -2.0, 0.0),
+            left_length = 0.2,
+            left_width = 0.2,
+            right_width = 0.5,
+            right_length = 0.8,
             height = 0.5
           ),
-          edit_description = 'Revert to a rectangular shape.'
+          edit_description = 'Shift the left section to (0, -2, 0).'
         )
       },
-      correct_answer = 'B',
-      explanation_of_correctness = "The edit description 'Move the left section to (2, 0, 0).' matches the action of relocating the left section of the L-shape to the specified coordinates.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct position of the left section is specified clearly in the prompt as (2, 0, 0).',
       difficulty = 'easy',
       explanation_of_difficulty = 'The prompt clearly specifies the new position for the left section, making this an easy deduction.'
     ),
     2 : EditMCQA(
-      question = "Which modification describes 'Setting the left section’s length to 0.5 and width to 4'?",
+      question = 'What are the specified dimensions for setting the left section?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 2.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Split the design into an L-shape.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 0.8,
-            height = 0.5
-          ),
-          edit_description = 'Move the left section to (2, 0, 0).'
-        ),
-        C = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
             left_center = (2.0, 0.0, 0.0),
@@ -173,74 +145,64 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Set the left section’s length to 0.5 and width to 4.'
         ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Increase the left section’s length to 1.0 and width to 2.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.3,
+            left_width = 3.0,
+            right_width = 0.5,
+            right_length = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the left section’s length to 0.3 and width to 3.'
+        ),
         D = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
             left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
+            left_length = 0.8,
+            left_width = 5.0,
             right_width = 0.5,
-            right_length = 4.0,
+            right_length = 0.8,
             height = 0.5
           ),
-          edit_description = 'Set the right section’s length to 4 and width to 0.5.'
+          edit_description = 'Maximize the left section’s length to 0.8 and width to 5.'
         ),
         E = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 3.5,
-            width = 3.5,
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.4,
+            left_width = 1.5,
+            right_width = 0.5,
+            right_length = 0.8,
             height = 0.5
           ),
-          edit_description = 'Revert to a rectangular shape.'
+          edit_description = 'Set the left section’s length to 0.4 and width to 1.5.'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = "The edit description 'Set the left section’s length to 0.5 and width to 4.' relates directly to configuring the left section with these specific dimensions.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'The dimensions of 0.5 for length and 4 for width of the left section are clearly specified in the prompt.',
       difficulty = 'easy',
       explanation_of_difficulty = 'The prompt provides specific dimensions for the length and width of the left section, allowing for straightforward application.'
     ),
     3 : EditMCQA(
-      question = "Which modification describes 'Setting the right section’s length to 4 and width to 0.5'?",
+      question = 'What dimensions should the right section adhere to?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 2.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Split the design into an L-shape.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.2,
-            left_width = 0.2,
-            right_width = 0.5,
-            right_length = 0.8,
-            height = 0.5
-          ),
-          edit_description = 'Move the left section to (2, 0, 0).'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 0.5,
-            left_width = 4.0,
-            right_width = 0.5,
-            right_length = 0.8,
-            height = 0.5
-          ),
-          edit_description = 'Set the left section’s length to 0.5 and width to 4.'
-        ),
-        D = ModifyStructureEdit(
           design_id = 'structure_1',
           NewDesignStructure = LShape(
             left_center = (2.0, 0.0, 0.0),
@@ -252,19 +214,57 @@ CounterFactualMCQASequence(
           ),
           edit_description = 'Set the right section’s length to 4 and width to 0.5.'
         ),
-        E = ModifyStructureEdit(
+        B = ModifyStructureEdit(
           design_id = 'structure_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 3.5,
-            width = 3.5,
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 4.0,
+            right_width = 1.0,
+            right_length = 2.0,
             height = 0.5
           ),
-          edit_description = 'Revert to a rectangular shape.'
+          edit_description = 'Change the right section’s length to 2 and width to 1.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 4.0,
+            right_width = 0.8,
+            right_length = 3.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the right section’s length to 3 and width to 0.8.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 4.0,
+            right_width = 1.5,
+            right_length = 5.0,
+            height = 0.5
+          ),
+          edit_description = 'Set the right section’s length to 5 and width to 1.5.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 4.0,
+            right_width = 1.0,
+            right_length = 4.5,
+            height = 0.5
+          ),
+          edit_description = 'Correct the right section’s length to 4.5 and width to 1.'
         )
       },
-      correct_answer = 'D',
-      explanation_of_correctness = "The edit description 'Set the right section’s length to 4 and width to 0.5.' accurately describes adjusting the right section to these dimensions.",
+      correct_answer = 'A',
+      explanation_of_correctness = 'Setting the right section’s length to 4 and width to 0.5 matches the design goal stated in the scene description.',
       difficulty = 'easy',
       explanation_of_difficulty = 'The prompt clearly specifies these dimensions, making this a simple edit to apply.'
     )

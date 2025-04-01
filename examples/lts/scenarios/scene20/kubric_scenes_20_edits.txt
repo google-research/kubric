@@ -1,271 +1,264 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the most correct design edit to change the design profile to a Curvy path for more dynamic movement?',
+      question = 'Which edit changes the design profile to a Curvy path for more dynamic movement?',
       answers = {
-        A = ModifyStructureEdit(
-          design_id = 'LinearPath',
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 1.0,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the design profile to a Curvy path for more dynamic movement, use amplitude=1, wavelength=1, height=0.1.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'LinearPath',
-          NewDesignStructure = Linear(
-            center = (1.0, 0.5, 0.0),
-            length = 1.0,
-            height = 0.0,
-            orientation = 'y-axis'
-          ),
-          edit_description = 'Keep the path linear.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'LinearPath',
-          NewDesignStructure = Circular(
-            center = (1.0, 0.5, 0.0),
-            radius = 0.5,
-            height = 0.0
-          ),
-          edit_description = 'Change the design profile to a Circular path.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'LinearPath',
-          NewDesignStructure = QuarterWedge(
-            center = (1.0, 0.5, 0.0),
-            radius = 0.5,
-            gap_degrees = 90.0,
-            height = 0.0
-          ),
-          edit_description = 'Change the design profile to a QuarterWedge.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'LinearPath',
-          NewDesignStructure = TriWedge(
-            center = (1.0, 0.5, 0.0),
-            radius = 0.5,
-            gap_degrees = 60.0,
-            height = 0.0
-          ),
-          edit_description = 'Change the design profile to a TriWedge.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly modifies the Linear path to a Curvy path using the given parameters for more dynamic movement.',
-      difficulty = 'medium',
-      explanation_of_difficulty = "Understanding the need for a curvy path requires some interpretation of the prompt's call for 'exploration'."
-    ),
-    1 : EditMCQA(
-      question = 'What edit should you make to ensure a noticeable but gentle wave along the path?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
             amplitude = 0.5,
             wavelength = 1.0,
             phase = 0.0,
-            height = 0.1
+            height = 0.05
           ),
-          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave, keep wavelength and height unchanged.'
+          edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
         ),
-        B = ModifyStructureEdit(
-          design_id = 'CurvyPath',
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 1.0,
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
             wavelength = 1.0,
             phase = 0.0,
-            height = 0.1
+            height = 0.05
           ),
-          edit_description = 'Set the amplitude to 1.0 meters for a more pronounced wave.'
+          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
         ),
-        C = ModifyStructureEdit(
-          design_id = 'CurvyPath',
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
           NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.0,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Set the amplitude to 0 meters for a straight path.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.75,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Set the amplitude to 0.75 meters for a moderately pronounced wave.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.2,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Set the amplitude to 0.2 meters for a very gentle wave.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly identifies setting the amplitude to 0.5 meters as key to achieving a gentle wave.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'Changing amplitude to make the wave gentle is straightforward from the initial feedback.'
-    ),
-    2 : EditMCQA(
-      question = "How should you adjust the path's wavelength to balance curve frequency with overall length?",
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.5,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length, keep height unchanged.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.5,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Adjust the wavelength to 1.5 meters to increase curve frequency slightly.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 3.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Adjust the wavelength to 3.0 meters to decrease curve frequency.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Adjust the wavelength to 1.0 meter to increase curve frequency sharply.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 0.5,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Adjust the wavelength to 0.5 meters to make the path densely curvy.'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly adjusts the wavelength to 2.5 meters, balancing curve frequency with path length.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Understanding the balance needed in wavelength suggests a grasp of spatial layout.'
-    ),
-    3 : EditMCQA(
-      question = 'What modification will better blend the curvy path with the park’s natural terrain?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.5,
-            phase = 0.0,
-            height = 0.2
-          ),
-          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.5,
-            phase = 0.0,
-            height = 0.3
-          ),
-          edit_description = 'Set the height to 0.3 meters for higher elevation from the grass.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.5,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Set the height to 0.1 meter for a more subtle elevation.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.5,
-            phase = 0.0,
-            height = 0.4
-          ),
-          edit_description = 'Set the height to 0.4 meters for a distinctly prominent path.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'CurvyPath',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (1.0, 0.0, 0.0),
-            close_curve_leftmost_point = (2.0, 0.0, 0.0),
-            amplitude = 0.5,
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
             wavelength = 2.5,
             phase = 0.0,
             height = 0.05
           ),
-          edit_description = 'Set the height to 0.05 meter for a minimally elevated path.'
+          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly sets the height to 0.2 meters to blend the path naturally with the park.',
+      explanation_of_correctness = "The correct choice A describes the modification from a Linear to a Curvy path, which effectively changes the design profile to match the prompt's requirement for a more dynamic, non-linear path.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "The prompt 'interesting path that meanders' requires interpreting the idea of 'exploration' into specific geometrical terms to arrive at a Curvy path design."
+    ),
+    1 : EditMCQA(
+      question = 'Which edit sets the amplitude to 0.5 meters to ensure a noticeable but gentle wave?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct choice B details the modification that sets the amplitude to ensure a noticeable but gentle wave, aligning with the needed meandering characteristic.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The change in height is a simple update influenced by aesthetic blending with the environment.'
+      explanation_of_difficulty = 'The selection of amplitude was straightforward because it is a commonly known parameter that influences the visual characteristic of wavy paths.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit adjusts the wavelength to 2.5 meters to balance curve frequency with overall length?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct choice C captures the adjustment necessary for wavelength, enhancing the meandering effect in accordance with the given spatial parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The determination of wavelength impacts both the visual aesthetics and the spatial usage, requiring thoughtful interpretation of the desired winding path.'
+    ),
+    3 : EditMCQA(
+      question = 'Which edit sets the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (2.0, 0.5, 0.1),
+            close_curve_leftmost_point = (3.0, 0.5, 0.1),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct choice D matches the desired outcome of subtly integrating the path with the park’s terrain by adjusting its height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height setting was relatively straightforward, aligning the path elevation with the surrounding natural features, which is commonly practiced in landscape design.'
     )
   ]
 )

@@ -62,7 +62,7 @@ Scene(
         center = (1.0, 0.0, 0.0),
         length = 5.0,
         height = 0.5,
-        orientation = 'y-axis'
+        orientation = 'left-right'
       )
     }
   ),
@@ -74,7 +74,7 @@ Scene(
           center = (1.0, 0.0, 0.0),
           length = 3.0,
           height = 0.3,
-          orientation = 'y-axis'
+          orientation = 'left-right'
         ),
         edit_description = 'Change the design profile to linear',
         difficult_to_deduce_from_prompt = 'medium',
@@ -86,7 +86,7 @@ Scene(
           center = (1.0, 0.0, 0.0),
           length = 5.0,
           height = 0.5,
-          orientation = 'y-axis'
+          orientation = 'left-right'
         ),
         edit_description = 'Make it taller and longer',
         difficult_to_deduce_from_prompt = 'hard',

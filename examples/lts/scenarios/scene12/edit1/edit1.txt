@@ -27,7 +27,7 @@ Scene(
       Serpentine = Serpentine(
         left_arc_center = (-1.0, -0.5, 0.0),
         radius = 1.0,
-        left_arc_orientation = 'up',
+        left_arc_orientation = 'convex',
         height = 0.1
       )
     }
@@ -37,7 +37,7 @@ Scene(
       Serpentine = Serpentine(
         left_arc_center = (-1.0, -0.5, 0.0),
         radius = 1.0,
-        left_arc_orientation = 'up',
+        left_arc_orientation = 'convex',
         height = 0.1
       )
     }
@@ -49,7 +49,7 @@ Scene(
         NewDesignStructure = Serpentine(
           left_arc_center = (0.0, -1.0, 0.0),
           radius = 0.5,
-          left_arc_orientation = 'up',
+          left_arc_orientation = 'convex',
           height = 0.1
         ),
         edit_description = 'Change the design profile to serpentine for a more engaging path.',
@@ -61,7 +61,7 @@ Scene(
         NewDesignStructure = Serpentine(
           left_arc_center = (-1.0, -0.5, 0.0),
           radius = 1.0,
-          left_arc_orientation = 'up',
+          left_arc_orientation = 'convex',
           height = 0.1
         ),
         edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner.",

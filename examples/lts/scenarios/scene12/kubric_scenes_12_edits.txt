@@ -1,126 +1,122 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What modification will change the Linear design profile to serpentine to create a more engaging path?',
+      question = 'How should the design be modified to change the path profile from linear to serpentine for a more engaging experience?',
       answers = {
-        A = ModifyStructureEdit(
+        A = ModifyStructureEditWithDifficulty(
           design_id = 'Linear',
           NewDesignStructure = Serpentine(
             left_arc_center = (0.0, -1.0, 0.0),
             radius = 0.5,
-            left_arc_orientation = 'up',
+            left_arc_orientation = 'convex',
             height = 0.1
           ),
-          edit_description = 'Change the design profile to serpentine for a more engaging path.'
+          edit_description = 'Change the design profile to serpentine for a more engaging path.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The transformation from a linear to a serpentine path involves altering the layout creatively to match the intended design while maintaining specified geometric constraints.'
         ),
-        B = ModifyStructureEdit(
+        B = DeleteStructureEdit(
           design_id = 'Linear',
-          NewDesignStructure = Circular(
-            center = (1.0, 0.0, 0.0),
-            radius = 2.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the Linear path into a circular path to encircle the area.'
+          edit_description = 'Remove the existing linear path for a clean slate.'
         ),
         C = ModifyStructureEdit(
           design_id = 'Linear',
-          NewDesignStructure = Rectangular(
-            center = (1.0, 0.0, 0.0),
-            length = 4.0,
-            width = 1.0,
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (1.0, -1.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 4.0,
+            phase = 0.0,
             height = 0.1
           ),
-          edit_description = 'Alter the Linear path into a rectangular area for better coverage.'
+          edit_description = 'Change the design profile to a curvy path for aesthetic variance.'
         ),
         D = ModifyStructureEdit(
           design_id = 'Linear',
-          NewDesignStructure = SemiCircular(
-            center = (1.0, 0.0, 0.0),
-            radius = 2.0,
-            orientation = 'top_half',
-            height = 0.1
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 5.0,
+            height = 0.1,
+            orientation = 'left-right'
           ),
-          edit_description = 'Convert the Linear path into a semi-circular path focused to the top.'
+          edit_description = 'Extend the linear path to improve connectivity.'
         ),
-        E = ModifyStructureEdit(
-          design_id = 'Linear',
-          NewDesignStructure = LShape(
-            left_center = (1.0, 0.0, 0.0),
-            left_length = 2.0,
-            left_width = 1.0,
-            right_width = 0.5,
-            right_length = 2.0,
-            height = 0.1
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.1
+              )
+            }
           ),
-          edit_description = 'Transform the Linear path to an L-shaped layout for a unique track.'
+          edit_description = 'Add a circular path section for creating loops.',
+          target_parameter = 'Circular path'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The correct answer modifies the Linear path into a serpentine layout matching the provided design in the scene.',
+      explanation_of_correctness = 'Option A describes the precise changes needed to transform the linear path into the intended serpentine form specified in the design goal.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'This change involves creatively altering the design layout to match the new geometric constraints while maintaining the intended artistic effect.'
+      explanation_of_difficulty = 'The task requires understanding the transformation between path profiles, which involves intermediate spatial and geometric reasoning.'
     ),
     1 : EditMCQA(
-      question = 'Which edit correctly adjusts the serpentine path to ensure it visually connects the trees in a winding manner?',
+      question = "What modification is necessary to adjust the arc's center and radius to visually connect the trees in a winding manner?",
       answers = {
-        A = ModifyStructureEdit(
+        A = ModifyStructureEditWithDifficulty(
           design_id = 'Serpentine',
           NewDesignStructure = Serpentine(
             left_arc_center = (-1.0, -0.5, 0.0),
             radius = 1.0,
-            left_arc_orientation = 'up',
+            left_arc_orientation = 'convex',
             height = 0.1
           ),
-          edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner."
+          edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner.",
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Finding the precise arc center and radius to aesthetically and functionally connect all trees in a winding manner requires complex spatial reasoning and understanding of the geometric relationships between structures.'
         ),
-        B = ModifyStructureEdit(
-          design_id = 'Serpentine',
-          NewDesignStructure = SemiRing(
-            center = (0.0, 0.0, 0.0),
-            outer_radius = 1.5,
-            inner_radius = 0.5,
-            orientation = 'top_half',
-            height = 0.1
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular = Circular(
+                center = (0.5, -0.5, 0.0),
+                radius = 1.0,
+                height = 0.1
+              )
+            }
           ),
-          edit_description = 'Configure the serpentine into a semi-ring structure enveloping the trees from the top.'
+          edit_description = 'Introduce a circular path alignment to surround one tree.',
+          target_parameter = 'Circular path'
         ),
-        C = ModifyStructureEdit(
+        C = DeleteStructureEdit(
           design_id = 'Serpentine',
-          NewDesignStructure = QuarterWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            gap_degrees = 90.0,
-            height = 0.1
-          ),
-          edit_description = 'Transform the serpentine path into a quarter-circle wedge segment around the trees.'
+          edit_description = 'Remove the serpentine path to reassess the path connections.'
         ),
         D = ModifyStructureEdit(
           design_id = 'Serpentine',
-          NewDesignStructure = TriWedge(
-            center = (0.0, 0.0, 0.0),
-            radius = 2.0,
-            gap_degrees = 120.0,
-            height = 0.1
+          NewDesignStructure = Linear(
+            center = (-2.0, 1.0, 0.0),
+            length = 4.0,
+            height = 0.1,
+            orientation = 'front-back'
           ),
-          edit_description = 'Parse the serpentine path into a three-sided wedge with evenly spaced edges.'
+          edit_description = 'Transform the serpentine into a simpler linear path.'
         ),
         E = ModifyStructureEdit(
           design_id = 'Serpentine',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-2.0, 2.0, 0.0),
-            close_curve_leftmost_point = (0.0, -1.0, 0.0),
-            amplitude = 0.75,
-            wavelength = 2.0,
-            phase = 0.0,
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
             height = 0.1
           ),
-          edit_description = 'Alter the serpentine path to a curvy path that dynamically winds around the trees.'
+          edit_description = 'Replace the serpentine with a semi-circular connection to halfway between trees.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The correct answer adjusts the serpentine path’s arc center and radius to visually and functionally connect the three trees in the specified winding manner.',
+      explanation_of_correctness = 'Option A provides the exact geometric specifications to fit the serpentine path within the intended garden trail connecting the trees.',
       difficulty = 'hard',
-      explanation_of_difficulty = 'This task demands precise geometric manipulation and spatial reasoning to connect all trees seamlessly, enforcing complex understanding of the scene’s intended aesthetic.'
+      explanation_of_difficulty = "This involves a high level of conceptual visualization to understand how changes in the arc's geometry impact its relation to the trees, demanding intricate spatial reasoning."
     )
   ]
 )

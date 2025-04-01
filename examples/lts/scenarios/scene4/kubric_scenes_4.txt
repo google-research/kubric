@@ -22,7 +22,7 @@ Scene(
         center = (-1.0, 0.0, 0.0),
         length = 2.0,
         height = 0.2,
-        orientation = 'y-axis'
+        orientation = 'left-right'
       )
     }
   ),
@@ -32,7 +32,7 @@ Scene(
         center = (1.0, 0.0, 0.0),
         length = 2.0,
         height = 1.0,
-        orientation = 'y-axis'
+        orientation = 'left-right'
       )
     }
   ),
@@ -44,7 +44,7 @@ Scene(
           center = (1.0, 0.0, 0.0),
           length = 2.0,
           height = 0.2,
-          orientation = 'y-axis'
+          orientation = 'left-right'
         ),
         edit_description = 'Move the wall to (1, 0)',
         difficult_to_deduce_from_prompt = 'easy',
@@ -56,7 +56,7 @@ Scene(
           center = (1.0, 0.0, 0.0),
           length = 2.0,
           height = 1.0,
-          orientation = 'y-axis'
+          orientation = 'left-right'
         ),
         edit_description = 'Increase height to 1 meter',
         difficult_to_deduce_from_prompt = 'easy',

@@ -27,7 +27,7 @@ Scene(
   },
   num_edits = 3,
   prompt = 'Build a short structure around the leafy things',
-  description = "This scene involves semantic unertainty, where the VLM has to understand that 'leafy things' means tree. In addition, the instruction is vague: leafy things can mean a single tree or multiple trees(as is the case here).",
+  description = "This scene involves semantic uncertainty, where the VLM has to understand that 'leafy things' means tree. In addition, the instruction is vague: leafy things can mean a single tree or multiple trees(as is the case here).",
   initial_design = Design(
     structures = {
       rect_1 = Rectangular(
@@ -42,7 +42,7 @@ Scene(
         width = 0.5,
         height = 0.25
       ),
-      rect_3 = Rectangular(
+      rect_10 = Rectangular(
         center = (2.0, 0.0, 0.0),
         length = 0.5,
         width = 0.5,

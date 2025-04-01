@@ -1,9 +1,9 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct way to modify the scene by moving the first rectangle to its new position?',
+      question = 'What modification was made to the first rectangle to achieve the design goal of placing structures behind the bench?',
       answers = {
-        A = ModifyStructureEdit(
+        A = ModifyStructureEditWithDifficulty(
           design_id = 'rect_structure_1',
           NewDesignStructure = Rectangular(
             center = (-2.0, 1.0, 0.5),
@@ -11,9 +11,23 @@ CounterFactualMCQASequence(
             width = 1.0,
             height = 1.0
           ),
-          edit_description = 'Move the first rectangle to (-2, 1)'
+          edit_description = 'Move the first rectangle to (-2, 1)',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'The prompt clearly states to position rectangular structures behind the bench, making this modification straightforward.'
         ),
-        B = ModifyStructureEdit(
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.5),
+            length = 1.5,
+            width = 1.5,
+            height = 1.5
+          ),
+          edit_description = 'Expand the size of the first rectangle',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'No indication in the prompt suggests resizing to these dimensions.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
           design_id = 'rect_structure_1',
           NewDesignStructure = Rectangular(
             center = (-2.0, -1.0, 0.5),
@@ -21,107 +35,111 @@ CounterFactualMCQASequence(
             width = 1.0,
             height = 1.0
           ),
-          edit_description = 'Move the first rectangle to (-2, -1)'
+          edit_description = 'Move the first rectangle to (-2, -1)',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Not directly behind the bench as specified by the prompt.'
         ),
-        C = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (2.0, 1.0, 0.5),
-            length = 1.0,
-            width = 1.0,
-            height = 1.0
-          ),
-          edit_description = 'Move the first rectangle to (2, 1)'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.5),
-            length = 1.0,
-            width = 1.0,
-            height = 1.0
-          ),
-          edit_description = 'Move the first rectangle to the origin'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 1.0, 0.5),
-            length = 2.0,
-            width = 1.0,
-            height = 1.0
-          ),
-          edit_description = 'Move the first rectangle to (-2, 1) with new length'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly describes moving the first rectangle to the position (-2, 1) with existing length and width of 1m.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt clearly states to reposition the first rectangle to (-2, 1), making this an easy modification task.'
-    ),
-    1 : EditMCQA(
-      question = 'How would you modify the scene to reduce the height of the first rectangle?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 1.0, 0.5),
-            length = 1.9,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Reduce the height'
-        ),
-        B = ModifyStructureEdit(
+        D = ModifyStructureEditWithDifficulty(
           design_id = 'rect_structure_1',
           NewDesignStructure = Rectangular(
             center = (-2.0, 1.0, 1.0),
-            length = 1.9,
-            width = 1.0,
-            height = 1.0
-          ),
-          edit_description = 'Keep the original height'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 1.0, 0.25),
-            length = 1.9,
-            width = 1.0,
-            height = 0.25
-          ),
-          edit_description = 'Reduce the height to 0.25m'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'rect_structure_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 1.0, 0.5),
             length = 2.0,
             width = 1.0,
             height = 1.0
           ),
-          edit_description = 'Change both length and height'
+          edit_description = 'Increase the length and height at (-2, 1)',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Increases height beyond limit of a meter, not fulfilling task requirements.'
         ),
-        E = ModifyStructureEdit(
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-3.0, 0.0, 0.5),
+            length = 0.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Change to a smaller rectangle at (-3, 0)',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'No prompt guidance for an off-center smaller rectangle.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification complies with the prompt instructions, positioning the rectangle behind the bench.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly states to position rectangular structures behind the bench, making this modification straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'What was the next modification to achieve the specified design goal of a two-layer garden?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
           design_id = 'rect_structure_1',
           NewDesignStructure = Rectangular(
             center = (-2.0, 1.0, 0.5),
             length = 1.9,
-            width = 1.5,
+            width = 1.0,
             height = 0.5
           ),
-          edit_description = 'Reduce the height and increase width'
+          edit_description = 'Reduce the height',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The depicted height needs deduction based on the design goal to achieve a two-layer structure height requirement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 1.0, 0.5),
+            length = 2.0,
+            width = 0.5,
+            height = 0.7
+          ),
+          edit_description = 'Adjust dimensions to be narrower but taller',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Not aligned with the design goal requiring two structures exactly.'
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          edit_description = 'Remove the existing rectangle structure',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Contradicts the goal of achieving a multi-layered structure.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.5, 1.5, 0.25),
+            length = 2.5,
+            width = 1.5,
+            height = 0.75
+          ),
+          edit_description = 'Shift and expand the first rectangle',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'The change exceeds spatial parameters without aligning with structure design goals.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rect_structure_2 = Rectangular(
+                center = (-3.0, -1.0, 0.1),
+                length = 1.5,
+                width = 1.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a new rectangle on the left side',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'This addition diverges from the indicated position and the layering requirement.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly reduces the height to the specified 0.5m while keeping the other parameters intact.',
+      explanation_of_correctness = 'Adjusting the first rectangle’s height aligns with the overall design trajectory of layering.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The need to adjust the height to 0.5m requires understanding the design goal for a two-layer garden space.'
+      explanation_of_difficulty = 'The depicted height needs deduction based on the design goal to achieve a two-layer structure height requirement.'
     ),
     2 : EditMCQA(
-      question = 'Which option accurately describes adding a second rectangle?',
+      question = 'What change was made to satisfy the requirement for a second garden layer?',
       answers = {
-        A = AddStructureEdit(
+        A = AddStructureEditWithDifficulty(
           design = Design(
             structures = {
               rect_structure_2 = Rectangular(
@@ -133,69 +151,65 @@ CounterFactualMCQASequence(
             }
           ),
           edit_description = 'Add another rectangle to (-2, -1) at the desired height',
-          target_parameter = 'height'
+          target_parameter = 'height',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Addition of the second layer involves aligning the new structure beneath the height threshold specified.'
         ),
-        B = AddStructureEdit(
-          design = Design(
-            structures = {
-              rect_structure_3 = Rectangular(
-                center = (-2.0, 1.0, 0.1),
-                length = 1.9,
-                width = 1.0,
-                height = 0.2
-              )
-            }
-          ),
-          edit_description = 'Add another rectangle at wrong center',
-          target_parameter = 'height'
-        ),
-        C = AddStructureEdit(
+        B = AddStructureEditWithDifficulty(
           design = Design(
             structures = {
               rect_structure_2 = Rectangular(
                 center = (0.0, 0.0, 0.1),
-                length = 1.9,
-                width = 1.0,
-                height = 0.2
-              )
-            }
-          ),
-          edit_description = 'Add another rectangle at the origin',
-          target_parameter = 'height'
-        ),
-        D = AddStructureEdit(
-          design = Design(
-            structures = {
-              rect_structure_2 = Rectangular(
-                center = (-2.0, -1.0, 0.5),
-                length = 1.9,
-                width = 1.0,
+                length = 2.0,
+                width = 2.0,
                 height = 0.5
               )
             }
           ),
-          edit_description = 'Add another rectangle with wrong height',
-          target_parameter = 'height'
+          edit_description = 'Place a square structure at the center',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'The location conflicts with the explicit goal of being behind the bench.'
         ),
-        E = AddStructureEdit(
+        C = AddStructureEditWithDifficulty(
           design = Design(
             structures = {
               rect_structure_2 = Rectangular(
-                center = (-2.0, -1.0, 0.1),
-                length = 2.0,
-                width = 1.0,
-                height = 0.2
+                center = (1.0, -1.0, 0.3),
+                length = 1.0,
+                width = 0.5,
+                height = 0.5
               )
             }
           ),
-          edit_description = 'Add another rectangle with incorrect length',
-          target_parameter = 'height'
+          edit_description = 'Add an elongated small structure to the side',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'The setup is incongruous with achieving a bi-layer setup under height constraints.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rect_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (-2.5, 0.5, 0.5),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Reposition the first rectangle and alter dimensions',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Does not establish a new garden layer as required.'
+        ),
+        E = DeleteStructureEditWithDifficulty(
+          design_id = 'bench_1',
+          edit_description = 'Remove the bench',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Contradicts the fundamental scene setup involving the bench.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Option A accurately describes adding the second rectangle with the specified parameters.',
+      explanation_of_correctness = 'Creating an additional structure reflects compliance with the design goal for two layers.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'Aligning the second structure to meet height requirements and spatial relationship in design can involve intermediate spatial reasoning.'
+      explanation_of_difficulty = 'Addition of the second layer involves aligning the new structure beneath the height threshold specified.'
     )
   ]
 )

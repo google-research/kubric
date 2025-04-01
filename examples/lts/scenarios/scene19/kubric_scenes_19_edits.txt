@@ -1,183 +1,187 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What modification was made to increase the radius of the seating arrangement to 1.5 meters?',
+      question = 'What modification is made to the existing semi-circular bench?',
       answers = {
-        A = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
           NewDesignStructure = SemiCircular(
             center = (2.0, 0.0, 0.0),
             radius = 1.5,
-            orientation = 'top_half',
+            orientation = 'convex',
             height = 0.3
           ),
-          edit_description = 'Increase the radius to 1.5 meters'
+          edit_description = 'Increase the radius to 1.5 meters',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Changing the radius requires spatial reasoning to maintain symmetry.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.2,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase the radius to 1.2 meters'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase the radius and change orientation'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'SemiCircular_2',
+          design_id = 'semi_circular_bench_1',
           NewDesignStructure = SemiCircular(
             center = (2.0, 0.0, 0.0),
             radius = 1.0,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Return to initial radius and orientation'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = LShape(
-            left_center = (2.0, 0.0, 0.0),
-            left_length = 1.5,
-            left_width = 0.3,
-            right_width = 0.3,
-            right_length = 1.0,
-            height = 0.3
-          ),
-          edit_description = 'Change to LShape with new dimensions'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The correct modification increased only the radius while maintaining the other initial parameters.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The task is straightforward as the change in radius is specifically addressed in the prompt instructions.'
-    ),
-    1 : EditMCQA(
-      question = "Which edit changes the orientation of the seating arrangement to 'bottom_half'?",
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 0.5
-          ),
-          edit_description = 'Change orientation and height, but keep top_half'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'bottom_half',
-            height = 0.3
-          ),
-          edit_description = 'Change the orientation to bottom_half'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = Circular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            height = 0.5
-          ),
-          edit_description = 'Change to Circular structure'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.8,
-            orientation = 'top_half',
-            height = 0.3
-          ),
-          edit_description = 'Increase radius and keep top_half orientation'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'SemiCircular_2',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'bottom_half',
-            height = 0.5
-          ),
-          edit_description = 'Return to initial radius but change orientation'
-        )
-      },
-      correct_answer = 'B',
-      explanation_of_correctness = "The edit correctly specifies changing the orientation to 'bottom_half' while maintaining the radius and height set by prior edits.",
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The change in orientation is directly instructed in the prompt with obvious directional context.'
-    ),
-    2 : EditMCQA(
-      question = 'Which modification raised the height of the seating to 0.5 meters?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'SemiCircular_2',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 0.5
-          ),
-          edit_description = 'Change orientation back to top_half and raise height'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiCircular(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'bottom_half',
+            orientation = 'convex',
             height = 0.5
           ),
           edit_description = 'Increase the height to 0.5 meters'
         ),
         C = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = TriWedge(
-            center = (2.0, 0.0, 0.0),
-            radius = 1.5,
-            gap_degrees = 30.0,
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
             height = 0.3
           ),
-          edit_description = 'Transform to TriWedge and adjust parameters'
+          edit_description = 'Relocate the center to (2.0, 0.5, 0.0)'
         ),
         D = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
+          design_id = 'semi_circular_bench_1',
           NewDesignStructure = SemiCircular(
             center = (2.0, 0.0, 0.0),
             radius = 1.5,
-            orientation = 'bottom_half',
+            orientation = 'concave',
             height = 0.3
           ),
-          edit_description = 'Maintain previous settings without changing height'
+          edit_description = 'Change the orientation to "concave"'
         ),
         E = ModifyStructureEdit(
-          design_id = 'SemiCircular_1',
-          NewDesignStructure = SemiRing(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
             center = (2.0, 0.0, 0.0),
-            outer_radius = 1.7,
-            inner_radius = 1.5,
-            orientation = 'bottom_half',
+            radius = 1.0,
+            orientation = 'concave',
             height = 0.5
           ),
-          edit_description = 'Switch to SemiRing with matching height'
+          edit_description = 'Simultaneously change orientation to "concave" and increase height to 0.5 meters'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves increasing the radius to ensure a wider seating arc around the table, which matches the prompt requirement for a larger cozy seating area.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the radius requires spatial reasoning to maintain symmetry and align with the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'How is the orientation of the bench adjusted?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, -0.5),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 2 meters and move the center vertically'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to "concave"',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Orientation change is straightforward as it only involves flipping the structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Relocate the center to (1.5, 0.0, 0.0)'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift the bench to new center (2.0, -0.5, 0.0)'
         )
       },
       correct_answer = 'B',
-      explanation_of_correctness = 'This edit specifically increases the height to 0.5 meters as outlined in the final objective.',
+      explanation_of_correctness = 'The correct answer changes the bench orientation to concave, which matches the design goal for the seating arrangement.',
       difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt clearly lays out the height increase requirement, and matching it in the options is simple.'
+      explanation_of_difficulty = 'Changing orientation is an intuitive modification that requires minimal spatial adjustment.'
+    ),
+    2 : EditMCQA(
+      question = 'What additional change is made to the semi-circular bench following the objective?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to "concave"'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.5, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Move the center to (2.5, 0.0, 0.0)'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Increasing height is a simple vertical adjustment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters while maintaining current radius'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase both radius and height, but keep orientation "convex"'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct answer involves increasing the height to 0.5 meters, matching the final design goal parameter for height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height is a straightforward, singular adjustment with visual clarity in implementation.'
     )
   ]
 )

@@ -20,7 +20,7 @@
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "seating": [
+        "1": [
             {
                 "segment": 1,
                 "height": 0.5,
@@ -185,7 +185,7 @@
         ]
     },
     "goal_impl": {
-        "seating": [
+        "1": [
             {
                 "segment": 1,
                 "height": 0.5,

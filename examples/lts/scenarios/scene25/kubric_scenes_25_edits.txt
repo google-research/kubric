@@ -1,146 +1,146 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What is the correct edit to replace the existing rectangular structure with a protective structure around the pot?',
+      question = 'What modification should be made to replace the structure around the pot to provide better protection according to the scene description?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'rectangular_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.5, 1.8, 0.0),
-            radius = 0.7,
-            left_arc_orientation = 'up',
-            height = 0.5
-          ),
-          edit_description = 'Replace the rectangular profile with a serpentine structure to provide protection.'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'rectangular_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.5, 1.8, 0.0),
-            close_curve_leftmost_point = (1.0, 1.5, 0.0),
-            amplitude = 0.3,
-            wavelength = 1.0,
-            phase = 0.0,
-            height = 0.5
-          ),
-          edit_description = 'Replace the rectangular profile with a curvy path structure to provide protection.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'rectangular_1',
+          design_id = 'rectangular_structure_1',
           NewDesignStructure = LShape(
-            left_center = (0.5, 1.8, 0.0),
-            left_length = 3.0,
-            left_width = 0.4,
+            left_center = (1.5, 1.8, 0.0),
+            left_length = 0.4,
+            left_width = 3.0,
             right_width = 0.5,
-            right_length = 0.5,
+            right_length = 3.0,
             height = 0.5
           ),
           edit_description = 'Replace the rectangular profile with an L-shaped structure to provide protection.'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'rectangular_1',
-          NewDesignStructure = QuarterWedge(
-            center = (0.5, 1.8, 0.0),
-            radius = 1.0,
-            gap_degrees = 90.0,
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 1.8, 0.0),
+            radius = 0.4,
+            orientation = 'convex',
             height = 0.5
           ),
-          edit_description = 'Replace the rectangular profile with a quarter wedge structure to provide protection.'
+          edit_description = 'Replace the rectangular structure with a semi-circular structure for protection.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.5, 1.8, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Replace the rectangular structure with a serpentine structure around the pot.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = Linear(
+            center = (1.5, 1.8, 0.0),
+            length = 0.4,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Replace the rectangular structure with a linear barrier for the pot.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'rectangular_1',
+          design_id = 'rectangular_structure_1',
           NewDesignStructure = TriWedge(
-            center = (0.5, 1.8, 0.0),
-            radius = 1.5,
-            gap_degrees = 120.0,
+            center = (1.5, 1.8, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
             height = 0.5
           ),
-          edit_description = 'Replace the rectangular profile with a tri-wedge structure to provide protection.'
+          edit_description = 'Replace the rectangular structure with a tri-wedge shape around the pot.'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = 'The L-shaped structure matches the specified design goal and edit description for providing protection around the pot.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'Replacing a structure based on the provided goal offers clear guidance.'
+      correct_answer = 'A',
+      explanation_of_correctness = 'The L-shaped structure provides adequate protection and fits the design description, replacing the initial rectangular structure.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The complexity arises from correctly interpreting the spatial and geometric relationships needed to provide protection around the pot.'
     ),
     1 : EditMCQA(
-      question = "Which edit correctly adds a circular planter as part of enhancing the scene's aesthetics?",
+      question = 'What new structure should be added to enhance aesthetics and arrangement around the pot?',
       answers = {
         A = AddStructureEdit(
           design = Design(
             structures = {
-              circular_planter_1 = SemiCircular(
-                center = (-1.0, 1.5, 0.0),
-                radius = 0.5,
-                orientation = 'bottom_half',
-                height = 0.3
-              )
-            }
-          ),
-          edit_description = 'Add a semi-circular planter for aesthetic enhancement.',
-          target_parameter = 'semi-circular planter'
-        ),
-        B = AddStructureEdit(
-          design = Design(
-            structures = {
-              circular_planter_1 = SemiRing(
-                center = (-1.0, 1.5, 0.0),
-                outer_radius = 0.7,
-                inner_radius = 0.5,
-                orientation = 'top_half',
-                height = 0.3
-              )
-            }
-          ),
-          edit_description = 'Add a semi-ring planter for aesthetic enhancement.',
-          target_parameter = 'semi-ring planter'
-        ),
-        C = AddStructureEdit(
-          design = Design(
-            structures = {
               circular_planter_1 = Circular(
-                center = (-1.0, 1.5, 0.0),
-                radius = 0.5,
+                center = (0.0, 1.5, 0.0),
+                radius = 0.7,
                 height = 0.3
               )
             }
           ),
           edit_description = 'Add a circular planter to enhance aesthetics and complement the arrangement around the pot.',
-          target_parameter = 'circular planter'
+          target_parameter = 'arrangement around the pot'
         ),
-        D = AddStructureEdit(
+        B = AddStructureEdit(
           design = Design(
             structures = {
-              circular_planter_1 = Linear(
-                center = (-1.0, 1.5, 0.0),
-                length = 1.0,
-                height = 0.3,
-                orientation = 'x-axis'
-              )
-            }
-          ),
-          edit_description = 'Add a linear planter for aesthetic enhancement.',
-          target_parameter = 'linear planter'
-        ),
-        E = AddStructureEdit(
-          design = Design(
-            structures = {
-              circular_planter_1 = Rectangular(
-                center = (-1.0, 1.5, 0.0),
-                length = 1.0,
-                width = 0.3,
+              semi_ring_1 = SemiRing(
+                center = (0.0, 1.5, 0.0),
+                outer_radius = 0.8,
+                inner_radius = 0.5,
+                orientation = 'convex',
                 height = 0.3
               )
             }
           ),
-          edit_description = 'Add a rectangular planter for aesthetic enhancement.',
-          target_parameter = 'rectangular planter'
+          edit_description = 'Add a semi-ring planter to enhance aesthetics.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarter_wedge_1 = QuarterWedge(
+                center = (0.0, 1.5, 0.0),
+                radius = 0.7,
+                gap_degrees = 10.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a quarter wedge structure around the pot for aesthetic improvement.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_1 = CurvyPath(
+                far_curve_leftmost_point = (0.0, 1.5, 0.0),
+                close_curve_leftmost_point = (0.5, 1.5, 0.0),
+                amplitude = 0.2,
+                wavelength = 0.5,
+                phase = 0.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a curvy path surrounding the pot for complementary aesthetics.',
+          target_parameter = 'arrangement around the pot'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (0.0, 1.5, 0.0),
+                radius = 0.6,
+                left_arc_orientation = 'concave',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a serpentine planter structure for aesthetically enhancing the space.',
+          target_parameter = 'arrangement around the pot'
         )
       },
-      correct_answer = 'C',
-      explanation_of_correctness = 'The circular planter is specified correctly as per the design goal.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Understanding the aesthetic enhancement requires spatial imagination beyond the basic functional requirement.'
+      correct_answer = 'A',
+      explanation_of_correctness = 'The circular planter directly meets the goal of enhancing aesthetics around the pot as described in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Interpreting the general aesthetic improvement does not require complex spatial reasoning.'
     )
   ]
 )

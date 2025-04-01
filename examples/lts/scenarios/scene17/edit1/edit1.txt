@@ -8,7 +8,7 @@ Scene(
     ),
     bench_1 = SceneObject(
       extent = (0.44030848, 1.32092696, 0.5724015),
-      center = (3.0, 0.0, 0.0),
+      center = (1.5, 0.0, 0.0),
       theta = -90.0,
       semantic_label = 'bench'
     )
@@ -19,15 +19,15 @@ Scene(
   initial_design = Design(
     structures = {
       LShape 1 = LShape(
-        left_center = (2.0, 1.0, 0.0),
-        left_length = 2.0,
+        left_center = (2.5, 1.5, 0.0),
+        left_length = 0.5,
         left_width = 0.5,
         right_width = 0.5,
-        right_length = 0.5,
+        right_length = 4.0,
         height = 0.5
       ),
       LShape 2 = LShape(
-        left_center = (-2.0, 0.0, 0.0),
+        left_center = (1.0, -2.0, 0.0),
         left_length = 4.0,
         left_width = 0.5,
         right_width = 0.5,
@@ -39,15 +39,15 @@ Scene(
   design_goal = Design(
     structures = {
       LShape 1 = LShape(
-        left_center = (2.0, 1.0, 0.0),
-        left_length = 2.0,
+        left_center = (2.5, 1.5, 0.0),
+        left_length = 0.5,
         left_width = 0.5,
         right_width = 0.5,
-        right_length = 0.5,
+        right_length = 4.0,
         height = 0.5
       ),
       LShape 2 = LShape(
-        left_center = (-2.0, 0.0, 0.0),
+        left_center = (1.0, -2.0, 0.0),
         left_length = 4.0,
         left_width = 0.5,
         right_width = 0.5,
@@ -61,11 +61,11 @@ Scene(
       0 : ModifyStructureEditWithDifficulty(
         design_id = 'LShape 1',
         NewDesignStructure = LShape(
-          left_center = (2.0, 1.0, 0.0),
-          left_length = 2.0,
+          left_center = (2.5, 1.5, 0.0),
+          left_length = 0.5,
           left_width = 0.5,
           right_width = 0.5,
-          right_length = 0.5,
+          right_length = 4.0,
           height = 0.5
         ),
         edit_description = 'Adjust the left part of LShape 1 to (2, 1) and right part to (1, 2) to wrap around the tree.',
@@ -76,7 +76,7 @@ Scene(
         design = Design(
           structures = {
             LShape 2 = LShape(
-              left_center = (-2.0, 0.0, 0.0),
+              left_center = (1.0, -2.0, 0.0),
               left_length = 4.0,
               left_width = 0.5,
               right_width = 0.5,

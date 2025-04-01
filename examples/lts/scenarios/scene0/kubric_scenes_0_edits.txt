@@ -1,206 +1,116 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-<<<<<<< HEAD
-      question = 'What is the correct edit to move the rectangle in front of the tree?',
+      question = 'What change should be made to move the rectangle in front of the tree?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Move the rectangle in front of the tree'
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (0.0, 0.0, 0.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Move the rectangle to the origin'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 2.0, 0.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Move the rectangle to the right of the tree'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, -2.0, 0.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Move the rectangle to the left of the tree'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (-2.0, 0.0, 1.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Move the rectangle above the tree'
-        )
-      },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The edit in answer A moves the rectangle to the correct position in front of the tree as specified in the design goal.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The edit directly follows from the instruction of moving the rectangle in front of the tree based on initial and goal centers.'
-    ),
-    1 : EditMCQA(
-      question = 'What is the correct edit to swap the length and width to make the long end next to the tree?',
-      answers = {
-        A = ModifyStructureEdit(
-          design_id = 'rectangle_1',
+          design_id = 'rect_0',
           NewDesignStructure = Rectangular(
             center = (2.0, 0.0, 0.0),
             length = 1.0,
             width = 0.5,
             height = 0.5
           ),
-          edit_description = 'Swap the length and width to make the long end next to the tree'
+          edit_description = 'Move the rectangle in front of the tree.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'rectangle_1',
+          design_id = 'rect_0',
+          NewDesignStructure = Rectangular(
+            center = (-2.0, 2.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle to the right of the tree.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rect_0',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 2.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle behind the tree.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rect_0',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -2.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle to the left of the tree.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rect_0',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the rectangle diagonally in front right of the tree.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Answer A correctly moves the rectangle in front of the tree as specified in the edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Determining the position 'in front of the tree' requires understanding relative positioning in a 3D space."
+    ),
+    1 : EditMCQA(
+      question = 'What modification should be made to swap the length and width of the rectangle?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rect_0',
           NewDesignStructure = Rectangular(
             center = (2.0, 0.0, 0.0),
             length = 0.5,
             width = 1.0,
             height = 0.5
           ),
-          edit_description = 'Keep the current dimensions'
+          edit_description = 'Swap the length and width to make the short end face camera horizontally.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rect_0',
+          NewDesignStructure = Rectangular(
+            center = (2.0, 0.0, 0.0),
+            length = 0.75,
+            width = 0.75,
+            height = 0.5
+          ),
+          edit_description = 'Make the length and width equal, creating a square face front.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'rectangle_1',
+          design_id = 'rect_0',
           NewDesignStructure = Rectangular(
             center = (2.0, 0.0, 0.0),
             length = 1.5,
             width = 0.5,
             height = 0.5
           ),
-          edit_description = 'Increase the length to 1.5'
+          edit_description = 'Increase length significantly.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'rectangle_1',
+          design_id = 'rect_0',
           NewDesignStructure = Rectangular(
             center = (2.0, 0.0, 0.0),
             length = 0.5,
-            width = 0.5,
+            width = 0.25,
             height = 0.5
           ),
-          edit_description = 'Make the rectangle a square'
+          edit_description = 'Reduce width and maintain length.'
         ),
-        E = ModifyStructureEdit(
-          design_id = 'rectangle_1',
-          NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 2.0,
-            width = 1.0,
-            height = 0.5
-          ),
-          edit_description = 'Double the dimensions'
+        E = DeleteStructureEdit(
+          design_id = 'rect_0',
+          edit_description = 'Remove the rectangular structure entirely.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The edit in answer A correctly swaps the dimensions so that the long end is parallel to the tree as specified in the design goal.',
-      difficulty = 'easy',
-      explanation_of_difficulty = 'The dimensions are easily swapped to make the long end next to the tree as instructed.'
-=======
-      question = 'What change should be made to move the center of the serpentine structure further left from the pot?',
-      answers = {
-        A = ModifyDesignStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-3.0, 0.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.572
-          ),
-          edit_description = 'Move the center of the serpentine structure to the far left.',
-          target_parameter = 'center',
-          old_value = (-1.0, 0.0, 0.0),
-          new_value = (-3.0, 0.0, 0.0)
-        ),
-        B = ModifyDesignStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-2.0, 0.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.572
-          ),
-          edit_description = 'Move the center of the serpentine structure slightly left from the pot.',
-          target_parameter = 'center',
-          old_value = (-1.0, 0.0, 0.0),
-          new_value = (-2.0, 0.0, 0.0)
-        ),
-        C = ModifyDesignStructureEdit(
-          design_id = 'serpentine_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-1.0, 0.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'down',
-            height = 0.572
-          ),
-          edit_description = 'Invert the orientation instead of moving the center.',
-          target_parameter = 'left_arc_orientation',
-          old_value = 'up',
-          new_value = 'down'
-        )
-      },
-      correct_answer = 'B',
-      explanation_of_correctness = 'The correct move involves shifting horizontally to preserve specified spatial relations.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Determining the appropriate degree of further movement requires spatial inference beyond what is directly stated.'
-    ),
-    1 : EditMCQA(
-      question = "How should the serpentine structure be adjusted along the y-axis to align with the scene's vision?",
-      answers = {
-        A = ModifyDesignStructureEdit(
-          design_id = 'serpentine_final',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-2.0, -1.5, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.572
-          ),
-          edit_description = 'Lower the center more steeply on the y-axis.',
-          target_parameter = 'center',
-          old_value = (-2.0, 0.0, 0.0),
-          new_value = (-2.0, -1.5, 0.0)
-        ),
-        B = ModifyDesignStructureEdit(
-          design_id = 'serpentine_final',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-2.0, -1.0, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'up',
-            height = 0.572
-          ),
-          edit_description = 'Adjust the center slightly downward along the y-axis.',
-          target_parameter = 'center',
-          old_value = (-2.0, 0.0, 0.0),
-          new_value = (-2.0, -1.0, 0.0)
-        )
-      },
-      correct_answer = 'B',
-      explanation_of_correctness = 'A slight adjustment downward facilitates the required spatial balance.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'This demands reasoning about how to integrate the structure within existing spatial constraints.'
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
+      explanation_of_correctness = 'Answer A correctly implements the swap between length and width.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Swapping dimensions involves both geometric understanding and interpretation of the prompt regarding orientation.'
     )
   ]
 )

@@ -1,41 +1,41 @@
 Scene(
   objects = {
-    table = SceneObject(
-      extent = (1.5, 1.5, 0.75),
-      center = (0.0, 0.0, 0.375),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     ),
-    trashcan = SceneObject(
-      extent = (0.5, 0.5, 1.0),
-      center = (2.0, 2.0, 0.5),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.530497, 0.673023),
+      center = (2.0, 2.0, 0.0),
       theta = 0.0,
       semantic_label = 'trashcan'
     )
   },
-  num_edits = 1,
+  num_edits = 3,
   prompt = 'Create a barrier that separates the trashcan from the table area without blocking too much open space.',
   description = 'This scene involves positioning an L-shaped barrier to create a separation between a table and a trashcan. It requires understanding geometric properties such as center, length, width, and height to achieve the design goal. Additionally, the task involves making decisions regarding the orientation and dimensions of the L-shape to ensure it effectively divides the space while maintaining accessibility.',
   initial_design = Design(
     structures = {
-      LShape1 = LShape(
+      barrier = LShape(
         left_center = (1.0, 1.0, 0.0),
-        left_length = 0.5,
+        left_length = 1.0,
         left_width = 0.5,
         right_width = 0.5,
-        right_length = 1.0,
+        right_length = 1.5,
         height = 0.2
       )
     }
   ),
   design_goal = Design(
     structures = {
-      LShape1 = LShape(
+      barrier = LShape(
         left_center = (1.25, 1.0, 0.0),
         left_length = 0.2,
         left_width = 2.0,
         right_width = 0.2,
-        right_length = 2.0,
+        right_length = 2.2,
         height = 0.5
       )
     }
@@ -43,18 +43,46 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'LShape1',
+        design_id = 'barrier',
+        NewDesignStructure = LShape(
+          left_center = (1.25, 1.0, 0.0),
+          left_length = 0.5,
+          left_width = 2.0,
+          right_width = 0.5,
+          right_length = 2.2,
+          height = 0.2
+        ),
+        edit_description = 'Move the L-shape to center its left part at (1.25, 1)',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding the positioning of the centers relative to the given scene graph details.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'barrier',
         NewDesignStructure = LShape(
           left_center = (1.25, 1.0, 0.0),
           left_length = 0.2,
           left_width = 2.0,
           right_width = 0.2,
-          right_length = 2.0,
+          right_length = 2.2,
+          height = 0.2
+        ),
+        edit_description = 'Adjust the short side of each segment to 0.2 to avoid blocking too much space.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Understanding of spatial allocation and dimension adjustments is needed.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'barrier',
+        NewDesignStructure = LShape(
+          left_center = (1.25, 1.0, 0.0),
+          left_length = 0.2,
+          left_width = 2.0,
+          right_width = 0.2,
+          right_length = 2.2,
           height = 0.5
         ),
-        edit_description = 'Moved and resized the L-shape to better separate the space between the table and trashcan as per the design goal.',
+        edit_description = 'Adjust height to 0.5 for effective separation.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The edit is of medium difficulty because it involves understanding how to position and size the barrier to achieve the separation without blocking access.'
+        exaplanation_of_diffuculty = 'Requires understanding the impact of height on the separation effect.'
       )
     ]
   )

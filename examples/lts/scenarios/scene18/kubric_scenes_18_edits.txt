@@ -1,142 +1,141 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change is needed to modify SemiCircular structure 1 in the initial design?',
+      question = 'What modification must be made to the first semicircular structure to achieve the design goal?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'SemiCircular_structure_1',
+          design_id = 'semitircular_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 2.0,
-            orientation = 'top_half',
+            orientation = 'convex',
             height = 1.0
           ),
-          edit_description = "Change the orientation to 'top_half' for structure 1 and increase the radius to 2 meters."
+          edit_description = "Change the orientation to 'convex' for structure 1 and increase the radius to 2 meters."
         ),
         B = ModifyStructureEdit(
-          design_id = 'SemiCircular_structure_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 2.0,
-            orientation = 'bottom_half',
-            height = 1.0
-          ),
-          edit_description = "Change the orientation to 'bottom_half' for structure 1 and increase the radius to 2 meters."
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'SemiCircular_structure_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 0.0, 0.0),
-            radius = 1.5,
-            orientation = 'top_half',
-            height = 1.0
-          ),
-          edit_description = "Change the height of structure 1 to 1 meter and change orientation to 'top_half'."
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'SemiCircular_structure_1',
+          design_id = 'semitircular_1',
           NewDesignStructure = SemiCircular(
             center = (0.0, 0.0, 0.0),
             radius = 1.0,
-            orientation = 'bottom_half',
-            height = 1.2
-          ),
-          edit_description = 'Reduce the height to 1.2 meters and decrease the radius to 1 meter.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'SemiCircular_structure_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.0, 1.0, 0.0),
-            radius = 2.0,
-            orientation = 'top_half',
+            orientation = 'convex',
             height = 1.0
           ),
-          edit_description = "Move structure 1 to the position (0, 1, 0) with orientation 'top_half'."
+          edit_description = "Change the orientation to 'convex' for structure 1 and reduce the radius to 1 meter."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.8
+          ),
+          edit_description = 'Keep the original structure unchanged.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 1.0
+          ),
+          edit_description = "Change the structure type to 'Circular', increase the radius to 2 meters."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.8
+          ),
+          edit_description = "Increase the radius to 2 meters and keep orientation 'concave'."
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "Option A is the correct modification matching the first edit instruction to change the orientation to 'top_half' and increase the radius to 2 meters.",
+      explanation_of_correctness = 'The design goal specifies that the first semicircular structure should have a convex orientation and a radius of 2 meters.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The edit requires understanding of changing orientation and increasing radius, which involves spatial considerations.'
+      explanation_of_difficulty = 'Understanding the direction for the orientation and deciding the correct radius requires interpretation of the geometric requirements for shade.'
     ),
     1 : EditMCQA(
-      question = 'What edit should be performed to complete the sunshade as described in the design goal?',
+      question = 'What structure needs to be added to complete the sunshade design?',
       answers = {
         A = AddStructureEdit(
           design = Design(
             structures = {
-              SemiCircular_structure_1 = SemiCircular(
-                center = (0.0, 0.0, 0.0),
+              semitircular_2 = SemiCircular(
+                center = (1.0, 1.0, 0.0),
                 radius = 2.0,
-                orientation = 'top_half',
-                height = 1.0
-              ),
-              SemiCircular_structure_2 = SemiCircular(
-                center = (0.0, 1.0, 0.0),
-                radius = 2.0,
-                orientation = 'bottom_half',
+                orientation = 'convex',
                 height = 1.0
               )
             }
           ),
-          edit_description = "Add SemiCircular structure 2 (center=(0, 1, 0), radius=2, orientation='bottom_half', height=1.0) to overlap with the first and complete the sunshade.",
-          target_parameter = 'structures'
+          edit_description = "Add SemiCircular structure 2 at (1.0, 1.0, 0.0) with 'convex' orientation.",
+          target_parameter = 'semitircular_2'
         ),
         B = AddStructureEdit(
           design = Design(
             structures = {
-              SemiCircular_structure_1 = SemiCircular(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.5,
-                orientation = 'top_half',
-                height = 0.8
-              ),
-              SemiCircular_structure_2 = Circular(
-                center = (0.5, 0.0, 0.0),
-                radius = 1.5,
+              semitircular_2 = SemiCircular(
+                center = (0.0, 1.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
                 height = 1.0
               )
             }
           ),
-          edit_description = 'Add a Circular structure overlap with the first to create the sunshade.',
-          target_parameter = 'structures'
+          edit_description = 'Add SemiCircular structure 2 to overlap slightly with the first, with smaller radius.',
+          target_parameter = 'semitircular_2'
         ),
         C = AddStructureEdit(
           design = Design(
             structures = {
-              SemiCircular_structure_2 = SemiCircular(
+              semitircular_2 = SemiCircular(
                 center = (0.0, 1.0, 0.0),
                 radius = 2.0,
-                orientation = 'top_half',
+                orientation = 'concave',
                 height = 1.0
               )
             }
           ),
-          edit_description = "Add SemiCircular structure 2 with orientation 'top_half' to complete the sunshade.",
-          target_parameter = 'structures'
+          edit_description = 'Add SemiCircular structure 2 to overlap with the first and complete the sunshade.',
+          target_parameter = 'semitircular_2'
         ),
         D = AddStructureEdit(
           design = Design(
             structures = {
-              SemiCircular_structure_1 = Circular(
-                center = (0.0, 0.0, 0.0),
+              semitircular_2 = Circular(
+                center = (0.0, 1.0, 0.0),
                 radius = 2.0,
                 height = 1.0
               )
             }
           ),
-          edit_description = 'Replace structure 1 with a full Circular structure to create the sunshade.',
-          target_parameter = 'structures'
+          edit_description = 'Add Circular structure instead of semi-circular.',
+          target_parameter = 'semitircular_2'
         ),
-        E = DeleteStructureEdit(
-          design_id = 'SemiCircular_structure_1',
-          edit_description = 'Remove first semicircular structure to simplify the sunshade design.'
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = SemiRing(
+                center = (0.0, 1.0, 0.0),
+                outer_radius = 2.0,
+                inner_radius = 1.5,
+                orientation = 'concave',
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = 'Add a SemiRing structure with specified outer and inner radii.',
+          target_parameter = 'semitircular_2'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A correctly adds the second semicircular structure as directed in the design goal to complete the sunshade.',
-      difficulty = 'hard',
-      explanation_of_difficulty = 'The edit requires spatial awareness to understand how the structures need to overlap to achieve the design goal.'
+      correct_answer = 'C',
+      explanation_of_correctness = 'The design goal specifies the addition of a second semicircular structure at (0.0, 1.0, 0.0) with a concave orientation and radius of 2 meters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the correct position and overlap for optimal shading involves understanding spatial arrangement.'
     )
   ]
 )

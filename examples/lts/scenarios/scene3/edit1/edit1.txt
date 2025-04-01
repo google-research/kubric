@@ -16,7 +16,7 @@ Scene(
         center = (0.0, 0.0, 0.0),
         outer_radius = 1.25,
         inner_radius = 1.0,
-        orientation = 'bottom_half',
+        orientation = 'convex',
         height = 0.75
       )
     }
@@ -27,7 +27,7 @@ Scene(
         center = (0.0, 0.0, 0.0),
         outer_radius = 1.25,
         inner_radius = 1.0,
-        orientation = 'top_half',
+        orientation = 'concave',
         height = 0.75
       )
     }
@@ -40,7 +40,7 @@ Scene(
           center = (0.0, 0.0, 0.0),
           outer_radius = 1.25,
           inner_radius = 1.0,
-          orientation = 'bottom_half',
+          orientation = 'convex',
           height = 0.3
         ),
         edit_description = 'Change the profile to semi-ring',
@@ -53,7 +53,7 @@ Scene(
           center = (0.0, 0.0, 0.0),
           outer_radius = 1.25,
           inner_radius = 1.0,
-          orientation = 'bottom_half',
+          orientation = 'convex',
           height = 0.75
         ),
         edit_description = 'Increase the height from 0.3 to 0.75 meters',
@@ -66,7 +66,7 @@ Scene(
           center = (0.0, 0.0, 0.0),
           outer_radius = 1.25,
           inner_radius = 1.0,
-          orientation = 'top_half',
+          orientation = 'concave',
           height = 0.75
         ),
         edit_description = 'Change the orientation to top_half to match the wind direction',

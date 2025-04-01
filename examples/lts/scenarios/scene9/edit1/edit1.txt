@@ -1,50 +1,30 @@
 Scene(
   objects = {
-<<<<<<< HEAD
     table_1 = SceneObject(
-=======
-    table_0 = SceneObject(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       extent = (1.0, 1.0, 0.75),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
     ),
-<<<<<<< HEAD
     chair_1 = SceneObject(
-=======
-    chair_0 = SceneObject(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       extent = (0.5, 0.5, 1.0),
       center = (-1.0, 0.0, 0.0),
       theta = -90.0,
       semantic_label = 'chair'
     ),
-<<<<<<< HEAD
     chair_2 = SceneObject(
-=======
-    chair_1 = SceneObject(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       extent = (0.5, 0.5, 1.0),
       center = (0.0, -1.0, 0.0),
       theta = 0.0,
       semantic_label = 'chair'
     ),
-<<<<<<< HEAD
     chair_3 = SceneObject(
-=======
-    chair_2 = SceneObject(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       extent = (0.5, 0.5, 1.0),
       center = (1.0, 0.0, 0.0),
       theta = 90.0,
       semantic_label = 'chair'
     ),
-<<<<<<< HEAD
     chair_4 = SceneObject(
-=======
-    chair_3 = SceneObject(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       extent = (0.5, 0.5, 1.0),
       center = (0.0, 1.0, 0.0),
       theta = 180.0,
@@ -56,28 +36,20 @@ Scene(
   description = "This scene involves constructing a circular arrangement of short brick walls around a seating area, ensuring pathways are left in each cardinal direction. It requires interpreting geometric properties such as radius, height, and angular gaps to achieve the design goal. The task also involves making adjustments to the initial design, such as reducing the radius and increasing the gap size, while maintaining the overall structure's integrity.",
   initial_design = Design(
     structures = {
-<<<<<<< HEAD
       quarter_wedge_1 = QuarterWedge(
-=======
-      quarter_wedge_0 = QuarterWedge(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         center = (0.0, 0.0, 0.0),
         radius = 2.0,
-        gap_degrees = 20.0,
+        gap_degrees = 12.5,
         height = 0.25
       )
     }
   ),
   design_goal = Design(
     structures = {
-<<<<<<< HEAD
       quarter_wedge_1 = QuarterWedge(
-=======
-      quarter_wedge_0 = QuarterWedge(
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         center = (0.0, 0.0, 0.0),
         radius = 2.0,
-        gap_degrees = 20.0,
+        gap_degrees = 12.5,
         height = 0.25
       )
     }
@@ -85,44 +57,28 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-<<<<<<< HEAD
         design_id = 'quarter_wedge_1',
-=======
-        design_id = 'quarter_wedge_0',
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 2.0,
-          gap_degrees = 5.0,
+          gap_degrees = 7.5,
           height = 0.25
         ),
         edit_description = 'Shrink the radius to 2 meters',
-<<<<<<< HEAD
         difficult_to_deduce_from_prompt = 'medium',
         exaplanation_of_diffuculty = 'Reducing the radius while considering spatial constraints requires moderate reasoning.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
-=======
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Radius modification is straightforward based on the prompt constraints.'
-      ),
-      1 : ModifyStructureEditWithDifficulty(
-        design_id = 'quarter_wedge_0',
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
         NewDesignStructure = QuarterWedge(
           center = (0.0, 0.0, 0.0),
           radius = 2.0,
-          gap_degrees = 20.0,
+          gap_degrees = 12.5,
           height = 0.25
         ),
-        edit_description = 'Widen the gaps to 20 degrees',
+        edit_description = 'Widen the gaps to 12.5 degrees',
         difficult_to_deduce_from_prompt = 'easy',
-<<<<<<< HEAD
         exaplanation_of_diffuculty = 'Adjusting the gap size is straightforward once the radius is set.'
-=======
-        exaplanation_of_diffuculty = 'Gap widening is well-defined once the initial geometry is understood.'
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     ]
   )

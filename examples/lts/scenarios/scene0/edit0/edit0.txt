@@ -1,8 +1,7 @@
 Scene(
-<<<<<<< HEAD
   objects = {
-    tree_1 = SceneObject(
-      extent = (0.5, 0.5, 2.0),
+    tree_0 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
@@ -10,160 +9,52 @@ Scene(
   },
   num_edits = 2,
   prompt = 'Build a rectangular brick planter next to the tree',
-  description = 'Scene 1',
+  description = "This scene involves spatial reasoning, where the VLM has to understand the relative positioning of objects like 'next to the tree' and 'in front of the tree.'. Additionally, the instruction requires interpreting geometric transformations, such as swapping dimensions and repositioning the rectangle.",
   initial_design = Design(
     structures = {
-      rectangle_1 = Rectangular(
+      rect_0 = Rectangular(
         center = (2.0, 0.0, 0.0),
-        length = 0.5,
-        width = 1.0,
+        length = 1.0,
+        width = 0.5,
         height = 0.5
-=======
-  category = 'Uncertainty',
-  objects = {
-    pot = SceneObject(
-      extent = (0.64, 0.64, 0.432),
-      center = (0.0, 0.0, 0.0),
-      theta = 0.0,
-      semantic_label = 'pot'
-    ),
-    bench = SceneObject(
-      extent = (0.44, 1.32, 0.572),
-      center = (0.0, 0.0, 0.0),
-      theta = -90.0,
-      semantic_label = 'bench'
-    ),
-    tree = SceneObject(
-      extent = (0.3, 0.3, 4.0),
-      center = (0.0, 0.0, 0.0),
-      theta = 0.0,
-      semantic_label = 'tree'
-    ),
-    chair = SceneObject(
-      extent = (0.495, 0.415538, 0.76887),
-      center = (0.0, 0.0, 0.0),
-      theta = -90.0,
-      semantic_label = 'chair'
-    )
-  },
-  description = 'Construct a serpentine structure to the left of a pot within an ambiguous scene layout with multiple objects.',
-  focal_objects = [
-    0 : 'pot'
-  ],
-  semantic_relationship = 'left',
-  numeric_parameters = [
-    0 : 'radius',
-    1 : 'orientation'
-  ],
-  lookup_parameters = [
-    0 : 'height'
-  ],
-  inferred_parameters = [
-    0 : 'center'
-  ],
-  num_edits = 3,
-  prompt = 'Design a serpentine structure on the left side of one of the pots. The structure should have an exact radius of 1 meter and an upward orientation. Its height should match that of the bench nearby.',
-  initial_design = Design(
-    structures = {
-      serpentine_1 = Serpentine(
-        left_arc_center = (-2.0, 0.0, 0.0),
-        radius = 1.0,
-        left_arc_orientation = 'up',
-        height = 0.572
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   design_goal = Design(
     structures = {
-<<<<<<< HEAD
-      rectangle_1 = Rectangular(
+      rect_0 = Rectangular(
         center = (2.0, 0.0, 0.0),
-        length = 1.0,
-        width = 0.5,
+        length = 0.5,
+        width = 1.0,
         height = 0.5
-=======
-      serpentine_final = Serpentine(
-        left_arc_center = (-2.0, -1.0, 0.0),
-        radius = 1.0,
-        left_arc_orientation = 'up',
-        height = 0.572
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
       )
     }
   ),
   edits = EditSequence(
     edits = [
-<<<<<<< HEAD
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'rectangle_1',
-        NewDesignStructure = Rectangular(
-          center = (2.0, 0.0, 0.0),
-          length = 0.5,
-          width = 1.0,
-          height = 0.5
-        ),
-        edit_description = 'Move the rectangle in front of the tree',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit directly follows from the instruction of moving the rectangle in front of the tree based on initial and goal centers.'
-      ),
-      1 : ModifyStructureEditWithDifficulty(
-        design_id = 'rectangle_1',
+        design_id = 'rect_0',
         NewDesignStructure = Rectangular(
           center = (2.0, 0.0, 0.0),
           length = 1.0,
           width = 0.5,
           height = 0.5
         ),
-        edit_description = 'Swap the length and width to make the long end next to the tree',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The dimensions are easily swapped to make the long end next to the tree as instructed.'
-=======
-      0 : ModifyDesignStructureEditWithDifficulty(
-        design_id = 'serpentine_1',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (-2.0, 0.0, 0.0),
-          radius = 1.0,
-          left_arc_orientation = 'up',
-          height = 0.572
-        ),
-        edit_description = 'Move the center of the serpentine structure further left from the pot, maintaining its upward orientation.',
-        target_parameter = 'center',
-        old_value = (-1.0, 0.0, 0.0),
-        new_value = (-2.0, 0.0, 0.0),
+        edit_description = 'Move the rectangle in front of the tree.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The initial instruction was ambiguous regarding the exact distance to move, requiring an inference based on layout.'
+        exaplanation_of_diffuculty = "Determining the position 'in front of the tree' requires understanding relative positioning in a 3D space."
       ),
-      1 : ModifyDesignStructureEditWithDifficulty(
-        design_id = 'serpentine_final',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (-2.0, -1.0, 0.0),
-          radius = 1.0,
-          left_arc_orientation = 'up',
-          height = 0.572
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rect_0',
+        NewDesignStructure = Rectangular(
+          center = (2.0, 0.0, 0.0),
+          length = 0.5,
+          width = 1.0,
+          height = 0.5
         ),
-        edit_description = 'Adjust the serpentine center downward along the y-axis to align with the described vision.',
-        target_parameter = 'center',
-        old_value = (-2.0, 0.0, 0.0),
-        new_value = (-2.0, -1.0, 0.0),
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The instruction requires spatial reasoning to reposition the structure in context with other scene elements.'
-      ),
-      2 : ModifyDesignStructureEditWithDifficulty(
-        design_id = 'serpentine_final',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (-2.0, -1.0, 0.0),
-          radius = 1.0,
-          left_arc_orientation = 'up',
-          height = 0.572
-        ),
-        edit_description = "Fine-tune the serpentine structure's position and check alignment with the scene's overall spatial configuration.",
-        target_parameter = 'center',
-        old_value = (-2.0, -1.0, 0.0),
-        new_value = (-2.0, -1.0, 0.0),
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The final alignment requires subtle adjustments influenced by potentially conflicting spatial relationships.'
->>>>>>> d5f7140ee90d59fd5380a77735cbb19226c4c477
+        edit_description = 'Swap the length and width to make the short end face camera horizontally.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Swapping dimensions involves both geometric understanding and interpretation of the prompt regarding orientation.'
       )
     ]
   )

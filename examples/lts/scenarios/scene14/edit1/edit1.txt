@@ -23,7 +23,7 @@ Scene(
         radius = 1.0,
         height = 0.5
       ),
-      curvy_path_0 = CurvyPath(
+      wave_path_0 = CurvyPath(
         far_curve_leftmost_point = (1.0, 0.0, 0.0),
         close_curve_leftmost_point = (2.0, 0.0, 0.0),
         amplitude = 0.15,

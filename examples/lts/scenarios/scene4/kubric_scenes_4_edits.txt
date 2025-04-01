@@ -1,7 +1,7 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'Which modification moves the wall to position (1, 0)?',
+      question = 'What edit will correctly move the wall to the new location of (1, 0) without altering its other properties?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'linear_wall_1',
@@ -9,68 +9,68 @@ CounterFactualMCQASequence(
             center = (1.0, 0.0, 0.0),
             length = 2.0,
             height = 0.2,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
           edit_description = 'Move the wall to (1, 0)'
         ),
         B = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
-            center = (0.0, 1.0, 0.0),
+            center = (-1.0, 0.0, 0.0),
             length = 2.0,
             height = 0.2,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
-          edit_description = 'Move the wall to (0, 1)'
+          edit_description = 'Move the wall to (-1, 0)'
         ),
         C = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
-            center = (-1.0, -1.0, 0.0),
+            center = (0.0, 0.0, 0.0),
             length = 2.0,
             height = 0.2,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
-          edit_description = 'Move the wall to (-1, -1)'
+          edit_description = 'Move the wall to (0, 0)'
         ),
         D = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
-            center = (1.0, 1.0, 0.0),
+            center = (2.0, 0.0, 0.0),
             length = 2.0,
             height = 0.2,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
-          edit_description = 'Move the wall to (1, 1)'
+          edit_description = 'Move the wall to (2, 0)'
         ),
         E = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
-            center = (-1.0, 0.0, 0.0),
+            center = (0.5, 0.0, 0.0),
             length = 2.0,
             height = 0.2,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
-          edit_description = 'No change'
+          edit_description = 'Move the wall to (0.5, 0)'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = "Option A modifies the wall's center to (1, 0) which is the correct modification.",
+      explanation_of_correctness = "The correct edit moves the wall to the center (1.0, 0.0, 0.0), conforming to the scene's design goal.",
       difficulty = 'easy',
-      explanation_of_difficulty = 'The prompt clearly states the final location for the wall, making it straightforward.'
+      explanation_of_difficulty = 'The prompt indicates the new location for the wall, making it straightforward.'
     ),
     1 : EditMCQA(
-      question = 'Which modification increases the height of the wall to 1 meter?',
+      question = 'What edit increases the height of the wall to 1 meter while maintaining the specified center and length?',
       answers = {
         A = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
             center = (1.0, 0.0, 0.0),
             length = 2.0,
-            height = 0.5,
-            orientation = 'y-axis'
+            height = 0.2,
+            orientation = 'left-right'
           ),
-          edit_description = 'Increase height to 0.5 meters'
+          edit_description = 'Move the wall to (1, 0)'
         ),
         B = ModifyStructureEdit(
           design_id = 'linear_wall_1',
@@ -78,7 +78,7 @@ CounterFactualMCQASequence(
             center = (1.0, 0.0, 0.0),
             length = 2.0,
             height = 1.0,
-            orientation = 'y-axis'
+            orientation = 'left-right'
           ),
           edit_description = 'Increase height to 1 meter'
         ),
@@ -87,36 +87,36 @@ CounterFactualMCQASequence(
           NewDesignStructure = Linear(
             center = (1.0, 0.0, 0.0),
             length = 2.0,
-            height = 0.8,
-            orientation = 'y-axis'
+            height = 0.5,
+            orientation = 'left-right'
           ),
-          edit_description = 'Increase height to 0.8 meters'
+          edit_description = 'Increase height to 0.5 meter'
         ),
         D = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
             center = (1.0, 0.0, 0.0),
-            length = 2.0,
-            height = 0.2,
-            orientation = 'y-axis'
+            length = 3.0,
+            height = 1.0,
+            orientation = 'left-right'
           ),
-          edit_description = 'No change'
+          edit_description = 'Increase length to 3 meters and height to 1 meter'
         ),
         E = ModifyStructureEdit(
           design_id = 'linear_wall_1',
           NewDesignStructure = Linear(
             center = (1.0, 0.0, 0.0),
             length = 2.0,
-            height = 0.1,
-            orientation = 'y-axis'
+            height = 1.5,
+            orientation = 'left-right'
           ),
-          edit_description = 'Decrease height to 0.1 meters'
+          edit_description = 'Increase height to 1.5 meters'
         )
       },
       correct_answer = 'B',
-      explanation_of_correctness = "Option B modifies the wall's height to 1 meter as per the prompt.",
+      explanation_of_correctness = 'The correct edit increases the height of the wall to 1.0 meter, matching the design goal.',
       difficulty = 'easy',
-      explanation_of_difficulty = "The change in height is explicitly mentioned in the prompt, hence it's easy."
+      explanation_of_difficulty = 'The change in height is explicitly stated in the prompt.'
     )
   ]
 )

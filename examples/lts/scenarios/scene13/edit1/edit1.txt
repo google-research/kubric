@@ -20,10 +20,10 @@ Scene(
     structures = {
       barrier = LShape(
         left_center = (1.25, 1.0, 0.0),
-        left_length = 2.0,
-        left_width = 0.2,
-        right_center = (0.5, 1.9, 0.0),
-        right_length = 0.2,
+        left_length = 0.2,
+        left_width = 2.0,
+        right_width = 0.2,
+        right_length = 2.2,
         height = 0.2
       )
     }
@@ -32,10 +32,10 @@ Scene(
     structures = {
       barrier = LShape(
         left_center = (1.25, 1.0, 0.0),
-        left_length = 2.0,
-        left_width = 0.2,
-        right_center = (0.5, 1.9, 0.0),
-        right_length = 0.2,
+        left_length = 0.2,
+        left_width = 2.0,
+        right_width = 0.2,
+        right_length = 2.2,
         height = 0.5
       )
     }
@@ -46,13 +46,13 @@ Scene(
         design_id = 'barrier',
         NewDesignStructure = LShape(
           left_center = (1.25, 1.0, 0.0),
-          left_length = 2.0,
-          left_width = 0.5,
-          right_center = (0.5, 1.9, 0.0),
-          right_length = 1.0,
+          left_length = 0.5,
+          left_width = 2.0,
+          right_width = 0.5,
+          right_length = 2.2,
           height = 0.2
         ),
-        edit_description = 'Move the L-shape to center its parts at (1.25, 1) and (0.5, 1.9).',
+        edit_description = 'Move the L-shape to center its left part at (1.25, 1)',
         difficult_to_deduce_from_prompt = 'medium',
         exaplanation_of_diffuculty = 'Requires understanding the positioning of the centers relative to the given scene graph details.'
       ),
@@ -60,13 +60,13 @@ Scene(
         design_id = 'barrier',
         NewDesignStructure = LShape(
           left_center = (1.25, 1.0, 0.0),
-          left_length = 2.0,
-          left_width = 0.2,
-          right_center = (0.5, 1.9, 0.0),
-          right_length = 0.2,
+          left_length = 0.2,
+          left_width = 2.0,
+          right_width = 0.2,
+          right_length = 2.2,
           height = 0.2
         ),
-        edit_description = 'Adjust the width of each segment to 0.2 to avoid blocking too much space.',
+        edit_description = 'Adjust the short side of each segment to 0.2 to avoid blocking too much space.',
         difficult_to_deduce_from_prompt = 'medium',
         exaplanation_of_diffuculty = 'Understanding of spatial allocation and dimension adjustments is needed.'
       ),
@@ -74,10 +74,10 @@ Scene(
         design_id = 'barrier',
         NewDesignStructure = LShape(
           left_center = (1.25, 1.0, 0.0),
-          left_length = 2.0,
-          left_width = 0.2,
-          right_center = (0.5, 1.9, 0.0),
-          right_length = 0.2,
+          left_length = 0.2,
+          left_width = 2.0,
+          right_width = 0.2,
+          right_length = 2.2,
           height = 0.5
         ),
         edit_description = 'Adjust height to 0.5 for effective separation.',

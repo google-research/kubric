@@ -1,13 +1,13 @@
 Scene(
   objects = {
     tree_1 = SceneObject(
-      extent = (0.15, 0.15, 2.0),
+      extent = (0.3, 0.3, 4.0),
       center = (0.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
     ),
     table_1 = SceneObject(
-      extent = (0.288324, 0.288324, 0.294558),
+      extent = (0.576648, 0.576648, 0.589116),
       center = (2.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'table'
@@ -17,53 +17,60 @@ Scene(
   prompt = 'Build a shaded seating area using quarter-wedge structures to maximize comfort around the tree while keeping access to the picnic table clear.',
   description = 'This scene involves creating a unique seating space within a garden, offering views and shade by positioning quarter-wedge structures around a tree. The design must consider the geometric properties to create a cohesive blend that complements the natural environment while providing comfort and aesthetics.',
   initial_design = Design(
-    structures = {}
+    structures = {
+      Circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
   ),
   design_goal = Design(
     structures = {
-      quarterwedge_1 = QuarterWedge(
+      SemiCircular_1 = SemiCircular(
         center = (0.0, 0.0, 0.0),
-        radius = 1.5,
-        gap_degrees = 20.0,
+        radius = 2.0,
+        orientation = 'convex',
         height = 0.5
       ),
-      quarterwedge_2 = QuarterWedge(
-        center = (1.5, 0.0, 0.0),
+      QuarterWedge_2 = QuarterWedge(
+        center = (2.0, 0.0, 0.0),
         radius = 1.5,
-        gap_degrees = 20.0,
+        gap_degrees = 12.5,
         height = 0.5
       )
     }
   ),
   edits = EditSequence(
     edits = [
-      0 : DeleteStructureEditWithDifficulty(
-        design_id = 'circular_1',
-        edit_description = 'Change the circular design to two quarter-wedge structures for better aesthetic integration.',
-        difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly suggests replacing the circular structure with quarter-wedge structures.'
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Change the circular design to a semi-circular structure for better aesthetic integration.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt implies a need for modification to allow better integration, but does not specify exact structural details.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
           structures = {
-            quarterwedge_1 = QuarterWedge(
-              center = (0.0, 0.0, 0.0),
+            QuarterWedge_2 = QuarterWedge(
+              center = (2.0, 0.0, 0.0),
               radius = 1.5,
-              gap_degrees = 20.0,
-              height = 0.5
-            ),
-            quarterwedge_2 = QuarterWedge(
-              center = (1.5, 0.0, 0.0),
-              radius = 1.5,
-              gap_degrees = 20.0,
+              gap_degrees = 12.5,
               height = 0.5
             )
           }
         ),
-        edit_description = 'Overlap the quarter-wedge structures with adjusted gap degrees for optimized shading and access, ensuring one faces the picnic table.',
+        edit_description = 'Add a quarter-wedge structure overlapping with the existing design for optimized shading access.',
         target_parameter = 'gap_degrees',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The overlap and positioning for shading involve additional adjustment not explicitly detailed in the prompt.'
+        exaplanation_of_diffuculty = "The addition of overlapping structures matches the description's need for optimized shading but requires interpretation of alignment."
       )
     ]
   )
