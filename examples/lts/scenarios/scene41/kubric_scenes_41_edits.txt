@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What edit changes the profile of 'SemiCircular_1' to a semi-ring with an inner radius of 2?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 2.0,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Change the profile to a semi-ring with inner radius 2'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Change to a semi-ring with outer radius 2 and convex orientation'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Change to a semi-circular with radius 1.5 and convex orientation'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to circular profile with radius 1.0 and height 0.5'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a tri-wedge with radius 1.0 and gap 15 degrees'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly transforms the design to a semi-ring with the specified inner radius.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the profile requires spatial understanding of the structure design.'
+    ),
+    1 : EditMCQA(
+      question = "What edit increases the outer radius of 'SemiRing_1' to 1.5 while keeping a concave orientation?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 2.0,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Increase the outer radius to 1.5'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Increase the outer radius to 2.0 and change to convex orientation'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 1.5,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Decrease the outer radius to 1.0 and inner radius to 1.5'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a quarter-wedge with radius 1.5 and gap 10 degrees'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform to a linear structure with length 1.5'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the outer radius to the specified value with a concave orientation.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the radius is a straightforward modification.'
+    ),
+    2 : EditMCQA(
+      question = "What edit increases the height of 'SemiRing_1' to 0.5 while keeping the same orientation and radius?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 2.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 2.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change orientation to convex and increase height to 0.5'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 2.0,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Decrease height to 0.25'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Transform to a circular profile with height 0.5'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Convert to a rectangular profile with height 0.5'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly adjusts the height while maintaining other parameters.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height adjustment is an intuitive change to modify structure dimensions.'
+    )
+  ]
+)

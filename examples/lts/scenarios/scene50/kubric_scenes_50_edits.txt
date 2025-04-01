@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to transition the path to a sine wave with increased amplitude for elegance?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -1.0, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Change the profile to a sine wave path with top start point at (0.5, -1, 0), increasing the wave amplitude for a more elegant path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Maintain the current serpentine path for its visual effect without any changes.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Alter path to have initial points and amplitude consistent with the original scene description.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'serpentine_1',
+          edit_description = 'Remove the existing path to ensure an open view amongst the trees.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              triwedge_1 = TriWedge(
+                center = (0.5, -1.0, 0.0),
+                radius = 0.3,
+                gap_degrees = 12.0,
+                height = 0.07
+              )
+            }
+          ),
+          edit_description = 'Introduce a TriWedge design element near the beginning of the path for artistic variety.',
+          target_parameter = 'radius'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification aligns with the goal of increasing path elegance by introducing a sine wave profile with a higher amplitude.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Based on the prompt, deducing the amplitude and new starting point requires interpretation and understanding of design intention.'
+    ),
+    1 : EditMCQA(
+      question = "How should the path's starting points be adjusted to match the design goal's alignment through the trees?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -1.0, 0.0),
+            amplitude = 0.75,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Adjust the starting points to align between the trees according to the design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 1.570795,
+            height = 0.05
+          ),
+          edit_description = 'Change the path to begin in the northerly direction inline with tree orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.3,
+            orientation = 'concave',
+            height = 0.05
+          ),
+          edit_description = 'Modify path to semi-circular form starting at tree_1 center.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.05,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Straighten the path to a linear shape running left to right for simplified navigation.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 3.0,
+                height = 0.07,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Add a linear path perpendicular to existing design for varied walking routes.',
+          target_parameter = 'height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer adjusts path points to align according to the original scene’s design goal spatially.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Aligning between specific points is straightforward given the objective spatial arrangement.'
+    )
+  ]
+)

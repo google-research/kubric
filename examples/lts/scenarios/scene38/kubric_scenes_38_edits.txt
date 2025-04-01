@@ -1,0 +1,113 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit was made to change the profile to a SineWave?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.5,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to a SineWave'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = TriWedge(
+            center = (0.75, 0.25, 0.0),
+            radius = 0.5,
+            gap_degrees = 10.0,
+            height = 0.1
+          ),
+          edit_description = 'Alter the structure to a TriWedge.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Modify the structure to Linear geometry.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change SineWave to SemiCircular profile.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'serpentine_1',
+          edit_description = 'Remove the serpentine structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit transformed the existing serpentine structure into a sine wave by altering geometric attributes such as amplitude and wavelength, creating a CurvyPath that matches the provided specifications.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
+    ),
+    1 : EditMCQA(
+      question = 'What adjustments were made to align the SineWave more harmoniously with the natural elements?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.8, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.7,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude and wavelength to align more harmoniously with the natural elements'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.75, 0.25, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Revert sinewave to a concave serpentine form.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Alter the structure to a circular path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'sinewave_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.3,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Reshape sinewave into quarter wedge profile.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'sinewave_1',
+          edit_description = 'Remove the SineWave structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves adjusting both the amplitude and wavelength of the existing SineWave structure, which improves its harmony with natural elements by creating a more visually compatible and smoother path.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony, but the baseline structure remains the same making the task straightforward."
+    )
+  ]
+)

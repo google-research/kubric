@@ -1,0 +1,124 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How can the design be modified to create a serpentine path from the existing straight path for improved fluidity?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Change the straight path to a serpentine design for fluidity'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain a straight path with reduced length'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
+          ),
+          edit_description = 'Create a circular path around the table'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Create a concave serpentine path centered at a different point'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Create a rectangular structure alongside the path'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves changing the path to a serpentine design, as described in the edit, for achieving improved fluidity.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the path to serpentine is straightforward, but selecting an appropriate arc center requires spatial reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'What adjustment is necessary to ensure the serpentine path flows correctly around objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -1.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Adjust the serpentine path's arc center to (0,-1,0) and orientation to flow around the objects"
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, -0.5, 0.0),
+            radius = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Create a larger circular path to encompass all objects'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain the linear path with change in orientation'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Create an L-shaped design within the existing space'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Convert to a curvy path with specified parameters'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustment ensures the path is repositioned to flow around existing objects as mentioned in the description.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Determining the optimal arc center and ensuring it flows correctly around objects requires advanced spatial reasoning.'
+    )
+  ]
+)

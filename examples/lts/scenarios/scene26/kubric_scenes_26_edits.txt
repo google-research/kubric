@@ -1,167 +1,135 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change should be applied to convert the linear structure to match the design goal?',
+      question = 'What modification changes the design profile of LShape_1 from linear to an L-shape, making it more complex and aligned with the spatial arrangement?',
       answers = {
-        A = ModifyStructureEditWithDifficulty(
-          design_id = 'linear_1',
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = Linear(
+            center = (0.5, -1.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'No change, keeps the design as a linear structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
           NewDesignStructure = LShape(
-            left_center = (0.5, 0.0, 0.0),
-            left_length = 1.0,
-            left_width = 0.2,
+            left_center = (1.0, -0.2, 0.0),
+            left_length = 0.2,
+            left_width = 1.5,
+            right_width = 0.4,
+            right_length = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Change to L-shape but with incorrect dimensions.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, -0.2, 0.0),
+            left_length = 0.2,
+            left_width = 1.0,
+            right_width = 0.2,
+            right_length = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'L-shape with incorrect dimensions but correct concept.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, -0.2, 0.0),
+            left_length = 0.2,
+            left_width = 1.5,
             right_width = 0.2,
             right_length = 1.0,
             height = 0.3
           ),
-          edit_description = 'Change the design profile from linear to L-shape, use right length=1.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The change involves interpreting the structure from a linear form to an L-shape, requiring a clear understanding of spatial configuration.'
+          edit_description = 'Change the design profile from linear to L-shape.'
         ),
-        B = ModifyStructureEditWithDifficulty(
-          design_id = 'linear_1',
-          NewDesignStructure = Rectangular(
-            center = (0.5, 0.0, 0.0),
-            length = 1.0,
-            width = 0.2,
-            height = 0.3
-          ),
-          edit_description = 'Modify the linear structure to a rectangular block of specific dimensions.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'This change requires understanding a different spatial configuration but does not align with the L-shape requirement.'
-        ),
-        C = ModifyStructureEditWithDifficulty(
-          design_id = 'linear_1',
-          NewDesignStructure = SemiCircular(
-            center = (0.5, 0.0, 0.0),
-            radius = 0.5,
-            orientation = 'convex',
-            height = 0.3
-          ),
-          edit_description = 'Change to a semi-circular form with a specified radius.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Changing to a semi-circular form involves a significant understanding of curves, different from the L-shape.'
-        ),
-        D = ModifyStructureEditWithDifficulty(
-          design_id = 'linear_1',
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
           NewDesignStructure = Circular(
-            center = (0.5, 0.0, 0.0),
+            center = (1.0, 1.0, 0.0),
             radius = 0.5,
             height = 0.3
           ),
-          edit_description = 'Transform the structure to a full circle design.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Opting for a circular form requires considering radial symmetry, unlike the linear L-shape.'
-        ),
-        E = ModifyStructureEditWithDifficulty(
-          design_id = 'linear_1',
-          NewDesignStructure = TriWedge(
-            center = (0.5, 0.0, 0.0),
-            radius = 0.5,
-            gap_degrees = 12.0,
-            height = 0.3
-          ),
-          edit_description = 'Modify to a TriWedge with a specified gap degree.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'This involves creating a wedge form, which is an angular design with less curvature comprehension than an L-shape.'
+          edit_description = 'Incorrect shape replacement with a circular structure.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Choice A correctly changes the linear structure to the desired L-shaped design as specified in the design goal.',
+      correct_answer = 'D',
+      explanation_of_correctness = "Option D correctly changes the design profile from a linear to L-shape, aligning spatial relations properly with the scene's goals.",
       difficulty = 'medium',
-      explanation_of_difficulty = 'Understanding the transformation from a linear profile to the L-shape requires spatial visualization skills.'
+      explanation_of_difficulty = 'The difficulty lies in inferring the correct dimensions and alignment of the L-shape.'
     ),
     1 : EditMCQA(
-      question = 'How should the new segment be added to complete the L-shaped structure?',
+      question = 'Which modification correctly aligns the right segment of LShape_1 centered at (0.5, 0.5) with the left segment while maintaining width and height specifications?',
       answers = {
-        A = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              Lshape_2 = LShape(
-                left_center = (0.5, 0.5, 0.0),
-                left_length = 0.2,
-                left_width = 0.2,
-                right_width = 0.2,
-                right_length = 0.2,
-                height = 0.3
-              )
-            }
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, -0.2, 0.0),
+            left_length = 0.2,
+            left_width = 1.5,
+            right_width = 0.3,
+            right_length = 2.0,
+            height = 0.3
           ),
-          edit_description = 'Add the right segment of the L-shape centered at (0.5, 0.5) with a length of 0.2 meters and align with the left segment.',
-          target_parameter = 'structure alignment',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Adding the right segment involves careful alignment with the left segment to create the L-shape, which requires spatial reasoning.'
+          edit_description = 'Incorrect alignment due to the wrong width.'
         ),
-        B = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              CurvyPath_1 = CurvyPath(
-                far_curve_leftmost_point = (0.5, 0.5, 0.0),
-                close_curve_leftmost_point = (0.5, 0.3, 0.0),
-                amplitude = 0.1,
-                wavelength = 0.5,
-                phase = 0.0,
-                height = 0.3
-              )
-            }
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.5, 0.0),
+            left_length = 0.2,
+            left_width = 1.4,
+            right_width = 0.2,
+            right_length = 0.9,
+            height = 0.3
           ),
-          edit_description = 'Add a curvy path structuring along the specified points.',
-          target_parameter = 'curve characteristics',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Creating a curvy path requires different considerations of amplitude and wavelength, contrasting with the straightforward L-shape addition.'
+          edit_description = 'Incorrect left-center, compromising spatial goals.'
         ),
-        C = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              Circular_1 = Circular(
-                center = (0.5, 0.5, 0.0),
-                radius = 0.3,
-                height = 0.3
-              )
-            }
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, -0.2, 0.0),
+            left_length = 0.2,
+            left_width = 1.5,
+            right_width = 0.2,
+            right_length = 2.0,
+            height = 0.3
           ),
-          edit_description = 'Add a circular design centered at given coordinates.',
-          target_parameter = 'center and radius',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'Concerned with radial distribution, adding a circle differs from aligning linear segments.'
+          edit_description = 'Modify the right segment of the L-shape at correct position and alignment with left segment.'
         ),
-        D = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              SemiRing_1 = SemiRing(
-                center = (0.5, 0.5, 0.0),
-                outer_radius = 0.3,
-                inner_radius = 0.15,
-                orientation = 'concave',
-                height = 0.3
-              )
-            }
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 0.0, 0.0),
+            left_length = 0.4,
+            left_width = 1.0,
+            right_width = 0.2,
+            right_length = 1.5,
+            height = 0.3
           ),
-          edit_description = 'Introduce a SemiRing with specified inner and outer radii and orientation.',
-          target_parameter = 'outer and inner radius alignment',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'This addition involves working with concentric forms requiring a different spatial consideration than an L-shape.'
+          edit_description = 'Position offset with wrong left and right lengths.'
         ),
-        E = AddStructureEditWithDifficulty(
-          design = Design(
-            structures = {
-              QuarterWedge_1 = QuarterWedge(
-                center = (0.5, 0.5, 0.0),
-                radius = 0.2,
-                gap_degrees = 10.0,
-                height = 0.3
-              )
-            }
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = Rectangular(
+            center = (1.5, 0.5, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
           ),
-          edit_description = 'Incorporate a QuarterWedge centered at given coordinates.',
-          target_parameter = 'center and gap degrees',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The gap degree adjustment here requires a singular focus on angular manipulation unrelated to straight-edged L-shapes.'
+          edit_description = 'Incorrect shape replacement with a rectangular structure.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Choice A correctly specifies the addition of the right segment of the L-shape and aligns with the provided instructions.',
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C aligns the right segment correctly with specified dimensions.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'Understanding and ensuring proper alignment between parts of the structure in the 2D space requires spatial perception.'
+      explanation_of_difficulty = 'Aligning the right segment with the left and ensuring dimensions are accurate is moderately challenging.'
     )
   ]
 )

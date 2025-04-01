@@ -1,0 +1,125 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification needed to change the profile to serpentine?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 1.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Change the profile to serpentine.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the amplitude and wavelength of the curvy path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.3,
+            orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Change to a semi-circular path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change to a linear path.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.4,
+            gap_degrees = 10.0,
+            height = 0.15
+          ),
+          edit_description = 'Change to a tri-wedge shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification changes the design from a curvy path to a serpentine path with specified parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the profile from a curvy path to a serpentine path requires understanding the concept of a serpentine design, which might not be immediately obvious from the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct modification needed to adjust the left arc center to form a graceful curve around the chairs?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Adjust the left arc center to (0.0, 0.0) to form a graceful curve around the chairs.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the orientation and radius of the serpentine.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.4,
+            gap_degrees = 10.0,
+            height = 0.15
+          ),
+          edit_description = 'Change to a quarter wedge shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.5, 0.0),
+            outer_radius = 0.5,
+            inner_radius = 0.3,
+            orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Form a semi-ring with given parameters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.15
+          ),
+          edit_description = 'Change to a rectangular shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification is to adjust the left arc center precisely to achieve the desired spatial design around the chairs.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Adjusting the center requires precise placement to ensure it forms a graceful curve, which can be challenging without visual or geometrical intuition. This increases the difficulty as it transitions from conceptual understanding to spatial execution.'
+    )
+  ]
+)

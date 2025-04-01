@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, -1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.5, -1.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a pathway that links the seating arrangements seamlessly.',
+  description = "This scene involves spatial reasoning to determine the connection between the scattered chairs. It requires understanding geometric properties to form a pattern that ties the chairs together. Additionally, the task involves resolving ambiguities in the prompt to determine the design structure's placement and dimensions.",
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.4,
+        left_arc_orientation = 'convex',
+        height = 0.15
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.4,
+        left_arc_orientation = 'convex',
+        height = 0.15
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 1.0, 0.0),
+          radius = 0.4,
+          left_arc_orientation = 'convex',
+          height = 0.15
+        ),
+        edit_description = 'Change the profile to serpentine.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing the profile from a curvy path to a serpentine path requires understanding the concept of a serpentine design, which might not be immediately obvious from the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.4,
+          left_arc_orientation = 'convex',
+          height = 0.15
+        ),
+        edit_description = 'Adjust the left arc center to (0.0, 0.0) to form a graceful curve around the chairs.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Adjusting the center requires precise placement to ensure it forms a graceful curve, which can be challenging without visual or geometrical intuition. This increases the difficulty as it transitions from conceptual understanding to spatial execution.'
+      )
+    ]
+  )
+)

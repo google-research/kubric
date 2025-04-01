@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to align the left side of the L-shaped structure to the left of the first tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.5, 0.0, 0.0),
+            left_length = 2.5,
+            left_width = 0.7,
+            right_width = 0.7,
+            right_length = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Align the left side to the left of the first tree.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-3.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.8,
+            right_width = 0.6,
+            right_length = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase left length.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-2.0, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 1.0,
+            right_width = 0.8,
+            right_length = 2.0,
+            height = 0.6
+          ),
+          edit_description = 'Decrease right length.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, -1.0, 0.0),
+            left_length = 2.5,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Center around the first tree.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-4.0, 0.0, 0.0),
+            left_length = 3.5,
+            left_width = 0.5,
+            right_width = 0.7,
+            right_length = 2.5,
+            height = 0.7
+          ),
+          edit_description = 'Align to the middle of trees.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A describes the modification needed to align the left side of the L-shaped structure with the left side of the first tree effectively.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding of spatial relationships and alignment.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification aligns the right side of the L-shaped structure to the side of the second tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-2.0, 0.0, 0.0),
+            left_length = 3.0,
+            left_width = 1.0,
+            right_width = 1.0,
+            right_length = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Align the right side to the side of the second tree.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.7,
+            right_width = 0.7,
+            right_length = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase width on both sides.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.8,
+            right_width = 1.0,
+            right_length = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Align above both trees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-2.5, 0.0, 0.0),
+            left_length = 2.5,
+            left_width = 0.9,
+            right_width = 1.1,
+            right_length = 1.8,
+            height = 0.35
+          ),
+          edit_description = 'Align closer to tree 2.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.5, -0.5, 0.0),
+            left_length = 1.8,
+            left_width = 0.6,
+            right_width = 0.7,
+            right_length = 1.3,
+            height = 0.4
+          ),
+          edit_description = 'Bring structure closer to the second tree.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A involves the modification that aligns the right side of the L-shaped structure directly with the second tree as described.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Involves adjustments to structural alignment.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification was made to achieve the design goal by making the structure shorter and wider?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-2.0, 0.0, 0.0),
+            left_length = 3.0,
+            left_width = 1.0,
+            right_width = 1.0,
+            right_length = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Make it shorter and widen to achieve the desired design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 1.5,
+            right_width = 0.5,
+            right_length = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Widen both sides equally.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-3.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.7,
+            right_width = 0.9,
+            right_length = 1.2,
+            height = 0.4
+          ),
+          edit_description = 'Align with shortest distance possible.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-2.0, 1.0, 0.0),
+            left_length = 3.5,
+            left_width = 1.1,
+            right_width = 0.9,
+            right_length = 1.3,
+            height = 0.3
+          ),
+          edit_description = 'Make it taller to cover more area.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 0.5, 0.0),
+            left_length = 2.0,
+            left_width = 0.8,
+            right_width = 0.6,
+            right_length = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Alter dimensions subtly.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately describes the structural changes needed to meet the specified design goal by making it shorter and wider.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Requires deducing the correct size adjustments to meet the design goal.'
+    )
+  ]
+)

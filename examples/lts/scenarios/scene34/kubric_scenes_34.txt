@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    pot1 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot2 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a blend of textures and shapes to make this area look harmonious, like a garden sanctuary.',
+  description = 'This scene involves creating a symmetrical structure that complements the existing objects and enhances the arrangement. It requires understanding spatial symmetries and adjusting the design profile accordingly.',
+  initial_design = Design(
+    structures = {
+      structure1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 10.0,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      target_structure = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 15.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 3.0,
+          gap_degrees = 15.0,
+          height = 0.25
+        ),
+        edit_description = 'Change the profile to Tri-Wedge to enhance symmetry.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The change requires understanding of the Tri-Wedge form and its impact on symmetry.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 15.0,
+          height = 0.25
+        ),
+        edit_description = 'Reduce the radius to maintain proximity to the pots.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "This is an easy deduction as reducing radius doesn't affect understanding of the form."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 15.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height for a more pronounced appearance.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'This step simply requires an adjustment of height for visual impact.'
+      )
+    ]
+  )
+)

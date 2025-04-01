@@ -1,0 +1,193 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made to transform the design profile into a serpentine path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a serpentine path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.0,
+            width = 0.25,
+            height = 0.1
+          ),
+          edit_description = 'Transform the design profile to a rectangular shape.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a circular path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiRing(
+            center = (-0.5, 0.0, 0.0),
+            outer_radius = 0.75,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Transform the design profile to a semi-ring.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform the design profile to a linear form.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct transformation was to convert the SemiCircular shape into a CurvyPath with specified parameters to form a serpentine path.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The transformation to a CurvyPath requires understanding of serpentine shapes and converting it to a CurvyPath with acceptable parameters.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification adjusts the arc center to (0, 0.5, 0)?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the arc center to (0, 0.5, 0).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 0.8,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the arc center to (-1.0, 0.5, 0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, -0.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the arc center to (0.0, -0.5, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 0.9,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the arc center to (-0.5, -0.5, 0).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.2,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the arc center to (1.0, 0.0, 0).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification directly changes the far_curve_leftmost_point to the specified coordinates (0, 0.5, 0).',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change in far_curve_leftmost_point is direct from the instruction.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit reduces the radius to 0.5 to ensure fit between objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 0.5 to fit perfectly between the objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 0.8 for better fit.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the radius to 0.6 for minor adjustment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.5, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 0.7 for a closer fit.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.9,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 0.9 to fit within enhanced constraints.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit correctly adjusts the radius to 0.5 and ensures alignment with the specified layout.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Converting from CurvyPath back to Serpentine requires identifying final specifications that match the desired target profile. It involves understanding adjustments to fit the space efficiently along the x-axis.'
+    )
+  ]
+)

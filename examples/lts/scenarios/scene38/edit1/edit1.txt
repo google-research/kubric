@@ -1,0 +1,75 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Craft a wavy trail that dances through the space between the vibrant natural and human elements. Make it blend with the environment artistically.',
+  description = 'This scene involves understanding spatial relationships to position a structure that enhances the natural surroundings, like a winding path between objects representing nature and human activity. It requires interpreting geometric properties such as amplitude, wavelength, and phase to achieve the design goal. Additionally, the task involves making adjustments to maintain harmony within the existing landscape.',
+  initial_design = Design(
+    structures = {
+      sinewave_1 = CurvyPath(
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (0.0, -0.8, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.7,
+        phase = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      sinewave_1 = CurvyPath(
+        far_curve_leftmost_point = (1.0, 1.0, 0.0),
+        close_curve_leftmost_point = (0.0, -0.8, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.7,
+        phase = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (0.0, -0.8, 0.0),
+          amplitude = 0.25,
+          wavelength = 1.5,
+          phase = 0.5,
+          height = 0.1
+        ),
+        edit_description = 'Change the profile to a SineWave',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'sinewave_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (1.0, 1.0, 0.0),
+          close_curve_leftmost_point = (0.0, -0.8, 0.0),
+          amplitude = 0.3,
+          wavelength = 1.7,
+          phase = 0.5,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the amplitude and wavelength to align more harmoniously with the natural elements',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony."
+      )
+    ]
+  )
+)

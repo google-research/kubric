@@ -18,22 +18,22 @@ Scene(
   description = 'This scene involves understanding spatial relationships, such as positioning an L-shaped structure to demarcate a seating area next to a trashcan. It requires interpreting geometric properties like center, length, width, and height to meet the design goal. The task also involves resolving ambiguities in the instructions, such as determining the correct alignment and dimensions of the L-shape while ensuring the trashcan remains accessible.',
   initial_design = Design(
     structures = {
-      linear_1 = Linear(
+      LShape_1 = Linear(
         center = (0.5, -1.0, 0.0),
         length = 1.0,
         height = 0.3,
-        orientation = 'left-right'
+        orientation = 'front-back'
       )
     }
   ),
   design_goal = Design(
     structures = {
-      Lshape_1 = LShape(
-        left_center = (0.5, 0.0, 0.0),
-        left_length = 1.0,
-        left_width = 0.2,
+      LShape_1 = LShape(
+        left_center = (1.0, -0.2, 0.0),
+        left_length = 0.2,
+        left_width = 1.5,
         right_width = 0.2,
-        right_length = 1.0,
+        right_length = 2.0,
         height = 0.3
       )
     }
@@ -41,36 +41,32 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'linear_1',
+        design_id = 'LShape_1',
         NewDesignStructure = LShape(
-          left_center = (0.5, 0.0, 0.0),
-          left_length = 1.0,
-          left_width = 0.2,
+          left_center = (1.0, -0.2, 0.0),
+          left_length = 0.2,
+          left_width = 1.5,
           right_width = 0.2,
           right_length = 1.0,
           height = 0.3
         ),
-        edit_description = 'Change the design profile from linear to L-shape, use right length=1.',
+        edit_description = 'Change the design profile from linear to L-shape.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The change involves interpreting the structure from a linear form to an L-shape, requiring a clear understanding of spatial configuration.'
+        exaplanation_of_diffuculty = 'The difficulty lies in inferring the correct dimensions and alignment of the L-shape.'
       ),
-      1 : AddStructureEditWithDifficulty(
-        design = Design(
-          structures = {
-            Lshape_2 = LShape(
-              left_center = (0.5, 0.5, 0.0),
-              left_length = 0.2,
-              left_width = 0.2,
-              right_width = 0.2,
-              right_length = 0.2,
-              height = 0.3
-            )
-          }
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (1.0, -0.2, 0.0),
+          left_length = 0.2,
+          left_width = 1.5,
+          right_width = 0.2,
+          right_length = 2.0,
+          height = 0.3
         ),
-        edit_description = 'Add the right segment of the L-shape centered at (0.5, 0.5) with a length of 0.2 meters and align with the left segment.',
-        target_parameter = 'structure alignment',
+        edit_description = 'Modify the right segment of the L-shape centered at (0.5, 0.5) with a width of 0.2 meters and align with the left segment.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Adding the right segment involves careful alignment with the left segment to create the L-shape, which requires spatial reasoning.'
+        exaplanation_of_diffuculty = 'Aligning the right segment with the left and ensuring dimensions are accurate is moderately challenging.'
       )
     ]
   )

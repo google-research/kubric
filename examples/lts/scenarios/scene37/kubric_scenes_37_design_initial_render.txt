@@ -1,0 +1,51 @@
+{
+    "prompt": "Establish a calming circular sanctuary under the trees with ample space to relax.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    2.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ]
+        }
+    ]
+}
