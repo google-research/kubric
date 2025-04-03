@@ -238,23 +238,6 @@ for frame in range(1):
     high_intensity_light.position = (-5, 5, 10)
     scene += high_intensity_light
 
-    # Check for bounding box collisions
-    for i, obj1 in enumerate(scene.assets):
-        for j, obj2 in enumerate(scene.assets):
-            if i >= j:  # Avoid duplicate checks and self-comparison
-                continue
-            bbox1_min, bbox1_max = obj1.aabbox
-            bbox2_min, bbox2_max = obj2.aabbox
-            if (bbox1_min[0] < bbox2_max[0] and bbox1_max[0] > bbox2_min[0] and
-                bbox1_min[1] < bbox2_max[1] and bbox1_max[1] > bbox2_min[1] and
-                bbox1_min[2] < bbox2_max[2] and bbox1_max[2] > bbox2_min[2]):
-                raise Exception(f"Collision detected between objects '{obj1.asset_id}' and '{obj2.asset_id}'")
-
-    # # Ensure all objects are visible and adjust camera
-    # min_x, min_y, min_z = np.min([obj.position for obj in selected_objects], axis=0)
-    # max_x, max_y, max_z = np.max([obj.position for obj in selected_objects], axis=0)
-    # scene.camera.position = kb.sample_point_in_half_sphere_shell(5.0, 6.0, 0.5)  # Zoom way out
-    # scene.camera.look_at(((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2 - 0.5))  # Tilt downward
     scene.camera.keyframe_insert("position", frame)
     scene.camera.keyframe_insert("quaternion", frame)
 
