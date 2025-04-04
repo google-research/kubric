@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-1.0, 0.0, 0.28620075),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (1.0, 0.0, 0.28620075),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create an artistic path that introduces a gentle separation between the sitting areas and encourages movement around them.',
+  description = 'This scene involves arranging benches in a linear formation to create a seating arrangement around a central region. The task requires understanding spatial relationships, combining a serpentine design to naturally separate sections without obstructing the flow around the benches.',
+  initial_design = Design(
+    structures = {
+      serpentine_path_2 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-0.5, 0.0, 0.0),
+          radius = 0.6,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Change the path profile to a serpentine for artistic separation.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Switching from a linear to a serpentine path to visually separate seating areas is straightforward from the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path_2',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.6,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the left arc center to sit between the benches at (0, 0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Placing the arc center between the benches is a clear adjustment for creating a separation.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path_3',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.6,
+          left_arc_orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Ensure the arc is convex to naturally separate the seating areas while maintaining open flow for movement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Ensuring the arc is convex is an intuitive choice for creating separation while allowing movement.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a clear linear boundary that runs between the rocky outcrops, ensuring distinct areas while maintaining aesthetic coherence.',
+  description = 'This scene features a linear structure to create a distinct boundary between two rocks, enhancing the overall layout of the garden without obstruction. The design focuses on simplicity, aligning the linear structure to complement the natural elements, and ensuring the design stays within the spatial constraints.',
+  initial_design = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.25, 0.0),
+          length = 1.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Change orientation from front-back to left-right for better division.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The modification is straightforward as the new orientation is clearly mentioned in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Center the linear structure at (0, 0, 0) for perfect positioning between the rocks, increase the length to 1.5 meters, and raise the height to 0.5 meters for a pronounced boundary.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjustments to center, length, and height require spatial reasoning and alignment with the design goal specified.'
+      )
+    ]
+  )
+)

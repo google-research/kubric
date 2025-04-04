@@ -1,0 +1,83 @@
+{
+    "prompt": "Create a small recreational space with a planter that demarcates the table area from the trashcan. Make sure the height keeps interactions convenient for standing individuals.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                0.0,
+                -2.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530486,
+                0.53049698,
+                0.673023
+            ],
+            "center": [
+                2.0,
+                2.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    1.35,
+                    0.5,
+                    0.0
+                ],
+                [
+                    1.35,
+                    2.5,
+                    0.0
+                ],
+                [
+                    1.65,
+                    2.5,
+                    0.0
+                ],
+                [
+                    1.65,
+                    0.5,
+                    0.0
+                ],
+                [
+                    1.35,
+                    0.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

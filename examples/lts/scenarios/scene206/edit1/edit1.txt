@@ -1,0 +1,97 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Could you create a curved seating area around the birdhouse with enough space for the chair and table to fit comfortably, providing a cozy atmosphere?',
+  description = 'This scene involves constructing a semicircular structure to provide a pleasant seating arrangement around a birdhouse. The scene requires understanding spatial relationships, geometric properties, and maintaining the integrity of the design while ensuring accessibility and functional aesthetics.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.2,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change the orientation to convex for better accessibility around the birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Changing orientation requires understanding that convex configuration provides better accessibility and aesthetic alignment with the scene's goals."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Adjust the center to align precisely with the birdhouse at (0, 0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The birdhouse is at the origin (0, 0), making it simple to understand that the center of the semicircular structure should align with it.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.2,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Increase the radius to 1.2 meters to provide ample space for the chair and table.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the radius requires an understanding of spatial layout to ensure there is enough room for objects.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.2,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters for a more substantial presence and better seating experience.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Changing the height necessitates understanding the functionality for creating a more substantial presence.'
+      )
+    ]
+  )
+)

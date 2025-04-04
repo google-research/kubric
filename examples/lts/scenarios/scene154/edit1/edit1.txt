@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-1.0, -1.0, 0.143100375),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, 1.0, 0.143100375),
+      theta = 180.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a winding pathway that weaves smoothly between the two seating arrangements, inviting exploration.',
+  description = 'This scene aims to create a graceful flow around two benches using a serpentine path, which offers an engaging garden layout. The scene requires understanding spatial relationships for a subtle yet dynamic path design between the seating areas.',
+  initial_design = Design(
+    structures = {
+      serpentine_path_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'concave',
+          height = 0.2
+        ),
+        edit_description = 'Change the design from linear to serpentine to introduce curves.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Transitioning from a linear to serpentine design requires understanding the spatial placement and dynamics of curves.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Adjust the arc orientation to convex to ensure it twists between the benches.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Choosing the correct orientation for a serpentine path to fit spatial constraints and aesthetic goals needs careful consideration.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Increase the radius to 0.75 for a broader curve around the benches.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Adjusting the radius is straightforward once the path layout is set, improving the curve's fit and aesthetic."
+      )
+    ]
+  )
+)

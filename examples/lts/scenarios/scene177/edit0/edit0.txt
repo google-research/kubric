@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'Chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'Chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Develop a structured pathway around the seating that promotes ease of movement while maintaining a pleasing visual flow.',
+  description = 'This scene involves creating a linear structure to define boundaries and guide movement around two seating objects. The focus is on ensuring the layout provides clear paths with a functional design, using geometric properties like length, height, and orientation.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.5,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_2 = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the orientation to left-right for better alignment with the chairs.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt suggests a linear structure running alongside the chairs, implying a left-right orientation directly.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 2.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Move the center to (0, -0.5, 0) to position the path alongside the seating.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Positioning the path requires understanding placement relative to the chairs and their positions in the scene.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Change the height to 0.3 to provide a more pronounced boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increased height follows naturally from the need to make the boundary more visible, which is straightforward from the description.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,83 @@
+{
+    "prompt": "Create a lively garden space using a striking shape to enhance the area\u2019s aesthetic appeal.",
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.1922175
+            ],
+            "theta": 90.0,
+            "semantic_label": "Chair"
+        },
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "Tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                1.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "Tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.25,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    1.5,
+                    0.0
+                ],
+                [
+                    0.25,
+                    1.5,
+                    0.0
+                ],
+                [
+                    0.25,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    -1.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

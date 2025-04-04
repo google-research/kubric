@@ -1,0 +1,114 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit was made to the circular structure to encompass all objects and enhance the garden feature?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius of the Circular structure to 1.5 meters to encompass all objects and enhance the garden feature.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the existing radius and height of the Circular structure unchanged.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius of the Circular structure to 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius of the Circular structure to 2.0 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.5, 0.5, 0.0) and increase the radius to 1.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is correct because the edit increased the radius to encompass all objects as stated in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The requirement to encompass all objects within the circular feature is explicitly stated, making the necessary radius increase easy to deduce.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit was made to the circular structure to provide a more distinct boundary?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height of the Circular structure to 0.5 meters to provide a more distinct boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the height of the Circular structure to 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the structure to a SemiCircular with a height of 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Decrease the radius to 1.0 meters and increase the height to 0.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure to a Rectangular with specified dimensions.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is correct because the edit increased the height to provide a more distinct boundary as per the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The requirement to provide a distinct boundary follows logically from the instructions, making this an easy deduction.'
+    )
+  ]
+)

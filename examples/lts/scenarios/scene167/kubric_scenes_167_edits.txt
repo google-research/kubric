@@ -1,0 +1,278 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification changes the design from a Linear Wall to a TriWedge to increase dynamism?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile from Linear Wall to TriWedge for increased dynamism.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing the design profile requires understanding the new design type which is different from the given.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the design to a different TriWedge structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding the new geometry requires exploration outside the initial suggestion.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Modify the orientation of the Linear Wall.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Change is simple and aligns with the given information.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 15.0,
+            height = 0.35
+          ),
+          edit_description = 'Modify into a larger TriWedge structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Understanding how larger geometry fits the scene requires more complex spatial reasoning.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile from Linear Wall to QuarterWedge.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires selecting an entirely new design structure which may not be most effective.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit directly changes the structure to TriWedge, which is the intended modification.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the design profile requires understanding and interpreting the new design type which differs from the given.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification adjusts the radius of the TriWedge to 1 meter to snugly fit the trees and trashcan?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1 meter for a snug fit around the trees and trashcan.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting radius based on surroundings is straightforward according to prompt details.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust to a larger radius for a wider presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Selecting a larger radius requires understanding structural overlapping in spatial layout.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 7.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the design to a QuarterWedge with smaller radius.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Selecting a different design structure requires understanding compatibility with requirements.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify to a circular design with median fit.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Circular shape with known radius straightforwardly follows prompt instructions.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to a fitting size for both snugness and space.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires evaluation of different radius selections to determine optimal snug fit.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit sets the radius to 1 meter, achieving the intended snug fit as described.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting the radius straightforwardly aligns with the scene's structural requirements."
+    ),
+    2 : EditMCQA(
+      question = 'Which modification sets the gap degrees to 90 for improved flow and openness?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Set the gap degrees to 90 to ensure adequate flow and openness between the elements.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining an effective gap degree requires geometric interpretation and spatial arrangement consideration.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap degrees beyond optimal for expansive feel.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Understanding when to exceed target gaps for effective openness adds complexity.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Incorrectly set the gap degrees to a lower limit.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Choosing lower gaps necessitates understanding constraints and their impact spatially.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design type with narrow gap setting.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Switching design types while maintaining desired openness requires deeper comprehension.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Provide partial openness with adjusted gap degrees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partial adjust requires interpreting partial gap effectiveness in flow.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This modification effectively sets the gap to 90 degrees for the desired flow and openness.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Gap degree determination involves considering spatial arrangement and geometric planning.'
+    ),
+    3 : EditMCQA(
+      question = 'Which modification increases the height to 0.5 meters for a more striking presence?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to provide a more substantial and striking presence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing height is a straightforward adjustment given the goal of enhancing presence.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 20.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase height and modify gap for another look.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Balancing height with gap change involves a more complex decision-making process.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Change profile while increasing height in circular shape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Altering both design type and dimensional factors demands consideration of multiple factors.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Implement height increase with semi-circular layout.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Semi-circular transformation alongside height change requires alignment of curved elements.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Change height to a lower prominence, less striking.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Lowering height does not align directly with prompt for presence enhancement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit appropriately raises the height to 0.5 meters for the stronger presence desired in the design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting the height is clearly aligned with the goal of enhancing the structure's visual impact."
+    )
+  ]
+)

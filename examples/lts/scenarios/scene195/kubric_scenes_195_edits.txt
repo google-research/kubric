@@ -1,0 +1,240 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to achieve a TriWedge structure instead of a Circular, by changing the design type?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.2
+          ),
+          edit_description = 'Keep the design as a Circular structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design from a circular structure to a TriWedge to add dynamic angles.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a QuarterWedge structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a SemiCircular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_0',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 1.0,
+            right_width = 1.5,
+            right_length = 1.8,
+            right_center = (1.5, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Change the design to an LShape structure.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct modification involves changing the Circular structure to a TriWedge to fulfill the edit description of introducing dynamic angles and a wedge form.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires changing the type of the structure from a circular form to a wedge form that involves detailed manipulation of geometric properties.'
+    ),
+    1 : EditMCQA(
+      question = 'How does one reduce the radius of a TriWedge to maintain proximity to objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Keep the radius of the TriWedge as 2.0 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters to maintain proximity to the objects.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to 1.0 meters to maintain proximity to the objects.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 7.5,
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a QuarterWedge with reduced radius for proximity.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a Circular with reduced radius for proximity.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer involves reducing the radius of the existing TriWedge to 1.5 meters, aligning with the need to maintain object proximity.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies reducing the radius, so it is straightforward.'
+    ),
+    2 : EditMCQA(
+      question = 'How should the height of the TriWedge be changed for a more prominent visual impact?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Keep the height of the TriWedge at 0.2 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 1.0
+          ),
+          edit_description = 'Increase the height to 1.0 meters for maximum visual impact.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for a more prominent visual impact.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the design to a QuarterWedge with increased height for impact.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Change the design to a Circular with a height increase for impact.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct modification increases the height of the TriWedge to 0.4 meters, aligning with the goal for visual prominence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt indicates a change in height for visual impact, which is an uncomplicated adjustment.'
+    ),
+    3 : EditMCQA(
+      question = 'What should be adjusted to provide openness and enhance the visual pathway between the pot and trashcan?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Keep the gap of the TriWedge at 0 degrees for a closed structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the design to a QuarterWedge with a 90 degree gap for openness.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap to 90 degrees to provide openness and enhance the visual pathway between the pot and trashcan.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap to 15 degrees for moderate openness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'triwedge_structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 45.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap to 45 degrees for partial openness.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct option adjusts the gap to 90 degrees, fulfilling the prompt requirement to provide openness and enhance visual pathways.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The requirement to adjust the gap for openness is explicit in the prompt.'
+    )
+  ]
+)

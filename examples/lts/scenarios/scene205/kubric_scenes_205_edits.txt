@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification should be performed to adjust the structure 'rectangular_1' for balanced coverage?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 2.5 and width to 1.0 to provide balanced coverage.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 3.0 and width to 0.8 to attempt coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 2.0 and width to 1.0 to modify coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 2.5 and width to 0.5 to narrow the coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 2.5 and width to 1.2 for extended coverage.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly modifies the structure by adjusting both the length to 2.5 and the width to 1.0, which aligns with the intended balanced coverage.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting both length and width requires understanding the need for a balanced design that frames the rocks without encroaching too much.'
+    ),
+    1 : EditMCQA(
+      question = "How should the structure 'rectangular_1' be modified to create a more noticeable boundary?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 for a more noticeable boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 to try and achieve a more noticeable boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 for an even more pronounced boundary.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height at 0.3 for subtle boundary definition.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.7
+          ),
+          edit_description = 'Increase the height to 0.7 for a dramatic boundary.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly increases the height to 0.5, which matches the intended design goal for making the boundary more noticeable.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing height is straightforward based on the requirement for a noticeable boundary.'
+    )
+  ]
+)

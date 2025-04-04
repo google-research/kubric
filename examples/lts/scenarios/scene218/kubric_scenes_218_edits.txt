@@ -1,0 +1,67 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit to transform the linear path into a serpentine path to enhance the form and function of the scene?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the path profile from linear to serpentine for enhanced form and function.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to change from a linear to a serpentine path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify the path profile from linear to a curvy path with sinusoidal features.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the path profile from linear to a quarter-circle wedge to fit the design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 16.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the path profile from linear to a triangular wedge for a sharp-edged design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Change the path profile from linear to a semi-circular shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit correctly changes the linear path to a serpentine path with the specified parameters, adhering to both the prompt and the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly instructs changing from a linear to a serpentine path, making it straightforward to deduce the correct transformation.'
+    )
+  ]
+)

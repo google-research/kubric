@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification changes the path profile to a CurvyPath for a more dynamic movement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path profile to a CurvyPath with smaller amplitude for subtle movement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter the path to cover a shorter distance with moderate waves.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path profile to a CurvyPath for a more dynamic movement.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.3, 0.0, 0.0),
+            close_curve_leftmost_point = (1.3, 0.0, 0.0),
+            amplitude = 0.05,
+            wavelength = 0.8,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter path to have less recognizable curves.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.8, 0.0, 0.0),
+            close_curve_leftmost_point = (1.8, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 1.2,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Extend path with balanced curvature for moderate dynamic appeal.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C directly applies the requested shape and parameters, enhancing movement dynamics.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly calls for a winding path between trees, implying a curvy or serpentine shape.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification adjusts the amplitude to 0.3 meters for a noticeable wave?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 0.8,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase amplitude and decrease wavelength for a wave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the amplitude to 0.3 meters for a noticeable wave.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a moderate amplitude to provide a wave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Moderate amplitude with greater wavelength for balanced waves.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Reduced amplitude and prolonged wavelength for subtle curves.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B selects the correct amplitude, making waves easily recognizable.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt asks for a graceful path, determining the precise amplitude requires interpreting the aesthetic goal.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification sets the wavelength to 2 meters to ensure that the curves flow smoothly between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Set the wavelength to 2 meters to ensure that the curves flow smoothly between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a wavelength of 1.5 meters for tighter curves.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a wavelength of 1.0 meters for visible tight curves.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase amplitude with a 2 meter wavelength for pronounced curves.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Wider curves with smaller amplitude and extended wavelength.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly assigns a 2-meter wavelength for smoother paths.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests a smooth transition between the trees, but determining an exact wavelength requires spatial reasoning.'
+    )
+  ]
+)

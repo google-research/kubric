@@ -1,0 +1,195 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is required to change the initial rectangular design to integrate with the objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_0',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 1.0,
+            right_width = 0.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to an L-shaped structure to integrate with the objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to a CurvyPath structure to integrate with the objects.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to a SemiCircular structure to integrate with the objects.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to a TriWedge structure to integrate with the objects.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile to a QuarterWedge structure to integrate with the objects.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves changing the design to an L-shape, aligning with the stated integration needs.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Initial understanding the integration needs with existing objects requires spatial reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'Which adjustment is correct to move the left segment to (0.5, 0.5)?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.5, 0.0),
+            left_length = 1.0,
+            left_width = 1.0,
+            right_width = 0.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Move the left segment to (0.5, 0.5).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Move and reshape the left segment as a Serpentine structure at (0.5, 0.5).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.5, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move and reshape the left segment as a SemiRing structure at (0.5, 0.5).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.7,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Move and reshape the left segment as a SemiCircular structure at (0.5, 0.5).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move and reshape the left segment as a Linear structure at (0.5, 0.5).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The specified adjustment correctly updates the center of the left segment to (0.5, 0.5) as described.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change is merely translational, inferred from the description.'
+    ),
+    2 : EditMCQA(
+      question = 'What structural adjustment best achieves the design goal, considering object placements?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (1.0, 0.25, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Adjust the dimensions to match the design goal and provide space for the bench and rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.25, 0.0),
+            amplitude = 1.0,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the dimensions to a CurvyPath to accommodate integrated space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change dimensions to a SemiCircular structure focusing on object inclusion.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.5,
+            height = 0.3
+          ),
+          edit_description = 'Modify dimensions to a QuarterWedge aiming at spatial integration.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_0',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Reconfigure to a Serpentine shape for better alignment with the design goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustment of dimensions in option A precisely aligns with the design goal and allows appropriate spatial alignment with the existing objects.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Adjustments involve precise measurements to achieve design goals, challenging alignment with objects.'
+    )
+  ]
+)

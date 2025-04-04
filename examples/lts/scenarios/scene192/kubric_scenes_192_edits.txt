@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the circular arrangement to divide it into distinct parts around each tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_arrangement_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Divide the circular design into distinct arrangements around each tree.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_arrangement_1',
+          NewDesignStructure = Circular(
+            center = (-2.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Move and enlarge the circular design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_arrangement_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 8.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a quarter-wedge design with an invalid gap.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_arrangement_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a quarter-wedge design with a valid gap.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'circular_arrangement_1',
+          edit_description = 'Remove the circular arrangement entirely.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification matches the design goal of dividing the circular arrangement into two distinct parts, focusing on creating symmetry around the trees.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Splitting the existing circular arrangement into two distinct parts is straightforward. The requirement for two separate symmetrical areas around the trees is clearly stated.'
+    ),
+    1 : EditMCQA(
+      question = 'What addition was made to the scene to create a symmetrical design?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_arrangement_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Create a new circular arrangement around the second tree as a counterpart to the first.',
+          target_parameter = 'design_goal'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_arrangement_2 = TriWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a tri-wedge arrangement with an acceptable gap around the second tree.',
+          target_parameter = 'design_goal'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_arrangement_2 = QuarterWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                gap_degrees = 9.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a quarter-wedge arrangement with an invalid gap.',
+          target_parameter = 'design_goal'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_arrangement_2 = SemiCircular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a semicircular arrangement convex outward.',
+          target_parameter = 'design_goal'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'circular_arrangement_2',
+          edit_description = 'Remove any new circular arrangement around the second tree.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The addition matches the design goal of creating a counterpart arrangement around the second tree, ensuring symmetry in the scene.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The action of adding a similar circular arrangement around the second tree is a direct and straightforward continuation of the pattern established by the first modification.'
+    )
+  ]
+)

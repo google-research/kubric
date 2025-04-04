@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to the semi-circular structure to open the structure outward?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Adjust the orientation to 'convex' to open the structure outward.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The adjustment to change orientation based on the provided description is straightforward.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Keep the orientation as 'concave'.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Maintaining the current orientation offers no new design perspective.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Increase the radius while keeping it 'concave'.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing the radius alters the design scope, making this option irrelevant to orientation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.2, -0.25, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Move the center while adjusting the orientation to 'convex'.",
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Relocating the structure center is unnecessary for orientation change.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.25, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Adjust the center vertically while keeping it 'concave'.",
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Vertical adjustment does not specifically address orientation requirements.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct approach is to adjust the orientation to 'convex' as it opens the design outward, offering the desired spatial interaction.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit is explicit in the prompt and the adjustment is simple to interpret.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification should be applied to increase seating height?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for more substantial seating.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to increase the height.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Maintain the current height of 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No adjustment leads to no structural improvement based on the project objectives.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.7
+          ),
+          edit_description = "Increase the height to 0.7 meters and change orientation to 'concave'.",
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Exceeding the functional height range and orientation change contradicts the goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.25, 0.0),
+            radius = 1.4,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the radius significantly along with height.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Only height adjustments are targeted according to the provided task.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, -0.25, 0.3),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Relocate the structure and adjust the height and orientation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Relocating structure space is irrelevant unless coupled with height adjustment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Increasing the height to 0.5 meters achieves the project's stated requirement for more substantial seating.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task brief clearly states the need to alter the height.'
+    )
+  ]
+)

@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    chair1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.5, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.5, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Construct a rectangular seating arrangement to provide a defined gathering space, ensuring easy movement and visual aesthetics.',
+  description = 'This scene involves arranging a rectangular structure around a collection of chairs to create a delineated seating area with functional and visual appeal. The intention is to use a preferred rectangular design to provide boundary elements around the chairs, ensuring balance and accessibility within the confined space.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 3.5,
+        width = 1.5,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 3.5,
+          width = 1.0,
+          height = 0.3
+        ),
+        edit_description = 'Increase the length to 3.5 meters for a spacious seating area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly states the desired dimensions of the seating arrangement.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 3.5,
+          width = 1.5,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the width to 1.5 meters to encompass the chairs comfortably.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adjusting the width is straightforward to capture the seating arrangement goal.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 3.5,
+          width = 1.5,
+          height = 0.4
+        ),
+        edit_description = 'Raise the height to 0.4 meters for a more distinct boundary effect.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt indicates the height for a more defined appearance.'
+      )
+    ]
+  )
+)

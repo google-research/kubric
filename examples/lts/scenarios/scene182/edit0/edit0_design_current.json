@@ -1,0 +1,51 @@
+{
+    "prompt": "Establish a clear boundary line that elegantly divides the space between the rock and the pot, maintaining openness.",
+    "observation": {
+        "pot1": {
+            "extent": [
+                0.320213,
+                0.32021299,
+                0.216202
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "rock1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -0.5,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.75,
+                    0.5,
+                    0.0
+                ],
+                [
+                    0.75,
+                    0.5,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

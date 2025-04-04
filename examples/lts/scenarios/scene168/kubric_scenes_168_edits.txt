@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification was made to the L-shape to better align it with the rock in the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, -1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 2.0,
+            right_length = 0.5,
+            right_center = (0.5, -1.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Correct: Move the left section’s center to (-0.5, -1) to align closely with the rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.6,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Move the structure to (0.5, 0, 0.0) and resize it for aesthetic reasons.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.4,
+            right_width = 2.0,
+            right_length = 0.5,
+            right_center = (0.5, 1.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Move and slightly modify the height and width for a better fit.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, -1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 2.0,
+            right_length = 0.5,
+            right_center = (-0.5, -1.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Shift to the left and adjust the height slightly.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.8,
+            left_width = 0.5,
+            right_width = 1.8,
+            right_length = 0.5,
+            right_center = (0.5, 0.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Maintain original center but decrease the left and right length slightly.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The left section’s center was moved to (-0.5, -1) to align closely with the rock as directed.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Moving the center is straightforward as it was explicitly mentioned in the instructions.'
+    ),
+    1 : EditMCQA(
+      question = 'Which change was applied to the L-shape to increase its prominence as specified in the scene design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, -1.0, 0.0),
+            left_length = 2.0,
+            left_width = 1.0,
+            right_width = 2.0,
+            right_length = 1.0,
+            right_center = (0.5, -1.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = "Correct: Extend the left section's width to 1 and increase height to 0.5 meters for greater prominence."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.8,
+            right_width = 2.0,
+            right_length = 0.8,
+            right_center = (0.5, 0.0, 0.0),
+            height = 0.35
+          ),
+          edit_description = 'Increase the width slightly and raise height for visibility.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.0, -0.5, 0.0),
+            left_length = 2.0,
+            left_width = 0.7,
+            right_width = 1.9,
+            right_length = 0.5,
+            right_center = (0.6, -0.5, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Slightly adjust both center position and right width for differentiation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 2.0,
+            right_length = 0.5,
+            right_center = (0.5, 0.0, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Increase only the height to make the structure taller and more noticeable.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'L-shape_initial',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 2.1,
+            right_length = 0.5,
+            right_center = (0.5, -0.5, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Adjust only the right width slightly for aesthetic change.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Extending the left width to 1 meter and increasing height to 0.5 meters aligns with the design goal for prominence.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The dimensions needed to be made obvious in how they complement the scene objective.'
+    )
+  ]
+)

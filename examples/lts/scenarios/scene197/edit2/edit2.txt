@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Build a winding path that meanders gracefully between my two glorious trees.',
+  description = 'This scene involves constructing a visually pleasing curvy path that winds between two trees, creating an inviting garden cluster. The task requires understanding spatial relationships between the trees and interpreting geometric properties such as amplitude, wavelength, and phase to achieve an aesthetically appealing path.',
+  initial_design = Design(
+    structures = {
+      path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.0, 0.0),
+          amplitude = 0.1,
+          wavelength = 1.0,
+          phase = 0.0,
+          height = 0.2
+        ),
+        edit_description = 'Change the path profile to a CurvyPath for a more dynamic movement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly calls for a winding path between trees, implying a curvy or serpentine shape.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 1.0,
+          phase = 0.0,
+          height = 0.2
+        ),
+        edit_description = 'Adjust the amplitude to 0.3 meters for a noticeable wave.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the prompt asks for a graceful path, determining the precise amplitude requires interpreting the aesthetic goal.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.2
+        ),
+        edit_description = 'Set the wavelength to 2 meters to ensure that the curves flow smoothly between the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt suggests a smooth transition between the trees, but determining an exact wavelength requires spatial reasoning.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,76 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.288324,
+                0.288324,
+                0.294558
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                1.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "description": "This scene involves constructing a linear structure to separate two common objects for functional or decorative purposes. The design will help in distinguishing areas while allowing the objects to stand out individually.",
+    "prompt": "Create a boundary to partition the table and rock, offering a distinct visual separation while maintaining easy access.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_initial": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        2.0,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_final": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.75,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        0.7500000000000001,
+                        0.75,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

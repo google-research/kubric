@@ -1,0 +1,51 @@
+{
+    "prompt": "Design a winding pathway that weaves smoothly between the two seating arrangements, inviting exploration.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.66046348,
+                -0.28620075,
+                -0.22015424
+            ],
+            "center": [
+                -1.0,
+                -0.143100375,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.66046348,
+                -0.28620075,
+                -0.22015424
+            ],
+            "center": [
+                1.0,
+                -0.143100375,
+                -1.0
+            ],
+            "theta": 180.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ]
+        }
+    ]
+}

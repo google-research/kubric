@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Which modification increased the planting space by altering the rectangular structure's dimensions?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 1.5 meters and width to 0.75 meters to provide more planting space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Revert back to initial dimensions.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Increase only the width to 0.75 meters, keeping the length unchanged.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase only the length to 1.5 meters, keeping the width unchanged.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.75,
+            height = 0.5
+          ),
+          edit_description = 'Increase both the length and width while also raising the height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies both the length and width to increase planting space as described in the edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit kept the height the same which may not be clear from the prompt that suggests providing more planting space.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification increased the height for greater soil capacity?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Revert back to initial dimensions with no height change.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.75,
+            height = 0.5
+          ),
+          edit_description = 'Raise the height to 0.5 meters for deeper soil capacity, allowing for better plant growth.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Only modify the length and width, keeping the height same.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Raise only the height, keeping the original length and width.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase length and height, but keep the width at initial value.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly identifies the modification that raises the height to 0.5 meters, as intended for better soil capacity.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Altering the height requires knowledge of the implicit benefit of deeper planters without it being explicitly mentioned.'
+    )
+  ]
+)

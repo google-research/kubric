@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.320213, 0.320213, 0.432404),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot_2 = SceneObject(
+      extent = (0.320213, 0.320213, 0.432404),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 4.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange the pots around a central planter to create a harmonious garden scene that allows for easy access and maintenance.',
+  description = 'This scene involves constructing a rectangular planter surrounded by pots for a garden setup. It requires understanding spatial relationships to position the pots and planter within a confined space, ensuring no collisions occur. The design should be aesthetically pleasing and provide functional use.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_planter = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        width = 0.75,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          width = 0.75,
+          height = 0.3
+        ),
+        edit_description = 'Increase the length to 1.5 meters and width to 0.75 meters to provide more planting space.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The edit kept the height the same which may not be clear from the prompt that suggests providing more planting space.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          width = 0.75,
+          height = 0.5
+        ),
+        edit_description = 'Raise the height to 0.5 meters for deeper soil capacity, allowing for better plant growth.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Altering the height requires knowledge of the implicit benefit of deeper planters without it being explicitly mentioned.'
+      )
+    ]
+  )
+)

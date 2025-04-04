@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to change the rectangular structure to an L-shaped design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (0.75, 0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.8,
+            right_center = (1.15, 0.5, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Modify the original rectangular design to an L-shaped profile, ensuring better use of space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 13.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform the rectangular design into a triangular wedge for a radial effect.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.75,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the rectangular design into a quarter-circle wedge shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.7,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Alter the rectangular structure into a semi-circular design to enhance aesthetics.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Revise the rectangular structure to form a serpentine shape for a wavy design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves changing the rectangular shape to an L-shaped design with specified centers, lengths, and widths for the left and right sections.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing a rectangular structure to an L-shaped structure involves understanding the spatial integration of both sections with the objects.'
+    ),
+    1 : EditMCQA(
+      question = 'What was the adjustment made to the L-shaped structure regarding its dimensions and position?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.75, 0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.8,
+            right_center = (1.3, 0.5, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Adjust the dimensions: increase the height to 0.5 meters. Configure the right section to fit comfortably near the pot, providing an aesthetic boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.8, 0.5, 0.0),
+            close_curve_leftmost_point = (1.15, 0.5, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the L-shaped structure to a curvy path that seamlessly integrates with the surrounding design elements.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = SemiRing(
+            center = (0.75, 0.5, 0.0),
+            outer_radius = 0.5,
+            inner_radius = 0.3,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Reshape the L-shaped design into a semi-ring to create a flowing boundary around the pot.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the L-shaped structure into a linear wall segment for a more straightforward design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.5, 0.0),
+            radius = 0.6,
+            height = 0.5
+          ),
+          edit_description = 'Convert the L-shaped design into a circular structure for complete enclosure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The adjustment involved increasing the height to 0.5 meters and configuring the right section's position to fit aesthetically near the pot while maintaining the L-shape.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Ensuring the L-shaped design complements the objects involves spatial calculation, especially fitting near the pot.'
+    )
+  ]
+)

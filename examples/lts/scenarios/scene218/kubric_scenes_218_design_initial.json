@@ -1,0 +1,65 @@
+{
+    "prompt": "Integrate a serpentine pattern that connects the standalone features in a graceful arc, offering both function and beauty.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.530486,
+                0.530497,
+                0.673023
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_2": {
+            "extent": [
+                0.530486,
+                0.530497,
+                0.673023
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_3": {
+            "extent": [
+                0.530486,
+                0.530497,
+                0.673023
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -6.123233995736766e-17,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    6.123233995736766e-17,
+                    1.0,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the semi-circular structure to balance proximity to the table with openness?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to maintain proximity to the table, use height 0.4 meters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Adjusting the size involves balancing proximity to the table against the enclosure's openness."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Use a radius of 2.0 while maintaining a concave orientation for a more spacious design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing radius gives a more expansive feel.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Switch to a convex orientation and slightly increase the radius.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Reversing orientation changes the enclosure significantly.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Keep a smaller radius and use a height of 0.5 for enclosure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Smaller radius and higher height provide closer yet private seating.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Shrink the radius drastically and maintain the original height.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Much smaller radius makes it difficult to design open areas.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification reduces the radius to 1.5 to keep proximity while maintaining a concave orientation for openness, with height set to 0.4 for intermediate prominence.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Balancing size for proximity while maintaining aesthetics is a moderate challenge.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the orientation of the semi-circular structure adapted to open towards the rock?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the orientation to top_half to open towards the rock.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Reorienting towards the rock is abstract and depends on spatial considerations not clearly outlined.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Use a convex orientation for an outward facing openness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Convex orientation naturally opens spaces.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Switch to concave orientation and increase height for enclosed feel.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Concave reverses the openness principle.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Utilize a convex form with reduced height for lower profile.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Low profile affects visual weight but simple to execute.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Extend the radius to 2.0 and keep concave for broad coverage.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Maintaining concave but large is counter to goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Changing the orientation to top_half and making the structure convex allows it to open towards the rock, aligning spatially with the described requirement.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Spatial reasoning required to infer correct orientation relating to the rock.'
+    ),
+    2 : EditMCQA(
+      question = 'What change was made to enhance the prominence of the semi-circular structure?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters for a more pronounced effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height adjustment is straightforward and a common modification for enhancing feature prominence.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Increase the radius while altering the orientation for visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Bigger size can affect spatial harmony and openness.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Maintain current features with adjusted height for subtle effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Minimal change involves simple height adjustment.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Use maximum radius and height for dominating presence.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Overpowering size shifts design balance.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Smaller radius with adjusted height for confined effect.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Small radius can counteract height effect.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height to 0.5 meters makes the structure more prominent and fulfills the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height adjustments are simple modifications with clear outcomes.'
+    )
+  ]
+)

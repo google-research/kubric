@@ -1,0 +1,134 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should the existing linear path be edited to meet the design goal of creating an elegant and flowing connection between the birdhouse, rock, and tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Convert the path profile from Linear to CurvyPath to introduce elegance and movement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path to a circular shape to create a distinct focal point in the garden.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Use a serpentine design to give a dynamic arc-like flow to the path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Implement a semi-ring for a modern twist that loops through the garden space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a rectangular pathway to maintain traditional design features.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A converts the path from a linear to a curvy path, which aligns with the design goal of introducing elegance and flow in the garden space.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests a need for flow and elegance, indicating a curvy design, but does not specify the exact transformation.'
+    ),
+    1 : EditMCQA(
+      question = 'What changes should be made to the existing curvy path to ensure a gentle curve that navigates between the birdhouse, rock, and tree?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust amplitude and wavelength to ensure a gentle curve that navigates between the birdhouse, rock, and tree, providing a natural sense of flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (2.0, 2.0, 0.0),
+            amplitude = 0.7,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase both amplitude and wavelength to create a more pronounced curve.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.5, 0.0),
+            amplitude = 0.8,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase amplitude and decrease wavelength for a wave-like path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.5, 0.0),
+            amplitude = 0.1,
+            wavelength = 4.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Create a slight ripple by reducing amplitude and increasing wavelength.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, -2.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.2,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Modify the path points to change its spatial coverage in the garden.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A adjusts the amplitude and wavelength to achieve a gentle curve that aligns with the goal of creating a smooth, natural flow in the garden.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting parameters to ensure fluidity and elegance is a direct interpretation of creating smooth transitions.'
+    )
+  ]
+)

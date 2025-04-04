@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.53, 0.53, 0.67),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.53, 0.53, 0.67),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Add a linear divider to create a well-defined separation between the two bins, maintaining an organized appearance.',
+  description = 'This scene involves using a linear structure to effectively organize two trashcans and create a functional separation between them. This setup aims to clearly delineate the space while maintaining ease of access to each trashcan. It involves utilizing spatial reasoning to achieve a pleasing and practical layout.',
+  initial_design = Design(
+    structures = {
+      linear_wall_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_divider_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Change the orientation from front-back to left-right for effective separation.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The front-back orientation didn't align with the goal of separating between the trashcans, and left-right was specified in the design goal."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Extend the length to 2.0 meters to adequately cover the area between the trashcans.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The original length was insufficient to achieve coverage across the necessary distance.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the height to 0.5 meters to give a more prominent boundary effect.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "A more prominent boundary height was clearly necessary to satisfy the design goal's height requirement."
+      )
+    ]
+  )
+)

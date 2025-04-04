@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 1.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = '- Construct a serpentine barrier between the tree and the birdhouse to enhance aesthetics without blocking the view.',
+  description = 'This scene involves constructing a serpentine barrier to create an artistic area around a tree and a birdhouse. The task requires understanding spatial relationships and interpreting geometric properties to ensure the serpentine structure adds aesthetic value without interfering with accessibility.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (1.25, -0.1, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (1.5, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'concave',
+        height = 0.6
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (1.25, -0.1, 0.0),
+          radius = 0.7,
+          left_arc_orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Reposition the serpentine structure and adjust its shape parameters for improved integration between the tree and birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The adjustment requires spatial reasoning to find a placement and curvature that fits aesthetically without specific instructions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (1.5, 0.0, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'concave',
+          height = 0.6
+        ),
+        edit_description = 'Finalize the serpentine design by further adjusting its position and increasing height for enhanced prominence.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Finding the exact curvature and position that maintains the scene's aesthetic without blocking visibility or access requires design discretion."
+      )
+    ]
+  )
+)

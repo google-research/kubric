@@ -1,0 +1,186 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to move the semicircular structure to center at (0, 0, 0) for a balanced space around the pots?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Move the semicircular structure to center at (0, 0, 0) for a balanced space around the pots.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests focusing on symmetry and balance by centering the design, which is straightforward.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Shift the semicircular structure to one side to emphasize only one pot.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Place the semicircular design asymmetrically relative to the pots.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the entire shape to a circular form centered at (0, 0, 0).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Move the semi-structure downwards for a lower center balance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The structure needs to be centered at (0, 0, 0) per the edit description for a balanced space.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests focusing on symmetry and balance by centering the design, which is straightforward.'
+    ),
+    1 : EditMCQA(
+      question = "Which change should be made to alter the orientation to 'convex' to open up the arc outward, creating a welcoming environment?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Keep the orientation concave for a more enclosed look.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Change the orientation to 'convex' to open up the arc outward, creating a welcoming environment.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Determining the orientation stems from interpreting 'open and inviting', which suggests a convex shape."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the radius to make the arc smaller while being convex.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Lower the height yet maintain the convex orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Replace the semicircle with a quarter wedge emphasizing a linear path.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The correct orientation should be convex to match the description of an 'open and inviting' layout.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "Determining the orientation stems from interpreting 'open and inviting', which suggests a convex shape."
+    ),
+    2 : EditMCQA(
+      question = 'What modification should be implemented to increase the height to 0.75 to enhance visual prominence?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.75
+          ),
+          edit_description = 'Increase the height to 0.75 to enhance visual prominence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height follows naturally from a desire for emphasis and prominence as described.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Maintain height at 0.5 for a less dominating presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 1.0
+          ),
+          edit_description = 'Increase height significantly for maximal impact but concave orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.75,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Convert to a linear structure with desired height for simple lines.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.75
+          ),
+          edit_description = 'Reduce the radius slightly while increasing the height to achieve prominence.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The height should be increased to 0.75 to meet the design goal of enhancing visual prominence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The increase in height follows naturally from a desire for emphasis and prominence as described.'
+    )
+  ]
+)

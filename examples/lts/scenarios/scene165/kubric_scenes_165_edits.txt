@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is needed to ensure the semi-circular path provides outward-facing views according to the design goal?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the orientation to convex to provide outward-facing views.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to maintain open views with a convex structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius and maintain concave orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Slightly decrease the radius and use a convex orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to concave and increase the height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius slightly and keep a concave orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct orientation is convex to ensure outward-facing views as per the prompt description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly states to maintain open views with a convex structure.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the radius be adjusted to fit the design goal of the seating arrangement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 2.5 meters.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius to 1.2 meters to fit snugly around the seating while maintaining space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly mentions the radius as 1.2 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius to 1.0 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Slightly decrease the radius to 1.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 3.0 meters for a more open setting.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The radius should be adjusted to 1.2 meters to exactly match the design goal specified in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly mentions the radius as 1.2 meters.'
+    ),
+    2 : EditMCQA(
+      question = 'What is the correct height adjustment to meet the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for a more substantial presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Decrease the height to 0.1 meters.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Adjust the height to 0.3 meters to enhance the structure's presence without excessive enclosure.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies the height as 0.3 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Set the height to 0.2 meters with concave orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Set the height to 0.25 meters.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct height is 0.3 meters as per the design goal point which aims to balance presence and openness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies the height as 0.3 meters.'
+    )
+  ]
+)

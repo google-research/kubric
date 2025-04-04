@@ -1,0 +1,178 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which of the following edits changed the linear path to a serpentine path for a more dynamic design?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Changed the Linear Path to a Serpentine Path for a more dynamic design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change from a linear path to a serpentine path with specified curve orientation and radius is a non-trivial transformation.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              curvy_path_1 = CurvyPath(
+                far_curve_leftmost_point = (0.0, 0.0, 0.0),
+                close_curve_leftmost_point = (0.0, 0.0, 0.5),
+                amplitude = 0.4,
+                wavelength = 1.0,
+                phase = 0.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Added a curvy path with dual curves for enhanced movement.',
+          target_parameter = 'curvy path design parameters',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Creating a dual-curve path distinct from the serpentine required additional sine wave parameters and spatial planning.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_path_1 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 90.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Added a quarter wedge path for a radial design.',
+          target_parameter = 'radius and gap of the wedge',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The radial design approach is distinctly different from the linear and serpentine styles, representing a challenging conceptual shift.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              triwedge_path_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.4,
+                gap_degrees = 12.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Implemented a triwedge path for a sharp-edged design.',
+          target_parameter = 'wedge dimensions and orientation',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The triwedge introduces angular design elements and requires precise angular placement.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circle_1 = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.4,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Introduced a circular path for a smooth design transition.',
+          target_parameter = 'circle radius and height',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'A circular path offers a smooth transition, but lacks the dynamic interplay presented by a serpentine design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit changes a linear path into a serpentine path, as described in the edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Transitioning from linear to serpentine requires a non-trivial transformation in path properties.'
+    ),
+    1 : EditMCQA(
+      question = 'Which of these edits added the serpentine path to seamlessly integrate with the seating arrangement?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_path_1 = Serpentine(
+                left_arc_center = (0.0, 0.0, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'convex',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Added the serpentine path to integrate seamlessly with the seating arrangement.',
+          target_parameter = 'orientation and radius of the arc',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Creating a serpentine path that fits within the constrained space without overlapping other objects requires precise planning and design adjustment.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Modified the linear path to a more compact serpentine path.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adapting the serpentine style to a concise structure involves additional considerations for curve orientation and tight space constraints.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              curvy_path_2 = CurvyPath(
+                far_curve_leftmost_point = (0.0, 0.0, 0.0),
+                close_curve_leftmost_point = (0.0, 0.0, -0.5),
+                amplitude = 0.3,
+                wavelength = 1.2,
+                phase = 0.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Introduced an altered sine-path configuration for style variance.',
+          target_parameter = 'sinusoidal path parameters',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This path leverages sinusoidal adjustments for varied amplitude and wavelength, embodying a similar conceptual complexity.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_circular_1 = SemiCircular(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.7,
+                orientation = 'concave',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Included a semi-circular path to create semi-enclosed spaces.',
+          target_parameter = 'semi-circular parameters',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A different spatial direction with semi-circles adds unique semi-enclosed movement pathways, demanding complex spatial analysis.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_ring_1 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 0.9,
+                inner_radius = 0.6,
+                orientation = 'convex',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Created a semi-ring path for a layered design effect.',
+          target_parameter = 'semi-ring parameters',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A multi-layered design with a semi-ring necessitated dimensional balancing to avoid disproportionate layering but lacked spatial interface with existing seating.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The described edit added the serpentine path as specified to integrate with the table and chairs, focusing on orientation and radius alignment.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Preparation of a serpentine path in limited space, with object positioning considerations and seating arrangements, showcases a high level of design intricacy.'
+    )
+  ]
+)

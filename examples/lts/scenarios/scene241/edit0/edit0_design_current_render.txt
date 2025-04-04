@@ -1,0 +1,51 @@
+{
+    "prompt": "Add a linear divider to create a well-defined separation between the two bins, maintaining an organized appearance.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.53,
+                -0.67,
+                -0.53
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_2": {
+            "extent": [
+                0.53,
+                -0.67,
+                -0.53
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.75,
+                    -0.0,
+                    4.592425496802574e-17
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    -4.592425496802574e-17
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification aligns the linear wall between the trees by adjusting its center to (1, 0, 0)?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the center to (1, 0, 0) to align between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the center to (-1, 0, 0), moving it away from the alignment of the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Place the center at (0, 0, 0), which aligns directly between the origin.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to (2, 0, 0), positioning it further right.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 1.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the center to (1, 0, 1), creating a lateral offset.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly adjusts the center of the linear wall to (1, 0, 0), aligning it between the two trees as described.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires spatial rearrangement understanding based on positioning between the trees.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification extends the linear wall to a length of 2.0 meters for enhanced separation?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length to 2.0 meters for enhanced separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce the length to 1.0 meters, decreasing its span.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 3.0 meters, making it more extensive than needed.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the length at 1.5 meters, maintaining the original design without extension.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Greatly reduce the length to 0.5 meters, minimizing separation effect.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly extends the wall to 2.0 meters, fulfilling the prompt's requirement for a longer barrier.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit involves resizing, which requires understanding of the prompt's requirement for a larger barrier."
+    ),
+    2 : EditMCQA(
+      question = 'Which modification increases the height of the linear wall to 0.7 meters for a more noticeable barrier?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.7,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height to 0.7 meters to create a more noticeable barrier.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the height at 0.3 meters, maintaining the lower profile design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height to 0.5 meters, making it moderately taller.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease the height to 0.1 meters, making it less pronounced.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 1.0,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height to 1.0 meter, making it much taller than specified in design goals.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the height of the wall to 0.7 meters, making the barrier more noticeable as per the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit is about increasing the height, needing an understanding of the barrier's prominence."
+    )
+  ]
+)

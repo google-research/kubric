@@ -1,0 +1,214 @@
+{
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "This scene involves positioning two L-shaped structures to create a functional and aesthetic space around two birdhouses. The goal is to use the LShape structures to provide enclosure and a sense of spatial organization, while ensuring that both birdhouses remain accessible and visible without collisions.",
+    "prompt": "Design an L-shaped garden space that brings order and elegance to the birdhouses, ensuring both are featured prominently in the scene.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.1,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.1,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.8,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.8,
+                        0.4,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.4,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.1,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "rectangular_2": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.9,
+                        0.8,
+                        0.0
+                    ],
+                    [
+                        0.9,
+                        1.2,
+                        0.0
+                    ],
+                    [
+                        1.1,
+                        1.2,
+                        0.0
+                    ],
+                    [
+                        1.1,
+                        0.8,
+                        0.0
+                    ],
+                    [
+                        0.9,
+                        0.8,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.1,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.1,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.8,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.8,
+                        0.4,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.4,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.1,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "LShape_2": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.25,
+                        1.05,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.05,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.6500000000000001,
+                        0.0
+                    ],
+                    [
+                        0.45,
+                        1.6500000000000001,
+                        0.0
+                    ],
+                    [
+                        0.45,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.05,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

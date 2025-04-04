@@ -1,0 +1,190 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "How should the design structure 'linear_path_1' be modified to introduce curves into the design?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the design from linear to serpentine to introduce curves.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the orientation of the linear path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.2
+          ),
+          edit_description = 'Transform the path into a smaller quarter wedge.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 11.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path into a triangular wedge structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Modify the path to form a circular design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly modifies 'linear_path_1' from a linear structure to a serpentine one with concave curves, which aligns with the goal of introducing curves.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Transitioning from a linear to serpentine design requires understanding the spatial placement and dynamics of curves.'
+    ),
+    1 : EditMCQA(
+      question = "What adjustment should be made to the 'serpentine_path_1' to ensure it twists between the benches?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Adjust the arc orientation to convex to ensure it twists between the benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the path back to a linear design with a new orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 11.0,
+            height = 0.2
+          ),
+          edit_description = 'Modify the path to form a triangular wedge for tight curves.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_path = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.6,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add a circular path structure.',
+          target_parameter = 'radius'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Transform the path into a semicircular structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A modifies 'serpentine_path_1' to have a convex orientation, which suits the need to have the path twist effectively between the benches.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing the correct orientation for a serpentine path to fit spatial constraints and aesthetic goals needs careful consideration.'
+    ),
+    2 : EditMCQA(
+      question = "How should 'serpentine_path_1' be adjusted for ensuring a broader curve around the benches?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 0.75 for a broader curve around the benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Lengthen the linear path for extended reach.'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              additional_hedge = Rectangular(
+                center = (0.0, 0.0, 0.0),
+                length = 1.0,
+                width = 0.5,
+                height = 0.7
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular structure as a border.',
+          target_parameter = 'length'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path to a quarter wedge with a wide gap.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_circle = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.85,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add a circular design to encompass more space.',
+          target_parameter = 'radius'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A involves increasing the radius to 0.75, directly achieving the goal of broadening the curve in the design, which fits around the benches more effectively.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting the radius is straightforward once the path layout is set, improving the curve's fit and aesthetic."
+    )
+  ]
+)

@@ -1,0 +1,65 @@
+{
+    "prompt": "Create an engaging path that connects the rocky outcrops with the central seat, ensuring a smooth and flowing journey between each.",
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -1.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "chair_1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                0.0,
+                0.5,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "rock_2": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                1.5,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -1.071565949253934e-16,
+                    -1.75,
+                    0.0
+                ],
+                [
+                    1.071565949253934e-16,
+                    1.75,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

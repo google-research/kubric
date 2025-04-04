@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a flowing seating layout using a serpentine path to nestle these chairs into a communal space.',
+  description = 'This scene involves creating a serpentine seating arrangement around a set of chairs to promote fluid interaction in an inviting and dynamic area. It requires understanding spatial relationships to place the serpentine structure without colliding with the chairs while keeping a cohesive design within the limits.',
+  initial_design = Design(
+    structures = {
+      linear_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile from linear to serpentine for dynamic engagement. Adjust the arc orientation to convex to open up the interaction space, ensuring it wraps around the chairs. Set the left arc center to (0, 0, 0) for a balanced layout. Increase the height to 0.3 meters to give a defined structure to the path, promoting fluid movement within the space.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a linear to a serpentine structure requires considering spatial interactions with other objects and changing multiple parameters.'
+      )
+    ]
+  )
+)

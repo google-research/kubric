@@ -1,0 +1,72 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Enhance the presence around each tree with circular arrangements for a formal garden look.',
+  description = 'This scene involves arranging circular structures to enhance the visual appeal of a garden setup while ensuring that the presence around trees remains subtle yet defined. The task requires interpreting geometric properties like center, radius, and height to achieve the desired garden aesthetics.',
+  initial_design = Design(
+    structures = {
+      circular_arrangement_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_arrangement_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.8,
+        height = 0.3
+      ),
+      circular_arrangement_2 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.8,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_arrangement_1',
+        NewDesignStructure = Circular(
+          center = (-1.0, 0.0, 0.0),
+          radius = 0.8,
+          height = 0.3
+        ),
+        edit_description = 'Divide the circular design into distinct arrangements around each tree.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Splitting the existing circular arrangement into two distinct parts is straightforward. The need for two separate focuses of symmetry around the two trees is explicitly stated.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            circular_arrangement_2 = Circular(
+              center = (1.0, 0.0, 0.0),
+              radius = 0.8,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Create a new circular arrangement around the second tree as a counterpart to the first.',
+        target_parameter = 'design_goal',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adding a new arrangement similar to the adjustment made in the first step ensures symmetry, making it a simple continuation of the design goal.'
+      )
+    ]
+  )
+)

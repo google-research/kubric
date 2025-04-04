@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a boundary to partition the table and rock, offering a distinct visual separation while maintaining easy access.',
+  description = 'This scene involves constructing a linear structure to separate two common objects for functional or decorative purposes. The design will help in distinguishing areas while allowing the objects to stand out individually.',
+  initial_design = Design(
+    structures = {
+      linear_initial = Linear(
+        center = (1.5, 0.0, 0.0),
+        length = 1.0,
+        height = 0.2,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_final = Linear(
+        center = (0.75, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (1.5, 0.0, 0.0),
+          length = 1.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = "Change the orientation to 'left-right' for a clear visual separation.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly suggests the orientation should separate the objects left to right.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (1.5, 0.0, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 1.5 meters to cover the area between the table and rock.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The length wasn't explicitly stated in the prompt but is implied by the need to cover the separation."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (0.75, 0.0, 0.0),
+          length = 1.5,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the height to 0.5 meters for a more pronounced boundary while maintaining low-profile accessibility.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The height was not specified, so it requires reasoning about visibility and accessibility.'
+      )
+    ]
+  )
+)

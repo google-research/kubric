@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    pot1 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    rock1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Establish a clear boundary line that elegantly divides the space between the rock and the pot, maintaining openness.',
+  description = 'This scene involves arranging a linear structure to create a defined path through a small garden area. It requires interpreting spatial relationships to position the structure such that it guides movement while complementing surrounding objects like pots and rocks.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_goal = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.4,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Change the linear orientation from left-right to front-back to better divide the space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly suggests creating a boundary line for space division, indicating a front-back orientation.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Increase the length to 2 meters for a fuller separation.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The prompt suggests a clear division, which implies increasing the length, but doesn't specify how much."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.4,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Raise the height to 0.4 meters to enhance visibility and effectiveness.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Improving visibility aligns with the visual separation goal, but the height increase is not directly specified.'
+      )
+    ]
+  )
+)

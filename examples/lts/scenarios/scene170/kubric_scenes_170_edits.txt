@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should the rectangular structure be modified to slightly increase its dimensions and shift its center to ensure all objects are encompassed in the cozy garden plot?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Shift the rectangular center to (0.5, 0) and slightly increase dimensions to ensure all objects are encompassed.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the center at (0, 1) without changing dimensions.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.5, 0.5) with slight width increase.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Shift center to (0.5, 0) without changing length.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Keep center at (1, 0) and increase width to 2.0.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit specified in the question correctly shifts the center and increases length and width to encompass all objects effectively.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change in shape dimensions while shifting requires understanding of space metrics.'
+    ),
+    1 : EditMCQA(
+      question = 'What modifications to the rectangular structure extend its length and width, offering ample space while adhering to spatial constraints?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 3.0,
+            width = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Extend the length to 3.0 and width to 2.0 to offer ample space while adhering to spatial constraints.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            width = 2.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase width beyond necessary, creating a disproportionate design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Overextend length causing space inefficiency.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Shift center to (1, 0) while extending length.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Extend dimensions correctly but at the wrong height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer provides the necessary length and width extension while maintaining spatial constraints as specified in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Once the initial changes are set, further extending the design is straightforward based on spatial requirements.'
+    )
+  ]
+)

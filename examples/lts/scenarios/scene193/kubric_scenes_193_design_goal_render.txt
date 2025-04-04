@@ -1,0 +1,79 @@
+{
+    "prompt": "Create a neat boundary that complements the objects, sticking to an L-shape to give it a modern look.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.26524849,
+                -0.3365115,
+                -0.265243
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "pot_1": {
+            "extent": [
+                0.32021299,
+                -0.216202,
+                -0.320213
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    0.35,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.35,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.95,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.95,
+                    -0.0,
+                    -0.44999999999999996
+                ],
+                [
+                    0.6499999999999999,
+                    -0.0,
+                    -0.44999999999999996
+                ],
+                [
+                    0.6499999999999999,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.35,
+                    -0.0,
+                    -0.25
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

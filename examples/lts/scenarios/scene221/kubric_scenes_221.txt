@@ -1,0 +1,57 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a Circular feature around a birdhouse that brings focus and aesthetic allure while ensuring open access from all sides.',
+  description = 'This scene features a centrally placed birdhouse surrounded by a Circular structure to create a harmonious and inviting space in the garden. The design accentuates the birdhouse while remaining open, ensuring that the overall space is accessible and visually appealing.',
+  initial_design = Design(
+    structures = {
+      circular_structure = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_structure = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the Circular structure’s radius from 1.0 meters to 0.8 meters to maintain compactness and fit comfortably within spatial constraints.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifically mentions adjusting the radius to maintain compactness, which is straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height from 0.3 meters to 0.5 meters to offer a sense of enclosure and a more prominent visual impact.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Height increase is simple to deduce as it follows the prompt's instruction to enhance visual impact."
+      )
+    ]
+  )
+)

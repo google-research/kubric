@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design an artistic path that gently weaves through the garden, connecting the natural rocks with the utility trashcan—bring an engaging flow to the space.',
+  description = 'This scene involves constructing a curvy path that meanders between two objects—a rock and a trashcan. The arrangement is meant to provide a visual journey while integrating the structures gracefully within the limited area. The design must ensure that the path flows around and between the objects without any collisions, maintaining a cohesive look throughout the garden space.',
+  initial_design = Design(
+    structures = {
+      Linear_1 = CurvyPath(
+        far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath_1 = CurvyPath(
+        far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+          close_curve_leftmost_point = (0.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the path type from linear to a CurvyPath for enhanced visual appeal.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The transition from a linear path to a curvy path is straightforward given the prompt's emphasis on creating an engaging flow through the garden space."
+      )
+    ]
+  )
+)

@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (0.5, 0.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-0.5, -0.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Construct a semi-circular arrangement around the benches, ensuring it provides a bit of seclusion without blocking access.',
+  description = 'This scene involves understanding spatial relationships to create a gathering area, balancing both openness and privacy for relaxation. It requires interpreting geometric properties like radius, height, and orientation for achieving the design goal of creating a semi-circular enclosure around benches.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = "Change the orientation to 'concave' to face inward towards the benches, creating a sense of enclosure.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Understanding the orientation change requires spatial interpretation and understanding of enclosure.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Increase the radius to 1.5 meters to provide more space around the seating area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the radius is relatively straightforward to deduce as it directly relates to providing space.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters to enhance privacy while maintaining openness.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the height for privacy is intuitive given the goal of balancing privacy and openness.'
+      )
+    ]
+  )
+)

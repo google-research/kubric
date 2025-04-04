@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a linear divider to subtly separate the sitting area from the natural elements, creating a clear yet unobtrusive pathway.',
+  description = 'This scene involves constructing a linear feature to create a boundary or pathway between picnic seating elements and natural features in a garden setup. The design should enhance user interaction while providing clear divisions between spaces.',
+  initial_design = Design(
+    structures = {
+      linear_structure_1 = Linear(
+        center = (0.5, 0.0, 0.0),
+        length = 1.0,
+        height = 0.1,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_structure_1 = Linear(
+        center = (0.5, 0.0, 0.0),
+        length = 1.5,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure_1',
+        NewDesignStructure = Linear(
+          center = (0.5, 0.0, 0.0),
+          length = 1.0,
+          height = 0.1,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Adjust the center of the linear structure to (0.5, 0, 0) to align with the bench and rock.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The adjustment was directly indicated in the description for aligning with the scene elements.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure_1',
+        NewDesignStructure = Linear(
+          center = (0.5, 0.0, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 1.5 meters and adjust orientation to ensure an effective boundary between the two elements.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The required increase in length and change of orientation were directly specified to fulfill the design goal.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,91 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Design a semi-circular setting that encourages relaxation and reflection around the birdhouse while blending with the nearby tree.',
+  description = 'This scene involves constructing a cozy, semi-circular seating arrangement around a central birdhouse. The task requires understanding geometric relationships to ensure the semi-circular structure provides a harmonious integration with the natural setting.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Center the structure directly at the origin to align with the birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The adjustment of the center to the origin aligns the structure with the birdhouse, providing a more centralized layout.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Increase the radius to 1 meter for a wider seating space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Simply increasing the radius to meet the design goal's requirement for broader seating space."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'concave',
+          height = 0.2
+        ),
+        edit_description = "Change the orientation to 'concave' to ensure the open side faces the tree.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Selecting the correct orientation helps ensure the structure interacts with its environment as specified.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Set the height to 0.3 meters for a raised appearance that fits the relaxed ambiance.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adjusting height for a better defined and elevated seating structure.'
+      )
+    ]
+  )
+)

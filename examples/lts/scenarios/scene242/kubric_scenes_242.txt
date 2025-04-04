@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.66046348, 0.22015424, 0.28620075),
+      center = (-1.0, 0.5, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.16098425, 0.11663825, 0.15423275),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a versatile rectangular area that accommodates casual gatherings and complements the natural setting alongside benches.',
+  description = 'This scene involves arranging a rectangular structure to create a functional seating area around a bench and birdhouse, providing both utility and aesthetic enhancement. Understanding the spatial relationship is vital to ensure proper placement without collisions while keeping within the 3 x 3 meter constraint.',
+  initial_design = Design(
+    structures = {
+      Rectangular 1 = Rectangular(
+        center = (-0.5, 0.5, 0.0),
+        length = 1.5,
+        width = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Rectangular 1 = Rectangular(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        width = 1.5,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular 1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          width = 1.5,
+          height = 0.4
+        ),
+        edit_description = 'Move the rectangular structure to center at (0, 0.5, 0) to better align with the bench and birdhouse, increase its length to 2.0, width to 1.5, and height to 0.4 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The changes involve spatial adjustments to ensure non-overlapping placement while enhancing seating capacity in a restricted area.'
+      )
+    ]
+  )
+)

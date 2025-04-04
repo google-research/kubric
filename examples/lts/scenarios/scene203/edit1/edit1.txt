@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a cozy seating area around the central table, making sure to keep it open towards the rock.',
+  description = 'This scene involves constructing a cozy seating nook using semi-circular structures around a central table. The design focuses on maintaining an open feel while providing a sense of enclosure, using geometric properties like radius, orientation, and height.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.4
+        ),
+        edit_description = 'Reduce the radius to maintain proximity to the table, use height 0.4 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Adjusting the size involves balancing proximity to the table against the enclosure's openness."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change the orientation to top_half to open towards the rock.',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = 'Reorienting towards the rock is abstract and depends on spatial considerations not clearly outlined.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Adjust the height to 0.5 meters for a more pronounced effect.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Height adjustment is straightforward and a common modification for enhancing feature prominence.'
+      )
+    ]
+  )
+)

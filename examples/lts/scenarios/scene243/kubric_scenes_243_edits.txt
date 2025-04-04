@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification should be made to increase the length of the rectangular structure to create a more spacious seating area?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 3.5 meters for a spacious seating area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states the desired dimensions of the seating arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 2.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Leave the length unchanged.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 4.0 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 3.0 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the rectangular structure to have a length of 3.5 meters, which is the required change according to the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly states the desired dimensions of the seating arrangement.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification should be made to adjust the width of the rectangular structure to encompass the chairs comfortably?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the width to 1.5 meters to encompass the chairs comfortably.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting the width is straightforward to capture the seating arrangement goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Leave the width unchanged.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the width to 1.2 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the width to 2.0 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.7,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the width to 1.7 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the rectangular structure to have a width of 1.5 meters, which is the necessary change to comfortably encompass the chairs.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the width is straightforward to capture the seating arrangement goal.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification should be made to raise the height of the rectangular structure for a more distinct boundary effect?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Raise the height to 0.4 meters for a more distinct boundary effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt indicates the height for a more defined appearance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Leave the height unchanged.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Lower the height to 0.2 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Raise the height to 0.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 1.5,
+            height = 0.35
+          ),
+          edit_description = 'Raise the height to 0.35 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the rectangular structure to have a height of 0.4 meters, achieving the distinct boundary effect mentioned in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt indicates the height for a more defined appearance.'
+    )
+  ]
+)

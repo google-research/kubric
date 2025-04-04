@@ -1,0 +1,51 @@
+{
+    "prompt": "Design an artistic path that gently weaves through the garden, connecting the natural rocks with the utility trashcan\u2014bring an engaging flow to the space.",
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                -0.25,
+                -0.25
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.26524849,
+                -0.3365115,
+                -0.265243
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -0.5,
+                    -0.0,
+                    4.592425496802574e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -4.592425496802574e-17
+                ]
+            ]
+        }
+    ]
+}

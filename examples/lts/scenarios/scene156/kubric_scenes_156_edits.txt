@@ -1,0 +1,229 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to Planter 1 in the design?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 0.5,
+            width = 0.3,
+            height = 0.25
+          ),
+          edit_description = 'Move Planter 1 to (0.5, 0, 0) for enhanced symmetry.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests arranging planters around the rocks, and a symmetrical shift is straightforward.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 0.7,
+            width = 0.2,
+            height = 0.25
+          ),
+          edit_description = 'Change the dimensions of Planter 1.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 0.3,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Reduce width of Planter 1 for better fit around rocks.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.7, 0.0, 0.0),
+            length = 0.5,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Move and modify height of Planter 1.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Relocate Planter 1 above ground level.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Planter 1 was moved to (0.5, 0, 0) for improved symmetry with respect to the rocks.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The action aligns with the prompt's goal of symmetric planter arrangement around rocks."
+    ),
+    1 : EditMCQA(
+      question = 'Which addition was made to fulfill the artistic layout requirement around Rock 2?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (1.5, 1.0, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add Planter 2 around Rock 2, ensuring no collisions and fulfilling the artistic layout.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the prompt implies adding planters around rocks, precise placement requires determining non-collision zones.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              triangular_1 = TriWedge(
+                center = (1.5, 1.0, 0.0),
+                radius = 0.5,
+                gap_degrees = 12.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add Triangular structure near Rock 2 for artistic effect.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (1.5, 1.0, 0.0),
+                length = 1.0,
+                height = 0.25,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a linear structure across Rock 2.',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_1 = CurvyPath(
+                far_curve_leftmost_point = (1.5, 1.0, 0.0),
+                close_curve_leftmost_point = (1.5, 1.5, 0.0),
+                amplitude = 0.3,
+                wavelength = 1.0,
+                phase = 0.25,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Introduce a curvy path near Rock 2 for texture.',
+          target_parameter = 'far_curve_leftmost_point'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (1.5, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a circular planter around Rock 2.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'A rectangular planter was added around Rock 2, ensuring no collisions as part of the artistic layout.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Precise placement of the planter requires understanding space constraints and non-collision dynamics, which is implied in the prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'What change was introduced to accommodate Planter 3 around Rock 3?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_3 = Rectangular(
+                center = (-1.5, -1.0, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add Planter 3 around Rock 3, ensuring no collisions and fulfilling the artistic layout.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Like with Planter 2, precise placement requires determining non-collision zones, as implied by the prompt.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (-1.5, -1.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 11.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a quarter wedge planter around Rock 3.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (-1.5, -1.0, 0.0),
+                radius = 0.25,
+                left_arc_orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a serpentine feature near Rock 3.',
+          target_parameter = 'left_arc_center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semicircular_1 = SemiCircular(
+                center = (-1.5, -1.0, 0.0),
+                radius = 0.4,
+                orientation = 'concave',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Install a semicircular planter near Rock 3.',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semiring_1 = SemiRing(
+                center = (-1.5, -1.0, 0.0),
+                outer_radius = 0.5,
+                inner_radius = 0.3,
+                orientation = 'convex',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a semi-ring planter near Rock 3 for a layered look.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'A rectangular planter was added around Rock 3 in a configuration that avoids collisions and completes the layout.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the non-collision zones around Rock 3 based on the prompt requires spatial reasoning beyond the direct request.'
+    )
+  ]
+)

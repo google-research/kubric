@@ -1,0 +1,103 @@
+{
+    "prompt": "Enhance the structure of the plaza by adding orderly shapes to demarcate functional areas for seating and waste disposal.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                0.5,
+                -0.0,
+                -0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530497,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -0.09999999999999998,
+                    -0.0,
+                    -0.2
+                ],
+                [
+                    1.1,
+                    -0.0,
+                    -0.2
+                ],
+                [
+                    1.1,
+                    -0.0,
+                    -0.8
+                ],
+                [
+                    -0.09999999999999998,
+                    -0.0,
+                    -0.8
+                ],
+                [
+                    -0.09999999999999998,
+                    -0.0,
+                    -0.2
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.1,
+                    -0.0,
+                    0.8
+                ],
+                [
+                    0.09999999999999998,
+                    -0.0,
+                    0.8
+                ],
+                [
+                    0.09999999999999998,
+                    -0.0,
+                    0.2
+                ],
+                [
+                    -1.1,
+                    -0.0,
+                    0.2
+                ],
+                [
+                    -1.1,
+                    -0.0,
+                    0.8
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

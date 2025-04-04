@@ -1,0 +1,117 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the circular structure to maintain compactness within the spatial constraints?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the Circular structure’s radius from 1.0 meters to 0.7 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.2, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Move the Circular structure’s center to (0.2, 0.0, 0.0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the Circular structure to a SemiCircular structure with radius 0.8.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the Circular structure’s radius from 1.0 meters to 0.8 meters to maintain compactness and fit comfortably within spatial constraints.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'No change is made to the radius; it remains 1.0 meters.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The radius was reduced from 1.0 meters to 0.8 meters, aligning with the edit description to maintain compactness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifically mentions adjusting the radius to maintain compactness, which is straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification was made to the circular structure to enhance visual impact?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.4
+          ),
+          edit_description = "Increase the circular structure's height from 0.3 meters to 0.4 meters."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the Circular structure to a CurvyPath design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height from 0.3 meters to 0.5 meters to offer a sense of enclosure and a more prominent visual impact.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius from 0.8 meters to 1.0 meters while maintaining the height at 0.3 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 11.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the Circular structure to a TriWedge structure with a small gap.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The height was increased to 0.5 meters, which aligns with enhancing visual impact as described in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Height increase is simple to deduce as it follows the prompt's instruction to enhance visual impact."
+    )
+  ]
+)

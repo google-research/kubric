@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is needed to change the orientation of the linear structure around the benches?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change orientation from front-back to left-right to wrap around the benches smoothly.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining the appropriate orientation change requires spatial reasoning regarding how the border should be aligned relative to the benches.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain current orientation to keep consistent visual appearance with surroundings.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding how the visual appearance blends requires attention to the overall scene composition.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce length for a more compact design, changing orientation as needed.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Balancing compact design features with functional requirements can be challenging.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length for greater coverage, with orientation change.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Ensuring coverage aligns aesthetically requires consideration of spatial impact.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change height for greater prominence, maintaining intended orientation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Ensuring prominence aligns with overall design goals is a planning consideration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This choice directly matches the edit where the orientation change is intended to smoothly wrap around the benches.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Correctly identifying the optimal orientation involves a moderate level of spatial reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'What adjustment is required to modify the height of the linear structure for better boundary significance?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height to 0.5 meters to provide better visual prominence and functional boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The height adjustment is straightforward and fits within the prompt's suggestion for visual prominence."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.35,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly increase height for preserved simplicity and subtle boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'A small increase ensures minimal visual impact while meeting functional needs.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Moderate height increase for improved visibility with emphasis on design integration.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Improving visibility while maintaining harmony with environment is simple.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Significantly increase height for major boundary separation and visual impact.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Maximal height change ensures clear visual separation; easily deduced from needs.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly decrease height to maintain unobtrusive boundary effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reducing height aligns with goals of minimal obstruction while preserving function.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option identifies the intended edit to enhance the height for visibility as specified in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Change to height is clear and does not require extensive reasoning beyond the goal's requirements."
+    )
+  ]
+)

@@ -1,0 +1,51 @@
+{
+    "prompt": "Create a linear border around the benches to establish a defined area while allowing easy access.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                1.5,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    0.7499999999999999,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    0.75,
+                    1.0,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

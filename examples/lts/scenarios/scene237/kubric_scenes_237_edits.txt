@@ -1,0 +1,157 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit best refines the large circular feature into a smaller circular feature centered around Tree 1?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Refine the large circular feature into a smaller circular feature centered around Tree 1.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Make the circular feature larger around Tree 1.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Refine the circular feature with a different center alignment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, -1.0, 0.0),
+            radius = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the circular feature to slightly include another offset.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.6,
+            height = 0.5
+          ),
+          edit_description = 'Make the circular feature slightly smaller around Tree 1.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit creates a smaller circular feature centered exactly around Tree 1 as specified in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly indicates creating separate circles around each tree, starting with Tree 1.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification correctly adds two circular features around Tree 2 and Tree 3 based on the design prompt?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_2 = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.8,
+                height = 0.5
+              ),
+              circular_structure_3 = Circular(
+                center = (1.5, 0.0, 0.0),
+                radius = 0.8,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add two additional circular features around Tree 2 and Tree 3.',
+          target_parameter = 'structures'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_2 = Circular(
+                center = (0.0, 0.5, 0.0),
+                radius = 1.0,
+                height = 0.5
+              ),
+              circular_structure_3 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.6,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Introduce offset circular features around Trees 2 and 3 with varied radii.',
+          target_parameter = 'structures'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_2 = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 1.2,
+                height = 0.5
+              ),
+              circular_structure_3 = Circular(
+                center = (1.5, 0.0, 0.0),
+                radius = 1.2,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Enclose Trees 2 and 3 with significantly larger circular features.',
+          target_parameter = 'structures'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_2 = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.8,
+                height = 0.6
+              ),
+              circular_structure_3 = Circular(
+                center = (1.5, 0.0, 0.0),
+                radius = 0.8,
+                height = 0.6
+              )
+            }
+          ),
+          edit_description = 'Add slightly taller circular features to Trees 2 and 3.',
+          target_parameter = 'structures'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_2 = Circular(
+                center = (0.0, 0.5, 0.0),
+                radius = 0.8,
+                height = 0.5
+              ),
+              circular_structure_3 = Circular(
+                center = (1.5, 0.5, 0.0),
+                radius = 0.8,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Position the circles slightly offset around Trees 2 and 3.',
+          target_parameter = 'structures'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option aligns with adding circular structures for Trees 2 and 3 as specified by the design goal and the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The addition of structures for Trees 2 and 3 follows logically from the task prompt.'
+    )
+  ]
+)

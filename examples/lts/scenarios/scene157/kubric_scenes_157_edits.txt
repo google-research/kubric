@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change needs to be made to Linear 1 to achieve the design goal around table 1?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 1 to SemiCircular around table 1 for better accessibility and interaction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 1.0, 0.0),
+            close_curve_leftmost_point = (-0.5, 1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change Linear 1 to CurvyPath for a more dynamic layout.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 8.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 1 to QuarterWedge which puts an arc around the table.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 1 to a Serpentine structure for a wave-like design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 16.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 1 to TriWedge for a sharp-edged design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal specifies changing linear structures around tables to semicircular ones as per the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly guides the transformation from a linear to a semicircular structure around the table.'
+    ),
+    1 : EditMCQA(
+      question = 'What change needs to be made to Linear 2 to achieve the design goal around table 2?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_2',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 2 to SemiCircular around table 2 for better accessibility and interaction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_2',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 1.0, 0.0),
+            close_curve_leftmost_point = (1.5, 1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change Linear 2 to CurvyPath for a more dynamic layout.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 9.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 2 to QuarterWedge which puts an arc around the table.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 2 to a Serpentine structure for a wave-like design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_2',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 16.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 2 to TriWedge for a sharp-edged design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal specifies changing linear structures around tables to semicircular ones as per the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The transformation is straightforward from linear to semicircular based on the provided prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'What change needs to be made to Linear 3 to achieve the design goal around table 3?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_3',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 3 to SemiCircular around table 3 for better accessibility and interaction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_3',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change Linear 3 to CurvyPath for a more dynamic layout.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_3',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 9.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 3 to QuarterWedge which puts an arc around the table.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 3 to a Serpentine structure for a wave-like design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_3',
+          NewDesignStructure = TriWedge(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 16.0,
+            height = 0.4
+          ),
+          edit_description = 'Change Linear 3 to a TriWedge for a sharp-edged design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal specifies changing linear structures around tables to semicircular ones as per the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt provides direct instructions for changing the linear structures around tables.'
+    )
+  ]
+)

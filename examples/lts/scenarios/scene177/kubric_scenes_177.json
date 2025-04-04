@@ -1,0 +1,76 @@
+{
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "Chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "Chair"
+        }
+    },
+    "description": "This scene involves creating a linear structure to define boundaries and guide movement around two seating objects. The focus is on ensuring the layout provides clear paths with a functional design, using geometric properties like length, height, and orientation.",
+    "prompt": "Develop a structured pathway around the seating that promotes ease of movement while maintaining a pleasing visual flow.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        -1.25,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_2": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        0.5,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a linear boundary that outlines the greenery, offering a neat and tidy appearance while ensuring accessibility and preserving the natural ambiance.',
+  description = 'This scene involves constructing a linear structure to provide a defined boundary and enhance the aesthetic functionality of a garden space. The focus is on creating a visually appealing yet unobtrusive boundary around two trees, ensuring that the design complements the natural beauty while maintaining accessibility.',
+  initial_design = Design(
+    structures = {
+      Linear = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Linear = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.1,
+          orientation = 'left-right'
+        ),
+        edit_description = "Change the linear orientation to 'left-right' for better alignment with the trees.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Changing orientation is straightforward since the prompt specifies alignment along 'left-right'."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Move the linear structure to be centered at (0, -0.5, 0) and increase the length to 2 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the desired center position and length adjustment.'
+      )
+    ]
+  )
+)

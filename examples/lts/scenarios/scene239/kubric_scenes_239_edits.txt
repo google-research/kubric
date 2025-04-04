@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to change the orientation of the linear structure from front-back to left-right?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change orientation from front-back to left-right for better division.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.25, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change center position to (0.5, 0.25, 0.0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase length to 1.2 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 0.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease length to 0.8 meters and change orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.05),
+            length = 1.0,
+            height = 0.35,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust height to 0.35 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves changing the orientation from front-back to left-right as specified.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification is straightforward as the new orientation is clearly mentioned in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit aligns with centering the linear structure at (0, 0, 0), increasing length to 1.5 meters, and height to 0.5 meters?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Center the linear structure at (0, 0, 0) for perfect positioning between the rocks, increase the length to 1.5 meters, and raise the height to 0.5 meters for a pronounced boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly adjust the dimensions for a moderate boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust length for orientation to remain front-back.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (-0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift center slightly and adjust to meet specified alignment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust height and position without increasing length.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves setting the center to (0, 0, 0), adjusting the length to 1.5 meters, and the height to 0.5 meters, as specified in the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjustments to center, length, and height require spatial reasoning and alignment with the design goal specified.'
+    )
+  ]
+)

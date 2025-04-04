@@ -1,0 +1,97 @@
+{
+    "prompt": "Integrate circular structures to promote interaction and accessibility around the tables, leaving sufficient space for pathways.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table_1"
+        },
+        "table_2": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table_2"
+        },
+        "table_3": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table_3"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.5,
+                    -0.0,
+                    1.0
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    0.9999999999999999
+                ]
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.5,
+                    -0.0,
+                    -1.0
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -1.0
+                ]
+            ]
+        },
+        {
+            "segment": 3,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -2.5,
+                    -0.0,
+                    3.061616997868383e-17
+                ],
+                [
+                    -1.5,
+                    -0.0,
+                    -3.061616997868383e-17
+                ]
+            ]
+        }
+    ]
+}

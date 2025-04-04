@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the modification needed to align the linear structure with the bench and rock?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust the center of the linear structure to (0.5, 0, 0) to align with the bench and rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Keep the center unchanged and maintain the original dimensions.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shift the center of the linear structure to (-0.5, 0, 0) for aligning with a different element.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Modify the center to (0.0, 0.5, 0.0) for another design approach.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 0.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reduce the length while adjusting center for a compact design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification aligns the linear structure's center to (0.5, 0, 0), as described in the edit.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustment was directly indicated in the description for aligning with the scene elements.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the required modification to enhance the boundary with the increased length and orientation change?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 1.5 meters and adjust orientation to ensure an effective boundary between the two elements.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the length to 1.5 meters without changing the orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the orientation to left-right and keep the length original.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length more than necessary for a larger boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Modify the center further while increasing both height and length.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification extends the length to 1.5 meters and changes the orientation to left-right, as specified.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The required increase in length and change of orientation were directly specified to fulfill the design goal.'
+    )
+  ]
+)

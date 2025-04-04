@@ -1,0 +1,51 @@
+{
+    "prompt": "Create a flowing serpentine path that connects the garden's delightful centerpieces, providing a sense of harmony and inviting movement through the area.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.320213,
+                0.320213,
+                0.216202
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.320213,
+                0.320213,
+                0.216202
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -4.592425496802574e-17,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    4.592425496802574e-17,
+                    0.75,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

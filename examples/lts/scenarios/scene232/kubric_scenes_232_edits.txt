@@ -1,0 +1,3 @@
+CounterFactualMCQASequence(
+  mcqa_questions = []
+)

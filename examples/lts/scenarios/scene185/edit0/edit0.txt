@@ -1,0 +1,82 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.530497, 0.673023),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Enhance the structure of the plaza by adding orderly shapes to demarcate functional areas for seating and waste disposal.',
+  description = 'This scene involves positioning two geometric structures to organize a plaza area with seating and waste disposal. The task requires understanding spatial relationships to ensure the structures enclose the areas without hindering accessibility and maintain an orderly layout.',
+  initial_design = Design(
+    structures = {}
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_structure_1 = Rectangular(
+        center = (0.5, 0.5, 0.0),
+        length = 1.2,
+        width = 0.6,
+        height = 0.5
+      ),
+      rectangular_structure_2 = Rectangular(
+        center = (-0.5, -0.5, 0.0),
+        length = 1.2,
+        width = 0.6,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'linear_structure_1',
+        edit_description = 'Remove the initial linear connector structure between the table and trashcan.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Removing a linear structure is a direct and straightforward action based on the prompt to enhance the structure of the plaza using other kinds of designs rather than the linear one.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rectangular_structure_1 = Rectangular(
+              center = (0.5, 0.5, 0.0),
+              length = 1.2,
+              width = 0.6,
+              height = 0.5
+            ),
+            rectangular_structure_2 = Rectangular(
+              center = (-0.5, -0.5, 0.0),
+              length = 1.2,
+              width = 0.6,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Create rectangular enclosures for the table and trashcan, providing functional demarcation for seating and waste disposal areas.',
+        target_parameter = 'structures',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Requires spatial understanding to design structures that effectively separate functional areas without compromising plaza accessibility.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_structure_1',
+        NewDesignStructure = Rectangular(
+          center = (0.5, 0.5, 0.0),
+          length = 1.2,
+          width = 0.6,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height of the rectangular structures to 0.5 meters to provide a sense of separation.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing height is a simple parameter-based alteration based on enhancing the visual and functional distinction of the structures.'
+      )
+    ]
+  )
+)

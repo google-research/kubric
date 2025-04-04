@@ -1,0 +1,51 @@
+{
+    "prompt": "Establish a linear divider to subtly separate the sitting area from the natural elements, creating a clear yet unobtrusive pathway.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        },
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    0.5,
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.5,
+                    0.0,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

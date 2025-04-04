@@ -1,0 +1,109 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table_1'
+    ),
+    table_2 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table_2'
+    ),
+    table_3 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table_3'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Integrate circular structures to promote interaction and accessibility around the tables, leaving sufficient space for pathways.',
+  description = 'This scene involves positioning semicircular structures around tables to create a cozy garden setup and to ensure clear pathways for interaction. The design must maintain spatial harmony by considering the distance and orientation relative to each table.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (-1.0, 1.0, 0.0),
+        length = 1.0,
+        height = 0.2,
+        orientation = 'left-right'
+      ),
+      linear_2 = Linear(
+        center = (1.0, 1.0, 0.0),
+        length = 1.0,
+        height = 0.2,
+        orientation = 'left-right'
+      ),
+      linear_3 = Linear(
+        center = (0.0, -2.0, 0.0),
+        length = 1.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semicircular_1 = SemiCircular(
+        center = (-1.0, 1.0, 0.0),
+        radius = 0.8,
+        orientation = 'convex',
+        height = 0.4
+      ),
+      semicircular_2 = SemiCircular(
+        center = (1.0, 1.0, 0.0),
+        radius = 0.8,
+        orientation = 'convex',
+        height = 0.4
+      ),
+      semicircular_3 = SemiCircular(
+        center = (0.0, -1.0, 0.0),
+        radius = 0.8,
+        orientation = 'concave',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = SemiCircular(
+          center = (-1.0, 1.0, 0.0),
+          radius = 0.8,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change Linear 1 to SemiCircular around table 1 for better accessibility and interaction.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly guides the transformation from a linear to a semicircular structure around the table.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_2',
+        NewDesignStructure = SemiCircular(
+          center = (1.0, 1.0, 0.0),
+          radius = 0.8,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change Linear 2 to SemiCircular around table 2 for better accessibility and interaction.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The transformation is straightforward from linear to semicircular based on the provided prompt.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_3',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, -1.0, 0.0),
+          radius = 0.8,
+          orientation = 'concave',
+          height = 0.4
+        ),
+        edit_description = 'Change Linear 3 to SemiCircular around table 3 for better accessibility and interaction.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt provides direct instructions for changing the linear structures around tables.'
+      )
+    ]
+  )
+)

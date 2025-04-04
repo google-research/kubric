@@ -1,0 +1,97 @@
+{
+    "prompt": "Create a welcoming square border around the benches and trees, ensuring space for easy access and social interactions.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        },
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.5,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    -0.5,
+                    0.5,
+                    0.0
+                ],
+                [
+                    1.5,
+                    0.5,
+                    0.0
+                ],
+                [
+                    1.5,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    -0.5,
+                    -1.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

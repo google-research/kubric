@@ -1,0 +1,51 @@
+{
+    "prompt": "Establish a low boundary that runs parallel to these features, enhancing the garden's layout while ensuring accessibility.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.640426,
+                0.432404
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.216202
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.640426,
+                0.640426,
+                0.432404
+            ],
+            "center": [
+                1.2,
+                0.5,
+                0.216202
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -3.061616997868383e-17,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    3.061616997868383e-17,
+                    0.5,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,133 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification was made to 'path_1' to change it into a CurvyPath with a different wave pattern?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.2,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a CurvyPath to add more interest around the birdhouse.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Revert the design to a linear path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude to 0.2 meters and wavelength to 1.5 meters to create a more gentle wave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.25, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a serpentine pattern with a specific arc shape.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to a semicircular shape with the flat side inward.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification changed the path to a CurvyPath with specified amplitude and wavelength to create interest.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Replacing a linear path with a curvy path involves understanding the dynamic nature of spatial arrangement and flow.'
+    ),
+    1 : EditMCQA(
+      question = "What changes were made to the 'path_1' to achieve a more gentle wave?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.15,
+            wavelength = 1.3,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Slightly adjusted the parameters to achieve a smoother wave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased amplitude and wavelength for a larger wave.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude to 0.2 meters and wavelength to 1.5 meters to create a more gentle wave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reverted the pathway to a simple linear path.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'path_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.5, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Changed the pathway to a semi-ring to add a circular motion.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct design modification includes setting the amplitude to 0.2 meters and the wavelength to 1.5 meters for a gentle curve.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Simple adjustments to the curvy path’s parameters are straightforward once the profile is established.'
+    )
+  ]
+)

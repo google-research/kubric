@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    bench_3 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (0.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a harmonious seating circle that draws attention inward and encourages serenity in the garden space.',
+  description = 'This scene involves positioning benches around a central circular design to create a comfortable and aesthetically pleasing garden feature. The circular arrangement serves as the focal point, complementing the benches and enhancing the seating experience while keeping within spatial constraints.',
+  initial_design = Design(
+    structures = {}
+  ),
+  design_goal = Design(
+    structures = {
+      central_circular = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.2,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'central_circular',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.2,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the circular design to maintain symmetry with respect to the benches.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining the exact symmetry and distance parameters from the prompt requires understanding spatial placement and the intended design aesthetics.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            central_circular = Circular(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.2,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Set the initial design with a central circular structure with a defined radius and height.',
+        target_parameter = 'radius, height',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The basic parameters for circularity are directly deduced from the provided radius and height.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,69 @@
+{
+    "prompt": "Construct a rectangular seating arrangement to provide a defined gathering space, ensuring easy movement and visual aesthetics.",
+    "observation": {
+        "chair1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                -1.5,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "chair2": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                1.5,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.75,
+                    -1.75,
+                    0.0
+                ],
+                [
+                    -0.75,
+                    1.75,
+                    0.0
+                ],
+                [
+                    0.75,
+                    1.75,
+                    0.0
+                ],
+                [
+                    0.75,
+                    -1.75,
+                    0.0
+                ],
+                [
+                    -0.75,
+                    -1.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

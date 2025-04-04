@@ -1,0 +1,74 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was applied to change the linear path to enhance the garden layout with a serpentine design?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Changed from a linear path to a serpentine path to add dynamic curves.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly requires changing the path design from linear to serpentine.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Changed from a linear path to a circular path for a smooth design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A circular design is smooth but does not match a serpentine shape.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Changed from a linear path to a triangular wedge for sharp angles.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A triangular wedge provides sharp angles, contrary to the serpentine design asked for.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Changed from a linear path to a semicircular path for dynamic curvature.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A semicircular path is dynamically curved but distinct from a serpentine.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.3, 0.1, 0.0),
+            amplitude = 0.15,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Changed from a linear path to a curvy path for an undulating motion.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Curvy paths oscillate in motion, similar to serpentine but differ in structure specifics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification directly aligns with transforming a linear design into a serpentine path as described in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly requires changing the path design from linear to serpentine.'
+    )
+  ]
+)

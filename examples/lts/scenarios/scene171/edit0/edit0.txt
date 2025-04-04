@@ -1,0 +1,71 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.640426, 0.640426, 0.432404),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot_2 = SceneObject(
+      extent = (0.640426, 0.640426, 0.432404),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a shield that partially encloses the pots but allows entry from one side, imitating an open embrace.',
+  description = 'This scene involves creating a semi-ring structure that serves as a protective yet open configuration around garden pots. The goal is to ensure the pots are partially enclosed, providing both aesthetic appeal and functional division in the garden space.',
+  initial_design = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.2,
+        inner_radius = 0.8,
+        orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.2,
+        inner_radius = 0.9,
+        orientation = 'concave',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.2,
+          inner_radius = 0.8,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Increase outer radius to 1.2 meters for more coverage.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing the outer radius is a straightforward task based on the prompt goal to provide more coverage.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.2,
+          inner_radius = 0.9,
+          orientation = 'concave',
+          height = 0.4
+        ),
+        edit_description = 'Increase the height to 0.4 meters for enhanced visual presence.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the height is directly implied by the prompt aiming for a more visually present structure.'
+      )
+    ]
+  )
+)

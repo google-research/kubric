@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (1.2, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Form a rectangular setup around the tables, ensuring each retains accessibility and enhances the shared space.',
+  description = 'This scene involves arranging rectangular structures around two tables to create a distinct yet connected seating area. The design aims to provide a functional layout, maintaining clear boundaries while enhancing the aesthetic of the setting. The task involves interpreting geometric properties such as center, length, width, and height to ensure the setup fits the area constraints without any collisions.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.25,
+        width = 0.6,
+        height = 0.35
+      ),
+      rectangular_2 = Rectangular(
+        center = (1.2, 0.0, 0.0),
+        length = 1.25,
+        width = 0.6,
+        height = 0.35
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.25,
+        width = 0.6,
+        height = 0.35
+      ),
+      rectangular_2 = Rectangular(
+        center = (1.2, 0.0, 0.0),
+        length = 1.25,
+        width = 0.6,
+        height = 0.35
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.25,
+          width = 0.6,
+          height = 0.35
+        ),
+        edit_description = 'Expanded the dimensions to encompass more of the floor space around table 1.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Achieving a balance between functionality and aesthetics while abiding by area constraints.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_2',
+        NewDesignStructure = Rectangular(
+          center = (1.2, 0.0, 0.0),
+          length = 1.25,
+          width = 0.6,
+          height = 0.35
+        ),
+        edit_description = 'Expanded the dimensions to encompass more of the floor space around table 2.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Ensuring practicality without overlap is challenging within given space constraints.'
+      )
+    ]
+  )
+)

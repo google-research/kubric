@@ -1,0 +1,132 @@
+{
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "pot_1": {
+            "extent": [
+                0.320213,
+                0.32021299,
+                0.216202
+            ],
+            "center": [
+                1.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "description": "This scene involves positioning two objects and constructing an L-shaped structure to create a functional and aesthetic garden arrangement. The challenge is to use geometric properties to form a design that complements the objects while adhering to spatial constraints.",
+    "prompt": "Create a neat boundary that complements the objects, sticking to an L-shape to give it a modern look.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "lshape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.25,
+                        0.35,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        0.35,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        0.95,
+                        0.0
+                    ],
+                    [
+                        0.44999999999999996,
+                        0.95,
+                        0.0
+                    ],
+                    [
+                        0.44999999999999996,
+                        0.6499999999999999,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.6499999999999999,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.35,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "lshape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.25,
+                        0.35,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        0.35,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        0.95,
+                        0.0
+                    ],
+                    [
+                        0.44999999999999996,
+                        0.95,
+                        0.0
+                    ],
+                    [
+                        0.44999999999999996,
+                        0.6499999999999999,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.6499999999999999,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.35,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

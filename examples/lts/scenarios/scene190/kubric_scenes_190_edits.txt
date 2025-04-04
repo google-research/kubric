@@ -1,0 +1,186 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the initial Circular structure to create a SemiRing in the design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Convert to a Serpentine structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the profile from a Circular structure to a SemiRing for nuanced design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert to a CurvyPath structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius of the Circular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 0.4,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Complex alteration to a SemiRing with adjusted radii.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The modification required changing the design from Circular to SemiRing while maintaining the original dimensions, as mentioned in the edit description.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires changing the structure type while maintaining initial dimensions.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit specifies the correct outer and inner radii for the SemiRing to achieve a protected yet accessible ring?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Specify the outer radius as 1.8 and inner radius as 1.3 to ensure a protective yet accessible ring.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Alter the design to a QuarterWedge with a gap just outside the valid range.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform to a TriWedge with a suitable gap.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Set a larger SemiRing with increased radii.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            height = 0.3
+          ),
+          edit_description = 'Extend the existing Circular structure radius to 1.8.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "This edit accurately modifies the Circular structure's radii to create a SemiRing that balances protection and accessibility.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting the radii involves understanding the protective design goal.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit enhances the visual impact of the design by adjusting the height to a new specification?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Maintain the original height of 0.3 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change only the height of the existing Circular structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters for visual impact and convenience.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Switch to a Serpentine structure with a new height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change design to Linear with altered height.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct answer is the edit that specifies adjusting the height to 0.5 meters, which aligns with the described design intent.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Changing height is a straightforward edit to enhance visual impact.'
+    )
+  ]
+)

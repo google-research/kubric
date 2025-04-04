@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.384435),
+      center = (1.0, -0.5, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.384435),
+      center = (-1.0, 0.5, 0.0),
+      theta = 270.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = "Construct an elegant serpentine pathway that connects the table and chairs, enhancing the environment's visual movement.",
+  description = 'In this scene, a serpentine path is constructed to add a dynamic flow and transition between a table and two chairs. The Serpentine path must maintain a cohesive and aesthetic design within a 3 x 3 meter space, ensuring there are no collisions between objects.',
+  initial_design = Design(
+    structures = {
+      linear_path_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Changed the Linear Path to a Serpentine Path for a more dynamic design.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change from a linear path to a serpentine path with specified curve orientation and radius is a non-trivial transformation.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            serpentine_path_1 = Serpentine(
+              left_arc_center = (0.0, 0.0, 0.0),
+              radius = 0.5,
+              left_arc_orientation = 'convex',
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Added the serpentine path to integrate seamlessly with the seating arrangement.',
+        target_parameter = 'orientation and radius of the arc',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = 'Creating a serpentine path that fits within the constrained space without overlapping other objects requires precise planning and design adjustment.'
+      )
+    ]
+  )
+)

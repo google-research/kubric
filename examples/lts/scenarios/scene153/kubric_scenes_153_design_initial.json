@@ -1,0 +1,51 @@
+{
+    "prompt": "Create an artistic path that introduces a gentle separation between the sitting areas and encourages movement around them.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.28620075
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.28620075
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.5000000000000001,
+                    -1.0,
+                    0.15
+                ],
+                [
+                    -0.5,
+                    1.0,
+                    0.15
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification was made to adjust the linear structure's orientation?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the linear orientation from left-right to front-back to better divide the space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Changed the linear orientation from front-back to left-right.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increased the length to 2 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raised the height to 0.4 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decreased the length to 1 meter.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification changed the orientation from left-right to front-back to better align with the prompt goal for a boundary line.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The need for a boundary line is clearly suggested by the prompt, indicating the appropriate orientation.'
+    ),
+    1 : EditMCQA(
+      question = "Which modification was made to increase the structure's length for better separation?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Changed the linear orientation from left-right to front-back.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Decreased the length to 1 meter.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raised the height to 0.4 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the length to 2 meters for a fuller separation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Changed the orientation from front-back to left-right.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct modification increased the length to 2 meters to achieve a clearer division.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt suggests creating a clearer boundary, it does not specify an exact length.'
+    ),
+    2 : EditMCQA(
+      question = 'How was the height of the linear structure altered to improve its visibility?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Changed the orientation from left-right to front-back.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raise the height to 0.4 meters to enhance visibility and effectiveness.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the height to 0.3 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the length to 2 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Decrease the height to 0.1 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Raising the height to 0.4 meters improves the visibility and effectiveness of the boundary line.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Enhancing visibility aligns with the scene's goal, but the specific height is not directly mentioned in the prompt."
+    )
+  ]
+)

@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change should be applied to transform the linear path into a more dynamic and artistic layout in the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -0.2, 0.0),
+            close_curve_leftmost_point = (1.5, -0.2, 0.0),
+            amplitude = 0.4,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile from linear to CurvyPath to introduce a more dynamic and artistic flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the path from linear to a serpentine structure with a convex arc.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path to a quarter wedge structure, but with an invalid gap degree.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path to a triwedge structure, but with an invalid gap degree.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Keep the path linear but change it to a rectangular design with additional width.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct approach is to modify the linear path into a CurvyPath, aligning with the scene description's goal of enhancing the artistic flow between the trashcans.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing a linear design to a curvy path involves understanding sinusoidal parameters and their effects on path aesthetics, which may not be immediately clear from a straightforward prompt.'
+    )
+  ]
+)

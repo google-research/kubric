@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a neat visual separator between the trees, forming a straight, linear alignment.',
+  description = 'This scene involves arranging a linear structure parallel to two trees to create a visual barrier, offering a sense of separation while maintaining accessibility. The design focuses on a linear profile without locking the open space completely.',
+  initial_design = Design(
+    structures = {
+      linear_wall = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_wall = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.7,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the center to (1, 0, 0) to align between the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The edit requires spatial rearrangement understanding based on positioning between the trees.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Extend the length to 2.0 meters for enhanced separation.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The edit involves resizing, which requires understanding of the prompt's requirement for a larger barrier."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_wall',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.7,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the height to 0.7 meters to create a more noticeable barrier.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The edit is about increasing the height, needing an understanding of the barrier's prominence."
+      )
+    ]
+  )
+)

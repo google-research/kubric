@@ -1,0 +1,109 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-1.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, 0.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Create an engaging path that connects the rocky outcrops with the central seat, ensuring a smooth and flowing journey between each.',
+  description = 'This scene involves creating a dynamic garden trail structure using a CurvyPath to connect the objects. The goal is to create an engaging pathway that enhances the aesthetic appeal and function of the space while maintaining safe distances from the objects.',
+  initial_design = Design(
+    structures = {
+      design_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.5, 0.0),
+        amplitude = 0.5,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (1.0, -0.25, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.5,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from a Linear to a CurvyPath.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transition from linear to curvy requires understanding the new spatial flow intended.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.7, -0.35, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the close curve’s leftmost point to ensure an elegant path connecting through the chair and to the right rock.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Adjusting the path's specific connection point is straightforward given its alignment to physical objects."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, -0.25, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Ensure the amplitude at 0.3 allows a gentle, engaging flow.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The adjustment solely requires modifying the wave pattern's height, which is quite clear."
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.0, -0.25, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Finalize the path for a more dynamic journey.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Finalizing requires consolidating insights from all prior adjustments to optimize design.'
+      )
+    ]
+  )
+)

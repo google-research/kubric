@@ -1,0 +1,79 @@
+{
+    "prompt": "Design an L-shaped seating setup near the trees for gatherings, ensuring it fits nicely within the garden space, without overwhelming it.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                0.0,
+                -2.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                2.0,
+                -2.0,
+                2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    0.25,
+                    -0.0,
+                    1.75
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    1.05,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    1.05,
+                    -0.0,
+                    0.95
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    0.95
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    1.75
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    1.75
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

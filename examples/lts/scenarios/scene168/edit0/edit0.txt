@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a structure that creatively encloses the objects, providing order and accessibility.',
+  description = 'This scene involves constructing an L-shaped structure to house two objects, a rock and a trashcan, in a creatively enclosed area. The setup focuses on achieving harmony by integrating the objects within the landscape while maintaining access and visibility.',
+  initial_design = Design(
+    structures = {
+      L-shape_initial = LShape(
+        left_center = (-0.5, -1.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 2.0,
+        right_length = 0.5,
+        right_center = (0.5, -1.0, 0.0),
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      L-shape_goal = LShape(
+        left_center = (-0.5, -1.0, 0.0),
+        left_length = 2.0,
+        left_width = 1.0,
+        right_width = 2.0,
+        right_length = 1.0,
+        right_center = (0.5, -1.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'L-shape_initial',
+        NewDesignStructure = LShape(
+          left_center = (-0.5, -1.0, 0.0),
+          left_length = 2.0,
+          left_width = 0.5,
+          right_width = 2.0,
+          right_length = 0.5,
+          right_center = (0.5, -1.0, 0.0),
+          height = 0.25
+        ),
+        edit_description = 'Adjust the Center: Move the left section’s center to (-0.5, -1) to align closely with the rock.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Moving the center is straightforward as it was explicitly mentioned in the instructions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'L-shape_initial',
+        NewDesignStructure = LShape(
+          left_center = (-0.5, -1.0, 0.0),
+          left_length = 2.0,
+          left_width = 1.0,
+          right_width = 2.0,
+          right_length = 1.0,
+          right_center = (0.5, -1.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = "Increase Dimensions: Extend the left section's width to 1 and increase height to 0.5 meters for greater prominence.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The dimensions needed to be made obvious in how they complement the scene objective.'
+      )
+    ]
+  )
+)

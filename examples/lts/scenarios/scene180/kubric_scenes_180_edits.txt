@@ -1,0 +1,185 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification involves changing the structure from a Circular to a TriWedge?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the design from Circular to TriWedge to break the monotony and add a dynamic element.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change from a circular to a more complex wedge shape involves understanding of angular properties which adds complexity.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.1,
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase the size of the Circular structure for better symmetry.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.25
+          ),
+          edit_description = 'Switch to a QuarterWedge for a sharper look.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Use a Serpentine for a flowing design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Half the Circular structure to give a SemiCircular look.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the edit that changes the structure from a Circular to a TriWedge with specified dimensions.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The complexity arises from understanding the properties and implications of the shape change.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification involves increasing the radius of TriWedge structure for enclosing surrounding elements?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the radius to 1.5 meters to comfortably enclose the tables and chair without congestion.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the radius is a straightforward adjustment for spatial considerations.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.1,
+            gap_degrees = 95.0,
+            height = 0.25
+          ),
+          edit_description = 'Slightly increase the radius for better coverage but tighter space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 100.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase radius and gap for more dynamic coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
+          ),
+          edit_description = 'Switch to a larger Circular structure for maximum coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.25
+          ),
+          edit_description = 'Switch to QuarterWedge with larger radius for elegant design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the edit increasing the TriWedge radius to 1.5 meters while maintaining existing gap and height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is simple as the main requirement is to note an increase in the radius.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification involves reducing the height of the existing TriWedge structure for visual coherence?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.35
+          ),
+          edit_description = 'Reduce the height to 0.35 meters to ensure visual coherence with the objects in the scene.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting height to harmonize with nearby objects is a basic perceptual adjustment.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.15
+          ),
+          edit_description = 'Further reduce the height for even stronger visual integration.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase height for more pronounced presence in the scene.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Switch from a Circular to TriWedge while reducing height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'tri_wedge_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.35
+          ),
+          edit_description = 'Switch to a SemiCircular shape with reduced height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A matches the edit of reducing the TriWedge height to achieve visual coherence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is simple because it involves only a change in height for aesthetic purposes.'
+    )
+  ]
+)

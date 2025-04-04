@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit action could increase the radius of a semi-circular seating area to create a broader seating space?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Keep the radius the same as 0.8 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 0.6 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.0 meters for a broader seating area.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 0.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase to 1.2 meters radius.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct edit involves increasing the radius to 1.0 meters to expand the seating area, as mentioned in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The radius change is straightforward as higher radius allows more seating space as stated.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification alters the orientation of the seating area to enhance inclusivity by facing the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Keep the orientation as convex.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 0.8 meters and orientation to concave.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to concave to face the trees and provide a more inclusive space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Keep concave orientation but increase height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters while maintaining concave orientation.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct edit changes the orientation to concave, aligning with the goal to face the trees and enhance inclusivity.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing orientation requires understanding of how concave seating faces inward, enhancing the scene's inclusivity aspect."
+    ),
+    2 : EditMCQA(
+      question = 'What update ensures better comfort and visibility in the seating area by altering its measurement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for more comfort.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Raise the height to 0.6 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to enhance comfort and visibility in the seating area.'
+        )
+      },
+      correct_answer = 'E',
+      explanation_of_correctness = 'The correct alteration increases the height to 0.5 meters, ensuring the seating is comfortable and provides good visibility.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height increase aligns with typical seating dimensions for comfort and visibility mentioned in the scene description.'
+    )
+  ]
+)

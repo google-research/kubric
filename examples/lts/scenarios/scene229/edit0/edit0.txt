@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a gentle, flowing path to meander between the trees, inviting exploration and tranquility.',
+  description = 'This scene involves creating a curvy path that guides movement around a pair of trees, forming an elegant pathway. The curvy path should enhance the natural appeal of the scene, providing accessibility and visual intrigue without colliding with the trees.',
+  initial_design = Design(
+    structures = {
+      linear_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (0.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the path from a Linear profile to a CurvyPath for enhanced curvature and aesthetic flow.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The information to switch from a linear to a curved path requires spatial reasoning to understand the aesthetics and function.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        edit_description = 'Remove the initial Linear path structure to finalize the transition to a CurvyPath.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'This edit is straightforward as the linear path is being replaced by the curvy path.'
+      )
+    ]
+  )
+)
