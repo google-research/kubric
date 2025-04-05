@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Introduce a playful separation between the two trees using an arc that attracts attention without crowding the area.',
+  description = 'This scene involves positioning a serpentine barrier between two trees to create a playful yet functional landscaping feature. The task requires an understanding of spatial relationships, ensuring that the serpentine path does not interfere with the trees while adding visual intrigue to the garden space.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'concave',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Modify the serpentine path to become convex for outward curvature.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing orientation from concave to convex is straightforward based on prompt instructions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Increase the radius to 0.8 meters to ensure it gracefully extends between the trees, while also enhancing its visual prominence.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the radius requires spatial consideration to ensure aesthetic alignment between the trees.'
+      )
+    ]
+  )
+)

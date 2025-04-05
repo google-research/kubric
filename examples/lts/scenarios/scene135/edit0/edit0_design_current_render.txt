@@ -1,0 +1,51 @@
+{
+    "prompt": "Design a layout with linear structures that organize the space, \n              protecting and highlighting both the birdhouse and the trashcan.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.3219685,
+                -0.3084655,
+                -0.2332765
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530497,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                -1.5,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.4,
+                    -0.0,
+                    3.061616997868383e-17
+                ],
+                [
+                    -0.3999999999999999,
+                    -0.0,
+                    -3.061616997868383e-17
+                ]
+            ]
+        }
+    ]
+}

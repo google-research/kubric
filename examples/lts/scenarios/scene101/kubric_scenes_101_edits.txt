@@ -1,0 +1,146 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit was made to transform the initial scene design to match the design goal with regard to the semi-circular structures?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          edit_description = 'Remove the original single semi-circular structure to allow for the addition of two tailored structures for each table.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The initial design only has one structure, and the design goal explicitly requires two separate structures.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_circular_3 = SemiCircular(
+                center = (2.0, 2.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a semi-circular structure centered elsewhere for extra shading.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The addition does not align with the explicit goal, making it an unlikely edit.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.9,
+            orientation = 'convex',
+            height = 0.8
+          ),
+          edit_description = 'Modify the existing structure properties to new dimensions.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While modifying structures is a valid approach, the goal is to align exactly with the design goal.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'semi_circular_2',
+          edit_description = 'Remove the second semi-circular structure added in the design goal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The question implicates the transformation from the initial scene, making removal of a non-existing structure pointless.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_2',
+          NewDesignStructure = SemiCircular(
+            center = (-1.5, -1.5, 0.0),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Change the specs of a non-existing structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Misaligned with improvement conditions as the structure doesn’t exist initially.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Deleting the initial single semi-circular structure is necessary to proceed with the planned design goal of two structures.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Given the initial and goal design, identifying the need to remove the original structure is straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit accurately reflects the necessary additions to the semi-circular structures to meet the design goal?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_circular_1 = SemiCircular(
+                center = (2.0, 2.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
+                height = 0.6
+              )
+            }
+          ),
+          edit_description = 'Add a concave semi-circular structure positioned differently.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Unaligned with expected design goal parameters.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_circular_1 = SemiCircular(
+                center = (1.0, 1.0, 0.0),
+                radius = 0.8,
+                orientation = 'convex',
+                height = 0.7
+              ),
+              semi_circular_2 = SemiCircular(
+                center = (-1.0, -1.0, 0.0),
+                radius = 0.9,
+                orientation = 'convex',
+                height = 0.7
+              )
+            }
+          ),
+          edit_description = 'Add two semi-circular structures centered at each table with the specified parameters.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Aligns with the design goal but might require interpretation of spatial understanding and parameters from the design description.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'convex',
+            height = 0.8
+          ),
+          edit_description = 'Change the size and properties of the existing single structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This violates the requirement for two structures in the final design.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              tri_wedge_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.2,
+                gap_degrees = 12.0,
+                height = 0.7
+              )
+            }
+          ),
+          edit_description = 'Insert a TriWedge structure instead of semi-circular designs.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Non-conforming to the semi-circular shape requirement dictated in the prompt.'
+        ),
+        E = DeleteStructureEditWithDifficulty(
+          design_id = 'semi_circular_3',
+          edit_description = 'Remove a non-existent structure to align with design requirements.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Logical error to delete what never existed in the proposed edits.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The addition of two semi-circular structures is consistent with the design goal's scope and matches described parameters.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Although the task is straightforward once the design goal is clear, it requires attention to provided parameters and spatial conceptualization.'
+    )
+  ]
+)

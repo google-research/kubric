@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a concentric decorative arrangement around the central utility. Keep it balanced and symmetrical.',
+  description = 'This scene involves arranging multiple circular structures to create a decorative pattern around a central trashcan. The aim is to use circular and semi-circular profiles to form a cohesive design while maintaining balance and symmetry.',
+  initial_design = Design(
+    structures = {
+      large_profile = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.25
+      ),
+      medium_profile = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'concave',
+        height = 0.25
+      ),
+      small_profile = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      large_profile = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.25
+      ),
+      medium_profile = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'concave',
+        height = 0.25
+      ),
+      small_profile = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.25
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            medium_profile = SemiCircular(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.0,
+              orientation = 'concave',
+              height = 0.25
+            )
+          }
+        ),
+        edit_description = 'Add a Medium Semi-Circular Profile: Add a semi-circular profile centered at (0, 0, 0) with radius 1.0, concave orientation, and height 0.25',
+        target_parameter = 'symmetric design',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The addition directly fulfills the given prompt for symmetry with minimal complexity.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            small_profile = Circular(
+              center = (0.0, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.25
+            )
+          }
+        ),
+        edit_description = 'Add a Small Circular Profile: Add a circular profile centered at (0, 0, 0) with radius 0.5 and height 0.25',
+        target_parameter = 'enhancing decoration',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The small circular profile is the logical conclusion to complete a concentric pattern.'
+      )
+    ]
+  )
+)

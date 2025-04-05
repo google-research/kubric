@@ -1,0 +1,150 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to convert the existing rectangular design into an L-shape, segmenting it with a left rectangle centered at (-1, -1) with specified dimensions?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, -1.0, 0.0),
+            left_length = 1.5,
+            left_width = 1.0,
+            right_width = 1.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Change the design to an L-shape, segmenting it into the left rectangle at (-1, -1) with specified dimensions.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the design to a linear wall segment, centered at (0.0, 0.0, 0.0), stretching left to right.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design to a circular structure around the central point.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design to a quarter wedge with a radius of 1.5 units and a gap of 10 degrees.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design to a curvy path with specified sinusoidal parameters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct change was to modify the rectangular structure into an L-shape with specified dimensions and placement, addressing the design goal of creating a partition.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing a rectangular structure directly to an L-shape requires interpreting spatial requirements and it's not immediately clear from a simple rectangular description."
+    ),
+    1 : EditMCQA(
+      question = 'Which addition was proposed to extend the right section of the L-shape, providing a broader width and completing the partition?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              LShape_1 = LShape(
+                left_center = (-1.0, -1.0, 0.0),
+                left_length = 1.5,
+                left_width = 1.0,
+                right_width = 1.5,
+                right_length = 1.0,
+                right_center = (0.0, 0.0, 0.0),
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Extend the right section of the L-shape to provide a broader width, completing the partition.',
+          target_parameter = 'right_width'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              Serpentine_1 = Serpentine(
+                left_arc_center = (-1.0, -1.0, 0.0),
+                radius = 1.2,
+                left_arc_orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a serpentine structure with a left convex arc to embellish the partition.',
+          target_parameter = 'radius'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              RectangularSection_1 = Rectangular(
+                center = (0.0, 0.0, 0.0),
+                length = 2.0,
+                width = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular section parallel to existing structures to enhance partition.',
+          target_parameter = 'width'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing_1 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 1.5,
+                inner_radius = 1.0,
+                orientation = 'concave',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Incorporate a semi-ring facing inward as part of the partition.',
+          target_parameter = 'outer_radius'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge facing outward to complement the design.',
+          target_parameter = 'gap_degrees'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct addition was to extend the right width of the existing L-shape using the suggested parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the exact dimensions to transition from a rectangle to an L-shape requires spatial judgment and consideration for aesthetic balance.'
+    )
+  ]
+)

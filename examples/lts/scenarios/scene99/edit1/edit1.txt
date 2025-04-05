@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, 1.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Set up an L-shaped seating arrangement to naturally enclose the chairs, offering a cozy gathering environment.',
+  description = 'This scene involves constructing an L-shaped seating area designed to create a cozy and inviting space around a central area with chairs. The goal is to understand spatial relationships to ensure the seating is symmetrically positioned and properly aligned to promote comfort and accessibility.',
+  initial_design = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.5, 0.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 2.0,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.5, 0.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 2.0,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.5, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 0.5,
+          right_width = 1.0,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Move the left rectangle center to (0.5, 0) and adjust the length to 2.0 meters for better coverage around the chairs.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit is straightforward since the values are directly mentioned in the design goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.5, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 0.5,
+          right_width = 2.0,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Set the height to 0.5 meters for elevated seating and comfort.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The height adjustment is clearly mentioned in the goal, making it easy to implement.'
+      )
+    ]
+  )
+)

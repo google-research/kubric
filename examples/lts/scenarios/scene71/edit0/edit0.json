@@ -1,0 +1,178 @@
+{
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "description": "This scene involves arranging two L-shaped structures to form functional seating and aesthetic barriers around chairs in a garden setup. The task requires understanding spatial relationships and geometric properties such as center, length, and width to ensure the structures complement the seating area.",
+    "prompt": "Create an arrangement with two L-shaped structures that provide an enclosed seating setup around the chairs while maintaining accessibility.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -2.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        -2.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        -2.5,
+                        0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -2.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        1.75,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        -2.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        -2.5,
+                        0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "LShape_2": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        0.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        2.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        2.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

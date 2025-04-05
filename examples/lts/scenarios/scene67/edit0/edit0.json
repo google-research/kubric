@@ -1,0 +1,75 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "This scene involves creating a structured path around a central birdhouse and a table to form a prominent, organized space. The design focuses on maintaining alignment with the objects using linear structures to highlight routes and boundaries while ensuring accessibility.",
+    "prompt": "Create a linear path forming a boundary around the key elements, ensuring clear routes to each without obstruction.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {},
+    "goal_impl": {
+        "linear_north": [
+            {
+                "segment": 1,
+                "height": 0.1,
+                "keypoints": [
+                    [
+                        -0.5,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -0.49999999999999994,
+                        1.5,
+                        0.0
+                    ]
+                ]
+            }
+        ],
+        "linear_south": [
+            {
+                "segment": 1,
+                "height": 0.1,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.49999999999999994,
+                        -0.5,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

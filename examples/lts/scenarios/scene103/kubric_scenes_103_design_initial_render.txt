@@ -1,0 +1,37 @@
+{
+    "prompt": "- Build a linear border to subtly highlight the area around the birdhouse without obstructing any paths.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.3219685,
+                -0.3084655,
+                -0.2332765
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    0.0,
+                    -0.0,
+                    0.5
+                ],
+                [
+                    0.0,
+                    -0.0,
+                    -0.5
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.8, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a circular frame around the picnic table to provide a cozy atmosphere without blocking views.',
+  description = 'This scene involves creating a serene seating arrangement for a picnic setup using a circular \n    structure to frame a table. The design requires understanding geometric properties such as radius and height, \n    ensuring a cohesive layout that promotes relaxation without obstructing the area.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.5, 0.0, 0.0),
+        radius = 1.2,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.8, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.8, 0.0, 0.0),
+          radius = 1.2,
+          height = 0.3
+        ),
+        edit_description = 'Move the center of the circular structure to align it with the table.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly indicates the need to center the structure around the table.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.8, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.4
+        ),
+        edit_description = 'Adjust the radius to enhance coziness and increase the height to maintain open views.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt suggests but does not specify the exact dimensions, requiring some inference.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What change should be made to ensure the semicircular structure's open side is positioned away from the rock?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Move the semicircular structure's center to (0, -0.5, 0) to position the open side away from the rock."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Move the semicircular structure's center to (1, 0, 0) away from the rock, but not ensuring the open side direction."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Move the semicircular structure's center to (0, 1, 0), which positions it further vertically from the rock."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Move the semicircular structure's center to (-1, 0, 0), changing the position but not guaranteeing the correct open side."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Leave the semicircular structure's center unchanged, which does not ensure the correct configuration."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The center should be moved to (0, -0.5, 0) to ensure the open side is away from the rock as described.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The instruction to position the open side away from the rock implies moving the structure's center."
+    ),
+    1 : EditMCQA(
+      question = 'Which modification will create a more spacious seating arrangement with easy access while keeping a focus on the central rock?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.25,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Increase the radius to 1.25 meters and change the orientation to 'convex' for better accessibility."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Increase radius to 1.5 but maintain 'concave' orientation, not facilitating easy access."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Keep radius 1.0 and change to 'convex', offers minimal space increase."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.25,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Move center to (0, 0, 0) and change radius; doesn't reflect easier access."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Reduce the radius, even though orientation is 'convex', provides less space."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "A radius of 1.25 with a 'convex' orientation ensures spacious, accessible seating while focusing on the rock.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "Requires understanding the prompt's intention of having a spacious and accessible seating layout."
+    )
+  ]
+)

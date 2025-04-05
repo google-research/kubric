@@ -1,0 +1,164 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification was made to the structure 'QuarterWedge_1' to reduce its size within the scene?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.0 meters to fit within the 3x3 meter area more snugly.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 2.0 meters for a larger structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 0.5, 0.0),
+            close_curve_leftmost_point = (0.3, 0.3, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Implement a CurvyPath design instead of a QuarterWedge.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Remove the QuarterWedge entirely.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 60.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the gap to 60 degrees for a more compact design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer is 'A' since the radius reduction aligns with the given edit description to fit the area.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies that the quarter-wedge should be compact and provide a distinct area, implying a reduction in size.'
+    ),
+    1 : EditMCQA(
+      question = "How was the 'QuarterWedge_1' gap adjusted to change the openness of the design?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the gap to 90 degrees for an open design.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the gap to 30 degrees to ensure a more enclosed feel.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the gap to 15 degrees for a highly enclosed shape.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Remove the QuarterWedge entirely due to excess openness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 50.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap to 50 degrees for a balanced design.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The correct answer is 'B' as it matches the modification to decrease the gap to 30 degrees for enclosures.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the specific gap required more inference as it affects the openness of the wedge.'
+    ),
+    2 : EditMCQA(
+      question = "Which modification increased the height of 'QuarterWedge_1' for a better boundary definition?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for better boundary definition.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.7
+          ),
+          edit_description = 'Increase the height to 0.7 meters for even greater boundary definition.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Change structure to Circular instead of QuarterWedge for simplicity.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters to preserve existing boundary definition.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Remove the QuarterWedge to achieve no boundary.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer is 'A' based on the intent to increase height to enhance visual presence.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggested enhancing the visual presence, which can be easily achieved by increasing the height.'
+    )
+  ]
+)

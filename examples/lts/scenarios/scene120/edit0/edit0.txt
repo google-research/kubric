@@ -1,0 +1,81 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, -1.0, 0.0),
+      theta = 45.0,
+      semantic_label = 'chair'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a flowing path that connects the seating area with the tables, offering a gentle meander to encourage exploration.',
+  description = 'This scene involves designing a curvy path that weaves through and connects three disparate elements: a chair and two tables. The curvy path adds an aesthetic dynamic to the park-like arrangement. It requires interpreting geometric properties like curvature, amplitude, and wavelength to fully utilize the available space.',
+  initial_design = Design(
+    structures = {
+      linear_1 = CurvyPath(
+        far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+        close_curve_leftmost_point = (0.0, 1.5, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+        close_curve_leftmost_point = (0.0, 1.5, 0.0),
+        amplitude = 0.6,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+          close_curve_leftmost_point = (0.0, 1.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Changed the design profile from Linear to CurvyPath for visually dynamic movement.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change from linear to curvy requires understanding of aesthetic goals described in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+          close_curve_leftmost_point = (0.0, 1.5, 0.0),
+          amplitude = 0.6,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = "Increased amplitude from 0.3 to 0.6 to enhance the path's wave-like appearance.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Adjusting amplitude is straightforward given the prompt's focus on aesthetics."
+      )
+    ]
+  )
+)

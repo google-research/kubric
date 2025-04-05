@@ -1,66 +1,62 @@
 Scene(
   objects = {
-    table_1 = SceneObject(
-      extent = (0.576648, 0.576648, 0.589116),
-      center = (0.0, 1.0, 0.0),
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 1.0, 2.0),
       theta = 0.0,
-      semantic_label = 'table'
+      semantic_label = 'Tree'
     ),
-    bench_1 = SceneObject(
-      extent = (0.44030848, 1.32092696, 0.5724015),
-      center = (0.0, -1.0, 0.0),
-      theta = -90.0,
-      semantic_label = 'bench'
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, -1.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'Tree'
     )
   },
   num_edits = 2,
-  prompt = 'I want a meandering path around the compact garden area to maintain a sense of flow and openness.',
-  description = 'This scene involves creating an enclosing pattern around a table to give a unique garden vibe. It requires understanding geometric relations like making sure it snugly fits without being too enclosed and providing consistent spacing in the setconvex.',
+  prompt = 'Create a circular path that elegantly wraps between the trees, allowing room for visitors to enjoy the view and ensuring easy navigation.',
+  description = 'This scene involves constructing a circular path to create a dynamic garden feature around trees, enhancing visual interest while providing spacious access. The design must consider spatial relationships to ensure the path blends naturally with the trees and provides room for movement.',
   initial_design = Design(
     structures = {
-      structure_1 = Serpentine(
-        left_arc_center = (0.0, -1.0, 0.0),
-        radius = 1.5,
-        left_arc_orientation = 'convex',
-        height = 0.5
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
       )
     }
   ),
   design_goal = Design(
     structures = {
-      goal_1 = Serpentine(
-        left_arc_center = (0.0, -1.0, 0.0),
-        radius = 1.5,
-        left_arc_orientation = 'convex',
-        height = 0.5
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
       )
     }
   ),
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure_1',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (-1.0, -1.0, 0.0),
-          radius = 1.5,
-          left_arc_orientation = 'convex',
-          height = 0.25
+        design_id = 'linear_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.2
         ),
-        edit_description = 'Change the straight path to a serpentine design for fluidity',
-        difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the path to serpentine is straightforward, but selecting an appropriate arc center requires spatial reasoning.'
+        edit_description = 'Change the path design from linear to circular to wrap gracefully between the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The transition from a linear to a circular path is straightforward as the prompt explicitly requires a circular design.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'structure_1',
-        NewDesignStructure = Serpentine(
-          left_arc_center = (0.0, -1.0, 0.0),
-          radius = 1.5,
-          left_arc_orientation = 'convex',
-          height = 0.5
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.3
         ),
-        edit_description = "Adjust the serpentine path's arc center to (0,-1,0) and orientation to flow around the objects",
-        difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Determining the optimal arc center and ensuring it flows correctly around objects requires advanced spatial reasoning.'
+        edit_description = 'Adjust the height to 0.3 meters for improved visibility, maintaining unity in the garden space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the height from 0.2 to 0.3 meters is a minor modification to enhance visibility, aligning with the goal of maintaining unity.'
       )
     ]
   )

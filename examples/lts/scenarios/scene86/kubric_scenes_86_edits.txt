@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification was made to the design structure 'circle1' to better match the prompt, which involved reducing the size of the circle?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the radius while maintaining the same gap'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the radius to 2.0 while keeping the gap at 15 degrees'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Maintain radius but decrease gap to 10 degrees'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.5,
+            height = 0.4
+          ),
+          edit_description = 'Significantly decrease both the radius and gap'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 20.0,
+            height = 0.4
+          ),
+          edit_description = 'Reduce radius and increase gap slightly'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer B matches the edit where the radius of the circle is decreased to 2.0 to better fit the objects as specified in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt emphasizes a circular protective landscape, making the deduction to reduce the radius straightforward.'
+    ),
+    1 : EditMCQA(
+      question = "What change was made to the design structure 'circle1' to provide better access as required by the prompt?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase gap degrees for better access'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Maintain gap but increase radius'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Decrease the gap degrees to minimum'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 20.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase both radius and gap slightly'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 12.5,
+            height = 0.4
+          ),
+          edit_description = 'Slight adjustment in gap degrees for access'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer A aligns with the edit made to widen the entrance gaps to 30 degrees, ensuring better access as specified in the design prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The need for improved access through widening entrance gaps is evident from the requirement for pathways on each side.'
+    )
+  ]
+)

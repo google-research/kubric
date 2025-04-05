@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, -1.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 1.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a segmented enclosure with straight lines that gently separates the trees, enhancing the visual experience of this space.',
+  description = 'In this scene, the task is to create a segmented arrangement around a pair of trees, ensuring both visual appeal and practical accessibility within the specified space constraints. The design requires geometric alignment and spatial reasoning to integrate the elements efficiently.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (-0.5, -0.5, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (-0.5, -0.5, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      ),
+      linear_2 = Linear(
+        center = (0.5, 0.5, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            linear_2 = Linear(
+              center = (0.5, 0.5, 0.0),
+              length = 1.0,
+              height = 0.5,
+              orientation = 'left-right'
+            )
+          }
+        ),
+        edit_description = 'Introduce a second linear segment for balanced spacing between the trees.',
+        target_parameter = 'structures',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly mentions adding another segment to balance the design.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (-0.5, -0.5, 0.0),
+          length = 1.0,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the orientation and position to ensure both segments enhance the overall aesthetic without interfering with movement.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The adjustments to orientation and position require understanding how the segments relate to the space and access paths, which isn't directly stated."
+      )
+    ]
+  )
+)

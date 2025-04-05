@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange a semi-enclosed garden seating area using abstract designs to enhance the natural ambiance.',
+  description = 'This scene involves creating a partially enclosed seating area using two QuarterWedge structures around a central table and surrounding trees. The design must ensure comfort and an inviting atmosphere without compromising the natural setting.',
+  initial_design = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.5, 0.5, 0.0),
+        radius = 1.0,
+        gap_degrees = 60.0,
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 45.0,
+        height = 0.4
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (-1.0, -1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 45.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 90.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the Circular design profile to a QuarterWedge profile to create openings for organic movement around the table.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change from a Circular to QuarterWedge requires considering the spatial layout to maintain openness.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.5, 0.5, 0.0),
+          radius = 1.0,
+          gap_degrees = 60.0,
+          height = 0.4
+        ),
+        edit_description = 'Adjust positioning and gap degrees of QuarterWedge structures to ensure an open and interconnected layout with nature.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the placement and gap degrees requires spatial awareness for an interconnected layout.'
+      )
+    ]
+  )
+)

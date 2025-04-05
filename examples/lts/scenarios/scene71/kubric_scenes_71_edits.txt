@@ -1,0 +1,147 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change is made to convert the initial linear design to improve functionality and aesthetics around chair 1?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.5, 0.5, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 1.0,
+            right_center = (-1.0, 1.5, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Modify the single linear design to LShape 1 with specified dimensions for adding aesthetic and functional barriers around chair 1.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.5, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Modify the linear design to a circular form centered around a point close to chair 1, to provide a circular seating arrangement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.5, 0.0),
+            radius = 1.2,
+            left_arc_orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Transform the linear design into a serpentine structure to create a wavy seating arrangement around chair 1.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Convert the linear design to a semicircular arrangement for improved aesthetic around chair 1.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the linear structure to a quarter wedge for a modern enclosed seating around chair 1.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is correct because it modifies the linear structure to the specified LShape, aligning with the design goal to add functional and aesthetic barriers around chair 1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit involves reshaping the linear structure into a predefined L-shape, which is a straightforward transformation requiring simple parameter changes.'
+    ),
+    1 : EditMCQA(
+      question = 'What structure should be added to mirror LShape 1 and create symmetry around chair 2?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              LShape_2 = LShape(
+                left_center = (1.5, -0.5, 0.0),
+                left_length = 2.0,
+                left_width = 0.5,
+                right_width = 1.0,
+                right_length = 1.0,
+                right_center = (1.0, -1.5, 0.0),
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add LShape 2 to mirror the first design, creating symmetry around chair 2 with the specified parameters.',
+          target_parameter = 'LShape_2'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular = Circular(
+                center = (1.0, -0.5, 0.0),
+                radius = 1.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a circular structure around chair 2 as a symmetry element, using a similar radius.',
+          target_parameter = 'Circular'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing = SemiRing(
+                center = (1.0, -0.5, 0.0),
+                outer_radius = 1.5,
+                inner_radius = 1.0,
+                orientation = 'convex',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a semi-ring around chair 2 to complement the existing structures around chair 1.',
+          target_parameter = 'SemiRing'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              Rectangular = Rectangular(
+                center = (1.0, -0.5, 0.0),
+                length = 2.0,
+                width = 1.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular enclosure around chair 2 for improved seating symmetry.',
+          target_parameter = 'Rectangular'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge = TriWedge(
+                center = (1.0, -0.5, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a tri-wedge structure around chair 2 to create a sharp-edged symmetry.',
+          target_parameter = 'TriWedge'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is correct because the addition of LShape 2 mirrors the first LShape, creating desired symmetry around chair 2 with the given parameters.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task requires adding an L-shaped structure similar to the first one but inverted, which is a direct application using specified coordinates and dimensions.'
+    )
+  ]
+)

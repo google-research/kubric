@@ -1,124 +1,140 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'How can the design be modified to create a serpentine path from the existing straight path for improved fluidity?',
+      question = 'What edit changes the path design from linear to circular to wrap gracefully between the trees?',
       answers = {
-        A = ModifyStructureEdit(
-          design_id = 'structure_1',
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
           NewDesignStructure = Serpentine(
-            left_arc_center = (-1.0, -1.0, 0.0),
-            radius = 1.5,
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
             left_arc_orientation = 'convex',
-            height = 0.25
+            height = 0.2
           ),
-          edit_description = 'Change the straight path to a serpentine design for fluidity'
+          edit_description = 'Change the path design from linear to serpentine.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not serpentine.'
         ),
-        B = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = Linear(
-            center = (1.0, 0.0, 0.0),
-            length = 1.0,
-            height = 0.25,
-            orientation = 'left-right'
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (0.0, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
           ),
-          edit_description = 'Maintain a straight path with reduced length'
+          edit_description = 'Change the path design from linear to a curvy path style.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not curvy path.'
         ),
-        C = ModifyStructureEdit(
-          design_id = 'structure_1',
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to a quarter wedge.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not a quarter wedge.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
           NewDesignStructure = Circular(
             center = (0.0, 0.0, 0.0),
-            radius = 2.0,
-            height = 0.25
-          ),
-          edit_description = 'Create a circular path around the table'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (1.0, 1.0, 0.0),
             radius = 1.0,
-            left_arc_orientation = 'concave',
-            height = 0.25
+            height = 0.2
           ),
-          edit_description = 'Create a concave serpentine path centered at a different point'
+          edit_description = 'Change the path design from linear to circular to wrap gracefully between the trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The transition from a linear to a circular path is straightforward as the prompt explicitly requires a circular design.'
         ),
-        E = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = Rectangular(
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
             center = (0.0, 0.0, 0.0),
-            length = 1.0,
-            width = 0.5,
-            height = 0.25
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
           ),
-          edit_description = 'Create a rectangular structure alongside the path'
+          edit_description = 'Change the path design from linear to a tri wedge.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not a tri wedge.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'The correct modification involves changing the path to a serpentine design, as described in the edit, for achieving improved fluidity.',
-      difficulty = 'medium',
-      explanation_of_difficulty = 'Changing the path to serpentine is straightforward, but selecting an appropriate arc center requires spatial reasoning.'
+      correct_answer = 'D',
+      explanation_of_correctness = "The edit aligns with the scene's requirement for a circular design to navigate between the trees, making option D the correct choice.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly indicates the need for a circular path, making this transition straightforward.'
     ),
     1 : EditMCQA(
-      question = 'What adjustment is necessary to ensure the serpentine path flows correctly around objects?',
+      question = 'What edit adjusts the height to 0.3 meters for improved visibility within the garden design?',
       answers = {
-        A = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, -1.0, 0.0),
-            radius = 1.5,
-            left_arc_orientation = 'convex',
-            height = 0.5
-          ),
-          edit_description = "Adjust the serpentine path's arc center to (0,-1,0) and orientation to flow around the objects"
-        ),
-        B = ModifyStructureEdit(
-          design_id = 'structure_1',
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
           NewDesignStructure = Circular(
-            center = (0.5, -0.5, 0.0),
-            radius = 2.0,
-            height = 0.5
-          ),
-          edit_description = 'Create a larger circular path to encompass all objects'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = Linear(
             center = (0.0, 0.0, 0.0),
-            length = 1.5,
-            height = 0.5,
-            orientation = 'front-back'
+            radius = 1.0,
+            height = 0.3
           ),
-          edit_description = 'Maintain the linear path with change in orientation'
+          edit_description = 'Adjust the height to 0.3 meters for improved visibility, maintaining unity in the garden space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The modification is a simple change in height as described clearly in the edit details.'
         ),
-        D = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = LShape(
-            left_center = (-1.0, 0.0, 0.0),
-            left_length = 1.0,
-            left_width = 0.5,
-            right_width = 0.5,
-            right_length = 1.0,
-            height = 0.5
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
           ),
-          edit_description = 'Create an L-shaped design within the existing space'
+          edit_description = 'Adjust the height to 0.4 meters for improved visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the height to 0.4 meters is not what was specified; the prompt specifies 0.3 meters for continuity.'
         ),
-        E = ModifyStructureEdit(
-          design_id = 'structure_1',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (0.0, -1.0, 0.0),
-            close_curve_leftmost_point = (1.0, 0.0, 0.0),
-            amplitude = 0.5,
-            wavelength = 2.0,
-            phase = 0.5,
-            height = 0.5
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
           ),
-          edit_description = 'Convert to a curvy path with specified parameters'
+          edit_description = 'Adjust the height to 0.2 meters as originally designed.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This reverts to the original height, not the desired enhanced visibility.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a quarter wedge and adjust height to 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This describes a new structure rather than adjusting the existing circular design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a tri wedge and adjust height to 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Again, this describes switching to a different structure rather than a height adjustment.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'The adjustment ensures the path is repositioned to flow around existing objects as mentioned in the description.',
-      difficulty = 'hard',
-      explanation_of_difficulty = 'Determining the optimal arc center and ensuring it flows correctly around objects requires advanced spatial reasoning.'
+      explanation_of_correctness = "Adjusting the circular structure's height to 0.3 meters aligns exactly with the given edit description.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height adjustment is straightforward given the explicit mention in the desired design goal.'
     )
   ]
 )

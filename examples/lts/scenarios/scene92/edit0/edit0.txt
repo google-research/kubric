@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a secure boundary around each trashcan to prevent them from tipping over while still providing ease of access.',
+  description = 'This scene involves constructing a rectangular enclosure around a trashcan to create a defined boundary that offers protection while allowing easy access. The design focuses on interpreting spatial relationships and ensuring the setup achieves the design goal without impeding the surrounding area.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.6,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.6,
+        height = 0.5
+      ),
+      rectangular_2 = Rectangular(
+        center = (2.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.6,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.0,
+          width = 0.6,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the width to 0.6 meters to account for spatial constraints while maintaining protection.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The edit is straightforward given the prompt's specifications for dimensions."
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rectangular_2 = Rectangular(
+              center = (2.0, 0.0, 0.0),
+              length = 1.0,
+              width = 0.6,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a second rectangular structure around the second trashcan to match the design specifications.',
+        target_parameter = 'rectangular_2',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adding another structure as specified in the design goal is straightforward.'
+      )
+    ]
+  )
+)

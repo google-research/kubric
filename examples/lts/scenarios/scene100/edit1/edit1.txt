@@ -1,0 +1,92 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-1.0, 0.0, 0.28620075),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (1.0, 0.0, 0.28620075),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a pleasant rest area by adding an L-shaped structure between the two benches to provide cushioning and storage.',
+  description = 'This scene involves creating a cozy seating arrangement with benches and a protective L-shaped structure.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = LShape(
+        left_center = (0.0, 0.3, 0.0),
+        left_length = 1.5,
+        left_width = 0.4,
+        right_width = 1.5,
+        right_length = 0.4,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      ),
+      lshape_1 = LShape(
+        left_center = (0.0, 0.3, 0.0),
+        left_length = 1.5,
+        left_width = 0.4,
+        right_width = 1.5,
+        right_length = 0.4,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (0.0, 0.3, 0.0),
+        left_length = 1.5,
+        left_width = 0.4,
+        right_width = 1.5,
+        right_length = 0.4,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.3, 0.0),
+          left_length = 1.5,
+          left_width = 0.4,
+          right_width = 1.5,
+          right_length = 0.4,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Change the design profile to an L-shape to introduce variation and align with the benches.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from rectangular to L-shape is moderately complex due to the need to understand the spatial requirements between the benches.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            lshape_1 = LShape(
+              left_center = (0.0, 0.3, 0.0),
+              left_length = 1.5,
+              left_width = 0.4,
+              right_width = 1.5,
+              right_length = 0.4,
+              right_center = (0.0, 0.0, 0.0),
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Adjust dimensions to meet the design goal, ensuring proper length and width for both sections without blocking access.',
+        target_parameter = 'dimensions',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Ensuring the L-shape aligns with both benches while providing storage requires understanding the spatial configuration and accessibility.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,81 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a symmetrical landscape pattern around the rock, ensuring pathways in each cardinal direction are left open.',
+  description = 'This scene involves arranging a set of structures around a central rock, creating a distinct pattern. The task requires understanding geometric properties such as radius, orientation, and spacing to achieve a harmonious design around the central object, ensuring no collisions between objects.',
+  initial_design = Design(
+    structures = {
+      quarterwedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.5,
+        gap_degrees = 5.0,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarterwedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 10.0,
+        height = 0.4
+      ),
+      quarterwedge_2 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 10.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'quarterwedge_1',
+        edit_description = 'Delete the initial QuarterWedge structure to prepare for a new layered design.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt implies a modification to create symmetry, which involves changing the initial singular structure.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarterwedge_1 = QuarterWedge(
+              center = (0.0, 0.0, 0.0),
+              radius = 2.0,
+              gap_degrees = 10.0,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add the first of two new QuarterWedge structures to form the outer layer of the pattern.',
+        target_parameter = 'radius, gap_degrees, height',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding the concept of layering objects symmetrically around a central point with specific radii and height.'
+      ),
+      2 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarterwedge_2 = QuarterWedge(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.5,
+              gap_degrees = 10.0,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add the second QuarterWedge structure to form the inner layer of the pattern.',
+        target_parameter = 'radius, gap_degrees, height',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires deducing a more compact radius while maintaining symmetry, requiring spatial reasoning.'
+      )
+    ]
+  )
+)

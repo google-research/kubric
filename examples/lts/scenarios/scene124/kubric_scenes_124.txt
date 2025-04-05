@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Organize the space around the trashcans to create a clean and orderly layout without obstructing access.',
+  description = 'This scene involves arranging a functional garden layout using a rectangular profile around a pair of trashcans. It requires understanding spatial relationships to create a defined space while ensuring accessibility. The task involves interpreting geometric properties, such as length, width, and height, to achieve the design goal of a tidy and organized area in the garden.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.5, 0.0, 0.0),
+        length = 3.0,
+        width = 1.5,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.5,
+        width = 1.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 3.0,
+          width = 1.5,
+          height = 0.2
+        ),
+        edit_description = 'Move the rectangular structure to center at (0.0, 0.0) to align symmetrically between the trashcans.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining the central alignment to be symmetric requires spatial reasoning based on positions of trashcans.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.5,
+          width = 1.0,
+          height = 0.4
+        ),
+        edit_description = 'Adjust the length to 2.5 meters and width to 1.0 meters to fit the designated area more effectively and increase the height to 0.4 meters for better definition.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The adjustments directly correspond to the provided goal dimensions.'
+      )
+    ]
+  )
+)

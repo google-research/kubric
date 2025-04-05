@@ -1,0 +1,93 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Develop an organic walking path that meanders gracefully through the forest.',
+  description = 'This scene involves creating a naturally integrated path around a small cluster of trees. The design aims to facilitate easy movement between the trees without needing to make straight paths. The task requires interpreting spatial relationships and geometric properties like amplitude, wavelength, and phase to achieve the desired curvy layout.',
+  initial_design = Design(
+    structures = {
+      linear_path = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 1.0,
+        height = 0.05,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path = CurvyPath(
+        far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+        close_curve_leftmost_point = (1.5, 0.5, 0.0),
+        amplitude = 0.2,
+        wavelength = 2.5,
+        phase = 0.7853975,
+        height = 0.05
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.1,
+          wavelength = 2.5,
+          phase = 0.7853975,
+          height = 0.05
+        ),
+        edit_description = 'Transform to a CurvyPath profile.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The transformation from a linear to a curved path is straightforward, but identifying the parameters requires interpretation of spatial relationships.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.2,
+          wavelength = 2.5,
+          phase = 0.7853975,
+          height = 0.05
+        ),
+        edit_description = 'Adjust the start and end points to weave between the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Adjusting the path requires understanding the tree arrangement and how the path should interact with it.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.25,
+          wavelength = 2.5,
+          phase = 0.7853975,
+          height = 0.05
+        ),
+        edit_description = 'Increase amplitude for more noticeable curves.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Increasing amplitude is straightforward and aligns with making the path more visually prominent.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,100 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Develop a stylish L-shaped installation that frames the natural setup without obstructing the open feel of the space.',
+  description = 'This scene involves creating an L-shaped garden installation to enhance the aesthetics of a natural gathering area comprised of trees and chairs. The structure aims to provide an inviting boundary that complements the serene environment while ensuring the area remains functional and accessible.',
+  initial_design = Design(
+    structures = {
+      lshape = LShape(
+        left_center = (-1.0, 0.0, 0.0),
+        left_length = 1.5,
+        left_width = 0.8,
+        right_width = 0.5,
+        right_length = 0.8,
+        right_center = (-0.6, 0.4, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape = LShape(
+        left_center = (-1.0, 0.0, 0.0),
+        left_length = 1.5,
+        left_width = 0.8,
+        right_width = 0.5,
+        right_length = 0.8,
+        right_center = (-0.6, 0.4, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 1.0,
+          left_width = 0.8,
+          right_width = 0.8,
+          right_length = 0.5,
+          right_center = (0.4, 0.4, 0.0),
+          height = 0.4
+        ),
+        edit_description = 'Transform the design from a rectangular profile to an LShape for a varied structure.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from Rectangular to LShape is straightforward but involves careful consideration of how to configure the initial L-shape dimensions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape',
+        NewDesignStructure = LShape(
+          left_center = (-1.0, 0.0, 0.0),
+          left_length = 1.5,
+          left_width = 0.8,
+          right_width = 0.8,
+          right_length = 0.5,
+          right_center = (-0.6, 0.4, 0.0),
+          height = 0.4
+        ),
+        edit_description = 'Adjust the left center to (-1, 0, 0) to align with the trees, providing a natural frame.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Relocation is intuitive from the description of aligning with the trees.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape',
+        NewDesignStructure = LShape(
+          left_center = (-1.0, 0.0, 0.0),
+          left_length = 1.5,
+          left_width = 0.8,
+          right_width = 0.5,
+          right_length = 0.8,
+          right_center = (-0.6, 0.4, 0.0),
+          height = 0.4
+        ),
+        edit_description = 'Extend the left length to 1.5 meters and adjust widths to fine-tune the fit and aesthetics.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting dimensions requires understanding of how this impacts aesthetics and functionality in the scene.'
+      )
+    ]
+  )
+)

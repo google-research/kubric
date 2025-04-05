@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a cozy corner with seating and an adjacent birdhouse for viewing.',
+  description = 'This scene involves constructing a semi-circular seating area with a birdhouse positioned to the side, providing a space for relaxation with a partial enclosure. It requires understanding spatial relationships, ensuring the components are well-aligned and sized appropriately without overlapping.',
+  initial_design = Design(
+    structures = {
+      seating_area = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      seating_area = SemiCircular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'seating_area',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Change the orientation to convex',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The orientation change is straightforward as it’s explicitly mentioned in the edits.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'seating_area',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Increase the radius and height',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The size changes require inferring the correct dimensions that fit the scene requirements.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'seating_area',
+        NewDesignStructure = SemiCircular(
+          center = (-1.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Reposition the center to (-1, 0, 0) to provide more space for the birdhouse viewing section',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Repositioning involves understanding the spatial arrangement for optimized viewing and space usage.'
+      )
+    ]
+  )
+)

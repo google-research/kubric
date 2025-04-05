@@ -1,0 +1,133 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to Path_1 to achieve a more natural, flowing route between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to CurvyPath to create a more natural, flowing route between the trees, use amplitude=1, wavelength=1, height=0.1.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design to a rectangular shape to provide a structured path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Extend the linear path straight through the area, adjusting the orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a serpentine shape with a concave arc for visual interest.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Create a semi-circular ring path that guides exploration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The change to a CurvyPath with specified amplitude and wavelength creates a more natural and flowing route between the trees, aligning with the design goal to provide a tranquil strolling experience.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change in pattern from linear to curved requires understanding sinusoidal transformations, which might not be immediately apparent.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the amplitude and wavelength of Path_1 adjusted to form gentle curves?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude to 0.5 meters and wavelength to 1.5 meters to form gentle curves, maintaining a graceful transition between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 1.5,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increase amplitude to 1.5 meters and decrease wavelength to 0.5 meters to create sharp curves.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust amplitude to 0.2 meters and wavelength to 2.0 meters for very subtle curves.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Set amplitude and wavelength both to 1.0 meters for moderate curves.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Revert to a linear design for a direct path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the amplitude to 0.5 meters and the wavelength to 1.5 meters results in gentle and smooth curves, aligning with the intended design modifications.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing appropriate parameters for amplitude and wavelength that ensure smoothness and maintain a flowing curve between the trees requires a bit of experimentation.'
+    )
+  ]
+)

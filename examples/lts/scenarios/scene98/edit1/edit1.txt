@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a winding pathway to subtly guide visitors around the birdhouse.',
+  description = 'This scene involves creating a serpentine walkway that snakes around the birdhouse, meant to guide visitors in a defined pathway.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-1.0, 1.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-1.5, 1.5, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 1.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'concave',
+          height = 0.1
+        ),
+        edit_description = 'Move the serpentine path to start near the birdhouse at (-1, 1)',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Moving the path closer to the birdhouse aligns with the scene's goal of guiding visitors around it."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 1.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Adjust the orientation to convex for the second half',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing the orientation is a bit more complex but necessary for the design to affect visitor perception.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.5, 1.5, 0.0),
+          radius = 0.7,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Extend the path to increase the length',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Extending the path requires a careful balance to maintain the serpentine nature while achieving the goal.'
+      )
+    ]
+  )
+)

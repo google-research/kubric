@@ -1,0 +1,65 @@
+{
+    "prompt": "Design a decorative serpentine path that navigates between the pots, ending near the table to invite people further into the garden space.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.32,
+                0.32,
+                0.22
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.32,
+                0.32,
+                0.22
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "table_1": {
+            "extent": [
+                0.29,
+                0.29,
+                0.3
+            ],
+            "center": [
+                0.5,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.05,
+            "keypoints": [
+                [
+                    0.49999999999999994,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    0.5,
+                    0.5,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "prompt": "Create a winding path that brings visitors close to both trees while starting from the bench, giving a sense of natural flow.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                1.32092696,
+                -0.5724015,
+                -0.44030848
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.5
+            ],
+            "theta": 180.0,
+            "semantic_label": "bench"
+        },
+        "tree_1": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    9.184850993605148e-17
+                ],
+                [
+                    2.0,
+                    -0.0,
+                    -9.184850993605148e-17
+                ]
+            ]
+        }
+    ]
+}

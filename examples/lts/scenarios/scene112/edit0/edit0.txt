@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Set up a birdfeeding corner by building a structure that surrounds the birdhouses while leaving enough open space for birds to access.',
+  description = 'This scene involves constructing an L-shaped structure surrounding two birdhouses, creating a designated feeding and gathering area. It requires understanding spatial relationships to ensure appropriate placement and alignment of the two sections of the L-shape. The task focuses on implementing a design to define a space for the birdhouses without encroaching on their immediate vicinity.',
+  initial_design = Design(
+    structures = {
+      initial_structure = LShape(
+        left_center = (-0.5, 0.0, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 1.5,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      l_shape_1 = LShape(
+        left_center = (-0.5, 0.0, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 1.5,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.7
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_structure',
+        NewDesignStructure = LShape(
+          left_center = (-0.5, 0.0, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 1.5,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile to an L-shape, splitting the structure into two parts. Adjust the left section center to (-0.5, 0), size to length 1.5 and width 0.5. Adjust the right section size to length 0.5 and width 1.5, aligning with the left section.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a rectangular to an L-shaped design involves understanding two different section dimensions and their spatial alignment.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'l_shape_1',
+        NewDesignStructure = LShape(
+          left_center = (-0.5, 0.0, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 1.5,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.7
+        ),
+        edit_description = 'Increase the height to 0.7 meters to establish a more defined boundary while permitting bird access.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adjusting the height is a straightforward task that involves changing a single parameter.'
+      )
+    ]
+  )
+)

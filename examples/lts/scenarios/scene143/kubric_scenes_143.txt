@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, -1.0, 0.0),
+      theta = 135.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, -1.0, 0.0),
+      theta = 225.0,
+      semantic_label = 'chair'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, -2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a serpentine path to guide visitors to the seating area and surround the rock aesthetically.',
+  description = "This scene focuses on creating a functional outdoor seating area by integrating a serpentine path along with chairs and a rock to form an inviting layout. It involves understanding spatial relationships to achieve an aesthetically pleasing pattern without collisions. The task also requires interpreting design specifications to adjust the serpentine path's dimensions and orientation.",
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.5, -0.5, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-1.0, -1.5, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'concave',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, -1.5, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Move and reshape the path to make the initial adjustment by changing the left_arc_center to (-1, -1.5, 0) and increasing the radius to 0.75.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires spatial adjustments to avoid collisions and form the intended aesthetic.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, -1.5, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'concave',
+          height = 0.1
+        ),
+        edit_description = 'Alter the orientation to concave so that the path elegantly integrates with the seating arrangement.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Understanding concave orientation is necessary for achieving the final goal design, requiring a clear interpretation of spatial relationships.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a snaking edge along the garden that connects the trees in a natural flow.',
+  description = 'This scene involves designing a serpentine landscape feature to create a decorative edge around a garden space. It requires understanding of spatial properties such as curvature, radius, and orientation to form a sinuous yet aesthetically pleasing boundary. Additionally, the task includes resolving ambiguities like determining the appropriate curvature amplitude and wavelength for the desired pattern.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (-0.5, 0.5, 0.0),
+        length = 3.0,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.5, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Change the design profile to a serpentine structure to achieve a flowing edge.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Understanding the curve's nature and changing the path's profile involves spatial insight."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Adjust the curvature and increase the height from 0.1 to 0.2 meters for better structural definition.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Height is a straightforward adjustment for intricate design.'
+      )
+    ]
+  )
+)

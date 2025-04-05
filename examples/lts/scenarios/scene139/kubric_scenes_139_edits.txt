@@ -1,0 +1,228 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What was the modification made to Circular structure 1?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Move Circular structure 1 to (1, 1) and increase the radius to 0.7 for more visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "The edit directly corresponds to improving visibility and follows the description's guideline of arranging structures around the origin."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.2
+          ),
+          edit_description = 'Slightly increased radius and height without changing position.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "This edit makes slight changes but does not align with the prompt's focus on visibility and arrangement."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Moved structure to a midway point with a minor height increment.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'This moves the structure but does not enhance visibility in accordance with the prompt.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, -1.0, 0.0),
+            radius = 0.7,
+            height = 0.2
+          ),
+          edit_description = 'Moved Circular structure 1 to (-1, -1) and kept the radius the same.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Changing position without proper alignment with other elements.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 2.0, 0.0),
+            radius = 0.8,
+            height = 0.4
+          ),
+          edit_description = 'Changed position significantly with increased size.',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'This involves a major overhaul not directly implied in the prompt.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit aligns precisely with the need to improve visibility and arrangement around the given center.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The correspondence between the prompt's requirements and the edit is straightforward."
+    ),
+    1 : EditMCQA(
+      question = 'What change was made to introduce Circular structure 2 in the scene?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (-1.0, -1.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add Circular structure 2 at (-1, -1) to balance the design.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = "Adding a new structure requires understanding the prompt's implication of balance and spacing, thus making it moderately challenging."
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (-1.5, -1.5, 0.0),
+                radius = 0.3,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add small Circular structure far from origin.',
+          target_parameter = 'circular_2'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.0, -1.0, 0.0),
+                radius = 0.6,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add another Circular at (1, -1) to enhance dynamics.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Closely relates to another edit but changes the positioning slightly.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.7,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Place Circular structure 2 at the origin for central symmetry.',
+          target_parameter = 'circular_2'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (-1.0, -2.0, 0.0),
+                radius = 0.4,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add below the original position to shift focus downward.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Focuses on altering the vertical dynamics, slightly away from prompt context.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This action fulfills the prompt’s call for balance and spacing, contributing to design equilibrium.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Incorporates new elements in a way that aligns with spatial balance which requires thoughtful application.'
+    ),
+    2 : EditMCQA(
+      question = 'Identify the edit made to introduce Circular structure 3?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_3 = Circular(
+                center = (1.0, -1.0, 0.0),
+                radius = 0.6,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add Circular structure 3 at (1, -1) with a radius of 0.6 for visual dynamics.',
+          target_parameter = 'circular_3',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Understanding the visual dynamics and alternating pattern calls for spatial insight and creativity, making it moderately challenging to deduce.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_3 = Circular(
+                center = (-1.0, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Placed at (-1, 1) to capture alternating visual, but smaller.',
+          target_parameter = 'circular_3'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_3 = Circular(
+                center = (0.0, -1.0, 0.0),
+                radius = 0.7,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Place below original center with increased radius.',
+          target_parameter = 'circular_3',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Attempts to alter base symmetry with increased size.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_3 = Circular(
+                center = (0.5, 1.0, 0.0),
+                radius = 0.4,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Position towards upper mid with decreased radius.',
+          target_parameter = 'circular_3'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_3 = Circular(
+                center = (1.0, -2.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Offset lower with consistent size for bottom field dynamics.',
+          target_parameter = 'circular_3',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Shifts focus downward which introduces a non-standard dynamic.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This action is directly aligned with the design goal of enhancing visual dynamics along alternating pathways.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Balanced addition in line with visual spatial relations, requiring moderate insightfulness to discern.'
+    )
+  ]
+)

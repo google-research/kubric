@@ -1,0 +1,69 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a circular garden feature that embraces the seating area while maintaining open access.',
+  description = 'This scene involves creating a simple yet pleasing circular installation around a seating arrangement formed by benches and rocks. The goal is to design a boundary that adds an aesthetic appeal while considering functional use of space around the installation.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the radius to 1.5 meters, ensuring it fits within the required space while surrounding the seats and rocks smoothly.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change in radius requires understanding the spatial requirements and aesthetic goals mentioned in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters to provide a more pronounced boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit is straightforward as it only involves altering the height based on aesthetic preference.'
+      )
+    ]
+  )
+)

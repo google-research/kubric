@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What change should be made to shift the serpentine's left arc center to (0.5, 0.5, 0) for a tighter path?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Shift the serpentine's left arc center to (0.5, 0.5, 0) for a tighter path."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Shift the serpentine's left arc center to (1.0, 1.0, 0) for a wider path."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, -0.5, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Shift the serpentine's left arc center to (0.5, -0.5, 0) for an alternate path."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = "Shift the serpentine's left arc center to (-0.5, -0.5, 0) with a concave orientation."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Shift the serpentine's left arc center to (0.0, 0.0, 0) with increased radius."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves repositioning the left arc center to (0.5, 0.5) as specified.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Position adjustments are straightforward as the spatial aspect is clear.'
+    ),
+    1 : EditMCQA(
+      question = "What change should be made to reduce the serpentine's radius to 1.0 for a more compact winding?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 1.0 for a more compact winding.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Increase the radius to 2.0 for a wider path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Revert to a radius of 1.5 as in the initial design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius to 1.0 with a concave orientation for variety.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Shift the center to (-0.5, -0.5) with a compact path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves reducing the radius to 1.0 as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Redefining the curve while maintaining path liveliness calls for some analytical thought.'
+    ),
+    2 : EditMCQA(
+      question = "What change should be made to decrease the serpentine's height to 0.05 to ensure the pathway subtly blends with the landscape?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.05
+          ),
+          edit_description = 'Decrease the height to 0.05 to ensure the pathway subtly blends with the landscape.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Keep the height unchanged at 0.1 to maintain the original design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.05
+          ),
+          edit_description = 'Change orientation to concave but maintain a height of 0.05 for subtle blending.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Increase the height to 0.15 for a more prominent pathway.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.05
+          ),
+          edit_description = 'Shift the center to (-0.5, -0.5) with a decreased height for subtlety.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves decreasing the height to 0.05 as specified.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Simple adjustment of height for better blending with the environment.'
+    )
+  ]
+)

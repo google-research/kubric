@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Construct a continuous workspace between the tables that allows for easy flow of activities.',
+  description = 'This scene involves creating a linear structure to provide a functional space that complements the central object arrangement. \n  It requires understanding geometric properties like center, length, and height to meet the design goal. Additionally, the task involves \n  resolving ambiguities in the instructions, such as determining the correct alignment and dimensions of the linear structure while ensuring accessibility.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_2 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = "Adjust the orientation to 'left-right' to connect the tables.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Requires geometric reasoning to align the structure according to the description.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 2 meters for expanded workspace.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Simple adjustment of a numerical value for the length.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Raise the height to 0.5 meters for easy access and functionality.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Direct modification of the height based on provided requirements.'
+      )
+    ]
+  )
+)

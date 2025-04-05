@@ -1,0 +1,51 @@
+{
+    "prompt": "Construct a continuous workspace between the tables that allows for easy flow of activities.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_2": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ]
+        }
+    ]
+}

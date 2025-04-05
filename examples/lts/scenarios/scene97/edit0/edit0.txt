@@ -1,0 +1,72 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.5, -1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Develop a garden layout with circular planters around the trees to highlight them while maintaining accessibility for visitors walking through the garden.',
+  description = 'This scene involves arranging two geometric structures around trees in a garden, providing both functional and aesthetic features. The task requires an understanding of spatial relationships and geometric properties, such as center, radius, and height, to achieve the desired design goal of positioning structures to complement the natural elements.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (-1.5, 1.5, 0.0),
+        radius = 0.8,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (-1.5, 1.5, 0.0),
+        radius = 0.8,
+        height = 0.3
+      ),
+      circular_2 = Circular(
+        center = (1.5, -1.5, 0.0),
+        radius = 0.8,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (-1.5, 1.5, 0.0),
+          radius = 0.8,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the position and size of Circular Planter 1 to properly encircle Tree 1 with a radius of 0.8 meters and height of 0.3 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt provides specifically where the first planter needs to be relocated and resized, aligning with the design goal.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            circular_2 = Circular(
+              center = (1.5, -1.5, 0.0),
+              radius = 0.8,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Add Circular Planter 2 centered around Tree 2 with similar parameters to create symmetry in the garden.',
+        target_parameter = 'circular_2',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adding a new design structure requires interpreting the scene layout and goal, but parameters are mirrored from Circular Planter 1.'
+      )
+    ]
+  )
+)

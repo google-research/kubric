@@ -1,0 +1,76 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_2": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "description": "This scene involves constructing a simple linear barrier in a park setting to provide separation between a sitting area and the rest of the space. The task requires understanding spatial relationships to ensure the barrier is appropriately positioned and aligned with existing objects in the scene.",
+    "prompt": "Build a dividing barrier to separate the tables in a straight line without obstructing views or paths.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "design_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.75,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "design_goal_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.75,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a half-moon layout around the tree for a garden edge',
+  description = 'This scene involves constructing a crescent-shaped landscape feature to frame a central tree aesthetically, keeping in mind the design constraints.',
+  initial_design = Design(
+    structures = {
+      semicircular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.3,
+        orientation = 'concave',
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.8,
+        inner_radius = 1.3,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.3,
+          inner_radius = 1.0,
+          orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Change the structure to a semi-ring',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt specifies a half-moon layout which suggests a semi-ring, but it requires some interpretation.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.3,
+          orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Adjust the inner and outer radii to ensure a crescent shape',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Crescent shape implies a difference between inner and outer radii, which is straightforward from the initial specifications.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.8,
+          inner_radius = 1.3,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Increase the height to add more prominence to the feature',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Increasing the height serves the goal of adding prominence, which is straightforward given the design goal.'
+      )
+    ]
+  )
+)

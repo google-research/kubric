@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-0.8, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.8, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create an open semi-circular seating layout around the dining setup, ensuring clear pathways and unrestricted views.',
+  description = 'This scene involves arranging semi-circular seating structures around a small outdoor dining setup, consisting of a table and two chairs. The challenge requires understanding spatial relationships to achieve a design that enhances the dining experience by providing openness for views and paths for access.',
+  initial_design = Design(
+    structures = {
+      seating_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      seating_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'seating_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Increase the radius to 1.5 meters for extended seating, ensuring greater social space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly suggests modifying the radius, making this edit straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'seating_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Change the orientation to "concave" to facilitate views outward and easy access between seating and dining spaces. Also, adjust the height to 0.5 meters for comfort.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the prompt suggests an open design, deducing the exact orientation and height change requires some interpretation.'
+      )
+    ]
+  )
+)

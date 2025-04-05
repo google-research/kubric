@@ -1,0 +1,93 @@
+{
+    "prompt": "Develop a stylish L-shaped installation that frames the natural setup without obstructing the open feel of the space.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.4,
+            "keypoints": [
+                [
+                    -1.75,
+                    -0.4,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    -0.4,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    0.9,
+                    0.0
+                ],
+                [
+                    -1.05,
+                    0.9,
+                    0.0
+                ],
+                [
+                    -1.05,
+                    0.4,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    0.4,
+                    0.0
+                ],
+                [
+                    -1.75,
+                    -0.4,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

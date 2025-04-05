@@ -1,122 +1,211 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'How should the design be modified to change the path profile from linear to serpentine for a more engaging experience?',
+      question = 'What modification was made to achieve a balanced length for defined boundary constraints?',
       answers = {
         A = ModifyStructureEditWithDifficulty(
-          design_id = 'Linear',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (0.0, -1.0, 0.0),
-            radius = 0.5,
-            left_arc_orientation = 'convex',
-            height = 0.1
-          ),
-          edit_description = 'Change the design profile to serpentine for a more engaging path.',
-          difficult_to_deduce_from_prompt = 'medium',
-          exaplanation_of_diffuculty = 'The transformation from a linear to a serpentine path involves altering the layout creatively to match the intended design while maintaining specified geometric constraints.'
-        ),
-        B = DeleteStructureEdit(
-          design_id = 'Linear',
-          edit_description = 'Remove the existing linear path for a clean slate.'
-        ),
-        C = ModifyStructureEdit(
-          design_id = 'Linear',
-          NewDesignStructure = CurvyPath(
-            far_curve_leftmost_point = (-1.0, 1.0, 0.0),
-            close_curve_leftmost_point = (1.0, -1.0, 0.0),
-            amplitude = 1.0,
-            wavelength = 4.0,
-            phase = 0.0,
-            height = 0.1
-          ),
-          edit_description = 'Change the design profile to a curvy path for aesthetic variance.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'Linear',
-          NewDesignStructure = Linear(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
             center = (0.0, 0.0, 0.0),
-            length = 5.0,
-            height = 0.1,
-            orientation = 'left-right'
+            length = 2.0,
+            width = 1.5,
+            height = 0.3
           ),
-          edit_description = 'Extend the linear path to improve connectivity.'
+          edit_description = 'Set the length to 2.0 meters to exceed spatial constraints.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The length does not fit within the prompt's spatial constraints."
         ),
-        E = AddStructureEdit(
-          design = Design(
-            structures = {
-              Circular = Circular(
-                center = (0.0, 0.0, 0.0),
-                radius = 1.0,
-                height = 0.1
-              )
-            }
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.7,
+            width = 1.5,
+            height = 0.3
           ),
-          edit_description = 'Add a circular path section for creating loops.',
-          target_parameter = 'Circular path'
+          edit_description = 'Adjust the length to 1.7 meters to slightly exceed spatial constraints.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This length challenges the defined boundary constraints.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 1.5 meters to fit within the spatial constraints while maintaining a clear boundary.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The target length must balance with the overall defined boundary constraints for spatial movement.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the length to 1.2 meters allowing more closeness to the rock.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This length may not maintain a clear boundary or allow enough space.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 1.8 meters, slightly surpassing spatial constraints.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The length marginally exceeds suggested boundaries.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A describes the precise changes needed to transform the linear path into the intended serpentine form specified in the design goal.',
+      correct_answer = 'C',
+      explanation_of_correctness = '1.5 meters length was chosen to precisely fit within given spatial limitations and maintain boundary clarity.',
       difficulty = 'medium',
-      explanation_of_difficulty = 'The task requires understanding the transformation between path profiles, which involves intermediate spatial and geometric reasoning.'
+      explanation_of_difficulty = 'Balancing spatial constraints with length requirements for a defined boundary.'
     ),
     1 : EditMCQA(
-      question = "What modification is necessary to adjust the arc's center and radius to visually connect the trees in a winding manner?",
+      question = 'How was the width altered to achieve sufficient space from the rock?',
       answers = {
         A = ModifyStructureEditWithDifficulty(
-          design_id = 'Serpentine',
-          NewDesignStructure = Serpentine(
-            left_arc_center = (-1.0, -0.5, 0.0),
-            radius = 1.0,
-            left_arc_orientation = 'convex',
-            height = 0.1
-          ),
-          edit_description = "Adjust the arc's center and radius to ensure it visually connects the trees in a winding manner.",
-          difficult_to_deduce_from_prompt = 'hard',
-          exaplanation_of_diffuculty = 'Finding the precise arc center and radius to aesthetically and functionally connect all trees in a winding manner requires complex spatial reasoning and understanding of the geometric relationships between structures.'
-        ),
-        B = AddStructureEdit(
-          design = Design(
-            structures = {
-              Circular = Circular(
-                center = (0.5, -0.5, 0.0),
-                radius = 1.0,
-                height = 0.1
-              )
-            }
-          ),
-          edit_description = 'Introduce a circular path alignment to surround one tree.',
-          target_parameter = 'Circular path'
-        ),
-        C = DeleteStructureEdit(
-          design_id = 'Serpentine',
-          edit_description = 'Remove the serpentine path to reassess the path connections.'
-        ),
-        D = ModifyStructureEdit(
-          design_id = 'Serpentine',
-          NewDesignStructure = Linear(
-            center = (-2.0, 1.0, 0.0),
-            length = 4.0,
-            height = 0.1,
-            orientation = 'front-back'
-          ),
-          edit_description = 'Transform the serpentine into a simpler linear path.'
-        ),
-        E = ModifyStructureEdit(
-          design_id = 'Serpentine',
-          NewDesignStructure = SemiCircular(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
             center = (0.0, 0.0, 0.0),
-            radius = 1.0,
-            orientation = 'convex',
-            height = 0.1
+            length = 1.5,
+            width = 1.2,
+            height = 0.3
           ),
-          edit_description = 'Replace the serpentine with a semi-circular connection to halfway between trees.'
+          edit_description = 'Set the width to 1.2 meters creating more proximity.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Balancing between close proximity and available space can be tricky.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Narrow the width to 0.8 meters for a tighter fit.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The width is inadequate for ensuring sufficient distance.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify the width to 1.0 meter to ensure sufficient distance from the rock.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Setting the proper width requires considering proximity and movement range considerations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the width at 1.5 meters for ample spacing.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Maintaining size for balance without compromising space.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Considerably narrow the width to 0.5 meters for closer boundary.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Width is too narrow to ensure safe movement around the rock.'
         )
       },
-      correct_answer = 'A',
-      explanation_of_correctness = 'Option A provides the exact geometric specifications to fit the serpentine path within the intended garden trail connecting the trees.',
-      difficulty = 'hard',
-      explanation_of_difficulty = "This involves a high level of conceptual visualization to understand how changes in the arc's geometry impact its relation to the trees, demanding intricate spatial reasoning."
+      correct_answer = 'C',
+      explanation_of_correctness = '1.0 meter width was selected to correctly balance area while avoiding undue closeness to the rock.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing an optimal width considering proximity to the rock and spatial freedom.'
+    ),
+    2 : EditMCQA(
+      question = 'What was done to achieve a more distinct boundary definition?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.8
+          ),
+          edit_description = 'Height enhanced to 0.8 meters for exaggerated boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Excessive height change for boundary visibility.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for a more pronounced boundary definition.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The height adjustment is straightforward to enhance boundary visibility and definition.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Moderate height adjustment to 0.4 meters for visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This change is easily inferred for improving boundary definition.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Retain original height at 0.3 meters for minimal definition.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Retaining original height doesn't enhance definition."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Lower height to 0.2 meters reducing boundary visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The boundary is too low to be distinct.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Height was increased to 0.5 meters, achieving a distinct boundary definition that's easily perceivable.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height increase clearly enhances visibility and boundary definition, straightforward to deduce.'
     )
   ]
 )

@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should the linear path be transformed to align with the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path into a serpentine shape, making it more visually intriguing.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.15
+          ),
+          edit_description = 'Change the linear path to a curvy path with specified sinusoidal parameters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the linear path to a quarter wedge structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a semi-circular ring with a concave orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Modify the linear path into a circular structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal is a serpentine pathway, which requires transforming the linear path into a serpentine shape.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Transforming a linear shape into a serpentine one requires understanding the spatial arrangement to avoid obstacles while fulfilling the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification should be made to the serpentine pathway to enhance its design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_pathway_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Adjust the center of the left arc to enhance the curved design and ensure it flows between the birdhouse and trees without interference.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_pathway_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+            close_curve_leftmost_point = (1.5, -0.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 0.5,
+            phase = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter the serpentine path to a curvy path with modified curve parameters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_pathway_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Convert the serpentine path into a triangular wedge structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_pathway_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Modify the serpentine path into a semicircular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_pathway_1',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Revert the serpentine pathway back to a linear path structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification ensures that the pathway flows aesthetically and functionally between the birdhouse and trees.',
+      difficulty = 'hard',
+      explanation_of_difficulty = "Adjusting the arc's center requires analyzing the space to maintain clearance and aesthetic."
+    )
+  ]
+)

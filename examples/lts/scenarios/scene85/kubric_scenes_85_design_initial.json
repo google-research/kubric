@@ -1,0 +1,65 @@
+{
+    "prompt": "Construct a linear structure between the chairs to create distinct seating zones and provide a boundary for the birdhouse.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -1.0,
+                1.5,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                -1.5,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -9.184850993605148e-17,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    9.184850993605148e-17,
+                    2.5,
+                    0.0
+                ]
+            ]
+        }
+    ]
+}

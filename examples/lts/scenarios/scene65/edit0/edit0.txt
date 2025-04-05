@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Lay out a magical, wavy path that guides explorers through the heart of the forest between these towering trees. It should feel like a secret journey.',
+  description = 'This scene involves creating a dynamic garden pathway using a wavy design that meanders between dense forest plants, fostering a sense of exploration and enchantment. The design should ensure the pathway is both aesthetically pleasing and functional without disturbing the natural plant environment.',
+  initial_design = Design(
+    structures = {
+      LinearPath_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LinearPath_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the path profile from Linear to CurvyPath to create an engaging journey. Set the far curve at (-1.5, 0) and the close curve at (1.5, 0), allowing the wave to navigate smoothly between the trees. Adjust the amplitude to 0.3 meters to enhance the undulating effect and maintain a sense of mystery.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change requires understanding of how to transform a linear path into a sinusoidal curve with specific amplitude and wavelength. The adjustment in shape requires spatial reasoning to ensure the path fits aesthetically and functionally between the specified tree locations.'
+      )
+    ]
+  )
+)

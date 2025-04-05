@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 1.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (2.0, 2.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (1.0, -1.0, 0.3365115),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Position something visually fluid that connects the trees to provide shade over the trashcan without blocking access.',
+  description = 'This scene revolves around creating a small seating area surrounded by trees for a blend of aesthetics and functionality. It requires interpreting spatial relationships to position structures for utility and visual appeal.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (1.0, -1.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.5, 0.5, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'concave',
+        height = 0.75
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.5, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'concave',
+          height = 0.25
+        ),
+        edit_description = 'Change the design to a serpentine shape to create a more organic pattern.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Adjusting the shape to serpentine involves spatial awareness of the scene layout.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.5, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'concave',
+          height = 0.75
+        ),
+        edit_description = 'Adjust the height to 0.75 for a canopy-like effect.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The height adjustment is straightforward once the serpentine shape is decided.'
+      )
+    ]
+  )
+)

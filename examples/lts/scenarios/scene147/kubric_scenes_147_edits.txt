@@ -1,0 +1,231 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit adjusts the left_arc_center and radius to create more pronounced curves for serpentine_1?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the left_arc_center and radius to create more pronounced curves.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Requires understanding the spatial layout of the trees and the path to modify the arc parameters appropriately, which involves spatial reasoning and geometric transformations.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.75, -0.4, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Alter the arc parameters for tighter curves.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Alters spatial understanding for new curve dynamics.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.3, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Make minor adjustments to enhance curve visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Minor changes that do not require in-depth spatial reasoning.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.3, -0.2, 0.0),
+            radius = 0.55,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Slight tweak of parameters for better path flow.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Simple modifications with clear outcomes.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.2, -0.6, 0.0),
+            radius = 0.57,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Refine curve approach with slight repositioning.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Moderate changes requiring some spatial foresight.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit changes both the left_arc_center and the radius to more accurately adjust the serpentine curves for Serpentine 1 as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the spatial layout and making geometric transformations require spatial reasoning which is of medium difficulty.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit extends the serpentine path to include a more defined right arc for serpentine_2?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (0.5, 0.5, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Extend the path to include a more defined right arc around the center space.',
+          target_parameter = 'serpentine',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Involves conceptualizing a new path structure that complements the existing layout and spatial constraints, requiring moderate spatial planning.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (0.4, 0.4, 0.0),
+                radius = 0.4,
+                left_arc_orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Create a bordered path that circles the open space.',
+          target_parameter = 'serpentine',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Requires effective spatial use and understanding of new path designs.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (0.6, 0.4, 0.0),
+                radius = 0.6,
+                left_arc_orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Enhances center path optimization by adding a new serpentine.',
+          target_parameter = 'serpentine',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Significant path adjustments with spatial foresight required.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (0.3, 0.3, 0.0),
+                radius = 0.55,
+                left_arc_orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Integrate additional space with subtle arc balance.',
+          target_parameter = 'serpentine',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Ability to balance spatial consideration with physical layout constraints.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (0.7, 0.5, 0.0),
+                radius = 0.45,
+                left_arc_orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Small arc structure to enhance spatial completeness.',
+          target_parameter = 'serpentine',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Limited spatial requirement provides simpler addition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit correctly adds a second serpentine with specified parameters to create additional path coverage and define a right arc.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Conceptualizing a complementary structure requires moderate ability to visualize spatial extensions and constraints within the scene.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit balances the serpentine path to ensure a gentle transition without tree obstructions for serpentine_1?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Balance the path between the trees to ensure a gentle transition with no obstruction from the trees.',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Achieving an optimal balance while avoiding obstructions requires complex spatial reasoning and iteration, testing various adjustments within the environment.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.6, -0.6, 0.0),
+            radius = 0.45,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Realign the path to avoid intersections with existing trees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Medium challenge due to path placement coordination.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.4, -0.4, 0.0),
+            radius = 0.55,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Reinterpret the arc structure for flow efficiency.',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = 'Less complex due to limited spatial impact.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.7, -0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Test different placement to maximize path leniency.',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Requires advanced spatial testing and adjustment to avoid obstruction.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.6, 0.0),
+            radius = 0.65,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust curve measures to refine spatial utilization.',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Moderate due to increased path complexity intertwined with existing design elements.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit aims at restructuring the serpentine to maintain flow without tree obstruction by reaching an optimal positioning.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'It necessitates advanced spatial reasoning and iterative exploration within the environment to achieve the edit without disturbing existing objects.'
+    )
+  ]
+)

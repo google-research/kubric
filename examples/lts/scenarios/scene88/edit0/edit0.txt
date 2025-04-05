@@ -1,0 +1,75 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a curvy pathway that elegantly snakes between the two trees to provide a tranquil strolling experience.',
+  description = 'This scene involves creating a curvy path that winds through a pair of trees, providing a leisurely walking path in the garden. It requires understanding spatial relationships to align the path with natural features to encourage exploration. The focus is on creating an engaging and organic connection between the trees.',
+  initial_design = Design(
+    structures = {
+      Path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        close_curve_leftmost_point = (1.0, 1.0, 0.0),
+        amplitude = 1.0,
+        wavelength = 1.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        close_curve_leftmost_point = (1.0, 1.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, 1.0, 0.0),
+          amplitude = 1.0,
+          wavelength = 1.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from Linear to CurvyPath to create a more natural, flowing route between the trees, use amplitude=1, wavelength=1, height=0.1.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change in pattern from linear to curved needs an understanding of sinusoidal transformations, which might not be immediately apparent.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, 1.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the amplitude to 0.5 meters and wavelength to 1.5 meters to form gentle curves, maintaining a graceful transition between the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Choosing appropriate parameters for amplitude and wavelength that ensure smoothness and maintain a flowing curve between the trees requires a bit of experimentation.'
+      )
+    ]
+  )
+)

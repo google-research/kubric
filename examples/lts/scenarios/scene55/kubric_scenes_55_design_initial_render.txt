@@ -1,0 +1,51 @@
+{
+    "prompt": "Create a garden design with a flowing pathway to bridge the two storage units.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.64042598,
+                -0.432404,
+                -0.640426
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.53049698,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                0.5,
+                -0.0,
+                1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    0.0,
+                    -0.0,
+                    1.5
+                ],
+                [
+                    0.0,
+                    -0.0,
+                    -1.5
+                ]
+            ]
+        }
+    ]
+}

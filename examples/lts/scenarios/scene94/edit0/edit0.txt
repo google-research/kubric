@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.32, 0.32, 0.22),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot_2 = SceneObject(
+      extent = (0.32, 0.32, 0.22),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    table_1 = SceneObject(
+      extent = (0.29, 0.29, 0.3),
+      center = (0.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a decorative serpentine path that navigates between the pots, ending near the table to invite people further into the garden space.',
+  description = 'This scene involves creating a serpentine design to separate and visually enhance a garden area containing two pots and a table. It requires spatial reasoning to correctly position the serpentine path, ensuring it winds gracefully around the objects without obstructing movement.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Serpentine(
+        left_arc_center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.05
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.05
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-0.5, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.05
+        ),
+        edit_description = 'Change the design profile from linear to serpentine to add an engaging flow between pots and towards the table.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the transformation from a linear to a serpentine design, and provides explicit parameters for the serpentine structure.'
+      )
+    ]
+  )
+)

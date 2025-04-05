@@ -1,0 +1,51 @@
+{
+    "prompt": "Lay out a neat, linear boundary that lightly encloses the tables without hindering access.",
+    "observation": {
+        "table_0": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                0.0,
+                -0.294558,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_1": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                0.0,
+                -0.294558,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.875,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    0.875,
+                    -0.0,
+                    -0.7500000000000001
+                ]
+            ]
+        }
+    ]
+}

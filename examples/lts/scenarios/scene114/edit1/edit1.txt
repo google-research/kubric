@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-2.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (2.0, -2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a meandering path that elegantly flows near the birdhouse without obstructing the surrounding trees.',
+  description = 'This scene involves creating a serpentine pathway that enhances the aesthetic quality of a small garden area while safely running adjacent to a central birdhouse. The goal is to interpret spatial properties to ensure the pathway is both visually engaging and functional within the confined space, emphasizing gentle arcs and contours.',
+  initial_design = Design(
+    structures = {
+      serpentine_pathway_1 = Serpentine(
+        left_arc_center = (-1.0, 0.5, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_pathway_1 = Serpentine(
+        left_arc_center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Transform the linear path into a serpentine shape, making it more visually intriguing.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Transforming a linear shape into a serpentine one requires understanding the spatial arrangement to avoid obstacles while fulfilling the design goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_pathway_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.0, 0.5, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Adjust the center of the left arc to enhance the curved design and ensure it flows between the birdhouse and trees without interference.',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = "Adjusting the arc's center requires analyzing the space to maintain clearance and aesthetic."
+      )
+    ]
+  )
+)
