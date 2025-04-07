@@ -1,49 +1,43 @@
 Scene(
   objects = {
-    chair_1 = SceneObject(
-      extent = (0.495162, 0.41553802, 0.76887),
-      center = (-0.5, 0.5, 0.0),
-      theta = 0.0,
-      semantic_label = 'chair'
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
     ),
-    chair_2 = SceneObject(
-      extent = (0.495162, 0.41553802, 0.76887),
-      center = (0.5, 0.5, 0.0),
-      theta = 180.0,
-      semantic_label = 'chair'
-    ),
-    chair_3 = SceneObject(
-      extent = (0.495162, 0.41553802, 0.76887),
-      center = (0.0, -0.5, 0.0),
-      theta = 90.0,
-      semantic_label = 'chair'
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (0.0, 2.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
     )
   },
-  num_edits = 3,
-  prompt = 'Arrange an L-shaped structure around the chairs to define a neat and functional seating area without blocking any entry points.',
-  description = 'This scene involves creating a designated seating area using an L-shaped structure around a collection of chairs. The task requires interpreting geometric properties like center, length, width, and height to form the desired structure. The design should ensure a cozy and organized seating arrangement without obstructing movement or accessibility.',
+  num_edits = 2,
+  prompt = 'Design an L-shaped planter on the left of the bench',
+  description = 'Relative spatial arrangement of an L-shape',
   initial_design = Design(
     structures = {
       LShape_1 = LShape(
-        left_center = (-1.0, 0.0, 0.0),
-        left_length = 1.5,
+        left_center = (0.0, 1.0, 0.0),
+        left_length = 2.0,
         left_width = 0.5,
         right_width = 1.0,
         right_length = 0.5,
-        right_center = (-1.0, 0.75, 0.0),
-        height = 0.3
+        right_center = (0.0, 1.0, 0.0),
+        height = 0.5
       )
     }
   ),
   design_goal = Design(
     structures = {
       LShape_1 = LShape(
-        left_center = (-1.0, 0.0, 0.0),
-        left_length = 1.5,
+        left_center = (0.0, 1.0, 0.0),
+        left_length = 2.0,
         left_width = 0.5,
         right_width = 1.0,
         right_length = 0.5,
-        right_center = (-1.0, 0.75, 0.0),
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -51,49 +45,34 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'LShape_1',
+        design_id = 'Rectangular_1',
         NewDesignStructure = LShape(
-          left_center = (-1.0, 0.0, 0.0),
-          left_length = 1.5,
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 2.0,
           left_width = 0.5,
-          right_width = 0.5,
-          right_length = 1.0,
-          right_center = (-1.0, 0.75, 0.0),
-          height = 0.3
+          right_width = 1.0,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
         ),
-        edit_description = 'Adjust the left section to center at (-1.0, 0) and increase the length to 1.5 for a more prominent boundary.',
+        edit_description = 'Change the design from a rectangular to L shape (same params as design goal but centered on (0, 0))',
         difficult_to_deduce_from_prompt = 'medium',
-        explanation_of_difficulty = 'This requires spatial awareness to understand how the L-shape should frame the chairs without moving them.'
+        explanation_of_difficulty = 'The transformation from a rectangular form to an L-shape requires understanding of complex spatial changes.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'LShape_1',
         NewDesignStructure = LShape(
-          left_center = (-1.0, 0.0, 0.0),
-          left_length = 1.5,
+          left_center = (0.0, 1.0, 0.0),
+          left_length = 2.0,
           left_width = 0.5,
           right_width = 1.0,
           right_length = 0.5,
-          right_center = (-1.0, 0.75, 0.0),
-          height = 0.3
-        ),
-        edit_description = "Increase the right section's width to 1.0 meters, maintaining alignment and structural continuity.",
-        difficult_to_deduce_from_prompt = 'easy',
-        explanation_of_difficulty = 'The prompt clearly indicates maintaining alignment with no hindrance to movement, making it easy to deduce.'
-      ),
-      2 : ModifyStructureEditWithDifficulty(
-        design_id = 'LShape_1',
-        NewDesignStructure = LShape(
-          left_center = (-1.0, 0.0, 0.0),
-          left_length = 1.5,
-          left_width = 0.5,
-          right_width = 1.0,
-          right_length = 0.5,
-          right_center = (-1.0, 0.75, 0.0),
+          right_center = (0.0, 1.0, 0.0),
           height = 0.5
         ),
-        edit_description = 'Increase the height to 0.5 meters for better visual demarcation of the seating area.',
+        edit_description = 'Move the Lshape to (0, 1, 0) to be collision free',
         difficult_to_deduce_from_prompt = 'easy',
-        explanation_of_difficulty = "Increasing height for visual demarcation is an intuitive change based on the prompt's guidance."
+        explanation_of_difficulty = "The adjustment for collision-free placement only requires shifting the structure's position."
       )
     ]
   )

@@ -1,47 +1,33 @@
 {
-    "prompt": "Arrange an L-shaped structure around the chairs to define a neat and functional seating area without blocking any entry points.",
+    "prompt": "Design an L-shaped planter on the left of the bench",
     "observation": {
-        "chair_1": {
+        "bench_1": {
             "extent": [
-                0.495162,
-                0.41553802,
-                0.76887
-            ],
-            "center": [
-                -0.5,
-                0.5,
-                0.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "chair"
-        },
-        "chair_2": {
-            "extent": [
-                0.495162,
-                0.41553802,
-                0.76887
-            ],
-            "center": [
-                0.5,
-                0.5,
-                0.0
-            ],
-            "theta": 180.0,
-            "semantic_label": "chair"
-        },
-        "chair_3": {
-            "extent": [
-                0.495162,
-                0.41553802,
-                0.76887
+                0.44030848,
+                1.32092696,
+                0.5724015
             ],
             "center": [
                 0.0,
-                -0.5,
+                0.0,
                 0.0
             ],
-            "theta": 90.0,
-            "semantic_label": "chair"
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                0.0,
+                2.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
         }
     },
     "output": [
@@ -50,38 +36,28 @@
             "height": 0.3,
             "keypoints": [
                 [
-                    -1.0,
-                    -0.25,
+                    -0.15,
+                    -0.5,
                     0.0
                 ],
                 [
-                    0.0,
-                    -0.25,
+                    -0.15,
+                    0.5,
                     0.0
                 ],
                 [
-                    0.0,
-                    0.75,
+                    0.15,
+                    0.5,
                     0.0
                 ],
                 [
-                    -1.0,
-                    0.75,
+                    0.15,
+                    -0.5,
                     0.0
                 ],
                 [
-                    -1.0,
-                    0.25,
-                    0.0
-                ],
-                [
-                    -1.0,
-                    0.25,
-                    0.0
-                ],
-                [
-                    -1.0,
-                    -0.25,
+                    -0.15,
+                    -0.5,
                     0.0
                 ]
             ],

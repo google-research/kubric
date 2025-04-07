@@ -1,37 +1,40 @@
 Scene(
   objects = {
     tree_1 = SceneObject(
-      extent = (0.15, 0.15, 2.0),
-      center = (0.0, 0.0, 0.0),
+      extent = (0.3, 0.3, 4.0),
+      center = (-0.75, 0.5, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
     ),
-    table_1 = SceneObject(
-      extent = (0.288324, 0.288324, 0.294558),
-      center = (1.5, 0.0, 0.147279),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.75, -0.5, 0.0),
       theta = 0.0,
-      semantic_label = 'table'
+      semantic_label = 'tree'
     )
   },
-  num_edits = 3,
-  prompt = 'Build a semi-ring garden feature around the tree to offer a peaceful area while ensuring accessibility.',
-  description = 'This scene involves positioning a SemiRing structure to create a protected area around a natural focal point. The scene should enhance the environment while maintaining accessibility and ensuring there are no collisions with the objects in question.',
+  num_edits = 1,
+  prompt = 'Design an L-shaped border that effortlessly integrates with my trees, crafting a cozy yet open garden space.',
+  description = 'This scene involves creating an L-shaped structure to offer a harmonious boundary around a central gathering of trees. The L-shape should enhance the spatial arrangement by providing definition while maintaining a natural aesthetic.',
   initial_design = Design(
     structures = {
-      circular_1 = Circular(
-        center = (0.0, 0.0, 0.0),
-        radius = 1.5,
+      rectangular_1 = Rectangular(
+        center = (-0.5, 0.0, 0.0),
+        length = 1.0,
+        width = 0.3,
         height = 0.3
       )
     }
   ),
   design_goal = Design(
     structures = {
-      semi_ring_1 = SemiRing(
-        center = (0.0, 0.0, 0.0),
-        outer_radius = 1.8,
-        inner_radius = 1.3,
-        orientation = 'convex',
+      lshape_1 = LShape(
+        left_center = (-0.25, 0.0, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -39,43 +42,19 @@ Scene(
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'circular_1',
-        NewDesignStructure = SemiRing(
-          center = (0.0, 0.0, 0.0),
-          outer_radius = 1.5,
-          inner_radius = 0.0,
-          orientation = 'convex',
-          height = 0.3
-        ),
-        edit_description = 'Change the profile from a Circular structure to a SemiRing for nuanced design.',
-        difficult_to_deduce_from_prompt = 'medium',
-        explanation_of_difficulty = 'The edit requires changing the structure type while maintaining initial dimensions.'
-      ),
-      1 : ModifyStructureEditWithDifficulty(
-        design_id = 'circular_1',
-        NewDesignStructure = SemiRing(
-          center = (0.0, 0.0, 0.0),
-          outer_radius = 1.8,
-          inner_radius = 1.3,
-          orientation = 'convex',
-          height = 0.3
-        ),
-        edit_description = 'Specify the outer radius as 1.8 and inner radius as 1.3 to ensure a protective yet accessible ring.',
-        difficult_to_deduce_from_prompt = 'medium',
-        explanation_of_difficulty = 'Adjusting the radii involves understanding the protective design goal.'
-      ),
-      2 : ModifyStructureEditWithDifficulty(
-        design_id = 'circular_1',
-        NewDesignStructure = SemiRing(
-          center = (0.0, 0.0, 0.0),
-          outer_radius = 1.8,
-          inner_radius = 1.3,
-          orientation = 'convex',
+        design_id = 'rectangular_1',
+        NewDesignStructure = LShape(
+          left_center = (-0.25, 0.0, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
-        edit_description = 'Adjust the height to 0.5 meters for visual impact and convenience.',
-        difficult_to_deduce_from_prompt = 'easy',
-        explanation_of_difficulty = 'Changing height is a straightforward edit to enhance visual impact.'
+        edit_description = 'Transform the rectangular design into an L-shape to better integrate with the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The modification involves a significant change in the structural form and requires understanding how an L-shape can provide spatial harmony with the position of the trees.'
       )
     ]
   )
