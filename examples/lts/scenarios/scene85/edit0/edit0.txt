@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 1.5, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -1.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a linear structure between the chairs to create distinct seating zones and provide a boundary for the birdhouse.',
+  description = 'This scene involves creating a structured layout for an outdoor gathering space using linear structures for seating and separation. It requires understanding spatial layouts and strategically placing structural elements to create functional and visually appealing garden settings.',
+  initial_design = Design(
+    structures = {
+      structure_1 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 3.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      final_structure = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Move the linear structure to align the center at (0, 0.5).',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The required center position is clearly outlined, simplifying this edit.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.5,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Change the orientation to "front-back" to effectively segregate the seating zones.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The decision to change orientation requires understanding of both aesthetic and functional layout considerations.'
+      )
+    ]
+  )
+)

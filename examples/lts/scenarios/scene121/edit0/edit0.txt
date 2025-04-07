@@ -1,0 +1,69 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, 1.0, 0.0),
+      theta = 135.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 1.0, 0.0),
+      theta = 225.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange the chairs around a small central area, leaving space for people to easily enter and exit the seating arrangement.',
+  description = 'This scene involves arranging chairs in a circular fashion around a central area, creating a harmonious seating environment. The design requires understanding spatial alignment and ensuring ample room for ingress and egress between chairs. The task includes refining the circular arrangement with precise alterations to maintain balance and accessibility.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.75,
+        height = 0.45
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.75,
+        height = 0.45
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.75,
+          height = 0.45
+        ),
+        edit_description = 'Re-position chairs to form a precise circular pattern with even spacing, centered around the origin.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt explicitly mentions arranging the chairs in a circular pattern with uniform spacing.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.75,
+          height = 0.45
+        ),
+        edit_description = "Ensure the chairs' orientations allow easy access to the central area from all directions.",
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Correctly orienting the chairs requires understanding the spatial requirements for accessibility that are not explicitly detailed in the prompt.'
+      )
+    ]
+  )
+)

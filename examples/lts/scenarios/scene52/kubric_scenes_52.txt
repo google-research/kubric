@@ -1,0 +1,63 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a labyrinth-like hedge around the birdhouse while keeping space for entering and exiting.',
+  description = 'This scene involves understanding spatial relationships to create a protected area like a hedge maze around a central spot (birdhouse) for aesthetic appeal. It requires considering geometric properties such as radius, gap sizes, and height to form a desired semi-ring pattern.',
+  initial_design = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'convex',
+        height = 0.5
+      ),
+      semiring_2 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 2.0,
+        inner_radius = 1.5,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            semiring_2 = SemiRing(
+              center = (0.0, 0.0, 0.0),
+              outer_radius = 2.0,
+              inner_radius = 1.5,
+              orientation = 'convex',
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 2 and inner_radius: 1.5.',
+        target_parameter = 'outer_radius',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt explicitly describes the addition of a second semi-ring structure, making the intention clear and straightforward to implement.'
+      )
+    ]
+  )
+)

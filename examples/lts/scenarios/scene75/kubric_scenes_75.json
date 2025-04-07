@@ -1,0 +1,108 @@
+{
+    "observation": {
+        "table_0": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -2.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                2.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves designing a functional relaxation area around a central table by using linear planters. The goal is to maintain visual appeal while creating a contained yet accessible area for seating, without obstructing the central focus, which is the table.",
+    "prompt": "Use linear structures to frame a lovely garden area around the table, ensuring clear pathways and aesthetic cohesion.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -9.184850993605148e-17,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        9.184850993605148e-17,
+                        1.5,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.0,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.9999999999999999,
+                        1.0,
+                        0.0
+                    ]
+                ]
+            }
+        ],
+        "linear_2": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.9999999999999999,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        1.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

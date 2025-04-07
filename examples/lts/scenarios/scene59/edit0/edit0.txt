@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design an area around the table that allows access only from the left and right while providing structure.',
+  description = 'This scene involves constructing a Tri-wedge shape to provide boundaries on a seating arrangement and allow pathways in specific orientations. The design goal is to interpret the geometric properties to create a uniform structure around a central table while providing directional access.',
+  initial_design = Design(
+    structures = {
+      TriWedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 15.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      TriWedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 40.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 15.0,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the radius to 1.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The radius change directly correlates with the design goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 40.0,
+          height = 0.3
+        ),
+        edit_description = 'Increase the gap degrees to 40 degrees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "While it's straightforward, interpreting the gap degrees from prompt context can be challenging."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 40.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Height increase is explicitly mentioned in the design goal.'
+      )
+    ]
+  )
+)

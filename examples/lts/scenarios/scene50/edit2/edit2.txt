@@ -1,0 +1,84 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Develop a smooth-curving protective loop around the trees, ensuring an open and connected garden feature.',
+  description = 'This scene involves creating a harmonious semi-ring structure around a pair of trees, providing an aesthetically pleasing border that complements the natural elements. The design focuses on maintaining a balance between the structure and the trees, utilizing geometric properties like radius and height to form the desired pattern.',
+  initial_design = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 0.7,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 0.7,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.2,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change the design from Circular to SemiRing for better integration with the tree arrangement.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change to a SemiRing structure requires adding an inner radius while maintaining the existing dimensions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Define distinct outer and inner radii for the SemiRing to achieve a balanced loop around the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining appropriate radii to ensure the loop equally balances between the trees.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters, enhancing the visual prominence while preserving open access around the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The height adjustment is a straightforward modification to increase visual impact.'
+      )
+    ]
+  )
+)

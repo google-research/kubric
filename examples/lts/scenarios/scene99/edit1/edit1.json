@@ -1,0 +1,146 @@
+{
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_3": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 180.0,
+            "semantic_label": "chair"
+        }
+    },
+    "description": "This scene involves constructing an L-shaped seating area designed to create a cozy and inviting space around a central area with chairs. The goal is to understand spatial relationships to ensure the seating is symmetrically positioned and properly aligned to promote comfort and accessibility.",
+    "prompt": "Set up an L-shaped seating arrangement to naturally enclose the chairs, offering a cozy gathering environment.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        2.25,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

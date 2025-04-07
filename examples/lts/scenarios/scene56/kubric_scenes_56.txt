@@ -1,0 +1,91 @@
+Scene(
+  objects = {
+    table_0 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.294558),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.5, 0.0, 0.294558),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Lay out a neat, linear boundary that lightly encloses the tables without hindering access.',
+  description = 'This scene involves constructing a linear design structure to segment the area around a central table, providing a sense of boundary without obstructing movement. The design requires understanding spatial relationships to position the structure effectively relative to the objects, utilizing geometric properties like length, height, and orientation.',
+  initial_design = Design(
+    structures = {
+      linear_initial = Linear(
+        center = (0.75, -0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_goal = Linear(
+        center = (0.75, 0.0, 0.0),
+        length = 1.75,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (0.75, -0.5, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = "Adjust the orientation to 'left-right' to align along the horizontal axis.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The original orientation does not match the prompt's requirement for a horizontal alignment."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (0.75, 0.0, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Change the center to (0.75, 0, 0) to better position between the tables.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Positioning between the tables aligns with the spatial relationship guideline in the prompt.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (0.75, 0.0, 0.0),
+          length = 1.75,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Reduce the length to 1.75 meters to fit comfortably without enclosing too tightly.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The desired length ensures an efficient enclosure without overtightening.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_initial',
+        NewDesignStructure = Linear(
+          center = (0.75, 0.0, 0.0),
+          length = 1.75,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the height to 0.3 meters for a more defined boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'A more defined boundary by height aligns with the segmenting space goal noted in the prompt.'
+      )
+    ]
+  )
+)

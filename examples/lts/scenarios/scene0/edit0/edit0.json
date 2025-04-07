@@ -1,52 +1,66 @@
 {
     "observation": {
-        "tree_0": {
+        "bench_1": {
             "extent": [
-                0.15,
-                0.15,
-                2.0
+                0.22015424,
+                0.66046348,
+                0.28620075
             ],
             "center": [
-                0.0,
+                0.5,
                 0.0,
                 0.0
             ],
             "theta": 0.0,
-            "semantic_label": "tree"
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 180.0,
+            "semantic_label": "bench"
         }
     },
-    "description": "This scene involves spatial reasoning, where the VLM has to understand the relative positioning of objects like 'next to the tree' and 'in front of the tree.'. Additionally, the instruction requires interpreting geometric transformations, such as swapping dimensions and repositioning the rectangle.",
-    "prompt": "Build a rectangular brick planter next to the tree",
+    "description": "This scene involves arranging a rectangular structure to define a clear division between two benches and a seating area. The task requires understanding spatial relationships and geometric properties such as center, length, width, and height. Additionally, the task involves ensuring the correct alignment and dimensions of the rectangular structure to maintain symmetry around the benches.",
+    "prompt": "Construct a rectangular structure along one side of the benches to create a semi-enclosed seating area. The structure should provide a sense of separation without blocking views.",
     "initial_design": {},
     "design_goal": {},
     "initial_impl": {
-        "rect_0": [
+        "rectangle_1": [
             {
                 "segment": 1,
-                "height": 0.5,
+                "height": 0.6,
                 "keypoints": [
                     [
-                        1.75,
+                        -0.25,
                         -0.5,
                         0.0
                     ],
                     [
-                        1.75,
-                        0.5,
+                        -0.25,
+                        1.5,
                         0.0
                     ],
                     [
-                        2.25,
-                        0.5,
+                        0.25,
+                        1.5,
                         0.0
                     ],
                     [
-                        2.25,
+                        0.25,
                         -0.5,
                         0.0
                     ],
                     [
-                        1.75,
+                        -0.25,
                         -0.5,
                         0.0
                     ]
@@ -58,33 +72,33 @@
         ]
     },
     "goal_impl": {
-        "rect_0": [
+        "rectangle_1": [
             {
                 "segment": 1,
-                "height": 0.5,
+                "height": 0.8,
                 "keypoints": [
                     [
-                        1.5,
+                        -0.1,
                         -0.25,
                         0.0
                     ],
                     [
-                        1.5,
-                        0.25,
+                        -0.1,
+                        1.25,
                         0.0
                     ],
                     [
-                        2.5,
-                        0.25,
+                        0.1,
+                        1.25,
                         0.0
                     ],
                     [
-                        2.5,
+                        0.1,
                         -0.25,
                         0.0
                     ],
                     [
-                        1.5,
+                        -0.1,
                         -0.25,
                         0.0
                     ]

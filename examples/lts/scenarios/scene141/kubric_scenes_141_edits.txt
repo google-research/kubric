@@ -1,0 +1,125 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit increases the radius of the circular structure to include all tables within the lounge area?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 2.0 meters to accommodate all tables within the lounge area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Extend the height to 0.5 meters.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              tri_wedge_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge structure to the lounge area.',
+          target_parameter = 'radius'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.5, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change to a SemiCircular structure with a radius of 2.0 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A directly increases the radius to 2.0 meters which is required to incorporate all tables as per the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit is straightforward as the prompt directly suggests increasing the radius.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit correctly adjusts the circular structure to evenly distribute within the lounge area?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the center same and increase the radius.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the center to precisely (0, 0, 0) for an even distribution, and increase height to 0.5 meters for sectioning purposes.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.1, 0.1, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Slightly adjust the center and increase radius to 1.5 meters.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_ring_1 = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 2.5,
+                inner_radius = 2.0,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a SemiRing structure with concentric arcs.',
+          target_parameter = 'outer_radius'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change to a Serpentine structure to fit the lounge area with height adjustment.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly centers the structure and adjusts the height, meeting the goal of an even distribution and increased coverage.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The central adjustment and height correction require spatial reasoning to ensure design coherency.'
+    )
+  ]
+)

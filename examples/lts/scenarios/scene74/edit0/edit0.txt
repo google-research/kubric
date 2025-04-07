@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a gentle wave path that wanders around my sitting spot for a pleasant walk.',
+  description = 'In this scene, you will create a serpentine walking path that meanders through a park, avoiding a bench. The path should have a gentle wave pattern with specified amplitude and wavelength while ensuring the bench remains undisturbed.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-1.5, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.05
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_2 = Serpentine(
+        left_arc_center = (-1.5, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.5, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.05
+        ),
+        edit_description = 'Adjust the arc center to (-1.5, 0, 0) to create more distance from the bench.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt implies a need for increased distance but does not explicitly state the new position, making it moderately challenging.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.05
+        ),
+        edit_description = 'Expand the radius to 1.0 for a more relaxed wave pattern.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The prompt suggests a gentle path but does not specify the radius, requiring inference from the given context.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Increase the height to 0.1 for better path visibility.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Enhancing visibility is implied but not directly indicated by the prompt, requiring some analytical reasoning.'
+      )
+    ]
+  )
+)

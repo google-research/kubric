@@ -1,0 +1,69 @@
+{
+    "prompt": "Design a pleasant rest area by adding an L-shaped structure between the two benches to provide cushioning and storage.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                1.32092696,
+                -0.5724015,
+                -0.44030848
+            ],
+            "center": [
+                0.0,
+                -0.28620075,
+                1.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                1.32092696,
+                -0.5724015,
+                -0.44030848
+            ],
+            "center": [
+                0.0,
+                -0.28620075,
+                -1.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.4,
+            "keypoints": [
+                [
+                    -0.6000000000000001,
+                    -0.2,
+                    0.4
+                ],
+                [
+                    1.2,
+                    -0.2,
+                    0.4
+                ],
+                [
+                    1.2,
+                    -0.2,
+                    -0.4
+                ],
+                [
+                    -0.6000000000000001,
+                    -0.2,
+                    -0.4
+                ],
+                [
+                    -0.6000000000000001,
+                    -0.2,
+                    0.4
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

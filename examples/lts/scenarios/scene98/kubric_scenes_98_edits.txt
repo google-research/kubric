@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct edit for moving the serpentine path closer to the birdhouse?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Move the serpentine path to start near the birdhouse at (-1, 1)',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = "Moving the path closer to the birdhouse aligns with the scene's goal of guiding visitors around it."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-2.0, 2.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Move the serpentine path away from the birdhouse',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = ''
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Move the serpentine path to start near the birdhouse with a larger radius',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Move the serpentine path to start near the birdhouse with increased height',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Move the serpentine path to start even further from the birdhouse',
+          difficult_to_deduce_from_prompt = 'easy',
+          exaplanation_of_diffuculty = ''
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit moves the starting point of the path closer to the birdhouse, facilitating visitors' guidance in alignment with the design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The edit requires straightforward mapping of the path position closer to the birdhouse, matching the scene's guidelines."
+    ),
+    1 : EditMCQA(
+      question = "What is the correct edit for adjusting the serpentine's orientation to convex?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the orientation to convex for the second half',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = 'Changing the orientation is a bit more complex but necessary for the design to affect visitor perception.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the orientation to concave and increase the radius',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Adjust the orientation to concave and increase the height',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust orientation to convex and increase radius',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = ''
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust orientation to convex with smaller radius',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit changes the orientation to convex, as necessary for influencing the perception and path guidance.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in understanding the impact of orientation change on perception, requiring a moderate level of insight.'
+    ),
+    2 : EditMCQA(
+      question = 'What is the correct edit to extend the serpentine path length?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Extend the path to increase the length',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = 'Extending the path requires a careful balance to maintain the serpentine nature while achieving the goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius for a shorter length',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-2.0, 2.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Extend the path outward for more coverage',
+          difficult_to_deduce_from_prompt = 'hard',
+          exaplanation_of_diffuculty = ''
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Extend the path with a concave orientation',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.2, 1.2, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Extend the path with a different height',
+          difficult_to_deduce_from_prompt = 'medium',
+          exaplanation_of_diffuculty = ''
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit extends the path and adjusts parameters to increase the length while maintaining the structural curvature.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Length extension must be balanced with maintaining curvature, demanding advanced design strategy.'
+    )
+  ]
+)

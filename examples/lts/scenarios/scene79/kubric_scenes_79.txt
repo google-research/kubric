@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, -0.5, 0.0),
+      theta = 45.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -0.5, 0.0),
+      theta = -45.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a comfy semi-circular sitting area around the birdhouse for bird watching, ensuring easy access to the seating.',
+  description = 'This scene involves constructing a cozy semi-circular seating area that surrounds a birdhouse in a garden. The task requires understanding spatial relationships to ensure access and comfort, utilizing the preferred design profile for aesthetics and functionality.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, -0.5, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.5, 0.0),
+        radius = 1.0,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.5, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Change orientation to concave and adjust the center to properly align with the birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt does not explicitly mention the need to change the orientation and center, one needs to deduce this for a proper seating area configuration.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.5, 0.0),
+          radius = 1.0,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters for better seating comfort.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The required height change for comfort is straightforwardly explained in the prompt.'
+      )
+    ]
+  )
+)

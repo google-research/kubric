@@ -1,0 +1,92 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create an arrangement with two L-shaped structures that provide an enclosed seating setup around the chairs while maintaining accessibility.',
+  description = 'This scene involves arranging two L-shaped structures to form functional seating and aesthetic barriers around chairs in a garden setup. The task requires understanding spatial relationships and geometric properties such as center, length, and width to ensure the structures complement the seating area.',
+  initial_design = Design(
+    structures = {
+      linear_1 = LShape(
+        left_center = (-1.5, 0.5, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 1.0,
+        right_length = 1.0,
+        right_center = (-1.0, 1.5, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (-1.5, 0.5, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 1.0,
+        right_length = 1.0,
+        right_center = (-1.0, 1.5, 0.0),
+        height = 0.4
+      ),
+      LShape_2 = LShape(
+        left_center = (1.5, -0.5, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 1.0,
+        right_length = 1.0,
+        right_center = (1.0, -1.5, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = LShape(
+          left_center = (-1.5, 0.5, 0.0),
+          left_length = 2.0,
+          left_width = 0.5,
+          right_width = 1.0,
+          right_length = 1.0,
+          right_center = (-1.0, 1.5, 0.0),
+          height = 0.4
+        ),
+        edit_description = 'Modify the single linear design to LShape 1 with specified dimensions for adding aesthetic and functional barriers around chair 1.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit involves reshaping the linear structure into an L-shape, which is a straightforward transformation given the described dimensions.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            LShape_2 = LShape(
+              left_center = (1.5, -0.5, 0.0),
+              left_length = 2.0,
+              left_width = 0.5,
+              right_width = 1.0,
+              right_length = 1.0,
+              right_center = (1.0, -1.5, 0.0),
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add LShape 2 to mirror the first design, creating symmetry around chair 2 with the specified parameters.',
+        target_parameter = 'LShape_2',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adding the mirror L-shaped structure is straightforward, utilizing similar parameters but with inverted positions.'
+      )
+    ]
+  )
+)

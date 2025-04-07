@@ -1,0 +1,141 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification for the first rectangular structure to meet the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 1.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Split the initial structure into two separate pieces and adjust the position and dimensions of the first piece.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Keep the initial structure without changes.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend the length and change the height of the first piece.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 1.0, 0.0),
+            length = 1.2,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust position with a new length while keeping width and height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.6, 1.0, 0.0),
+            length = 0.8,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the center further left and shrink the length.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification splits the initial structure into two pieces and adjusts the position and dimensions consistent with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit involves splitting and repositioning, which requires understanding new positions and verifying geometric fitting.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct addition of a new structure to achieve the design goal?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              Rectangular_2 = Rectangular(
+                center = (0.5, 1.0, 0.0),
+                length = 1.0,
+                width = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a second rectangular structure to create a new seating area according to the design goal.',
+          target_parameter = 'location and geometric properties'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge_1 = TriWedge(
+                center = (0.5, 1.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge structure instead of rectangular for the second piece.',
+          target_parameter = 'location and geometric properties'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              QuarterWedge_1 = QuarterWedge(
+                center = (0.5, 1.0, 0.0),
+                radius = 0.5,
+                gap_degrees = 7.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a QuarterWedge structure for aesthetic curves matching spatial constraints.',
+          target_parameter = 'location and geometric properties'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular_1 = Circular(
+                center = (0.5, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Implement a circular structure to deviate from the rectangular theme.',
+          target_parameter = 'location and geometric properties'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              Linear_1 = Linear(
+                center = (0.5, 1.0, 0.0),
+                length = 1.0,
+                height = 0.3,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Use a linear layout to align with the rest of the scene geometrically.',
+          target_parameter = 'location and geometric properties'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct addition matches the design goal of adding a second rectangular structure with precise dimensions and location.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adding a new structure with precise dimensions and location requires attention to detail and understanding of spatial layout.'
+    )
+  ]
+)

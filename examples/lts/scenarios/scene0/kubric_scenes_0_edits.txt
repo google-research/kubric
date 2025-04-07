@@ -1,116 +1,181 @@
 CounterFactualMCQASequence(
   mcqa_questions = [
     0 : EditMCQA(
-      question = 'What change should be made to move the rectangle in front of the tree?',
+      question = 'Which edit correctly translates the rectangular structure to have its center at (0, 0.5, 0)?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 1.0,
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
             width = 0.5,
-            height = 0.5
+            height = 0.6
           ),
-          edit_description = 'Move the rectangle in front of the tree.'
+          edit_description = 'Move the rectangular structure to have its center at (0, 0.5, 0), oriented along the y-axis.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (-2.0, 2.0, 0.0),
-            length = 1.0,
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
             width = 0.5,
-            height = 0.5
+            height = 0.6
           ),
-          edit_description = 'Move the rectangle to the right of the tree.'
+          edit_description = 'Move the rectangular structure to have its center at (0.5, 0.0, 0), oriented along the x-axis.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (0.0, 2.0, 0.0),
-            length = 1.0,
-            width = 0.5,
-            height = 0.5
+            center = (0.5, 1.5, 0.0),
+            length = 1.5,
+            width = 0.2,
+            height = 0.8
           ),
-          edit_description = 'Move the rectangle behind the tree.'
+          edit_description = 'Move the rectangular structure to have its center at (0.5, 1.5, 0), oriented along the x-axis.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (0.0, -2.0, 0.0),
-            length = 1.0,
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
             width = 0.5,
-            height = 0.5
+            height = 0.8
           ),
-          edit_description = 'Move the rectangle to the left of the tree.'
+          edit_description = 'Move the rectangular structure to have its center at (0, 1.0, 0), oriented along the y-axis.'
         ),
         E = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (1.0, 1.0, 0.0),
-            length = 1.0,
-            width = 0.5,
-            height = 0.5
+            center = (-0.5, 0.5, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.7
           ),
-          edit_description = 'Move the rectangle diagonally in front right of the tree.'
+          edit_description = 'Move the rectangular structure to have its center at (-0.5, 0.5, 0), oriented along the y-axis.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Answer A correctly moves the rectangle in front of the tree as specified in the edit.',
-      difficulty = 'medium',
-      explanation_of_difficulty = "Determining the position 'in front of the tree' requires understanding relative positioning in a 3D space."
+      explanation_of_correctness = 'The edit explicitly involves moving the rectangular structure to the correct center coordinates (0, 0.5, 0).',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification involves a simple translation of the structure along the x and y axes, which is directly stated in the prompt.'
     ),
     1 : EditMCQA(
-      question = 'What modification should be made to swap the length and width of the rectangle?',
+      question = 'Which edit reduces the length to 1.5 meters and width to 0.2 meters?',
       answers = {
         A = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 0.5,
-            width = 1.0,
-            height = 0.5
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.2,
+            height = 0.6
           ),
-          edit_description = 'Swap the length and width to make the short end face camera horizontally.'
+          edit_description = 'Reduce the length to 1.5 meters and width to 0.2 meters for a snug fit between the benches.'
         ),
         B = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 0.75,
-            width = 0.75,
-            height = 0.5
+            center = (0.0, 0.5, 0.0),
+            length = 1.8,
+            width = 0.3,
+            height = 0.6
           ),
-          edit_description = 'Make the length and width equal, creating a square face front.'
+          edit_description = 'Reduce the length to 1.8 meters and width to 0.3 meters.'
         ),
         C = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 1.5,
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
             width = 0.5,
-            height = 0.5
+            height = 0.6
           ),
-          edit_description = 'Increase length significantly.'
+          edit_description = 'No change in dimensions, keep it the same.'
         ),
         D = ModifyStructureEdit(
-          design_id = 'rect_0',
+          design_id = 'rectangle_1',
           NewDesignStructure = Rectangular(
-            center = (2.0, 0.0, 0.0),
-            length = 0.5,
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
             width = 0.25,
-            height = 0.5
+            height = 0.7
           ),
-          edit_description = 'Reduce width and maintain length.'
+          edit_description = 'Adjust the length to 1.5 meters and width to 0.25 meters.'
         ),
-        E = DeleteStructureEdit(
-          design_id = 'rect_0',
-          edit_description = 'Remove the rectangular structure entirely.'
+        E = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Reduce the length to 1.5 meters and keep the width at 0.5 meters.'
         )
       },
       correct_answer = 'A',
-      explanation_of_correctness = 'Answer A correctly implements the swap between length and width.',
-      difficulty = 'hard',
-      explanation_of_difficulty = 'Swapping dimensions involves both geometric understanding and interpretation of the prompt regarding orientation.'
+      explanation_of_correctness = 'This edit directly changes the dimensions to the specified values of a 1.5-meter length and 0.2-meter width for snug fitting.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the reduced length and width requires some understanding of the spatial fit between the benches, which is not explicitly detailed in the prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit increases the height to 0.8 meters to enhance the sense of separation?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.2,
+            height = 0.8
+          ),
+          edit_description = 'Increase the height to 0.8 meters to enhance the sense of separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.2,
+            height = 0.6
+          ),
+          edit_description = 'Keep the height at 0.6 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 1.0
+          ),
+          edit_description = 'Increase the height to 1.0 meters for maximum separation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.2,
+            height = 0.75
+          ),
+          edit_description = 'Increase the height slightly to 0.75 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangle_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.8,
+            width = 0.2,
+            height = 0.8
+          ),
+          edit_description = 'Increase the length to 1.8 meters and the height to 0.8 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The height is increased to 0.8 meters as specified, enhancing the sense of separation.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need to adjust height for improved separation is somewhat inferred from the goal of creating a semi-enclosed space.'
     )
   ]
 )

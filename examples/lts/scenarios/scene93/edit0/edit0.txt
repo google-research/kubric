@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, -1.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (2.0, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    trashcan1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (0.0, 1.0, 0.3365115),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Build a winding path around the bin to give it a sense of enclosure.',
+  description = 'This scene involves creating a visual barrier for privacy or decoration by using trees and a curved path that wraps around a trashcan. The task requires understanding spatial relationships and geometric properties like positioning and dimensions to achieve the design goal.',
+  initial_design = Design(
+    structures = {
+      CurvyPath1 = CurvyPath(
+        far_curve_leftmost_point = (-0.5, 0.5, 0.0),
+        close_curve_leftmost_point = (0.5, 0.5, 0.0),
+        amplitude = 0.2,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath1 = CurvyPath(
+        far_curve_leftmost_point = (-0.5, 0.5, 0.0),
+        close_curve_leftmost_point = (0.5, 0.5, 0.0),
+        amplitude = 0.2,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'CurvyPath1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-0.5, 0.5, 0.0),
+          close_curve_leftmost_point = (0.5, 0.5, 0.0),
+          amplitude = 0.2,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the path to wrap around the trashcan with new start points.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Determining the correct curve wrapping around the trashcan requires spatial reasoning and understanding of the specified camera viewpoint.'
+      )
+    ]
+  )
+)

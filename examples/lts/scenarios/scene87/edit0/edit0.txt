@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-0.5, 0.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'table'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (0.0, 0.75, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a compact garden feature that integrates the tabletop area with greenery without blocking it. Arrange the structures to form a coherent space around the tables and pot.',
+  description = 'This scene involves creating an aesthetically pleasing garden layout using an L-shaped structure to complement a group of two tables and a pot. The design focuses on achieving spatial harmony without any collisions and ensuring accessibility around the objects.',
+  initial_design = Design(
+    structures = {
+      structure_1 = LShape(
+        left_center = (0.0, 0.75, 0.0),
+        left_length = 1.5,
+        left_width = 0.7,
+        right_width = 0.7,
+        right_length = 1.0,
+        right_center = (0.5, 0.75, 0.0),
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure_1 = LShape(
+        left_center = (0.0, 0.75, 0.0),
+        left_length = 1.5,
+        left_width = 0.7,
+        right_width = 0.7,
+        right_length = 1.0,
+        right_center = (0.5, 0.75, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.75, 0.0),
+          left_length = 1.5,
+          left_width = 0.7,
+          right_width = 0.7,
+          right_length = 1.0,
+          right_center = (0.5, 0.75, 0.0),
+          height = 0.2
+        ),
+        edit_description = 'Change shape to LShape aligned with the center of the pot to establish a combined feature.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly instructs to align the shape with the pot center and provides measurements.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.75, 0.0),
+          left_length = 1.5,
+          left_width = 0.7,
+          right_width = 0.7,
+          right_length = 1.0,
+          right_center = (0.5, 0.75, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Increase the height to 0.3 meters for an integrated garden aesthetic.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifies the height of the structure.'
+      )
+    ]
+  )
+)

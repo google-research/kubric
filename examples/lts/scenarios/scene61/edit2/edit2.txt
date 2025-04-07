@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Construct a quarter-wedge border around the birdhouse to create a distinct area without blocking access.',
+  description = 'This scene involves constructing a protective quarter-wedge structure around a birdhouse to create a defined visual boundary while maintaining accessibility. The design focuses on achieving spatial symmetry and ensuring enough space for movement around the birdhouse.',
+  initial_design = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 30.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 30.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 45.0,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the radius to 1.0 meters to fit within the 3x3 meter area more snugly.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifies that the quarter-wedge should be compact and provide a distinct area, implying a reduction in size.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 30.0,
+          height = 0.3
+        ),
+        edit_description = 'Decrease the gap to 30 degrees to ensure a more enclosed feel.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining the specific gap required more inference as it affects the openness of the wedge.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 30.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters for better boundary definition.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt suggested enhancing the visual presence, which can be easily achieved by increasing the height.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,94 @@
+{
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530486,
+                0.530497,
+                0.673023
+            ],
+            "center": [
+                1.5,
+                -1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene requires placing linear structures to define a clear division around two objects \n                   within a limited garden space. It emphasizes understanding spatial relationships and geometric \n                   properties such as position, length, and height. The task is to ensure proper separation without \n                   obstructing movement or views between a birdhouse and a trashcan.",
+    "prompt": "Design a layout with linear structures that organize the space, \n              protecting and highlighting both the birdhouse and the trashcan.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "Linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -3.061616997868383e-17,
+                        -1.4,
+                        0.0
+                    ],
+                    [
+                        3.061616997868383e-17,
+                        -0.3999999999999999,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "Linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -3.061616997868383e-17,
+                        -1.4,
+                        0.0
+                    ],
+                    [
+                        3.061616997868383e-17,
+                        -0.3999999999999999,
+                        0.0
+                    ]
+                ]
+            }
+        ],
+        "Linear_2": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        1.5,
+                        -2.9,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -1.9,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

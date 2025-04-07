@@ -1,0 +1,90 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530496,
+                0.53049698,
+                0.673023
+            ],
+            "center": [
+                -0.5,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "description": "This scene involves configuring a linear structure to establish a boundary for a gathering space. The design aims to facilitate the functional separation while maintaining open access to the surrounding area. Key considerations include aligning the linear design with spatial features of existing objects, ensuring no collision and respecting the defined area constraints.",
+    "prompt": "Create a linear arrangement to demarcate the dining space, allowing an open flow on one side for easy access.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        1.5,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_2": [
+            {
+                "segment": 1,
+                "height": 0.8,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        1.5,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

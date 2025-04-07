@@ -1,0 +1,51 @@
+{
+    "prompt": "Design a barrier that sways like a river around my items, defending them against the wind.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.530497,
+                -0.673023,
+                -0.530496
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "table_1": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    -0.9999999999999999
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -1.0
+                ]
+            ]
+        }
+    ]
+}

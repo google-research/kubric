@@ -1,0 +1,91 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530496, 0.530497, 0.673023),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (2.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Design a barrier that sways like a river around my items, defending them against the wind.',
+  description = 'This scene involves designing a serpentine barrier to provide a wind shield around two outdoor objects. It requires understanding spatial relationships such as positioning and orientation, as well as interpreting geometric properties like radius and height to achieve the design goal.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.5, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.5, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Change the profile from linear to serpentine.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Changing the profile type requires understanding of the term 'serpentine' and the geometric assumptions it entails, which is not trivial."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the orientation to convex.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt explicitly specifies this orientation, making this change straightforward.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Position the structure with an arc center at (0.5, 0, 0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The exact position is provided in the design goal, making this edit clear and simple.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 1.0,
+          left_arc_orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height from 0.3 to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The target height is specifically stated in the goal.'
+      )
+    ]
+  )
+)

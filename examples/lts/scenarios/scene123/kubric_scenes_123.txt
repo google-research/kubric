@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    pot1 = SceneObject(
+      extent = (0.640426, 0.640426, 0.432404),
+      center = (1.5, -1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    birdhouse1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a connected garden framework to house the plant and birdhouse.',
+  description = 'This scene involves creating an interconnected system of planters around a focal object. It requires understanding geometric properties such as center and height to form a continuous structure. The task also includes resolving ambiguities in instructions, such as determining the specific layout of the interconnected system to accommodate multiple functionalities.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (1.0, -1.0, 0.0),
+        length = 1.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (1.5, -1.5, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'concave',
+        height = 0.25
+      ),
+      serpentine_2 = Serpentine(
+        left_arc_center = (-1.5, 1.5, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'concave',
+        height = 0.25
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (1.5, -1.5, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'concave',
+          height = 0.25
+        ),
+        edit_description = 'Change linear path to serpentine path',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The modification from a linear design to a serpentine structure requires understanding the geometric reconfiguration needed for the arc.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-1.5, 1.5, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'concave',
+          height = 0.25
+        ),
+        edit_description = 'Increase height and modify path shape to maintain continuity between points while accommodating both the pot and birdhouse.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Ensuring continuity and accommodating all elements while changing the height demands a deeper spatial understanding and reevaluation of path trajectories.'
+      )
+    ]
+  )
+)

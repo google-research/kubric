@@ -1,0 +1,72 @@
+Scene(
+  objects = {
+    pot1 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot2 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Enhance the pots with a dual-circle pattern that complements my garden.',
+  description = 'This scene involves arranging circular patterns to create a visually pleasing and distinct layout around two pots. It requires understanding geometric properties like radius and height to achieve the design goal of forming concentric circular designs. The task also includes resolving ambiguities in positioning to maintain uniformity in spacing and size.',
+  initial_design = Design(
+    structures = {
+      design_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.75,
+        height = 0.1
+      ),
+      design_2 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.75,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = Circular(
+          center = (-1.0, 0.0, 0.0),
+          radius = 0.75,
+          height = 0.1
+        ),
+        edit_description = 'Increase the radius of the circular planter around pot1.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The edit is straightforward as it directly increases the radius of the existing circular planter from the initial design to match the design goal.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            design_2 = Circular(
+              center = (1.0, 0.0, 0.0),
+              radius = 0.75,
+              height = 0.1
+            )
+          }
+        ),
+        edit_description = 'Add a similar circular planter around pot2.',
+        target_parameter = 'circular planter at pot2',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Adding a new circular design that complements the existing one requires interpreting the symmetry and equal design aesthetics intended in the scene.'
+      )
+    ]
+  )
+)

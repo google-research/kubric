@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.5, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (1.5, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a snaking path that connects the natural and the urban, without taking away too much open space.',
+  description = 'This scene involves creating an artistic pathway feature that smoothly links two distinct objects, \n    offering both functionality and aesthetic appeal. It calls for understanding spatial relationships and \n    curvature alignment to maintain harmony in a tight setting.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 3.0,
+        height = 0.05,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+        close_curve_leftmost_point = (1.0, 1.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.5,
+        phase = 0.0,
+        height = 0.05
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+          close_curve_leftmost_point = (1.0, 1.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.5,
+          phase = 0.0,
+          height = 0.05
+        ),
+        edit_description = 'Change the profile to a curvy path to add visual interest.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding of how to morph a straight line into a curvy path.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            curvy_path_1 = CurvyPath(
+              far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+              close_curve_leftmost_point = (1.0, 1.0, 0.0),
+              amplitude = 0.3,
+              wavelength = 2.5,
+              phase = 0.0,
+              height = 0.05
+            )
+          }
+        ),
+        edit_description = 'Position the untangling features to create a natural feel from the urban to the organic.',
+        target_parameter = 'path curviness',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Involving subtle adjustments to path positioning to achieve a balance with the scene.'
+      )
+    ]
+  )
+)

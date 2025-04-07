@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a sinuous path that weaves around the birdhouses for a unique garden feature.',
+  description = 'This scene involves creating a serpentine path around two birdhouses to add visual flair to the space. It requires understanding geometric properties like arc centers, radius, and orientation to achieve the design goal. The task also includes managing spatial constraints to avoid collisions and provide an aesthetically pleasing arrangement.',
+  initial_design = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-2.0, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'concave',
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-2.0, -0.5, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      ),
+      serpentine_2 = Serpentine(
+        left_arc_center = (2.0, 0.5, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'concave',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            serpentine_2 = Serpentine(
+              left_arc_center = (2.0, 0.5, 0.0),
+              radius = 0.75,
+              left_arc_orientation = 'concave',
+              height = 0.1
+            )
+          }
+        ),
+        edit_description = 'Introduce a second serpentine path on the right side of the birdhouses.',
+        target_parameter = 'design_goal',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Introducing a new structure requires understanding spatial arrangement and balance in design.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-2.0, -0.5, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Adjust the radius of the left serpentine path to integrate harmoniously around the birdhouses.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Reducing the radius is a straightforward response to the prompt for integrating harmoniously.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_2',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (2.0, 0.5, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'concave',
+          height = 0.1
+        ),
+        edit_description = 'Change the orientation of the right serpentine path for visual appeal.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Determining the most aesthetically pleasing orientation can be subjective and requires visual judgement.'
+      )
+    ]
+  )
+)

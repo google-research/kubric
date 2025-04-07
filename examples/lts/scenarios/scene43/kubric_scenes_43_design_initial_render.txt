@@ -1,49 +1,49 @@
 {
-    "prompt": "I want a meandering path around the compact garden area to maintain a sense of flow and openness.",
+    "prompt": "Create a circular path that elegantly wraps between the trees, allowing room for visitors to enjoy the view and ensuring easy navigation.",
     "observation": {
-        "table_1": {
+        "tree_1": {
             "extent": [
-                0.576648,
-                -0.589116,
-                -0.576648
+                0.3,
+                -4.0,
+                -0.3
             ],
             "center": [
                 1.0,
-                -0.0,
-                -0.0
+                -2.0,
+                -1.0
             ],
             "theta": 0.0,
-            "semantic_label": "table"
+            "semantic_label": "Tree"
         },
-        "bench_1": {
+        "tree_2": {
             "extent": [
-                1.32092696,
-                -0.5724015,
-                -0.44030848
+                0.3,
+                -4.0,
+                -0.3
             ],
             "center": [
                 -1.0,
-                -0.0,
-                -0.0
+                -2.0,
+                1.0
             ],
-            "theta": -90.0,
-            "semantic_label": "bench"
+            "theta": 0.0,
+            "semantic_label": "Tree"
         }
     },
     "output": [
         {
             "segment": 1,
-            "height": 0.25,
+            "height": 0.2,
             "keypoints": [
                 [
-                    -0.75,
+                    -1.0,
                     -0.0,
-                    -2.0
+                    6.123233995736766e-17
                 ],
                 [
-                    0.75,
+                    1.0,
                     -0.0,
-                    -2.0
+                    -6.123233995736766e-17
                 ]
             ]
         }

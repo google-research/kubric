@@ -2,73 +2,82 @@ Scene(
   objects = {
     tree_1 = SceneObject(
       extent = (0.15, 0.15, 2.0),
-      center = (-1.0, -1.0, 0.0),
+      center = (-1.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
     ),
     tree_2 = SceneObject(
       extent = (0.15, 0.15, 2.0),
-      center = (1.0, 1.0, 0.0),
+      center = (1.0, 0.0, 0.0),
       theta = 0.0,
       semantic_label = 'tree'
     )
   },
-  num_edits = 2,
-  prompt = 'Add a winding path that weaves elegantly through the arboreal giants.',
-  description = 'This scene involves constructing a serpentine path that makes its way between trees to provide an aesthetic garden layout. The serpentine path should introduce curves alongside a sense of flow while maintaining a subtle design.',
+  num_edits = 3,
+  prompt = 'Develop a smooth-curving protective loop around the trees, ensuring an open and connected garden feature.',
+  description = 'This scene involves creating a harmonious semi-ring structure around a pair of trees, providing an aesthetically pleasing border that complements the natural elements. The design focuses on maintaining a balance between the structure and the trees, utilizing geometric properties like radius and height to form the desired pattern.',
   initial_design = Design(
     structures = {
-      serpentine_1 = CurvyPath(
-        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
-        close_curve_leftmost_point = (0.0, -1.0, 0.0),
-        amplitude = 0.75,
-        wavelength = 3.0,
-        phase = 1.570795,
-        height = 0.05
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 0.7,
+        orientation = 'convex',
+        height = 0.4
       )
     }
   ),
   design_goal = Design(
     structures = {
-      sinewave_path = CurvyPath(
-        far_curve_leftmost_point = (-1.0, -1.0, 0.0),
-        close_curve_leftmost_point = (0.0, -1.0, 0.0),
-        amplitude = 0.5,
-        wavelength = 3.0,
-        phase = 1.570795,
-        height = 0.05
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 0.7,
+        orientation = 'convex',
+        height = 0.5
       )
     }
   ),
   edits = EditSequence(
     edits = [
       0 : ModifyStructureEditWithDifficulty(
-        design_id = 'serpentine_1',
-        NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (0.5, -1.0, 0.0),
-          close_curve_leftmost_point = (0.5, -1.0, 0.0),
-          amplitude = 0.75,
-          wavelength = 3.0,
-          phase = 1.570795,
-          height = 0.05
+        design_id = 'Circular_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.2,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.4
         ),
-        edit_description = 'Change the profile to a sine wave path with top start point at (0.5, -1, 0), increasing the wave amplitude for a more elegant path.',
+        edit_description = 'Change the design from Circular to SemiRing for better integration with the tree arrangement.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Based on the prompt, deducing the amplitude and new starting point requires interpretation and understanding of design intention.'
+        explanation_of_difficulty = 'The change to a SemiRing structure requires adding an inner radius while maintaining the existing dimensions.'
       ),
       1 : ModifyStructureEditWithDifficulty(
-        design_id = 'serpentine_1',
-        NewDesignStructure = CurvyPath(
-          far_curve_leftmost_point = (-1.0, -1.0, 0.0),
-          close_curve_leftmost_point = (0.0, -1.0, 0.0),
-          amplitude = 0.75,
-          wavelength = 3.0,
-          phase = 1.570795,
-          height = 0.05
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.4
         ),
-        edit_description = 'Adjust the starting points to align between the trees according to the design goal.',
+        edit_description = 'Define distinct outer and inner radii for the SemiRing to achieve a balanced loop around the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining appropriate radii to ensure the loop equally balances between the trees.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 0.7,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters, enhancing the visual prominence while preserving open access around the trees.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Aligning between specific points is straightforward given the objective spatial arrangement.'
+        explanation_of_difficulty = 'The height adjustment is a straightforward modification to increase visual impact.'
       )
     ]
   )

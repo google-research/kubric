@@ -1,0 +1,20 @@
+{
+    "prompt": "Design a symmetrical landscape pattern around the rock, ensuring pathways in each cardinal direction are left open.",
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                -0.25,
+                -0.25
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": []
+}

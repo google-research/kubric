@@ -1,0 +1,121 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made to the Circular design to create a more open design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular design profile to a QuarterWedge profile to create openings for organic movement around the table.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the QuarterWedge design to a Circular profile to enclose the area entirely.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 12.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular design to a TriWedge profile to create sharp angled openings.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular design to a SemiCircular profile for a half-enclosed design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the Circular design to a Linear wall segment for a distinct linear separation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves changing the Circular design to a QuarterWedge with a 90-degree gap. This creates openings for organic movement, aligning with the task requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change from a Circular to QuarterWedge requires considering the spatial layout to maintain openness.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the position and gap of the QuarterWedge structures adjusted to enhance the layout?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 60.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust positioning and gap degrees of QuarterWedge structures to ensure an open and interconnected layout with nature.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.5, 1.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Position the QuarterWedge further away for a wider open area with a minimal gap.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 13.0,
+            height = 0.4
+          ),
+          edit_description = 'Change to a TriWedge design for a tighter, more enclosed layout.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 75.0,
+            height = 0.4
+          ),
+          edit_description = 'Position QuarterWedge at the center for concentrated seating with increased gap.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Replace the QuarterWedge with a Linear structure to straighten the layout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit adjusts the QuarterWedge's position and gap degrees slightly to create a more open and well-connected design that interacts harmoniously with nature.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting the placement and gap degrees requires spatial awareness for an interconnected layout.'
+    )
+  ]
+)

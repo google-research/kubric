@@ -1,0 +1,76 @@
+{
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.320213,
+                0.32021299,
+                0.216202
+            ],
+            "center": [
+                0.5,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.320213,
+                0.32021299,
+                0.216202
+            ],
+            "center": [
+                0.5,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "description": "This scene involves constructing a decorative linear border around two pots to create a visually appealing garden feature. The task requires understanding spatial relationships and geometric properties to ensure the linear structure enhances the aesthetic without obstructing the area.",
+    "prompt": "Design a linear border that frames the two pots, adding decorative appeal while maintaining accessibility.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_border_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        1.9999999999999998,
+                        -2.0,
+                        0.0
+                    ],
+                    [
+                        2.0,
+                        2.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_border_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.5,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        2.5,
+                        0.0,
+                        0.0
+                    ]
+                ]
+            }
+        ]
+    }
+}

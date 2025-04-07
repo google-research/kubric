@@ -1,0 +1,63 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (2.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design an artistic pathway leading to my resting area. It should flow like a gentle river.',
+  description = 'This scene involves creating a serpentine pathway leading to a bench, aiming for an aesthetic appeal while ensuring smooth navigation. The task involves interpreting geometric properties such as curvature and path length to achieve the design goal. Adjusting the serpentine shape parameters ensures the pathway aligns with the bench without making abrupt turns.',
+  initial_design = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (0.0, 0.0, 0.0),
+        close_curve_leftmost_point = (2.0, 0.0, 0.0),
+        amplitude = 0.2,
+        wavelength = 3.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile to a serpentine path.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The transformation from a curvy path to a serpentine involves understanding how the path's shape and curvature needs to change for aesthetic alignment with the goal."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.1
+        ),
+        edit_description = 'Adjust the curvature for better symmetry with left arc orientation convex.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Requires understanding of symmetry and balance in design to adjust the specific curvature.'
+      )
+    ]
+  )
+)

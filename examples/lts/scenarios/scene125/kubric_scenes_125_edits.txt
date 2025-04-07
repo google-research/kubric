@@ -1,0 +1,146 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification should be applied to 'linear_1' to add visual interest as described in the scene?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (1.0, 1.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Change the profile to a curvy path to add visual interest.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.05,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain the linear profile for simplicity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.05
+          ),
+          edit_description = 'Change to a semi-circular path for a smoother transition.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.05
+          ),
+          edit_description = 'Change to a triwedge to explore artistic design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.05
+          ),
+          edit_description = 'Replace linear with a quarterwedge for geometrical styling.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'A curvy path was specified to be added for visual interest.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding of how to morph a straight line into a curvy path.'
+    ),
+    1 : EditMCQA(
+      question = "What addition should be made to enhance the design as per the scene's description?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_1 = CurvyPath(
+                far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+                close_curve_leftmost_point = (1.0, 1.0, 0.0),
+                amplitude = 0.3,
+                wavelength = 2.5,
+                phase = 0.0,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Position the untangling features to create a natural feel from the urban to the organic.',
+          target_parameter = 'path curviness'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 3.0,
+                height = 0.05,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Introduce a linear path from origin to add a direct connection.',
+          target_parameter = 'path directness'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_feature = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add a circular feature to harmonize spatial relationships.',
+          target_parameter = 'geometrical composition'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_feature = Serpentine(
+                left_arc_center = (-1.0, -1.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'convex',
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Introduce a serpentine curve for complex path dynamics.',
+          target_parameter = 'arc dynamics'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_ring_feature = SemiRing(
+                center = (0.0, 0.0, 0.0),
+                outer_radius = 1.5,
+                inner_radius = 1.0,
+                orientation = 'concave',
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Add a semi-ring to establish a transitional boundary.',
+          target_parameter = 'sculptural boundary'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The addition of a curvy path aligns with the prompt to create a natural transition.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Involving subtle adjustments to path positioning to achieve a balance with the scene.'
+    )
+  ]
+)

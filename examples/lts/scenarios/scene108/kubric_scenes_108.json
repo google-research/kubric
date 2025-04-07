@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.24758101,
+                0.20776901,
+                0.384435
+            ],
+            "center": [
+                2.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "description": "This scene involves creating a functional seating arrangement utilizing two chairs with a focus on practical design. The task requires understanding spatial relationships to ensure the placement of a rectangular enclosure is both functional and visually appealing. It involves interpreting geometric properties such as center, length, width, and height to achieve the design goal.",
+    "prompt": "Create a minimalist seating area that includes a small table between the two chairs.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "table": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.25,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "table": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        0.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

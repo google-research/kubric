@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to change the linear path to a serpentine path in the design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Change linear path to serpentine path'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 11.0,
+            height = 0.25
+          ),
+          edit_description = 'Change to a TriWedge path'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 8.5,
+            height = 0.25
+          ),
+          edit_description = 'Switch to a QuarterWedge path'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Switch to a Circular path'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Switch to a SemiCircular path'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is the correct modification as it changes the linear path to the specified serpentine path with the given parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The modification from a linear design to a serpentine structure requires understanding the geometric reconfiguration needed for the arc.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit correctly increases the height and modifies the path shape to maintain continuity with the pot and birdhouse?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Increase height and modify path shape for continuity'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 1.5, 0.0),
+            close_curve_leftmost_point = (-1.0, 1.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 0.8,
+            phase = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Switch to CurvyPath for continuity'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to TriWedge path with increased height'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to QuarterWedge path with increased height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.5, 1.5, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Change to Rectangular path with increased height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is the correct edit, as it increases the height and modifies the path shape to maintain continuity between the pot and birdhouse.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Ensuring continuity and accommodating all elements while changing the height demands a deeper spatial understanding and reevaluation of path trajectories.'
+    )
+  ]
+)

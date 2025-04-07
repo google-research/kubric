@@ -1,0 +1,83 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.530497, 0.673023),
+      center = (1.5, -1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a layout with linear structures that organize the space, \n              protecting and highlighting both the birdhouse and the trashcan.',
+  description = 'This scene requires placing linear structures to define a clear division around two objects \n                   within a limited garden space. It emphasizes understanding spatial relationships and geometric \n                   properties such as position, length, and height. The task is to ensure proper separation without \n                   obstructing movement or views between a birdhouse and a trashcan.',
+  initial_design = Design(
+    structures = {
+      Linear_1 = Linear(
+        center = (0.0, -0.9, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      ),
+      Linear_2 = Linear(
+        center = (1.5, -2.4, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Linear_1 = Linear(
+        center = (0.0, -0.9, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      ),
+      Linear_2 = Linear(
+        center = (1.5, -2.4, 0.0),
+        length = 1.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.9, 0.0),
+          length = 1.0,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Move the linear structure to position near the birdhouse and adjust dimensions.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt specified the need for positioning near the birdhouse, requiring interpretation of spatial relation.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            Linear_2 = Linear(
+              center = (1.5, -2.4, 0.0),
+              length = 1.0,
+              height = 0.5,
+              orientation = 'left-right'
+            )
+          }
+        ),
+        edit_description = 'Add a new linear structure positioned near the trashcan.',
+        target_parameter = 'Linear_2',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt implies adding a structure to highlight the trashcan, requiring the introduction of a new structure.'
+      )
+    ]
+  )
+)

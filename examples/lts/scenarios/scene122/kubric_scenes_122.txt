@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design an artistic zigzag pattern around the tree to enhance its surroundings.',
+  description = 'This scene involves creating a unique zigzag pattern around a central tree to create a dynamic visual effect. It requires understanding of geometric properties like center, amplitude, wavelength, and overall height to accomplish the design goal, while ensuring the pattern remains symmetrical and the tree is not obstructed.',
+  initial_design = Design(
+    structures = {
+      Serpentine_1 = Serpentine(
+        left_arc_center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+        close_curve_leftmost_point = (1.5, -0.5, 0.0),
+        amplitude = 0.5,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Serpentine_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, -0.5, 0.0),
+          amplitude = 0.5,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the structure to a Curvy Path to form a zigzag shape',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Converting serpentine to curvy path requires understanding how to configure zigzag parameters.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'CurvyPath_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, -0.5, 0.0),
+          amplitude = 0.5,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.3
+        ),
+        edit_description = "Adjust the curve's amplitude and wavelength to create a more pronounced zigzag pattern while maintaining the initial height.",
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Adjusting the amplitude and wavelength requires insight into how these parameters affect the pattern's appearance."
+      )
+    ]
+  )
+)

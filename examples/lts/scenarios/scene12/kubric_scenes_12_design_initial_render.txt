@@ -1,25 +1,11 @@
 {
-    "prompt": "Create a winding path that connects the three trees to make an engaging garden trail.",
+    "prompt": "Construct a rectangular border around the rock to mark the area and provide a defined boundary, ensuring there is enough space to move around it.",
     "observation": {
-        "tree_1": {
+        "rock_1": {
             "extent": [
-                0.15,
-                -2.0,
-                -0.15
-            ],
-            "center": [
-                -1.0,
-                -0.0,
-                2.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "tree"
-        },
-        "tree_2": {
-            "extent": [
-                0.15,
-                -2.0,
-                -0.15
+                0.5,
+                -0.5,
+                -0.5
             ],
             "center": [
                 0.0,
@@ -27,38 +13,42 @@
                 -0.0
             ],
             "theta": 0.0,
-            "semantic_label": "tree"
-        },
-        "tree_3": {
-            "extent": [
-                0.15,
-                -2.0,
-                -0.15
-            ],
-            "center": [
-                2.0,
-                -0.0,
-                2.0
-            ],
-            "theta": 0.0,
-            "semantic_label": "tree"
+            "semantic_label": "rock"
         }
     },
     "output": [
         {
             "segment": 1,
-            "height": 0.1,
+            "height": 0.3,
             "keypoints": [
                 [
-                    -2.0,
+                    -1.0,
                     -0.0,
-                    -0.9999999999999999
+                    0.75
                 ],
                 [
-                    2.0,
+                    1.0,
                     -0.0,
-                    -1.0000000000000002
+                    0.75
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    -1.0,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    -1.0,
+                    -0.0,
+                    0.75
                 ]
+            ],
+            "elements": [
+                0
             ]
         }
     ]

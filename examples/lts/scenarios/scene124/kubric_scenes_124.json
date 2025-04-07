@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_2": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves arranging a functional garden layout using a rectangular profile around a pair of trashcans. It requires understanding spatial relationships to create a defined space while ensuring accessibility. The task involves interpreting geometric properties, such as length, width, and height, to achieve the design goal of a tidy and organized area in the garden.",
+    "prompt": "Organize the space around the trashcans to create a clean and orderly layout without obstructing access.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        -0.25,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        1.25,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -1.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

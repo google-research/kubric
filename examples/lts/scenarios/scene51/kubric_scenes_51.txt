@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = "I'd like a clearly defined nook area around my table and birdhouse. Make it feel like two connected, yet distinct zones.",
+  description = 'This scene involves constructing an L-shaped design to differentiate functional spaces around a birdhouse while maintaining an error-free layout with no collisions.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (1.0, 0.0, 0.0),
+        length = 1.0,
+        width = 2.0,
+        height = 0.25
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (0.5, 0.0, 0.0),
+        left_length = 2.0,
+        left_width = 1.0,
+        right_width = 1.5,
+        right_length = 1.0,
+        height = 0.75
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = LShape(
+          left_center = (0.5, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 1.0,
+          right_width = 1.5,
+          right_length = 1.0,
+          height = 0.25
+        ),
+        edit_description = 'Change the shape to L-shape to define dual areas.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'Changing the shape from a rectangle to an L-shape requires understanding of how to split the space into connected zones.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.5, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 1.0,
+          right_width = 1.5,
+          right_length = 1.0,
+          height = 0.75
+        ),
+        edit_description = 'Increase the overall height to make the partition more prominent.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Simply increasing the height of the structure is straightforward and directly stated in the prompt.'
+      )
+    ]
+  )
+)

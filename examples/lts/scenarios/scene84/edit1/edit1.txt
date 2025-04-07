@@ -1,0 +1,71 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = "Organize circular enclosures around the birdhouse for enhanced beauty and symmetry. Ensure there's an equal gap between the structures.",
+  description = 'This scene involves arranging multiple circular structures around a centralized birdhouse. The goal is to create an architectural pattern that emphasizes symmetry and balance. The circular designs should have specific radii and be carefully positioned to achieve uniform spacing.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.2
+      ),
+      circular_2 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.2
+      ),
+      circular_2 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.2
+        ),
+        edit_description = 'Adjust the radius to 1.0 and height to 0.2.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Altering the dimensions of a single existing structure based on prompt's symmetry requirement is straightforward."
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            circular_2 = Circular(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.5,
+              height = 0.2
+            )
+          }
+        ),
+        edit_description = 'Add an additional circular structure with a radius of 1.5 for symmetry.',
+        target_parameter = 'radius',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Adding a new structure requires conceptualizing a component that wasn't initially visible, but hinted by the prompt."
+      )
+    ]
+  )
+)

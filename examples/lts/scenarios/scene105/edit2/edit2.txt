@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a natural-looking path between the woods without disturbing the space around the trees.',
+  description = "This scene involves constructing a winding pathway that guides someone through a natural landscape between two trees. The pathway requires interpreting geometric properties like position, amplitude, and height to achieve a wavy effect, emphasizing nature's tranquility. Additionally, the task involves resolving ambiguities in the instructions, ensuring that the path naturally integrates into the given environment without disrupting the landscape's harmony.",
+  initial_design = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+        close_curve_leftmost_point = (2.0, 0.5, 0.0),
+        amplitude = 0.2,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+        close_curve_leftmost_point = (1.5, 0.5, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'SerpentinePath',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from serpentine to a curvy path.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "The transition requires interpreting the desired aesthetic from the vagueness of 'curvy' versus 'serpentine'."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'CurvyPath',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+          close_curve_leftmost_point = (2.0, 0.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = "Extend the path's length to accommodate the space between the trees.",
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = "Determining a suitable length from the prompt wasn't directly specified."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'CurvyPath',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+          close_curve_leftmost_point = (2.0, 0.5, 0.0),
+          amplitude = 0.2,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the amplitude for a gentler winding effect.',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = "Reducing amplitude follows naturally from creating a 'gentler' effect."
+      )
+    ]
+  )
+)

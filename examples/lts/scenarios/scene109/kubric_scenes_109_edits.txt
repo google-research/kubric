@@ -1,0 +1,183 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification should be made to the seating area to align with the edit description 'Change the orientation to convex'?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the orientation to convex'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the orientation to concave'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the structure to circular'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Change structure to TriWedge with gap 12 degrees'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change structure to QuarterWedge with gap 10 degrees'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification is changing the orientation of the SemiCircular structure to 'convex'. Option A captures this edit accurately.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The orientation change is straightforward as it’s explicitly mentioned in the edits.'
+    ),
+    1 : EditMCQA(
+      question = "To satisfy the edit 'Increase the radius and height' for the seating area, which configuration is correct?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase radius and height'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Increase the radius and height'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Increase outer radius and height, change structure to SemiRing'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Change structure to Rectangular, increase height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change structure to Serpentine with increased radius and height'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Option B reflects the correct modification of increasing both the radius and height while maintaining the 'convex' orientation.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The size changes require inferring the correct dimensions that fit the scene requirements.'
+    ),
+    2 : EditMCQA(
+      question = "Which edit correctly reposition the seating area's center to (-1, 0, 0) to provide more space for the birdhouse viewing section?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Reposition the center to (-1, 0, 0) to provide more space for the birdhouse viewing section'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Reposition the center for a Rectangular structure providing space for viewing'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Move center closer to start point and change orientation'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 14.0,
+            height = 0.4
+          ),
+          edit_description = 'Change structure to TriWedge and reposition center for viewing area'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'seating_area',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Use CurvyPath with repositioned points closer for viewing'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately captures the modification needed to reposition the seating area to the specified center (-1, 0, 0).',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Repositioning involves understanding the spatial arrangement for optimized viewing and space usage.'
+    )
+  ]
+)

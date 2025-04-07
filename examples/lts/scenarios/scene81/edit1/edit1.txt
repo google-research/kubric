@@ -1,0 +1,75 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a central planting circle to serve as a primary space, winding around the objects.',
+  description = 'This scene involves creating a dynamic landscape feature comprising a circular planting space surrounding objects, encapsulating both trashcans and rocks. It requires understanding space utilization, positioning for ease of access, and geometric consistency for symmetry.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Shrink the circular planter radius from 2 meters to 1.5 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        exaplanation_of_diffuculty = 'The adjustment in radius requires understanding of space dynamics and visual-spatial estimation.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the positioning to ensure equal spacing around all objects, maintaining dynamic access and aesthetic appeal.',
+        difficult_to_deduce_from_prompt = 'hard',
+        exaplanation_of_diffuculty = 'Ensuring equal spacing involves complex geometric reasoning and precise measurement for uniform access.'
+      )
+    ]
+  )
+)

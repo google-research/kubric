@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit aligns the rectangular structure symmetrically between the trashcans based on spatial reasoning?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular structure to center at (0.0, 0.0) to align symmetrically between the trashcans.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular structure to center at (-0.5, 0.0) for asymmetrical alignment.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular structure to center at (1.0, 0.0) for a right alignment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular structure to center at (0.5, 0.5) for upper alignment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular structure to center at (-1.0, 0.0) for a left alignment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit aligns the rectangular structure symmetrically between the trashcans, matching the detailed description of the edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining central alignment symmetrically requires spatial reasoning based on the positions of trashcans.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit adjusts the rectangular structure dimensions to fit the designated area effectively?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the length to 2.5 meters and width to 1.0 meters to fit the designated area more effectively and increase the height to 0.4 meters for better definition.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Extend the length to 4.0 meters while maintaining width and height for a longer profile.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 2.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the length to 2.5 meters and width to 2.0 meters for a larger overall area.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the original length and width while increasing height slightly for improved definition.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the length to 1.5 meters for a more compact fit in the designated area.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit makes the necessary adjustments to dimensions reflecting the target parameters in the design goal, fitting the described designated area more effectively.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustments directly correspond to the provided goal dimensions.'
+    )
+  ]
+)

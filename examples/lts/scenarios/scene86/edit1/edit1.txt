@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    pot1 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (-1.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    tree1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a barrier around the objects that doubles as a garden border, ensuring there are pathways to enter from each side.',
+  description = '\n    This scene involves designing a protective circular landscape around two objects while leaving space for entrances.\n    It requires interpreting spatial arrangements and geometric properties like radius, gaps, and height.\n    ',
+  initial_design = Design(
+    structures = {
+      circle1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 30.0,
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circle1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 30.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circle1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 15.0,
+          height = 0.4
+        ),
+        edit_description = 'Reduce the size of the circle to better match the prompt',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'The prompt specifies a circular structure around both objects, so reducing the radius is a straightforward deduction.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circle1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 30.0,
+          height = 0.4
+        ),
+        edit_description = 'Widen the entrance gaps to 30 degrees for better access',
+        difficult_to_deduce_from_prompt = 'easy',
+        exaplanation_of_diffuculty = 'Widening the entrance gaps is evident from the need for better access, as emphasized in the prompt.'
+      )
+    ]
+  )
+)
