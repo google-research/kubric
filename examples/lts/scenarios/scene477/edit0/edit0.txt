@@ -1,0 +1,75 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, 0.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'I want a winding path that moves gently between my trees, creating an inviting route through the garden.',
+  description = 'This scene involves designing a curvy garden path that meanders between two trees.\n    The goal is to provide an aesthetically pleasing walkway that integrates with the natural landscape, offering a gentle flow\n    that encourages exploration and interaction with the surroundings.',
+  initial_design = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (1.0, 0.0, 0.0),
+        amplitude = 0.2,
+        wavelength = 1.5,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (1.0, 0.0, 0.0),
+        amplitude = 0.25,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.0, 0.0, 0.0),
+          amplitude = 0.2,
+          wavelength = 1.5,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = "Change the far curve's leftmost point to (-1, 0, 0) and the close curve's leftmost point to (1, 0, 0).",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The change aligns the path to naturally guide between the tree centers as mentioned in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'curvy_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.0, 0.0, 0.0),
+          amplitude = 0.25,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Increased amplitude from 0.2 to 0.25 and wavelength from 1.5 to 2 for a more noticeable curve.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The increase in amplitude and wavelength enhances the path's curves to emphasize the aesthetic appeal mentioned in the prompt."
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging seating around a central table while keeping it open towards the rock, necessitating spatial reasoning for the placement and orientation of objects.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt involves creating a 'cozy seating area', which is a subjective and under-specified requirement, needing an understanding of the meaning of a 'cozy' setting."
+    )
+  ],
+  confidence = 4
+)

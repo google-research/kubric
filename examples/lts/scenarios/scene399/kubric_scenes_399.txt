@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse_1'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse_2'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Frame the birdhouses with quarter-circle structures to lend an aesthetic appeal while maintaining open paths to them.',
+  description = 'This scene involves constructing a QuarterWedge design to create an inviting and visually intriguing arrangement around two birdhouses. The goal is to enhance the charm of the garden space by strategically placing the wedges to frame the birdhouses while maintaining openness and accessibility.',
+  initial_design = Design(
+    structures = {
+      Linear_1 = Linear(
+        center = (-1.0, 0.0, 0.0),
+        length = 1.0,
+        height = 0.3,
+        orientation = 'left-right'
+      ),
+      Linear_2 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 1.0,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.8,
+        gap_degrees = 70.0,
+        height = 0.3
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.8,
+        gap_degrees = 70.0,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear_1',
+        NewDesignStructure = QuarterWedge(
+          center = (-1.0, 0.0, 0.0),
+          radius = 0.8,
+          gap_degrees = 70.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 1.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Changing a linear structure to a QuarterWedge requires conceptualizing physical space usage and aesthetic design, which is more challenging without explicit geometric instructions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear_2',
+        NewDesignStructure = QuarterWedge(
+          center = (1.0, 0.0, 0.0),
+          radius = 0.8,
+          gap_degrees = 70.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 2.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The task involves altering an existing structure to fit an angular design, which requires an understanding of symmetry and design aesthetics not directly specified.'
+      )
+    ]
+  )
+)

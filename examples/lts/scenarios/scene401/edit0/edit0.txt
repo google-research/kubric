@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.75, 0.5, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.75, -0.5, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a serene garden alcove with a semi-circular structure that gently accentuates the trees and invites visitors to wander through.',
+  description = 'This scene involves constructing a semi-circular arrangement that provides a natural and tranquil space around a central gathering of trees. The semi-circular design emphasizes the trees as focal points while ensuring open movement through the area, promoting a relaxed and meditative atmosphere.',
+  initial_design = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_circular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Increase the radius to 1.5 meters to provide ample space around the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly indicates the need for a semi-circular structure that accentuates the trees with ample space.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Change the orientation to "concave" to open towards the trees for an inviting layout.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change in orientation from convex to concave can be inferred from the need to invite visitors through the area, but is not explicitly stated.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_circular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters to create a more substantial presence while maintaining harmony with the natural environment.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The increase in height ensures the structure is noticeable but still harmonious with the natural elements, which requires understanding the goal of creating a tranquil and meditative atmosphere.'
+      )
+    ]
+  )
+)

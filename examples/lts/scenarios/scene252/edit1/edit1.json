@@ -1,0 +1,96 @@
+{
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "rock_2": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "rock_3": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "description": "This scene involves constructing a linear arrangement to accentuate the presence of rocks in a garden layout. The purpose is to create visual interest and organization within a confined area, using linear structures to form distinct boundaries and guide interaction.",
+    "prompt": "Establish a linear boundary that complements the natural layout of the rocks, enhancing the visual narrative while maintaining accessibility.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -3.061616997868383e-17,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        3.061616997868383e-17,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -3.061616997868383e-17,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        3.061616997868383e-17,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

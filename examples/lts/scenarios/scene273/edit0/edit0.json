@@ -1,0 +1,126 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "description": "This scene involves creating a rectangular structure to organize an outdoor seating area around a table and a pair of pots. The design aims to define a functional and aesthetic space, ensuring alignment with the objects while maintaining an inviting layout. The challenge is to create a harmonious arrangement within the given area, maintaining balance without enclosing the space completely.",
+    "prompt": "Design a structured seating framework that emphasizes my central table, while incorporating space for decorative pots on either side.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.25,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -1.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

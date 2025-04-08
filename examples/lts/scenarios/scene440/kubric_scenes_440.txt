@@ -1,0 +1,50 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Construct a semi-ring enclosure surrounding the trashcan, adding a touch of elegance while maintaining ample space for access and utility.',
+  description = 'This scene involves creating a semi-ring structure to serve as a protective and decorative enclosure around a single trashcan. It requires interpreting spatial relationships to integrate the semi-ring without collision, using the preferred design profile while maintaining aesthetics and functionality within the specified constraints.',
+  initial_design = Design(
+    structures = {
+      design_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.6,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.6,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Changed the design profile from Circular to SemiRing to provide a more complex and functional layer around the trashcan.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Translating 'adding a touch of elegance' to changing the design profile to a semi-ring and ensuring the spatial requirements are met involves more complex spatial reasoning."
+      )
+    ]
+  )
+)

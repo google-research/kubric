@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to add a linear barrier between two stones, ensuring it serves as a separation without obstructing the view.'
+    )
+  ],
+  confidence = 4
+)

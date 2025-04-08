@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a serpentine path that requires spatial reasoning to wrap gracefully between the two trash cans without obstructing them. The focus is on arranging the path to flow seamlessly around the objects.'
+    )
+  ],
+  confidence = 4
+)

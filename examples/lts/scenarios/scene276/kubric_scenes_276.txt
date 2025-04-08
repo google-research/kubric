@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a rectangular seating area to compliment my trees, giving them a formal arrangement but leaving room for exploration.',
+  description = "This scene involves creating a rectangular structure that serves as a visual boundary between parallel rows of trees, enhancing the garden's geometry. The structure aims to provide a defined space while maintaining an open perspective.",
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, -0.5, 0.0),
+        length = 1.8,
+        width = 0.4,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, -0.5, 0.0),
+          length = 1.0,
+          width = 0.5,
+          height = 0.3
+        ),
+        edit_description = 'Move the rectangular center to (0, -0.5, 0) to align aesthetically between the two trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, -0.5, 0.0),
+          length = 1.8,
+          width = 0.5,
+          height = 0.3
+        ),
+        edit_description = 'Increase the length to 1.8 meters to provide a visual boundary aligning with the tree bases.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+      )
+    ]
+  )
+)

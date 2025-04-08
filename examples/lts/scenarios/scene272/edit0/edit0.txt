@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a linear pathway between the trees to establish an accessible yet defined garden route.',
+  description = 'This scene involves positioning a Linear structure in a natural setting to create a subtle boundary between a pair of trees. The structure must guide movement around the garden space while enhancing the aesthetic appeal and ensuring clear pathways.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Relocate the linear path to align along the horizontal axis between the trees: Center at (0, 0, 0). Change the orientation from front-back to left-right, making it parallel between the trees. Extend the length to 1.5 meters and the height to 0.5 meters for a more distinct and engaging boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the required changes in position, orientation, and dimensions for the pathway between the trees.'
+      )
+    ]
+  )
+)

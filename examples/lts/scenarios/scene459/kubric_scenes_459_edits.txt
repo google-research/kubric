@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was performed to adjust the rectangular structure in the scene so that it symmetrically encloses the table?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the center of the rectangle to (0, -0.5) to symmetrically enclose the table.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit requires understanding spatial balance around the table, which involves interpreting 2D positioning.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (1.0, -0.5, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Move the center to (1, -0.5) to shift the structure away from the table.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Keep the center at (0.5, 0.0) without any change.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Centralize the structure at (0, 0) for a different configuration.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -0.5, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the center to (-0.5, -0.5) to balance alongside other structures.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification adjusts the center of the rectangular structure to (0, -0.5) to maintain symmetry around the table as described in the edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires understanding spatial balance around the table, which involves interpreting 2D positioning.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the rectangular structure expanded to provide more space for the benches in the scene?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Expand the dimensions to length 2.5 meters and width 1.2 meters to provide ample space for the benches.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit involves straight-forward dimension adjustments as per scene description.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the dimensions to length 3.0 meters and width 1.5 meters for extra space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Expand only the width to 1.0 meter.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Expand only the length to 2.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the dimensions further to length 2.5 meters and width 1.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer expands both the length and width of the rectangle to accommodate bench seating, with dimensions consistent with the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit involves straight-forward dimension adjustments as per scene description.'
+    )
+  ]
+)

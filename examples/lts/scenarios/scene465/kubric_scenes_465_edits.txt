@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the rectangular structure to adjust its positioning in the garden layout?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Positioning and Dimensions: Move the rectangular structure to center it around the benches at (0, 0, 0).',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit involves centering the rectangular structure at a known position, which is straightforward given the description.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Positioning: Shift structure to the right, away from the center.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The hint is less explicit and requires interpretation of movement relative to the layout.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Positioning: Move structure downwards along the y-axis.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'There is some ambiguity in understanding y-axis movement based on spatial division.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Positioning: Shift structure to the left across the center.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The question requires figuring out leftward movement in the context of centering.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Positioning: Move structure upwards along the y-axis.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding y-axis positioning takes some spatial visualization.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification was the one that centered the structure around the benches.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change is apparent and explicitly stated in the scene description, making it easy.'
+    ),
+    1 : EditMCQA(
+      question = 'How were the dimensions of the rectangular structure modified to achieve the design goal?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase Dimensions: Increase length to 2 meters, width to 1 meter, and height to 0.4 meters for sufficient coverage and visual presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit involves specific changes to dimensions which require exact measurements stated in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase lateral dimensions significantly beyond the goal.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The guesswork for size increase is ambiguous without clear guidelines.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.75,
+            height = 0.35
+          ),
+          edit_description = 'Slight modifications to dimensions aiming for a minimalist appearance.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Understanding minimalism effects requires subjective interpretation of design intent.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase dimensions to enhance presence yet conserve space.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Finding slight changes that balance presence and conservativeness is challenging.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.8,
+            height = 0.25
+          ),
+          edit_description = 'Moderate increase in dimensions to slightly extend coverage.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Moderation requires a subjective assessment, lacking explicit support in the prompt.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct dimensions are explicitly mentioned as the design goal within the scene instructions.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Although dimensions are outlined, specifics require attention to achieve stated modifications.'
+    )
+  ]
+)

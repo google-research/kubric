@@ -1,0 +1,146 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to transition from a linear boundary to a more elaborate structure in the design?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_boundary_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 0.75,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Transition from a simple Linear boundary to a SemiRing for a stylistically advanced boundary.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding the transition from a linear to a more elaborate semi-ring structure involves interpreting the stylistic goals described in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_boundary_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Replace the linear boundary with a circular structure for a simple symmetrical design.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Selecting a circular design may not directly align with the semi-ring prompt details, making it outside the obvious choice.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_boundary_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.25,
+            gap_degrees = 8.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the linear boundary to a QuarterWedge with a tight gap for an angular open space effect.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The QuarterWedge design only partially satisfies the semi-open feature expected from a semi-ring.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_boundary_1',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 1.0,
+            right_center = (0.75, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Transform the linear boundary into an LShape for a sharp cornered appearance.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'An LShape does not fit the curvature requirement implied by a semi-ring, thus diverging from the suggested modification.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_boundary_1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.25,
+            gap_degrees = 14.0,
+            height = 0.5
+          ),
+          edit_description = 'Adapt the linear boundary to a TriWedge with its distinctive triangular arc.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'TriWedge, while offering a curvilinear structure, does not offer the same semi-ring continuity.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The SemiRing structure offers the advanced stylistic ring-like feature that complements the prompt's requirement for a semi-ring.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Interpreting the transition to a semi-ring requires understanding the need for both aesthetic and functional considerations outlined in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = "How should the SemiRing be modified to better align with the scene's physical elements and enhance the user's experience?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.1,
+            inner_radius = 0.6,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = "Adjust radius settings to ensure the SemiRing hugs the bench closely, enhancing the user's experience within the defined boundary without isolating the rocks.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting radius settings based on proximity and interaction with other objects is straightforward from the prompt instructions.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Widen the SemiRing to encompass a more extensive area for an expansive seating space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While a larger SemiRing might expand the space, it might not align with hugging the bench closely as required.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.5
+          ),
+          edit_description = 'Switch to a Circular structure for uniform seating distribution.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "The Circular design diverges from the semi-open characteristic described, making it less suitable for the prompt's requirements."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.1,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Invert the orientation to convex for a broader external section of the SemiRing.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing to a convex orientation can interfere with providing a close hug to the bench.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.1,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Replace the SemiRing with a QuarterWedge for a strong directional flow.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The QuarterWedge approach struggles to deliver the continuous semi-circular embrace sought for the bench and rocks.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A modifies the radii to ensure a tighter fit around the bench, thereby aligning with the design brief for a detailed interaction without isolating the rocks.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This modification purely optimizes the existing design based on immediate conditions detailed within the prompt, making it intuitive and direct.'
+    )
+  ]
+)

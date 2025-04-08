@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves creating an 'L-shaped' structure around the seating area, which requires understanding spatial organization and alignment."
+    )
+  ],
+  confidence = 5
+)

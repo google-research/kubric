@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a specific spatial arrangement, a half-moon layout, around the tree, requiring spatial reasoning.'
+    )
+  ],
+  confidence = 5
+)

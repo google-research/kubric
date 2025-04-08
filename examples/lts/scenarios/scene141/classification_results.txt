@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging tables and leisure areas within a circular lounge area, requiring spatial reasoning and understanding geometric properties.'
+    )
+  ],
+  confidence = 5
+)

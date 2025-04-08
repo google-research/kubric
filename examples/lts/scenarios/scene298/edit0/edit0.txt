@@ -1,0 +1,70 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design an L-shaped seating space around the birdhouse to encourage gatherings, ensuring enough space for easy access to both chairs.',
+  description = "This scene involves creating an L-shaped seating arrangement around a grouping of a birdhouse and chairs. The purpose is to offer a welcoming and functional seating area that enhances the garden's ambiance while maintaining accessibility.",
+  initial_design = Design(
+    structures = {
+      Rectangular = LShape(
+        left_center = (0.0, 0.5, 0.0),
+        left_length = 1.2,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape = LShape(
+        left_center = (0.0, 0.5, 0.0),
+        left_length = 1.2,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.5, 0.0),
+          left_length = 1.2,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile from Rectangular to LShape for enhanced seating functionality.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly asks to change the Rectangular structure to an LShape, which readily aligns with the design goal.'
+      )
+    ]
+  )
+)

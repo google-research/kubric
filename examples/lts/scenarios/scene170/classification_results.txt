@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves the arrangement and positioning of both natural and man-made elements in a way that creates a functional and aesthetically pleasing garden. This requires spatial reasoning to align and position objects without collisions.'
+    )
+  ],
+  confidence = 4
+)

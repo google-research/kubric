@@ -1,0 +1,71 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Enclose my charming birdhouse and table in a partial ring that allows for open viewing and interaction, embodying a seamless integration of built and natural elements.',
+  description = 'This scene involves designing a semi-ring structure that elegantly frames a birdhouse and table, creating a focal point while maintaining clear access and openness. The design ensures an inviting garden layout, emphasizing harmony between nature and the structure.',
+  initial_design = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'concave',
+        height = 0.6
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Expand the outer radius to 1.5 meters and the inner radius to 1.0 meters for broader coverage, maintaining safe boundaries around the birdhouse and table.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The requirement to increase the radius is straightforward and does not require inference beyond the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'concave',
+          height = 0.6
+        ),
+        edit_description = 'Adjust the orientation to concave to face the birdhouse and table, allowing a natural flow through the scene and increase the height to 0.6 meters for an enhanced presence.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The change in orientation and height is clearly specified and aligns with the provided design goal.'
+      )
+    ]
+  )
+)

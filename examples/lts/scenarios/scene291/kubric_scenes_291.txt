@@ -1,0 +1,65 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Establish a captivating path that gracefully winds its way through the garden, connecting the rocky and woody elements in a cohesive journey.',
+  description = 'This scene involves creating a curvy path layout that integrates seamlessly within a garden setup between rocks and trees, adding aesthetic value and promoting natural flow. The path is designed to wind through the garden space, providing an engaging and beautiful passage between objects.',
+  initial_design = Design(
+    structures = {
+      Linear = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (0.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Linear',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (0.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from Linear to CurvyPath to introduce dynamic and graceful movement.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The transformation from a linear path to a curvy path involves understanding how the sinusoidal parameters affect the path's trajectory in the garden space."
+      )
+    ]
+  )
+)

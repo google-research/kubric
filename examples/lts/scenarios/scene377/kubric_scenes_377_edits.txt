@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit is necessary to change the existing structure in the scene to create a harmonious semi-circular garden enclosure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.75, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular structure to a SemiRing to create a partial enclosure around the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the Circular structure to another Circular with a smaller radius.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.75, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the Circular structure to a convex SemiCircular structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.75, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular structure to a Serpentine with a concave arc.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.75, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the Circular structure to a Linear structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt calls for a semi-circular garden enclosure, which is achieved by changing the Circular to a SemiRing.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The description and prompt explicitly mention a semi-circular or partial enclosure, indicating a change from the initial circular structure.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit would add a new structure to enhance the existing arrangement in the garden scene?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing_2 = SemiRing(
+                center = (0.0, -0.75, 0.0),
+                outer_radius = 1.5,
+                inner_radius = 1.0,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a new SemiRing structure to complement and enhance the existing arrangement.',
+          target_parameter = 'center'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              Circular_2 = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a new Circular structure to the center of the scene.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              QuarterWedge_1 = QuarterWedge(
+                center = (0.0, -0.75, 0.0),
+                radius = 1.5,
+                gap_degrees = 10.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a new QuarterWedge structure with a gap of 10 degrees.',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge_1 = TriWedge(
+                center = (0.0, -0.75, 0.0),
+                radius = 1.5,
+                gap_degrees = 12.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a new TriWedge structure with a gap of 12 degrees.',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              Linear_1 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 2.0,
+                height = 0.5,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Add a new Linear structure oriented from front to back.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The addition of a new SemiRing structure aligns with the goal of enhancing the existing arrangement harmoniously.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adding an additional SemiRing structure could be inferred to create a more dynamic visual appearance.'
+    )
+  ]
+)

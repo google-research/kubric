@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves arranging and structuring the objects (birdhouse, table, and seating area) in a specific geometric formation (L-shape) and ensuring accessibility, which requires spatial reasoning and understanding of the layout.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene requires spatial reasoning to arrange the pathway through the trees, understanding spatial relationships and geometric properties to create an engaging and harmonious path.'
+    )
+  ],
+  confidence = 5
+)

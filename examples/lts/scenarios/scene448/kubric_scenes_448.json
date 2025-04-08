@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.530486,
+                0.53049698,
+                0.673023
+            ],
+            "center": [
+                -1.0,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_2": {
+            "extent": [
+                0.530486,
+                0.53049698,
+                0.673023
+            ],
+            "center": [
+                1.0,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves constructing a rectangular enclosure to organize an area with two trashcans within a confined garden space. The rectangular design should maximize functionality by efficiently using space to create defined zones while ensuring there is no overlap with the objects.",
+    "prompt": "Create a rectangular plan to define spaces around the waste bins, emphasizing tidy boundaries and access without obstruction.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.3,
+                        -0.6,
+                        0.0
+                    ],
+                    [
+                        -0.3,
+                        0.6,
+                        0.0
+                    ],
+                    [
+                        0.3,
+                        0.6,
+                        0.0
+                    ],
+                    [
+                        0.3,
+                        -0.6,
+                        0.0
+                    ],
+                    [
+                        -0.3,
+                        -0.6,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

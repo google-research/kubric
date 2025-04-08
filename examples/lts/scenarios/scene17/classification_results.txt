@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to position two L-shaped structures in such a way that they wrap around a tree and extend to a bench. This involves understanding spatial relationships and geometric properties like the arrangement of objects in relation to one another.'
+    ),
+    1 : Semantic(
+      explanation = 'There are ambiguities in the instructions such as determining the correct alignment of the L-shaped structures around the objects, which requires understanding the implicit goals behind the prompt.'
+    )
+  ],
+  confidence = 4
+)

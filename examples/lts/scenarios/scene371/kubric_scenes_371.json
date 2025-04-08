@@ -1,0 +1,126 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                -1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "This scene features a carefully designed rectangular planter, which provides an aesthetic boundary around a group of trees and a birdhouse. The setup aims to enhance the garden's visual appeal and provide a cozy habitat for the birdhouse, while ensuring accessibility and avoiding any collisions.",
+    "prompt": "Develop a rectangular structure that gently encapsulates the trees and offers a pleasant viewing platform for the birdhouse.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "Rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "Rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.75,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        -0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

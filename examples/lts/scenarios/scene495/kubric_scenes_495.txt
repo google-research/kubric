@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.233, 0.322, 0.308),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Develop a serpentine path that elegantly weaves through these elements, connecting the rocks with the birdhouse, and bringing vibrant dynamics to the area.',
+  description = 'This scene features a serpentine path that gracefully integrates two rocks and a birdhouse, creating a seamless and aesthetic flow through the garden. The design should ensure a visually appealing path that enhances the arrangement by connecting the natural elements and providing a dynamic form within the constraints.',
+  initial_design = Design(
+    structures = {
+      initial_path = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.5, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.5, 0.0),
+          radius = 0.7,
+          left_arc_orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Change the profile from linear to serpentine to introduce curvature and elegance.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifically asks for a serpentine path that connects the rocks and birdhouse, making this edit straightforward.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt requires understanding the meaning of 'feel more at home' and 'well-situated,' which are vague and under-specified. It involves interpreting the intended function of the scene rather than specific spatial or numeric constraints."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,68 @@
+{
+    "prompt": "Build a cozy, functional area using a semi-ring structure that offers a protected yet open environment around the seating and utility features.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -4.592425496802574e-17,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    4.592425496802574e-17,
+                    0.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning by requesting the creation of a wandering path that intertwines between the tree and rock. This requires arranging objects in a specific spatial configuration to enhance the garden layout and promote exploration.'
+    )
+  ],
+  confidence = 5
+)

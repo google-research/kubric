@@ -1,0 +1,54 @@
+{
+    "prompt": "Establish a linear boundary that neatly partitions the rock and trashcan area, enhancing the aesthetic while offering functional demarcation.",
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.25,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.75,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

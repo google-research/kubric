@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt requests a specific arrangement of a 'tri-wedge enclosure' to complement standing figures, focusing on spatial reasoning and arrangement."
+    )
+  ],
+  confidence = 4
+)

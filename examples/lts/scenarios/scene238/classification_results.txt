@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the design of a path that flows through the garden while connecting different objects without hindering movement or views. This involves spatial reasoning to ensure the path wraps and leads between objects in an aesthetically pleasing manner.'
+    )
+  ],
+  confidence = 4
+)

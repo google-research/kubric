@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the serpentine structure to increase its radius and change the orientation?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = "Increase the radius to 0.5 meters and change the left arc orientation to 'convex'.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Changing both the orientation and radius affects the pathway's interaction with the garden layout, requiring spatial consideration."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = "Change the orientation to 'convex' while maintaining the original radius."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = "Increase the radius to 0.5 meters but keep the arc orientation 'concave'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = "Increase the radius to 0.4 meters and keep the orientation 'concave'."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the height to 0.1 meters while keeping other parameters constant.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly describes increasing the radius to 0.5 meters and changing the orientation to 'convex' as required by the edit.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing both the orientation and radius affects the pathway's interaction with the garden layout, requiring spatial consideration."
+    ),
+    1 : EditMCQA(
+      question = 'What modification was made to improve the visibility of the serpentine structure?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the height to 0.3 meters for improved visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height directly influences the visual impact, aligning with the goal of making the path more inviting.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'No height adjustment is made; focus on other design elements.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Change the orientation to 'concave' while adjusting the height to 0.3 meters."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 0.3 meters but maintain a height of 0.3 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Return to the original radius and orientation while maintaining the initial height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A describes the intended modification to increase the height to 0.3 meters, which directly improves the visual presence of the path.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The increase in height directly influences the visual impact, aligning with the goal of making the path more inviting.'
+    )
+  ]
+)

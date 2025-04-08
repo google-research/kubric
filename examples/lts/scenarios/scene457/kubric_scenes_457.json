@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves constructing a linear arrangement to create a functional seating area which incorporates the presence of two benches. The aim is to provide a clear boundary along the benches while maintaining an inviting setup for relaxation. It requires understanding spatial relations and geometric properties to achieve a coherent design within the scene constraints.",
+    "prompt": "Design a structured pathway that lines along the benches to promote organized seating while maintaining an open flow.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.75,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

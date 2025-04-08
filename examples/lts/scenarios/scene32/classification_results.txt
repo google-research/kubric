@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires creating a wave barrier that aligns with and wraps around existing objects (birdhouse and trashcan) in the scene. This involves spatial reasoning to ensure that the barrier is harmoniously arranged around these objects.'
+    )
+  ],
+  confidence = 4
+)

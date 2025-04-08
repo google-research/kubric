@@ -1,0 +1,89 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Construct an elegant quarter-wedge layout to complement the natural beauty of the rocks while maintaining an open garden ambiance.',
+  description = "This scene involves creating an inviting garden feature using two QuarterWedge structures around rocks, offering a unique layout that balances aesthetics and functionality. The wedges should enhance the setting's visual interest without crossing into the space occupied by the rocks.",
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.3
+      ),
+      Circular_2 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = QuarterWedge(
+          center = (-1.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change design from Circular to QuarterWedge for sharper, cleaner angles that enhance rock features.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt already suggests using quarter-wedge structures and provides specific parameters.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_2',
+        NewDesignStructure = QuarterWedge(
+          center = (1.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change design from Circular to QuarterWedge for sharper, cleaner angles that enhance rock features.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt already suggests using quarter-wedge structures and provides specific parameters.'
+      ),
+      2 : DeleteStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        edit_description = 'Remove unused Circular structure along with the adjustment to the appropriate layout.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The original Circular structure is no longer relevant once replaced by the QuarterWedge structure.'
+      ),
+      3 : DeleteStructureEditWithDifficulty(
+        design_id = 'Circular_2',
+        edit_description = 'Remove unused Circular structure along with the adjustment to the appropriate layout.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The original Circular structure is no longer relevant once replaced by the QuarterWedge structure.'
+      )
+    ]
+  )
+)

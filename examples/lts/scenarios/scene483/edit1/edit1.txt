@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 1.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'chair_1'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 1.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'chair_2'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse_1'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a serpentine path that gracefully navigates between my tasteful seating and the whimsical abode, drawing them into a unified garden space.',
+  description = 'This scene involves creating a serpentine path that elegantly weaves between two chairs and a birdhouse. The serpentine path is designed to add fluidity and visual interest, connecting the objects while maintaining a balanced and inviting space.',
+  initial_design = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change the design profile from linear to serpentine and adjust parameters to incorporate dynamic movement and balance with the objects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Requires interpreting spatial dynamics and adjusting design specifications to fit a serpentine path visually more cohesive with the existing objects.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            serpentine_path = Serpentine(
+              left_arc_center = (0.0, 0.0, 0.0),
+              radius = 0.75,
+              left_arc_orientation = 'convex',
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Incorporate a new serpentine structure to introduce elegance and continuity between the seating and the birdhouse.',
+        target_parameter = 'radius',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = 'Adding a new serpentine path requires precise placement and parameter adjustments to ensure it flows between existing objects without collisions.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,93 @@
+{
+    "prompt": "Construct an L-shaped boundary to organize this collection, enhancing flow and functionality while promoting interaction between groups.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_2": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_3": {
+            "extent": [
+                0.576648,
+                -0.589116,
+                -0.576648
+            ],
+            "center": [
+                1.5,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.5,
+                    -0.0,
+                    1.5
+                ],
+                [
+                    -0.5,
+                    -0.0,
+                    -1.5
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -1.5
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    1.5
+                ],
+                [
+                    -0.5,
+                    -0.0,
+                    1.5
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

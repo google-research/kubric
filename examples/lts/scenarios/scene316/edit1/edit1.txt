@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.28620075),
+      center = (-0.75, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.28620075),
+      center = (0.75, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a linear pathway that separates the two seating areas, encouraging a structured flow between them.',
+  description = 'This scene involves positioning benches in a garden setting and constructing a linear structure to create a clear pathway. The linear design provides a functional and aesthetic separation between the seating areas, guiding movement while adhering to the specified spatial constraints.',
+  initial_design = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = "Adjust the orientation from 'front-back' to 'left-right' to align the path between the benches.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing the orientation is a straightforward adjustment to align the design with the goal of creating a left-right path.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 2.0,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 2 meters and the height to 0.5 meters for a more prominent walkway.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Increasing the size requires understanding the goal of enhancing the pathway prominence and the impact on the scene's layout."
+      )
+    ]
+  )
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create a serpentine path that navigates between the pots and ends near the table. This involves understanding and manipulating spatial relationships between objects to achieve the desired layout.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging the layout in a semicircular manner, which requires spatial reasoning for proper placement and organization of objects to achieve the desired visual and functional effect.'
+    )
+  ],
+  confidence = 4
+)

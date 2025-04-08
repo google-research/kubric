@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging seating around a birdhouse and requires understanding spatial relationships and geometric properties to ensure a cozy and functional layout.'
+    )
+  ],
+  confidence = 5
+)

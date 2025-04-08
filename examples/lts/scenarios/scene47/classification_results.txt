@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging objects spatially to create a flowing barrier that separates seating areas without enclosing them completely. This requires spatial reasoning for the arrangement and integration of objects to form the desired pattern.'
+    )
+  ],
+  confidence = 4
+)

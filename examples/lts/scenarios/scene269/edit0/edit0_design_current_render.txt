@@ -1,0 +1,79 @@
+{
+    "prompt": "Design a graceful L-shaped border to highlight the garden around my trees, ensuring an open yet organized space.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    0.35,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.35,
+                    -0.0,
+                    -1.0
+                ],
+                [
+                    0.95,
+                    -0.0,
+                    -1.0
+                ],
+                [
+                    0.95,
+                    -0.0,
+                    -0.5
+                ],
+                [
+                    0.6499999999999999,
+                    -0.0,
+                    -0.5
+                ],
+                [
+                    0.6499999999999999,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.35,
+                    -0.0,
+                    -0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

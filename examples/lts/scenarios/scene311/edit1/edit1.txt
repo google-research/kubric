@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, 1.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a linear path that guides movement across the garden, enhancing the space while offering distinct boundary lines.',
+  description = 'This scene involves arranging linear structures to create a defined path through a small garden area featuring chairs and rocks as focal points. The goal is to maintain visual coherence while keeping the environment open and accessible.',
+  initial_design = Design(
+    structures = {
+      linear_design_1 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_design_1 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_design_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.5, 0.0),
+          length = 1.5,
+          height = 0.1,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the orientation to left-right for a clearer path alignment with the chairs and rock.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing orientation to align the path is straightforward from the given prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_design_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 2.0 meters for a consistent boundary. Raise height to 0.2 meters for a more pronounced spatial definition.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'It requires interpreting spatial coherence and boundary aesthetics to set dimensions.'
+      )
+    ]
+  )
+)

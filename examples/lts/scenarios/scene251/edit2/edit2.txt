@@ -1,0 +1,84 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a protective garden feature using a semi-ring that emphasizes symmetry and enclosure while maintaining inviting access between the birdhouses.',
+  description = 'This scene involves constructing a semi-ring structure to provide a functional and aesthetic enclosure around a pair of birdhouses, creating a welcoming garden setup. The design aims to emphasize order and symmetry while maintaining access. The task requires understanding the spatial relationship between the objects and the semi-ring to ensure a unified and harmonious appearance.',
+  initial_design = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.7,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.7,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.5,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Extend the outer radius to 1.0 meters for enhanced coverage and visual presence.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt specifies creating a protective feature, which implies a larger outer radius for enhanced coverage.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.7,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Increase the inner radius to 0.7 meters to ensure ample space between the birdhouses.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Balancing symmetry and access critically points to enlarging the inner radius for space.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.7,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Raise the height to 0.5 meters for a more substantial effect, improving both visual and functional aspects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Increasing the height is not directly implied but contributes significantly to visual impact.'
+      )
+    ]
+  )
+)

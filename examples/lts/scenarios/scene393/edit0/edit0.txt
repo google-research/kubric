@@ -1,0 +1,64 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a tranquil garden space with an L-shaped seating arrangement that wraps around the trees, offering a peaceful retreat.',
+  description = 'This scene entails designing an L-shaped seating area around two trees to create an inviting garden environment. With spatial relationships and geometric properties in mind, the design aims for a coherent and functional layout that harmoniously integrates both natural elements and built structures.',
+  initial_design = Design(
+    structures = {
+      rectangular_box_1 = LShape(
+        left_center = (-1.5, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (-1.5, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_box_1',
+        NewDesignStructure = LShape(
+          left_center = (-1.5, 0.5, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Transform the rectangular box into an LShape structure by adjusting the design profile. Shift the center and extend the dimensions to form the L-shape.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a rectangular box to an LShape structure requires understanding of spatial alignment and dimensions, which is not explicitly described in detail in the prompt.'
+      )
+    ]
+  )
+)

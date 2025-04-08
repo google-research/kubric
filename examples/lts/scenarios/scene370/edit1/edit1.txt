@@ -1,0 +1,71 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct an embracing semi-ring around the pair of trees, providing both aesthetics and functional enhancement to the garden space.',
+  description = "This scene involves creating a semi-ring structure that elegantly wraps around a pair of trees, combining both natural and functional elements in a garden setting. The semi-ring design aims to accentuate the trees' presence while offering a distinct path or seating option within the space.",
+  initial_design = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.2,
+        inner_radius = 0.9,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.2,
+        inner_radius = 0.9,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.7,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the semi-ring’s center to (0, 0, 0) to align symmetrically around the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The provided prompt directly suggests aligning the semi-ring symmetrically around the trees which logically means centering at (0, 0, 0).'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.2,
+          inner_radius = 0.9,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Increase the outer radius to 1.2 meters for enhanced embrace and coverage, and inner radius to 0.9 meters to ensure sufficient space.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the goal is to enhance the embrace and coverage, determining exact measurements requires understanding the design constraints and objectives.'
+      )
+    ]
+  )
+)

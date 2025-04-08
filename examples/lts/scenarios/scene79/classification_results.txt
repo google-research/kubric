@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create a semi-circular seating arrangement around the birdhouse. It involves understanding spatial relationships to ensure easy access and comfort.'
+    )
+  ],
+  confidence = 5
+)

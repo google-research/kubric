@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (-0.5, 0.0, 0.3365115),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (0.5, 0.0, 0.3365115),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = "Design a linear partition to provide visual separation between the trashcans, allowing for easy access while enhancing the garden's organized layout.",
+  description = 'This scene involves constructing a linear structure to create a boundary that provides visual distinction between two trashcans in a garden setup. The goal is to align the linear structure to offer separation while maintaining accessibility and flow within the garden space. The structure is designed to enhance the organization and aesthetic appeal of functional areas.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 1.5 meters to provide more significant separation between the trashcans while remaining within the specified area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly suggests increasing the length to offer greater separation.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Raise the height to 0.5 meters for better distinction and presence.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The prompt calls for enhancing the structure's presence, implying an increase in height."
+      )
+    ]
+  )
+)

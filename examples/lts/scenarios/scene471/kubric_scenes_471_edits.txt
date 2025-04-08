@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is required to transform the existing Circular structure to match the design goal with a TriWedge?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design profile from Circular to TriWedge, increase the radius and adjust the height to match the design goal.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The changes involve complex modifications in geometric and structural properties, requiring the integration of several specified design parameters to achieve the targeted aesthetic and functional objectives.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design profile from Circular to QuarterWedge and adjust the gap degrees to maintain the design goal.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While simpler than the TriWedge change, it still involves modifying the geometric configuration substantially.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 0.5,
+            phase = 0.3,
+            height = 0.5
+          ),
+          edit_description = 'Change the design profile from Circular to CurvyPath and configure the sinusoidal parameters.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Involves altering the structure to a completely different form factor with intricate parameter setups.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the design profile from Circular to Serpentine and arrange the arc orientation.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires creative restructuring involving an S-curve that contrasts with initial designs.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Transform the Circular design to a SemiCircular one, keeping the center but adjusting radius and orientation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Slightly simple adjustment maintaining a degree of similarity with the original circular profile.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A accurately describes the necessary transformation to convert the Circular structure into the intended TriWedge form, aligning with the design goal's specifics.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The transformation involves adjusting multiple structural parameters in a way that requires comprehension of the geometric and functional blend characteristic of a TriWedge.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit should be applied to remove the existing structure to achieve the design goal?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          edit_description = 'Remove the initial Circular design structure to replace it with the new TriWedge structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The deletion is straightforward as it directly supports the conversion from the initial design to the specified goal.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'triwedge_design',
+          edit_description = 'Remove the TriWedge design unintendedly and continue with the original structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Contradictory to the intended goal, causing a significant step back.'
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'rectangular_design',
+          edit_description = 'Attempt to remove a Rectangular design which doesn’t exist.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No impact as the design does not exist, misleading the task unintentionally.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_design',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.25,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Alter the Circular design into a Linear design, opposing the design goal.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing to linear from circular disrupts the intended radial flow, diverging from the goal.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              new_triwedge = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 15.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge structure separate from the Circular design.',
+          target_parameter = 'triwedge_design',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Incorrect focus on addition while the task demands a removal for conversion.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the removal of the existing Circular structure as necessary for transitioning to the new design goal led by the TriWedge.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This step is a direct deletion unchanged by added complexity, coinciding smoothly with the task outlined.'
+    )
+  ]
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing a barrier arrangement with pathways that involves spatial reasoning to determine the placement of objects and entrances.'
+    )
+  ],
+  confidence = 5
+)

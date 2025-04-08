@@ -1,0 +1,76 @@
+Scene(
+  objects = {},
+  num_edits = 2,
+  prompt = 'Create a natural enclosure using semi-rings around the trees, promoting a sense of tranquility while keeping the space open to the elements.',
+  description = 'This scene features a creative garden space formed by a semi-ring design surrounding trees to provide a natural shelter while maintaining an open garden layout. The design ensures smooth integration with the trees, emphasizing the inherent aesthetic of nature without excessive enclosure.',
+  initial_design = Design(
+    structures = {
+      SemiCircular = SemiRing(
+        center = (-0.5, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'concave',
+        height = 0.5
+      ),
+      SemiRing 2 = SemiRing(
+        center = (0.5, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiRing 1 = SemiRing(
+        center = (-0.5, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'concave',
+        height = 0.5
+      ),
+      SemiRing 2 = SemiRing(
+        center = (0.5, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiCircular',
+        NewDesignStructure = SemiRing(
+          center = (-0.5, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Transform SemiCircular into SemiRing 1 to emphasize Tree 1.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly indicates a need for distinct structures around each tree, making it straightforward to deduce this transformation.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            SemiRing 2 = SemiRing(
+              center = (0.5, 0.0, 0.0),
+              outer_radius = 1.0,
+              inner_radius = 0.5,
+              orientation = 'concave',
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = "Add SemiRing 2 around Tree 2 to match the prompt's requirements for separate semi-ring enclosures.",
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the prompt implicitly suggests separate enclosures, the exact positioning requires some interpretation.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,54 @@
+{
+    "prompt": "Create a serpentine pathway that gracefully winds between my benches, inviting exploration and conversation.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -6.123233995736766e-17,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    6.123233995736766e-17,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

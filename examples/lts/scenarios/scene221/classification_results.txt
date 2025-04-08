@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt specifies the design of a Circular feature around a birdhouse, which involves spatial reasoning to ensure that the feature creates a visual focus and maintains open access from all sides.'
+    )
+  ],
+  confidence = 4
+)

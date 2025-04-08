@@ -1,0 +1,196 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification increases the outer radius of the semi-ring structure to encompass both rocks comfortably?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Increase the outer radius to 1.5 meters to encompass both rocks comfortably.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the outer radius to 1.2 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the outer radius to 1.0 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Adjust the outer radius to 1.3 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.4,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Set the outer radius to 1.4 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves increasing the outer radius to 1.5 meters as explicitly described to encompass both rocks comfortably.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The outer radius change is clearly described to provide more coverage.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification sets the inner radius of the semi-ring structure to 1.0 meters?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Increase the inner radius to 1.0 meters to provide adequate spacing around the rocks.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Adjust the inner radius to 0.7 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Set the inner radius to 0.8 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the inner radius to 0.9 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.6,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the inner radius to 0.6 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves setting the inner radius to 1.0 meters to ensure adequate spacing around the rocks.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The inner radius adjustment is straightforward to interpret for improved spacing.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification alters the height of the semi-ring structure to 0.4 meters for better visibility?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height to 0.4 meters for a more visible and significant enclosure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the height to 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.45
+          ),
+          edit_description = 'Adjust the height to 0.45 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves altering the height to 0.4 meters for enhanced visibility and significance.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height for visibility and significance is well explained in the prompt.'
+    )
+  ]
+)

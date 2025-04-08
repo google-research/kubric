@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, -1.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create an engaging path that flows between the given seating and utility features, emphasizing connectivity and balance.',
+  description = 'This scene involves constructing a serpentine path that weaves through a series of chairs and trashcans, creating an engaging and dynamic garden layout. The configuration draws aesthetic interest and organizes the space within the constraints, highlighting movement and interaction between elements.',
+  initial_design = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.5, 0.0, 0.0),
+          radius = 0.4,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = "Transition the arc from 'concave' to 'convex' to orient the path outward, enabling a broader curve that enhances connectivity and interaction.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Changing the orientation of the arc to 'convex' is required to create the desired path flow, which may not be immediately obvious from the initial design."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.6,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Move the arc center to (0, 0, 0) for central positioning and increase the radius to 0.6 meters to create spacious curves that navigate the space with grace.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the arc center and radius enhances the aesthetic and functional flow, which might not be apparent without considering spatial constraints.'
+      )
+    ]
+  )
+)

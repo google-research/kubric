@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging elements in a spiral-like enclosure, which involves spatial reasoning to organize the objects in a flowing, wave-like pattern.'
+    )
+  ],
+  confidence = 4
+)

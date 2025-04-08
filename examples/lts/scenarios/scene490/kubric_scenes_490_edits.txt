@@ -1,0 +1,119 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification was made to the 'Circular_1' structure to increase the coverage around the pots?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 1.0 meters to provide more coverage around the pots, ensuring they remain in the focal area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 0.75 meters to partially cover the area around the pots.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change to a semi-circular ring with outer radius 1.0 meters for a distinct layout.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a quarter wedge with a radius of 1.0 and a gap of 10 degrees to enhance design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Change to a triangular wedge with a radius of 1.0 and a gap of 12 degrees for a sharp design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification increased only the radius to 1.0 meters to expand coverage around the pots as the prompt specifies a circular layout.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies a circular layout, making it straightforward to deduce the need for a larger radius.'
+    ),
+    1 : EditMCQA(
+      question = "What modification was made to the 'Circular_1' structure to enhance the visual presence in the garden?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the height to 0.3 meters to enhance the visual presence and provide a sense of enclosure without closing off the space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the height to 0.25 meters to subtly raise the visual impact.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Transform to a semi-circular design with a height of 0.3 meters for a more dynamic presence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 7.5,
+            height = 0.3
+          ),
+          edit_description = 'Modify to a quarter wedge structure with a gap of 7.5 degrees and height of 0.3 meters to refine aesthetic.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Alter to a triangular wedge with a radius of 1.0, gap of 10 degrees, and height of 0.3 for a bold statement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The edit involved increasing the height to 0.3 meters, enhancing the structure's presence and sense of space.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the need for enclosure is implied, determining the precise height requires consideration of aesthetic and spatial openness.'
+    )
+  ]
+)

@@ -1,0 +1,76 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.2201, 0.6604, 0.2862),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.2201, 0.6604, 0.2862),
+      center = (1.0, 0.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a relaxing garden area by placing artistic quarter-wedge structures around the benches, ensuring easy access and comfort.',
+  description = '\n        This scene involves designing a garden area with seating using quarter-wedge structures around \n        benches. The arrangement should provide a semi-enclosed space that encourages relaxation while \n        maintaining openness and accessibility.\n    ',
+  initial_design = Design(
+    structures = {
+      circular_structure_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarterwedge_structure_1 = QuarterWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      quarterwedge_structure_2 = QuarterWedge(
+        center = (1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure_1',
+        NewDesignStructure = QuarterWedge(
+          center = (-1.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the structure type from Circular to QuarterWedge for each bench to maintain openness.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead of a circular overlap.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarterwedge_structure_2 = QuarterWedge(
+              center = (1.0, 0.0, 0.0),
+              radius = 1.0,
+              gap_degrees = 70.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a second quarter-wedge for the second bench to create a semi-enclosed space that is open and accessible.',
+        target_parameter = 'quarterwedge_structure_2',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The scene description clearly states the goal of placing quarter-wedge structures around each bench.'
+      )
+    ]
+  )
+)

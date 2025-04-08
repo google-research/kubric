@@ -1,0 +1,80 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    table_2 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a circular garden feature that gracefully encompasses the tables and chair, offering visual unity and balance while keeping the space accessible.',
+  description = 'This scene involves constructing a decorative circular setup surrounding a combination of tables and a chair. The goal is to enhance the spatial configuration of the items while emphasizing a harmonious and elegant atmosphere.',
+  initial_design = Design(
+    structures = {
+      circular_structure = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.9,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_arrangement = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.9,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.2,
+          height = 0.2
+        ),
+        edit_description = 'Adjust the center of the circular structure to (0, 0, 0) to align it symmetrically around the tables and chair.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Aligning the circular structure symmetrically is a straightforward action based on the given goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.9,
+          height = 0.2
+        ),
+        edit_description = 'Reduce the radius to 0.9 meters to ensure the structure fits within the design constraints and enhances the central focus.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Reducing the radius to match the design constraints is readily discernible from the provided goal specification.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.9,
+          height = 0.3
+        ),
+        edit_description = 'Increase the height to 0.3 meters to add emphasis and visibility to the circular configuration.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the height to match the design goal specification is clearly instructed.'
+      )
+    ]
+  )
+)

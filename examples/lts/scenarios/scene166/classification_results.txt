@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging the benches and trashcan with a smooth, winding path, emphasizing precise spatial relationships and geometric alignment.'
+    ),
+    1 : Numeric(
+      explanation = "There is an implicit need for numerical precision in the placement and alignment of objects to achieve the 'organized flow' described in the prompt."
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves establishing a 'linear boundary,' which is a task that requires spatial reasoning to ensure that the boundary is visually appealing, neat, and doesn't obstruct accessibility."
+    ),
+    1 : Semantic(
+      explanation = "The prompt also requires an understanding of the 'natural ambiance' and 'aesthetic functionality,' which are semantic considerations that don't specify exact criteria but rely on an interpretation of meaning."
+    )
+  ],
+  confidence = 4
+)

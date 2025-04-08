@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Regarding the semi-ring structure adjustment, which modification was made to better align the structure around the objects?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjusted the inner radius to 1.3 meters to allow the structure to wrap more closely around the objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt provides the specific dimensions required for the design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.4,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjusted the outer radius to 2.0 meters for better alignment with the surrounding objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt provides the specific dimensions required for the design goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjusted the inner radius to 1.5 meters to slightly increase object exposure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A smaller change to the inner radius might go unnoticed without clear design instructions.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Changed orientation to "concave" but kept original height and duty towards object encircling.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The adjustment includes subtle changes that might not be directly derived from the description provided.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Enhanced both radii to create a more prominent structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The prompt doesn’t perfectly align with dual radii changes while tasking the designer toward minimal adjustments.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A directly modifies the inner radius to 1.3 meters, the change explicitly detailed in the edit information.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The problem is simple as it involves identifying a detailed edit that is explicitly stated in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'What change was made to the semi-ring orientational design to ensure it envelops the objects effectively?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Kept the structure’s convex orientation for standard coverage of the objects.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Prompt does not clarify how convexity might align with spatial requirements.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.3,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Changed orientation to "concave" to ensure the semi-ring envelops the objects while maintaining a welcoming open space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly mentions the requirement for the structure to be concave.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.9,
+            inner_radius = 1.3,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Enhanced outer radius slightly for improved coverage with concave orientation effectuation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While concavity is hinted, the extent of radius change remains suggestive without prompt details.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 1.4,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Kept radius and altered concavity, aiming at crafting larger space with changes less visible.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Explicit prompt direction allows little room for reasoned extrapolation regarding space extensions.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.9,
+            inner_radius = 1.4,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Attributes offset and enhanced height for potential adaptation, though remaining oriented as convex.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Prompt relays no applicability for the structure to be altered toward prominent positioning yet adopting an outward curve.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The correct modification involved changing the orientation to 'concave' as stated in the prompt, ensuring it envelops the objects effectively.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The requirement for the design to be concave is clearly outlined in the prompt.'
+    )
+  ]
+)

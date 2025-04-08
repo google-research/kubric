@@ -1,0 +1,82 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.320213, 0.320213, 0.216202),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    pot_2 = SceneObject(
+      extent = (0.320213, 0.320213, 0.216202),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Integrate a circular pattern around this arrangement to bring coherent charm, while maintaining open accessibility to each element.',
+  description = 'In this scene, circular structures are strategically placed to enhance the visual layout of a small garden setup, consisting of a pair of pots and a central rock. The design emphasizes an organized, serene environment with a focus on fluidity and balance.',
+  initial_design = Design(
+    structures = {}
+  ),
+  design_goal = Design(
+    structures = {
+      CircularStructure1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      ),
+      CircularStructure2 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.35
+      ),
+      CircularStructure3 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'UniformCircularStructure',
+        edit_description = 'Delete the initial uniform circular structure to make way for individually tailored structures.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt suggests more focus on individual elements rather than a unifying huge structure, which can be deduced with an understanding of the intent for dedicated spaces.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            CircularStructure1 = Circular(
+              center = (-1.0, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.3
+            ),
+            CircularStructure2 = Circular(
+              center = (0.0, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.35
+            ),
+            CircularStructure3 = Circular(
+              center = (1.0, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Add three circular designs around each main object for focused accentuation.',
+        target_parameter = 'design',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Given the emphasis on fluidity and balance, separating a main circle into focused areas is straightforward from the prompt.'
+      )
+    ]
+  )
+)

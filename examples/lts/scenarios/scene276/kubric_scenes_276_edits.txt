@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be made to align the rectangular structure aesthetically between the two trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the rectangular center to (0, -0.5, 0) to align aesthetically between the two trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the rectangular center to (0.5, -0.5, 0) to misalign it with the trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep the rectangular center at (0, 0, 0) without aligning it.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the rectangular center to (-0.5, -0.5, 0) for arbitrary positioning.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the rectangular center to (1, -0.5, 0) to disrupt tree alignment.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit aligns the structure between the two trees as the prompt suggests.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly states to position the structure by aligning it between the trees.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the rectangular structure be modified to enhance its visual boundary with respect to the tree bases?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 1.8,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 1.8 meters to provide a visual boundary aligning with the tree bases.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the current length of 1.0 meters without enhancing the boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 0.8,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the length to 0.8 meters, which reduces the visual boundary effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length excessively to 2.0 meters beyond aligning with tree bases.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the length to 1.5 meters for a moderate visual boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Extending the length to 1.8 meters creates an enhanced visual boundary as intended in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The description implies the need to enhance the boundary, and extending length enhances visual boundaries.'
+    )
+  ]
+)

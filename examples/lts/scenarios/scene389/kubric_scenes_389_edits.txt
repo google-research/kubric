@@ -1,0 +1,185 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit adjusts the circular center to perfectly coordinate at (0, 0, 0) for optimal balance around the objects?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the circular center to perfectly coordinate at (0, 0, 0) for optimal balance around the objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The instruction of centering around the table and chair was clearly stated in the prompt.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.2, 0.2, 0.0),
+            radius = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Change the center to (0.2, 0.2, 0.0) for a slight offset.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Switch to a semicircular design centered at the original point.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a QuarterWedge with minimal gap for compact design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform into a Linear structure spanning the original diameter.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Edit A accurately modifies the center of the circular structure to coordinate at (0, 0, 0) as required.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly mentions centering, making this choice straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit increases the radius to 1.0 meters for more ample space and to create an inviting seating area?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to 1.0 meters for more ample space and to create an inviting seating area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the radius to achieve a more inviting space aligns directly with the provided design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to 0.5 meters for a more compact design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Adopt a serpentine layout for a unique design pattern.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Opt for a TriWedge with a wide gap to cover larger area.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.1,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Create a SemiRing to encircle objects with layered boundaries.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Edit A is correct as it modifies the radius to 1.0 meters, expanding the structure as described.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The larger radius matches the intended design goal mentioned in the prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit raises the height from 0.2 meters to 0.3 meters for a better-defined circular layout?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Raise the height from 0.2 meters to 0.3 meters for a better-defined circular layout.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height for better definition was part of the design improvements outlined in the edits section.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a Rectangular structure for sharp boundary definition.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Redefine the layout with a SemiCircular form.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Use a Linear extension from front to back for emphasis.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.1, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Adapt a CurvyPath design for dynamic aesthetics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Edit A correctly increases the height to 0.3 meters, enhancing the circular definition as needed.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The planned height enhancement fits seamlessly within the provided scene description.'
+    )
+  ]
+)

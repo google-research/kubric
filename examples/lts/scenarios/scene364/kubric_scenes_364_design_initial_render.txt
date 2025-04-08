@@ -1,0 +1,68 @@
+{
+    "prompt": "\nDesign a gentle curvy path through the garden that encourages a contemplative stroll between the grand trees \nand the cozy bench.\n",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                -0.28620075,
+                -0.66046348
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging circular planters around trees in the garden, highlighting them while ensuring accessibility. This involves spatial reasoning to position the planters correctly relative to natural elements.'
+    )
+  ],
+  confidence = 4
+)

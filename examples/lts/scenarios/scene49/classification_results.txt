@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves creating a 'protective wave' around natural features, requiring spatial reasoning to arrange objects in relation to each other without causing collisions. This involves interpreting spatial relationships and geometric properties."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging objects in a semi-circular layout, which requires spatial reasoning.'
+    ),
+    1 : Semantic(
+      explanation = "Understanding the concept of a 'cozy garden nook' and an 'inviting environment' requires semantic understanding."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves the spatial arrangement of objects, specifically the placement of benches and a birdhouse, ensuring no collisions while adhering to a spatial constraint of 3 x 3 meters.'
+    )
+  ],
+  confidence = 5
+)

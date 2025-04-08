@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt requires arranging circular garden features around pots, which involves spatial reasoning to ensure they're both accessible and visually appealing."
+    )
+  ],
+  confidence = 4
+)

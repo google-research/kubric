@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the first edit applied to the design to better align the rectangular structure with the table arrangement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.0, 0.0, 0.0) and slightly decrease the size to better fit the garden nook design.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center to (-0.5, 0.5, 0.0) to create an asymmetrical garden design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Move the center of the rectangular structure to (0, 0, 0) to better align with both tables.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the center to (0.5, 0.5, 0.0) and expand the width for more space around the tables.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Center at (0.0, 0.0, 0.0) but with an increased width to accommodate additional garden features.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "The edit aligns the rectangular structure's center with the center of the table arrangement, as the prompt and scene description suggest.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt and description indicate a need to align the rectangle's center with the middle of the table arrangement."
+    ),
+    1 : EditMCQA(
+      question = 'What change is made to ensure the rectangle neatly encapsulates the tables?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Expand length and width significantly to encompass the tables and create a large boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the length to 2.0 meters and width to 1.0 meters, ensuring the rectangle neatly encapsulates the tables and provides a cohesive boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Slightly increase dimensions to better fit the tables, maintaining a snug boundary.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Keep the original size but adjust the height to create varied vertical interest.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.2,
+            height = 0.5
+          ),
+          edit_description = 'Increase the width more than required for additional garden space around the tables.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The dimensions of 2.0 meters by 1.0 meter are calculated based on the available space and encapsulation goal depicted in the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt indicates a rectangular arrangement, determining the precise dimensions requires inference from the available space and the arrangement goal.'
+    )
+  ]
+)

@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a rectangular garden feature that elegantly wraps around my trees, creating a defined yet open area for a tranquil environment.',
+  description = 'This scene involves constructing a rectangular planter arrangement around a group of trees to provide a cohesive and aesthetically pleasing garden space. The goal is to use a rectangular structure that enhances the natural beauty of the trees, providing definition and organization to the space while maintaining an inviting atmosphere.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.5, 0.0, 0.0),
+        length = 1.5,
+        width = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Move the center of the rectangular structure to (0, 0, 0) and increase the length to 2.0 meters and width to 1.5 meters to symmetrically encompass the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly stated the desired location and dimensions for the structure for achieving symmetry around the trees.'
+      )
+    ]
+  )
+)

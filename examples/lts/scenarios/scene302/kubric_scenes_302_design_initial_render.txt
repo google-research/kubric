@@ -1,0 +1,68 @@
+{
+    "prompt": "Create a wavy path that artfully weaves through my garden setup, linking the practical elements with graceful curves.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.26524849,
+                -0.3365115,
+                -0.265243
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "chair_2": {
+            "extent": [
+                0.20776901,
+                -0.384435,
+                -0.24758101
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "pot_3": {
+            "extent": [
+                0.32021299,
+                -0.216202,
+                -0.320213
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -1.5,
+                    -0.0,
+                    9.184850993605148e-17
+                ],
+                [
+                    1.5,
+                    -0.0,
+                    -9.184850993605148e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

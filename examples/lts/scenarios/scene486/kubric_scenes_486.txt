@@ -1,0 +1,60 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Build a visual focal point using a quarter-wedge design that enhances the area around the rock and table, providing an engaging environment while maintaining accessibility.',
+  description = 'This scene involves creating a quarter-wedge design around a central rock and a nearby table to achieve a functional garden setting. The quarter-wedge structure is meant to accentuate the arrangement while granting it a dynamic aspect, utilizing the open space within a defined 3 x 3 meter area. This design should also respect the spatial constraints and avoid any collisions with the objects.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the design profile from Circular to QuarterWedge and adjust parameters to align with the design goal.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly outlines the need for a quarter-wedge design with specified parameters such as radius and gap degrees.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        edit_description = 'Remove the initial circular design structure.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Transition to a new design structure type (QuarterWedge) requires the removal of the initial Circular structure, which is self-evident.'
+      )
+    ]
+  )
+)

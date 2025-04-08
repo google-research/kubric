@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing an L-shaped barrier, which involves spatial reasoning to correctly arrange the trees and pot to form the intended shape and provide a distinct boundary without visual obstruction.'
+    )
+  ],
+  confidence = 4
+)

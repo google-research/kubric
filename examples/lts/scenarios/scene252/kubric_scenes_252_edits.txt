@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification of the 'linear_1' structure helps align it with the rocks in the scene?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the orientation from front-back to left-right to ensure alignment with the rocks.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust the orientation from left-right to front-back for a different alignment.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain the original length while aligning from left to right.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the height while keeping the front-back orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.7,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly increase the length and height with left-right orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly adjusts the orientation to left-right, aligning with the prompt's guidance on boundary alignment with rocks.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifically mentions a linear boundary, making the orientation change a straightforward modification.'
+    ),
+    1 : EditMCQA(
+      question = "What modification to the 'linear_1' structure helps effectively provide structure around the rocks?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 1.0 meters to effectively provide structure around the rocks.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.8,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 0.8 meters to partially provide structure around the rocks.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 1.0 meters but reduce the height for different structure dynamics.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain the original length while increasing height for structural prominence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 1.2 meters for additional structure around the rocks.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the length to 1.0 meters, aligning with the scene goal of providing an effective structure around the rocks.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change in length is directly derived from the scene goal description, making it an easy deduction.'
+    )
+  ]
+)

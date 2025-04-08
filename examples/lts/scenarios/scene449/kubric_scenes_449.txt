@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.233, 0.321, 0.308),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.233, 0.321, 0.308),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    tree = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a rectangular arrangement around our garden utilities, bringing harmony to the setup without obstructing views or access.',
+  description = 'In this scene, a rectangular structure emphasizes the natural charm of a setup consisting of two birdhouses and a tree. The design focuses on organizing these elements in an aesthetically pleasing way, ensuring the enclosure complements the objects and maintains spatial harmony within the designated constraints.',
+  initial_design = Design(
+    structures = {
+      rectangular_structure = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        width = 0.4,
+        height = 0.6
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_structure = Rectangular(
+        center = (0.0, 0.5, 0.0),
+        length = 1.8,
+        width = 0.5,
+        height = 0.8
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_structure',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.5, 0.0),
+          length = 1.8,
+          width = 0.5,
+          height = 0.6
+        ),
+        edit_description = "Move the structure's center to (0, 0.5, 0) for focused alignment around the tree and birdhouses.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt suggests aligning the structure around the elements.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_structure',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.5, 0.0),
+          length = 1.8,
+          width = 0.5,
+          height = 0.8
+        ),
+        edit_description = 'Increase length to 1.8 meters and height to 0.8 meters to ensure a clear boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The design goal explicitly states the desired dimensions.'
+      )
+    ]
+  )
+)

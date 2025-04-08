@@ -1,0 +1,49 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Craft a semicircular seating space around my chair to enhance its presence and invite relaxation.',
+  description = 'This scene involves creating a semi-circular seating arrangement around a central chair to create an inviting and cozy spot for relaxation. The semi-circular design will provide a partially enclosed atmosphere while ensuring openness and accessibility. The arrangement emphasizes the central positioning of the chair, creating a focal point in a tranquil garden setting.',
+  initial_design = Design(
+    structures = {
+      linear_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semicircular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Change the design profile from a Linear structure to a SemiCircular design to create the desired half-circle space around the chair.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The transformation from a linear to a semi-circular structure with specified dimensions is direct and straightforward from the prompt details.'
+      )
+    ]
+  )
+)

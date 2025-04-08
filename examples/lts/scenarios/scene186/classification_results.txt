@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests a specific arrangement of elements within the scene. The design involves spatial reasoning to integrate seating and natural elements using an L-shaped structure, requiring an understanding of geometric properties such as dimensions and alignment.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the design of a path that connects two objects (a table and a birdhouse) while embracing the natural curves of the garden. This involves arranging the path in a certain way to navigate around existing objects.'
+    )
+  ],
+  confidence = 5
+)

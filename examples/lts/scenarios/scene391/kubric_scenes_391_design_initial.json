@@ -1,0 +1,69 @@
+{
+    "prompt": "Develop a creative, angular boundary that adds vibrancy to the area by subtly framing the placements of the birdhouse and trashcan.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                -0.5,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.530486,
+                0.530497,
+                0.673023
+            ],
+            "center": [
+                0.5,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.25,
+            "keypoints": [
+                [
+                    -0.3,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    -0.3,
+                    0.5,
+                    0.0
+                ],
+                [
+                    0.3,
+                    0.5,
+                    0.0
+                ],
+                [
+                    0.3,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    -0.3,
+                    -0.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

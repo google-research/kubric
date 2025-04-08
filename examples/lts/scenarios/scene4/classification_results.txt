@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requires constructing a wall to hide another object, which involves arranging the wall in a way that obstructs the view of the object in the background.'
+    )
+  ],
+  confidence = 4
+)

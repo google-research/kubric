@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests creating a square border around benches and trees with attention to their arrangement and ensuring access, which involves spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

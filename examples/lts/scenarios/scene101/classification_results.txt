@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task requires spatial reasoning to design semi-circular sunshades that provide shade without obstructing the view. This involves understanding the geometry of placement, orientation, and avoiding collisions with tables.'
+    )
+  ],
+  confidence = 4
+)

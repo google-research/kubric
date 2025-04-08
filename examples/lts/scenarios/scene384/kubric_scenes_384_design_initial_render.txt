@@ -1,0 +1,69 @@
+{
+    "prompt": "Use rectangular structures to partition seating areas around each chair, ensuring openness and accessibility while defining the boundaries.",
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.20776901,
+                -0.384435,
+                -0.24758101
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.20776901,
+                -0.384435,
+                -0.24758101
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                -0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.4,
+            "keypoints": [
+                [
+                    -1.25,
+                    -0.0,
+                    0.6
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    0.6
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    -0.6
+                ],
+                [
+                    -1.25,
+                    -0.0,
+                    -0.6
+                ],
+                [
+                    -1.25,
+                    -0.0,
+                    0.6
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

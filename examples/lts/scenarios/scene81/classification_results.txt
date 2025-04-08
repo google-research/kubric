@@ -1,0 +1,14 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging objects and creating a central planting circle, which requires spatial reasoning to ensure that the design is consistent with the placement and structure around existing objects like trashcans and rocks.'
+    ),
+    1 : Numeric(
+      explanation = 'The description mentions geometric consistency and symmetry, which implies the need for precise measurements and positioning, aligning with the numeric category.'
+    ),
+    2 : Semantic(
+      explanation = 'The prompt involves understanding the function of the planting circle as a primary space, which involves semantic understanding of it serving a role within the landscape.'
+    )
+  ],
+  confidence = 4
+)

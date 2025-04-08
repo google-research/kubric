@@ -1,0 +1,74 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a circular arrangement that provides a gentle embrace around the elements, highlighting their presence while offering space for interaction and observation.',
+  description = "This scene involves constructing a circular seating area that surrounds a central arrangement of rocks and a birdhouse. The goal is to enhance the garden's aesthetic while providing a cohesive and inviting space without overcrowding the central elements.",
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.25, 0.0, 0.0),
+        radius = 0.8,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          height = 0.2
+        ),
+        edit_description = 'Center Adjustment: Move the center to (0, 0, 0) to symmetrically surround the rock and birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt describes a circular arrangement highlighting central objects, suggesting symmetric centering, which requires interpretation.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.2
+        ),
+        edit_description = 'Radius Increase: Expand the radius to 1.0 meters for a more spacious interaction area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt suggests providing space for interaction, which is straightforward to interpret as needing a larger radius.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.3
+        ),
+        edit_description = 'Height Adjustment: Increase the height to 0.3 meters for an enhanced visual effect and usability.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Increasing height is not explicitly mentioned but can be inferred as enhancing visual and functional aspects of the design.'
+      )
+    ]
+  )
+)

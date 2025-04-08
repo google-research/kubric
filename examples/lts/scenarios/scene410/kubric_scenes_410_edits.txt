@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the linear structure in the garden design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the length to 1.5 meters to fit snugly between the birdhouse and rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the original length of 2.0 meters as it covers more ground.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shorten the length to 1.0 meters for a more compact design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase both length and height for a pronounced boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly increase the length to 1.6 meters to cover more area.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit changes the length to 1.5 meters, aligning with the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The change in length is straightforward since it aligns with the prompt's request to make the structure fit between the objects."
+    ),
+    1 : EditMCQA(
+      question = 'What change makes the boundary more visible without being obtrusive?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain the original height of 0.1 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height to 0.2 meters for a visible boundary that remains unobtrusive.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height to 0.3 meters for more visibility.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.05,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Lower the height to 0.05 meters for a subtler boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height significantly to make it more visible.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Adjusting the height to 0.2 meters increases visibility while remaining relatively unobtrusive.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests creating a visible boundary, making height adjustment obvious to ensure visibility without obstruction.'
+    )
+  ]
+)

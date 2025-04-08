@@ -1,0 +1,74 @@
+Scene(
+  objects = {
+    table1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a harmonious circular setting that focuses on the central table and chairs, providing both elegance and functionality.',
+  description = 'This scene involves utilizing a circular design to create an inviting garden space centered around tables and chairs. The goal is to highlight the seating area while ensuring structure integrity and visual balance in the garden.',
+  initial_design = Design(
+    structures = {
+      circular_structure_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_structure_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          height = 0.2
+        ),
+        edit_description = 'Adjust the circular center to perfectly coordinate at (0, 0, 0) for optimal balance around the objects.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The instruction of centering around the table and chair was clearly stated in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.2
+        ),
+        edit_description = 'Increase the radius to 1.0 meters for more ample space and to create an inviting seating area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the radius to achieve a more inviting space aligns directly with the provided design goal.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.3
+        ),
+        edit_description = 'Raise the height from 0.2 meters to 0.3 meters for a better-defined circular layout.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The increase in height for better definition was part of the design improvements outlined in the edits section.'
+      )
+    ]
+  )
+)

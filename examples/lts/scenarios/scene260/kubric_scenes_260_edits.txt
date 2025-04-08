@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should the linear structure be modified to better align with the design goal of creating a subtle boundary for the seating area with chairs?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the orientation from front-back to left-right for better alignment with the chairs. Move the center to (0, -0.5, 0) to position the path alongside the seating area. Change the length to 2 meters for a longer boundary and increase the height to 0.3 meters for a more pronounced effect.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Rotate the orientation to left-right without changing the center, length, or height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.5),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Modify the center to (0, 0, 0.5) with a shorter length and lower height keeping the orientation the same.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the linear structure to 2.5 meters with a larger height of 0.5 meters, maintaining the same center and orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, -0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Move the center to (0.5, -0.5, 0) and adjust orientation to front-back, keeping length and height at 2.0 and 0.3 meters respectively.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A reflects the complete set of changes described in the edit - reorientation, repositioning, and resizing to create a better boundary for the seating setup.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edits involve basic transformations like orientation and dimension matching explicitly stated in the prompt, thus making it easy.'
+    )
+  ]
+)

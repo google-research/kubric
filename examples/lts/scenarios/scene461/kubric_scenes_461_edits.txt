@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to change the structure profile from Rectangular to Linear, providing clearer guidance as a pathway?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the structure profile from Rectangular to Linear to provide clearer guidance as a pathway and adjust its position and dimensions.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adjusting the profile and parameters to match the goal requires understanding of how a linear configuration better serves the pathway purpose between pots.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the structure profile from Rectangular to Circular for aesthetic reasons.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A Circular profile does not inherently suggest a pathway and requires aesthetic judgement to justify.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the structure profile from Rectangular to Serpentine for dynamic movement guidance.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Understanding the dynamic nature of a Serpentine profile requires insight into movement design.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the structure profile from Rectangular to QuarterWedge for specific angular pathways.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The QuarterWedge structure is inappropriate due to the gap degree outside valid range making it invalid.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.5, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Modify the structure profile from Rectangular to a concave SemiRing for bounded movement channels.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A SemiRing structure requires understanding spatial movement limitations and aesthetic implications.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The shift from Rectangular to Linear directly aligns with the goal of providing a clearer, structured pathway, facilitating the design's ordered look.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task necessitates recognizing the functional suitability of a Linear structure for pathway purposes among various options.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit operation correctly describes the removal of the initial rectangular design structure?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          edit_description = 'Remove the initial rectangular design as it no longer fits the linear pathway goal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Removing a design structure is straightforward once its replacement is identified.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          edit_description = 'Remove the initial rectangular design to replace it with a serpentine structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While identified inappropriateness is easy, the serpentine replacement adds complexity.'
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          edit_description = 'Remove the initial rectangular design as a temporary aesthetic decision.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding aesthetics as the rationale for deletion requires subjective interpretation.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {}
+          ),
+          edit_description = 'Add new design after rectangular removal.',
+          target_parameter = 'position',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Adding structure involves interpreting design intent post-removal, not what was given in the edit.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Modify rectangular design to convert it into a CurvyPath.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'On-the-fly transformations like this imply complex interpretation of design mechanics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The deletion clearly aims to resolve redundancy given the new linear implementation, simplifying design alignment with objectives.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Recognizing redundancy in the context is straightforward once the new goal-oriented structure is identified.'
+    )
+  ]
+)

@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Construct a scenic path that elegantly winds between the birdhouses, emphasizing their presence and creating a visually pleasing garden area.',
+  description = 'This scene involves creating a scenic garden area by positioning two birdhouses with a serpentine path winding between them. The serpentine design aims to provide an engaging flow, enhancing the aesthetic appeal without overwhelming the birdhouses.',
+  initial_design = Design(
+    structures = {
+      initial_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      goal_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.8,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.8,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile from linear to serpentine for dynamic visual movement between the birdhouses.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The transition from a linear path to a serpentine path involves understanding the implications of different design profiles and implementing a specific structure that matches the scene's aesthetic goal."
+      )
+    ]
+  )
+)

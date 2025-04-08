@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests spatial reasoning to arrange the L-shaped planter relative to the bench.'
+    )
+  ],
+  confidence = 5
+)

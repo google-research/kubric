@@ -1,0 +1,100 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 2.0),
+      center = (-0.5, 0.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 2.0),
+      center = (0.5, 0.0, 1.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, 1.0, 0.384435),
+      theta = 180.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create circular patterns around trees and provide a centered seating area to encourage relaxation and reflection in nature.',
+  description = 'This scene involves positioning circular structures to add aesthetic value to a garden featuring chairs and trees. The circles are designed to complement the natural beauty and utility elements, defining spaces without hindering movement.',
+  initial_design = Design(
+    structures = {
+      structure_1 = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.4,
+        height = 0.3
+      ),
+      structure_2 = Circular(
+        center = (0.5, 0.0, 0.0),
+        radius = 0.4,
+        height = 0.3
+      ),
+      structure_3 = Circular(
+        center = (0.0, 1.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure_1 = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.4,
+        height = 0.3
+      ),
+      structure_2 = Circular(
+        center = (0.5, 0.0, 0.0),
+        radius = 0.4,
+        height = 0.3
+      ),
+      structure_3 = Circular(
+        center = (0.0, 1.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = Circular(
+          center = (-0.5, 0.0, 0.0),
+          radius = 0.4,
+          height = 0.3
+        ),
+        edit_description = 'Move Circular Structure 1 to center at (-0.5, 0, 0) to highlight Tree 1.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Directly follows the prompt's instruction to move the structure to align with Tree 1."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_2',
+        NewDesignStructure = Circular(
+          center = (0.5, 0.0, 0.0),
+          radius = 0.4,
+          height = 0.3
+        ),
+        edit_description = 'Move Circular Structure 2 to center at (0.5, 0, 0) to accentuate Tree 2.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Directly follows the prompt's instruction to move the structure to align with Tree 2."
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_3',
+        NewDesignStructure = Circular(
+          center = (0.0, 1.0, 0.0),
+          radius = 0.5,
+          height = 0.3
+        ),
+        edit_description = 'Position Circular Structure 3 at (0, 1, 0) to create an inviting area around the Chair.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Directly follows the prompt's instruction to move the structure to align with the chair."
+      )
+    ]
+  )
+)

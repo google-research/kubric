@@ -1,0 +1,93 @@
+{
+    "prompt": "Create an L-shaped layout that merges the birdhouses into a cohesive environment while leaving the tree as a natural focal point for visitors to enjoy.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.16098425,
+                -0.15423275,
+                -0.11663825
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.16098425,
+                -0.15423275,
+                -0.11663825
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    0.25,
+                    -0.0,
+                    0.75
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    1.75,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    1.75,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    0.75
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    0.75
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

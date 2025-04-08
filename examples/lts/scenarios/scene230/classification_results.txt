@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a pathway that requires spatial reasoning for arranging the path such that it connects the table and chairs without any collisions, while maintaining an aesthetic design.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt is somewhat under-specified as it requires understanding the meaning of 'elegant' and 'enhancing visual movement,' which involves an interpretation of aesthetics and design refinement."
+    )
+  ],
+  confidence = 4
+)

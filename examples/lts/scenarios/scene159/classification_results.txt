@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt requests the construction of a semicircular boundary around the rocks, which involves spatial reasoning to arrange objects in a specific shape and order.'
+    )
+  ],
+  confidence = 4
+)

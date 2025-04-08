@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires constructing a dividing barrier in a straight line between tables, focusing on spatial reasoning to ensure proper placement and alignment without obstructing views or paths.'
+    )
+  ],
+  confidence = 4
+)

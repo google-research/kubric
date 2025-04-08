@@ -1,0 +1,70 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (0.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Develop an elegant serpentine that weaves between the seats and gracefully skirts the garden feature, encouraging immersive strolling.',
+  description = 'This scene involves creating a serpentine path that gracefully intertwines between two benches and a pot. The task requires understanding spatial relationships to ensure the path flows smoothly without colliding with the objects, maintaining an elegant design profile in a limited space.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Serpentine(
+        left_arc_center = (0.0, -0.4, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (0.0, -0.4, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, -0.4, 0.0),
+          radius = 0.7,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Change the linear profile to a serpentine design for a more fluid and natural flow.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Transforming a linear element to a serpentine pattern involves understanding nuances of curvature and spatial interplay to maintain aesthetic flow.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {}
+        ),
+        edit_description = 'Adjust the left arc center to guide the serpentine path smoothly between the objects.',
+        target_parameter = 'serpentine_path_positioning',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = 'Requires precise adjustments based on spatial layout to ensure path navigates elegantly without collision.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the creation of two winding paths that swirl around a rock, which involves spatial reasoning regarding the arrangement and orientation of the paths.'
+    )
+  ],
+  confidence = 5
+)

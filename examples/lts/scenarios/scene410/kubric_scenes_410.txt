@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Can you build a low boundary between the birdhouse and rock to create separate, yet cohesive sections in my garden?',
+  description = 'This scene involves designing a linear structure to separate a birdhouse and a rock, creating distinct garden sections. The purpose is to utilize the linear design to introduce visual partitions while maintaining an open atmosphere conducive to natural appreciation.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.1,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the length to 1.5 meters to fit snugly between the birdhouse and rock.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The change in length is straightforward since it aligns with the prompt's request to make the structure fit between the objects."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the height to 0.2 meters for a visible boundary that remains unobtrusive.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt suggests creating a visible boundary, making height adjustment obvious to ensure visibility without obstruction.'
+      )
+    ]
+  )
+)

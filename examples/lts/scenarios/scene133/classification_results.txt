@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Numeric(
+      explanation = 'The prompt requires the design to be balanced and symmetrical, which involves numerical considerations of spatial distances and symmetry.'
+    )
+  ],
+  confidence = 4
+)

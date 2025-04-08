@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is needed to adjust the center of TriWedge_1 to align symmetrically around the chair and rock?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust Center: Move the center to (0, 0, 0) to align the structure symmetrically around the chair and rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.1, -0.1, 0.0),
+            radius = 0.8,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.1, -0.1, 0) for partial alignment with the chair and rock.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.8,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.5, 0.5, 0) for a different spatial arrangement.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.2, -0.2, 0.0),
+            radius = 0.8,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (-0.2, -0.2, 0) for an off-centered setup.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.3, 0.3, 0.0),
+            radius = 0.8,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (0.3, 0.3, 0) to change the focus area.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly moves the center to (0, 0, 0), aligning it symmetrically according to the edit description.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Aligning the center of the structure to enclose both the chair and rock symmetrically requires spatial adjustment based on object positions.'
+    ),
+    1 : EditMCQA(
+      question = 'What changes should be made to TriWedge_1 to enhance its prominence and openness?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Update Dimensions: Increase the radius to 1 meter, gap to 95 degrees, and height to 0.5 meters to enhance prominence and openness.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase radius to 0.9 meter, gap to 90 degrees, and height to 0.4 meters for moderate improvements.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.85,
+            gap_degrees = 80.0,
+            height = 0.35
+          ),
+          edit_description = 'Slightly increase radius to 0.85 meter, maintain gap at 80 degrees, and slightly increase height to 0.35 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.1,
+            gap_degrees = 105.0,
+            height = 0.55
+          ),
+          edit_description = 'Increase radius to 1.1 meters and gap to 105 degrees for an oversized look; height to 0.55 meters for substantial prominence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Slightly reduce the radius to 0.75 meters while keeping the gap and height unchanged for a compact look.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly implements all specified changes to radius, gap, and height to enhance prominence and openness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The changes in dimensions are specified directly in the design goal and are straightforward to apply given the provided parameters.'
+    )
+  ]
+)

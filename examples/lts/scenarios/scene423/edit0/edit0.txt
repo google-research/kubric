@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-1.0, -1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (1.0, 1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a winding path that gracefully connects the two seating arrangements, offering a blend of functionality and aesthetics.',
+  description = 'This scene involves designing a curvy path that flows through a series of benches, creating a harmonious garden setting. The curvy path aims to enhance the visual appeal while connecting the seating arrangements in an engaging manner.',
+  initial_design = Design(
+    structures = {
+      path = CurvyPath(
+        far_curve_leftmost_point = (-2.0, 0.0, 0.0),
+        close_curve_leftmost_point = (2.0, 0.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 3.0,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-2.0, 0.0, 0.0),
+        close_curve_leftmost_point = (2.0, 0.0, 0.0),
+        amplitude = 0.5,
+        wavelength = 3.0,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-2.0, 0.0, 0.0),
+          close_curve_leftmost_point = (2.0, 0.0, 0.0),
+          amplitude = 0.5,
+          wavelength = 3.0,
+          phase = 0.0,
+          height = 0.2
+        ),
+        edit_description = 'Change the path design from a straight line to a CurvyPath for increased dynamic movement and visual interest.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit is straightforward as the instructions clearly mention transforming the path to a CurvyPath with specified parameters.'
+      )
+    ]
+  )
+)

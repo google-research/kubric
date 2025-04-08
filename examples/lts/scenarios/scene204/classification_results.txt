@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to set up a semi-circular seating area with the chair centrally positioned and ensuring the open side faces the tree. Arranging the pots and chairs in this layout requires understanding of spatial relationships.'
+    )
+  ],
+  confidence = 5
+)

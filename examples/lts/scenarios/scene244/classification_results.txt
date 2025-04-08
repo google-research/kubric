@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging objects (a linear boundary) to separate different areas within the scene. This requires spatial reasoning to ensure the boundary is placed correctly for functional and aesthetic purposes.'
+    )
+  ],
+  confidence = 4
+)

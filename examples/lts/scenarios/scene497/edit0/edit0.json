@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "description": "This scene involves constructing a rectangular planter arrangement around a group of trees to provide a cohesive and aesthetically pleasing garden space. The goal is to use a rectangular structure that enhances the natural beauty of the trees, providing definition and organization to the space while maintaining an inviting atmosphere.",
+    "prompt": "Design a rectangular garden feature that elegantly wraps around my trees, creating a defined yet open area for a tranquil environment.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.75,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        -1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.75,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        -1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

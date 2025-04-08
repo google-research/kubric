@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change would enhance the design by transitioning from a rigid path to a dynamic and graceful movement within the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to CurvyPath to introduce dynamic and graceful movement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to Serpentine with a convex arc for serpentine movement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to a QuarterWedge with a small gap for a radial segment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 16.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to a TriWedge with a large gap for triangular sharp edges.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to a Circular shape for a rounded and central look.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves changing the Linear path to a CurvyPath to create an engaging and coherent passage through the scene as per the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The transformation from a linear path to a curvy path involves understanding how the sinusoidal parameters affect the path's trajectory in the garden space."
+    )
+  ]
+)

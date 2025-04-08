@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves creating a semi-circular structure that hugs the trees, which requires spatial reasoning for arranging the seating around the trees without causing collisions.'
+    )
+  ],
+  confidence = 5
+)

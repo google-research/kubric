@@ -1,0 +1,132 @@
+{
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.25
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.3365115
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves constructing an L-shaped structure in a garden setting to create a functional and aesthetically pleasing area around various objects. The design must take into consideration spatial constraints and ensure no collisions with the objects.",
+    "prompt": "Design a seamless boundary that subtly organizes my garden elements, offering definition while maintaining fluid motion.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.75,
+                        0.3,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        0.3,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.1,
+                        0.0
+                    ],
+                    [
+                        -0.15000000000000002,
+                        1.1,
+                        0.0
+                    ],
+                    [
+                        -0.15000000000000002,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        0.3,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.75,
+                        0.3,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        0.3,
+                        0.0
+                    ],
+                    [
+                        0.75,
+                        1.1,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.1,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        0.7,
+                        0.0
+                    ],
+                    [
+                        -0.75,
+                        0.3,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to arrange the garden structure in an L-shape around a rock, involving the understanding of geometric properties such as length, width, and height.'
+    )
+  ],
+  confidence = 5
+)

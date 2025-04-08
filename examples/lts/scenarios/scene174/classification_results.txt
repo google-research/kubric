@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves designing a path that weaves through a garden, connecting specific objects (a rock and a trashcan). This requires spatial reasoning to ensure the path's flow aligns with the given objectives without collisions."
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves creating a geometric pattern around trees, requiring spatial reasoning to ensure proper arrangement and integration without overlap.'
+    ),
+    1 : Numeric(
+      explanation = 'The design requires interpreting geometric properties such as center, radius, and gap degrees, highlighting the need for numerical understanding.'
+    )
+  ],
+  confidence = 4
+)

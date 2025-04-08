@@ -1,0 +1,64 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create an L-shaped arrangement that complements my birdhouses, offering both support and aesthetics to this garden corner.',
+  description = 'This scene involves constructing an L-shaped structure to enhance the aesthetic and functional organization of two birdhouses within a garden area. The task requires precise alignment and size adjustments to ensure the structure complements the space while maintaining harmony with the objects.',
+  initial_design = Design(
+    structures = {
+      rectangle_1 = LShape(
+        left_center = (0.5, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.5, -0.25, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.5, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.5, -0.25, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangle_1',
+        NewDesignStructure = LShape(
+          left_center = (0.5, 0.5, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.5, -0.25, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Changed the design profile from a simple rectangle to an LShape for added structural complexity, extended the left length to 1.5 meters, adjusted the right length to 1.0 meter, and increased the height to 0.3 meters for a more prominent boundary and support.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly describes the L-shaped goal and specifies the needed changes to dimensions.'
+      )
+    ]
+  )
+)

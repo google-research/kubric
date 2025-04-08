@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a meandering pathway to charm the eyes around my delightful birdhouse, inviting exploration and enjoyment.',
+  description = 'This scene aims to create a cozy, scenic garden path using a CurvyPath to guide visitors around a central birdhouse.',
+  initial_design = Design(
+    structures = {
+      linear_path = CurvyPath(
+        far_curve_leftmost_point = (-1.2, 0.0, 0.0),
+        close_curve_leftmost_point = (1.2, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.5,
+        phase = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvypath_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.2, 0.0, 0.0),
+        close_curve_leftmost_point = (1.2, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 1.5,
+        phase = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.2, 0.0, 0.0),
+          close_curve_leftmost_point = (1.2, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 1.5,
+          phase = 0.5,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from Linear to CurvyPath to introduce a fluid, natural flow around the birdhouse.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a linear to a curvy path requires understanding the spatial dynamics and aesthetics that complement the birdhouse, while also interpreting the sinusoidal parameters effectively.'
+      )
+    ]
+  )
+)

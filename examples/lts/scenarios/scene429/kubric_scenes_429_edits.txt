@@ -1,0 +1,73 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What is the correct edit to modify 'sketch_1' as per the design goal?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'sketch_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the design circular without any changes.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The initial circular structure without changes contradicts the design goal of a QuarterWedge.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'sketch_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to a TriWedge with a gap of 12 degrees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "A TriWedge doesn't match the 90-degree arc goal specified for a QuarterWedge."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'sketch_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 65.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design from Circular to QuarterWedge to create an artistic boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The change to a QuarterWedge design is explicitly stated in the design goal, making it straightforward to deduce.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'sketch_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Transform into a SemiRing structure for enhanced visual impact.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A SemiRing does not match the required QuarterWedge transformation described in the prompt.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'sketch_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Alter the design to a concave SemiCircular shape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A SemiCircular shape does not align with the specified QuarterWedge design goal.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Changing the design to a QuarterWedge with the specified parameters aligns directly with the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit required is explicitly stated in the design goal, making it an easy deduction.'
+    )
+  ]
+)

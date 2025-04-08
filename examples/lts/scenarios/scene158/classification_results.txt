@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging pots around a central planter, which requires spatial reasoning to ensure that the arrangement is harmonious, aesthetically pleasing, and functional for easy access and maintenance. It explicitly deals with positioning objects in a space without collisions.'
+    )
+  ],
+  confidence = 4
+)

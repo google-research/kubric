@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a structured boundary that encircles and enhances my trees, sticking to a simple rectangular design for a clean and modern look.',
+  description = "In this scene, we aim to create a defined structure around two trees using a rectangular design. This setup will provide an aesthetic border, anchoring the visual elements symmetrically around the trees while enhancing the garden's overall appearance.",
+  initial_design = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (0.5, 1.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        width = 0.5,
+        height = 0.5
+      ),
+      rect_2 = Rectangular(
+        center = (0.0, 2.0, 0.0),
+        length = 1.5,
+        width = 0.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rect_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          width = 0.5,
+          height = 0.5
+        ),
+        edit_description = 'Align the first rectangular structure directly around the base of the first tree.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Aligning the structure to the tree was directly mentioned in the description.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_2 = Rectangular(
+              center = (0.0, 2.0, 0.0),
+              length = 1.5,
+              width = 0.5,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a second rectangular structure around the base of the second tree.',
+        target_parameter = 'design_goal',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'A second structure was part of the described goal.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the design to ensure the structure fits within the spatial constraints?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.8 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This radius does not effectively fit within the spatial constraints.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 80.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters and gap degrees to 80.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The gap degrees here are incorrect based on the initial goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters to fit within the spatial constraints and avoid collisions.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt gives clear instructions to fit the structure within space constraints.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 2.0 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This does not address the spatial constraints as mentioned in the prompt.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters and gap degrees to 75 for better fitting.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This gap degree is not consistent with the final design goal.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The radius was reduced to 1.5 meters as per the design plan to ensure the structure fits within the spatial constraints without colliding with the birdhouses.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt adequately highlights the need to adjust the radius for fitting.'
+    ),
+    1 : EditMCQA(
+      question = 'What change was made to adjust the gap degrees of the QuarterWedge in the redesign?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.35
+          ),
+          edit_description = 'Adjust the gap degrees to 70 and height to 0.35.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The inconsistency in height makes this option incorrect.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap degrees to 70 to ensure an unobstructed view through the wedge while maintaining the structural integrity.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a desired angular span for aesthetic and functional reasons.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 80.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap degrees to 80 for a wider view.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This gap degree makes the wedge too wide.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the gap degrees at 90 as in the original design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The original gap of 90 does not fit the design plan.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the gap degrees to 65 for a narrower design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'While possible, this narrower gap does not meet the designed visual scope.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The gap degrees were adjusted to 70 as specified in the final design goal, creating the intended aesthetic and functional characteristics.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The necessary adjustment was specifically mentioned in the prompt's design goal."
+    ),
+    2 : EditMCQA(
+      question = 'How was the height of the QuarterWedge modified to enhance the visual appeal around the birdhouses?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height constant at 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Maintaining the original height hinders the elevated aesthetic enhancement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for an elevated presence that enhances the visual interest around the birdhouses.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height is directly suggested in the design goal for aesthetic enhancement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for a modest enlargement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This height change is not fully aligning with the given design goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase the height to 0.45 meters for a noticeable elevation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This increment does not quite match the specified design goal for height.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.55
+          ),
+          edit_description = 'Increase the height to 0.55 meters for significant elevation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This height is slightly beyond the target height mentioned in the design goal.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The height was increased to 0.5 meters as per the design goal, to provide an enhanced and elevated visual appeal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The decision for elevating the height was clearly laid out in the design goal.'
+    )
+  ]
+)

@@ -1,0 +1,91 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.265243, 0.26524849, 0.3365115),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    pot_3 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Create a wavy path that artfully weaves through my garden setup, linking the practical elements with graceful curves.',
+  description = 'This scene involves arranging a CurvyPath to traverse through a garden setup composed of chairs, pots, and a trashcan. The objective is to create a dynamic and engaging pathway that maintains harmony with the objects while ensuring no collisions occur.',
+  initial_design = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+        close_curve_leftmost_point = (1.5, 0.0, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+          close_curve_leftmost_point = (1.5, 0.0, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Change the design profile from a Linear Path to a CurvyPath for an artful journey.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation requires understanding the relationship between linear and sinusoidal path parameters.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        edit_description = 'Remove the initial linear path design.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Linear paths are straightforward in comparison to curvilinear modifications.'
+      ),
+      2 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            curvy_path_1 = CurvyPath(
+              far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+              close_curve_leftmost_point = (1.5, 0.0, 0.0),
+              amplitude = 0.3,
+              wavelength = 2.0,
+              phase = 0.0,
+              height = 0.1
+            )
+          }
+        ),
+        edit_description = 'Introduce a new CurvyPath design.',
+        target_parameter = 'curvy_path_1',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Integrating the new profile ensures compatibility with existing elements, requiring spatial awareness.'
+      )
+    ]
+  )
+)

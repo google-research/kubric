@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_3 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct an L-shaped boundary to organize this collection, enhancing flow and functionality while promoting interaction between groups.',
+  description = 'This scene involves creating an L-shaped arrangement around three tables to enhance the usability and aesthetics of a garden or patio area. The design ensures a coherent and engaging layout for visitors.',
+  initial_design = Design(
+    structures = {
+      structure_1 = LShape(
+        left_center = (0.0, 0.0, 0.0),
+        left_length = 3.0,
+        left_width = 1.0,
+        right_width = 0.5,
+        right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure_1 = LShape(
+        left_center = (0.0, 0.0, 0.0),
+        left_length = 3.0,
+        left_width = 1.0,
+        right_width = 0.5,
+        right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 3.0,
+          left_width = 1.0,
+          right_width = 0.5,
+          right_length = 1.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Convert the rectangular structure to an LShape to meet the requirement of engaging with multiple tables.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a rectangular to an L-shaped structure requires understanding spatial organization to enhance interaction according to prompt guidelines.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 3.0,
+          left_width = 1.0,
+          right_width = 0.5,
+          right_length = 1.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters to ensure adequate separation without losing visibility.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Height adjustment is a straightforward parameter modification for improving visibility and separation.'
+      )
+    ]
+  )
+)

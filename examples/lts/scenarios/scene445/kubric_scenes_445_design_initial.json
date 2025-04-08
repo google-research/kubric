@@ -1,0 +1,68 @@
+{
+    "prompt": "Create a serpentine path that weaves gracefully between the trees and the pot, harmonizing the natural arrangement.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                -1.0,
+                -0.5,
+                2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                1.0,
+                -0.5,
+                2.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.216202
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -6.123233995736766e-17,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    6.123233995736766e-17,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

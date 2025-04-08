@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The task involves creating a geometric structure around rocks, requiring spatial reasoning to ensure the border's aesthetic and unobtrusive placement."
+    )
+  ],
+  confidence = 5
+)

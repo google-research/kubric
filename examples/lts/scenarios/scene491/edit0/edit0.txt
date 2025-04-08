@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a lively triangular design around the tables to enhance the garden’s layout with a unique flair. Ensure it allows for easy access to the tables.',
+  description = '\n        This scene involves positioning tables within a garden setup and using a TriWedge structure to introduce an artistic flair to the area. \n        The goal is to blend aesthetic appeal with functional space, ensuring that the layout remains open while providing clear distinctions among the elements.\n    ',
+  initial_design = Design(
+    structures = {
+      structure_circular = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      structure_triwedge = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'structure_circular',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Convert the structure from Circular to TriWedge for a dynamic, angular appearance and adjust its parameters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change from a Circular structure to a TriWedge is moderately complex due to the need to satisfy both aesthetic and functional space requirements.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'structure_circular',
+        edit_description = 'Remove the initial Circular structure as it is replaced by the TriWedge design.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Removing a redundant structure is straightforward once its purpose is served by the new design.'
+      )
+    ]
+  )
+)

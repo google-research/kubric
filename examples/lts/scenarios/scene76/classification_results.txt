@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing a winding path, which involves spatial reasoning, including arranging and placing objects in a specific order relative to each other.'
+    )
+  ],
+  confidence = 5
+)

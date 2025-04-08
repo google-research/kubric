@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves organizing the scene through linear structures that define spatial divisions. It emphasizes spatial reasoning to achieve a layout that protects and highlights the objects by considering spatial relationships, positions, and geometric properties such as position, length, and height.'
+    )
+  ],
+  confidence = 5
+)

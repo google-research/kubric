@@ -1,0 +1,83 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a visually striking boundary that accentuates the trees and frames the table in a structured, yet artistic manner.',
+  description = 'This scene involves designing a TriWedge structure to create an artistic and functional boundary among a group of trees and a table. The design should offer a sense of order and aesthetic appeal within a small garden area while ensuring accessibility and interaction.',
+  initial_design = Design(
+    structures = {
+      circular_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      ),
+      triwedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      triwedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the design profile from Circular to TriWedge for added complexity and interest.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a circular to a wedge design requires understanding the implications on aesthetic and functional space usage.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            triwedge_1 = TriWedge(
+              center = (0.0, 0.0, 0.0),
+              radius = 1.5,
+              gap_degrees = 95.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Expand the boundary to offer a sense of enclosure around the table while complementing surrounding trees.',
+        target_parameter = 'radius',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Setting the radius to properly position the structure within the scene requires spatial reasoning and adherence to design constraints.'
+      )
+    ]
+  )
+)

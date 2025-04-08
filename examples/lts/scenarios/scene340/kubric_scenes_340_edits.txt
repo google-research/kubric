@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the SemiCircular_1 structure in the first edit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Position Adjustment: Raise the semi-circular to (0, 0, 0.5).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Position Adjustment and Height Increase.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Orientation Change to 'convex'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 0.6,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Radius Decrease and Position Adjustment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Height Increase.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit involved only raising the position of the semi-circular structure to (0, 0, 0.5) while keeping other parameters unchanged.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Position adjustment is straightforward but requires knowledge about the camera view height.'
+    ),
+    1 : EditMCQA(
+      question = 'What modifications were made to the SemiCircular_1 structure in the second edit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Edge Adjustment: Increase radius to 1.0 meters; Height Increase: Raise height to 0.5 meters; Orientation Change: Switch to 'convex'."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Radius Increase to 1.2 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Height Increase and Radius Adjustment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Orientation Change and Radius Adjustment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.6),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Position Change to (0, 0, 0.6).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit includes increasing the radius to 1.0 meters, raising the height to 0.5 meters, and switching the orientation to 'convex'.",
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Edits involve multiple changes including radius, height, and orientation, which are not easily deduced without analyzing the goal requirements.'
+    )
+  ]
+)

@@ -1,0 +1,162 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification is made to the curvy path to achieve a subtler wave pattern that integrates more smoothly between the chairs?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the amplitude to 0.3 for a subtler wave pattern that integrates more smoothly between the chairs.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit requires changing the amplitude of the CurvyPath, which influences how prominently the path undulates between the chairs, thus affecting the harmony and visual integration in the garden context.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Keep the amplitude at 0.4 for a more pronounced wave pattern.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No change in amplitude, the edit does not satisfy the question requirement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the amplitude to 0.25 for an even subtler wave pattern.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The amplitude is changed, but not as specified in the question.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increase the amplitude to 0.5 for a more exaggerated wave pattern.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This change would make the pattern more pronounced, not subtler.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the wavelength to 3.0 while keeping the amplitude at 0.3.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This edit changes the shape of the wave but not specifically the amplitude as asked.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification changes the amplitude to 0.3, which is the desired edit specified in the question.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in recognizing the importance of amplitude in achieving the integration of the path.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification is implemented to enhance the visibility and presence of the path within the garden?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the path height to 0.2 for enhanced visibility and presence within the garden.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit involves updating the height of the CurvyPath, which changes its prominence and how visible it is, aligning with the goal of making it more noticeable in the garden.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Maintain the path height at 0.1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Maintaining the original height does not address making the path more visible.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.15
+          ),
+          edit_description = 'Increase the path height to 0.15 for slightly more visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Increasing height moderately does improve visibility, though not as clearly or effectively as specified.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the path height to 0.3 for substantial visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Height is increased substantially, which improves visibility significantly but exceeds what's specified."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.3, 0.0),
+            close_curve_leftmost_point = (1.5, 0.3, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Decrease the path height to 0.05 for less presence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reducing height diminishes the path’s presence, counter to the question goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the path height to 0.2 enhances the visibility and presence as desired for the garden design.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Identifying the impact of height on visibility requires an understanding of spatial influence and demands careful attention.'
+    )
+  ]
+)

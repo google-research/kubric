@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging a path that weaves between seating arrangements without obstructions, demanding spatial reasoning to ensure access to all chairs while maintaining an inviting layout.'
+    )
+  ],
+  confidence = 5
+)

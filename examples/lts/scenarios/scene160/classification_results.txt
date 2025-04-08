@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to construct a semi-circular canopy around trees to provide shade while allowing access from all sides.'
+    )
+  ],
+  confidence = 4
+)

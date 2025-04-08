@@ -1,0 +1,114 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit changes the design profile from linear to CurvyPath to introduce fluid, artistic movement?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.15
+          ),
+          edit_description = 'Change the design profile from linear to CurvyPath to introduce fluid, artistic movement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifically asks for a CurvyPath around the birdhouse, making it straightforward to deduce this requirement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Change the design profile from linear to Serpentine path to introduce fluid, artistic movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The serpentine option provides fluidity but deviates from the direct CurvyPath requirement in the prompt.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a QuarterWedge path.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This option does not meet the prompt requirement for a CurvyPath and is outside valid gap ranges.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the design to a shorter, taller Linear path.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Changing from a linear path to another linear form directly contradicts the CurvyPath requirement.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a semi-circular form.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While semi-circular paths are curved, they do not provide the distinct wave pattern of a CurvyPath.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit changes the design from a linear path to a CurvyPath as explicitly required by the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly calls for a CurvyPath, which aligns with this edit directly.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit removes the linear path to replace it with the new CurvyPath design?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Remove the linear path to replace it with the new CurvyPath design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Once the CurvyPath is introduced, the linear path is obsolete.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Remove the linear path entirely with no replacement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Removing the path without replacement ignores the CurvyPath requirement and does not achieve the prompt’s goal.'
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'birdhouse_1',
+          edit_description = 'Remove the birdhouse to clear the design.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Deleting the birdhouse contradicts the goal of accentuating it within the path design.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          edit_description = 'Remove the newly added CurvyPath.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Removing the CurvyPath contradicts the design goal, leaving no path to highlight the birdhouse.'
+        ),
+        E = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Convert the linear path into green space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Converting to green space does not achieve the CurvyPath goal, deviating from the prompt.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Removing the linear path and replacing it with the CurvyPath aligns with the design goal outlined in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The design goal keeps the CurvyPath while eliminating the obsolete linear path, matching the prompt directly.'
+    )
+  ]
+)

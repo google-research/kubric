@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests creating a linear border around benches, which involves spatial reasoning to arrange objects in a specific order.'
+    ),
+    1 : Semantic(
+      explanation = "The task also requires understanding of the scene's function to ensure easy access while creating defined boundaries."
+    )
+  ],
+  confidence = 4
+)

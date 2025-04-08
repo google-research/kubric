@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (-0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create circular features to frame the rocks, promoting a sense of graceful symmetry while maintaining some openness.',
+  description = 'This scene involves designing a circular garden layout to naturally highlight the positioning of rocks. The arrangement should maintain a balance between the circular structures and the rocks, emphasizing aesthetic appeal and harmony within the confined space.',
+  initial_design = Design(
+    structures = {
+      circular_structure_initial = Circular(
+        center = (-0.75, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      ),
+      circular_structure_2 = Circular(
+        center = (0.75, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_structure_1 = Circular(
+        center = (-0.75, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      ),
+      circular_structure_2 = Circular(
+        center = (0.75, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_structure_initial',
+        NewDesignStructure = Circular(
+          center = (-0.75, 0.0, 0.0),
+          radius = 0.5,
+          height = 0.3
+        ),
+        edit_description = 'Transform the initial large Circular structure into a smaller Circular feature centered around rock 1.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation involves modifying the center and radius based on the rock position, requiring spatial understanding of object placement.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            circular_structure_2 = Circular(
+              center = (0.75, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Add a new Circular structure to emphasize rock 2.',
+        target_parameter = 'radius and center',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Adding a new structure and correctly placing it around rock 2 requires understanding the prompt's symmetry requirement and spatial arrangement."
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging and connecting objects in a garden layout, requiring spatial reasoning to determine placement and interconnections.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt includes ambiguities regarding the layout and functionalities, necessitating an understanding of the meaning and purpose of the scene.'
+    )
+  ],
+  confidence = 4
+)

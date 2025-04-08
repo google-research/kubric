@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires interpreting spatial relationships, arranging objects in specific patterns, and ensuring the design fits within spatial constraints.'
+    )
+  ],
+  confidence = 5
+)

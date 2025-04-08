@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging planters in a certain way to accentuate the gathering space while maintaining openness, indicating spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

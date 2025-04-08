@@ -1,0 +1,63 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a circular arrangement that gracefully encircles the seating area, creating a cohesive, open garden space.',
+  description = 'This scene involves constructing a circular arrangement to highlight the presence of two chairs. The circular design should embody a sense of unity, providing an inviting and comfortable atmosphere in the garden area. It requires understanding spatial relationships to ensure the circular structure complements the scene without causing collisions.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the radius from 2.0 meters to 1.5 meters to prevent any overlap with the chairs.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The need to avoid overlap with the chairs implies reducing the radius from the large initial size.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height from 0.3 meters to 0.5 meters to ensure visual presence and create an inviting space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing height for visual presence aligns with the requirement of an inviting space.'
+      )
+    ]
+  )
+)

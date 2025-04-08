@@ -1,0 +1,52 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Craft a graceful path that weaves around the birdhouse, creating a lively yet subtle highlight within the garden.',
+  description = 'This scene involves designing a CurvyPath to elegantly integrate a birdhouse within a garden space, creating an engaging flow around the birdhouse that draws attention to it. The goal is to ensure that the path smoothly surrounds the birdhouse while maintaining artistic appeal.',
+  initial_design = Design(
+    structures = {}
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+        close_curve_leftmost_point = (1.0, 0.5, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.5,
+        height = 0.15
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+          close_curve_leftmost_point = (1.0, 0.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.5,
+          height = 0.15
+        ),
+        edit_description = 'Change the design profile from linear to CurvyPath to introduce fluid, artistic movement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifically asks for a CurvyPath around the birdhouse, making it straightforward to deduce this requirement.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'linear_path_1',
+        edit_description = 'Remove the linear path to replace it with the new CurvyPath design.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Once the CurvyPath is introduced, the linear path is obsolete, making this edit easy to deduce since the goal is to maintain only the CurvyPath.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a structured garden layout where my table and birdhouse can reside peacefully, surrounded by a defined rectangular setting that complements the open area.',
+  description = 'This scene involves crafting a rectangular arrangement to form an organized space around a table and a birdhouse. The design aims to create a harmonious and functional outdoor area while ensuring each object remains accessible.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.5, 0.0),
+        length = 1.5,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Shift the center from (0, 0.5, 0) to (0, 0, 0) to ensure proper framing of the objects. Extend the length to 2 meters and width to 1 meter to cover both objects adequately. Increase the height to 0.5 meters for a more pronounced structure, maintaining accessibility and aesthetic value.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The adjustments to the structure's dimensions and center require consideration of both spatial aesthetics and functional accessibility, which are moderately complex based on the given prompt."
+      )
+    ]
+  )
+)

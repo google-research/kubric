@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made in the scene to encompass the chairs symmetrically?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 2.0 meters to encompass the chairs symmetrically.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 1.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 1.8 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase both length and width for a larger area.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly features extending the length to 2.0 meters to symmetrically encompass the chairs as stated.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The increase in length is directly related to the instruction to encompass the chairs symmetrically.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification was made to the scene to provide additional space around the chairs?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.5 meters for additional space around the chairs, maintaining accessibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 2.0 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.2, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift center slightly to increase surrounding space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.8,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.8 meters for additional space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Height increased to 0.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A describes increasing the width to 1.5 meters, providing additional space around the chairs and maintaining accessibility.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The increase in width requires maintaining symmetry and understanding the need for additional space.'
+    ),
+    2 : EditMCQA(
+      question = 'How was the visual boundary enhanced in the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for an enhanced visual boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.2, 0.0, 0.5),
+            length = 2.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Shift center upwards for visual boundary prominence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase both length and width, emphasizing visual boundaries.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.1, 0.0, 0.25),
+            length = 2.5,
+            width = 2.0,
+            height = 0.4
+          ),
+          edit_description = 'Major scale and height increase.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly involves increasing the height to 0.5 meters, thus enhancing the visual boundary.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The height increase is not explicitly stated but inferred to enhance the visual boundary.'
+    )
+  ]
+)

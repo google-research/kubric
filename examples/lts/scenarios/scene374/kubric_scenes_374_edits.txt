@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification needed to extend the partition fully between the benches?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length from 1.2 meters to 1.8 meters to extend the partition fully between the benches, ensuring a clear definition without obstruction.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly indicates an extension of the linear element to define the area between seating arrangements.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Partially increase the length to extend somewhat between the benches without full definition.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A reasonable but incomplete length could introduce ambiguity in the design goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.1, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change orientation and fully extend, but does not satisfy left-right alignment.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Changing orientation makes it incompatible with initial descriptions of seating layout.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend and increase height to 0.6 meters, potentially obstructing visibility.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A height of 0.6 meters deviates from enhancing without obstruction.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain original dimensions without meeting extended partition goals.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No change to reflect prompt and initial planning intent.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately extends the design as specified in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Simple length adjustment as defined by the initiated goal.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct modification needed to increase the height for improved visual prominence?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height from 0.3 meters to 0.4 meters for improved visual prominence while maintaining accessibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height is straightforward as it aligns with enhancing visual prominence mentioned in the goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'No increase in height, maintaining current visual profile.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Fails to comply with height enhancement directives.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase height to 0.5 meters, ensuring more prominence but may overextend prominence goal.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Could exaggerate the goal of maintaining accessibility while enhancing prominence.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease height to 0.2 meters, conflicting with increased prominence aim.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Decrease opposes resembling design objective; lacks appropriate prominence.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Height increased to 0.6 meters, risking obstruction to visibility beyond prominence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Increased height aligns with prominence but poses visibility obstruction challenges.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A properly meets height increase while keeping functionality optimal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Clear instruction from the prompt supports adjusting heights for prominence.'
+    )
+  ]
+)

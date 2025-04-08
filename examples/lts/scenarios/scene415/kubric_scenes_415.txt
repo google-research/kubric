@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a linear path that elegantly traverses between the trees, providing clear guidance without detracting from their natural allure.',
+  description = 'This scene involves creating a linear path to guide visitors through a grove of trees, ensuring easy navigation while enhancing the natural beauty of the area. This design takes advantage of spatial relationships and geometric properties to maintain harmony with the environment.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (1.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = "Move the linear structure's center to (1, 0, 0) to provide ample space and avoid interference with the trees.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the requirement to provide ample space and avoid interference, making it straightforward to deduce this modification.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (1.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 2.0 meters to extend the path smoothly between the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The requirement to enhance the path's role is evident in the prompt, making it straightforward to deduce the need to increase the length."
+      )
+    ]
+  )
+)

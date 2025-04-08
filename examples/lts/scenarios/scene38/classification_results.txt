@@ -1,0 +1,14 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves creating a wavy trail that navigates spatially between natural and human elements, requiring spatial reasoning to position it effectively within the environment.'
+    ),
+    1 : Numeric(
+      explanation = "The task requires consideration of geometric properties such as amplitude, wavelength, and phase, which are numerical aspects to achieve the wavy trail's design."
+    ),
+    2 : Semantic(
+      explanation = 'The prompt involves understanding the artistic blend with the environment, which requires interpreting the meaning or intent behind the scene function, making it semantically challenging.'
+    )
+  ],
+  confidence = 5
+)

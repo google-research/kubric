@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene requires spatial reasoning as it involves constructing a circular structure around a seating arrangement while ensuring there is space for movement. The prompt emphasizes the spatial arrangement and flow - encircling the seating without blocking paths.'
+    )
+  ],
+  confidence = 4
+)

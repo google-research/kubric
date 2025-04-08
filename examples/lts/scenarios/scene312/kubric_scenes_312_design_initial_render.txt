@@ -1,0 +1,54 @@
+{
+    "prompt": "Fashion an artistic nook using quarter-wedges, accentuating the natural formations while allowing a dynamic flow around them.",
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                -0.25,
+                -0.25
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "rock_2": {
+            "extent": [
+                0.25,
+                -0.25,
+                -0.25
+            ],
+            "center": [
+                0.5,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

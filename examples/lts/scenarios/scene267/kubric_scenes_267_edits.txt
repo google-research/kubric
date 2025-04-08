@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'In the scene, how should the rectangular planter be modified to align with the desired design goals?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.4,
+            height = 0.5
+          ),
+          edit_description = "Shift the rectangular structure's center to (0, 0, 0), increase the length to 2.5 meters, increase the width to 0.4 meters for better coverage and visual impact."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Place the rectangular structure at (1.0, 1.0, 0.0) with a length of 2.0 meters and width of 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Keep the rectangular structure at (0.0, 0.0, 0.0) with a length of 2.0 meters and a width of 0.3 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Move the rectangular structure to (0.5, 0.5, 0.0), increase the length to 3.0 meters, and width to 0.5 meters for maximum coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -0.5, 0.0),
+            length = 2.2,
+            width = 0.35,
+            height = 0.4
+          ),
+          edit_description = "Adjust the rectangular structure's center to (-0.5, -0.5, 0.0), with a length of 2.2 meters and width of 0.35 meters."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly implements all the changes specified in the scene description: center position, length, and width adjustments.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The changes are explicitly laid out in the prompt, making them straightforward to implement.'
+    )
+  ]
+)

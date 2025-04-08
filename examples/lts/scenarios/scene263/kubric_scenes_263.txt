@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-0.75, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.75, 0.0, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.0, -0.75, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange a rectangular planter that elegantly frames the trees while allowing pathways to remain open and accessible.',
+  description = 'This scene features a rectangular planter that provides an enclosure around a trio of lush trees. The rectangular structure is positioned to enhance the visual harmony of the trees while maintaining accessibility and aesthetics in the space.',
+  initial_design = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 1.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.0, -0.25, 0.0),
+        length = 1.5,
+        width = 2.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, -0.25, 0.0),
+          length = 1.5,
+          width = 2.0,
+          height = 0.3
+        ),
+        edit_description = 'Move the center of the rectangular planter to (0, -0.25, 0) and increase the length to 1.5 meters and width to 2.0 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Adjusting the center and dimensions while maintaining the overall structure's harmony requires a detailed understanding of the spatial constraints."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, -0.25, 0.0),
+          length = 1.5,
+          width = 2.0,
+          height = 0.5
+        ),
+        edit_description = "Increase the height to 0.5 meters to enhance the planter's presence while keeping it visually balanced with the trees.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Height adjustment involves perceiving what would be aesthetically appropriate and functional without direct specifications.'
+      )
+    ]
+  )
+)

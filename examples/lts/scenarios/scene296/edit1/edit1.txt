@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.5, 0.294558),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.5, 0.0, 0.15423275),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.5, -0.5, 0.25),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Enhance the central area by introducing a wedge-like structure that frames the objects, encouraging gathering and interaction.',
+  description = 'This scene involves positioning a TriWedge structure to create a focal point around a central garden feature composed of a table, birdhouse, and rock. The design enhances the spatial arrangement by introducing an artistic element that aligns with the surrounding objects, ensuring coherence within the designated area.',
+  initial_design = Design(
+    structures = {
+      triwedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 90.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      triwedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 90.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 90.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the design from Circular to TriWedge to introduce distinct angles.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Changing from a Circular to a TriWedge profile aligns with the prompt's goal of introducing sharper angles."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'triwedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 90.0,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the radius to 1 meter for optimal fitting within the designated space.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The optimal fitting requirement can be interpreted from the prompt to fit within existing objects.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'triwedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 90.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters to create a more pronounced boundary.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Height adjustment is mentioned in the design goal for a pronounced boundary.'
+      )
+    ]
+  )
+)

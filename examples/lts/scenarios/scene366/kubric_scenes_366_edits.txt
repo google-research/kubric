@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made to increase the separation of space in the design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase Length: Extend the linear boundary length to 2 meters for wider separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.3, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Slightly shift and lengthen the linear boundary by 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shorten the linear boundary to maintain a tighter space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase linear boundary length to 3 meters for maximum space division.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.5),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change orientation to left-right while extending length to 2 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit action increased the linear boundary length to 2 meters as described in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The extension of the length enhances separation and is straightforward from the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the height of the linear boundary adjusted in the design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust Height: Raise the height to 0.5 meters, providing a more pronounced boundary without blocking views.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.7,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Further raise the height to 0.7 meters for a more distinct boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain the height at 0.3 meters to ensure clear visibility over the boundary.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Lower the height to 0.2 meters for minimal visual obstruction.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.6,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raise the height to 0.6 meters for a significant elevation and clear boundary designation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit action increases the height to 0.5 meters as laid out in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height improves the boundary definition while considering view obstruction, derived directly from the design goal.'
+    )
+  ]
+)

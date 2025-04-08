@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging a decorative L-shaped border around the trees, which requires spatial reasoning to understand how to position the border without covering the entire area. This includes understanding spatial relationships and geometric properties.'
+    ),
+    1 : Semantic(
+      explanation = 'The task involves resolving ambiguities in the prompt, such as determining the correct alignment and dimensions of the L-shaped structure to maintain alignment around the trees, which requires understanding the purpose and meaning of the objects and scene elements.'
+    )
+  ],
+  confidence = 4
+)

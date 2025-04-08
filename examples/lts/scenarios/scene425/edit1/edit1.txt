@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange an L-shaped border around the trees to create a structured garden frame that enhances their natural beauty.',
+  description = 'This scene involves creating a harmonious space around three trees using an L-shaped structure to form a cohesive design in the garden area. The L-shape will encapsulate the trees in an organized manner, ensuring both functionality and aesthetic appeal.',
+  initial_design = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.0, 0.0, 0.0),
+        left_length = 2.0,
+        left_width = 1.0,
+        right_width = 1.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.0, 0.0, 0.0),
+        left_length = 2.0,
+        left_width = 1.0,
+        right_width = 1.5,
+        right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 1.0,
+          right_width = 1.0,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = "Move the L-shape to center around (0, 0, 0) to symmetrically frame the trees. Increase the left section's length to create more space.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Moving the L-shape to the center is straightforward given the alignment requirement for symmetry.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.0, 0.0),
+          left_length = 2.0,
+          left_width = 1.0,
+          right_width = 1.5,
+          right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = "Increase the right section's width to embrace the third tree warmly, providing a cohesive layout.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly suggests enclosing the trees, which implies adjusting the right section width.'
+      )
+    ]
+  )
+)

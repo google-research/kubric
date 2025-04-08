@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Craft a lively garden feature that brings attention to the duo of stones while providing room for foot traffic and visual enjoyment.',
+  description = 'This scene involves arranging two rocks and surrounding them with a TriWedge structure. The purpose is to emphasize the placement of the rocks within a small garden space, providing both visual interest and structure without overwhelming the natural elements.',
+  initial_design = Design(
+    structures = {
+      TriWedge = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        gap_degrees = 70.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      TriWedge = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 90.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          gap_degrees = 70.0,
+          height = 0.3
+        ),
+        edit_description = 'Move the center to the origin (0, 0, 0) to form a cohesive surrounding to the rocks.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The center position adjustment is a straightforward transformation to centralize the TriWedge around both rocks.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'TriWedge',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 90.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase radius to 1.0 meters for more inclusive coverage that remains visually impactful without overpowering the rocks.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The radius adjustment to achieve wider coverage for the rocks requires balancing the structure's size without overwhelming the scene."
+      )
+    ]
+  )
+)

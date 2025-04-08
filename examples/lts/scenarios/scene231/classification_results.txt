@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests a seating arrangement that encompasses the central rock, indicating a need for spatial reasoning to arrange the seating in a specific, coherent way around the rock.'
+    )
+  ],
+  confidence = 4
+)

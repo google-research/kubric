@@ -1,0 +1,20 @@
+{
+    "prompt": "Create an artistic enclosure around my feathered friend's home to complement the space while keeping it open and accessible.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.16098425,
+                -0.15423275,
+                -0.11663825
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": []
+}

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to position something in a way that connects trees, provides shade over the trashcan, and ensures access is not blocked.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt involves understanding the meaning of objects and their function, such as trees providing shade and ensuring access to the trashcan, which is somewhat vague.'
+    )
+  ],
+  confidence = 4
+)

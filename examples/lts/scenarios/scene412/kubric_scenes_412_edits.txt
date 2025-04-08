@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change is needed to increase the length to 3 meters and width to 0.5 meters while maintaining the height?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 3 meters and width to 0.5 meters while maintaining the height.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the length and width is directly stated in the prompt to encompass both trashcans within the designated area.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.4,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 2.5 meters and width to 0.4 meters while maintaining the height.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This is a plausible edit but does not fully meet the design goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 3 meters while keeping the width and height the same.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This only partially considers the prompt since the width should also be increased.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the length but increase the width to 0.5 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This edit does not increase the length, which is required by the design goal.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 3.5 meters and width to 0.5 meters while maintaining the height.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This exceeds the length requirement stated in the design prompt.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly states that both the length and width need to be increased as described in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The correct answer directly aligns with the scene description changes which are directly stated in the design prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'What modification needs to be made to increase the height to 0.5 meters while keeping the rest of the structure unchanged?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to create a distinct perimeter.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height is to create a more prominent boundary, as described in the design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters to enhance boundary visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option slightly increases the height but does not meet the complete design goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain current height of 0.3 meters while focusing on length and width.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This does not capture the requirement for a higher boundary.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters for extra visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height is increased beyond the described design goal, which emphasizes a 0.5 meter increase.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters to offer a low boundary profile.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option contradicts the design goal by decreasing height instead.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A precisely matches the modification description, increasing the height as specified in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task explicitly mentions the new height requirement, making the correct choice straightforward to determine.'
+    )
+  ]
+)

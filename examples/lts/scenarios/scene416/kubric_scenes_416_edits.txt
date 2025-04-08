@@ -1,0 +1,193 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which structural modification changes the profile from Circular to TriWedge to add angular interest and maintain openness?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Circular to TriWedge to add angular interest and maintain openness.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Circular to TriWedge with minimum gap to maximize enclosure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile to QuarterWedge for a sharper appearance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Alter the shape to a Serpentine for a wavy visual effect.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              NewCircular_1 = Circular(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a smaller circular design around the existing structure.',
+          target_parameter = 'radius',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Simple addition of a new structure for aesthetic purposes.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly changes the type from Circular to TriWedge, adding angular elements while maintaining openness.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change in structure type from Circular to TriWedge involves significant design transformation which enhances dynamism.'
+    ),
+    1 : EditMCQA(
+      question = 'Which modification increases the radius of the Circular structure to ensure a comprehensive but elegant span around the birdhouse?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.0 meters to ensure a comprehensive but elegant span around the birdhouse.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting the radius is straightforward and aligns with enhancing the visual span.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 0.9 meters for a balanced appearance.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Shift the circular center to enhance symmetry.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge_1 = TriWedge(
+                center = (-0.5, 0.5, 0.0),
+                radius = 0.8,
+                gap_degrees = 90.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a new TriWedge structure to complement the existing Circular structure.',
+          target_parameter = 'radius'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change to a Linear design with equivalent span.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A precisely increases the radius of the Circular structure to 1.0 meters.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the radius is straightforward and aligns with enhancing the visual span.'
+    ),
+    2 : EditMCQA(
+      question = 'Which edit adjusts the height of the structure to 0.5 meters, ensuring it stands in a balanced proportion without overshadowing the birdhouse?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters, ensuring the structure stands in a balanced proportion without overshadowing the birdhouse.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height adjustment ensures balance, a simple alteration influencing proportions.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the height to enhance the visibility of the birdhouse.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure to QuarterWedge with adjusted height for a sharper angle.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing to QuarterWedge alters the design significantly, requiring spatial adjustments.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          edit_description = 'Remove the Circular structure to test the openness around the birdhouse.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Deleting a complete structure alters aesthetics and enclosure integrity.'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              Linear_1 = Linear(
+                center = (-0.5, 0.0, 0.0),
+                length = 2.0,
+                height = 0.5,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Insert a linear section as an extension for added length and height.',
+          target_parameter = 'length'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately adjusts the height to 0.5 meters, achieving the desired balance without overshadowing the birdhouse.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height adjustment ensures balance, a simple alteration influencing proportions.'
+    )
+  ]
+)

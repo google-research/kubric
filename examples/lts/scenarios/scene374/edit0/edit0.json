@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -0.75,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                0.75,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves creating a linear boundary that visually separates two benches, offering a structured layout within a garden setting. The linear design complements the arrangement of benches while providing clear pathways for movement. The scene requires positioning the linear structure between the benches, ensuring no collisions with the objects, and maintaining a harmonious balance within the confined space.",
+    "prompt": "Construct a linear element that elegantly defines the area between my seating, offering organization and openness in the space.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -5.5109105961630896e-17,
+                        -0.9,
+                        0.0
+                    ],
+                    [
+                        5.5109105961630896e-17,
+                        0.9,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -5.5109105961630896e-17,
+                        -0.9,
+                        0.0
+                    ],
+                    [
+                        5.5109105961630896e-17,
+                        0.9,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

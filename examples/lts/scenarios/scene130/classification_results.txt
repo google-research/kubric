@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging seating in a semi-circular shape around a rock, ensuring the open side faces away from the rock. This involves spatial reasoning to achieve the correct placement and orientation.'
+    )
+  ],
+  confidence = 5
+)

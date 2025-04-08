@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt requires spatial reasoning to create a path that integrates naturally between the trees without disturbing the space around them. This involves arranging the path in relation to the objects, particularly considering their spatial positions.'
+    ),
+    1 : Semantic(
+      explanation = "The scene prompt is somewhat vague with respect to 'natural-looking' and 'without disturbing,' requiring understanding of the meaning behind these terms and how they translate into the scenario design. This requires interpretation beyond merely physical arrangement."
+    )
+  ],
+  confidence = 4
+)

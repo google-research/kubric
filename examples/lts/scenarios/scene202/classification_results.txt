@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging objects (tables) in a specific pattern with a tri-wedge border, indicating spatial reasoning is required. This requires an understanding of spatial relationships and the geometric properties to ensure functional and aesthetic design.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-0.8, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.8, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a linear boundary that subtly separates the birdhouse display from the relaxation area. Ensure easy access around the setup.',
+  description = 'This scene features a simple linear structure to delineate space in a garden setup. The linear arrangement separates a relaxation area composed of a table and chairs from a birdhouse setting, ensuring clarity in the functional spaces while maintaining an aesthetic appeal.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 1.0, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 1.0, 0.0),
+        length = 2.0,
+        height = 0.5,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 1.0, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Increase Length: Extend the linear boundary length to 2 meters for wider separation.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The extension of the length enhances separation and is straightforward from the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 1.0, 0.0),
+          length = 2.0,
+          height = 0.5,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Adjust Height: Raise the height to 0.5 meters, providing a more pronounced boundary without blocking views.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Increasing the height improves the boundary definition while considering view obstruction, derived directly from the design goal.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning - arranging the protective structure around the garden pots in a semi-ring that allows for entry on one side.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt requires understanding the concept of an 'open embrace,' which is semantic in nature, suggesting a specific type of arrangement and openness."
+    )
+  ],
+  confidence = 4
+)

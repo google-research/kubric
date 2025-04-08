@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests spatial reasoning to accurately position and size each section of the structure, ensuring that the birdhouse fits well into the nook without leaving gaps or making it too tight.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the semiring to align with the initial broader coverage requirement?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Expand the outer radius to 1.5 meters and the inner radius to 1.0 meters for broader coverage, maintaining safe boundaries around the birdhouse and table.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The requirement to increase the radius is straightforward and does not require inference beyond the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Slightly expand the outer radius to 1.3 meters and the inner radius to 0.9 meters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partially aligns with some goals but not as explicitly mentioned in the prompt as the target design.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Expand the outer radius to 1.5 meters while keeping the inner radius unchanged.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This only partially follows what was intended in terms of design modification.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.6,
+            inner_radius = 1.1,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the structure to an outer radius of 1.6 meters and an inner radius of 1.1 meters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Too aggressive change that overshoots the design intent without adherence to the original scene description.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.7,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adapt the outer radius to 1.5 meters and decrease the inner radius to 0.7 meters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Includes one correct parameter but deviates in the reduction of inner radius that was not suggested.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The modification matches precisely the edit that was described to achieve broader coverage and adheres closely to the prompt's instructions.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modifications were clearly laid out in the prompt, making the correct answer straightforward to deduce.'
+    ),
+    1 : EditMCQA(
+      question = 'What additional change was made to the semiring to further enhance integration with the scene?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Adjust the orientation to concave to face the birdhouse and table, allowing a natural flow through the scene and increase the height to 0.6 meters for an enhanced presence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The change in orientation and height is clearly specified and aligns with the provided design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Maintain the convex orientation and increase the height to improve the semi-ring presence in the scene.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Correctly applies the height adjustment but lacks consideration for orientation, partially aligning with the design goals.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.1, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Shift center slightly to align better with structures and adjust to concave orientation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Alters orientation correctly but introduces a center modification not needed as per the scene description.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Switch to concave orientation and provide a moderate height increase.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Correct in changing orientation but does not match the full height adjustment as outlined in the prompt updates.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.7
+          ),
+          edit_description = 'Increase height beyond the intended design and change to concave orientation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Includes correct orientation adjustment but has an exaggerated height that exceeds the intended design parameters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustments were accurately portrayed as described: a change to concave orientation and increase in height to 0.6 meters, supporting the holistic design approach.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Explicit from prompt as the specific modifications are easily aligned with the described scene and intentions.'
+    )
+  ]
+)

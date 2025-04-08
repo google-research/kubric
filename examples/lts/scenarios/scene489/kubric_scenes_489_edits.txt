@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be applied to the semi-ring structure to align it symmetrically with the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the semi-ring center to (0, 0, 0) to symmetrically encompass both trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (-0.5, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep the semi-ring center at its initial position.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.75, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the semi-ring center to (0.75, 0.0, 0.0) to align with one tree only.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (-0.75, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the semi-ring center to (-0.75, 0.0, 0.0) to align with one tree only.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.5, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the semi-ring center to (0.5, 0.5, 0.0) to create an asymmetric layout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The edit aligns the ring center with the origin, symmetrically encompassing both trees as per the scene's symmetrical design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit is straightforward as it aligns with the given prompt information about symmetry.'
+    ),
+    1 : EditMCQA(
+      question = 'What change should be made to the semi-ring structure to achieve a larger, balanced design?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep the outer radius and inner radius as is without increase.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.5 meters and the inner radius to 1.0 meters for a larger, more balanced structure that aligns well with the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase outer radius to 1.2 meters and inner radius to 0.9 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 2.0 meters with the inner radius remaining constant.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.6,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.5 meters but reduce the inner radius to 0.6 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'By increasing the outer and inner radii, the semi-ring achieves the desired scale and balance across the garden nook.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The radius increase reflects a balance and an engagement with the design's scale, which requires inference from the garden's size and environment."
+    )
+  ]
+)

@@ -1,0 +1,196 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to align the circular structure symmetrically around the tables and chair?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the center of the circular structure to (0, 0, 0) to align it symmetrically around the tables and chair.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Aligning the circular structure symmetrically is a straightforward action based on the given goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Revert to the initial design keeping the center at (0.0, -0.5, 0.0).',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "This option retains the initial design which doesn't meet the goal of symmetry."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Move the center to align with the second table.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "This option alters the alignment but doesn't achieve the symmetric goal."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.5),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Shift the center along the z-axis.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Moving along the z-axis doesn't align symmetrically in the desired plane."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Align with an alternative position reflecting initial table center.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Reflects an alternative alignment but doesn't achieve desired symmetry."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A aligns the structure symmetrically at (0, 0, 0), matching the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The symmetry alignment is direct from the prompt details.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct modification to the radius of the circular structure to ensure alignment with the design constraints?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to 0.9 meters to ensure the structure fits within the design constraints and enhances the central focus.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reducing the radius to match the design constraints is readily discernible from the provided goal specification.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to enlarge the circular structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing radius contradicts the need for a smaller, focused structure.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Keep the original radius unchanged.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Maintaining the original radius doesn't fit the new design constraint."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius significantly for a tighter fit.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Overreduction of radius undermines the intended coverage area.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Slightly adjust the radius to 1.0 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'A slight adjustment does not fully respect the constraints stated.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Reducing the radius to 0.9 meters ensures compliance with design goals.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The radius reduction is direct and clear in design requirements.'
+    ),
+    2 : EditMCQA(
+      question = 'What is the correct modification for enhancing the visibility of the circular configuration?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Increase the height to 0.3 meters to add emphasis and visibility to the circular configuration.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the height to match the design goal specification is clearly instructed.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.1
+          ),
+          edit_description = 'Reduce the height to 0.1 meters for a subtle configuration.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option decreases visibility, contrary to the goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.2
+          ),
+          edit_description = 'Retain height at 0.2 meters as initially specified.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option does not meet the visibility-enhancing goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Dramatically increase the height to 0.5 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This excessive height alteration deviates from the balanced approach specified.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.25
+          ),
+          edit_description = 'Increase the height moderately to 0.25 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Despite increasing height, this option still falls short of the target specification.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Height increase to 0.3 meters matches design goals for enhanced emphasis.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The directive to increase height to 0.3 meters is explicitly given in the goal statement.'
+    )
+  ]
+)

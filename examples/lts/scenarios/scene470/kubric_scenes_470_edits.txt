@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which of the following edits represents repositioning the QuarterWedge to center at (0, 0, 0), decreasing the radius to 1.2 meters, and adjusting the gap to 70 degrees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.1, 0.0),
+            radius = 1.3,
+            gap_degrees = 80.0,
+            height = 0.3
+          ),
+          edit_description = 'Reposition the QuarterWedge slightly and increase radius and gap.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Minor adjustments but not as per the target design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Reposition the QuarterWedge to center it at (0, 0, 0), decrease the radius to 1.2 meters, and adjust the gap to 70 degrees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edits involve multiple adjustments that require understanding the spatial arrangement and how each parameter impacts the overall layout.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep position unchanged, with a larger radius and gap.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "No changes from the initial design, which doesn't match the goal."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 75.0,
+            height = 0.4
+          ),
+          edit_description = 'Center the QuarterWedge at origin, smaller radius, different gap.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The changes do not align precisely with the design goal requiring careful analysis.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Reposition QuarterWedge, keep radius the same but increase gap.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Increasing the gap is straightforward, but it exceeds the required goal.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly describes the desired edit, aligning with the target design structure.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This edit includes repositioning, resizing, and adjusting the gap degree, each requiring spatial consideration.'
+    ),
+    1 : EditMCQA(
+      question = 'Which of the following edits adjusts the gap of the QuarterWedge to 75 degrees to align with the specified range?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 75.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the gap of the QuarterWedge to 75 degrees to align with the specified gap range.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This adjustment aligns with the specified range of allowed gap degrees, requiring basic understanding of parameter constraints.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.1, 0.0, 0.0),
+            radius = 1.3,
+            gap_degrees = 60.0,
+            height = 0.5
+          ),
+          edit_description = 'Change location slightly, increase radius, and decrease gap significantly.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Several parameters change, not matching the intended edit.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Reposition to origin, increase radius while reducing gap.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requirement is to adjust only the gap degree correctly.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'No changes, kept the initial design as it is.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Doesn't reform the gap parameter as needed."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.4,
+            gap_degrees = 78.0,
+            height = 0.3
+          ),
+          edit_description = 'Slight positional change and increase gap within range.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Exceeds necessary alterations for the gap condition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A precisely matches the specified edit, targeting the correct gap degree of 75.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit focuses solely on aligning the specific parameter to the predetermined range.'
+    )
+  ]
+)

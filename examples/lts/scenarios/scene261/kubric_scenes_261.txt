@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Enhance the spatial arrangement with a quarter-wedge design, providing a blend of aesthetics and accessibility around the trees.',
+  description = 'This scene involves constructing a quarter-wedge structure to create a visually appealing and functional boundary around a pair of trees. The design focuses on establishing a cohesive focal point while maintaining open space for easy navigation within the garden area.',
+  initial_design = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (0.5, 1.5, 0.0),
+        radius = 2.0,
+        gap_degrees = 75.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (0.0, 1.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'quarter_wedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 1.0, 0.0),
+          radius = 2.0,
+          gap_degrees = 75.0,
+          height = 0.3
+        ),
+        edit_description = 'Shift the center to (0, 1, 0) to ensure the wedge equally embraces both trees, optimizing aesthetic placement.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt requires interpreting that the wedge should center on the midpoint between trees, which involves adjusting the center coordinate.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'quarter_wedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 1.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 75.0,
+          height = 0.3
+        ),
+        edit_description = 'Decrease the radius to 1.5 meters to fit within the 2x2 meter profile constraint.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The size constraint of the arena is a direct consideration of allowable dimensions.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'quarter_wedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 1.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the height to 0.5 meters for more presence and impact.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Raising the height as stated in the design goal is straightforward and aligns with providing visual impact.'
+      )
+    ]
+  )
+)

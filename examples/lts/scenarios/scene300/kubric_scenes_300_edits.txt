@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification should be made to the design structure 'Circular_1' to snugly fit around the birdhouse without overshadowing it?",
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 0.8 meters.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1.0 meters.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 0.5 meters.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Set the radius to 0.9 meters.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = 'The correct modification is to reduce the radius to 0.8 meters to ensure the structure fits snugly around the birdhouse while maintaining a proper balance between proximity and visual appeal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The exact radius value was not explicitly mentioned in the prompt, requiring a deduction based on proximity and aesthetics.'
+    ),
+    1 : EditMCQA(
+      question = "Which edit to 'Circular_1' enhances its visual emphasis by adjusting its height?",
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height to 0.4 meters.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height at 0.3 meters.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = 'Increasing the height to 0.5 meters enhances the visual emphasis of the structure, making it more pronounced within the serene garden setting.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Height adjustment requires aesthetic judgment and wasn't numerically specified; inferred for visual emphasis."
+    )
+  ]
+)

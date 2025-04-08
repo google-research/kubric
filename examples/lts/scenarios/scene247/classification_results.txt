@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging a quarter-wedge garden structure specifically around benches, highlighting spatial reasoning to ensure the benches are enclosed and highlighted with an open entrance.'
+    )
+  ],
+  confidence = 4
+)

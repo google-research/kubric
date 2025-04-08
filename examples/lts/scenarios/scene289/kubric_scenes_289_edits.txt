@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to the rectangular planter in the first edit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.4,
+            height = 0.2
+          ),
+          edit_description = 'Change the length to 1.6 meters and the width to 0.4 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Increase the length from 1.0 meters to 1.6 meters and the width from 0.3 meters to 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Increase the length to 1.2 meters and the width to 0.5 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.45,
+            height = 0.2
+          ),
+          edit_description = 'Extend the length to 1.5 meters and width to 0.45 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Change the length to 1.6 meters keeping the width at 0.3 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Option B correctly increases the length and width according to the edit's description.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit description directly provides the changes needed.'
+    ),
+    1 : EditMCQA(
+      question = 'What is the correct modification to the rectangular planter in the second edit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Raise the height from 0.2 meters to 0.25 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Raise the height from 0.2 meters to 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.35
+          ),
+          edit_description = 'Increase the height from 0.2 meters to 0.35 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.28
+          ),
+          edit_description = 'Change the height to 0.28 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.32
+          ),
+          edit_description = 'Extend the height from 0.2 meters to 0.32 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B matches the height increase described in the second edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit description clearly notes the height change, which is straightforward.'
+    )
+  ]
+)

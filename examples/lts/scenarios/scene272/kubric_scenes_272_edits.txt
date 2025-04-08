@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the linear structure to align the pathway between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Relocate the linear path to align along the horizontal axis between the trees: Center at (0, 0, 0). Change the orientation from front-back to left-right, making it parallel between the trees. Extend the length to 1.5 meters and the height to 0.5 meters for a more distinct and engaging boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 1.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Keep the linear path as originally positioned, running front-back with a center at (0.5, 1.0, 0). Length is 1.0 meter and height is 0.3 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Position the linear path further right with center at (1.0, 1.0, 0), extend its length to 2.0 meters and height to 0.4 meters, with a left-right orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, -0.5, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the linear path to the left with a center at (-0.5, -0.5, 0), and orient it left-right, maintaining a length of 1.5 meters and height of 0.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.7,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the linear path to a much longer design with a length of 2.5 meters and height of 0.7 meters, maintaining a center at (0.0, 0.0, 0.0) and a front-back orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification aligns the linear path along the horizontal axis between the trees, as specified in the design goal, with adjusted length and height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the required changes in position, orientation, and dimensions for the pathway between the trees.'
+    )
+  ]
+)

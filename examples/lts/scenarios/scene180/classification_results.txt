@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging tables and chairs in a specific geometric relationship and ensuring that there is space for accessibility. This involves spatial reasoning to position objects in a way that embraces the scene.'
+    ),
+    1 : Numeric(
+      explanation = 'The task requires understanding geometric properties such as center, radius, and angular gap, which are numerical elements necessary to achieve the design goal.'
+    )
+  ],
+  confidence = 4
+)

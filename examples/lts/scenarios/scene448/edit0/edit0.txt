@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (-1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a rectangular plan to define spaces around the waste bins, emphasizing tidy boundaries and access without obstruction.',
+  description = 'This scene involves constructing a rectangular enclosure to organize an area with two trashcans within a confined garden space. The rectangular design should maximize functionality by efficiently using space to create defined zones while ensuring there is no overlap with the objects.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the length to 2 meters, width to 1 meter, and height to 0.5 meters to extend coverage and ensure the structure efficiently encases both trashcans.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edits are directly stated in the prompt and are straightforward to implement.'
+      )
+    ]
+  )
+)

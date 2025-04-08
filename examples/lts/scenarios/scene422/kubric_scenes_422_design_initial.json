@@ -1,0 +1,40 @@
+{
+    "prompt": "Craft a semicircular seating space around my chair to enhance its presence and invite relaxation.",
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -3.061616997868383e-17,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    3.061616997868383e-17,
+                    0.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

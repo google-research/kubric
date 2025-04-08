@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging the chairs and table in a seating area, requiring spatial reasoning to ensure the layout is functional and visually appealing.'
+    )
+  ],
+  confidence = 4
+)

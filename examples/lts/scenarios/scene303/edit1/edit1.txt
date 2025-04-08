@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (-0.5, 0.0, 0.15423275),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.5, 0.0, 0.15423275),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a circular arrangement around each birdhouse to accentuate their presence in a visually pleasing manner while maintaining openness in the garden area.',
+  description = 'This scene involves creating a circular decorative feature to highlight two birdhouses in a garden setting. The design should enhance the visual appeal around each birdhouse while ensuring openness and artistic space within the designated constraints.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      ),
+      Circular_2 = Circular(
+        center = (0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      ),
+      Circular_2 = Circular(
+        center = (0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        edit_description = 'Remove the initial large circular structure.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Only the initial design goal conflicts with the target structures, making identification straightforward.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            Circular_1 = Circular(
+              center = (-0.5, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.3
+            ),
+            Circular_2 = Circular(
+              center = (0.5, 0.0, 0.0),
+              radius = 0.5,
+              height = 0.3
+            )
+          }
+        ),
+        edit_description = 'Introduce two separate circular structures centered around each birdhouse.',
+        target_parameter = 'Circular arrangements',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Determining the specific number of structures and their exact parameters requires careful analysis.'
+      )
+    ]
+  )
+)

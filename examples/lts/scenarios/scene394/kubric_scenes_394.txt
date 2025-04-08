@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-1.0, -0.5, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, 0.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a linear feature that gently guides attention and movement between the benches, offering clarity without restriction.',
+  description = 'Create a linear structure between two benches to enhance spatial layout, providing subtle separation or pathway without overwhelming the space.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 1.0, 0.0),
+        length = 1.5,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          height = 0.1,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Move the linear structure to directly sit between the benches, centering it at (0.0, 0.0, 0.0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the need to center the structure between the benches.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Increase the length to 2.0 meters to span the space more fully between the seating angles.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifies the need for a 2.0 meter span for the linear structure.'
+      )
+    ]
+  )
+)

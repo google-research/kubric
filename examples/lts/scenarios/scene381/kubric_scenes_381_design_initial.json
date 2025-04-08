@@ -1,0 +1,40 @@
+{
+    "prompt": "Arrange an engaging wedge structure that accentuates the birdhouse in an artistic flair while maintaining ample space for viewing.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -6.123233995736766e-17,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    6.123233995736766e-17,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

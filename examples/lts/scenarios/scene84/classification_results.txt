@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Numeric(
+      explanation = 'The prompt requests an equal gap between the circular structures around the birdhouse, indicating a need for precise numerical distances.'
+    ),
+    1 : Spatial(
+      explanation = 'The organization of circular enclosures around the birdhouse requires spatial reasoning to arrange them in a specific symmetrical pattern.'
+    )
+  ],
+  confidence = 5
+)

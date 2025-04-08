@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the design of a structure that encloses objects with order and accessibility, indicating a need for spatial arrangement and reasoning.'
+    )
+  ],
+  confidence = 4
+)

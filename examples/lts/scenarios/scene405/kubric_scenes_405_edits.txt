@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification aligns the left center of the L-shape better with the birdhouses?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Adjust the left center to (0, 0.5) for better alignment with the birdhouses.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, -0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Adjust the left center to (-0.5, -0.5) not targeting the birdhouses.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Center unchanged.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Move center to (1.0, 1.0) towards one of the birdhouses.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, -1.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Position the center downward away from the birdhouses.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification adjusts the left center to (0, 0.5), aligning it with the birdhouses for better cohesiveness as per the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the need for better alignment with the birdhouses.'
+    ),
+    1 : EditMCQA(
+      question = "Which modification increases the right section's width and length to enhance coverage?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = "Increase the right section's width and length to provide more coverage and distinction."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.2,
+            right_length = 0.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = "Decrease the right section's dimensions."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.3,
+            right_length = 0.3,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Maintain previous right section dimensions.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.75,
+            right_length = 0.4,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Increase the right section size partially.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.9,
+            right_length = 0.1,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Increase the right width but decrease the length substantially.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases both the width and length of the right section, enhancing coverage, as required for the cohesive environment.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need for increased coverage is implied to ensure a cohesive environment.'
+    )
+  ]
+)

@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Surround the rocks with circular features that highlight their natural textures, while ensuring the garden remains open and inviting.',
+  description = "This scene involves arranging circular structures around a set of rocks to emphasize their position within a cozy garden setting. The circular structures should complement the rocks and maintain a balanced visual symmetry, enhancing the garden's aesthetic appeal while avoiding collisions with objects.",
+  initial_design = Design(
+    structures = {
+      circular_initial = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.2
+      ),
+      circular_2 = Circular(
+        center = (0.5, 1.0, 0.0),
+        radius = 0.5,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (-0.5, 0.0, 0.0),
+        radius = 0.5,
+        height = 0.2
+      ),
+      circular_2 = Circular(
+        center = (0.5, 1.0, 0.0),
+        radius = 0.5,
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_initial',
+        NewDesignStructure = Circular(
+          center = (-0.5, 0.0, 0.0),
+          radius = 0.5,
+          height = 0.2
+        ),
+        edit_description = 'Separate the single circular structure into two distinct Circular designs—one centered around each rock at their respective coordinates.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Separating the larger circle into two smaller ones matching the rocks' positions is a straightforward task."
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            circular_2 = Circular(
+              center = (0.5, 1.0, 0.0),
+              radius = 0.5,
+              height = 0.2
+            )
+          }
+        ),
+        edit_description = 'Add a second Circular structure around Rock 2 at its respective coordinates.',
+        target_parameter = 'center and radius',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adding a new circular structure to encompass the second rock aligns with the clear design goal provided.'
+      )
+    ]
+  )
+)

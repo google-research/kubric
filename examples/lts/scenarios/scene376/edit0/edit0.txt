@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a triangular enclosure that accentuates the rocky outposts, giving the space a distinct character and allowing for a natural landscape.',
+  description = "This scene involves creating a TriWedge structure that forms a dynamic, artistic enclosure around a central rock. The configuration is designed to enhance the garden's aesthetic appeal while maintaining openness and natural flow. The TriWedge structure provides a visually engaging element that integrates smoothly within the defined area.",
+  initial_design = Design(
+    structures = {
+      shape_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      shape_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'shape_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the shape from Circular to TriWedge to add sharp, dynamic angles. Adjust the radius to 1.5 meters to provide ample coverage around the rocks and increase the height to 0.5 meters for a more pronounced and visually engaging structure.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transition from a Circular shape to a TriWedge involves significant structural re-conceptualization, requiring attention to geometrical details and spatial relationships, which is only partially indicated in the prompt.'
+      )
+    ]
+  )
+)

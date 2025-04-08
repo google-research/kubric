@@ -1,0 +1,63 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.320213, 0.320213, 0.216202),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a gently enclosing circular garden feature around these elements, accentuating their natural beauty while keeping the space open and inviting.',
+  description = 'This scene involves designing a circular garden feature that aesthetically highlights the positions of a pot and a rock while maintaining a cohesive flow and balance in the area. The circular structure aims to enhance the visual appeal and utility of the garden space without obstruction.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the radius from 0.8 meters to 1.0 meters to comfortably enclose both the pot and rock without overlap or obstruction.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The radius change is clearly stated but requires some understanding of spatial constraints between objects.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height from 0.3 meters to 0.5 meters for enhanced visual prominence and boundary definition.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The height increase is directly specified, requiring straightforward application.'
+      )
+    ]
+  )
+)

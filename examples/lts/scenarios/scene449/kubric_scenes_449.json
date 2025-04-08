@@ -1,0 +1,126 @@
+{
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.233,
+                0.321,
+                0.308
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.233,
+                0.321,
+                0.308
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "tree": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "description": "In this scene, a rectangular structure emphasizes the natural charm of a setup consisting of two birdhouses and a tree. The design focuses on organizing these elements in an aesthetically pleasing way, ensuring the enclosure complements the objects and maintains spatial harmony within the designated constraints.",
+    "prompt": "Construct a rectangular arrangement around our garden utilities, bringing harmony to the setup without obstructing views or access.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_structure": [
+            {
+                "segment": 1,
+                "height": 0.6,
+                "keypoints": [
+                    [
+                        -0.2,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.2,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        0.2,
+                        0.75,
+                        0.0
+                    ],
+                    [
+                        0.2,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        -0.2,
+                        -0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_structure": [
+            {
+                "segment": 1,
+                "height": 0.8,
+                "keypoints": [
+                    [
+                        -0.25,
+                        -0.4,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.4,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.4,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        -0.4,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -0.4,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

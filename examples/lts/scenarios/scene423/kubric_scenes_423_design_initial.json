@@ -1,0 +1,54 @@
+{
+    "prompt": "Create a winding path that gracefully connects the two seating arrangements, offering a blend of functionality and aesthetics.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                1.0,
+                1.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.5,
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.5,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (0.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a vibrant path that gracefully winds between the seating arrangements, offering flow and connection within the garden space.',
+  description = 'Curvy Garden Path',
+  initial_design = Design(
+    structures = {
+      linear_path = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 1.0, 0.0),
+        close_curve_leftmost_point = (1.5, -1.0, 0.0),
+        amplitude = 0.4,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.15
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      curvy_path = CurvyPath(
+        far_curve_leftmost_point = (-1.5, 1.0, 0.0),
+        close_curve_leftmost_point = (1.5, -1.0, 0.0),
+        amplitude = 0.4,
+        wavelength = 2.0,
+        phase = 0.0,
+        height = 0.15
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, 1.0, 0.0),
+          close_curve_leftmost_point = (1.5, -1.0, 0.0),
+          amplitude = 0.4,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.15
+        ),
+        edit_description = 'Change the design profile from Linear to CurvyPath for dynamic movement. Adjust the far and close curve points to create an engaging winding path between the chairs and the bench.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly instructs to change the Linear path to a CurvyPath with the specified parameters.'
+      )
+    ]
+  )
+)

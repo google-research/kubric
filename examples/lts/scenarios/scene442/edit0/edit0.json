@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves creating a rectangular configuration around a pair of benches to establish a defined seating area. The goal is to maintain both functional spacing and an inviting atmosphere by using designed elements that fit seamlessly within the garden layout.",
+    "prompt": "Design a structured garden area with a rectangular feature that enhances the seating arrangement without obstructing the pathways.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

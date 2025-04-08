@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires creating a curvy path that weaves around and between specific objects (trees and a bench), which is a task involving spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

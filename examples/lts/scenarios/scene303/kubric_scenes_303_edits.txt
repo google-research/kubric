@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What was the first edit made to the initial design in the scene description?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          edit_description = 'Remove the initial large circular structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Only the initial design goal conflicts with the target structures, making identification straightforward.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Circular_1 = Circular(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              ),
+              Circular_2 = Circular(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce two separate circular structures centered around each birdhouse.',
+          target_parameter = 'Circular arrangements',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining the specific number of structures and their exact parameters requires careful analysis.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Modify the existing circular structure to have a larger radius.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'There is no direct indication of changing the radius in the scene prompt.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              QuarterWedge_1 = QuarterWedge(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.4,
+                gap_degrees = 10.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a quarter wedge structure near one of the birdhouses.',
+          target_parameter = 'Radial design',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Choosing a wedge structure relies on inferring design style from the prompt.'
+        ),
+        E = AddObjectEditWithDifficulty(
+          object = SceneObject(
+            extent = (0.2, 0.2, 0.2),
+            center = (-1.0, 0.0, 0.0),
+            theta = 0.0,
+            semantic_label = 'statue'
+          ),
+          object_id = 'statue_1',
+          edit_description = 'Introduce a decorative statue as a focal point.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Adding a new object requires inference beyond the explicit scene goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The first edit involved removing the initial large circular structure, which was necessary for transitioning to the target design of two separate circular structures.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This edit is straightforward to identify as it clearly aligns with the shift from one to two circular structures in the final design.'
+    ),
+    1 : EditMCQA(
+      question = 'What was the second edit made to the initial design in the scene description?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          edit_description = 'Remove the initial large circular structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Only the initial design goal conflicts with the target structures, making identification straightforward.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Circular_1 = Circular(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              ),
+              Circular_2 = Circular(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce two separate circular structures centered around each birdhouse.',
+          target_parameter = 'Circular arrangements',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining the specific number of structures and their exact parameters requires careful analysis.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Modify the existing circular structure to have a larger radius.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'There is no direct indication of changing the radius in the scene prompt.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              QuarterWedge_1 = QuarterWedge(
+                center = (-0.5, 0.0, 0.0),
+                radius = 0.4,
+                gap_degrees = 10.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a quarter wedge structure near one of the birdhouses.',
+          target_parameter = 'Radial design',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Choosing a wedge structure relies on inferring design style from the prompt.'
+        ),
+        E = AddObjectEditWithDifficulty(
+          object = SceneObject(
+            extent = (0.2, 0.2, 0.2),
+            center = (-1.0, 0.0, 0.0),
+            theta = 0.0,
+            semantic_label = 'statue'
+          ),
+          object_id = 'statue_1',
+          edit_description = 'Introduce a decorative statue as a focal point.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Adding a new object requires inference beyond the explicit scene goal.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The second edit added two smaller circular structures, each centered around a birdhouse, completing the goal setup.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This edit requires careful analysis to align new structures with the design goal given the initial setup and prompt.'
+    )
+  ]
+)

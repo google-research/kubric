@@ -1,0 +1,69 @@
+{
+    "prompt": "Create a rectangular structure that organizes my garden into a cozy seating area while maintaining openness and accessibility throughout.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.35,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    -0.35,
+                    1.0,
+                    0.0
+                ],
+                [
+                    0.35,
+                    1.0,
+                    0.0
+                ],
+                [
+                    0.35,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    -0.35,
+                    -1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

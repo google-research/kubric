@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create an L-shaped layout that merges the birdhouses into a cohesive environment while leaving the tree as a natural focal point for visitors to enjoy.',
+  description = "This scene involves designing an L-shaped structure to create a harmonious and functional space around two birdhouses and a tree. The objective is to enhance the garden's aesthetics while ensuring open pathways for accessibility and interaction within a confined 3 x 3 meter area.",
+  initial_design = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.0, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 1.0,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      LShape_1 = LShape(
+        left_center = (0.0, 0.5, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 1.0,
+        right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.5, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 0.3,
+          right_length = 0.3,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.3
+        ),
+        edit_description = 'Adjust the left center to (0, 0.5) for better alignment with the birdhouses.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies the need for better alignment with the birdhouses.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'LShape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.5, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 1.0,
+          right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = "Increase the right section's width and length to provide more coverage and distinction.",
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The need for increased coverage is implied to ensure a cohesive environment.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Arrange quarter-wedge structures around the tables to create an inviting outdoor area with open access.',
+  description = "This scene involves arranging a series of quarter-wedge structures around a central table to create a dynamic and visually interesting garden setup. The quarter-wedge structures will form an enclosing pattern that emphasizes the table's positioning without obstructing access.",
+  initial_design = Design(
+    structures = {
+      rectangular_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      quarter_wedge_2 = QuarterWedge(
+        center = (1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Convert from Rectangular to QuarterWedge to create a unique radial design.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The conversion involves changing the structure type and adjusting parameters to match the design goal.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarter_wedge_2 = QuarterWedge(
+              center = (1.0, 1.0, 0.0),
+              radius = 1.0,
+              gap_degrees = 70.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a second QuarterWedge structure around the second table.',
+        target_parameter = 'design_goal',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Addition of a matching structure was straightforward, as it follows directly from the given design goal.'
+      )
+    ]
+  )
+)

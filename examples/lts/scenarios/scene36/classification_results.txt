@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves creating a wave-like pattern around specific objects (the pots), which requires a spatial arrangement to ensure the curves are smooth and do not intersect with the pots.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt uses terms like 'soulful spheres' and 'serene flow' which require an understanding of the abstract or metaphorical meaning intended by these terms."
+    )
+  ],
+  confidence = 4
+)

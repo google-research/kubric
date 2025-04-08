@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-0.75, 0.75, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (0.75, -0.75, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Design a concealed yet open boundary to distinguish the garden section without interrupting the harmony between natural elements.',
+  description = 'This scene involves constructing a linear structure to create a clear, aesthetic boundary that divides a cozy garden space comprised of trees and a birdhouse. The linear design aims to provide definition while keeping an open, inviting feel to the garden.',
+  initial_design = Design(
+    structures = {
+      design_12 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_12 = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'front-back'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_12',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.25, 0.0),
+          length = 1.5,
+          height = 0.2,
+          orientation = 'front-back'
+        ),
+        edit_description = "Adjust the linear orientation from 'left-right' to 'front-back' for a clear boundary parallel to the array of trees and birdhouse.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The orientation change is straightforward and directly specified in the design goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_12',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.25, 0.0),
+          length = 2.0,
+          height = 0.2,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Increase the length to 2 meters to provide fuller separation.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The specific length is hinted at in the goal but requires inference to determine the exact measurement.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_12',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'front-back'
+        ),
+        edit_description = 'Raise the height to 0.3 meters for better visibility and definition while maintaining openness.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Height adjustment is mentioned but requires more detailed consideration of the aesthetic and functional aspects.'
+      )
+    ]
+  )
+)

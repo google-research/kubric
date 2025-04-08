@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "This scene involves crafting a rectangular arrangement to form an organized space around a table and a birdhouse. The design aims to create a harmonious and functional outdoor area while ensuring each object remains accessible.",
+    "prompt": "Design a structured garden layout where my table and birdhouse can reside peacefully, surrounded by a defined rectangular setting that complements the open area.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene focuses on constructing a linear boundary around the rocks and trashcans. The linear structure enhances the overall organization and provides a simple yet effective way to delineate space within the garden area.",
+    "prompt": "Establish a linear boundary that neatly partitions the rock and trashcan area, enhancing the aesthetic while offering functional demarcation.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_wall_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        -0.5,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_structure_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.24999999999999994,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        0.25000000000000006,
+                        0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, -0.5, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (1.0, -0.5, 2.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (0.0, 1.0, 0.216202),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a serpentine path that weaves gracefully between the trees and the pot, harmonizing the natural arrangement.',
+  description = 'This scene involves constructing a serpentine path that gently winds through a natural garden setup composed of trees and pots. The path should create a flowing form that integrates smoothly within the given area, providing both aesthetic appeal and a sense of harmony with the surrounding landscape.',
+  initial_design = Design(
+    structures = {
+      LinearPath = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SerpentinePath = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.5,
+        left_arc_orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LinearPath',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.5,
+          left_arc_orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Change the path profile from a linear to a serpentine design to add dynamic movement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The change from a linear to a serpentine design, including adjusting the left arc center and increasing the height, is directly prompted and requires straightforward interpretation.'
+      )
+    ]
+  )
+)

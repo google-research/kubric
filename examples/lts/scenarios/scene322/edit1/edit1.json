@@ -1,0 +1,110 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -1.0,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -1.0,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_3": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_4": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "description": "This scene is designed to create a visual separation between a series of trees using a linear structure. The goal is to arrange the trees and boundary in a harmonious fashion that complements the natural setting, provides a sense of order, and enhances the garden's aesthetics.",
+    "prompt": "Construct a linear boundary that elegantly delineates the space between the rows of trees, ensuring a sense of order without overpowering the natural elements.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_structure": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -7.654042494670958e-17,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        7.654042494670958e-17,
+                        1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_structure": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -7.654042494670958e-17,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        7.654042494670958e-17,
+                        1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

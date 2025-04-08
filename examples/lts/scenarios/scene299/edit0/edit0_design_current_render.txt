@@ -1,0 +1,69 @@
+{
+    "prompt": "Construct a defined rectangular platform that keeps the seating arrangement orderly while inviting relaxation in the garden.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                1.32092696,
+                -0.5724015,
+                -0.44030848
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                1.32092696,
+                -0.5724015,
+                -0.44030848
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.25,
+                    -0.0,
+                    0.4
+                ],
+                [
+                    1.25,
+                    -0.0,
+                    0.4
+                ],
+                [
+                    1.25,
+                    -0.0,
+                    -0.4
+                ],
+                [
+                    -1.25,
+                    -0.0,
+                    -0.4
+                ],
+                [
+                    -1.25,
+                    -0.0,
+                    0.4
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

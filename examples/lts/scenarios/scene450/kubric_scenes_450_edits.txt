@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What changes should be made to the semi-circular structure for the design 'SemiCircular_1' to create a symmetric enclosure around the rocks?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change orientation to concave and center the semi-circle at the origin for symmetric enclosure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change orientation to convex without altering center for maintaining original design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the semi-circle upwards while decreasing radius for adaptation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep the radius and orientation but change the center position for a varied effect.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase both radius and height while centering for an enhanced symmetric effect.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The modification aligns with the project's aim to create a symmetric enclosure by centering and changing orientation as specified.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change of orientation requires understanding the spatial relation to the rocks and the concept of symmetry.'
+    ),
+    1 : EditMCQA(
+      question = "For the design 'SemiCircular_1', how should the radius and height be adjusted to better fit the intended space while enhancing the visual impact?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Adjust radius to fit better in the given space and change height for visual impact.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reduce radius significantly while maintaining original height for a compact design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change orientation and decrease height, adjusting radius to increase compactness.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Keep the radius but slightly adjust the height for a subtle change.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Increase both radius and height for more substantial presence.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves the described adjustments in radius and height, aligning with the spatial requirements and aesthetic goals.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting the radius to the described value requires spatial understanding of fitting within the arena, and modifying height affects coverage perception.'
+    )
+  ]
+)

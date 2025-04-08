@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a circular garden feature, which requires spatial reasoning to design around central natural elements, like trees and a birdhouse, and to maintain harmony and balance.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt is focused on creating a harmonious blend with natural elements, requiring an understanding of the meaning and function of the scene to achieve this aesthetic and functional goal.'
+    )
+  ],
+  confidence = 4
+)

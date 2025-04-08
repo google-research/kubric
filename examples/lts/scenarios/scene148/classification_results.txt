@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves creating a winding path, which requires spatial reasoning to determine the path's layout, path integration with existing objects, and ensuring it complements the environment."
+    ),
+    1 : Semantic(
+      explanation = "The prompt aims to provide a 'unique experience,' which is a vague and subjective goal, relying on an understanding of the scene's aesthetic and experiential elements."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt requires understanding the meaning of 'leafy things' and its association with trees. Additionally, the instruction is vague and under-specified as it does not clearly define what 'short structure' entails or how many trees are involved."
+    )
+  ],
+  confidence = 5
+)

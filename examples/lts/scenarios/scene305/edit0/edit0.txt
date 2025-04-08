@@ -1,0 +1,85 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, -0.5, 0.0),
+      theta = 45.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -0.5, 0.0),
+      theta = 135.0,
+      semantic_label = 'chair'
+    ),
+    pot_1 = SceneObject(
+      extent = (0.640426, 0.64042598, 0.432404),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct an artful path that connects the seating arrangement with the display pot, ensuring fluid movement and visual appeal.',
+  description = 'In this scene, the objects are strategically positioned to create an inviting outdoor seating area. The design features a curvy path that gracefully connects a pair of chairs with a pot, adding an artistic flow to the environment. The path enhances accessibility and movement while maintaining aesthetic integrity.',
+  initial_design = Design(
+    structures = {
+      path_1 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+        close_curve_leftmost_point = (1.5, 0.5, 0.0),
+        amplitude = 0.4,
+        wavelength = 2.5,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      path_2 = CurvyPath(
+        far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+        close_curve_leftmost_point = (1.5, 0.5, 0.0),
+        amplitude = 0.4,
+        wavelength = 2.5,
+        phase = 0.0,
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'path_1',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+          close_curve_leftmost_point = (1.5, 0.5, 0.0),
+          amplitude = 0.4,
+          wavelength = 2.5,
+          phase = 0.0,
+          height = 0.2
+        ),
+        edit_description = 'Change the path profile to CurvyPath for a dynamic connection.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Switching from a linear to a curvy path involves understanding how these curves should connect the layout symmetrically.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            path_2 = CurvyPath(
+              far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+              close_curve_leftmost_point = (1.5, 0.5, 0.0),
+              amplitude = 0.4,
+              wavelength = 2.5,
+              phase = 0.0,
+              height = 0.2
+            )
+          }
+        ),
+        edit_description = 'Create a new CurvyPath with correct parameters.',
+        target_parameter = 'path_2',
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = 'Requires identifying the correct positioning and parameters for the new design to achieve the goal while maintaining coherence with the scene setup.'
+      )
+    ]
+  )
+)

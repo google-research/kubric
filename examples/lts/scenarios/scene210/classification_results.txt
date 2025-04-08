@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests a geometric structure around the tables to create a coherent layout which involves spatial reasoning in arranging objects.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = "Design a flowing line that encapsulates the birdhouse, creating an external expression of nature's curves.",
+  description = 'This scene involves the placement of a Serpentine structure to create a dynamic pathway or border around a central birdhouse. The task requires interpreting spatial relationships between the structure and the object to form an aesthetically pleasing and functional layout. The Serpentine design aims to provide an interesting contour in the garden setting.',
+  initial_design = Design(
+    structures = {
+      linear_1 = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_1 = Serpentine(
+        left_arc_center = (-0.5, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'convex',
+        height = 0.2
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (-0.5, 0.0, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'convex',
+          height = 0.2
+        ),
+        edit_description = 'Transform the path from Linear to Serpentine to introduce a more organic and flowing appearance.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation requires understanding how to change a linear path into a serpentine structure, interpreting the change in form to encapsulate the birdhouse aesthetically.'
+      ),
+      1 : DeleteStructureEditWithDifficulty(
+        design_id = 'linear_1',
+        edit_description = 'Remove the original linear path as it gets replaced by the new serpentine structure.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'This edit is straightforward since the initial linear structure is no longer relevant after introducing the serpentine design.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a circular frame around a picnic table, which requires spatial reasoning to ensure proper arrangement and placement in relation to the table without blocking views.'
+    ),
+    1 : Numeric(
+      explanation = 'The prompt mentions creating a circular structure which involves geometric properties like radius, which are numeric in nature.'
+    )
+  ],
+  confidence = 4
+)

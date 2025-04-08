@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves arranging a seating area in a spatial configuration around the table, with a focus on the orientation and positioning of objects.'
+    )
+  ],
+  confidence = 4
+)

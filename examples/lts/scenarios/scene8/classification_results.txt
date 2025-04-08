@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests arranging objects to form an isosceles pattern, which is a spatial reasoning task involving positioning and alignment.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt involves understanding the design goal and resolving ambiguities in instruction interpretation, such as what constitutes an isosceles pattern with the given objects.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a functional and artistic space by integrating quarter-wedges to emphasize the trashcans, providing both aesthetic appeal and practical boundaries.',
+  description = 'This scene involves constructing a boundary to create a visually striking but functional plaza area using quarter-wedge structures around several trashcans. The task requires understanding spatial relationships and geometric properties to ensure the design fits within the space constraints without overlapping the trashcans.',
+  initial_design = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (-1.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the center to be around the trashcan at (-1, 0), increase the radius to 1.0, and height to 0.5 for better fit and visibility.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly describes the need to adjust the wedge to be around trashcans, provide spacing, and increase prominence.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_2',
+        NewDesignStructure = QuarterWedge(
+          center = (1.0, 1.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the center to be around the trashcan at (1, 1), increase the radius to 1.0, and height to 0.5 for better fit and visibility.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly describes the need to adjust the wedge to be around trashcans, provide spacing, and increase prominence.'
+      )
+    ]
+  )
+)

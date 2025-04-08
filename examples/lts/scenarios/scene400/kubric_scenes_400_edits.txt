@@ -1,0 +1,148 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What is the correct transformation to achieve the design goal by transforming 'SemiCircular' into another structure?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiRing(
+            center = (-0.5, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Transform SemiCircular into SemiRing 1 to emphasize Tree 1.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 7.5,
+            height = 0.5
+          ),
+          edit_description = 'Transform SemiCircular into a QuarterWedge with a small gap.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform SemiCircular into a TriWedge with a medium gap.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform SemiCircular into a full Circular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.6,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Transform SemiCircular into an LShape to enclose Tree 1.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct transformation is to modify the SemiCircular structure into SemiRing 1, which matches the design goal by placing a concave semi-circular ring around Tree 1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly indicates a need for distinct structures around each tree, making it straightforward to deduce this transformation.'
+    ),
+    1 : EditMCQA(
+      question = "Which addition correctly fulfills the prompt's requirement for a separate semi-ring enclosure?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              SemiRing 2 = SemiRing(
+                center = (0.5, 0.0, 0.0),
+                outer_radius = 1.0,
+                inner_radius = 0.5,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = "Add SemiRing 2 around Tree 2 to match the prompt's requirements for separate semi-ring enclosures.",
+          target_parameter = 'center'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              QuarterWedge = QuarterWedge(
+                center = (0.5, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 10.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a QuarterWedge to the scene to form a pie-slice around Tree 2.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              TriWedge = TriWedge(
+                center = (0.5, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge to establish a sharp-edged design near Tree 2.',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              Serpentine = Serpentine(
+                left_arc_center = (0.5, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a Serpentine for an intricate flowery design next to Tree 2.',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              CurvyPath = CurvyPath(
+                far_curve_leftmost_point = (0.5, 0.0, 0.0),
+                close_curve_leftmost_point = (1.0, 0.0, 0.0),
+                amplitude = 0.2,
+                wavelength = 0.5,
+                phase = 0.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a CurvyPath for a winding design element in the scene.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The addition of SemiRing 2 satisfies the prompt's requirement for separate enclosures around the trees with semi-rings.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt implicitly suggests separate enclosures, the exact positioning requires some interpretation.'
+    )
+  ]
+)

@@ -1,0 +1,34 @@
+{
+    "prompt": "Establish a structured line that defines the walkway around my garden elements to promote an ordered look.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "output": []
+}

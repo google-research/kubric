@@ -1,0 +1,54 @@
+{
+    "prompt": "Design a linear path that elegantly traverses between the trees, providing clear guidance without detracting from their natural allure.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                -4.0,
+                -0.3
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    -0.9999999999999999
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -1.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

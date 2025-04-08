@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit addresses the requirement to center the wedge between the trees for optimal aesthetics?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center to (0, 1, 0) to ensure the wedge equally embraces both trees, optimizing aesthetic placement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt requires interpreting that the wedge should center on the midpoint between trees, which involves adjusting the center coordinate.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 1.5, 0.0),
+            radius = 2.0,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the initial design with no changes to the center.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No interpretation is required as this does not involve changes to the initial design.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 80.0,
+            height = 0.4
+          ),
+          edit_description = 'Center the wedge at (1, 1, 0) with increased size for a dominated presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires interpreting the need for a dominated presence, though not an optimal position between both trees.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.5, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center left to (-1, 0.5, 0) while decreasing the radius.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Misinterprets the prompt by moving away from both trees and not optimizing space around them.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Position the center at (0.5, 1, 0) reducing slightly to balance presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A partial balancing approach but not fully meeting the focal point across trees.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer involves moving the center to the exact midpoint between the two trees to optimize the aesthetic placement as desired in the scene's spatial arrangement and alignment with the prompt's core goal.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The difficulty lies in understanding that the center should be exactly between the two trees, which is a bit implicit in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit adjusts the radius to fit within a specified size constraint?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 1.5 meters to fit within the 2x2 meter profile constraint.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The size constraint of the arena is a direct consideration of allowable dimensions.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the current radius of 2 meters, which matches the initial design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No consideration is needed for changing constraints as it maintains the initial radius.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 80.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the radius to 2.5 meters for broader coverage.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This option enlarges the space but might infringe upon the space constraints.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Expand the radius significantly to encompass a larger area.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Significantly larger than allowed, requiring the user to realize that breaches constraints completely.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify the radius to 1.2 meters for tighter fitting design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This tightly fits the constraint but doesn’t optimally embrace the aesthetic open space.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Reducing the radius to 1.5 meters from the initial 2 meters directly addresses the need to conform to the 2x2 profile constraint in compliance with the design rules.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The revision directly confronts the size limitation, allowing for straightforward deductions on radius reduction.'
+    ),
+    2 : EditMCQA(
+      question = "Which edit modifies the height to increase the wedge's presence and impact?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters for more presence and impact.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Raising the height as stated in the design goal is straightforward and aligns with providing visual impact.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 75.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters as per the initial design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Retains the existing height without deviation.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 72.0,
+            height = 0.4
+          ),
+          edit_description = 'Slightly increase the height to 0.4 meters for moderate enhancement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This moderate change requires recognition of unique height roles without being as impactful as the 0.5 meters goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 60.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters for a low-profile design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Counter to the prompt’s goal, the focus on reducing emphasis conflicts with seeking presence.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.6,
+            gap_degrees = 68.0,
+            height = 0.35
+          ),
+          edit_description = 'Moderate increase to 0.35 height, aiming balanced visual interest.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'While slightly elevating height, this change does not align as clearly with the design thrust towards more impactful presence at 0.5 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Heightening to 0.5 meters enhances the structural presence aligning with the overall design’s goal as it emphasizes improved visual impact.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Leveraging the height for presence per design targets is evident from the instructions, reflecting an uncomplicated implementation.'
+    )
+  ]
+)

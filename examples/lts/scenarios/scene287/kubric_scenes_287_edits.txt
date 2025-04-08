@@ -1,0 +1,162 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How was the `quarter_wedge_1` structure modified in the scene?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust position to surround the tree, and modify the radius and height for balance and spacing.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Medium difficulty due to required adjustment in multiple parameters and spatial comprehension.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 80.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius for a broader coverage, maintaining the original center.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changes multiple parameters without altering the center, differing from the prompt requirements.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.4
+          ),
+          edit_description = 'Relocate slightly and adjust radius and gap degrees for better spatial fit.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Involves understanding of spatial adjustments and parameter tweaking.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.5, 0.0),
+            radius = 0.8,
+            gap_degrees = 75.0,
+            height = 0.6
+          ),
+          edit_description = 'Shift position upwards and modify radius and height for space utilization.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Focuses on position and height adjustment, diverging from prompt context.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce radius significantly with a stable height for compact arrangement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding minor but critical changes to achieve goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately describes the modifications made to the `quarter_wedge_1` as per the design goal described in the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding of modifications involving multiple parameters in the design.'
+    ),
+    1 : EditMCQA(
+      question = 'What addition was made to the scene regarding the `quarter_wedge_2` structure?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (1.0, -1.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 70.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a quarter-wedge structure centered near the trashcan for symmetry and functional pathways.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The addition requires understanding of spatial balance and conforming to the design goal.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (1.5, 0.0, 0.0),
+                radius = 0.8,
+                gap_degrees = 75.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a wedge that provides asymmetry for artistic deviation from structured layout.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Unique aesthetic value requires understanding of design deviation.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (0.0, 1.0, 0.0),
+                radius = 1.2,
+                gap_degrees = 70.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Align with the tree path to emphasize radial symmetry.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Focused on specific elements in the garden layout.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (-1.0, -1.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 80.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Position at a diagonal from original, ensuring variation in pathway design.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Explores alternative pathways.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (1.0, 1.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 70.0,
+                height = 0.6
+              )
+            }
+          ),
+          edit_description = 'Add as overlapping structure with similar design dimensions but elevated height.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Intricacy in dimensional overlap presents subtle complexity.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A is correct because it matches the specified design goal of adding a quarter-wedge structure in alignment with the prompt's spatial balance requirements.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding correct placement based on prompt clues involves interpreting spatial dynamics in design.'
+    )
+  ]
+)

@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.265243,
+                0.26524849,
+                0.3365115
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "description": "This scene involves constructing a linear boundary structure to create a designated area around two rocks. The goal is to establish a functional yet aesthetic space that highlights the rocks while providing structure to the garden layout. The structure must adhere to spatial constraints and avoid collisions with the existing objects.",
+    "prompt": "Develop a linear boundary around the rock and trashcan to provide a sense of enclosure while maintaining easy access and aesthetic balance.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -4.592425496802574e-17,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        4.592425496802574e-17,
+                        0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -4.592425496802574e-17,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        4.592425496802574e-17,
+                        0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

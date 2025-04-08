@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What is the correct modification to change 'linear_path_1' to achieve the design goal?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.15
+          ),
+          edit_description = 'Change the path profile from linear to a CurvyPath, increasing the amplitude to 0.3 and setting the wavelength to 2 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.15
+          ),
+          edit_description = 'Change the path to a Serpentine profile, with concave left arc orientation and a radius of 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.15
+          ),
+          edit_description = 'Change the path to a QuarterWedge profile, using a 10-degree gap.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.15
+          ),
+          edit_description = 'Change the path to a TriWedge profile, setting the gap to 12 degrees.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.15
+          ),
+          edit_description = 'Change the path to a Circular profile with a radius of 1 meter.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes changing the path profile from linear to a CurvyPath, matching the required amplitude and wavelength as described in the scene edit details.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the change from a linear path to a CurvyPath, including the specific parameters for amplitude and wavelength, making it straightforward to identify the correct answer.'
+    )
+  ]
+)

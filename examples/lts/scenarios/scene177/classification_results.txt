@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the arrangement of pathways around seating objects to promote ease of movement and visual flow, involving spatial reasoning in terms of layout and orientation.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "description": "This scene involves creating a linear path to guide visitors through a grove of trees, ensuring easy navigation while enhancing the natural beauty of the area. This design takes advantage of spatial relationships and geometric properties to maintain harmony with the environment.",
+    "prompt": "Design a linear path that elegantly traverses between the trees, providing clear guidance without detracting from their natural allure.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        1.0,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.75,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        0.9999999999999999,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        1.0,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Use a quarter-wedge design to create a captivating garden element that frames the birdhouses with elegance.',
+  description = 'This scene involves constructing a QuarterWedge structure to create an inviting garden feature around two birdhouses. The goal is to achieve an aesthetically pleasing design while ensuring that the structure fits within the defined space constraints without colliding with the birdhouses.',
+  initial_design = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 2.0,
+        gap_degrees = 90.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 90.0,
+          height = 0.3
+        ),
+        edit_description = 'Reduce the radius to 1.5 meters to fit within the spatial constraints and avoid collisions.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt gives clear instructions to fit the structure within space constraints.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 70.0,
+          height = 0.3
+        ),
+        edit_description = 'Adjust the gap degrees to 70 to ensure an unobstructed view through the wedge while maintaining the structural integrity.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt specifies a desired angular span for aesthetic and functional reasons.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'QuarterWedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters for an elevated presence that enhances the visual interest around the birdhouses.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The increase in height is directly suggested in the design goal for aesthetic enhancement.'
+      )
+    ]
+  )
+)

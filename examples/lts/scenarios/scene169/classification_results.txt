@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the creation of a boundary to partition the table and rock, which involves arranging objects spatially to achieve visual separation while maintaining access.'
+    )
+  ],
+  confidence = 4
+)

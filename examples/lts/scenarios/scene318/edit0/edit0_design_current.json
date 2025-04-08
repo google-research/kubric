@@ -1,0 +1,69 @@
+{
+    "prompt": "Design a rectangular garden feature that integrates seamlessly with the bench and rock, providing a cohesive and functional layout.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -0.75,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "rock_1": {
+            "extent": [
+                0.25,
+                0.25,
+                0.25
+            ],
+            "center": [
+                0.75,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "rock"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.25,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    -1.25,
+                    0.75,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    0.75,
+                    0.0
+                ],
+                [
+                    -0.25,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    -1.25,
+                    -0.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

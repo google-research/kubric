@@ -1,0 +1,125 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How can you modify the initial Circular structure to enhance angular dynamics in the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design type from Circular to TriWedge to introduce angular dynamics and complement the objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design type from Circular to QuarterWedge to enhance visual impact with a different angular span.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the design type from Circular to SemiCircular to create a partial arc effect.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the design type from Circular to Rectangular to introduce linear dynamics.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.4,
+            right_length = 0.3,
+            right_center = (0.5, 0.1, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Change the design type from Circular to LShape to create a complex linear form.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification to a TriWedge matches the design goal of introducing angular dynamics, which is suggested in the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change to a TriWedge structure is suggested in the prompt, but requires understanding the goal of enhancing angular dynamics.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the TriWedge structure be adjusted to improve visual impact in this scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_goal_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.7
+          ),
+          edit_description = 'Increase the radius to 1.5 meters for enhanced visual impact while maintaining a balance between the objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_goal_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.7
+          ),
+          edit_description = 'Reduce the gap degrees to 10, keeping the radius unchanged, which might decrease angular impact.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_goal_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.7
+          ),
+          edit_description = 'Change the design type to Circular and increase radius for a unified circular form.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_goal_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.7
+          ),
+          edit_description = 'Switch to QuarterWedge with moderate gap for a pie-slice visual.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_goal_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.7
+          ),
+          edit_description = 'Form a SemiRing to surround the area while emphasizing the convex design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the radius to 1.5 meters enhances the visual impact by making the structure more prominent without overpowering existing elements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Increasing the radius is aligned with enhancing visual impact, which requires interpretation of the design goal.'
+    )
+  ]
+)

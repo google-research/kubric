@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit adjusts the semicircular structure to create a tighter enclosure with a radius of 1.5?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1.5 for a tighter enclosure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Specifying a tighter radius to limit the space while maintaining privacy.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1.0 for a more compact structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'An alternative radius that may not maintain optimal space usage.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Revert to concave orientation with original radius.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Reverting orientation is less intuitive given enclosure requirements.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Introduce a concave orientation with adjusted radius.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Switching orientation while keeping radius change may confuse the design intent.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change height alongside radius, affecting overall design balance.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This choice involves two parameters, adding complexity to the decision.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A directly describes the required radius adjustment while maintaining provided height and orientation, matching the edit request.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly indicates the need for a radius change, making the correct option relatively simple to identify.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit increases the height to 0.5 to enhance privacy while keeping the radius at 1.5?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 for enhanced privacy.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Height adjustments require consideration of design aesthetics and scene interactions.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Implement concave orientation with lower height.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The lower height may not provide the requested privacy enhancement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust height to maintain a slender profile.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height specification remains simple to interpret without additional complexities.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Enhance height with a concave orientation for privacy.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This option adds complexity by incorporating orientation and height changes.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semicircular_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Revert radius while increasing height.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Reverting the radius while increasing height complicates design consistency.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A precisely addresses the requested height and radius parameters, enhancing privacy in accordance with the edit specification.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing the correct height adjustment involves understanding scene privacy needs and balancing design elements.'
+    )
+  ]
+)

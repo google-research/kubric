@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the creation of a linear boundary between rocky outcrops, which involves spatial reasoning to ensure the boundary properly aligns and separates the areas.'
+    )
+  ],
+  confidence = 5
+)

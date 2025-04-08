@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a well-defined rectangular space that integrates both elements, offering shade and focus without overwhelming the area.',
+  description = 'This scene involves constructing a rectangular structure that encapsulates a natural rock and tree setup to create a charming garden feature. This design uses geometric properties to enhance the layout visually and functionally while ensuring the structure fits seamlessly within the confined space.',
+  initial_design = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.5, -0.5, 0.0),
+        length = 2.5,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 3.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 3.0,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the center to (0.0, 0.0, 0.0), increase the length to 3.0 meters, expand the width to 1.0 meters, and raise the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Aligning the object's center and adjusting dimensions requires spatial reasoning to integrate natural objects symmetrically."
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves spatial reasoning to arrange an L-shaped barrier around a designated seating area, ensuring the trashcan remains accessible. This focuses heavily on the spatial layout and positioning of objects relative to each other.'
+    ),
+    1 : Semantic(
+      explanation = 'Interpretation of instructions is required to resolve ambiguities, such as determining the appropriate dimensions and alignment of the L-shaped barrier while also adhering to function (e.g., maintaining access to the trashcan).'
+    )
+  ],
+  confidence = 4
+)

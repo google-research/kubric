@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to correctly position the planter to demarcate the table area from the trashcan and to ensure the arrangement is convenient for standing individuals. This involves understanding spatial relationships and object alignment.'
+    )
+  ],
+  confidence = 5
+)

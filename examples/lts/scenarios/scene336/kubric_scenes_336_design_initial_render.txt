@@ -1,0 +1,54 @@
+{
+    "prompt": "Create a flowing path that dances between the decorated space, unifying the features without obstructing access.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.16098425,
+                -0.15423275,
+                -0.11663825
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.26524849,
+                -0.3365115,
+                -0.265243
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -1.0,
+                    -0.0,
+                    6.123233995736766e-17
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -6.123233995736766e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

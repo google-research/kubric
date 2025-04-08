@@ -1,0 +1,103 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    birdhouse_1 = SceneObject(
+      extent = (0.11663825, 0.16098425, 0.15423275),
+      center = (0.5, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 4,
+  prompt = 'Create a semi-ring design to beautifully accentuate the birdhouse and trees while ensuring open access and seamless integration with the garden setting.',
+  description = "This scene involves constructing a semi-ring structure as an aesthetic and protective boundary around a group of trees and a birdhouse.\n                   The design complements the natural elements in the scene while maintaining an open, inviting space. The structure's orientation and dimensions should avoid\n                   collisions with the objects, creating a harmonious garden setting.",
+  initial_design = Design(
+    structures = {
+      SemiRing = SemiRing(
+        center = (0.2, 0.2, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.6,
+        orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiRing = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.6,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Move the center of the semi-ring to (0, 0, 0) for balanced placement around the objects.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly mentions the need for balanced placement of the semi-ring.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.6,
+          orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = "Change the orientation to 'convex' to provide an outward-facing design, enhancing openness and accessibility.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The outward-facing design aligns with the goal to maintain an open, inviting space.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'convex',
+          height = 0.3
+        ),
+        edit_description = 'Increase both the outer and inner radii to 1.5 and 1.0 meters, respectively, to ensure ample space for the trees and birdhouse without collisions.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the need for ample space is mentioned, the specific dimensions require additional inference.'
+      ),
+      3 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiRing',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Increase the height to 0.4 meters for a more defined boundary and visual appeal.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Enhancing the visual appeal through height adjustment requires understanding the visual impact in the scene.'
+      )
+    ]
+  )
+)

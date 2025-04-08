@@ -1,0 +1,54 @@
+{
+    "prompt": "Set up a minimalist divider that elegantly distinguishes the pots from the tables, providing a sense of order while preserving open paths.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.320213,
+                -0.216202,
+                -0.320213
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "table_1": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                -0.5,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.5,
+                    -0.0,
+                    -0.75
+                ],
+                [
+                    1.0,
+                    -0.0,
+                    -0.7500000000000001
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

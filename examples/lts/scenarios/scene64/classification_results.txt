@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt specifically requests creating a linear arrangement to define a space, which requires spatial reasoning to ensure the layout facilitates open access while respecting other spatial constraints of the environment.'
+    )
+  ],
+  confidence = 4
+)

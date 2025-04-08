@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt specifically requests the creation of a 'path that connects' different objects, which involves spatial reasoning to arrange and ensure a smooth and flowing journey between them."
+    )
+  ],
+  confidence = 5
+)

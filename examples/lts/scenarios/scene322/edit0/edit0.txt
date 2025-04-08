@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_3 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_4 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a linear boundary that elegantly delineates the space between the rows of trees, ensuring a sense of order without overpowering the natural elements.',
+  description = "This scene is designed to create a visual separation between a series of trees using a linear structure. The goal is to arrange the trees and boundary in a harmonious fashion that complements the natural setting, provides a sense of order, and enhances the garden's aesthetics.",
+  initial_design = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, 0.5, 0.0),
+        length = 2.0,
+        height = 0.3,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear_structure = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.5,
+        height = 0.5,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.5, 0.0),
+          length = 2.0,
+          height = 0.3,
+          orientation = 'left-right'
+        ),
+        edit_description = "Change the orientation to 'left-right' to provide a straight edge running between the rows of trees.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The change in orientation from 'front-back' to 'left-right' is directly mentioned as an edit to ensure a straight edge."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_structure',
+        NewDesignStructure = Linear(
+          center = (0.0, 0.0, 0.0),
+          length = 2.5,
+          height = 0.5,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the center position to (0.0, 0.0, 0.0) and increase the length to 2.5 meters and the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the center, length, and height is a bit less obvious but still straightforward because it follows from the description of the design goal.'
+      )
+    ]
+  )
+)

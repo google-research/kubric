@@ -1,0 +1,136 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification best matches the edit to change the orientation of 'Linear_1' to 'left-right' for alignment along an effective dividing line?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = "Change the orientation to 'front-back' while keeping other parameters the same.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option involves a change contrary to the scene description.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.25, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Change the orientation to 'left-right' for alignment along the most effective dividing line.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Changing the orientation to 'left-right' is straightforward and directly inferred from the description."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Change the height to 0.3 and orientation to 'left-right'.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Involves multiple changes which may not align with the prompt's single intuitive fix."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.25, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = "Change the center slightly and orientation to 'front-back'.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Misaligned with the goal of effective separation by changing to 'front-back'."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.25, 0.0),
+            length = 1.2,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust the length to 1.2 and orientation to 'left-right'.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Alters derived necessary features such as the intended length from the design goal.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Option B correctly captures the adjustment of changing orientation to 'left-right', as outlined.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This change is easy to infer from the description and prompt, matching intentions directly.'
+    ),
+    1 : EditMCQA(
+      question = "Which modification effectively encompasses the edit to move the center and adjust the length and height of 'Linear_1'?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Change the orientation to 'left-right' only.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option ignores major changes like center positioning.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.25, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to (0.75, 0.25, 0) and adjust the length and height to better fulfill the role as a separator.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adjusting the position and dimensions requires spatial understanding of separation.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Set center at (1.0, 0.5, 0.0) with length 2.0 and height 0.5.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Slight deviation in placement could lessen alignment with design goals.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          edit_description = 'Remove the Linear structure completely.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This option is contrary to the instruction to enhance the divider.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.5,
+            height = 0.7,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase length to 2.5 and height to 0.7 with center at (0.75, 0.0, 0.0).',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Over-extension in placement and dimensions might not align with spatial constraints.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B accurately reflects the desired goal by adjusting center, length, and height according to the scenario.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires more nuanced interpretation of spatial and dimensional adjustments from the prompt.'
+    )
+  ]
+)

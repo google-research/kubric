@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create a circular path that wraps between the trees, ensuring room for navigation and viewing, which involves understanding spatial relationships and placements.'
+    )
+  ],
+  confidence = 4
+)

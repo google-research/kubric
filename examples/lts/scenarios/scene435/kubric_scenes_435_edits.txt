@@ -1,0 +1,196 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made in Edit 0 to achieve a structure with layered depth and dimension?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the design structure from SemiCircular to SemiRing for layered depth and dimension.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies crafting a semi-circular embrace, suggesting a structure that surrounds the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design structure from SemiCircular to Circular for simplicity and continuity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Alter the design structure to a convex SemiCircular shape to create an open embrace.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the design into a curvy path to enhance fluid motion and transition.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Create a serpentine structure for added visual complexity and environmental interaction.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification aligns directly with the edit description, transitioning from a SemiCircular to a SemiRing structure.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies crafting a semi-circular embrace, suggesting a structure that surrounds the trees.'
+    ),
+    1 : EditMCQA(
+      question = 'What alteration was executed in Edit 1 to offer greater spaciousness around the trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase the outer radius to 1.2 meters to add spaciousness around the trees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining the exact dimensions for spaciousness requires interpreting the space intended for human interaction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Decrease the inner radius to 0.9 meters for a tighter layout around the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Introduce a TriWedge structure with a 12-degree gap for a distinctive angular design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Apply QuarterWedge configuration to open up peripheral areas without full encirclement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Modify to a convex SemiCircular design to optimize the outward flow of space.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The outer radius increase enhances spaciousness, consistent with described design goals.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the exact dimensions for spaciousness requires interpreting the space intended for human interaction.'
+    ),
+    2 : EditMCQA(
+      question = 'What height modification in Edit 2 provides a balance of presence without obscuring the trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the height to 0.5 meters to ensure presence without obstructing the trees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The height adjustment needs to balance visibility of the trees and presence of the ring structure as suggested by the prompt.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for moderate visual emphasis.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Extend the height to 0.6 meters for a stronger surrounding presence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Reduce the height to 0.2 meters to maintain visual subtlety and openness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.7
+          ),
+          edit_description = 'Augment the height to 0.7 meters for a pronounced vertical effect.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This height modification provides a deliberate presence to the structure without overshadowing the trees.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The height adjustment needs to balance visibility of the trees and presence of the ring structure as suggested by the prompt.'
+    )
+  ]
+)

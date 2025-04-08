@@ -1,0 +1,80 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (1.0, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design an L-shaped structure that integrates seamlessly with the birdhouses, creating an inviting and harmonious garden space.',
+  description = 'This scene involves creating an L-shaped structure to enhance the visual appeal of a garden, using birdhouses as the central focus. The design involves positioning the LShape strategically around the birdhouses to create an engaging and aesthetic garden feature.',
+  initial_design = Design(
+    structures = {
+      planter_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.0,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (-0.5, -0.5, 0.0),
+        left_length = 2.0,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'planter_1',
+        NewDesignStructure = LShape(
+          left_center = (-0.5, -0.5, 0.0),
+          left_length = 2.0,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Transform the rectangular planter into an LShape design for increased complexity and elegance.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The transformation from a rectangular to an LShape is straightforward given the design goal, but requires understanding spatial arrangement.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            lshape_1 = LShape(
+              left_center = (-0.5, -0.5, 0.0),
+              left_length = 2.0,
+              left_width = 0.5,
+              right_width = 0.5,
+              right_length = 1.5,
+              right_center = (0.0, 0.0, 0.0),
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Position the LShape around the birdhouses with dimensions matching the design goal, creating a cohesive visual alignment.',
+        target_parameter = 'position',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "Placing the structure around birdhouses follows the design goal's parameters and involves basic repositioning."
+      )
+    ]
+  )
+)

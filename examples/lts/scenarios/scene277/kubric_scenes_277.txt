@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-1.0, 0.5, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, -0.5, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design an elegant serpentine path that meanders alongside the benches, inviting exploration and relaxation within the garden space.',
+  description = "This scene involves creating a serpentine path that flows alongside a series of benches, enhancing the garden's aesthetic while maintaining functionality and accessibility. The serpentine design provides a dynamic yet soothing path to guide visitors through the seating arrangement, evoking a sense of movement and tranquility.",
+  initial_design = Design(
+    structures = {
+      path = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.75,
+        left_arc_orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.75,
+          left_arc_orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Change the design profile from linear to serpentine for dynamic interaction. Adjust the arc orientation to concave to envelop the benches, fostering an inviting atmosphere.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt directly suggests enhancing the arrangement with the serpentine path, making it an easy inference.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,68 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change was made to the initial design structure to create a semi-ring around the rocks?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'design_circular',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.2,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Change the design profile from Circular to SemiRing to introduce a partial enclosure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly outlines the transition from a Circular to a SemiRing design, specifying the necessary parameters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_circular',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile from Circular to QuarterWedge.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_circular',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 8.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design profile from Circular to TriWedge.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_circular',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile from Circular to Serpentine.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_circular',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile from Circular to CurvyPath.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification identified in the prompt was the change from a Circular design to a SemiRing, with specific parameters given directly in the instructions.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly outlines the transition from a Circular to a SemiRing design, specifying the necessary parameters.'
+    )
+  ]
+)

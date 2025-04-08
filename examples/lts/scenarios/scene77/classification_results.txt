@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves arranging circular patterns around the pots, requiring spatial reasoning to maintain uniformity in spacing and size, as well as understanding geometric properties like radius and height.'
+    ),
+    1 : Numeric(
+      explanation = 'The description mentions the need for uniform spacing and size, which involves precise measurements and quantities to maintain symmetry and consistent design.'
+    )
+  ],
+  confidence = 4
+)

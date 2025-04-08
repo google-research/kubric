@@ -1,0 +1,82 @@
+{
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                -0.9,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.9,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "In this scene, the focus is on placing a Linear structure to create a subtle boundary alongside two birdhouses, adding a touch of practicality and design to an otherwise open area. The Linear design makes use of space efficiently, enhancing the natural layout without overwhelming the existing elements.",
+    "prompt": "Position a linear boundary to define the space between the birdhouses, offering a clear but open visual divider.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "linear": [
+            {
+                "segment": 1,
+                "height": 0.1,
+                "keypoints": [
+                    [
+                        -4.592425496802574e-17,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        4.592425496802574e-17,
+                        0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear": [
+            {
+                "segment": 1,
+                "height": 0.15,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

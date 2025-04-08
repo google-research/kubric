@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a semi-circular enclosure, which requires spatial reasoning to determine the correct placement and arrangement around the trashcan.'
+    )
+  ],
+  confidence = 4
+)

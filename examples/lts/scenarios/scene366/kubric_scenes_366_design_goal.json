@@ -1,0 +1,82 @@
+{
+    "prompt": "Establish a linear boundary that subtly separates the birdhouse display from the relaxation area. Ensure easy access around the setup.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -0.8,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.8,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.0,
+                    1.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

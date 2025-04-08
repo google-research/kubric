@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-0.75, 0.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'bench'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a rectangular garden feature that integrates seamlessly with the bench and rock, providing a cohesive and functional layout.',
+  description = 'This scene involves creating a harmonious arrangement with rectangular structures around a central garden feature incorporating benches and rocks.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (-0.75, 0.0, 0.0),
+        length = 1.5,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (-0.75, 0.0, 0.0),
+        length = 1.5,
+        width = 1.0,
+        height = 0.5
+      ),
+      rectangular_2 = Rectangular(
+        center = (0.75, 0.0, 0.0),
+        length = 1.5,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (-0.75, 0.0, 0.0),
+          length = 1.5,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Split the original rectangular structure into two, adjusting lengths and centers to avoid overlapping with the bench.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The challenge lies in ensuring the spatial arrangement avoids overlapping with the bench and the rock while maintaining aesthetic and functional balance.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rectangular_2 = Rectangular(
+              center = (0.75, 0.0, 0.0),
+              length = 1.5,
+              width = 1.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Introduce an additional rectangular structure for cohesive and functional layout completion.',
+        target_parameter = 'structures',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adding a second structure is straightforward as it mirrors the existing criteria and aligns with the design intention for symmetry.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires creating an L-shaped border, which involves spatial reasoning to arrange objects effectively and manage their positions, dimensions, and relationships within the scene.'
+    )
+  ],
+  confidence = 5
+)

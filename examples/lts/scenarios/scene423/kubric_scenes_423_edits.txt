@@ -1,0 +1,78 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification turns the path design from a straight line into a more dynamic and visually engaging structure in this scene?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, 0.0, 0.0),
+            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from a straight line to a CurvyPath for increased dynamic movement and visual interest.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit is straightforward as the instructions clearly mention transforming the path to a CurvyPath with specified parameters.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the path design to a Serpentine pattern for varied directional movement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit introduces a more complex structure without clear specification in the prompt, requiring more interpretation by the designer.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 11.0,
+            height = 0.2
+          ),
+          edit_description = 'Replace the linear path with a QuarterWedge shape for circular movement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This choice does not align with the task of creating a connecting feature, as it drastically alters the functionality of the path.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 5.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the linear path length for broader reach.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This edit is straightforward as it simply modifies a parameter without altering the overall structure type.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'path',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 1.0,
+            right_width = 1.5,
+            right_length = 1.0,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Convert the path into an L-shape for direct corners.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'An L-Shape is not immediately suggested by the prompt, making it a less intuitive option for a curvy connecting path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit transforms the initial linear path into a CurvyPath, adhering to the scene's goal of enhancing visual appeal and connection between seating areas while aligning perfectly with the prompt instructions.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The problem is easy because it directly follows the scene's prompt to change the initial design to a CurvyPath, with detailed parameters provided."
+    )
+  ]
+)

@@ -1,0 +1,65 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a semi-ring that elegantly frames the central formation, offering a visual anchor and providing plenty of room for relaxation around it.',
+  description = 'This scene involves constructing a semi-ring barrier that creates an inviting space around a central rock, providing aesthetic enhancement to a garden setting. The semi-ring design aims to add interest and texture to the garden while avoiding collisions and maintaining an open environment for interaction and movement.',
+  initial_design = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.6,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.6,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Increase the outer radius to 1.0 meters for more expansive coverage without compromising open space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit description clearly specifies the parameter to be changed and the final target value, making it straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.6,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Increase the height to 0.5 meters for a more pronounced appearance within the scene.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit description clearly specifies the parameter to be changed and the final target value, making it straightforward.'
+      )
+    ]
+  )
+)

@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be applied to reposition the linear structure to enhance visual symmetry between the birdhouse and rock?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reposition Center to (0.5, 0, 0) to enhance visual symmetry between the birdhouse and rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reposition Center to (0.25, 0, 0) and Change orientation to left-right.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reposition Center to (0.0, 0, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reposition Center to (0.5, 0, 0) and shorten length.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reposition Center to (0.5, 0, 0) and decrease height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The edit's focus is on repositioning the center to achieve symmetry, aligning with the prompt's requirement for visual balance.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The instruction directly suggests the new position to enhance symmetry.'
+    ),
+    1 : EditMCQA(
+      question = 'What edit should be applied to adjust the orientation and length of the linear structure to create a clearer boundary?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust Orientation to 'left-right' and increase length to 2 meters."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change length to 2 meters in current orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust orientation to 'left-right' without changing length."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Increase length to 2.5 meters and adjust orientation to 'left-right'."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change length to 2 meters and adjust height for clearer visibility.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit precisely aligns with the task to adjust orientation and length to form a clearer boundary between the objects in the scene.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting orientation and length both contribute to creating a clearer boundary.'
+    )
+  ]
+)

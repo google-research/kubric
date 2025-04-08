@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'Tree'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Design a serpentine path that elegantly winds its way between the towering trees, creating a natural flow while maintaining an inviting walkway.',
+  description = "The scene involves creating a serpentine path that gracefully weaves between two trees to form a flowing garden feature. The serpentine structure enhances the space's aesthetic by adding smooth curves and dynamic movement. The task is to maintain a cohesive design within the spatial constraints.",
+  initial_design = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.6,
+        left_arc_orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'serpentine_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.6,
+          left_arc_orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = 'Change from a linear path to a serpentine path with a left arc center at (0, 0, 0), radius of 0.6 meters, and convex orientation. Increase height to 0.4 meters for added visibility.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt suggests an inviting, flowing path, implying a change from linear to serpentine. The exact specifications for the serpentine path, such as radius and height, are only partially suggested, requiring moderate inference.'
+      )
+    ]
+  )
+)

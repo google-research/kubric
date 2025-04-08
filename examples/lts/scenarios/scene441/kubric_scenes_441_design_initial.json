@@ -1,0 +1,54 @@
+{
+    "prompt": "Construct an intertwining path that connects my twin avian havens, providing a whimsical journey through the garden.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                -0.5,
+                -0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.5,
+                0.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.1,
+            "keypoints": [
+                [
+                    -4.592425496802574e-17,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    4.592425496802574e-17,
+                    0.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

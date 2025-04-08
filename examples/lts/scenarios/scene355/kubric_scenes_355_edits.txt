@@ -1,0 +1,62 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to transform the linear path into the specified serpentine path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear path to a Serpentine path with left arc center at (0, -0.5, 0), radius 0.8, and height 0.3.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.4, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path to a Serpentine path with left arc center at (0, -0.4, 0), radius 0.7, and height 0.2.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.8,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path to a QuarterWedge path with center at (0, -0.5, 0) and radius 0.8.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.8,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear path to a TriWedge path with center at (0, -0.5, 0) and radius 0.8.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear path to a Circular path with center at (0, -0.5, 0) and radius 0.8.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification involves changing the linear path to a Serpentine path with specific parameters: left arc center at (0, -0.5, 0), radius 0.8, and height 0.3.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies transforming the path into a serpentine form with specified parameters.'
+    )
+  ]
+)

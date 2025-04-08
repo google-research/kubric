@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (1.5, 1.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a structured garden plot that gracefully incorporates the trees and provides a subtle yet definite framework using an L-shaped design.',
+  description = "This scene involves positioning an L-shaped structure around two trees to create an aesthetically pleasing and functional garden arrangement. The L-shape should wrap around the trees in a way that enhances the space's natural beauty while providing a sense of structure without intrusion.",
+  initial_design = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (0.0, 0.75, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.75, 1.5, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (0.0, 0.75, 0.0),
+        left_length = 1.5,
+        left_width = 0.5,
+        right_width = 0.5,
+        right_length = 1.0,
+        right_center = (0.75, 1.5, 0.0),
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.75, 0.0),
+          left_length = 1.0,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.75, 1.5, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Moved the centers of the left and right sections to (0, 0.75, 0) and (0.75, 1.5, 0) to correctly position around the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The positions of the centers were quite intuitive to deduce given the prompt and the scene description.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'lshape_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 0.75, 0.0),
+          left_length = 1.5,
+          left_width = 0.5,
+          right_width = 0.5,
+          right_length = 1.0,
+          right_center = (0.75, 1.5, 0.0),
+          height = 0.5
+        ),
+        edit_description = 'Increased the length and width of the sections to 1.5 and 1.0 meters, respectively, ensuring better accommodation and visual balance.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The dimensions required a balance between aesthetics and function, informed by the scene’s spatial context.'
+      )
+    ]
+  )
+)

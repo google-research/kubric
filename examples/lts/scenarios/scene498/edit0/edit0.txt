@@ -1,0 +1,76 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_4 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Construct an L-shaped structure to organize the seating area, ensuring each chair remains accessible and inviting.',
+  description = 'This scene involves arranging four chairs and constructing an L-shaped boundary structure to create a functional and inviting garden nook. The design seeks to offer both seating comfort and a structured aesthetic that complements the spatial arrangement within a 3 x 3 meter area.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = LShape(
+        left_center = (0.0, 1.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.3,
+        right_width = 0.5,
+        right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      lshape_1 = LShape(
+        left_center = (0.0, 1.0, 0.0),
+        left_length = 2.0,
+        left_width = 0.3,
+        right_width = 0.5,
+        right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = LShape(
+          left_center = (0.0, 1.0, 0.0),
+          left_length = 2.0,
+          left_width = 0.3,
+          right_width = 0.5,
+          right_length = 1.5,
+          right_center = (0.0, 0.0, 0.0),
+          height = 0.4
+        ),
+        edit_description = 'Change the design from Rectangular to LShape to better encompass the seating arrangement.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly asks for an L-shaped structure for organizing the seating area.'
+      )
+    ]
+  )
+)

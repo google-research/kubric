@@ -1,0 +1,88 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification reflects the correct edit needed to transform the rectangular design into an LShape that better frames the trees and increases structural prominence?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 1.2,
+            right_center = (0.7, 0.5, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Change from a rectangular design to an LShape. Position the left section to wrap around Tree 1 and Tree 2 effectively and adjust the height to 0.5 meters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt requires understanding to reconfigure rectangular structure into an L-Shape including adjustments for height and placement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.3, 0.5, 0.0),
+            left_length = 0.8,
+            left_width = 0.4,
+            right_width = 0.5,
+            right_length = 0.9,
+            right_center = (0.5, 0.5, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Create an LShape with altered dimensions that do not fully frame the trees or match specified height gains.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding of correct placement and dimensions for the L-shape to achieve prompt goals.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.6, 0.6, 0.0),
+            left_length = 1.1,
+            left_width = 0.5,
+            right_width = 0.4,
+            right_length = 1.1,
+            right_center = (0.6, 0.6, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Overly large LShape that may obstruct views of the trees by exceeding necessary scale.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Misleading on required scale which does not align with the effective boundaries needed.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.2, 0.3, 0.0),
+            left_length = 0.7,
+            left_width = 0.3,
+            right_width = 0.2,
+            right_length = 1.0,
+            right_center = (0.4, 0.3, 0.0),
+            height = 0.3
+          ),
+          edit_description = "Smaller LShape not effectively enhancing trees' presence or accessibility.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Failure to fully embrace framing of trees effectively, compromising the aesthetic and openness desired.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.55, 0.45, 0.0),
+            left_length = 0.9,
+            left_width = 0.2,
+            right_width = 0.3,
+            right_length = 1.3,
+            right_center = (0.65, 0.45, 0.0),
+            height = 0.45
+          ),
+          edit_description = 'LShape disproportionally extending right, not balancing the architecture effectively.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Design hints at imbalance, resultantly missing correct alignment and accessibility intent as stipulated by the prompt.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly represents the LShape modification, as it achieves the task of framing the trees and creating an effective space through the specified positioning and height enhancement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires a complex shift from one geometric form to a more complex boundary design while adhering to the spatial requirements indicated.'
+    )
+  ]
+)

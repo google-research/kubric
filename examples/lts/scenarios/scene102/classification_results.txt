@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging tables and a trashcan to create an organized and harmonious outdoor dining area, which requires spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

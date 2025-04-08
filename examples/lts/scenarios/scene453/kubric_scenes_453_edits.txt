@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How was the path modified to introduce a natural, sinuous wave?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to a CurvyPath profile, introducing a natural, sinuous wave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to a SemiCircular profile, introducing a half-circle wave.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Modify the path to a different orientation, keeping it linear.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to a Serpentine design, introducing an S-curve pattern.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to a Rectangular profile, widening the walkway.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt specifically indicates a change to a CurvyPath with sinusoidal characteristics as described.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly instructs to modify the path to a curvy profile, making it straightforward to deduce this modification.'
+    ),
+    1 : EditMCQA(
+      question = "What changes were made to optimize the curve's amplitude and wavelength to avoid object intersection?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.8,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude and wavelength for an optimum balance between curve and continuity to avoid object intersection.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the structure to a Circular design to create evenly spaced paths.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the structure to a QuarterWedge with invalid gap degrees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 14.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the structure to a TriWedge design, slightly refining path angles.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_1',
+          NewDesignStructure = SemiRing(
+            center = (-0.5, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change the structure to a SemiRing, experimenting with concave curvature.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This modification adjusts the amplitude and wavelength to specifically address and prevent intersections.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Despite the hint about avoiding intersections, selecting precise amplitude and wavelength requires deeper design insight.'
+    )
+  ]
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene requires spatial reasoning to position the garden layers behind the seating area, ensuring the arrangement adheres to specified height constraints.'
+    ),
+    1 : Semantic(
+      explanation = 'The instructions are somewhat ambiguous regarding the exact specifications of the garden layers, requiring interpretation of the design intent.'
+    )
+  ],
+  confidence = 4
+)

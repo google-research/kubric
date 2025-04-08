@@ -1,0 +1,146 @@
+{
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                -1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_2": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_3": {
+            "extent": [
+                0.576648,
+                0.576648,
+                0.589116
+            ],
+            "center": [
+                1.5,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "description": "This scene involves creating an L-shaped arrangement around three tables to enhance the usability and aesthetics of a garden or patio area. The design ensures a coherent and engaging layout for visitors.",
+    "prompt": "Construct an L-shaped boundary to organize this collection, enhancing flow and functionality while promoting interaction between groups.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "structure_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -1.5,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "structure_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.5,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.5,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.5,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

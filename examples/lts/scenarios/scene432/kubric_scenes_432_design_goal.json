@@ -1,0 +1,79 @@
+{
+    "prompt": "Construct an L-shaped boundary that frames the trees, enhancing their presence while ensuring openness and accessibility.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                1.5,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -1.0,
+                    0.35,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.35,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.95,
+                    0.0
+                ],
+                [
+                    -1.2,
+                    0.95,
+                    0.0
+                ],
+                [
+                    -1.2,
+                    0.6499999999999999,
+                    0.0
+                ],
+                [
+                    -1.0,
+                    0.6499999999999999,
+                    0.0
+                ],
+                [
+                    -1.0,
+                    0.35,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

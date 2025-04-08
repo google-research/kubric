@@ -1,0 +1,71 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design an engaging garden nook using a semi-ring formation that gracefully envelops the trees, encouraging visitors to engage with the natural beauty.',
+  description = 'This scene involves constructing a semi-ring structure to create an inviting and harmonious garden setup around two trees.',
+  initial_design = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (-0.5, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.8,
+        orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semi_ring_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.8,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Move the semi-ring center to (0, 0, 0) to symmetrically encompass both trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit is straightforward as it aligns with the given prompt information about symmetry.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semi_ring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Increase the outer radius to 1.5 meters and the inner radius to 1.0 meters for a larger, more balanced structure that aligns well with the trees.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "The radius increase reflects a balance and an engagement with the design's scale, which requires inference from the garden's size and environment."
+      )
+    ]
+  )
+)

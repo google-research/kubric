@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which modification to the rectangular_1 design structure was made to span across both pots on either side of the table?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend the length to 3.0 meters to span across both pots on either side of the table, ensuring they are encompassed within the design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt describes clearly that the rectangular structure should encompass the pots as well as the table, necessitating the extension of its length.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend the length to 4.0 meters for additional coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend the length to 2.5 meters, reducing the original dimension slightly.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Extend the width to 2.0 meters, making the space around the table wider.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to (1.0, 1.0, 0.0) while extending the length.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves increasing the length to 3.0 meters, as described in the edit detail for encompassing the table and pots.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The requirement was directly inferred from the prompt, mentioning the need to encompass both pots in the design.'
+    ),
+    1 : EditMCQA(
+      question = 'What change was made to the rectangular_1 structure to provide a more spacious arrangement around the central table?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the width to 1.0 meter for a more spacious arrangement around the central table, enhancing accessibility and interaction within the seating area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt indicates the need for a spacious seating area, which can be achieved by increasing the width to 1.0 meter.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the width to 1.5 meters for maximum space utilization.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.7,
+            height = 0.5
+          ),
+          edit_description = 'Increase the width to 0.7 meters for minimal expansion.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Retain the original width, focusing modifications only on height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce height to 0.3 meters while maintaining corrected width to 1.0 meter.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The expansion of the width to 1.0 meter is the key change that facilitated a more spacious seating arrangement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly stated the need for space around the table, directing towards increasing width as the solution.'
+    )
+  ]
+)

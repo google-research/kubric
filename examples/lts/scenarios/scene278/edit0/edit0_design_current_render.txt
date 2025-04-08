@@ -1,0 +1,54 @@
+{
+    "prompt": "Construct a linear feature that elegantly defines the seating area while encouraging interpersonal interaction without obstructing movement around the benches.",
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.66046348,
+                -0.28620075,
+                -0.22015424
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                0.5
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.66046348,
+                -0.28620075,
+                -0.22015424
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -0.5
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.15,
+            "keypoints": [
+                [
+                    -1.1,
+                    -0.0,
+                    3.6739403974420595e-17
+                ],
+                [
+                    0.09999999999999987,
+                    -0.0,
+                    -3.6739403974420595e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

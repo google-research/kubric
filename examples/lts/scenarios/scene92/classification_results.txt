@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a physical boundary around each trashcan, which requires spatial reasoning to arrange these boundaries appropriately while ensuring they prevent tipping and maintain ease of access.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,140 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What is the correct edit to transform the design structure 'linear_1' according to the scene description?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Replace the linear profile with a QuarterWedge structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.5,
+            height = 0.4
+          ),
+          edit_description = 'Replace the linear profile with a TriWedge structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Replace the linear profile with a Circular structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Replace the linear profile with a Rectangular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Replace the linear profile with a Serpentine structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt clearly specifies using a quarter-wedge feature around each bench, and the description indicates that the linear profile should be replaced with such a structure.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly states to use a quarter-wedge feature around each bench.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit should be added to the design to achieve the goal in the scene description?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 70.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a second QuarterWedge structure to complete the setup.',
+          target_parameter = 'number of structures'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              triwedge_2 = TriWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 10.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge structure to complete the setup.',
+          target_parameter = 'number of structures'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a Circular structure to complement the setup.',
+          target_parameter = 'number of structures'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 1.0,
+                height = 0.4,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a Linear structure to complement the setup.',
+          target_parameter = 'number of structures'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a Serpentine structure to complement the setup.',
+          target_parameter = 'number of structures'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The scene goal requires the construction of two quarter-wedge structures, one for each bench. The addition of a second QuarterWedge structure is necessary to meet this design requirement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt requires careful interpretation to determine the necessity of two such structures.'
+    )
+  ]
+)

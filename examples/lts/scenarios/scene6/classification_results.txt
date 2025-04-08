@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging the pots in a spatial configuration to form a triangle, which requires spatial reasoning to position the third plot in front of the other two.'
+    )
+  ],
+  confidence = 4
+)

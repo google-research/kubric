@@ -1,0 +1,183 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to change the orientation of the linear structure for better alignment?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Change the orientation from 'front-back' to 'left-right' for better alignment."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = "Change the orientation from 'left-right' to 'front-back'."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change structure to a Circular design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change structure to a Curvy Path design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Change structure to a TriWedge design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit modifies the linear structure's orientation from 'front-back' to 'left-right', as specified in the prompt for better alignment.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "'easy' because the prompt directly instructs on the desired orientation."
+    ),
+    1 : EditMCQA(
+      question = 'What was the edit to adjust the center position of the linear structure?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the center to (0, 0, 0) to place the linear structure directly between the rock and the bench.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to (1.0, 0.0, 0.0), aligning more closely with the bench.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to (-1.0, 0.0, 0.0), aligning more closely with the rock.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Replace linear structure with a SemiCircular design at the center.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to (2.0, 0.0, 0.0), extending further along the axis.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting to the center coordinates (0, 0, 0) places the structure symmetrically between the rock and bench for optimal alignment.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "'easy' because the placements of the rock and bench guide the adjustment."
+    ),
+    2 : EditMCQA(
+      question = 'How was the length of the linear structure altered to enhance spatial clarity?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 2.0 meters to enhance spatial clarity and maintain a balanced visual separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the length at 1.0 meter, maintaining the existing spatial integrity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce the length to 0.5 meters, focusing on compactness and minimalism.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the structure to a circular form for a novel approach to separation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Change to a Curvy Path design enhancing the visual dynamics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'By increasing the length to 2.0 meters, the linear structure achieves improved spatial definition and aesthetic composure as intended for this garden setting.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "'medium' because determining the appropriate expansion requires interpretation of visual and functional goals outlined in the scene."
+    )
+  ]
+)

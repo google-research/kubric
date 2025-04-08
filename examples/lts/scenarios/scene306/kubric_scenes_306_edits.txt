@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to the circular structure to ensure it comfortably encloses both tables?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.0 meters to ensure the circular structure comfortably encloses both tables without overlap.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 0.9 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 0.7 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the radius to 0.6 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the radius to 1.0 meters ensures that the circular structure comfortably encloses both tables without overlap.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies enclosing both tables, which naturally suggests a larger radius.'
+    ),
+    1 : EditMCQA(
+      question = 'What change should be made to the height of the circular structure to add presence and definition to the seating area?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Elevate the height to 0.4 meters for added presence and definition in the seating area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height to 0.2 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Elevating the height to 0.4 meters provides additional presence and definition without overwhelming the space.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change in height adds visual interest, but it is not directly implied by the prompt.'
+    )
+  ]
+)

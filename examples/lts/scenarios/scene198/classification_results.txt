@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a serpentine seating arrangement which requires spatial reasoning to position the chairs correctly along a fluid path without collisions, ensuring a coherent and flowing layout.'
+    )
+  ],
+  confidence = 5
+)

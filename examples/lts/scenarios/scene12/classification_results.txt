@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves constructing a rectangular border to define a boundary around an object, which requires understanding and implementing spatial relationships and reasoning.'
+    )
+  ],
+  confidence = 5
+)

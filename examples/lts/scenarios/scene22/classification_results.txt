@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing a garden with partial enclosures around a seating area using abstract shapes, which involves spatial reasoning for arranging and positioning the abstract shapes correctly.'
+    )
+  ],
+  confidence = 4
+)

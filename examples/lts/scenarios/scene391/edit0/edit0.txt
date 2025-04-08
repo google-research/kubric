@@ -1,0 +1,55 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.530497, 0.673023),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Develop a creative, angular boundary that adds vibrancy to the area by subtly framing the placements of the birdhouse and trashcan.',
+  description = 'This scene involves creating a triangular wedge, or TriWedge, to provide an artistic boundary around two trashcans, forming a dynamic and engaging arrangement in a garden setting. The structure will enhance the visual appeal of the space while maintaining clear access and functional layout.',
+  initial_design = Design(
+    structures = {
+      Rectangular_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      TriWedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the profile from Rectangular to TriWedge to introduce a more dynamic boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The transformation to a TriWedge was clearly outlined in the prompt, making it straightforward.'
+      )
+    ]
+  )
+)

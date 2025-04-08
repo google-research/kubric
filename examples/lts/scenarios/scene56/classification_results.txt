@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging a linear boundary around tables, which requires spatial reasoning to understand and manipulate the space and positioning relative to other objects.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Numeric(
+      explanation = 'The scene involves designing a symmetrical pattern, which requires numeric reasoning to ensure symmetry and proper spacing without collisions.'
+    )
+  ],
+  confidence = 5
+)

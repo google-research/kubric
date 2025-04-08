@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt specifically asks for a 'winding pathway' that 'weaves smoothly' between two seating arrangements. This requires spatial reasoning to design the path to flow gracefully and dynamically between the two benches."
+    )
+  ],
+  confidence = 5
+)

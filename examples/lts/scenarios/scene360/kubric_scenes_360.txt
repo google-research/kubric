@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44030848, 1.32092696, 0.5724015),
+      center = (-1.0, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a rectangular structure that organizes my garden into a cozy seating area while maintaining openness and accessibility throughout.',
+  description = 'This scene involves creating a garden arrangement that features both functionality and aesthetics. By using a rectangular design structure, we arrange a seating area with a table and bench, bringing organization and visual appeal to the scene.',
+  initial_design = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        width = 0.7,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      Rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 0.7,
+          height = 0.3
+        ),
+        edit_description = 'Increase the length to 2.0 meters for adequate space.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly mentions the desired length of the seating area.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the width to 1.0 meter and height to 0.5 meters to ensure proportionality.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt suggests proportionality and height increase, but specific values require some inference.'
+      )
+    ]
+  )
+)

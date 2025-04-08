@@ -1,0 +1,68 @@
+{
+    "prompt": "Develop a flowing serpentine arrangement that cohesively links these seats, encouraging a unified seating experience with fluid transitions.",
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": 180.0,
+            "semantic_label": "chair"
+        },
+        "chair_3": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -7.654042494670958e-17,
+                    -1.25,
+                    0.0
+                ],
+                [
+                    7.654042494670958e-17,
+                    1.25,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

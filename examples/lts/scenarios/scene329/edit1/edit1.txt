@@ -1,0 +1,63 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-1.0, 0.0, 0.147279),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 0.0, 0.125),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a central feature that encapsulates the table and the rock, embracing them within a cohesive circular garden layout.',
+  description = 'This scene involves creating a harmonious circular arrangement around tables and rocks to highlight a central gathering place. The circular design aims to integrate all elements aesthetically while providing clear pathways within the garden layout.',
+  initial_design = Design(
+    structures = {
+      circular_initial = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_goal = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_initial',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.2,
+          height = 0.4
+        ),
+        edit_description = 'Change the center of the circle to (0.0, 0.0, 0.0) to encompass both the table and rock symmetrically.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The prompt indicates the need for central encapsulation, suggesting symmetry around (0.0, 0.0, 0.0).'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_initial',
+        NewDesignStructure = Circular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          height = 0.5
+        ),
+        edit_description = 'Increase the radius to 1.5 meters to provide more space and a unified appearance for the gathering area.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt and description imply the necessity of a larger radius for unity and space.'
+      )
+    ]
+  )
+)

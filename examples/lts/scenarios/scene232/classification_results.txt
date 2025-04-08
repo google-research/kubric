@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt is vague and lacks specific instructions related to spatial or numeric reasoning. It doesn't specify any spatial arrangement or numeric details."
+    )
+  ],
+  confidence = 5
+)

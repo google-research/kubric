@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct an intertwining path that connects my twin avian havens, providing a whimsical journey through the garden.',
+  description = "This scene leverages the CurvyPath design to create a dynamic, intertwining path between two birdhouses. The layout should introduce a sense of motion and connection between the objects, enhancing the garden's aesthetic appeal while maintaining spatial harmony.",
+  initial_design = Design(
+    structures = {
+      LinearPath = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 1.5,
+        height = 0.1,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      CurvyPath = CurvyPath(
+        far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+        close_curve_leftmost_point = (0.75, 0.5, 0.0),
+        amplitude = 0.3,
+        wavelength = 2.0,
+        phase = 0.5,
+        height = 0.1
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'LinearPath',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+          close_curve_leftmost_point = (0.75, 0.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.5,
+          height = 0.1
+        ),
+        edit_description = 'Transform the linear path into a CurvyPath to integrate the desired wave-like motion.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The curvature parameters such as amplitude and wavelength involve medium complexity to deduce from the scene design goal.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'CurvyPath',
+        NewDesignStructure = CurvyPath(
+          far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+          close_curve_leftmost_point = (0.75, 0.5, 0.0),
+          amplitude = 0.3,
+          wavelength = 2.0,
+          phase = 0.0,
+          height = 0.1
+        ),
+        edit_description = 'Adjust the phase to 0.0 to change the horizontal wave position.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adjusting the phase of the wave is relatively straightforward given initial hints in the prompt.'
+      )
+    ]
+  )
+)

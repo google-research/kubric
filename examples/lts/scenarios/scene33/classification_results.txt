@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves arranging chairs in a semi-circle, which requires spatial reasoning to place objects in a specific pattern around a central point.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,52 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Create a semi-ring enclosure that subtly highlights the birdhouse while maintaining an open atmosphere.',
+  description = 'This scene involves positioning a semi-ring structure around a birdhouse to create a subtle yet distinct garden feature. The semi-ring is designed to balance between providing an aesthetic boundary and preserving the open, inviting nature of the space.',
+  initial_design = Design(
+    structures = {
+      design_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_1 = SemiRing(
+        center = (0.0, 0.0, 0.0),
+        outer_radius = 1.0,
+        inner_radius = 0.5,
+        orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, 0.0, 0.0),
+          outer_radius = 1.0,
+          inner_radius = 0.5,
+          orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Change the design profile from Linear to SemiRing to introduce a curved boundary.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt clearly specifies a semi-ring structure with defined radii and orientation, making it easy to deduce.'
+      )
+    ]
+  )
+)

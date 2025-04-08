@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'bench'
+    ),
+    bench_2 = SceneObject(
+      extent = (0.22015424, 0.66046348, 0.28620075),
+      center = (1.0, 0.0, 0.0),
+      theta = 180.0,
+      semantic_label = 'bench'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Establish a cozy seating area that enhances social interaction by incorporating a rectangular feature that frames the benches.',
+  description = 'This scene involves designing a garden layout where a rectangular structure is employed to create a functional and aesthetic boundary around a set of benches. The arrangement should promote interaction while maintaining a clear division within the space.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, -0.5, 0.0),
+        length = 1.5,
+        width = 0.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          width = 0.5,
+          height = 0.3
+        ),
+        edit_description = 'Adjust Positioning and Dimensions: Move the rectangular structure to center it around the benches at (0, 0, 0).',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The edit involves centering the rectangular structure at a known position, which is straightforward given the description.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.0,
+          height = 0.4
+        ),
+        edit_description = 'Increase Dimensions: Increase length to 2 meters, width to 1 meter, and height to 0.4 meters for sufficient coverage and visual presence.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The edit involves specific changes to dimensions which require exact measurements stated in the prompt.'
+      )
+    ]
+  )
+)

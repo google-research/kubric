@@ -1,0 +1,54 @@
+{
+    "prompt": "Create a sleek boundary that aligns behind my birdhouses, adding order while preserving the garden\u2019s open feel.",
+    "observation": {
+        "birdhouse_1": {
+            "extent": [
+                0.3219685,
+                -0.3084655,
+                -0.2332765
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        },
+        "birdhouse_2": {
+            "extent": [
+                0.3219685,
+                -0.3084655,
+                -0.2332765
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.2,
+            "keypoints": [
+                [
+                    -0.75,
+                    -0.0,
+                    4.592425496802574e-17
+                ],
+                [
+                    0.75,
+                    -0.0,
+                    -4.592425496802574e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

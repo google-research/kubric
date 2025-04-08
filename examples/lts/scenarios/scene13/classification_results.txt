@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning, as it requires positioning an L-shaped barrier to separate the table area from the trashcan without blocking too much open space. This involves understanding geometric properties and arranging objects to maintain accessibility.'
+    )
+  ],
+  confidence = 4
+)

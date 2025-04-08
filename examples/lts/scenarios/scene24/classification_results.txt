@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt requires arranging the seating area around the birdhouse in a specific 'TriWedge' design, which is a spatial arrangement task."
+    ),
+    1 : Numeric(
+      explanation = 'The description mentions understanding geometric properties like radius, gap, and height, which involves numerical reasoning.'
+    )
+  ],
+  confidence = 4
+)

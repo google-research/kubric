@@ -1,0 +1,61 @@
+Scene(
+  objects = {
+    chair1_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    rock1_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    chair2_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.0, -1.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 1,
+  prompt = 'Craft a semi-circular seating area around a natural rock formation, allowing for a pleasant blend of conversation and nature within the area.',
+  description = 'This scene involves arranging seating and natural elements into a cohesive garden space using a semi-circular design. The layout aims to facilitate interaction between natural and man-made elements, offering a mix of relaxation and functionality through the use of rocks and chairs.',
+  initial_design = Design(
+    structures = {
+      semicircular_structure = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semicircular_structure = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular_structure',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = "Change the orientation from 'convex' to 'concave' and increase the radius to 1.5 meters.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The edit is directly deduced from 'change the orientation from convex to concave' and 'increase the radius to 1.5 meters' in the Instructions."
+      )
+    ]
+  )
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests arranging objects (garden feature, circular structure) in a specific geometric way.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt requires understanding the function and meaning of a central garden feature.'
+    )
+  ],
+  confidence = 4
+)

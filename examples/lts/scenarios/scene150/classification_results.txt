@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves the design of circular garden areas around benches, which requires spatial reasoning to effectively position and align these structures symmetrically. The arrangement must ensure that the garden elements provide a cozy environment while maintaining accessibility and proper spatial relationships with existing features.'
+    )
+  ],
+  confidence = 4
+)

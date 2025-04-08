@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt is focused on arranging the L-shaped structure between two benches to create a pleasant rest area, indicating a need for spatial reasoning.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt requires understanding the meaning of objects and their function in creating a 'pleasant rest area'."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,189 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What modification should be made to the design's structure to change the orientation from 'left-right' to 'front-back' in accordance with the design goal?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = "Adjust the linear orientation from 'left-right' to 'front-back' for a clear boundary parallel to the array of trees and birdhouse."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.25, 0.0),
+            close_curve_leftmost_point = (0.15, 0.25, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.3,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Use a curvy path for an artistic alignment across the garden section.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.25, 0.0),
+            left_length = 1.0,
+            left_width = 0.1,
+            right_width = 0.1,
+            right_length = 0.5,
+            right_center = (0.5, 0.25, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Change to an L-shaped structure for additional support and aesthetic value.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.25, 0.0),
+            radius = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Switch to a circular boundary design to round out the central area.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.25, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Create a quarter-wedge shape to divide the space into distinct sections.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct choice is to adjust the orientation from 'left-right' to 'front-back', aligning with the specified scene goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The orientation change is straightforward and directly specified in the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit increases the length of the design structure to achieve a fuller separation as outlined in the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the length to 2 meters to provide fuller separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the height to influence boundary perception and visibility.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Change to a rectangular design with additional height for ergonomics.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.25, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Adopt a semi-circular boundary design for middle garden relevance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.25, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Switch to a tri-wedge model for a sharper boundary line.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct option increases the length to 2 meters, which matches the design goal for fuller separation.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The specific length is hinted at in the goal but requires inference to determine the exact measurement.'
+    ),
+    2 : EditMCQA(
+      question = 'Which modification raises the height of the structure to 0.3 meters to enhance visibility and definition?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raise the height to 0.3 meters for better visibility and definition while maintaining openness.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Retain the original height to focus on spatial harmony.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.25, 0.0),
+            left_length = 1.5,
+            left_width = 0.1,
+            right_width = 0.2,
+            right_length = 0.5,
+            right_center = (0.5, 0.25, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust to an L-shape with the same height but extended section lengths.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.25, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Opt for a serpentine design to foster a flowing, natural boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_12',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.25, 0.0),
+            outer_radius = 0.5,
+            inner_radius = 0.3,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Use a semi-ring boundary design for a more layered effect.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer is to raise the height to 0.3 meters, in line with the design goal for improved visibility and definition.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Height adjustment is mentioned but requires more detailed consideration of the aesthetic and functional aspects.'
+    )
+  ]
+)

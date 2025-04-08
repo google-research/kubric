@@ -1,0 +1,74 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which transformation should be applied to the path to introduce dynamic curves and visual interest, changing its form from linear?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the path profile from linear to serpentine to introduce dynamic curves and visual interest.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The conversion from a linear path to a serpentine path requires repositioning elements and understanding the geometric relationship to achieve the desired flow, which is not explicitly detailed in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path into a curvy path to simulate a wavy flow.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This transformation involves altering both amplitude and wavelength, demanding spatial awareness and detailed calculations not specified in the prompt.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 8.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert the linear path into a quarter wedge to change its spatial footprint.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This option requires understanding the concept of radial designs and angular measures which are not provided in the prompt.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify the linear structure into a tri-wedge for a sharper angled design.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Choosing a tri-wedge involves considering complex angular layouts, which requires detailed understanding not included in the prompt.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.65,
+            height = 0.5
+          ),
+          edit_description = 'Transform the linear path into a circular design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Circular design is conceptually simple and doesn't require extensive details to be comprehensible from the prompt."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt specifies a serpentine path is the goal, which is correctly defined by option A.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing a path from linear to serpentine entails understanding geometric and spatial dynamics, which are not explicitly described in the prompt but are deduced through interpretative design choices.'
+    )
+  ]
+)

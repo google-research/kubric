@@ -1,0 +1,234 @@
+{
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "chair_3": {
+            "extent": [
+                0.49516202,
+                0.41553802,
+                0.76887
+            ],
+            "center": [
+                1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "description": "This scene involves creating a cozy seating arrangement using rectangular structures to define the area around a set of chairs. The task requires interpreting spatial relationships and geometric properties to ensure the design achieves a welcoming atmosphere while adhering to spatial constraints.",
+    "prompt": "Use rectangular structures to create a defined seating arrangement that feels both inviting and organized.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rect_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -1.65,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        -1.65,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -1.35,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -1.35,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        -1.65,
+                        -0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "rect_2": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -0.25,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.65,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.65,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.35,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "rect_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -1.65,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        -1.65,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -1.35,
+                        0.25,
+                        0.0
+                    ],
+                    [
+                        -1.35,
+                        -0.25,
+                        0.0
+                    ],
+                    [
+                        -1.65,
+                        -0.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "rect_2": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -0.25,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.65,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.65,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        1.35,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        1.35,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ],
+        "rect_3": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        1.35,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        1.35,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        1.65,
+                        -0.75,
+                        0.0
+                    ],
+                    [
+                        1.65,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        1.35,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

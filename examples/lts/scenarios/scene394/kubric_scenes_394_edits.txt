@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification was made to the linear structure to ensure it sits directly between the benches?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the linear structure to directly sit between the benches, centering it at (0.0, 0.0, 0.0).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the center to (0.5, 0.5, 0.0) for greater alignment with the bench placement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 1.0, 0.0),
+            length = 1.2,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the linear structure to the side at (-0.5, 1.0, 0.0) to create a pathway.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the linear structure downward to enhance space aesthetics.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the linear structure to the location of bench_2 at (1.0, 0.5, 0.0).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification centers the linear structure at (0.0, 0.0, 0.0) as instructed.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the need to center the structure between the benches.'
+    ),
+    1 : EditMCQA(
+      question = 'How was the length of the linear structure altered to better span the space between the benches?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce the length of the structure to 1.5 meters for better alignment.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 2.0 meters to span the space more fully between the seating angles.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the length to 1.8 meters to cover more area with moderate height.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease the length to 1.0 meter for shorter span.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length to 2.5 meters for maximum reach.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Increasing the length to 2.0 meters fulfills the prompt's requirement for a full span.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies the need for a 2.0 meter span for the linear structure.'
+    )
+  ]
+)

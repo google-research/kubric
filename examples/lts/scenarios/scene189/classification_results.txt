@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the creation of a serpentine path that weaves between tables and a rock, highlighting the importance of spatial reasoning in placing and navigating around these objects.'
+    )
+  ],
+  confidence = 4
+)

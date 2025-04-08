@@ -1,0 +1,73 @@
+Scene(
+  objects = {
+    trashcan_1 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    ),
+    trashcan_2 = SceneObject(
+      extent = (0.530486, 0.53049698, 0.673023),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Encompass each trashcan with a circular feature that gracefully integrates with the environment, providing balance and accessibility.',
+  description = 'This scene is designed to create a visually appealing and functional garden space using circular structures. The focus is on integrating these structures around trashcans, ensuring the layout emphasizes their aesthetic presence while maintaining accessibility and yet not causing collision between objects and structures. Circular structures are chosen, adhering to preferred profiles, creating a harmonious balance within defined spatial constraints.',
+  initial_design = Design(
+    structures = {
+      oversized_circular_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.6,
+        height = 0.4
+      ),
+      oversized_circular_2 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.6,
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (-1.0, 0.0, 0.0),
+        radius = 0.6,
+        height = 0.4
+      ),
+      circular_2 = Circular(
+        center = (1.0, 0.0, 0.0),
+        radius = 0.6,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'oversized_circular_1',
+        NewDesignStructure = Circular(
+          center = (-1.0, 0.0, 0.0),
+          radius = 0.6,
+          height = 0.4
+        ),
+        edit_description = 'Adjust the circular structure to be centered precisely at (-1.0, 0, 0) and reduce the radius to ensure no collision with trashcan.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Requires understanding spatial constraints and adjusting placement and dimensions.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'oversized_circular_2',
+        NewDesignStructure = Circular(
+          center = (1.0, 0.0, 0.0),
+          radius = 0.6,
+          height = 0.4
+        ),
+        edit_description = 'Adjust the circular structure to be centered precisely at (1.0, 0, 0) and reduce the radius to ensure no collision with trashcan.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Requires understanding spatial constraints and adjusting placement and dimensions.'
+      )
+    ]
+  )
+)

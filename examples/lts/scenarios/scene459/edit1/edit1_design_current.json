@@ -1,0 +1,83 @@
+{
+    "prompt": "Build a gathering space with a structured rectangular arrangement to accommodate meals and gatherings around my central table.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.288324,
+                0.288324,
+                0.294558
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "bench_1": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                -1.0,
+                -0.5,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.22015424,
+                0.66046348,
+                0.28620075
+            ],
+            "center": [
+                1.0,
+                -0.5,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.6,
+                    -1.75,
+                    0.0
+                ],
+                [
+                    -0.6,
+                    0.75,
+                    0.0
+                ],
+                [
+                    0.6,
+                    0.75,
+                    0.0
+                ],
+                [
+                    0.6,
+                    -1.75,
+                    0.0
+                ],
+                [
+                    -0.6,
+                    -1.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

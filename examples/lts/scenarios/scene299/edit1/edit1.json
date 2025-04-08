@@ -1,0 +1,112 @@
+{
+    "observation": {
+        "bench_1": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                -1.0,
+                0.0,
+                0.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "bench"
+        },
+        "bench_2": {
+            "extent": [
+                0.44030848,
+                1.32092696,
+                0.5724015
+            ],
+            "center": [
+                1.0,
+                0.0,
+                0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "bench"
+        }
+    },
+    "description": "This scene involves setting up a rectangular platform around benches to create a cohesive seating arrangement within a defined area. The task requires spatial reasoning to position the structure while ensuring it is functional and complements the garden setting.",
+    "prompt": "Construct a defined rectangular platform that keeps the seating arrangement orderly while inviting relaxation in the garden.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "structure_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "structure_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.25,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        -1.25,
+                        0.0
+                    ],
+                    [
+                        -0.5,
+                        -1.25,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

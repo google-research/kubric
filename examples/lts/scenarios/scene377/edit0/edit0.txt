@@ -1,0 +1,75 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.75, -0.75, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.75, -0.75, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Envelop the trees with a structured semi-circular garden enclosure that adds a touch of harmony and invites exploration.',
+  description = 'This scene involves constructing a SemiRing structure to create a harmonious garden enclosure around a collection of trees. The goal is to enhance the visual appeal and provide a defined space while maintaining openness and accessibility.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = SemiRing(
+        center = (0.0, -0.75, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiRing_1 = SemiRing(
+        center = (0.0, -0.75, 0.0),
+        outer_radius = 1.5,
+        inner_radius = 1.0,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = SemiRing(
+          center = (0.0, -0.75, 0.0),
+          outer_radius = 1.5,
+          inner_radius = 1.0,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Change the Circular structure to a SemiRing to create a partial enclosure around the trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The description and prompt explicitly mention a semi-circular or partial enclosure, indicating a change from the initial circular structure.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            SemiRing_2 = SemiRing(
+              center = (0.0, -0.75, 0.0),
+              outer_radius = 1.5,
+              inner_radius = 1.0,
+              orientation = 'concave',
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a new SemiRing structure to complement and enhance the existing arrangement.',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adding an additional SemiRing structure could be inferred to create a more dynamic visual appearance.'
+      )
+    ]
+  )
+)

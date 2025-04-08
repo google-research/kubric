@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to design a wavy walkway that passes through the trees. The task involves arranging paths in a certain wave pattern, requiring an understanding of geometric transformations such as amplitude and wavelength.'
+    ),
+    1 : Numeric(
+      explanation = 'The prompt includes numerical aspects, as it involves maintaining consistent spacing and symmetry between the two curvy paths. Geometric transformations require precise numerical calculations to ensure aesthetics and functionality.'
+    )
+  ],
+  confidence = 4
+)

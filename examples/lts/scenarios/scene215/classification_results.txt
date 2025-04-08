@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a garden path that winds around a birdhouse, which requires understanding spatial relationships and arranging the path in relation to the birdhouse. This involves placing and orienting the elements in the scene based on their geometric properties and spatial interactions.'
+    )
+  ],
+  confidence = 5
+)

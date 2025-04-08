@@ -1,0 +1,96 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                -0.75,
+                0.75,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.3,
+                0.3,
+                4.0
+            ],
+            "center": [
+                0.75,
+                -0.75,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "birdhouse_1": {
+            "extent": [
+                0.2332765,
+                0.3219685,
+                0.3084655
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "birdhouse"
+        }
+    },
+    "description": "This scene involves constructing a linear structure to create a clear, aesthetic boundary that divides a cozy garden space comprised of trees and a birdhouse. The linear design aims to provide definition while keeping an open, inviting feel to the garden.",
+    "prompt": "Design a concealed yet open boundary to distinguish the garden section without interrupting the harmony between natural elements.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "design_12": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "design_12": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -1.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

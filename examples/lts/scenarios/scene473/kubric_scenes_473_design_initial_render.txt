@@ -1,0 +1,68 @@
+{
+    "prompt": "Design a QuarterWedge to enclose my vibrant garden elements dynamically, ensuring openness and organization.",
+    "observation": {
+        "trashcan_0": {
+            "extent": [
+                0.26524849,
+                -0.3365115,
+                -0.265243
+            ],
+            "center": [
+                -0.5,
+                -0.16825575,
+                0.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "tree_1": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                0.0,
+                -1.0,
+                -0.75
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                -2.0,
+                -0.15
+            ],
+            "center": [
+                0.75,
+                -1.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -0.5,
+                    -0.0,
+                    3.061616997868383e-17
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -3.061616997868383e-17
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires creating a pathway that connects different objects (bench and trees) while ensuring a smooth and natural arrangement, which involves spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

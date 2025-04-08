@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging chairs in a way that creates a sense of closure and openness simultaneously, which requires understanding complex spatial relationships and geometric arrangements.'
+    )
+  ],
+  confidence = 5
+)

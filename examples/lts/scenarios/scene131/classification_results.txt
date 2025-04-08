@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the creation of a distinctive shape between two benches, which involves spatial reasoning to arrange and position the structure appropriately. The task specifically mentions the use of geometric properties and placement, highlighting the spatial nature of the task.'
+    )
+  ],
+  confidence = 4
+)

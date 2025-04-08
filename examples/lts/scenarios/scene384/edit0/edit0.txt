@@ -1,0 +1,70 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.24758101, 0.20776901, 0.384435),
+      center = (0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Use rectangular structures to partition seating areas around each chair, ensuring openness and accessibility while defining the boundaries.',
+  description = 'This scene involves arranging rectangular boundaries to create defined seating areas around multiple chairs, providing a balanced layout while maintaining open access. The task requires understanding spatial relationships and applying rectangular structures without causing collisions with the chairs.',
+  initial_design = Design(
+    structures = {}
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_structure_1 = Rectangular(
+        center = (-0.5, -0.5, 0.0),
+        length = 0.8,
+        width = 0.6,
+        height = 0.4
+      ),
+      rectangular_structure_2 = Rectangular(
+        center = (0.5, -0.5, 0.0),
+        length = 0.8,
+        width = 0.6,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : DeleteStructureEditWithDifficulty(
+        design_id = 'broad_rectangular_structure',
+        edit_description = 'Remove the broad rectangular structure to replace it with individual structures around each chair.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The prompt explicitly asks to split the broad structure into two distinct structures around the chairs.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rectangular_structure_1 = Rectangular(
+              center = (-0.5, -0.5, 0.0),
+              length = 0.8,
+              width = 0.6,
+              height = 0.4
+            ),
+            rectangular_structure_2 = Rectangular(
+              center = (0.5, -0.5, 0.0),
+              length = 0.8,
+              width = 0.6,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add distinct rectangular structures around each chair to ensure seating areas are defined without blocking access.',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The dimensions and placement need to be determined to align with the initial description of open access and seating area definition.'
+      )
+    ]
+  )
+)

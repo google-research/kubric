@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a boundary that runs parallel to existing features, which requires spatial reasoning to ensure proper alignment and integration into the garden layout.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,146 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change is made in the scene to transition the linear structure into a more fluid and natural serpentine design?',
+      answers = {
+        a = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.4, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the linear profile to a serpentine design for a more fluid and natural flow.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -0.4, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform to a curvy path that echoes a wavy pattern between endpoints.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, -0.4, 0.0),
+            radius = 0.7,
+            gap_degrees = 11.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert the linear path into a quarter wedge to guide the flow.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, -0.4, 0.0),
+            radius = 0.7,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a tri-wedge for a geometrical transformation and angled flow.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.4, 0.0),
+            radius = 0.7,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adopt semi-circular form for an elegant convex shape in the scene.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = 'Option a provides a direct match to the new design structure specified in the scene, transforming the linear profile to a serpentine design as described.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Transforming a linear element to a serpentine pattern involves understanding nuances of curvature and spatial interplay to maintain aesthetic flow.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit ensures precise adjustment of the serpentine path to navigate smoothly between the benches and pot?',
+      answers = {
+        a = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (0.0, -0.4, 0.2),
+                radius = 0.7,
+                left_arc_orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Adjust the serpentine structure to avoid collisions with benches and pot.',
+          target_parameter = 'serpentine_path_positioning'
+        ),
+        b = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (-0.2, -0.2, 0.0),
+                radius = 0.8,
+                left_arc_orientation = 'concave',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Re-position serpentine arc to facilitate a wider path clearance.',
+          target_parameter = 'serpentine_path_positioning'
+        ),
+        c = AddStructureEdit(
+          design = Design(
+            structures = {
+              arc_path = QuarterWedge(
+                center = (0.0, -0.4, 0.0),
+                radius = 0.7,
+                gap_degrees = 9.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Insert a quarter wedge arc to reorient the flow path subtly.',
+          target_parameter = 'serpentine_path_positioning'
+        ),
+        d = AddStructureEdit(
+          design = Design(
+            structures = {
+              wave_path = CurvyPath(
+                far_curve_leftmost_point = (0.1, -0.4, 0.0),
+                close_curve_leftmost_point = (-0.1, 0.5, 0.0),
+                amplitude = 0.6,
+                wavelength = 1.1,
+                phase = 0.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Introduce a curvy path model for more rhythmic flow adjustment.',
+          target_parameter = 'serpentine_path_positioning'
+        ),
+        e = AddStructureEdit(
+          design = Design(
+            structures = {
+              ledge_guide = TriWedge(
+                center = (-0.1, -0.5, 0.0),
+                radius = 0.6,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Place a tri-wedge to diorama to control pathway curvature effectively.',
+          target_parameter = 'serpentine_path_positioning'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = 'Option a precisely aligns with the scene objective of adjusting the left arc center of the serpentine path to guide it smoothly between objects.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Requires precise adjustments based on spatial layout to ensure path navigates elegantly without collision.'
+    )
+  ]
+)

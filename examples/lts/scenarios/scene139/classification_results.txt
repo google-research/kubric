@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves arranging circular structures around the birdhouse with a focus on spatial relationships such as spacing, orientation, and geometric properties.'
+    ),
+    1 : Semantic(
+      explanation = 'The scene also requires an understanding of the visual dynamics and aesthetic balance, which are semantically rich and potentially abstract.'
+    )
+  ],
+  confidence = 4
+)

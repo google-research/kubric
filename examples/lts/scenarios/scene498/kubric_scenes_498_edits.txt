@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be made to the existing Rectangular structure to better encompass the seating arrangement as per the design goal?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.3,
+            right_width = 0.5,
+            right_length = 1.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Change the design from Rectangular to LShape to better encompass the seating arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the design from Rectangular to Circular to encompass the seating arrangement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the design from Rectangular to SemiCircular to encompass the seating arrangement.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.4
+          ),
+          edit_description = 'Increase the length and height of the Rectangular structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.75, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the design from Rectangular to Linear to encompass the seating arrangement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt asks for an L-shaped structure, and option A provides exactly that modification.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly asks for an L-shaped structure for organizing the seating area, making it easy to deduce.'
+    )
+  ]
+)

@@ -1,0 +1,83 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.3, 0.3, 4.0),
+      center = (-1.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    trashcan_1 = SceneObject(
+      extent = (0.53, 0.53, 0.67),
+      center = (1.0, -1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'trashcan'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Enhance the garden’s layout by incorporating two quarter-wedge structures around the tree and the trashcan, creating structured aesthetics and functional pathways.',
+  description = 'This scene involves arranging two `QuarterWedge` structures to emphasize a garden area around carefully placed trees and trashcans. The goal is to create an interconnected space that provides aesthetic appeal with functional boundaries, using the stated design profile while adhering to spatial constraints.',
+  initial_design = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (-1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      quarter_wedge_2 = QuarterWedge(
+        center = (1.0, -1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      quarter_wedge_1 = QuarterWedge(
+        center = (-1.0, 1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      quarter_wedge_2 = QuarterWedge(
+        center = (1.0, -1.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'quarter_wedge_1',
+        NewDesignStructure = QuarterWedge(
+          center = (-1.0, 1.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust position to surround the tree, and modify the radius and height for balance and spacing.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Medium difficulty due to required adjustment in multiple parameters and spatial comprehension.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            quarter_wedge_2 = QuarterWedge(
+              center = (1.0, -1.0, 0.0),
+              radius = 1.0,
+              gap_degrees = 70.0,
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Add a quarter-wedge structure centered near the trashcan for symmetry and functional pathways.',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The addition requires understanding of spatial balance and conforming to the design goal.'
+      )
+    ]
+  )
+)

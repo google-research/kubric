@@ -1,0 +1,136 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification correctly adjusts the semi-ring’s center to symmetrically align around the trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the semi-ring’s center to (0, 0, 0) to align symmetrically around the trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The provided prompt directly suggests aligning the semi-ring symmetrically around the trees which logically means centering at (0, 0, 0).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.2, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the semi-ring’s center to (0.2, 0, 0) for an alternative alignment around the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (-0.2, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the semi-ring’s center to (-0.2, 0, 0) to offset alignment around the trees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.1, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the semi-ring’s center to (0, 0.1, 0) for a slight vertical alignment offset.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.1, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the semi-ring’s center to (0, -0.1, 0) for a downward vertical alignment offset.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification precisely centers the semi-ring at the desired coordinates.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is direct from the prompt, specifying the need for symmetric alignment.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the semi-ring be adjusted to increase both outer and inner radii for enhanced garden embrace?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.2 meters for enhanced embrace and coverage, and inner radius to 0.9 meters to ensure sufficient space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the goal is to enhance the embrace and coverage, determining exact measurements requires understanding the design constraints and objectives.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.1,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.1 meters and inner radius to 0.8 meters for moderate coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.3 meters and inner radius to 1.0 meters for maximum embrace.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the outer radius to 1.2 meters while keeping the inner radius unchanged.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Keep outer radius unchanged at 1.0 meters and increase inner radius for a tighter embrace.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit appropriately adjusts both radii according to the specified design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Exact radius values are deduced from understanding both the sensor design goal and spatial logic.'
+    )
+  ]
+)

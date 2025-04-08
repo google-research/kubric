@@ -1,0 +1,74 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How would you modify the path design to create a more dynamic presentation between the two trashcans?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.25, 0.0, 0.0),
+            close_curve_leftmost_point = (1.25, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path design from Linear to CurvyPath for a more dynamic presentation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The transition from a linear design to a curvy path involves understanding the spatial layout and artistic flow between specified points.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change the path design from Linear to Serpentine for a more wavy structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Choosing a serpentine structure requires comprehending the arch dynamics and the overall directional flow.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path to a QuarterWedge layout.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adapting to a wedge shape requires grasping angular geometry and layout spacing.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Convert the linear path to a Circular structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Shifting to a circular design emphasizes understanding radial symmetry and integration.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Revise the linear path into a SemiCircular form.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Transitioning to a semicircular design needs insight into half-circle arrangements and placements.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The CurvyPath design matches the edit description and the design goal, providing an enhanced visual flow.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires interpreting the spatial and aesthetic enhancements suggested in the design modifications.'
+    )
+  ]
+)

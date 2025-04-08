@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves positioning an L-shaped structure to create a partition around the trashcan. This requires spatial reasoning to determine how to place the structure to create a visually interesting and functional boundary.'
+    )
+  ],
+  confidence = 5
+)

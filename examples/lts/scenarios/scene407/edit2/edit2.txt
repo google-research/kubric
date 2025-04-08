@@ -1,0 +1,79 @@
+Scene(
+  objects = {
+    tree_1 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (-0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    ),
+    tree_2 = SceneObject(
+      extent = (0.15, 0.15, 2.0),
+      center = (0.5, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'tree'
+    )
+  },
+  num_edits = 3,
+  prompt = 'Form a semi-circular boundary that gracefully accentuates the trees, providing a balanced yet open environment for relaxation.',
+  description = "This scene involves arranging multiple trees to create a tranquil environment using a semicircular design to form a harmonious and defined garden nook. The semicircular structure will serve as both a boundary and a feature, enhancing the garden's natural beauty without enclosing it completely.",
+  initial_design = Design(
+    structures = {
+      semicircular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semicircular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        orientation = 'convex',
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 0.75,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Adjust the center to (0, 0, 0) for a balanced positioning relative to both trees.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The change of center is directly mentioned in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Increase the radius to 1 meter to encompass both trees in a balanced manner while avoiding any overlap, ensuring a harmonious garden feature.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the radius is moderately implied as it must encompass both trees effectively.'
+      ),
+      2 : ModifyStructureEditWithDifficulty(
+        design_id = 'semicircular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          orientation = 'convex',
+          height = 0.4
+        ),
+        edit_description = "Change the orientation from 'concave' to 'convex' and increase the height to 0.4 meters to ensure the open side is orientated away from the trees for enhanced flow and accessibility.",
+        difficult_to_deduce_from_prompt = 'hard',
+        explanation_of_difficulty = "Changing orientation is a conceptual adjustment, requiring interpretation of the terms 'open' and 'flow'."
+      )
+    ]
+  )
+)

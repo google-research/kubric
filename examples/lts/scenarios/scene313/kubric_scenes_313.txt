@@ -1,0 +1,66 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.5, 0.0, 0.125),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.5, 0.0, 0.125),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = "Create a vibrant setting using a dynamic TriWedge that accents the natural rock elements and invites engagement in the garden's layout.",
+  description = 'This scene involves constructing a TriWedge structure to create an inviting garden feature around two centrally positioned rocks. The TriWedge is oriented to enhance the spatial arrangement, blending aesthetic appeal with functional design. The scene respects the spatial constraints, ensuring all elements coexist without collision.',
+  initial_design = Design(
+    structures = {
+      circular_1 = Circular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      tri_wedge_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'circular_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 95.0,
+          height = 0.3
+        ),
+        edit_description = 'Change the design from a Circular to a TriWedge to introduce textual variance and sharper definition.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Changing from Circular to TriWedge is straightforward since the prompt explicitly asks to use the TriWedge for sharper definition.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'tri_wedge_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Adjust the radius to 1.5 meters and the height to 0.5 meters to ensure the TriWedge gracefully surrounds the rocks while leaving room for exploration.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The adjustment in radius and height is directly derived from the design goal which specifies these parameters.'
+      )
+    ]
+  )
+)

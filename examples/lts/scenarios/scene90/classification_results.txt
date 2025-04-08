@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The task involves determining the path of a winding pathway that does not disturb trees, requiring spatial reasoning to understand the placement and flow of the path relative to the trees.'
+    )
+  ],
+  confidence = 5
+)

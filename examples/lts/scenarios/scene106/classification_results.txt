@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves spatial reasoning as it requires positioning a serpentine barrier between two trees in a way that is visually playful and doesn't interfere with the trees. This involves understanding and applying spatial relationships to achieve the desired effect."
+    )
+  ],
+  confidence = 5
+)

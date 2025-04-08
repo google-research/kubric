@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (0.75, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Design a semi-circular formation around these rock elements, keeping it inviting while enhancing their prominence.',
+  description = 'This scene involves creating a semi-circular design around a pair ofrocks to emphasize their presence while maintaining an open area for interaction. The semi-circular structure should balance aesthetic appeal with spatial functionality.',
+  initial_design = Design(
+    structures = {
+      SemiCircular_1 = SemiCircular(
+        center = (0.5, 0.0, 0.0),
+        radius = 2.0,
+        orientation = 'convex',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      SemiCircular_1 = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiCircular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 2.0,
+          orientation = 'concave',
+          height = 0.3
+        ),
+        edit_description = 'Change orientation to concave and center the semi-circle at the origin for symmetric enclosure.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change of orientation requires understanding the spatial relation to the rocks and the concept of symmetry.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'SemiCircular_1',
+        NewDesignStructure = SemiCircular(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Adjust radius to fit better in the given space and change height for visual impact.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Adjusting the radius to the described value requires spatial understanding of fitting within the arena, and modifying height affects coverage perception.'
+      )
+    ]
+  )
+)

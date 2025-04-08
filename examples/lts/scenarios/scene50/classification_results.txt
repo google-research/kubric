@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to develop a protective loop around the trees, ensuring the arrangement forms a smooth curve that integrates with the garden feature.'
+    ),
+    1 : Numeric(
+      explanation = 'The design involves geometric properties such as radius and height to create the desired structure around the trees, indicating a need for numerical precision.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene involves spatial reasoning to determine the arrangement of a curved protective barrier around benches, focusing on positioning and geometric properties like radius and arc length.'
+    ),
+    1 : Semantic(
+      explanation = "There is a need to interpret the vague prompt, such as what constitutes a 'cozy nook' and the specific placement of curves."
+    )
+  ],
+  confidence = 3
+)

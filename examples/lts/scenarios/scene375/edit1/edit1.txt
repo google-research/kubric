@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    birdhouse_1 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (-0.9, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    ),
+    birdhouse_2 = SceneObject(
+      extent = (0.2332765, 0.3219685, 0.3084655),
+      center = (0.9, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'birdhouse'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Position a linear boundary to define the space between the birdhouses, offering a clear but open visual divider.',
+  description = 'In this scene, the focus is on placing a Linear structure to create a subtle boundary alongside two birdhouses, adding a touch of practicality and design to an otherwise open area. The Linear design makes use of space efficiently, enhancing the natural layout without overwhelming the existing elements.',
+  initial_design = Design(
+    structures = {
+      linear = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.15,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      linear = Linear(
+        center = (0.0, -0.5, 0.0),
+        length = 2.0,
+        height = 0.15,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 1.5,
+          height = 0.1,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Adjust the center of the Linear structure to line up between the birdhouses.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Clear: It indicates the adjustment of the center needed.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear',
+        NewDesignStructure = Linear(
+          center = (0.0, -0.5, 0.0),
+          length = 2.0,
+          height = 0.15,
+          orientation = 'left-right'
+        ),
+        edit_description = 'Extend the length to provide a sufficient boundary without encroaching on the birdhouses.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Moderately clear: Increasing length requires spatial consideration.'
+      )
+    ]
+  )
+)

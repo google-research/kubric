@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to arrange the seating area using a quarter-wedge structure while maintaining a clear view and access around the trashcan.'
+    )
+  ],
+  confidence = 4
+)

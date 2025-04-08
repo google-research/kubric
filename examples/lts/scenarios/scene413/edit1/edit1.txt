@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    table_1 = SceneObject(
+      extent = (0.288324, 0.288324, 0.294558),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create a visually engaging focal point that ties together the serene elements of the pot and table, ensuring a dynamic yet unobtrusive design.',
+  description = "This scene involves constructing a TriWedge structure to accentuate the appearance of garden objects, including a pot and table. The TriWedge should be positioned to enhance the visual dynamics without intruding upon the individual objects' spaces.",
+  initial_design = Design(
+    structures = {
+      design_goal_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.7
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      design_goal_1 = TriWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        gap_degrees = 95.0,
+        height = 0.7
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_structure_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 95.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the design type from Circular to TriWedge to introduce angular dynamics and complement the objects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The change to a TriWedge structure is suggested in the prompt, but requires understanding the goal of enhancing angular dynamics.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'design_goal_1',
+        NewDesignStructure = TriWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.5,
+          gap_degrees = 95.0,
+          height = 0.7
+        ),
+        edit_description = 'Increase the radius to 1.5 meters for enhanced visual impact while maintaining a balance between the objects.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Increasing the radius is aligned with enhancing visual impact, which requires interpretation of the design goal.'
+      )
+    ]
+  )
+)

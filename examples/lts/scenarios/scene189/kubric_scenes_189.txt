@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (1.0, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (0.0, 1.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Construct a serpentine path that meanders between the tables and the rock, adding flow and interest to the garden layout.',
+  description = "This scene involves creating an elegant serpentine path that flows between two tables and a rock, enhancing the garden's layout and providing visual interest. The challenge lies in maintaining smooth curves that weave through the objects, ensuring that the path adheres to spatial constraints and avoids collisions.",
+  initial_design = Design(
+    structures = {
+      linear_path = Linear(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        height = 0.2,
+        orientation = 'left-right'
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      serpentine_path = Serpentine(
+        left_arc_center = (0.0, 0.0, 0.0),
+        radius = 0.7,
+        left_arc_orientation = 'convex',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_path',
+        NewDesignStructure = Serpentine(
+          left_arc_center = (0.0, 0.0, 0.0),
+          radius = 0.7,
+          left_arc_orientation = 'convex',
+          height = 0.5
+        ),
+        edit_description = 'Change the path profile from linear to serpentine to introduce dynamic curves and visual interest.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Understanding the transition from a linear to a serpentine path requires knowledge of path dynamics and spatial arrangement.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            serpentine_path = Serpentine(
+              left_arc_center = (0.0, 0.0, 0.0),
+              radius = 0.7,
+              left_arc_orientation = 'convex',
+              height = 0.5
+            )
+          }
+        ),
+        edit_description = 'Increase the radius to 0.7 meters and the height to 0.5 meters for a more pronounced and graceful curve.',
+        target_parameter = 'serpentine_path',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The scene description explicitly suggests these parameter adjustments to enhance the design.'
+      )
+    ]
+  )
+)

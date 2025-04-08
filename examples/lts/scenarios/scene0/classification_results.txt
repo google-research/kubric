@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging a rectangular structure to create a semi-enclosed seating area, which involves spatial reasoning to achieve the correct alignment and dimensions without blocking views.'
+    )
+  ],
+  confidence = 5
+)

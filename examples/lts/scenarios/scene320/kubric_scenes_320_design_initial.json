@@ -1,0 +1,54 @@
+{
+    "prompt": "Design a serpentine path that elegantly winds its way between the towering trees, creating a natural flow while maintaining an inviting walkway.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -0.75,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "Tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.75,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "Tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.3,
+            "keypoints": [
+                [
+                    -4.592425496802574e-17,
+                    -0.75,
+                    0.0
+                ],
+                [
+                    4.592425496802574e-17,
+                    0.75,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

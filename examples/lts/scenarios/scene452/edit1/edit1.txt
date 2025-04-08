@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    bench_1 = SceneObject(
+      extent = (0.44, 1.32, 0.572),
+      center = (0.5, 0.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'bench'
+    ),
+    rock_1 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (-0.5, 0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.5, 0.5, 0.5),
+      center = (-0.5, -0.5, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Craft a semi-ring that accentuates the bench while offering a gentle embrace around the rocks, inviting visitors to relax and enjoy the space.',
+  description = 'This scene involves constructing a semi-ring structure to provide a protective yet accessible feature around a garden bench, emphasizing the natural beauty of adjacent rocks. The semi-ring structure creates a welcoming, framed environment for the seating, integrating with the rocks harmoniously.',
+  initial_design = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.5, 0.0, 0.0),
+        outer_radius = 1.1,
+        inner_radius = 0.6,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      semiring_1 = SemiRing(
+        center = (0.5, 0.0, 0.0),
+        outer_radius = 1.25,
+        inner_radius = 0.75,
+        orientation = 'concave',
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'linear_boundary_1',
+        NewDesignStructure = SemiRing(
+          center = (0.5, 0.0, 0.0),
+          outer_radius = 1.25,
+          inner_radius = 0.75,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = 'Transition from a simple Linear boundary to a SemiRing for a stylistically advanced boundary.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Understanding the transition from a linear to a more elaborate semi-ring structure involves interpreting the stylistic goals described in the prompt.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'semiring_1',
+        NewDesignStructure = SemiRing(
+          center = (0.5, 0.0, 0.0),
+          outer_radius = 1.1,
+          inner_radius = 0.6,
+          orientation = 'concave',
+          height = 0.5
+        ),
+        edit_description = "Adjust radius settings to ensure the SemiRing hugs the bench closely, enhancing the user's experience within the defined boundary without isolating the rocks.",
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Adjusting radius settings based on proximity and interaction with other objects is straightforward from the prompt instructions.'
+      )
+    ]
+  )
+)

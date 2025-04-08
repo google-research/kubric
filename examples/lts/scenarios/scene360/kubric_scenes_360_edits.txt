@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Given the prompt is to create a rectangular structure that organizes the garden into a cozy seating area, which edit was performed to Increase the length of the seating area to provide adequate space?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length to 2.0 meters for adequate space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly mentions the desired length of the seating area.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.0 meters to ensure comfort.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt suggests wider seating areas, but specific values require inference.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.7,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters for better aesthetics.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests proportionality improvement.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase the length to 1.8 meters for minor space enhancement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests a rectangular design but not specific lengths.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 2.0,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center x-coordinate to 0.5 meters for spatial adjustment.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt suggests arrangement but no specific repositioning.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt explicitly mentions increasing the length to 2.0 meters, aligning with the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly mentions the desired length of the seating area.'
+    ),
+    1 : EditMCQA(
+      question = 'After accommodating adequate space, which edit ensures proportionality by adjusting width and height?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the width to 1.0 meter and height to 0.5 meters to ensure proportionality.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt suggests proportionality and height increase, but specific values require some inference.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to 1.0 meter to balance the length.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing width for balance is a direct inference.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the width to 0.8 meters and height to 0.4 meters for optimal aesthetics.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt follows aesthetic enhancement, but estimates need deduction.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.2,
+            height = 0.6
+          ),
+          edit_description = 'Enhance width to 1.2 meters and height to 0.6 for spacious design.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The design enhancement is effective but requires interpretation.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Adjust width to 0.9 meters for better seating arrangement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining ideal width for seating suggests understanding of design goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer ensures the width and height align with the goal of proportionality, as inferred from the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests proportionality and height increase, but specific values require some inference.'
+    )
+  ]
+)

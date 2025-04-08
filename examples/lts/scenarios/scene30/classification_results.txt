@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create a pathway that links seating arrangements, involving the placement and arrangement of objects.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt contains vague elements, requiring interpretation to resolve ambiguities regarding the structure's placement and dimensions."
+    )
+  ],
+  confidence = 4
+)

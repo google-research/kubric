@@ -1,0 +1,79 @@
+{
+    "prompt": "Develop a structured boundary using an L-shape around my trashcans, making a harmonious yet practical layout.",
+    "observation": {
+        "trashcan_1": {
+            "extent": [
+                0.53049698,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                -1.0,
+                -0.3365115,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        },
+        "trashcan_2": {
+            "extent": [
+                0.53049698,
+                -0.673023,
+                -0.530486
+            ],
+            "center": [
+                1.0,
+                -0.3365115,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.6,
+            "keypoints": [
+                [
+                    -0.2,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    -0.2,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.6000000000000001,
+                    -0.0,
+                    -1.25
+                ],
+                [
+                    0.6000000000000001,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.2,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    0.2,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    -0.2,
+                    -0.0,
+                    0.25
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

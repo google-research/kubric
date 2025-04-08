@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a wavy pattern around the birdhouse, which requires spatial reasoning to ensure the pattern fits within spatial constraints and aligns with the surroundings.'
+    ),
+    1 : Numeric(
+      explanation = 'The task involves understanding geometric properties like radius, orientation, and spacing to achieve a visually protective and consistent design.'
+    )
+  ],
+  confidence = 4
+)

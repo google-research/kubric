@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the creation of an L-shaped structure that complements the objects, which involves spatial reasoning to arrange the boundary and objects in a specific geometric layout.'
+    )
+  ],
+  confidence = 4
+)

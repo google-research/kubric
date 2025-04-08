@@ -1,0 +1,117 @@
+{
+    "prompt": "Use rectangular structures to create a defined seating arrangement that feels both inviting and organized.",
+    "observation": {
+        "chair_1": {
+            "extent": [
+                0.41553802,
+                -0.76887,
+                -0.49516202
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "chair"
+        },
+        "chair_2": {
+            "extent": [
+                0.41553802,
+                -0.76887,
+                -0.49516202
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": -90.0,
+            "semantic_label": "chair"
+        },
+        "chair_3": {
+            "extent": [
+                0.41553802,
+                -0.76887,
+                -0.49516202
+            ],
+            "center": [
+                -1.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 90.0,
+            "semantic_label": "chair"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.4,
+            "keypoints": [
+                [
+                    -0.25,
+                    -0.0,
+                    1.65
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    1.65
+                ],
+                [
+                    0.25,
+                    -0.0,
+                    1.35
+                ],
+                [
+                    -0.25,
+                    -0.0,
+                    1.35
+                ],
+                [
+                    -0.25,
+                    -0.0,
+                    1.65
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.4,
+            "keypoints": [
+                [
+                    1.35,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    1.65,
+                    -0.0,
+                    0.25
+                ],
+                [
+                    1.65,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    1.35,
+                    -0.0,
+                    -0.25
+                ],
+                [
+                    1.35,
+                    -0.0,
+                    0.25
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

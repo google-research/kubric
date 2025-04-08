@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires organizing objects in a semi-circular structure around the gathering area, which involves spatial reasoning to achieve the desired arrangement.'
+    )
+  ],
+  confidence = 4
+)

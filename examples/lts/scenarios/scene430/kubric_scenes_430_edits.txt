@@ -1,0 +1,166 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What edit should be made to replace the SemiCircular form with structures that emphasize the rocks in a creative landscape?',
+      answers = {
+        a = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_semi',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 96.0,
+            height = 0.4
+          ),
+          edit_description = 'Replace the SemiCircular form with separate TriWedge structures to present sharper lines and smoother integration of the rocks within a creative and artistic landscape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edit involves changing the form of the structure to a completely different type, which requires understanding the visualization intent behind the TriWedge design.'
+        ),
+        b = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_semi',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Replace the SemiCircular form with a QuarterWedge for sharper lines around rock 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "This involves choosing a QuarterWedge and requires strategic architectural understanding to enhance the rock's presentation."
+        ),
+        c = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_semi',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Switch the SemiCircular form with a Serpentine structure to subtly highlight the rocks.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This option requires grasping the nuanced elevation that a Serpentine form could provide within the artistic garden setting.'
+        ),
+        d = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_semi',
+          NewDesignStructure = SemiRing(
+            center = (-1.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Replace the SemiCircular form with a SemiRing structure for a layered approach.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This edit calls for understanding the transition to using a more dynamic yet traditional structure.'
+        ),
+        e = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_semi',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (-1.1, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Substitute the SemiCircular form with a CurvyPath for a dynamic pathway-like aesthetic.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Selecting a CurvyPath requires conceptualizing a more functional yet aesthetically creative modification.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = "The use of TriWedge structures directly aligns with the design's dynamic artistic emphasis while maintaining sharp and smooth integration of the rocks.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The concept of conversion to a different structure type and the visual implications can complicate this decision for designers.'
+    ),
+    1 : EditMCQA(
+      question = 'What should be added to the scene to maintain symmetry and focus in the garden layout?',
+      answers = {
+        a = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              tri_wedge_2 = TriWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 96.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a new TriWedge 2 around rock 2 to achieve symmetry and focus in the garden layout.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The symmetry goal makes it straightforward to deduce the need for a similar structure on the other side.'
+        ),
+        b = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = "Introduce a Serpentine structure around rock 2 for a wavy contrast to rock 1's setting.",
+          target_parameter = 'left_arc_center',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The addition suggests a visual balance that could visually anchor design cohesion easily.'
+        ),
+        c = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarter_wedge_2 = QuarterWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 90.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Place a QuarterWedge around rock 2 for maintaining design symmetry.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Echoes the requirement of symmetry beyond the prompt and aligns effortlessly in design focus.'
+        ),
+        d = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Incorporate a Circular structure to envelop rock 2 for universal symmetrical spilling.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Given its general geometric design, this addition remains naturally aligned with symmetry needs.'
+        ),
+        e = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              curvy_path_2 = CurvyPath(
+                far_curve_leftmost_point = (1.0, 0.0, 0.0),
+                close_curve_leftmost_point = (1.05, 0.0, 0.0),
+                amplitude = 0.15,
+                wavelength = 0.55,
+                phase = 0.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = "Introduce a CurvyPath wrapping rock 2, mirroring the artistic wave design's focus.",
+          target_parameter = 'far_curve_leftmost_point',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The solution clearly suggests a coherent path symmetry which is a rudimentary deduction.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = 'A second TriWedge surrounding rock 2 echoes the symmetry aim and maintains artistic emphasis.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The simple addition of the second TriWedge fulfills the known goal of compositional balance without additional redesign challenges.'
+    )
+  ]
+)

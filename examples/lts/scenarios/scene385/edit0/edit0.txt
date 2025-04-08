@@ -1,0 +1,99 @@
+Scene(
+  objects = {
+    chair_1 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'chair'
+    ),
+    chair_2 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (0.0, 1.0, 0.0),
+      theta = -90.0,
+      semantic_label = 'chair'
+    ),
+    chair_3 = SceneObject(
+      extent = (0.49516202, 0.41553802, 0.76887),
+      center = (1.0, -1.0, 0.0),
+      theta = 90.0,
+      semantic_label = 'chair'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Use rectangular structures to create a defined seating arrangement that feels both inviting and organized.',
+  description = 'This scene involves creating a cozy seating arrangement using rectangular structures to define the area around a set of chairs. The task requires interpreting spatial relationships and geometric properties to ensure the design achieves a welcoming atmosphere while adhering to spatial constraints.',
+  initial_design = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (-1.5, 0.0, 0.0),
+        length = 0.5,
+        width = 0.3,
+        height = 0.4
+      ),
+      rect_2 = Rectangular(
+        center = (0.0, 1.5, 0.0),
+        length = 0.3,
+        width = 0.5,
+        height = 0.4
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rect_1 = Rectangular(
+        center = (-1.5, 0.0, 0.0),
+        length = 0.5,
+        width = 0.3,
+        height = 0.4
+      ),
+      rect_2 = Rectangular(
+        center = (0.0, 1.5, 0.0),
+        length = 0.3,
+        width = 0.5,
+        height = 0.4
+      ),
+      rect_3 = Rectangular(
+        center = (1.5, -1.0, 0.0),
+        length = 0.5,
+        width = 0.3,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_2 = Rectangular(
+              center = (0.0, 1.5, 0.0),
+              length = 0.3,
+              width = 0.5,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add a rectangular structure for Chair 2.',
+        target_parameter = 'rect_2',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = "Adding a symmetrical structure for different chairs requires understanding the prompt's implication on organized arrangement."
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            rect_3 = Rectangular(
+              center = (1.5, -1.0, 0.0),
+              length = 0.5,
+              width = 0.3,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add a rectangular structure for Chair 3.',
+        target_parameter = 'rect_3',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'Placement and sizing to fit within defined space constraints while maintaining symmetry is moderately complex.'
+      )
+    ]
+  )
+)

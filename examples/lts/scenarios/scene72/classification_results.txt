@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt specifically requires the design of a segmented enclosure using straight lines to enhance the visual experience by separating the trees, which involves spatial reasoning to arrange the objects (trees and lines) in a visually appealing manner.'
+    )
+  ],
+  confidence = 4
+)

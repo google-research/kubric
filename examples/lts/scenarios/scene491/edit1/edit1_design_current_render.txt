@@ -1,0 +1,34 @@
+{
+    "prompt": "Create a lively triangular design around the tables to enhance the garden\u2019s layout with a unique flair. Ensure it allows for easy access to the tables.",
+    "observation": {
+        "table_1": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                1.0,
+                -0.0,
+                -0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        },
+        "table_2": {
+            "extent": [
+                0.288324,
+                -0.294558,
+                -0.288324
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "table"
+        }
+    },
+    "output": []
+}

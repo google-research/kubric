@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves designing a path that requires understanding spatial relationships, such as the arrangement of a path that gracefully connects two points (trashcans) in the garden. The emphasis is on spatial reasoning and geometric interpretation to achieve the design goal.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing the arrangement of objects, specifically integrating the tabletop area with greenery, while ensuring a coherent space around tables and a pot without blocking access. This requires spatial reasoning to achieve the harmony and accessibility described.'
+    )
+  ],
+  confidence = 4
+)

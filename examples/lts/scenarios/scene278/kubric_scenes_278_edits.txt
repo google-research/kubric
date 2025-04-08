@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What modification should be applied to the linear structure to ensure it is horizontally aligned with both benches?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.2,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the linear alignment to ensure it is horizontally aligned with both benches by setting the center to (0, -0.5, 0).'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.2,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the structure above both benches by setting the center to (0, 0.5, 0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.2,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the structure to the right by setting the center to (0.5, 0.0, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.2,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the structure to the left by setting the center to (-0.5, 0.0, 0).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.5),
+            length = 1.2,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the structure above ground level by setting the center to (0.0, 0.0, 0.5).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The linear structure needs to be horizontally aligned with the benches by setting the center to (0, -0.5, 0). This adjustment ensures the structure is perfectly aligned along the horizontal plane between the two benches.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need to adjust the center is implied from the goal of aligning with the benches, requiring spatial reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'What changes should be made to the linear structure to create a unified visual zone?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to bridge the gap between benches while making the structure taller for more visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 1.8 meters to span the gap between the benches, creating a unified visual zone. Increase the height to 0.3 meters to provide a more distinct boundary while keeping the space open and inviting.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Moderately increase the length and height for a subtle bridge between areas.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease the length and height for minimal obstruction.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = "Dramatically increase both length and height to assert the structure's presence."
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "To create a unified visual zone, the linear structure's length should be increased to 1.8 meters and the height to 0.3 meters. This helps in visually connecting the benches while maintaining an open environment.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Modifying both length and height requires understanding the need for a visual boundary while maintaining open space, which is less explicit.'
+    )
+  ]
+)

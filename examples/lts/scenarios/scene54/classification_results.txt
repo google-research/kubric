@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging a snaking edge that connects trees in a natural flow, which involves spatial reasoning related to the positioning and alignment of elements along a curved path.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt is somewhat vague and under-specified, as it requires an understanding of what constitutes a 'natural flow' and 'sinuous yet aesthetically pleasing boundary,' which relates to interpreting the meaning and desired aesthetics of the scene."
+    )
+  ],
+  confidence = 4
+)

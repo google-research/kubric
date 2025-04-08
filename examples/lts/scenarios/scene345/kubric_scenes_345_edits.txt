@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct design modification to transform the linear path in the garden scene into a curvy path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.75, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a Circular area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.75, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Modify the linear path to become a rectangular pathway.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the linear path into a serpentine path defined by an arc.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, -1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Convert the linear path into a CurvyPath for dynamic movement and adjust the parameters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.75, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a semi-circular path.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct modification involves changing the linear path to a CurvyPath as described in the edit,,y, which matches the design goal and replacement structure specifications.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The transition from a linear to a curvy path requiring the introduction of new parameters can be considered a medium-level task.'
+    )
+  ]
+)

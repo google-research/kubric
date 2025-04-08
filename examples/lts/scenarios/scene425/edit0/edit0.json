@@ -1,0 +1,146 @@
+{
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -1.0,
+                1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_3": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                -1.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "description": "This scene involves creating a harmonious space around three trees using an L-shaped structure to form a cohesive design in the garden area. The L-shape will encapsulate the trees in an organized manner, ensuring both functionality and aesthetic appeal.",
+    "prompt": "Arrange an L-shaped border around the trees to create a structured garden frame that enhances their natural beauty.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.3,
+                "keypoints": [
+                    [
+                        -1.0,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        1.5,
+                        0.0
+                    ],
+                    [
+                        0.5,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "LShape_1": [
+            {
+                "segment": 1,
+                "height": 0.5,
+                "keypoints": [
+                    [
+                        -1.0,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        1.0,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

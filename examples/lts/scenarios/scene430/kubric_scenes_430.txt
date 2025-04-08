@@ -1,0 +1,77 @@
+Scene(
+  objects = {
+    rock_1 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (-1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    ),
+    rock_2 = SceneObject(
+      extent = (0.25, 0.25, 0.25),
+      center = (1.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'rock'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Develop a dynamic enclosure using triangular design elements to give emphasis to the bold rocks while keeping the area open and accessible.',
+  description = 'In this scene, the goal is to create an artistic and functional garden area by incorporating TriWedge structures around a set of rocks. The design aims to highlight the rocks through strategic positioning of the TriWedge, adding a dynamic element to the layout while maintaining the open space.',
+  initial_design = Design(
+    structures = {
+      initial_semi = SemiCircular(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.5,
+        orientation = 'concave',
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      tri_wedge_1 = TriWedge(
+        center = (-1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 96.0,
+        height = 0.4
+      ),
+      tri_wedge_2 = TriWedge(
+        center = (1.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 96.0,
+        height = 0.4
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'initial_semi',
+        NewDesignStructure = TriWedge(
+          center = (-1.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 96.0,
+          height = 0.4
+        ),
+        edit_description = 'Replace the SemiCircular form with separate TriWedge structures to present sharper lines and smoother integration of the rocks within a creative and artistic landscape.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'The edit involves changing the form of the structure to a completely different type, which requires understanding the visualization intent behind the TriWedge design.'
+      ),
+      1 : AddStructureEditWithDifficulty(
+        design = Design(
+          structures = {
+            tri_wedge_2 = TriWedge(
+              center = (1.0, 0.0, 0.0),
+              radius = 1.0,
+              gap_degrees = 96.0,
+              height = 0.4
+            )
+          }
+        ),
+        edit_description = 'Add a new TriWedge 2 around rock 2 to achieve symmetry and focus in the garden layout.',
+        target_parameter = 'center',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'The symmetry goal makes it straightforward to deduce the need for a similar structure on the other side.'
+      )
+    ]
+  )
+)

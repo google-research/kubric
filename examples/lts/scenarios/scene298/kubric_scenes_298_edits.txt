@@ -1,0 +1,78 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What is the correct modification to achieve the design goal of creating an L-shaped seating arrangement for enhanced functionality?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.5, 0.0),
+            left_length = 1.2,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Change the design profile from Rectangular to LShape for enhanced seating functionality.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly asks to change the Rectangular structure to an LShape, which readily aligns with the design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 0.6,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design profile from Rectangular to QuarterWedge with a 90-degree arc.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The design goal was not aligned with creating a wedge, which would not necessarily improve seating space.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 0.6,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter the design from Rectangular to a TriWedge shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A TriWedge is not intuitive for promoting gatherings compared to an LShape.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design profile from Rectangular to CurvyPath which adds dynamic flow.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Curves suggest pathways more than seating spaces.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Transform the design profile from Rectangular to Serpentine for a more fluid structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A fluid arc shape like Serpentine may not add to practical seating as an LShape would.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly transforms the Rectangular structure into the desired LShape, matching the design goal for functional seating.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt makes it straightforward by specifying the need for an LShape derived from Rectangular, thereby posing no challenge.'
+    )
+  ]
+)

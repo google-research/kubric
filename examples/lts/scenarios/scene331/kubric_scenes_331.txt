@@ -1,0 +1,67 @@
+Scene(
+  objects = {
+    table_1 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (-0.8, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    ),
+    table_2 = SceneObject(
+      extent = (0.576648, 0.576648, 0.589116),
+      center = (0.8, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'table'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Form a structured garden nook using table arrangements confined by rectangular elements, ensuring clarity and organization within the space.',
+  description = 'This scene involves constructing a rectangular arrangement around a duo of tables to create a defined and aesthetic garden area. The design will leverage the Rectangular profile to provide an orderly and harmonious layout, focusing on maximizing available space while maintaining visual appeal.',
+  initial_design = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.5, 0.0, 0.0),
+        length = 1.5,
+        width = 0.8,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      rectangular_1 = Rectangular(
+        center = (0.0, 0.0, 0.0),
+        length = 2.0,
+        width = 1.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 1.5,
+          width = 0.8,
+          height = 0.3
+        ),
+        edit_description = 'Move the center of the rectangular structure to (0, 0, 0) to better align with both tables.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = "The prompt and description indicate a need to align the rectangle's center with the middle of the table arrangement."
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'rectangular_1',
+        NewDesignStructure = Rectangular(
+          center = (0.0, 0.0, 0.0),
+          length = 2.0,
+          width = 1.0,
+          height = 0.5
+        ),
+        edit_description = 'Increase the length to 2.0 meters and width to 1.0 meters, ensuring the rectangle neatly encapsulates the tables and provides a cohesive boundary.',
+        difficult_to_deduce_from_prompt = 'medium',
+        explanation_of_difficulty = 'While the prompt indicates a rectangular arrangement, determining the precise dimensions requires inference from the available space and the arrangement goal.'
+      )
+    ]
+  )
+)

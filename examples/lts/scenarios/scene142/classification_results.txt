@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to arrange the pathway like a gentle river, focusing on properties such as curvature and path alignment.'
+    )
+  ],
+  confidence = 4
+)

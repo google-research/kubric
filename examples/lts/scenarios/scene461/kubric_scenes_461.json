@@ -1,0 +1,97 @@
+{
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                -0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "pot_2": {
+            "extent": [
+                0.640426,
+                0.64042598,
+                0.432404
+            ],
+            "center": [
+                0.5,
+                0.0,
+                0.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        }
+    },
+    "description": "This scene involves designing a linear structure that serves as a functional pathway, emphasizing the presence of pots within the garden. The goal is to enhance visual order while allowing free movement around the pots.",
+    "prompt": "Establish a structured line that defines the walkway around my garden elements to promote an ordered look.",
+    "initial_design": {},
+    "design_goal": {},
+    "initial_impl": {
+        "rectangular_1": [
+            {
+                "segment": 1,
+                "height": 0.2,
+                "keypoints": [
+                    [
+                        -0.25,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    },
+    "goal_impl": {
+        "linear_1": [
+            {
+                "segment": 1,
+                "height": 0.4,
+                "keypoints": [
+                    [
+                        -6.123233995736766e-17,
+                        -1.5,
+                        0.0
+                    ],
+                    [
+                        6.123233995736766e-17,
+                        0.5,
+                        0.0
+                    ]
+                ],
+                "elements": [
+                    0
+                ]
+            }
+        ]
+    }
+}

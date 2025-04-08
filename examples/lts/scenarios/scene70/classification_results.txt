@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a circular feature that embraces the seating area while maintaining open access, which requires spatial reasoning to arrange the elements correctly.'
+    )
+  ],
+  confidence = 4
+)

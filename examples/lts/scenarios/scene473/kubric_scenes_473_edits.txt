@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit transforms the existing Linear structure into a QuarterWedge while maintaining the trees and trashcan arrangement?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear structure into a QuarterWedge to introduce angular design and adequately fit the trees and trashcan.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'It requires understanding the transition from linear to a radial structure while considering object placement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear structure into a TriWedge with a sharp angular design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear structure into a Serpentine to introduce a wavy design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear structure into a Rectangular box.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Transform the linear structure into a SemiCircular with a concave orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification converts the linear design to a QuarterWedge with specific properties that accommodate the existing arrangement of the trees and trashcan.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The difficulty lies in recognizing the need to transition from linear to a quarter-circle design suitable for integrating with existing elements.'
+    ),
+    1 : EditMCQA(
+      question = 'Which edit increases the radius of the existing QuarterWedge structure to ensure no intersection with the spatial elements?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'quarter_wedge_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the radius to 1.5 meters to accommodate spatial arrangements without intersection or collision.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the radius is a straightforward change to accommodate existing elements in the space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 75.0,
+            height = 0.6
+          ),
+          edit_description = 'Change the gap degrees to expand the angular span for better coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.5,
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure into a TriWedge focusing on sharp edges.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure into a Circular design for complete coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_structure',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Convert to a SemiRing to provide a layered boundary.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification increases the radius, respecting spatial constraints, which is the primary goal of this edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is simple as it only involves increasing a dimension to achieve the design goal.'
+    )
+  ]
+)

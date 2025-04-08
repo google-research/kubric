@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Which edit will change the design from `SemiCircular` to `SemiRing`, with an outer radius of 1.0 meters, an inner radius of 0.8 meters, and increase the height to 0.5 meters for the structure around rock 1?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiRing(
+            center = (-1.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the design from `SemiCircular` to `SemiRing` to add dimension and depth around rock 1, increase the outer radius to 1.0 meters, adjust the inner radius to 0.8 meters, and increase the height to 0.5 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design to a `QuarterWedge` with incorrect gap degrees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 20.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design to a `TriWedge` with an invalid angle.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change to a `Circular` design without adjusting height properly.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.9,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Slightly change `SemiCircular` design without forming `SemiRing` structure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves changing the `SemiCircular_1` to a `SemiRing` with the specified dimensions, achieving the goal stated in the scene description.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit involves multiple changes to dimensions and the type of structure, which requires understanding the prompt's goal for dimension and emphasis."
+    ),
+    1 : EditMCQA(
+      question = 'Which edit will change the design from `SemiCircular` to `SemiRing`, with an outer radius of 1.0 meters, an inner radius of 0.8 meters, and increase the height to 0.5 meters for the structure around rock 2?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_2',
+          NewDesignStructure = SemiRing(
+            center = (1.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the design from `SemiCircular` to `SemiRing` to add dimension and depth around rock 2, increase the outer radius to 1.0 meters, adjust the inner radius to 0.8 meters, and increase the height to 0.5 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.6,
+            gap_degrees = 13.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to `QuarterWedge` with valid gap degrees but not suitable for the goal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_2',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 17.0,
+            height = 0.5
+          ),
+          edit_description = 'Create a `TriWedge` while maintaining invalid gap degrees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_2',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Change to a `Rectangular` design without converting to a ring structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Switch to a `Serpentine` structure, diverging from circular design intentions.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This is the correct modification needed to match the design goal for the second structure by using a `SemiRing` with prescribed dimensions.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit involves modifying the structure's physical attributes and type, requiring interpretation of the scene's visual and spatial requirements from the prompt."
+    )
+  ]
+)

@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Select the modification that increases both the outer radius to 1.5 meters and the inner radius to 1 meter for a broader enclosure.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase both the outer radius to 1.5 meters and the inner radius to 1 meter for a broader enclosure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reduce both the outer radius to 1.0 meters and the inner radius to 0.5 meters for a tighter enclosure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.75,
+            inner_radius = 1.25,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase both the outer radius to 1.75 meters and the inner radius to 1.25 meters for an even broader enclosure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.75,
+            inner_radius = 0.45,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Decrease both the outer radius to 0.75 meters and the inner radius to 0.45 meters for a more compact enclosure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.25,
+            inner_radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase both the outer radius to 1.25 meters and the inner radius to 0.75 meters for a moderately broader enclosure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A contains the correct modification details as described in the edit details: increasing both the outer and inner radius to create a broader enclosure around the rock.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly indicates the need for a broader enclosure around the rock.'
+    ),
+    1 : EditMCQA(
+      question = 'Select the modification that changes the orientation from concave to convex to ensure the open side faces away from the rock.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.75
+          ),
+          edit_description = 'Change the orientation from concave to convex to ensure the open side faces away from the rock, optimizing accessibility and aesthetic appeal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.75
+          ),
+          edit_description = 'Maintain the concave orientation while increasing height to enhance vertical presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation from concave to convex, but keep a lower height for minimal visual obstruction.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep the concave orientation and a lower height for simplicity.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Change the orientation to convex with a medium height for a balanced profile.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes the necessary change from concave to convex orientation, making it the valid choice for ensuring the semi-circular ring is open and inviting, as outlined in the edit goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The orientation change is directly aligned with the design goal of having an open and inviting space.'
+    )
+  ]
+)

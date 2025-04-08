@@ -1,0 +1,78 @@
+Scene(
+  objects = {
+    pot_1 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, 0.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    ),
+    pot_2 = SceneObject(
+      extent = (0.320213, 0.32021299, 0.216202),
+      center = (0.0, 2.0, 0.0),
+      theta = 0.0,
+      semantic_label = 'pot'
+    )
+  },
+  num_edits = 2,
+  prompt = 'Create an inviting garden layout using quarter-wedges to artistically embrace the pots, ensuring the space remains open and accessible.',
+  description = 'This scene involves arranging a pair of QuarterWedge structures around pots to create an engaging and dynamic garden space. The design utilizes geometric properties to achieve a vibrant and inviting setup within the spatial constraints.',
+  initial_design = Design(
+    structures = {
+      Circular_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      Circular_2 = Circular(
+        center = (0.0, 2.0, 0.0),
+        radius = 1.5,
+        height = 0.3
+      )
+    }
+  ),
+  design_goal = Design(
+    structures = {
+      QuarterWedge_1 = QuarterWedge(
+        center = (0.0, 0.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      ),
+      QuarterWedge_2 = QuarterWedge(
+        center = (0.0, 2.0, 0.0),
+        radius = 1.0,
+        gap_degrees = 70.0,
+        height = 0.5
+      )
+    }
+  ),
+  edits = EditSequence(
+    edits = [
+      0 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_1',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 0.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the shape from circular to a QuarterWedge, adjust radius to 1.0 meters, and increase the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Transforming a circular form to a QuarterWedge while following explicit instructions for design parameters is straightforward.'
+      ),
+      1 : ModifyStructureEditWithDifficulty(
+        design_id = 'Circular_2',
+        NewDesignStructure = QuarterWedge(
+          center = (0.0, 2.0, 0.0),
+          radius = 1.0,
+          gap_degrees = 70.0,
+          height = 0.5
+        ),
+        edit_description = 'Change the shape from circular to a QuarterWedge, adjust radius to 1.0 meters, and increase the height to 0.5 meters.',
+        difficult_to_deduce_from_prompt = 'easy',
+        explanation_of_difficulty = 'Transforming a circular form to a QuarterWedge while following explicit instructions for design parameters is straightforward.'
+      )
+    ]
+  )
+)
