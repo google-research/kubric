@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a circular seating area that wraps around chairs, which requires consideration of spatial reasoning like relative positions and the configuration of elements to maintain openness and accessibility.'
+    ),
+    1 : Numeric(
+      explanation = 'The prompt includes the need to understand geometric properties such as center and radius, which suggests numerical reasoning to ensure the seating area is harmonious and balanced.'
+    )
+  ],
+  confidence = 4
+)

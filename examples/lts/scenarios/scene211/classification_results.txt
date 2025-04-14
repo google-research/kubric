@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to add a linear barrier between two stones, ensuring it serves as a separation without obstructing the view.'
+      explanation = 'The task involves understanding the spatial relationship between the two stones in order to add a linear barrier, indicating a need for spatial reasoning.'
     )
   ],
   confidence = 4

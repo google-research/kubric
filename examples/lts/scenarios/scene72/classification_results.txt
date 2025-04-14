@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt specifically requires the design of a segmented enclosure using straight lines to enhance the visual experience by separating the trees, which involves spatial reasoning to arrange the objects (trees and lines) in a visually appealing manner.'
+      explanation = 'The scene prompt involves spatial reasoning as it requires designing a segmented enclosure with specific spatial arrangements to enhance the visual experience. This involves understanding the relative positioning of the trees and constructing a visually appealing boundary that separates them.'
+    ),
+    1 : Semantic(
+      explanation = "The scene prompt includes understanding the overall purpose and aesthetic of 'enhancing the visual experience,' which involves interpreting the meaning and function of the elements within the scene."
     )
   ],
   confidence = 4

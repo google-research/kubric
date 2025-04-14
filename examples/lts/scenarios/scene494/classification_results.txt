@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requests enclosing elements in a semi-ring design while preserving the open environment. This requires understanding the relative positions of objects in relation to the enclosing structure.'
+    )
+  ],
+  confidence = 4
+)

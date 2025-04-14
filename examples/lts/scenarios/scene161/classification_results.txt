@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a pathway that connects and highlights the seating arrangement. This involves spatial reasoning in terms of arranging and integrating the pathway with the existing garden layout.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt emphasizes enhancing the garden's aesthetic, which requires an understanding of the artistic and functional meaning of the objects in the scene."
+      explanation = 'The prompt involves designing a pathway that needs to consider the spatial relationship between the chairs and the pathway. It emphasizes the flow, elegance, and positioning of the pathway around the seating arrangement, which requires spatial reasoning.'
     )
   ],
   confidence = 4

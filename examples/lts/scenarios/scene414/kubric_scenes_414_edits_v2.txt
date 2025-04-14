@@ -1,0 +1,75 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about steering the path to dance a little left and right, flowing smoothly between those two garden rocks?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the path design from a straight line to a serpentine path for a sinuous flow.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly suggests using a serpentine path to achieve the design goals.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Revise the linear path from left-right to front-back direction.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "The prompt doesn't suggest a direction change, making this less aligned with the flowing theme."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Introduce a curvy path with defined sinusoidal waves.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires understanding of sinusoidal parameters not explicitly mentioned in the prompt.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Alter the path to form a quarter wedge with specified angular gap.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "The design is less aligned with the prompt's emphasis on a twisting, flowing path."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the path into a triangular wedge with specified angles.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A triangular design is not suggested by the prompt, which prefers smooth curves.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit aligns perfectly with the prompt, calling for a serpentine shape to bring elegance.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'With the prompt favoring serpentine forms, choosing this path is straightforward.'
+    )
+  ]
+)

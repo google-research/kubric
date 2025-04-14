@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging garden components to embrace the pots, indicating a requirement for spatial reasoning related to positioning and arrangement within the scene context.'
+    )
+  ],
+  confidence = 4
+)

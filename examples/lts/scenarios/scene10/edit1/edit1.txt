@@ -24,6 +24,7 @@ Scene(
         left_width = 1.0,
         right_width = 2.0,
         right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.75
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 1.0,
         right_width = 2.0,
         right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.75
       )
     }
@@ -50,11 +52,12 @@ Scene(
           left_width = 1.0,
           right_width = 2.0,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.25
         ),
         edit_description = 'Change the shape to L-shape',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is direct and explicitly specified in the prompt.'
+        explanation_of_difficulty = 'The edit is direct and explicitly specified in the prompt.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape1',
@@ -64,11 +67,12 @@ Scene(
           left_width = 1.0,
           right_width = 2.0,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.75
         ),
         edit_description = 'Increase the height',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is directly specified to increase the height.'
+        explanation_of_difficulty = 'The edit is directly specified to increase the height.'
       )
     ]
   )

@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt is focused on arranging the L-shaped structure between two benches to create a pleasant rest area, indicating a need for spatial reasoning.'
+    0 : Semantic(
+      explanation = "The prompt requires an understanding of the meaning and function of objects in the scene, specifically the request for an 'L-shaped structure' for 'cushioning and storage'. This involves understanding the purpose of the structure beyond explicit spatial or numeric reasoning."
     ),
-    1 : Semantic(
-      explanation = "The prompt requires understanding the meaning of objects and their function in creating a 'pleasant rest area'."
+    1 : Spatial(
+      explanation = 'The prompt involves spatial reasoning to place the L-shaped structure between the benches, which requires understanding the relative position and orientation between the benches and the L-shaped structure.'
     )
   ],
   confidence = 4

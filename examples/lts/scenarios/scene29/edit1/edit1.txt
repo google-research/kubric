@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius to 1.8 meters for a tighter fit.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt suggests creating a boundary that fits closely around the table which implies reducing its size.'
+        explanation_of_difficulty = 'The prompt suggests creating a boundary that fits closely around the table which implies reducing its size.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Adjust the gap degrees to 20 to provide wider access paths.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The idea of accessibility paths suggests increasing the gap degrees for better access.'
+        explanation_of_difficulty = 'The idea of accessibility paths suggests increasing the gap degrees for better access.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters for a more prominent boundary.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'A more prominent boundary naturally implies increasing the height of the structure.'
+        explanation_of_difficulty = 'A more prominent boundary naturally implies increasing the height of the structure.'
       )
     ]
   )

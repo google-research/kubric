@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How did you make the path flow smoothly between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased amplitude from 0.2 to 0.25 and wavelength from 1.5 to 2 for a more noticeable curve.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Shorten close curve's leftmost point to (0.5, 0.0, 0.0)."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Change the far curve's leftmost point to (-1, 0, 0) and the close curve's leftmost point to (1, 0, 0)."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Change the far curve's leftmost point to (-0.5, 0, 0) and reduce wavelength to 1.0."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.75, 0.0, 0.0),
+            close_curve_leftmost_point = (0.55, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 1.2,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Slightly adjusted the leftmost points, amplitude, and wavelength.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "The change in the far curve's leftmost and close curve's leftmost points aligns the path to guide naturally between the tree centers.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change aligns the path to naturally guide between the tree centers as mentioned in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Could you enhance the curves to make the garden path more appealing?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased amplitude from 0.2 to 0.25 and wavelength from 1.5 to 2 for a more noticeable curve.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Reduced amplitude to 0.15 and wavelength to 1.0 for a less pronounced curve.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Narrowed the path's far and close curve points for a tighter fit."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased both amplitude and wavelength even further for a dramatic look.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.7, 0.0, 0.0),
+            close_curve_leftmost_point = (0.7, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Made minimal changes to the far and close curve points for a subtle shift.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Increasing the amplitude and wavelength makes the path's curves more noticeable, aligning with the aesthetic appeal goal mentioned in the prompt.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "The increase in amplitude and wavelength enhances the path's curves to emphasize the aesthetic appeal mentioned in the prompt."
+    )
+  ]
+)

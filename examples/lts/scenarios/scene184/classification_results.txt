@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a boundary that runs parallel to existing features, which requires spatial reasoning to ensure proper alignment and integration into the garden layout.'
+    0 : Semantic(
+      explanation = "The prompt requires understanding of the meaning of objects like 'boundary', 'garden', and 'accessibility', and how these elements should interact or integrate with the existing scene."
+    ),
+    1 : Spatial(
+      explanation = "The prompt mentions 'parallel to these features', implying a need for understanding spatial relationships and positioning within the scene."
     )
   ],
   confidence = 4

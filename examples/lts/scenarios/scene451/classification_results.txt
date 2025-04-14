@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt emphasizes the need for spatial reasoning in designing a semi-ring structure that beautifully accentuates the birdhouse and trees, ensuring open access and seamless integration with the garden. This involves considering relative positions and creating a harmonious arrangement without collisions.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires an understanding of spatial relationships to construct an L-shaped structure that surrounds the birdhouses while allowing access for birds. This involves spatial reasoning to ensure proper placement and alignment.'
+      explanation = 'The scene requires spatial reasoning to construct an L-shaped structure surrounding birdhouses without encroaching on their immediate vicinity. This involves understanding spatial relationships for appropriate placement and alignment.'
     )
   ],
   confidence = 5

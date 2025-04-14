@@ -1,0 +1,66 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about we make the journey more winding and mysterious between the towering giants?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'LinearPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile from Linear to CurvyPath to create an engaging journey. Set the far curve at (-1.5, 0) and the close curve at (1.5, 0), allowing the wave to navigate smoothly between the trees. Adjust the amplitude to 0.3 meters to enhance the undulating effect and maintain a sense of mystery.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change requires understanding of how to transform a linear path into a sinusoidal curve with specific amplitude and wavelength. The adjustment in shape requires spatial reasoning to ensure the path fits aesthetically and functionally between the specified tree locations.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LinearPath_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile from Linear to Serpentine with a single convex arc centered at (-1.0, 0) and a radius of 1.5 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LinearPath_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 72.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile to a QuarterWedge centered at the origin with a radius of 1.5 meters and a gap of 72 degrees to shape a segment bend in the exploration.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LinearPath_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.1
+          ),
+          edit_description = 'Reimagine the path profile as a TriWedge centered at the origin with a radius of 1.5 meters and a gap of 95 degrees, allowing for a sharp-edged path transformation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LinearPath_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile to a Circular structure, forming a complete loop with a 1.5-meter radius.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly transforms the linear path into a CurvyPath with specified attributes to achieve the design goal of an engaging journey between the trees.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Transforming the path profile involves understanding a sinusoidal pattern and spatial adjustments, thus requiring moderate difficulty comprehension.'
+    )
+  ]
+)

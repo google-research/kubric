@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the design of a path that flows through the garden while connecting different objects without hindering movement or views. This involves spatial reasoning to ensure the path wraps and leads between objects in an aesthetically pleasing manner.'
+    0 : Semantic(
+      explanation = "The prompt requests a gentle and engaging path that follows the design preference, which involves understanding the meaning of an 'inviting flow' and aesthetic arrangement, requiring semantic reasoning."
+    ),
+    1 : Spatial(
+      explanation = 'The design of the path involves positioning it in relation to garden objects (birdhouse, chair, pot) without obstructing movement or views, which requires spatial reasoning.'
     )
   ],
   confidence = 4

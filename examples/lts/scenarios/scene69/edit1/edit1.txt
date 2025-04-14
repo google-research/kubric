@@ -18,6 +18,7 @@ Scene(
         left_width = 0.5,
         right_width = 1.0,
         right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.25
       )
     }
@@ -30,6 +31,7 @@ Scene(
         left_width = 0.5,
         right_width = 1.0,
         right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -44,11 +46,12 @@ Scene(
           left_width = 0.5,
           right_width = 1.0,
           right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.25
         ),
         edit_description = 'Change the design shape to an L-shape for a more protective fit',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the shape requires understanding the spatial arrangement and protection around the birdhouse.'
+        explanation_of_difficulty = 'Changing the shape requires understanding the spatial arrangement and protection around the birdhouse.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
@@ -58,11 +61,12 @@ Scene(
           left_width = 0.5,
           right_width = 1.0,
           right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.25
         ),
         edit_description = 'Adjust dimensions to length 1.5 and 1.0, width 0.5 on left and 1.0 on right',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The dimensions need to reflect the width and length specified directly in the design goal.'
+        explanation_of_difficulty = 'The dimensions need to reflect the width and length specified directly in the design goal.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
@@ -72,11 +76,12 @@ Scene(
           left_width = 0.5,
           right_width = 1.0,
           right_length = 0.5,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Increase height to 0.5 for better enclosure and aesthetics',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Height adjustment is a straightforward modification considering the design goal.'
+        explanation_of_difficulty = 'Height adjustment is a straightforward modification considering the design goal.'
       )
     ]
   )

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt and scene description emphasize spatial reasoning, as the task involves arranging seating on a defined rectangular platform within a garden setting. The focus is on positioning and maintaining an orderly arrangement, which involves understanding relative spatial positions.'
+    )
+  ],
+  confidence = 4
+)

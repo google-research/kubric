@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could we stretch the semicircle a bit more between those trees, so it really feels like it envelops them?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Extend the semicircle's reach by adjusting the radius to fit the space."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Slightly enlarge the semicircle to better nestle between the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Switch the curve inward and expand the radius to enhance coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Boost the height while keeping the outward curve for extended shelter.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Adjust the semicircle's radius for a better fit without dominance."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The necessity was to increase coverage to encompass the space between trees, best achieved by option A.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The aim to enhance coverage is clear from the need to fit between the trees, making it easy to conclude the appropriate edit.'
+    ),
+    1 : EditMCQA(
+      question = "Can we flip the semicircle's curve to face the trees and make it a bit taller to stand out more?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Alter the curve to face inward and heighten it for emphasis.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Uplift the height for a more pronounced presence while retaining the outward curve.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Invert the curve with the same height to achieve a subtle transformation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Shrink the radius while adjusting orientation to concentrate on prominence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircle',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.4,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Make a mild radius tweak with a concave shift and elevation for aesthetic boost.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The task required a shift to concave orientation and an increase in height to heighten visibility and interaction, accurately described in choice A.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Identifying the need for concave orientation and height modifications demands deeper analysis of the design goal, attributing it a medium difficulty rating.'
+    )
+  ]
+)

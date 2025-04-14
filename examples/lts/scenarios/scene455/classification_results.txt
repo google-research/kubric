@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the arrangement of circular features around rocks, which involves spatial reasoning related to the position and arrangement of objects in the garden.'
+    ),
+    1 : Numeric(
+      explanation = 'The prompt indirectly references maintaining a balanced visual symmetry around the rocks, suggesting numerical considerations in the arrangement.'
+    )
+  ],
+  confidence = 4
+)

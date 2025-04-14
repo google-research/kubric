@@ -24,6 +24,7 @@ Scene(
         left_width = 0.7,
         right_width = 0.7,
         right_length = 1.5,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.4
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 1.0,
         right_width = 1.0,
         right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.3
       )
     }
@@ -50,11 +52,12 @@ Scene(
           left_width = 0.7,
           right_width = 0.7,
           right_length = 1.5,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.4
         ),
         edit_description = 'Align the left side to the left of the first tree.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Requires understanding of spatial relationships and alignment.'
+        explanation_of_difficulty = 'Requires understanding of spatial relationships and alignment.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'LShape_1',
@@ -64,11 +67,12 @@ Scene(
           left_width = 1.0,
           right_width = 1.0,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.4
         ),
         edit_description = 'Align the right side to the side of the second tree.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Involves adjustments to structural alignment.'
+        explanation_of_difficulty = 'Involves adjustments to structural alignment.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'LShape_1',
@@ -78,11 +82,12 @@ Scene(
           left_width = 1.0,
           right_width = 1.0,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.3
         ),
         edit_description = 'Make it shorter and widen to achieve the desired design goal.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Requires deducing the correct size adjustments to meet the design goal.'
+        explanation_of_difficulty = 'Requires deducing the correct size adjustments to meet the design goal.'
       )
     ]
   )

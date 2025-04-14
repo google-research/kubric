@@ -1,0 +1,159 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Hey, let's extend the L-shape to wrap snugly around the birdhouses in our setup. But could you confirm which change ensures it lines up nicely while maintaining that charming spatial aesthetic?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Shift the profile to an L-shape, dividing it into two parts. Set the left section center at (-0.5, 0), with the size lengthened to fit. The right section should also adjust its size accordingly for alignment.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The transition from a rectangle to an L-shape demands grasping distinct section dimensions and precise alignment.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert the layout to a QuarterWedge with a central alignment, but there seems to be a hiccup with the specified gap.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Choosing an incorrect gap degree for the QuarterWedge renders the design unsuitable within spatial parameters.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Turn the design into a Serpentine with a concave arc on the left. Watch out for its altered trajectory.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This switch requires fresh spatial understanding, coupled with potential height misalignment concerns.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Morph into a TriWedge, introducing an appropriate gap but rethinking its original L-shape scope.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the gap fits, the TriWedge shift deviates from goals focused on forming an L-shaped area for bird activity.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Make the structure a circular form, keeping it serenely central.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Switching to a circular form is easy but falls short on the bespoke needs of L-shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A expertly transitions into the correct L-shape, meshing with predefined spatial configurations and ensuring suitability for the project's avian design intentions.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This requires insight into spatial coordination for a neat L-shape, prompting a moderate challenge.'
+    ),
+    1 : EditMCQA(
+      question = 'Could we tweak the structure to raise its height, giving a clearer boundary yet still convenient for bird visits?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.7
+          ),
+          edit_description = 'Boost the height to 0.7 meters for a robust boundary while facilitating easy bird access.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Raising the height slightly involves only a straightforward parameter modification.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Lower the height to 0.2 meters, providing minimal obstruction but compromising on needed boundaries.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The decrease doesn't tackle the task's primary need for more pronounced boundaries."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 1.0
+          ),
+          edit_description = 'Raise the height to an imposing 1.0 meters, forming an excessive barrier for birds.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Going above the recommended height threatens the project's avian-friendly goals."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Bring the height up to 0.5 meters, striking an adaptable yet insufficient divide.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "This intermediate step is simple but doesn't fully match the preferred structural aims."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Raise the height to reach 0.6 meters—almost there, yet not quite the precise 0.7m needed.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Achieving precise heights is straightforward but misses full optimization by a narrow margin.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A deftly sets the intended 0.7-meter height, attaining harmony between structural robustness and bird-friendly design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The simplicity lies in just altering the height, which demands little other substantive adjustment.'
+    )
+  ]
+)

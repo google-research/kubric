@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "If I asked you to elegantly shift 'rectangular_1' for even coverage sideways, how would you adjust it?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift the length to cover broadly and expand the width to maintain symmetry.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Extend the length marginally and retain width to maintain presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Bring in the length slightly while holding the width for compactness.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Shorten the width considerably while keeping the length steady.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Widen the frontal expanse for broader coverage, keeping length consistent.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A gracefully adjusts both dimensions to achieve a balanced appearance matching the intended goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding spatial balance and proportional adjustments is required.'
+    ),
+    1 : EditMCQA(
+      question = "Picture elevating 'rectangular_1' so it stands out more. What change achieves that?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Lift the height for a more vibrant and obvious boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Gradually elevate the height to attempt a visible mark.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.6
+          ),
+          edit_description = 'Raise the height from ground for a pronounced accent.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the low profile to maintain subtly.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.7
+          ),
+          edit_description = 'Accent the height dramatically to catch the eye.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A deftly enhances the height to align with the vivid boundary requirement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Noticing height enhancement as pivotal for visibility is straightforward.'
+    )
+  ]
+)

@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you adjust the center of our square layout so it sits between our garden companions?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.8,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = "Move the structure's center to (0, 0.5, 0) for focused alignment around the tree and birdhouses."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.4,
+            height = 0.6
+          ),
+          edit_description = 'Revert to the initial center for scattered distribution.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.2, 0.5, 0.0),
+            length = 1.8,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = "Move the structure's center slightly to the right for asymmetrical alignment."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.6,
+            height = 0.6
+          ),
+          edit_description = "Increase the structure's dimensions for a larger area."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            width = 0.3,
+            height = 0.6
+          ),
+          edit_description = 'Reduce the size of the rectangular structure to create a more compact design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification involves moving the structure's center to (0, 0.5, 0), aligning with the design prompt and goals focused on creating harmony around the key objects.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests aligning the structure around the elements.'
+    ),
+    1 : EditMCQA(
+      question = "Let's make sure our long border reaches its full potential. How do we do this?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.8,
+            width = 0.5,
+            height = 0.8
+          ),
+          edit_description = 'Increase length to 1.8 meters and height to 0.8 meters to ensure a clear boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Keep dimensions unchanged to maintain compactness.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.7
+          ),
+          edit_description = 'Extend the length slightly with a moderate height adjustment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.8,
+            width = 0.4,
+            height = 0.8
+          ),
+          edit_description = 'Achieve design dimensions by changing length and height, keeping width smaller.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.6,
+            width = 0.6,
+            height = 0.8
+          ),
+          edit_description = 'Maintain height and adjust length and width to exceed current constraints.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal explicitly states the desired dimensions of 1.8 meters in length and 0.8 meters in height, fitting both requirements directly.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The design goal explicitly states the desired dimensions.'
+    )
+  ]
+)

@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Shift the rounded form labeled 'oversized_circular_1' closer to the central metal bin on the left. What should be adjusted to allow for more room?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'oversized_circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the circular structure to be centered precisely at (-1.0, 0, 0) and reduce the radius to ensure no collision with the trashcan.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'oversized_circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 11.0,
+            height = 0.4
+          ),
+          edit_description = 'Integrate a quarter-wedge with slightly larger radius and adjust the angular span for better fit.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'oversized_circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Replace with a serpentine structure that extends from a shifted arc center.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'oversized_circular_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Change to a rectangular shape with reduced dimensions to minimize collision.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'oversized_circular_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 13.0,
+            height = 0.4
+          ),
+          edit_description = 'Apply a tri-wedge design to offer a sharper aesthetic with appropriate angular span.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A provides the precise edit needed to align the circular structure at (-1.0, 0, 0) with an optimal radius, meeting both aesthetic and functional goals outlined in the scene.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires an understanding of spatial constraints and adaptation in size to prevent collisions while keeping the aesthetics intact.'
+    ),
+    1 : EditMCQA(
+      question = "Can you push the large round form 'oversized_circular_2' to nestle with the trash bin on the right side, achieving harmony without overlap?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'oversized_circular_2',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the circular structure to be centered precisely at (1.0, 0, 0) and reduce the radius to ensure no collision with the trashcan.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'oversized_circular_2',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Convert to a curvy path with well-defined sinusoidal parameters for dynamic aesthetics.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'oversized_circular_2',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Replace the circular design with a linear structure that extends across the required span.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'oversized_circular_2',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Modify to a semi-circular design facing outward.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'oversized_circular_2',
+          NewDesignStructure = SemiRing(
+            center = (1.0, 0.0, 0.0),
+            outer_radius = 0.7,
+            inner_radius = 0.4,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Introduce a semi-ring structure for enhanced spatial definition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification in option A specifies centering the circular design at (1.0, 0, 0) and reducing the radius, aligning with the scene's design goals for harmony and non-interference.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The difficulty lies in interpreting spatial relationships and refining design parameters to avoid overlap while achieving visual symmetry.'
+    )
+  ]
+)

@@ -1,0 +1,14 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves defining a spatial relationship by constructing a boundary around the trees with a specific rectangular layout. This requires understanding of relative positions and spatial arrangement to ensure the boundary encircles the trees.'
+    ),
+    1 : Numeric(
+      explanation = 'The scene requires a consideration of symmetry in the aesthetic arrangement of the boundary design, which involves numerical aspects like balancing the layout symmetrically around the trees.'
+    ),
+    2 : Semantic(
+      explanation = "The prompt involves understanding the semantic purpose of the boundary in terms of aesthetics and function, such as enhancing the garden's appearance."
+    )
+  ],
+  confidence = 5
+)

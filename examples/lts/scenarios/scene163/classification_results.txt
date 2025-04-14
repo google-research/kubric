@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests arranging a serpentine path to weave between the forest trees, which involves spatial reasoning in terms of placement and pathway navigation.'
+      explanation = 'The prompt requests spatial reasoning to elegantly weave the path between the trees in the forest, involving the arrangement and relative positioning of the pathway and trees.'
     )
   ],
   confidence = 4

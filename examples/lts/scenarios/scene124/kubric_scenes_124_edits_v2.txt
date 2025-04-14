@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Align the long box directly in between the two bins in a symmetric fashion, can you find the right spot?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Center the rectangle in the middle, maintaining symmetry between the bins.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Shift the rectangle slightly left, not aligning equally to both bins.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangle to align with the right bin completely.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Raise the box slightly upwards, still aligned with the right bin.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Shift the rectangle fully left, making it in line with the left bin and ignoring the right.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The rectangualr structure is optimally aligned between the trash cans, achieving the required symmetry.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Identifying a balanced central placement amidst spatial constraints requires spatial perception.'
+    ),
+    1 : EditMCQA(
+      question = 'How about reshaping the box to fit its designated space better?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Refine the dimensions of the rectangle to snugly conform to the targeted area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 1.0,
+            height = 0.2
+          ),
+          edit_description = "Increase the rectangle's length beyond the goal, maintaining width and a limited height."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 2.0,
+            height = 0.4
+          ),
+          edit_description = 'Enlarge both the length and width for a broader surface coverage, exceeding designated dimensions.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Retain the original form but subtly enhance height for enhanced definition.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Compartmentalize the rectangular structure with significant reductions in length, showcasing compact efficiency.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option adjusts and refines the proportions to align with specified targets, enhancing effective utilization of given space.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The design goal succinctly reflects changes, requiring basic adjustments.'
+    )
+  ]
+)

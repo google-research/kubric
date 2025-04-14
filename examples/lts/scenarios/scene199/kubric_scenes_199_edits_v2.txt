@@ -1,0 +1,243 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Hey, think we could replace that straight path with something more rounded? Maybe two circular shapes wrapping nicely around those stones for symmetry, don't you think?",
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Transform the linear section into a pair of Circular structures, one embracing each stone to enhance symmetry and visual appeal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The directive clearly suggests forming circular arrangements around the rocks, directly hinting at creating circular structures.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (0.0, 0.5, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'convex',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Introduce a Serpentine formation between the stones for a lively flow.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The serpentine design introduces a dynamic element, but the goal specifies circular focal points around stones which the serpentine does not provide.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.25, 0.25, 0.0),
+            radius = 0.6,
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path into a single circular form encompassing both rocks.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Having a singular circular design might interfere with providing equal prominence to each rock, thus not fully addressing the symmetry requirement.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (0.5, 0.0, 0.0),
+                radius = 0.8,
+                gap_degrees = 10.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a QuarterWedge accent around rock 1 to highlight its presence.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The quarter wedge is architecturally distinct but fails to harmonize fully around both rocks as called for in circular symmetry.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (-0.5, -0.5, 0.0),
+                radius = 0.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Envelop rock 2 with a Circular formation.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Enhancing rock 2 with a circular element is suggested, yet the alignment around rock 1 is essential to fulfill the symmetry objective.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly interprets the task of exchanging the straight path with two separate circles around each rock, ensuring symmetry and aesthetic satisfaction as outlined by the design intent.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task explicitly calls out circular forms around both stones, making it a reasonably straightforward interpretation from the instructions provided.'
+    ),
+    1 : EditMCQA(
+      question = 'How about we place something round, like a perfect circle, hugging the first rock to balance everything out?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (0.5, 0.5, 0.0),
+                radius = 0.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a Circular formation surrounding rock 1 to establish a balanced ensemble.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A circular structure suggests itself, but discerning the exact center and size implicitly calls for deduction.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (0.5, 0.5, 0.0),
+                length = 1.0,
+                height = 0.2,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Overlay a Linear segment across rock 1 to accentuate its presence.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Linear configurations challenge the design's circular symmetry goal, misaligning with the symmetry intent laid out in the scene description."
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_circular_1 = SemiCircular(
+                center = (0.5, 0.5, 0.0),
+                radius = 0.8,
+                orientation = 'concave',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Put up a SemiCircular arc as a stylistic feature for rock 1.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the semi-circular concept has visual appeal, it doesn’t completely achieve the balance and symmetry targeted in the overall vision.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_2',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Adjust Circular 2 to spread over rock 1, adding another curvature.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This step moves away from symmetric focus, prioritizing rock 1 while neglecting similar treatment to rock 2.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (0.5, 0.0, 0.0),
+                radius = 0.4,
+                left_arc_orientation = 'concave',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Place a gentle serpentine curve encircling rock 1 for a vibrant theme.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While adding motion, this serpentine approach does not satisfy the circular consistency emphasized in the symmetry goals.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Answer A fits the criteria by positioning a circular design around rock 1, accommodating the described circular and balanced configuration criteria.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Defining circular structures is evident, although discerning precise attributes like radius necessitates careful contemplation.'
+    ),
+    2 : EditMCQA(
+      question = "Let's add a round border to that second rock for better visual appeal. Do we stick with circular paths for this layout?",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (-0.25, -0.5, 0.0),
+                radius = 0.3,
+                left_arc_orientation = 'convex',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Establish a serpentine arc connecting to rock 2 for cohesive movement.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Serpentine arcs provide ease and flow but counter the predictability of outright circular objectives, creating potential operational discord.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_2 = QuarterWedge(
+                center = (-0.5, -0.5, 0.0),
+                radius = 0.8,
+                gap_degrees = 7.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Employ a QuarterWedge decoration at rock 2 for spatial diversity.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the wedge follows standard conventions, it does not adhere to the seamless circular style demanded throughout the circular symmetrical model.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (-0.5, -0.5, 0.0),
+                radius = 0.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Incorporate a Circular form at rock 2 to emphasize symmetry and uplift aesthetics.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Envisioning a circular piece at the second rock aligns with the balancing aim, although setting precise dimensional parameters calls for interpretation.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              linear_tangent_2 = Linear(
+                center = (-0.5, -0.3, 0.0),
+                length = 1.2,
+                height = 0.15,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = "Set a linear tangent along rock's boundary as a style highlight.",
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Despite claiming focus at the rock boundary, it counters the overarching circular concept at the center of this symmetrical goal.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, -0.5, 0.0),
+            radius = 0.7,
+            height = 0.25
+          ),
+          edit_description = 'Modify Circular to construct a cohesive union between stones.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This variant blends multiple use strategies, wandering from initial discrete circular deployment across each stone, potentially risking harmonization.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Answer C authentically links a unique circular slab around rock 2, respectfully following the imperative of symmetry underscored by the design objective guiding close placement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Insisting on symmetry through the circular form stands as an authentic requirement, although accurate selection of metrics like diameter demands informed guesswork.'
+    )
+  ]
+)

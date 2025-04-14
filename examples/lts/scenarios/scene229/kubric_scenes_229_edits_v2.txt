@@ -1,0 +1,113 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How do we transform this straight passage into a path that gently curves between the trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path from a Linear profile to a CurvyPath for enhanced curvature and aesthetic flow.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The information to switch from a linear to a curved path requires spatial reasoning to understand the aesthetics and function.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the linear path to a serpentine path with a distinctive arc.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This involves an understanding of different path structures, requiring detailed spatial comprehension.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Alter path to resemble a quarter wedge section.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Incorporating a wedge shape as a path is abstract, demanding a stretch beyond typical path designs.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform path into a circular path structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Thinking in circular path terms diverges from typical linear or curved expectations and challenges spatial design concepts.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the current path to a semicircular, inward-facing design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding of how semicircular paths position within larger scenes.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct option describes the transformation from a linear to a curvy path as described in the scene edit.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit requires understanding of the curved path's spatial and aesthetic significance in the scene."
+    ),
+    1 : EditMCQA(
+      question = 'Which adjustment clears out the old path to make way for the new winding transition?',
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Remove the initial Linear path structure to finalize the transition to a CurvyPath.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This edit is straightforward as the linear path is being replaced by the curvy path.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_2',
+          edit_description = 'Delete a secondary linear path to simplify the layout.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Recognizing the correct path removal in a simplified scene ensures clarity and tests basic spatial identification.'
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'tree_path_1',
+          edit_description = 'Remove a path structure supposed to connect to the tree.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Aligning the removal of path structures with specific natural elements provides nuanced understanding and slightly increased difficulty.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'curvy_path_2',
+          edit_description = 'Remove an alternate curvy path unrelated to initial design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Involves distinguishing between different types of paths and understanding design goal alignment.'
+        ),
+        E = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path_1',
+          edit_description = 'Remove a placeholder linear structure while retaining original restructuring elements.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'It shows understanding which linear structures exist to transition accurately to the desired scene state.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit specifically removes the initial linear path allowing for the completion of transitioning to the new curvy path design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The straightforward nature is underscored by the clear direction from linear to curvy transformation associated with the described scene edits.'
+    )
+  ]
+)

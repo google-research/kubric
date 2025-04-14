@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires constructing a boundary around the table, necessitating spatial reasoning for arranging the boundary and ensuring clear access pathways in all directions.'
+      explanation = 'The prompt requests constructing a boundary around a central point (the table) and requires clear access points in each direction, which involves spatial reasoning related to the scene context and positioning.'
     )
   ],
   confidence = 4

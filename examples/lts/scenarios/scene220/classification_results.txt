@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves designing a garden space where the positioning of L-shaped structures around the birdhouses requires spatial reasoning to create an ordered and aesthetically pleasing arrangement.'
-    ),
-    1 : Semantic(
-      explanation = 'The prompt also involves understanding the function and aesthetic of a garden space, which requires semantic understanding of the elements involved, like birdhouses and the purpose of the L-shapes in the garden.'
+      explanation = 'The prompt requests the design of an L-shaped garden space, which involves spatial reasoning for positioning the L-shaped structures and organizing the scene to ensure the birdhouses are featured prominently and remain accessible and visible.'
     )
   ],
   confidence = 4

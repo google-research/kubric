@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = 'The scene prompt focuses on creating a visually artistic pattern and maintaining an aesthetically pleasing balance, which requires an understanding of the meaning and function of the design elements rather than specific spatial or numerical constraints.'
+    ),
+    1 : Spatial(
+      explanation = 'The prompt also entails designing pathways and visual flow within the garden, which involves considering relative positions and movement through space.'
+    )
+  ],
+  confidence = 4
+)

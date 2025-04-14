@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could you shift the first circle, so it wraps around the little home to the left?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Position the structure at the very center point.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Move the circle slightly off-center to create an offset arrangement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Align Circular Structure 1 precisely around the birdhouse to frame the object effectively.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit straightforwardly aligns the circular structure with the given identifying object position.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Place structure further away to create a loose boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, -0.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Attempt a distant positioning to allow for open space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly describes the intended modification, aligning the structure with the birdhouse.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the alignment with the birdhouse, making it easy.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you nudge the second circle to embrace that container on the right?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_2',
+          NewDesignStructure = Circular(
+            center = (2.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep the position as it stands.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_2',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Position the Circular Structure 2 snugly around the trashcan to enhance the presence and provide a functional boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit involves simple positioning using explicitly given coordinates that match the object placement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_2',
+          NewDesignStructure = Circular(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Randomly position the structure in a remote area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_2',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Align with a central point that isn’t relevant.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_2',
+          NewDesignStructure = Circular(
+            center = (3.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Sporadically place the circle elsewhere in the garden.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = ''
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly positions the circular structure around the trashcan, matching the given requirements.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification aligns perfectly with the trashcan’s location, making it straightforward.'
+    )
+  ]
+)

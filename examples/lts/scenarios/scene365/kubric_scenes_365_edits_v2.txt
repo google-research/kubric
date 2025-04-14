@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Should we move the central point of the QuarterWedge closer to the garden’s core spot?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the center of the QuarterWedge to the core to create harmony with the surrounding benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the center at the current spot to maintain an aligned seating pattern.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center far to the right edge for a widely spaced seating design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, -0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Move the center to the far left bottom corner for a unique asymmetric layout.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Slide the center upward to create an open overhead seating arrangement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The task is to centralize the QuarterWedge for an even spatial distribution around the key communal space.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt and description clearly mention repositioning the center to create balance.'
+    ),
+    1 : EditMCQA(
+      question = 'What about extending the QuarterWedge’s reach to embrace more participants comfortably?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Enhance the radius to embrace a larger, welcoming area fitting within site guidelines.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the radius for a cozier, compact gathering space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Extend the radius beyond its current limits, spacing out the seating.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Maintain the current size for the same intimate setting.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.6,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'A minor radius increase to allow slightly more space without a drastic change.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Expanding the radius to 1.8 meters aligns with the overarching aim of increasing seating access.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The expansion to a 1.8-meter radius is clearly indicated as necessary by the context and description.'
+    )
+  ]
+)

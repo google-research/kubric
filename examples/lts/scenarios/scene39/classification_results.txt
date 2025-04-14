@@ -1,8 +1,14 @@
 SceneClassification(
   categories = [
     0 : Semantic(
-      explanation = "The prompt requires understanding the meaning of 'feel more at home' and 'well-situated,' which are vague and under-specified. It involves interpreting the intended function of the scene rather than specific spatial or numeric constraints."
+      explanation = "The prompt involves understanding the idea of making a birdhouse feel 'at home', which is an abstract and subjective concept requiring semantic interpretation. Additionally, the phrase 'keeping the table well-situated' is vague and open to interpretation in terms of what constitutes being 'well-situated'."
+    ),
+    1 : Spatial(
+      explanation = 'The task involves arranging the birdhouse and table in a harmonious manner, which likely necessitates spatial reasoning in terms of their relative positions and the overall balance of the scene.'
+    ),
+    2 : Numeric(
+      explanation = 'The scene description mentions geometric properties such as center, length, and width which are numeric attributes impacting the design.'
     )
   ],
-  confidence = 4
+  confidence = 3
 )

@@ -1,0 +1,189 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you make the wave look more like a sine pattern? You know, like a gentle curve.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.2, 0.0),
+            close_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Change the design type to a SineWave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Modify the structure to be circular.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to concave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Convert the design into a semi-circular shape.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Modify the structure to a rectangular shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification requires changing the structure to a SineWave with given parameters of amplitude, wavelength, phase, and height.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the design requires understanding the properties of a SineWave and how they translate to the scene.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we raise the height to give better protection around the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.2, 0.0),
+            close_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 to provide adequate shelter.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change to a linear structure with height 0.6.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Change to a circular shape with increased height.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Modify serpentine arc height to 0.6.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.5, 0.0),
+            outer_radius = 0.6,
+            inner_radius = 0.4,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Create a semi-ring with height 0.6.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification directly addresses increasing the height to provide shelter while keeping the other parameters consistent.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the height of the structure is easy once the initial design is understood.'
+    ),
+    2 : EditMCQA(
+      question = 'Maybe the wave could smoothly wrap around both the birdhouse and trashcan in a stylish flow?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.2, 0.0),
+            close_curve_leftmost_point = (-1.0, 1.2, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.5,
+            phase = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Adjust the wave to harmoniously envelop both the birdhouse and trashcan while keeping a pleasant artistic flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, -0.5, 0.0),
+            left_length = 0.5,
+            left_width = 0.4,
+            right_width = 0.4,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Modify to an L-shaped structure for coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Create a semi-circular wave for harmonious enveloping.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.6
+          ),
+          edit_description = 'Use a quarter wedge for coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.6
+          ),
+          edit_description = 'Try using a tri-wedge shape for an artistic flow.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves adjusting the alignment of the wave to envelop the birdhouse and trashcan in harmony.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Ensuring harmonious enveloping requires spatial reasoning and alignment with the artistic purpose.'
+    )
+  ]
+)

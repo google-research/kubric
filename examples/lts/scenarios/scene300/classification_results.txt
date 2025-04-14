@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt requires understanding of the meaning and function of a garden and its elements. It also emphasizes a vague concept, 'harmonious space', which pertains more to an understanding of aesthetics rather than precise spatial or numerical specifications."
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,72 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you nudge the enclosure a bit forward and make it a bit taller, maybe switching the curve direction?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Semiring_0',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Move the semi-ring center to the same spot as the birdhouse. Make the outer edge take more space, and let the inner one find more middle ground, turning outward for a wider perspective. Raise the height slightly for better presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "The desired adjustment involves interpreting spatial arrangement and aesthetic balance that's subtly hinted at in the description."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Semiring_0',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Bring the semi-ring inside to the same point as the birdhouse, reducing the outer reach while keeping the inner closer, and let it hold its current inward curling direction and stature.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Semiring_0',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.2,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Keep the semi-ring reaching out but expanded, with the inner arc taking more space, tilting outward and maintaining its height slightly lower.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Semiring_0',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Turn the semi-ring to the same position as the birdhouse, leaving the outer and inner limits and height as they are, still slightly hugging inward.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Semiring_0',
+          NewDesignStructure = SemiRing(
+            center = (0.4, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Resituate the center close but slightly off the central line, enlarge the arc boundaries, and let it sway outward, adding more stature.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Aligning just slightly off from the key point around the birdhouse with proper arc positioning requires careful interpretation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately adjusts positioning, scaling, and orientation to suit the conceptual layout defined in the setup.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Making the adjustment demands a detailed analysis of the setting and achieving a cohesive blend between function and aesthetics.'
+    )
+  ]
+)

@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Increase the radius to 1.5 meters for more space.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly suggests increasing the radius for more space.'
+        explanation_of_difficulty = 'The prompt directly suggests increasing the radius for more space.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = '1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the orientation to convex to open toward the garden path.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt indicates that the bench should provide easy access, implying an open orientation.'
+        explanation_of_difficulty = 'The prompt indicates that the bench should provide easy access, implying an open orientation.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = '1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters for a comfortable seating experience.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The prompt's context of comfort suggests increasing the height."
+        explanation_of_difficulty = "The prompt's context of comfort suggests increasing the height."
       )
     ]
   )

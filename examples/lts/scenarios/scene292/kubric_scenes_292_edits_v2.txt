@@ -1,0 +1,121 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we switch to a pointy look between the armrests of those two seats by reshaping the arc?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the shape from Circular to TriWedge, focusing the visual flow between the chairs and table.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust to a tighter angle in the TriWedge shape, attempting to redirect visual flow.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Exchange Circular with QuarterWedge, minimally impacting visual flow.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase height while maintaining Circular shape.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Convert from Circular to SemiCircular, disturb visual flow slightly.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification is to change the shape from Circular to TriWedge with the specified parameters, as this edit directly enhances the visual flow between the chairs and table.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the shape is a straightforward modification, but understanding the aesthetic connection and flow in the scene requires a bit of interpretation.'
+    ),
+    1 : EditMCQA(
+      question = 'How about we raise the angle where the point turns to give it a more dominant look?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to better capture attention and presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Lower the height, which lessens visibility and attention.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce size while ignoring height, minimizing impact.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust angle without considering height variation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Replace with a Serpentine structure, changing dynamics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height from 0.3 to 0.5 meters for the TriWedge structure is the correct edit as it directly enhances both visibility and impact as per the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height increase is a very direct modification for enhancing visibility and impact as described.'
+    )
+  ]
+)

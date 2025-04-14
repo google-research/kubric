@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a symmetric, calming circular sanctuary under the trees, which involves spatial reasoning in arranging objects to create the desired configuration.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt uses terms like 'calming sanctuary', which requires understanding the meaning of objects and their arrangement to create the specified atmosphere."
+    0 : Numeric(
+      explanation = 'The scene involves requirements for symmetrical patterns and numerical spacing, such as radius and orientation, to maintain symmetry.'
     )
   ],
   confidence = 4

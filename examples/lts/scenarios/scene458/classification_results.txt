@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning as it emphasizes the arrangement of the path relative to the birdhouses, focusing on creating a path that winds between them.'
+    )
+  ],
+  confidence = 4
+)

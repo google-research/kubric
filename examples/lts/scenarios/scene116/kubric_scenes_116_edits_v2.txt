@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "I'm thinking moving out the barrier a bit more to offer wider coverage, is it a good idea?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Expand the arc to provide a broader protective area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Slightly increase the arc radius for better coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Reduce the arc for minimal coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Enhance the arc radius to provide substantial coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Greatly increase the arc for excessive coverage.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct option increases the radius to 1.5 for optimal coverage as per the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Selecting the radius for appropriate coverage involves spatial reasoning.'
+    ),
+    1 : EditMCQA(
+      question = 'To give a bit more height to the structure, should I raise it to protect more?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.75
+          ),
+          edit_description = 'Increase the height to 0.75 for enhanced protection.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.65
+          ),
+          edit_description = 'Raise the height slightly for better coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Offer basic protection with a small increase in height.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.8
+          ),
+          edit_description = 'Maximize the height for ultimate protection.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.75
+          ),
+          edit_description = 'Raise height with a concave orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Raising the height to 0.75 achieves the goal of providing better protection.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This change is straightforward as it directly enhances protection by increasing height.'
+    )
+  ]
+)

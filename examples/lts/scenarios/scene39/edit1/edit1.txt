@@ -64,7 +64,7 @@ Scene(
         edit_description = 'Introduce a Rectangular structure adjacent to the table.',
         target_parameter = 'visual contrast and stability',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt suggests adding a contrasting and stabilizing element, which can imply a rectangular form.'
+        explanation_of_difficulty = 'The prompt suggests adding a contrasting and stabilizing element, which can imply a rectangular form.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_1',
@@ -76,7 +76,7 @@ Scene(
         ),
         edit_description = 'Move the SemiCircular structure to maintain visual balance.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly suggests balancing the birdhouse position.'
+        explanation_of_difficulty = 'The prompt directly suggests balancing the birdhouse position.'
       )
     ]
   )

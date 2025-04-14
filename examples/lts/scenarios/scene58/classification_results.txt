@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt requires determining the spatial arrangement of objects, specifically creating a fence that encloses both the tree and the birdhouse while leaving paths open at the corners. This involves spatial reasoning to correctly place and size the structures relative to the specified objects.'
+      explanation = 'The prompt requires understanding spatial relationships in the scene to enclose both the tree and the birdhouse while leaving paths open at the corners.'
     )
   ],
   confidence = 5

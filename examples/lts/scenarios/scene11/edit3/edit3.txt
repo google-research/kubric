@@ -42,6 +42,7 @@ Scene(
         left_width = 4.0,
         right_width = 0.5,
         right_length = 4.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -54,6 +55,7 @@ Scene(
         left_width = 4.0,
         right_width = 0.5,
         right_length = 4.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -68,11 +70,12 @@ Scene(
           left_width = 0.2,
           right_width = 0.5,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Split the design into an L-shape.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The transformation from a rectangular shape to an L-shape requires understanding the final design outcome and applying an initial change that isn't fully defined in the prompt."
+        explanation_of_difficulty = "The transformation from a rectangular shape to an L-shape requires understanding the final design outcome and applying an initial change that isn't fully defined in the prompt."
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -82,11 +85,12 @@ Scene(
           left_width = 0.2,
           right_width = 0.5,
           right_length = 0.8,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Move the left section to (2, 0, 0).',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt clearly specifies the new position for the left section, making this an easy deduction.'
+        explanation_of_difficulty = 'The prompt clearly specifies the new position for the left section, making this an easy deduction.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -96,11 +100,12 @@ Scene(
           left_width = 4.0,
           right_width = 0.5,
           right_length = 0.8,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Set the left section’s length to 0.5 and width to 4.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt provides specific dimensions for the length and width of the left section, allowing for straightforward application.'
+        explanation_of_difficulty = 'The prompt provides specific dimensions for the length and width of the left section, allowing for straightforward application.'
       ),
       3 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -110,11 +115,12 @@ Scene(
           left_width = 4.0,
           right_width = 0.5,
           right_length = 4.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Set the right section’s length to 4 and width to 0.5.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt clearly specifies these dimensions, making this a simple edit to apply.'
+        explanation_of_difficulty = 'The prompt clearly specifies these dimensions, making this a simple edit to apply.'
       )
     ]
   )

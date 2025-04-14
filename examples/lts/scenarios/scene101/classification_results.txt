@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The task requires spatial reasoning to design semi-circular sunshades that provide shade without obstructing the view. This involves understanding the geometry of placement, orientation, and avoiding collisions with tables.'
+    0 : Numeric(
+      explanation = 'The prompt requires attention to geometric properties like the semi-circular shapes of the sunshades, which involve numeric aspects such as radius, orientation, and height to ensure they provide adequate shade and do not obstruct the view.'
     )
   ],
   confidence = 4

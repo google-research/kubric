@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could we make the circle a bit larger so both the pot and the rock are nicely tucked inside?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius from 0.8 meters to 1.0 meters to comfortably enclose both the pot and rock without overlap or obstruction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius from 0.8 meters to 0.9 meters which is not sufficient to fully enclose the elements.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius from 0.8 meters to 1.2 meters which is larger than required creating excessive empty space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius from 0.8 meters to 0.7 meters where the circle cannot enclose the elements.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.85,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius from 0.8 meters to 0.85 meters which is still slightly less than needed.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct radius adjustment is explicitly stated in the edit description to ensure the features are comfortably enclosed.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The radius change is clearly stated, but requires some understanding of spatial constraints between objects.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we lift the garden perimeter a bit higher to make it stand out more?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height from 0.3 meters to 0.5 meters for enhanced visual prominence and boundary definition.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height from 0.3 meters to 0.4 meters which doesn’t achieve the full visual and boundary enhancement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.35
+          ),
+          edit_description = 'Increase the height to 0.35 meters, offering minimal enhancement in visual prominence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the height from 0.3 meters to 0.2 meters which weakens visual boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase the height from 0.3 meters to 0.45 meters which is slightly less than the intended prominence.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height to 0.5 meters is directly mentioned as necessary for achieving the intended visual and boundary enhancement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height increase is directly specified, requiring straightforward application.'
+    )
+  ]
+)

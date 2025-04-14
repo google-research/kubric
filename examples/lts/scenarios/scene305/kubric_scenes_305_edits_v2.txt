@@ -1,0 +1,164 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, what if we made the straight path curve a bit between the chairs and that pot over there?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+            close_curve_leftmost_point = (1.5, 0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path profile to CurvyPath for a dynamic connection.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Switching from a linear to a curvy path involves understanding how these curves should connect the layout symmetrically.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the path profile to maintain a simple linear form.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No significant design change required.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Modify the path into a serpentine route.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires understanding serpentine dynamics and integration.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a circular shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Changing to a circular shape significantly alters the flow.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the path to a quarter wedge.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Involves calculating compatibility with existing structures.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly describes the modification to CurvyPath, aligning with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Switching from a linear to a curvy path involves understanding how these curves should connect the layout symmetrically.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we lay a winding path here that links up nicely with our current layout between the chairs and pot?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              path_2 = CurvyPath(
+                far_curve_leftmost_point = (-1.5, -0.5, 0.0),
+                close_curve_leftmost_point = (1.5, 0.5, 0.0),
+                amplitude = 0.4,
+                wavelength = 2.5,
+                phase = 0.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Create a new CurvyPath with correct parameters.',
+          target_parameter = 'path_2',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires identifying the correct positioning and parameters for the new design to achieve the goal while maintaining coherence with the scene setup.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              path_2 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 2.5,
+                height = 0.1,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a new linear path to the design.',
+          target_parameter = 'path_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'It involves ensuring the linear path properly integrates with the existing layout.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              path_2 = Serpentine(
+                left_arc_center = (-1.0, 0.0, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'concave',
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Include a serpentine path structure.',
+          target_parameter = 'path_2',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Demands alignment of serpentine design with scene dynamics.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              path_2 = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Form a new circular path in the scene.',
+          target_parameter = 'path_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Introduces complexity to integrate circular design into layout.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              path_2 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 10.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Establish a quarter wedge as a new path.',
+          target_parameter = 'path_2',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Challenging due to abstract design integration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately reflects the addition of a CurvyPath aligned with design intents illustrated in the scene goal.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Requires identifying the correct positioning and parameters for the new design to achieve the goal while maintaining coherence with the scene setup.'
+    )
+  ]
+)

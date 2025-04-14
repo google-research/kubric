@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests spatial reasoning as it requires integrating a gardening feature that divides space and optimizes layout flow, which involves understanding the relative positioning and arrangement of elements within the scene.'
+    )
+  ],
+  confidence = 4
+)

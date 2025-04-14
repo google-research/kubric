@@ -1,0 +1,73 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Can you adjust that line so it sits snugly between the birdhouse and the table, maybe nudging a bit towards the center? And while you're at it, let's stretch it out a tad longer and lift it slightly.",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move and resize the linear structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly describes the desired changes in position, length, and height of the structure.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the linear structure to center at (1.0, 0.0, 0.0) with no change in size.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt did not specify this position or size.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Center the linear structure at a mid-point and change height.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "While the center position is correct, the height adjustment is exaggerated compared to the prompt's suggestion."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain the original position and increase length slightly while adjusting height.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The length increment is less than specified and fails to move the structure to the correct position.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the structure to center at (0.75, 0.0, 0.0) but increase length and height more than as suggested.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The prompt does not suggest such an extensive increase in dimensions.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Answer 'A' accurately implements the specific modifications outlined in the edit description.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The edit description clearly matches the structural changes made in 'A'."
+    )
+  ]
+)

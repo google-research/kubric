@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it describes the placement and arrangement of a semi-ring in relation to the bench and rocks, emphasizing their relative positions.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt uses language that implies understanding the function and purpose of the semi-ring and the sensory experience it provides to visitors, such as a 'gentle embrace' and 'inviting visitors to relax'."
+    )
+  ],
+  confidence = 4
+)

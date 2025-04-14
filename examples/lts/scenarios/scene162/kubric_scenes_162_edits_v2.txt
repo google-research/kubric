@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you make that rectangular piece into an L-shape so it fits around the birdhouse?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 1.0,
+            right_length = 0.3,
+            right_center = (1.5, 1.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Transform the rectangle to an L-shape to better meet the design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.25, 1.25, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the current rectangular shape for consistency.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.25, 1.25, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the rectangle to a semicircular shape for a flowy design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert the rectangle into a quarter wedge to introduce rounded edges.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Circular(
+            center = (1.25, 1.25, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Convert the rectangle into a circular design for a compact setup.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The transformation modifies the existing rectangle into an L-shape that aligns with the design goal to frame the setup.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The clear description of the required changes makes this transformation straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Could we lift the L-shaped segment so it stands taller?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 1.0,
+            right_length = 0.3,
+            right_center = (1.5, 1.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Adjust dimensions and increase height for better distinction per the design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 0.0, 0.0),
+            left_length = 1.2,
+            left_width = 0.4,
+            right_width = 1.0,
+            right_length = 0.4,
+            right_center = (1.5, 1.2, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Make the L-shape taller and slightly larger for enhanced presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Transform the L-shape into a serpentine design for a dynamic spatial arrangement.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.5, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Turn the L-shape into a quarter wedge while keeping the height similar.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LShape_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Revert the L-shape to a rectangular form with increased height for impact.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification effectively increases the height of the L-shape, enhancing its architectural prominence as intended in the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The adjustment is clear, but ensuring the design fits cohesively into the broader layout adds some complexity.'
+    )
+  ]
+)

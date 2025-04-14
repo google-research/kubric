@@ -1,0 +1,189 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you make this a rectangle to frame both tables?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure to a rectangular profile to encompass both tables.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Design a wavy curvy path amidst the tables.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the structure to a TriWedge to create visual boundaries.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Place a semi-circular structure around the center.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Implement a quarter wedge design for spatial interaction.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit requires changing the shape to a rectangular design to align with the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This edit requires a simple shape change which is directly drawn from the prompts.'
+    ),
+    1 : EditMCQA(
+      question = 'Should we move the rectangular middle point to align between the tables?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = Rectangular(
+            center = (0.75, 0.75, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the center of the rectangle to mid-point between tables for alignment.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Build a linear wall segment for partitioning.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.75, 0.75, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Place a semi-circular structure centered between the tables.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = SemiRing(
+            center = (0.75, 0.75, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Construct a semi-circular ring that spans across the tables.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.25, 0.25, 0.0),
+            close_curve_leftmost_point = (0.75, 0.75, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Create a sinusoidal path stretching between the tables.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Realigning the center ensures that the structure is positioned directly between tables.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Positioning requires an understanding of spatial relation to achieve the design goal.'
+    ),
+    2 : EditMCQA(
+      question = 'Do you think it would be better to give more room around the center for movement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = Rectangular(
+            center = (0.75, 0.75, 0.0),
+            length = 3.0,
+            width = 3.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase dimensions to ensure ease of access and interaction.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = LShape(
+            left_center = (1.5, 1.5, 0.0),
+            left_length = 2.0,
+            left_width = 1.0,
+            right_width = 1.0,
+            right_length = 1.5,
+            right_center = (1.5, 2.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Construct an L-shaped structure for segmented interaction spaces.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.75, 0.75, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Expand to a larger semi-circular layout for increased space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 2.0,
+            gap_degrees = 11.0,
+            height = 0.5
+          ),
+          edit_description = 'Expand to include a quarter wedge for a modern interaction area.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_0',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 1.8,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Implement a serpentine pattern for fluid movement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing overall dimensions improves accessibility and interaction potential in the area.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Adjusting size must balance functionality and aesthetics in the given space.'
+    )
+  ]
+)

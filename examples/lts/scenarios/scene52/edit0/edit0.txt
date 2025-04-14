@@ -63,7 +63,7 @@ Scene(
         edit_description = 'Add another larger semi-ring structure around the first one with outer_radius: 2 and inner_radius: 1.5.',
         target_parameter = 'outer_radius',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt explicitly describes the addition of a second semi-ring structure, making the intention clear and straightforward to implement.'
+        explanation_of_difficulty = 'The prompt explicitly describes the addition of a second semi-ring structure, making the intention clear and straightforward to implement.'
       )
     ]
   )

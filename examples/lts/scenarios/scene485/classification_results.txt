@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt emphasizes the spatial arrangement of the seating and garden to create a peaceful and inviting atmosphere, suggesting the need for spatial reasoning regarding positioning and orientation.'
+    )
+  ],
+  confidence = 4
+)

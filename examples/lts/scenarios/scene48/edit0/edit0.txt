@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Change the design from SemiCircular to SineWave to create a more flowing pattern, with amplitude 0.1 and wavelength 1.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The transformation from SemiCircular to SineWave requires interpreting spatial concepts to align with the prompt's depiction of flow and motion."
+        explanation_of_difficulty = "The transformation from SemiCircular to SineWave requires interpreting spatial concepts to align with the prompt's depiction of flow and motion."
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'SineWave_1',
@@ -74,7 +74,7 @@ Scene(
         ),
         edit_description = 'Adjust the amplitude and wavelength to give the design a more dynamic and swirling appearance.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Understanding and achieving the desired dynamic and swirling pattern based on amplitude and wavelength adjustments is complex and needs an in-depth spatial relation interpretation.'
+        explanation_of_difficulty = 'Understanding and achieving the desired dynamic and swirling pattern based on amplitude and wavelength adjustments is complex and needs an in-depth spatial relation interpretation.'
       )
     ]
   )

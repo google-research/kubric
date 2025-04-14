@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests a path that connects the rocks and the birdhouse, which involves understanding the relative positions of these elements in the scene.'
+    )
+  ],
+  confidence = 4
+)

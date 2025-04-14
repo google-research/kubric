@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a geometric structure around the tables to create a coherent layout which involves spatial reasoning in arranging objects.'
+    0 : Semantic(
+      explanation = "The prompt is centered around promoting social interaction and the concept of having a 'coherent layout.' These tasks require an understanding of the function and social context of the scene, which is more about the meaning and purpose rather than specific spatial or numerical properties."
     )
   ],
-  confidence = 5
+  confidence = 4
 )

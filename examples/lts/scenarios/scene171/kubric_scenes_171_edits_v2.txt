@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about stretching that circular segment out a bit more for the pots?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Expand the inner segment for a spacious fit.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the inner radius is a straightforward task based on the prompt goal to provide more room coverage.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the outer curve for a bit more width.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Increasing the outer radius is an obvious task based on the prompt's emphasis on more coverage."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Try reversing the curve to be outward facing.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The change in orientation is simple as the goal can include aesthetic variations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Extend the surrounding arc slightly for more coverage.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the outer radius is a straightforward task based on the prompt goal to provide more coverage.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.35
+          ),
+          edit_description = 'Raise the top just a bit for more elevation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing height subtly enhances presence, a common approach.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct edit was to increase the outer radius to 1.2 meters to provide more coverage, aligning with the initial prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The task was straightforward as it was closely tied to the prompt's stated goal of more coverage."
+    ),
+    1 : EditMCQA(
+      question = 'Could we give that piece a little more height to stand out?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Boost the height for an imposing figure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height is a common method to enhance visibility.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Switch to a convex orientation for aesthetic difference.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the orientation can be seen as a direct way to modify appearance.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase the height for enhanced visual presence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the height is directly implied by the prompt aiming for a more visually present structure.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.1,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.45
+          ),
+          edit_description = 'Stretch it upwards slightly for a lift.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Simply increasing inner space for aesthetics is a straightforward edit.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep it low but alter the overall look.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the design subtly without height alterations draws attention differently.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct edit involved increasing height to 0.4 meters to boost visual presence, directly guided by the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing height to enhance visibility was a simple step based on prompt guidance.'
+    )
+  ]
+)

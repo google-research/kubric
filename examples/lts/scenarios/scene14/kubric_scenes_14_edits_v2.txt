@@ -1,0 +1,139 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How did you adjust the boundary around the rocky base?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Reduce the reach of the circular boundary from the middle while raising it a bit.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Alter the sweep of the circular fortification to extend more sideways but keep it lower.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.6
+          ),
+          edit_description = 'Shrink the span of the circular enclosure closer in and make it taller.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the initial circular shield wide and at the same height as before.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.45
+          ),
+          edit_description = 'Shift the circular perimeter inwards slightly and raise its height moderately.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification involved reducing the radius and increasing the height of the circular structure to 1.0 and 0.5 respectively.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The reduction of radius and height adjustment is straightforward with clear measurement instructions.'
+    ),
+    1 : EditMCQA(
+      question = 'Which path got placed to guide the direction towards the upright bark?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              triangular_path = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 3.0,
+                height = 0.1,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Lay down a direct stretch reaching forward in a straight line to the tree.',
+          target_parameter = 'triangular_path'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              wave_path_0 = CurvyPath(
+                far_curve_leftmost_point = (1.0, 0.0, 0.0),
+                close_curve_leftmost_point = (2.0, 0.0, 0.0),
+                amplitude = 0.15,
+                wavelength = 1.5,
+                phase = 0.0,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Create a looping path with gentle waves guiding to the woody structure.',
+          target_parameter = 'wave_path_0'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_path = Serpentine(
+                left_arc_center = (1.5, 0.0, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'convex',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Craft a curvy, snake-like path bending towards the long-standing pillar.',
+          target_parameter = 'serpentine_path'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_footpath = Rectangular(
+                center = (1.0, 0.0, 0.5),
+                length = 2.0,
+                width = 0.4,
+                height = 0.05
+              )
+            }
+          ),
+          edit_description = 'Construct a rectangular walkway, linking up directly with the leafy host.',
+          target_parameter = 'rectangular_footpath'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              zigzag_path = SemiCircular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                orientation = 'concave',
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Install a zigzagging path that curves nicely toward the towering stalk.',
+          target_parameter = 'zigzag_path'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The added structure was a CurvyPath designed to gracefully lead to the tree using defined curves.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The path involves a specific geometric configuration with parameters that must be derived and applied accurately.'
+    )
+  ]
+)

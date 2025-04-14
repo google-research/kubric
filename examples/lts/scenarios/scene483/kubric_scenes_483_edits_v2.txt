@@ -1,0 +1,167 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Shift that straight path into a gentle 'S' between these two spots.",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile from linear to serpentine and adjust parameters to incorporate dynamic movement and balance with the objects.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires interpreting spatial dynamics and adjusting design specifications to fit a serpentine path visually more cohesive with the existing objects.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile to a curvy path involving sinusoidal wave patterns.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding wave dynamics and their spatial representation between objects.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_path',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Change to a semi-circular design for smooth curvature surrounding the objects.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Involves changing path design to a semi-circle which may not match serpentine visual expectations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform into a tri-wedge structure with specific angular specifications.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The transformation into a wedge structure requires valid angle comprehension within serpentine context.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust to a quarter-wedge design providing an arched pathway segment.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Converting to a quarter-wedge involves understanding angular paths that maintain serpentine inspiration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the change required to achieve a serpentine path from a linear design, fitting the design goal and maintaining visual harmony.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This requires interpreting the spatial dynamics and aligning design specifications to ensure visual cohesiveness.'
+    ),
+    1 : EditMCQA(
+      question = "Let's weave a new dance of paths between these cozy seats and the little nook over there.",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_path = Serpentine(
+                left_arc_center = (0.0, 0.0, 0.0),
+                radius = 0.75,
+                left_arc_orientation = 'convex',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Incorporate a new serpentine structure to introduce elegance and continuity between the seating and the birdhouse.',
+          target_parameter = 'radius',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Adding a new serpentine path requires precise placement and parameter adjustments to ensure it flows between existing objects without collisions.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              wavy_path = CurvyPath(
+                far_curve_leftmost_point = (0.0, -0.5, 0.0),
+                close_curve_leftmost_point = (1.0, -0.5, 0.0),
+                amplitude = 0.5,
+                wavelength = 1.5,
+                phase = 0.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a wavy path design to instill fluidity between objects.',
+          target_parameter = 'amplitude',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The wavy path design demands understanding sinusoidal proportions that enhance fluidity across objects.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semi_ring = SemiRing(
+                center = (0.0, 1.0, 0.0),
+                outer_radius = 1.2,
+                inner_radius = 1.0,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a semi-ring design for dramatic arcs between seating and birdhouse.',
+          target_parameter = 'outer_radius',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Adding a semi-ring structure needs alignment with existing objects for a sensible and connected design.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              linear_extension = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 4.0,
+                height = 0.25,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Add a linear extension to bridge gaps but lacking organic connectivity.',
+          target_parameter = 'length',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Linear extensions are straightforward but do not provide organic intricacy for uniform cohesion.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_connector = Rectangular(
+                center = (0.5, 0.5, 0.0),
+                length = 2.0,
+                width = 0.25,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Install a rectangular structure connecting seating areas, not suited for serpentine goals.',
+          target_parameter = 'length',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Rectangular designs are easy to conceptualize but fail to convey a serpentine ambition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A adds an entirely new structure that meets the prompt requirements by introducing a serpentine path that ensures continuity and elegance, achieving spatial balance.',
+      difficulty = 'hard',
+      explanation_of_difficulty = "It necessitates intricate planning and design sensitivity to spatial constraints, requiring a strategic approach to meet the scene's needs."
+    )
+  ]
+)

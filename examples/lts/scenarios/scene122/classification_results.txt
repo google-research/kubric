@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Numeric(
-      explanation = 'The task involves creating a pattern with attention to geometric properties and ensuring symmetry, which requires numerical precision.'
+      explanation = 'The prompt involves creating a zigzag pattern which requires understanding of geometric properties such as symmetry, amplitude, and wavelength. These are numerical and mathematical concepts.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

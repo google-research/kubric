@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt requires arranging circular garden features around pots, which involves spatial reasoning to ensure they're both accessible and visually appealing."
+      explanation = 'The prompt involves spatial reasoning as it requires constructing circular features around the pots, considering relative positions and accessibility.'
     )
   ],
   confidence = 4

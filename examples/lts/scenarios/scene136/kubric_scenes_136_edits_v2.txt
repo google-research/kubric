@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you pull the boundary closer to the trashcan while keeping it functional?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.3
+          ),
+          edit_description = "Reduce the boundary's reach slightly to enhance fit without losing utility."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the boundary at its current size for the greatest coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.85,
+            height = 0.3
+          ),
+          edit_description = 'Slightly tighten the boundary for a balance between space and size.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.65,
+            height = 0.3
+          ),
+          edit_description = 'Make the boundary as compact as feasible for minimal space use.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the boundary for moderate space occupation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Reducing the reach of the boundary to 0.75 is aligned with the need to save space while maintaining the boundary's integrity.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "It's straightforward to deduce the reduced boundary size due to the prompt's suggestion of space optimization."
+    ),
+    1 : EditMCQA(
+      question = 'Hey, can you raise the boundary around the trashcan just a bit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.4
+          ),
+          edit_description = 'Uplift the boundary to improve its definition around the trashcan.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.35
+          ),
+          edit_description = 'Slightly uplift the boundary for a gentle enhancement in definition.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height as it initially was for uniformity.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.45
+          ),
+          edit_description = 'Raise the boundary significantly for more pronounced enhancement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 0.75,
+            height = 0.5
+          ),
+          edit_description = 'Enhance the boundary starkly for maximum visibility and definition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Raising the boundary to 0.4 ensures a noticeable and visual enhancement as required by the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly directs toward boundary improvement, paving an easy path to this solution.'
+    )
+  ]
+)

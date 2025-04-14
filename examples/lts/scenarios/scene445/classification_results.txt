@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create a serpentine path that weaves between the trees and pot in a harmonious manner. It involves understanding the relative positions and arrangement in the scene to achieve the requested flowing form.'
+    )
+  ],
+  confidence = 4
+)

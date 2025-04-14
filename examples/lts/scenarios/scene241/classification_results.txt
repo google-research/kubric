@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests a spatial arrangement by adding a linear divider to organize and separate two bins. This clearly involves spatial reasoning to achieve the desired layout.'
+      explanation = 'The prompt involves organizing a scene with a linear divider to create a clear separation between two bins. This requires an understanding of spatial arrangement and positioning to maintain organization and functionality.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

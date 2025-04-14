@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How do we shift the central part of the wall to match the line between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the center to the middle point between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Position the wall further to the left, away from the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Place the center right at the zero-point for balance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the center further to the right, extending the alignment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 1.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Create a vertical move, adjusting alongside the left tree.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly aligns the wall at the center between the two trees.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task involves understanding spatial arrangement in relation to the trees.'
+    ),
+    1 : EditMCQA(
+      question = "What change to our wall's length will bolster the separation effect up along the trees?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length for greater separation effect.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Trim the length, pulling back the wall's span."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Overextend the wall length for an extra-wide barrier.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maintain the original length, retaining the current span.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 0.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Drastically shorten the length, cutting down the separation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A extends the wall length, perfecting the visual separation aspect.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change demands comprehension of increasing the visual barrier.'
+    ),
+    2 : EditMCQA(
+      question = 'How can we make our wall a more visible barrier while keeping the height unassuming?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.7,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height to make the barrier stand out more.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the lower profile consistent with less prominence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Go for a moderate height, providing a slight increase in visibility.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Lower the height further, making the barrier even less observable.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_wall',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 1.0,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Build a much taller wall for a pronounced barrier beyond current goals.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A effectively raises the wall height to 0.7 meters, enhancing noticeability.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "This alteration involves recognizing the need for increased visual attention on the barrier's size."
+    )
+  ]
+)

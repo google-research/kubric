@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a semi-circular path that must be arranged around stones, requiring spatial reasoning to understand the arrangement and relative positioning to achieve a balanced garden space.'
+    )
+  ],
+  confidence = 4
+)

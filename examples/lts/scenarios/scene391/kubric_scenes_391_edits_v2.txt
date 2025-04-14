@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about making that boxy shape in the middle look more edgy and sharp around the objects?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Rectangular to TriWedge to introduce a more dynamic boundary.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The transformation to a TriWedge was clearly outlined in the prompt, making it straightforward.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Rectangular to QuarterWedge to introduce a different boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Rectangular to Circular to form a rounded boundary.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the profile from Rectangular to Linear to create a straight boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the profile from Rectangular to SemiCircular for a semi-rounded boundary.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer is A because the edit described in the scene specifically outlines a transformation to a TriWedge structure.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The transformation to a TriWedge was clearly outlined in the prompt, making it straightforward.'
+    )
+  ]
+)

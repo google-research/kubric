@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we slide the start of the winding path closer to where the birdhouse resides?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Move the serpentine path to start near the birdhouse at (-1, 1)',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Moving the path closer to the birdhouse aligns with the scene's goal of guiding visitors around it."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 2.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Place the path near the birdhouse, but slightly higher in elevation',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "This choice considers elevation but generally matches the prompt's goal."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.15
+          ),
+          edit_description = 'Position the path close to the birdhouse with increased height for visual prominence',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This option adds a height increase for effect, balancing proximity and visual appeal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Shift the path start near the birdhouse with a wider arc outward',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This choice emphasizes a broader guiding path, adding complexity.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.8, 0.8, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Align the path closer to birdhouse but slightly diagonally',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Slight diagonal adjustment complements the intended route closely around the birdhouse.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit moves the starting point of the path nearer to the birdhouse, most effectively aligning with the design intention to guide visitors.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task involves understanding the requirement for proximity to the birdhouse, which is straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Do we make the curve bend outward to help change how people see the way?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the orientation to convex for the second half',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing the orientation is a bit more complex but necessary for the design to affect visitor perception.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Modify to concave extending a longer reach',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "This edit opts to lengthen reach with concavity, adding intricacy to the path's perception."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.2, 1.2, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adjust orientation to convex with side aperture',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This change introduces a sideways adjustment, reinforcing convexity and flow control.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Orient it convex with tighter bend',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Focus is on a tighter radii while maintaining a convex route – adding spatial utilization.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 1.3, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Move and orient convex with increased height',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Enhancing visual perception via height while adhering to curved convex motion demands moderate insight.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The edit changes the orientation to convex, which is essential for modifying the path's visual flow and purpose.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding how orientation affects visual guidance requires notable cognition of spatial effect.'
+    ),
+    2 : EditMCQA(
+      question = 'Can we make the winding path extend more, ensuring that it flows long and smoothly about?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Extend the path to increase the length',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Extending the path requires a careful balance to maintain the serpentine nature while achieving the goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Reduce the radius for a shorter length',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This option delivers shorter length, bringing focus on shared passage features.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 2.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Modify path elevation with longer trajectory',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Such elevation amplifications offer extended visibility and trajectory complexity.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Extend the path with a concave orientation',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This balance maintains an inward path curvature while extending, necessitating clear design intent.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.2, 1.8, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Stretch path orientation with marginal height boost',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Complex spatial extension that requires careful integration of height and horizontal curvature for balanced extension.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit extends the path longer while adjusting its structural features to suit the serpentine aesthetics and purpose.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Balancing length extension with serpentine characteristic preservation demands high-level design capability.'
+    )
+  ]
+)

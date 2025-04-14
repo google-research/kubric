@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves guiding attention and movement between benches, which requires an understanding of relative positions within the scene.'
+    )
+  ],
+  confidence = 4
+)

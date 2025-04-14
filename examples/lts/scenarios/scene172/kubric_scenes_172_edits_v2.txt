@@ -1,0 +1,189 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Feeling like the garden needs more life, what do you think could replace the rectangular form for a lively touch?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a TriWedge structure for a more dynamic outline.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change from a rectangular structure to a TriWedge involves a conceptual shift in shape which might not be directly implied by the prompt.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a QuarterWedge for a classic appeal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a CurvyPath for a flowing garden layout.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 3.0,
+            inner_radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a SemiRing for a popular outdoor design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a Circular for symmetry.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves changing the original Rectangular structure to a TriWedge structure, which is a conceptual shift to achieve the dynamic outline as intended.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt hints at using striking shapes to enhance aesthetics but making a design choice for TriWedge requires interpretation beyond basic spatial adjustment.'
+    ),
+    1 : EditMCQA(
+      question = 'Could you narrow down how we adjusted the dimensions for a perfect fit in the space?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius to 1.5 meters to ensure proper fitting.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests fitting within the spatial constraints, making the radius adjustment straightforward.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius to 2.5 meters for an expansive fit.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius to 1.0 meters for a snug fit.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius to 1.8 meters for tighter spacing.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 180.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius to 2.0 meters for balanced spacing.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer is adjusting the radius to 1.5 meters, aligning with spatial constraints and the design goal of fitting properly within the area.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This edit follows directly from space considerations outlined in the prompt, making it an easy deduction.'
+    ),
+    2 : EditMCQA(
+      question = "Let's add a bit of height—is there a change that ups the height for more visual impact?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to maintain presence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The increase in height is a simple adjustment for visual presence as suggested by the prompt.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters for extra visibility.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the height to 0.3 meters to stand out a bit more.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.7
+          ),
+          edit_description = 'Increase the height to 0.7 meters for dominant presence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase the height to 0.45 meters for a moderate lift.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit increases the height to 0.5 meters, aligning with the prompt’s indication to enhance visual presence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height for visibility and presence is clearly suggested by the requirements, making it an easy inference.'
+    )
+  ]
+)

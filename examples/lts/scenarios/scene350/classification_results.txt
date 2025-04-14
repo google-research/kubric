@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves the creation of a semi-ring structure around the seating area, which involves spatial reasoning to ensure the arrangement provides protection yet remains open.'
+    )
+  ],
+  confidence = 4
+)

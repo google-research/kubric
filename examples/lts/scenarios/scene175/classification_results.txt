@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging objects in a semi-circular manner around the benches, which requires spatial reasoning and understanding of spatial relationships.'
+      explanation = 'The prompt requires understanding spatial relationships to create a semi-circular arrangement around benches, balancing openness and privacy without blocking access. This involves spatial reasoning about positions and orientation to achieve the desired enclosure effect.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

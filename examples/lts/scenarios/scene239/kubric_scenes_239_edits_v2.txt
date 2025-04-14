@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we rotate that linear piece from facing us to lining up with the other two objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Rotate orientation from front-back to left-right for a better arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.25, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the center to the right while keeping the orientation left-right.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Extend the length while maintaining the current orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 0.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shorten the length and change orientation to left-right.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.05),
+            length = 1.0,
+            height = 0.35,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the height slightly while keeping the orientation as front-back.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The orientation change from front-back to left-right is specified for better division.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification is straightforward as the new orientation is clearly mentioned in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'How would you adjust it so it sits perfectly in the middle, stretches wider, and stands taller?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Center the linear structure at the midpoint, extend the length and increase the height for a better boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the dimensions slightly for a moderate boundary effect.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Keep length but keep orientation across its current direction.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (-0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the center slightly horizontally while adjusting other parameters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the height but do not expand horizontally.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The specification to center, elongate, and elevate the structure aligns with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Involving several adjustments requires spatial reasoning and alignment with goal.'
+    )
+  ]
+)

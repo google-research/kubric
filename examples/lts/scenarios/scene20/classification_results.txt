@@ -1,14 +1,14 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires laying out a meandering path that connects two focal points: a bench and a rock. This involves arranging objects or features in a specific spatial configuration.'
+      explanation = 'The prompt requires creating a path that meanders spatially between the bench and the rock, indicating the need for spatial reasoning and understanding of relative positions.'
     ),
     1 : Numeric(
-      explanation = 'The task includes interpreting geometric properties such as amplitude, wavelength, and phase, suggesting the need for precise measurements and adjustments, which relates to numeric reasoning.'
+      explanation = 'The scene description involves geometric properties such as amplitude, wavelength, and phase, which require numerical reasoning to properly design the meandering path.'
     ),
     2 : Semantic(
-      explanation = "The description mentions resolving ambiguities in the instructions, indicating a need to understand the scene's semantic elements, such as path height and cohesiveness within the space, which involves interpreting the meaning and purpose of scene components."
+      explanation = "There are under-specified elements in the prompt, such as 'interesting path' and 'sense of exploration', which require contextual interpretation and understanding of the scene's function."
     )
   ],
-  confidence = 4
+  confidence = 5
 )

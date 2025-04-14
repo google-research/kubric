@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires the design to use circular structures and arrange objects in a garden, which involves spatial reasoning and understanding of geometric properties like radius and positioning of objects.'
+      explanation = 'The prompt requires understanding spatial relationships to create circular structures that unify the trashcans and rock, without cluttering the space. This involves arranging the objects in a way that considers their relative positions and overall spatial harmony.'
     )
   ],
   confidence = 4

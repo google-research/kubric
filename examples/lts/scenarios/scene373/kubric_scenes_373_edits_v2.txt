@@ -1,0 +1,74 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, make the wedge shape pop more in the garden, but keep moving space for the trees and pot.',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 11.0,
+            height = 0.5
+          ),
+          edit_description = 'Modify the design to a TriWedge with radius 1.5, gap 11 degrees, height 0.5 for a more balanced appearance around objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Simply adjusting the gap within allowable range for visual and spatial effectiveness.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 95.0,
+            height = 0.8
+          ),
+          edit_description = 'Increase both radius and height significantly while keeping the large gap to dramatically change the structure’s impact.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The edits strongly influence space and visibility beyond the prompt’s artistic balance.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 8.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform into a QuarterWedge with minimal gap to focus on a much tighter spatial arrangement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Deviation from the wedge type complicates design suitability analysis.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Change from a circular design to a TriWedge with reduced radius to 1.5, increase height to 0.5, and adjust gap to 95 degrees for clear access.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly states the design specifications needed for the modification.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Select a SemiRing with specific radii and the same height to develop layered visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This option introduces a different structure, diverging from the design goal’s core purpose.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'Option D provides the exact transformation laid out in the design goal: change from a Circular to a TriWedge with the specified center, radius, height, and gap degrees.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly states the design specifications needed for the modification, making the correct choice straightforward.'
+    )
+  ]
+)

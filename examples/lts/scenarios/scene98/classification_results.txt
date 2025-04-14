@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests the design of a winding pathway, which involves spatial reasoning to determine the layout and arrangement of the path around the birdhouse.'
+      explanation = 'The prompt requests spatial reasoning as it involves designing a winding pathway guiding visitors around the birdhouse.'
     )
   ],
   confidence = 4

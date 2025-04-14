@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Adjust the path to wrap around the trashcan with new start points.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Determining the correct curve wrapping around the trashcan requires spatial reasoning and understanding of the specified camera viewpoint.'
+        explanation_of_difficulty = 'Determining the correct curve wrapping around the trashcan requires spatial reasoning and understanding of the specified camera viewpoint.'
       )
     ]
   )

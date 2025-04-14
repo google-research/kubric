@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires the design of a winding path that needs to spatially navigate between two trees, which involves spatial reasoning to maintain the appropriate geometric and aesthetic relationships between the elements.'
-    ),
-    1 : Numeric(
-      explanation = 'The task involves geometric properties such as amplitude, wavelength, and phase to create the path, indicating a need for numerical reasoning to achieve the desired appearance.'
+      explanation = 'The scene prompt involves creating a path that winds between two trees, which requires understanding spatial relationships and positions of the path relative to the trees.'
     )
   ],
   confidence = 4

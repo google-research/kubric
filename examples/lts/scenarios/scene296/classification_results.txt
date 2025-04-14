@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves spatial reasoning by requesting the introduction of a 'wedge-like structure' to frame objects in a manner that encourages gathering and interaction, enhancing spatial relationships."
+    )
+  ],
+  confidence = 4
+)

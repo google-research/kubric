@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves arranging garden elements in a semicircular layout to highlight the pots, which requires spatial reasoning to create an inviting and balanced space.'
+      explanation = 'The prompt involves arranging the garden space in a specific semicircular layout to create a spatial relationship between the pots and the surrounding area. This demonstrates spatial reasoning related to the relative positions and overall layout.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

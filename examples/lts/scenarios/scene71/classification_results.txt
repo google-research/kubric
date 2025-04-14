@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves arranging L-shaped structures around chairs, which requires spatial reasoning to ensure proper enclosure and accessibility. The focus is on spatial relationships and geometric properties.'
+      explanation = 'The prompt involves arranging L-shaped structures around chairs to create a specific layout. This requires understanding the spatial relationships and positions of objects to ensure proper access and arrangement, classifying it under spatial reasoning.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

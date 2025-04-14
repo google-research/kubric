@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt focuses on the arrangement of semicircular enclosures around rock formations, which requires spatial reasoning to ensure that the structures highlight and do not obstruct the rocks.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt also involves understanding the purpose of the semicircular enclosures, which is to 'highlight and protect the beauty' of the rocks, requiring comprehension of the function and aesthetic purpose of objects in the scene."
+    )
+  ],
+  confidence = 4
+)

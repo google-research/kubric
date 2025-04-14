@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging the seating in a structured manner that requires consideration of spatial relationships. The goal is to enhance seating without obstructing pathways, which involves spatial reasoning about positioning and configuring elements within the garden context.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,144 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Let's switch it up—what should we do with the large rectangle where it sits between the chairs?",
+      answers = {
+        A = DeleteStructureEdit(
+          design_id = 'broad_rectangular_structure',
+          edit_description = 'Remove the broad rectangular structure to replace it with individual structures around each chair.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'broad_rectangular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Shift to a circular outline, centered in the middle of the setup.'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_broad_rectangular_structure = Rectangular(
+                center = (0.0, -0.25, 0.0),
+                length = 1.5,
+                width = 1.2,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Integrate a new broad rectangular structure extending between the chairs.',
+          target_parameter = 'center'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'broad_rectangular_structure',
+          NewDesignStructure = LShape(
+            left_center = (-0.5, -0.5, 0.0),
+            left_length = 0.8,
+            left_width = 0.6,
+            right_width = 0.6,
+            right_length = 0.7,
+            right_center = (0.5, -0.5, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Transform into an L-shaped region extending inwards.'
+        ),
+        E = DeleteObjectEdit(
+          object_id = 'chair_1',
+          edit_description = 'Remove chair_1 from the scene.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit is to delete the existing broad structure to make way for specific structures around each chair, directly matching the scene's goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly asks to split the broad structure into two distinct structures around the chairs.'
+    ),
+    1 : EditMCQA(
+      question = 'Arrange the new shapes around each seat—how big and where should they be?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_structure_1 = Rectangular(
+                center = (-0.5, -0.5, 0.0),
+                length = 0.8,
+                width = 0.6,
+                height = 0.4
+              ),
+              rectangular_structure_2 = Rectangular(
+                center = (0.5, -0.5, 0.0),
+                length = 0.8,
+                width = 0.6,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add distinct rectangular structures around each chair to ensure seating areas are defined without blocking access.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The dimensions and placement need to be determined to align with the initial description of open access and seating area definition.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarter_wedge_structure = QuarterWedge(
+                center = (-0.5, -0.5, 0.0),
+                radius = 0.75,
+                gap_degrees = 14.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Introduce a quarter wedge structure for a radial seating arrangement.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_circle_structure = SemiCircular(
+                center = (0.5, -0.5, 0.0),
+                radius = 0.8,
+                orientation = 'convex',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a semi-circular boundary to maintain a curved seating arc.',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_path = Serpentine(
+                left_arc_center = (0.5, 0.5, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Include a serpentine path for guiding flow around the seating area.',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              triwedge_structure = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 14.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a triwedge structure for a triangular seating pattern.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adding distinct rectangular structures around each chair aligns with the design goal of defining seating areas while maintaining access.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires calculating appropriate dimensions and spatial alignment to preserve the desired openness.'
+    )
+  ]
+)

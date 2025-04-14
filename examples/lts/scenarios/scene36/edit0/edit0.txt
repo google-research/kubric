@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the profile to a SineWave to provide flow and harmony.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The transition from a linear to a curvy structure aligns with the flow requirement but needs understanding of wave mechanics.'
+        explanation_of_difficulty = 'The transition from a linear to a curvy structure aligns with the flow requirement but needs understanding of wave mechanics.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'linear_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Increase the height for more presence and impact.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Adjusting height is a straightforward enhancement for impact and presence.'
+        explanation_of_difficulty = 'Adjusting height is a straightforward enhancement for impact and presence.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'linear_1',
@@ -82,7 +82,7 @@ Scene(
         ),
         edit_description = 'Ensure the wavy pattern wraps around the pots smoothly without collisions.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Ensuring non-collision requires spatial understanding and precise calculation.'
+        explanation_of_difficulty = 'Ensuring non-collision requires spatial understanding and precise calculation.'
       )
     ]
   )

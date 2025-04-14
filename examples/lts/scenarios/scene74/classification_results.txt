@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a path that avoids a bench while following a gentle wave pattern, which requires spatial reasoning to arrange and navigate the path around objects.'
+      explanation = "The prompt involves spatial reasoning to design a path that 'wanders around' a specific location, which is the sitting spot represented by the bench."
     ),
     1 : Numeric(
-      explanation = 'The prompt specifies a wave pattern with particular amplitude and wavelength, indicating a need for numeric precision in the design.'
+      explanation = "The prompt specifies a 'gentle wave pattern with specified amplitude and wavelength,' indicating the need for numerical assessment related to these parameters."
     )
   ],
   confidence = 4

@@ -50,7 +50,7 @@ Scene(
         ),
         edit_description = 'Increase the radius of the circular planter around pot1.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is straightforward as it directly increases the radius of the existing circular planter from the initial design to match the design goal.'
+        explanation_of_difficulty = 'The edit is straightforward as it directly increases the radius of the existing circular planter from the initial design to match the design goal.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -65,7 +65,7 @@ Scene(
         edit_description = 'Add a similar circular planter around pot2.',
         target_parameter = 'circular planter at pot2',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Adding a new circular design that complements the existing one requires interpreting the symmetry and equal design aesthetics intended in the scene.'
+        explanation_of_difficulty = 'Adding a new circular design that complements the existing one requires interpreting the symmetry and equal design aesthetics intended in the scene.'
       )
     ]
   )

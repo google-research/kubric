@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can you make the right edge of the enclosure around the first trashcan less wide to make more room to walk around?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.6,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the width to allow extra space for movement while keeping protection intact.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Reduce the width to create a snug fit around the trashcan.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.1,
+            width = 0.7,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height and adjust the dimensions for enhanced coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.65,
+            height = 0.45
+          ),
+          edit_description = 'Slightly increase the width for some extra space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.3,
+            width = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Expand all dimensions for maximum protective coverage.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit adjusts the width to 0.6 meters, as required by the design goal, ensuring both spatial efficiency and protection.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The edit is straightforward given the prompt's specifications for dimensions."
+    ),
+    1 : EditMCQA(
+      question = 'Could you add something similar around the other trashcan that we haven’t enclosed yet?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 1.0,
+                width = 0.6,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a second rectangular enclosure matching the design specs.',
+          target_parameter = 'rectangular_2'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 1.1,
+                width = 0.7,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a larger enclosure for enhanced security around the second trashcan.',
+          target_parameter = 'rectangular_2'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 0.9,
+                width = 0.5,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a smaller enclosure focusing on saving space.',
+          target_parameter = 'rectangular_2'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 1.0,
+                width = 0.65,
+                height = 0.45
+              )
+            }
+          ),
+          edit_description = 'Add an enclosure that’s slightly wider to cover more.',
+          target_parameter = 'rectangular_2'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 1.2,
+                width = 0.7,
+                height = 0.6
+              )
+            }
+          ),
+          edit_description = 'Add an enclosure ensuring optimal protective coverage.',
+          target_parameter = 'rectangular_2'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adding a second rectangular structure with the specified dimensions fulfills the design goal, ensuring both security and design consistency.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adding another structure as specified in the design goal is straightforward.'
+    )
+  ]
+)

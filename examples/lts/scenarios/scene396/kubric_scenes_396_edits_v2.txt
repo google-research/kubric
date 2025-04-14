@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can we reform the circular stretch around bin_1 into something more angular for a better view?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 11.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert to a QuarterWedge design with a subtle gap to balance openness with enclosure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design from Circular to QuarterWedge to introduce angularity and dynamically engage with the space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.0,
+            height = 0.5
+          ),
+          edit_description = 'Replace the circular design with a QuarterWedge to enhance the spatial interaction with an average-sized visual boundary.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.5,
+            height = 0.3
+          ),
+          edit_description = 'Adopt a QuarterWedge design with a moderate gap to redefine the boundary with sophistication.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Shift from Circular to QuarterWedge design, exploiting a minimal gap for modernistic enclosure.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The prompt explicitly requires changing the design to a QuarterWedge structure with specific parameters for trashcan 1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifically requests a dynamic quarter-wedge setup, making the conversion straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Could we alter the design near bin_2 to make it more welcoming and visibly distinct?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Modify the design to a QuarterWedge with a narrow gap creating an impactful presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design from Circular to QuarterWedge and adjust parameters for coverage and visual appeal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 11.5,
+            height = 0.3
+          ),
+          edit_description = 'Redesign using QuarterWedge with a sleek and subtle boundary for trashcan 2.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 7.5,
+            height = 0.4
+          ),
+          edit_description = 'Introduce a QuarterWedge design with a more engaging gap degree to redefine the space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Implement a QuarterWedge design with ample angular coverage for trashcan protection.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct modification aligns with the prompt, specifying a QuarterWedge design with the provided parameters for trashcan 2.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt suggests using quarter-wedge structures around the trashcans and specifies parameters, easing the conversion.'
+    )
+  ]
+)

@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a winding path, which involves spatial reasoning, including arranging and placing objects in a specific order relative to each other.'
+      explanation = 'The prompt involves creating a winding path to the birdhouse, which requires spatial reasoning to determine the relative positioning and orientation of the path in relation to the birdhouse.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

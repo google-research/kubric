@@ -1,0 +1,143 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about adding something next to the table that stands out?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              tri_wedge_1 = TriWedge(
+                center = (2.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a Tri-Wedge structure near the table to enhance visual contrast.',
+          target_parameter = 'visual contrast and stability'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rectangular_1 = Rectangular(
+                center = (2.0, 0.0, 0.0),
+                length = 1.0,
+                width = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a Rectangular structure adjacent to the table.',
+          target_parameter = 'visual contrast and stability'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_1 = CurvyPath(
+                far_curve_leftmost_point = (2.0, 0.0, 0.0),
+                close_curve_leftmost_point = (1.0, 0.0, 0.0),
+                amplitude = 0.2,
+                wavelength = 0.3,
+                phase = 0.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a Curvy Path structure near the table for a dynamic appearance.',
+          target_parameter = 'visual contrast'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (2.0, 0.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Include a Circular structure near the table to improve balance.',
+          target_parameter = 'balance and contrast'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (2.0, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a Serpentine structure to create an intricate design element.',
+          target_parameter = 'complexity and ornamentation'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The rectangular structure directly provides the visual contrast and stability needed according to the prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt implies the need for a contrasting structure, which can suggest but not explicitly define a rectangle.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you nudge the semicircular form a bit so it balances with everything?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Move the SemiCircular structure to maintain visual balance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, 1.5, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the SemiCircular structure by shifting it to another side to enhance balance.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Shift the SemiCircular structure center slightly to balance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Reposition the SemiCircular structure to adjust its impact on the scene.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Flip the SemiCircular structure for better aesthetic alignment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The described edit matches precisely with moving the structure to the specified position in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task was straightforward as the prompt clearly indicated the need for visual balance adjustment.'
+    )
+  ]
+)

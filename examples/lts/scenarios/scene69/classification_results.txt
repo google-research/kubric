@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests spatial reasoning to accurately position and size each section of the structure, ensuring that the birdhouse fits well into the nook without leaving gaps or making it too tight.'
+      explanation = 'The prompt requires optimizing the space for the birdhouse by adjusting its position and size, which focuses on spatial reasoning and the arrangement of structure components without leaving gaps.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

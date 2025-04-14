@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves creating a rectangular enclosure around two trees while offering clear paths around them. This requires spatial reasoning to understand how the enclosure should be positioned relative to the trees and paths, emphasizing their spatial arrangement.'
+    )
+  ],
+  confidence = 4
+)

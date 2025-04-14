@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a path that navigates between trees and rocks, which requires spatial reasoning to understand the relative positions of these objects and ensure the path flows gracefully between them.'
+    )
+  ],
+  confidence = 4
+)

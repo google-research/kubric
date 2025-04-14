@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning - arranging the protective structure around the garden pots in a semi-ring that allows for entry on one side.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt requires understanding the concept of an 'open embrace,' which is semantic in nature, suggesting a specific type of arrangement and openness."
+      explanation = 'The prompt involves constructing a shield that partially encloses the pots and allows entry from one side, which requires spatial reasoning about relative positions and the spatial configuration of the shield and pots.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

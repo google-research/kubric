@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging circular patterns and centering seating areas, which requires understanding of spatial relationships and positioning relative to the trees in the scene.'
+    )
+  ],
+  confidence = 4
+)

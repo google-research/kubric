@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging the chairs and table in a seating area, requiring spatial reasoning to ensure the layout is functional and visually appealing.'
+      explanation = 'The prompt requires understanding spatial relationships for creating a functional seating area, specifically positioning a small table between two chairs. The task mentions interpreting geometric properties such as center, length, and width, which are aspects of spatial reasoning.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

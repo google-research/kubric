@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a pathway that loops around the birdhouse and joins the chairs, which requires understanding spatial relationships and arranging objects in a certain way.'
-    ),
-    1 : Numeric(
-      explanation = 'The design requires calculating geometric properties like amplitude and wavelength, which relates to the quantitative aspect of constructing the path.'
+      explanation = 'The prompt requires spatial reasoning to navigate the relationships between the chairs and the birdhouse, ensuring that the path loops around the birdhouse and connects the two chairs in a visually appealing manner.'
     )
   ],
   confidence = 4

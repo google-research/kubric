@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves the creation of a whimsical boundary using partial arcs. This type of request requires spatial reasoning to position the arcs correctly to foster a playful space around the garden features.'
+    )
+  ],
+  confidence = 4
+)

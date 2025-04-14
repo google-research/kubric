@@ -1,0 +1,186 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could we nudge the center of the pathway slightly to align it nicely between the seats?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Move the Linear structure's center to (0, -0.5, 0) to align with the benches."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a QuarterWedge with a gap of 10 degrees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Transform the structure to a SemiCircular configuration, oriented concave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.0, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Configure the structure as a CurvyPath with specific wave parameters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the design to a Serpentine configuration with a convex arc.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A properly moves the center of the Linear structure to align with the benches, as specified in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt logically implies realignment with the benches' positions, making this a straightforward interpretation."
+    ),
+    1 : EditMCQA(
+      question = 'Do you think orienting the pathway from left to right would better match the setup with the seating?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain the front-back orientation for the Linear structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Change the orientation to 'left-right' for consistency with the bench alignment."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform to a TriWedge design with left-right orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -0.5, 0.0),
+            radius = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Convert the structure into a Circular format while keeping its function.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.5, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change to a SemiRing design oriented convex to fit the benches.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Option B changes the orientation to 'left-right', which is consistent with the benches' alignment along the x-axis.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The orientation aligns naturally with the bench layout, making this a clear choice.'
+    ),
+    2 : EditMCQA(
+      question = 'Can we stretch the path a bit to make sure it reaches both ends of the seating arrangement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the current length of the Linear structure.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length to 2.0 meters to adequately align with both benches.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            width = 0.2,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a Rectangular structure with increased length.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Alter to a SemiCircular layout with a larger radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, -0.5, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.4,
+            right_length = 0.8,
+            right_center = (0.5, -0.5, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Reconstruct the design as an LShape structure to encompass more area.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B successfully extends the length to cover the span between both benches, ensuring the desired alignment.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Extending the length ensures coverage between both benches, which is explicitly suggested by the prompt.'
+    )
+  ]
+)

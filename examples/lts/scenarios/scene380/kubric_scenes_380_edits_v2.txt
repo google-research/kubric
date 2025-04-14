@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, how about we make that existing circle a bit more inviting? Increase the outer curve and let’s see what happens!',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the design from a simple circular structure to a SemiRing with an increased outer radius and height to create an open and inviting design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit involves changing the type and parameters of the structure based on clear design goal specifications.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.4
+          ),
+          edit_description = 'Modify the circle to increase its radius slightly and height to create a larger presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a SemiCircular with concave orientation keeping the original dimensions.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform the circular design into a QuarterWedge to add angular complexity.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design into a TriWedge for a sharper style around the table.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is the correct modification as it changes the existing circular structure into the desired semi-ring structure with specified outer radius and height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The hint provided in the prompt makes it straightforward to identify the correct modification of the design.'
+    )
+  ]
+)

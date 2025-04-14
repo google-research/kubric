@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging a serpentine pattern that connects standalone features in a specific spatial configuration. This requires spatial reasoning to ensure the pattern integrates gracefully with existing objects.'
+      explanation = 'The prompt involves integrating a serpentine pattern that connects standalone features. This requires spatial reasoning to determine how the serpentine pattern navigates and interacts with the existing features, ensuring both functionality and aesthetic appeal.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

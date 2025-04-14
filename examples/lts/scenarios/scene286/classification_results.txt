@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the formation of a structured square around the rocks to provide a visually pleasing boundary, which involves spatial reasoning to understand the relative positioning and arrangement of rocks within the garden area.'
+    )
+  ],
+  confidence = 5
+)

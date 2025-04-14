@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to arrange the pathway like a gentle river, focusing on properties such as curvature and path alignment.'
+    0 : Semantic(
+      explanation = "The prompt is focused on the aesthetic and creative aspect of designing an 'artistic pathway' that 'flows like a gentle river', which lacks specific details or quantities and relies more on an understanding of the metaphorical concept."
     )
   ],
   confidence = 4

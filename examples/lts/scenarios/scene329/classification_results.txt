@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a central feature that encapsulates the table and the rock within a circular garden layout, which requires spatial reasoning to understand relative positions and arrangement.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Could we nudge the middle of that straight line toward the place where you'd rest a plate, just shy of those seated areas?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 3.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the linear structure closer to the chairs, aligning the center right at the table level while maintaining its size.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change orientation to stretch across, moving closer to the ground and condensing width.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 1.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Ease the center to where you’d reach, reduce span subtly but keep it flat along the seating.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.5, 0.0),
+            length = 3.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust the structure to the side, axially change to cover more ground but keep length firm.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Drop the center on the base, letting it reach a tad more whilst lying flat.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A appropriately moves the linear element into the specific midpoint while retaining its initial dimensions.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Clearly defined center shift simplifies this adaptation.'
+    ),
+    1 : EditMCQA(
+      question = 'Reconfigure that line’s alignment to better pin down each side of which they sit - make it split right and left distinctly.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Switch up direction to face front-back, giving each seat section a specific identity.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 2.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Stay as-is directionally but let it span just a nudge more, looking at the guests upfront.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Pivot slightly and trail to align front and back - dart the middle forward.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep laid horizontally but push lengthwise extensively to stand out tall.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Hold the line at a third of its height, otherwise steer through unchanged.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Reorienting to 'front-back' ensures the separation goal is achieved.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'New configuration requires a grasp of design purpose beyond straightforward edits.'
+    )
+  ]
+)

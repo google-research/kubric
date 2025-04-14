@@ -1,0 +1,95 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Can we make it look like there's a bigger crescent encompassing the birdhouse?",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              SemiCircular_2 = SemiCircular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add another larger semi-circular structure around the first one with a radius of 1.5 to complete the layered design.',
+          target_parameter = 'radius',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit to add a larger semi-circular structure with a defined radius is a direct requirement from the design goal of a layered pattern, making it straightforward.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              CurvyPath_1 = CurvyPath(
+                far_curve_leftmost_point = (0.0, 0.0, 0.0),
+                close_curve_leftmost_point = (0.0, 0.0, 0.0),
+                amplitude = 0.3,
+                wavelength = 1.0,
+                phase = 0.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a curvy path structure to give a wave-like pattern.',
+          target_parameter = 'amplitude',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "A curvy path introduces a wave pattern but doesn't directly complement the semi-circular theme."
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Serpentine_1 = Serpentine(
+                left_arc_center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a serpentine structure for a wavy and dynamic layout.',
+          target_parameter = 'radius',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A serpentine structure does not fit the prompt’s semi-circular thematic requirement.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              QuarterWedge_1 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 75.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a quarter wedge structure to create a distinct radial element.',
+          target_parameter = 'gap_degrees',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The wedge does not align with the semi-circular design goal, and adjusting gap degrees requires additional spatial rationale.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              TriWedge_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 90.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a triangular wedge to introduce sharp-edged features while maintaining cohesion.',
+          target_parameter = 'gap_degrees',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The angular nature of a tri-wedge disrupts the flow of a semi-circular pattern, complicating its integration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The addition of a second semi-circular structure with the appropriate radius fulfills the design goal of creating a layered pattern.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The required edit directly matches the prompt and design goal description, making it an uncomplicated task.'
+    )
+  ]
+)

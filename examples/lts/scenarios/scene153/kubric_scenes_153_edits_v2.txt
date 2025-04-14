@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could you make that straight segment over here twisty like an S for a bit of artistic flair?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Transform the path into an S-curve for a stylish separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert to a wavy curvy path to create creative separation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.6,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a quarter wedge design for a unique break.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.6,
+            gap_degrees = 8.0,
+            height = 0.3
+          ),
+          edit_description = 'Alter to a triangular wedge for stylish segmentation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Change to a circular setup for diverse flow.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The change to a serpentine structure effectively provides the artistic separation intended.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Switching from a linear to a serpentine path to visually separate seating areas is straightforward from the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you place the curve’s center right between these benches in the middle?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Center the arc exactly between benches for balance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Position the arc center slightly off-center towards left.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Move the arc center slightly right off-center.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the arc to sit further up from the center.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path_2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -0.5, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Set the arc lower than the central alignment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Positioning the arc center at (0,0) aligns with the description of placing it between the benches.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Placing the arc center between the benches is a clear adjustment for creating a separation.'
+    ),
+    2 : EditMCQA(
+      question = 'Is that arc curving outward enough so people naturally go around it?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_path_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Ensure arc is outwardly curved and effective for separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_path_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Design the arc to curve inwardly for variation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_path_3',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Expand the radius while keeping the curve outward.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_path_3',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.4
+          ),
+          edit_description = 'Modify to a simple circular path for smoothness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_path_3',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Convert the design to a linear path for direct zoning.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Ensuring a convex arc is key to fostering separation while keeping the area open.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Ensuring the arc is convex is an intuitive choice for creating separation while allowing movement.'
+    )
+  ]
+)

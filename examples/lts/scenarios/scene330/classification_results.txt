@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves organizing the scene using an L-shaped boundary to enhance flow and interaction, which relies on understanding relative positions and spatial layout.'
+    )
+  ],
+  confidence = 4
+)

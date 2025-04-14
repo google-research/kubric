@@ -24,6 +24,7 @@ Scene(
         left_width = 3.0,
         right_width = 0.5,
         right_length = 3.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       ),
       circular_planter_1 = Circular(
@@ -46,6 +47,7 @@ Scene(
         left_width = 3.0,
         right_width = 0.5,
         right_length = 3.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -60,11 +62,12 @@ Scene(
           left_width = 3.0,
           right_width = 0.5,
           right_length = 3.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Replace the rectangular profile with an L-shaped structure to provide protection.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The complexity arises from correctly interpreting the spatial and geometric relationships needed to provide protection around the pot.'
+        explanation_of_difficulty = 'The complexity arises from correctly interpreting the spatial and geometric relationships needed to provide protection around the pot.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -79,7 +82,7 @@ Scene(
         edit_description = 'Add a circular planter to enhance aesthetics and complement the arrangement around the pot.',
         target_parameter = 'arrangement around the pot',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Interpreting the general aesthetic improvement does not require complex spatial reasoning.'
+        explanation_of_difficulty = 'Interpreting the general aesthetic improvement does not require complex spatial reasoning.'
       )
     ]
   )

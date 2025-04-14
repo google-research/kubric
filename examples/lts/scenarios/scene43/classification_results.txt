@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create a circular path that wraps between the trees, ensuring room for navigation and viewing, which involves understanding spatial relationships and placements.'
+      explanation = 'The prompt focuses on creating a circular path that elegantly wraps between the trees, requiring spatial reasoning to ensure proper alignment and navigation while accounting for the positions of the trees.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

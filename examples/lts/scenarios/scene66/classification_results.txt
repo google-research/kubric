@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by requesting the addition of a circular structure that ties the birdhouses together. It focuses on the spatial arrangement and placement of this structure relative to the birdhouses to form a cohesive feature.'
+      explanation = 'The prompt involves spatial reasoning since it requires integrating a circular structure around birdhouses, focusing on their relative positions to ensure visual continuity and a defined space while maintaining accessibility.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

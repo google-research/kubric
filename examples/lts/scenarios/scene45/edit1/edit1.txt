@@ -52,7 +52,7 @@ Scene(
         ),
         edit_description = 'Change the design profile to a serpentine path.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The transformation to a CurvyPath needs an intermediary step of understanding serpentine and converting it to CurvyPath with acceptable parameters.'
+        explanation_of_difficulty = 'The transformation to a CurvyPath needs an intermediary step of understanding serpentine and converting it to CurvyPath with acceptable parameters.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'curvy_path_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Adjust the arc center to (0, 0.5, 0).',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The change in far_curve_leftmost_point is direct from the instruction.'
+        explanation_of_difficulty = 'The change in far_curve_leftmost_point is direct from the instruction.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'curvy_path_1',
@@ -78,7 +78,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius to 0.5 to fit perfectly between the objects.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Converting from CurvyPath back to Serpentine requires identifying that final specifications match the original target profile. Understanding adjustments to fit the space along the x-axis.'
+        explanation_of_difficulty = 'Converting from CurvyPath back to Serpentine requires identifying that final specifications match the original target profile. Understanding adjustments to fit the space along the x-axis.'
       )
     ]
   )

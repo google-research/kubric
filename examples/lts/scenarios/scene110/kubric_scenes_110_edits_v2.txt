@@ -1,0 +1,230 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you adjust that winding path to curve outward on the left side?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Convert the design to a `Serpentine` for the left path.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires changing path type without overlap.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.5, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the path to a `SemiCircular` layout.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Different arc change for design.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath1',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 14.0,
+            height = 0.5
+          ),
+          edit_description = 'Alter the path to a `TriWedge` shape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Switches to a wedge form.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath1',
+          NewDesignStructure = Linear(
+            center = (-1.5, 0.0, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform path into a `Linear` structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changes the shape to linear.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath1',
+          NewDesignStructure = Circular(
+            center = (-1.5, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Make the path circular and continuous.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires spherical alteration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A changes the path type to the required 'Serpentine' form with specific parameters.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "The task entails altering the path's geometric type and ensuring configurations that prevent overlap."
+    ),
+    1 : EditMCQA(
+      question = 'Could we add a new pathway that curls inward on one side?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Serpentine2 = Serpentine(
+                left_arc_center = (1.5, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a second `Serpentine` path swirling with concave orientation.',
+          target_parameter = 'left_arc_center, left_arc_orientation',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires new path design and orientation selection.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              SemiCircular1 = SemiCircular(
+                center = (1.5, 0.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Insert a `SemiCircular` pathway with concave style.',
+          target_parameter = 'center, orientation',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Entails distinct curvilinear configurations.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              QuarterWedge1 = QuarterWedge(
+                center = (1.5, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 8.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a `QuarterWedge` segment.',
+          target_parameter = 'center, gap_degrees',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires centered wedge arrangement.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Circular1 = Circular(
+                center = (1.5, 0.0, 0.0),
+                radius = 1.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Form a circular path structure.',
+          target_parameter = 'center, radius',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Demands thorough circular path design.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              Serpentine3 = Serpentine(
+                left_arc_center = (2.0, 0.0, 0.0),
+                radius = 0.8,
+                left_arc_orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add convex orientation serpentine.',
+          target_parameter = 'left_arc_center, left_arc_orientation',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Concerns inverse orientation and radius.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly adds a new 'Serpentine' path with specific concave orientation parameters.",
+      difficulty = 'hard',
+      explanation_of_difficulty = 'The task involves developing a new path design with orientation considerations that demand precision in configuration.'
+    ),
+    2 : EditMCQA(
+      question = "Let's make sure that serpentine on the side doesn't get too close to anything.",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Serpentine2',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.5, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Adjust center positions for serpentine to avoid overlap.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Minor positional adjustment for collision avoidance.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Serpentine2',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Adjust path to semi-circular for avoidance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Minimal change in structure to mitigate collision.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Serpentine2',
+          NewDesignStructure = TriWedge(
+            center = (1.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 13.0,
+            height = 0.5
+          ),
+          edit_description = 'Switch to tri-angular layout.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Simplified transition to non-overlapping format.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Serpentine2',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Replace with `CurvyPath` to prevent overlap.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Revised design choice towards non-interference.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Serpentine2',
+          NewDesignStructure = Circular(
+            center = (1.5, 0.0, 0.0),
+            radius = 1.1,
+            height = 0.5
+          ),
+          edit_description = 'Convert to circular design for separation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Direct shape alteration to avoid contact.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A entails the necessary center adjustment in the existing 'Serpentine2' configuration to achieve non-overlap.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustment is straightforward, involving a minimal positional change to resolve collision issues.'
+    )
+  ]
+)

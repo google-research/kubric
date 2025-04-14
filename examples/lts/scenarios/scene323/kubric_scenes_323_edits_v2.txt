@@ -1,0 +1,137 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we make the boundary flow smoothly around the seating area by adjusting the shape?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile to Circular to create a smooth, flowing boundary around the seating arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Expand the rectangle to gain broader area coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Switch to a serpentine structure for introducing a dynamic flow pattern.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Utilize a QuarterWedge to frame the seating with a corner effect.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'initial_structure',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Establish a SemiRing for a layered circular effect around the seating.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The prompt specifies a 'circular arrangement', which aligns with changing to a Circular structure.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification is easy to deduce given the explicit mention in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'What about adjusting size? What should the dimensions be to feel right with both benches?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              goal_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Adjust the radius to 1.5 meters and increase the height to 0.4 meters.',
+          target_parameter = 'radius and height'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              goal_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Set the radius slightly larger at 1.8 meters while keeping the original height.',
+          target_parameter = 'radius and height'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              goal_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Maintain the radius but increase the height further to 0.5 meters.',
+          target_parameter = 'radius and height'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              goal_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.2,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Opt for a smaller radius of 1.2 meters with the new height.',
+          target_parameter = 'radius and height'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              goal_structure = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Set the standard radius with a decrease in height to 0.2 meters.',
+          target_parameter = 'radius and height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The specified dimensions of 1.5 meters radius and 0.4 meters height are aligned with the goal of a harmonious arrangement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The circular structure and height are evident, but exact dimensions need estimation.'
+    )
+  ]
+)

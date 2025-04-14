@@ -1,0 +1,136 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could we shift the line sideways to make the path between the two benches?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust the orientation from 'front-back' to 'left-right' to align the path between the benches.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the orientation is a straightforward adjustment to align the design with the goal of creating a left-right path.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the center to (0.0, 0.5, 0.0) with the same orientation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The change to center mismatches the prompt's request for alignment."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the length to 1 meter while maintaining orientation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Doesn't match the original change and doesn't align with pathway extension."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (1.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move center to (1.0, -0.5, 0.0) without changing orientation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The center change again misconstrues alignment intentions.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Revert to initial setup entirely.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Doesn't address or solve the issue at hand of aligning benches."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The modification suggested in answer 'A' directly achieves the desired structural orientation change to align the path.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task primarily involves a simple orientation change which is easy to infer from the goal.'
+    ),
+    1 : EditMCQA(
+      question = 'How about we make the path stand out a bit more?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length to 2 meters and the height to 0.5 meters for a more prominent walkway.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Increasing the size requires understanding the goal of enhancing the pathway prominence and the impact on the scene's layout."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the length further to 3 meters while increasing height to 0.5.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Extending even further with an arbitrary length may not align with the rest of the design.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce length to 1 meter, increase height to 0.5 for prominence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Reducing length affects the design negatively, contrary to guiding path prominence.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          edit_description = 'Remove the linear structure to open the space completely.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Eliminates the structure itself, which is a drastic removal against scene goals.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase length only to 2 meters while maintaining current height.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Missing the height increase disregards some prominence, though partial alignment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The modification specified in answer 'A' enhances the design by appropriately increasing both the length and height to emphasize the pathway as the scene demands.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires consideration of spatial dynamics and overall design appeal to achieve a prominent enhancement.'
+    )
+  ]
+)

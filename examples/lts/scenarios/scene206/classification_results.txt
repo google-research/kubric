@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging seating around a birdhouse and requires understanding spatial relationships and geometric properties to ensure a cozy and functional layout.'
+      explanation = 'The task involves constructing a seating area around the birdhouse with specific spatial relationships, such as the positioning of the seating relative to the birdhouse to ensure a cozy atmosphere.'
     )
   ],
   confidence = 5

@@ -1,0 +1,136 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you change the way the inner curve of the design faces?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the SemiRing Orientation: Change from concave to convex to open the space towards the tables.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt directly suggests creating openness towards the tables, indicating the need for a convex orientation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the orientation to concave to create a more enclosed space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the height but keep the orientation convex.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase the ring size while maintaining the convex orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.1, 0.1, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift the center of the ring but keep the original orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification aligns with the prompt which emphasizes opening the space towards the tables, achievable by transitioning to a convex orientation.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The change to a convex orientation aligns with the prompt's requirement for openness, making it straightforward to deduce."
+    ),
+    1 : EditMCQA(
+      question = 'How could you make the circular border appear larger around the tables?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Expand the SemiRing Dimensions: Increase the outer radius to 1.5 and inner radius to 1.0 to enlarge the surrounding area and enhance visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While the prompt mentions maintaining openness and emphasizing the tables, deducing the exact dimensions requires interpreting these requirements spatially.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.4,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Moderately expand the ring dimensions to provide more space without going to the full design goal size.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Update the ring dimensions with a mixed approach of larger outer radius but keeping a narrower inner radius and concave orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.1,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase both radii but slightly reduce height while maintaining a convex look.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring',
+          NewDesignStructure = SemiRing(
+            center = (0.1, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Shift the ring horizontally slightly while expanding its overall size somewhat.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This answer matches the detailed expansions outlined in the edit sequence description, fulfilling the nearby design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The edit demands a clear spatial understanding in line with design requirements but isn't directly stated in the prompt, requiring more intricate deduction."
+    )
+  ]
+)

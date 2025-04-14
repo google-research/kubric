@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to position a boundary between the birdhouses, as it involves understanding the relative positions of objects in the scene.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a semi-circle to link trees and form a seating nook, requiring spatial reasoning to plan and execute the arrangement effectively.'
+    )
+  ],
+  confidence = 4
+)

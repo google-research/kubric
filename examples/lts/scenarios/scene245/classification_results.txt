@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Semantic(
-      explanation = "The prompt requires understanding the purpose of the quarter-circle wedge in terms of its function as a perch while maintaining sightlines to the birdhouse. This involves interpreting the meaning of 'welcoming perch' and how the structure complements it."
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requests the construction of a quarter-circle wedge to partially enclose the birdhouse, indicating a spatial arrangement and interaction between the wedge and the birdhouse.'
     ),
-    1 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to construct a quarter-circle wedge that partially encloses the birdhouse, indicating a need to arrange objects spatially to achieve the desired effect.'
+    1 : Semantic(
+      explanation = "The prompt requires an understanding of the conceptual purpose behind creating a 'welcoming perch' and maintaining 'sightlines,' which involves a semantic understanding of the scenario."
     )
   ],
   confidence = 4

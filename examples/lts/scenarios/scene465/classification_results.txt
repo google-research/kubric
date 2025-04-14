@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it describes arranging a rectangular structure around the benches to create a defined seating area. This involves understanding the relative positions and layout within the space to enhance social interaction.'
+    ),
+    1 : Semantic(
+      explanation = "There is also a semantic aspect as the goal is to enhance social interaction, which requires understanding the function and meaning of a 'cozy seating area'."
+    )
+  ],
+  confidence = 4
+)

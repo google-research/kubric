@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, what if we shift the middle point of that straight barrier so it sits snugly between the stone and the trash holder?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.35, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust the center to the right position for better alignment.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt and initial positions clearly necessitate repositioning the linear wall.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shift the middle to align perfectly between the rocky and trashy areas.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt and initial positions clearly necessitate repositioning the linear wall.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Center the wall between both objects.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Less intuitive positioning given the reference objects.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (-0.25, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = "Move it towards the rocky's center for alignment.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Moving too far from the intended boundary location.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.75, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shift the center to 0.75 for a better match.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Incorrect shift beyond targeted boundary points.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct adjustment modifies the center of the linear wall to 0.25, as indicated by the position needed to align it perfectly between the stone and the trash holder.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt and initial positions clearly necessitate repositioning the linear wall, making it straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we stretch that barrier so it touches both the rocky side and the trash area completely?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Expand its reach to span across both areas effectively.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining the correct length requires understanding the spacing between the rock and trashcan.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 0.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shorten it to half its length so it covers less space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Too short to cover the full length between elements.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Extend the barrier all the way to cover a broader area.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Excessive length beyond physical constraints.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.2,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Increase the length slightly for partial space coverage.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partially effective but not fully covering.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 0.8,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust to barely span the distance with 0.8 length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Insufficient length for full coverage.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the length of 1.5 meters as necessary to fully span the space between the rocky and trash areas.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Identifying the accurate spacing between objects requires spatial understanding, making it moderately difficult.'
+    ),
+    2 : EditMCQA(
+      question = "Oh, and should we raise that wall to make sure it's really visible?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Boost it to almost half a meter for emphasis.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt cues an increase in height for clearer demarcation.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Raise it higher for an even bolder division.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Exceeds typical visual boundary height measurements.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Lift it slightly for a notable boundary effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The need for a more pronounced structure suggests an increase in height.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Keep it as is for a subtle line.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No change challenges the boundary premise.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_wall_1',
+          NewDesignStructure = Linear(
+            center = (0.25, 0.0, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Lower it down for a minimal appearance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Less prominent, counter to goal of a distinct boundary.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly updates height to 0.3 meters, achieving a prominent boundary as intended by the scene description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The need for a more pronounced structure suggests an increase in height, which is straightforward to deduce.'
+    )
+  ]
+)

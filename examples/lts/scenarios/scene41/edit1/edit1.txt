@@ -51,7 +51,7 @@ Scene(
         ),
         edit_description = 'Change the profile to a semi-ring with inner radius 2',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the profile requires spatial understanding of the structure design.'
+        explanation_of_difficulty = 'Changing the profile requires spatial understanding of the structure design.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'SemiRing_1',
@@ -64,7 +64,7 @@ Scene(
         ),
         edit_description = 'Increase the outer radius to 1.5',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the radius is a straightforward modification.'
+        explanation_of_difficulty = 'Increasing the radius is a straightforward modification.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'SemiRing_1',
@@ -77,7 +77,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Height adjustment is an intuitive change to modify structure dimensions.'
+        explanation_of_difficulty = 'Height adjustment is an intuitive change to modify structure dimensions.'
       )
     ]
   )

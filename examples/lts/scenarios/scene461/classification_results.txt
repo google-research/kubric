@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt specifies the creation of a structured line that defines a walkway, indicating a need for spatial reasoning about the relative positioning and alignment of the walkway around garden elements.'
+    )
+  ],
+  confidence = 4
+)

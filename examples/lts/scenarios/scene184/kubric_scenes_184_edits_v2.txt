@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can you make sure the straight piece is snugged between the big round ones, slightly off-center?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Position the line so it sits between the round objects, snug at (0.6, 0.25, 0).',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit only involves changing the center of the structure, which directly corresponds to the prompt about centering the boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.7, 0.3, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Place the line more to one side, centering around (0.7, 0.3, 0).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.2, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the line slightly backwards to center it at (0.5, 0.2, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.8, 0.4, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the line further right, centering it at (0.8, 0.4, 0).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.4, 0.1, 0.0),
+            length = 1.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the line lower to center it at (0.4, 0.1, 0).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification correctly centers the structure at (0.6, 0.25, 0), as stated in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit only involves changing the center of the structure, which directly corresponds to the prompt about centering the boundary.'
+    ),
+    1 : EditMCQA(
+      question = 'Could you extend our low piece a bit so it covers more between the big round ones, but not too much?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.2,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Alter the line to extend to 1.2 units for better side coverage.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the line to 1.5 to better cover space in between the big round ones.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The length increase requires understanding the spatial coverage needed between the pots.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.4,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Modify length to 1.4 to cover more expanse between features.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.6,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change length to 1.6 so it extends slightly past the round areas.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.3,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust to 1.3 units to incrementally increase coverage.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'This modification correctly lengthens the structure to 1.5 units, ensuring it aligns with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The length increase requires understanding the spatial coverage needed between the pots.'
+    ),
+    2 : EditMCQA(
+      question = "Let's bring up the line a hair, just enough to stand out more without towering over anything.",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.15,
+            orientation = 'left-right'
+          ),
+          edit_description = "Heighten slightly to 0.15 to enhance the boundary's presence."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase height to 0.25 for a more pronounced effect.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = "Bring the boundary's height up to 0.2 for greater visibility.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Adjusting the height for prominence is an intuitive enhancement based on the prompt for a 'prominent boundary effect'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep height at 0.1 for a less visible boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.6, 0.25, 0.0),
+            length = 1.5,
+            height = 0.18,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase height slightly to 0.18 for a moderate emphasis.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'This modification increases the height to 0.2 units, making the boundary more prominent as planned.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting the height for prominence is an intuitive enhancement based on the prompt for a 'prominent boundary effect'."
+    )
+  ]
+)

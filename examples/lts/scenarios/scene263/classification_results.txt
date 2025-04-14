@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt involves understanding the purpose and function of a rectangular planter in relation to the trees and pathways. It does not specify exact measurements or relative positions but focuses on the desired aesthetics and accessibility, which requires interpretation of the scene's function."
+    )
+  ],
+  confidence = 4
+)

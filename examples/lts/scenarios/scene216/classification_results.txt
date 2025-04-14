@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a semi-circular seating area around trees, which involves spatial reasoning to arrange the seating in relation to the trees to create the desired enclosure and balance between open space and enclosure.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt describes a 'peaceful retreat', which introduces a requirement for understanding the conceptual purpose and function of the scene, beyond just the physical arrangement of objects."
+      explanation = "The prompt requests the design of a seating area that 'softly encloses the trees,' which involves understanding relative positions and creating a spatial arrangement around the trees."
     )
   ],
   confidence = 4

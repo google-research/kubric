@@ -1,0 +1,174 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How can we reshape that rectangular form into an angle-hugging L, offering more cover?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Change the design shape to an L-shape for a more protective fit'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 2.0, 0.25),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Modify dimensions for a larger rectangular structure'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.25
+          ),
+          edit_description = 'Transform the design to a TriWedge for angular enclosure'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust to a QuarterWedge with increased radius'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'rectangular_1',
+          edit_description = 'Remove the rectangular structure from the design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves changing the design structure to an L-shape for enhanced protection.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the shape requires understanding of spatial arrangement and protection duties around the birdhouse.'
+    ),
+    1 : EditMCQA(
+      question = 'What change will adjust that left part to stretch longer, while keeping the other parts cozy but wide?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Adjust dimensions to length 1.5 and 1.0, width 0.5 on left and 1.0 on right'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = Rectangular(
+            center = (1.5, 1.5, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Revert to a larger rectangular structure with new dimensions'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Modify to a serpentine structure maintaining original orientation'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'lshape_1',
+          edit_description = 'Remove the L-shape structure from the design'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (1.0, 1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.25
+          ),
+          edit_description = 'Construct a curvy path with adjusted proportions'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification matches the new dimensions specified for the L-shape.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The dimensions are directly specified in the design goal, making the edit straightforward.'
+    ),
+    2 : EditMCQA(
+      question = 'What can we tweak to raise the height slightly, offering more shelter from above without interrupting flow?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Increase height to 0.5 for better enclosure and aesthetics'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a circular shape with reduced height'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Reshape to a semi-circular form with concave orientation'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'lshape_1',
+          NewDesignStructure = SemiRing(
+            center = (1.0, 1.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.75,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Form a semi-ring for a layered effect'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'lshape_1',
+          edit_description = 'Remove the L-shape structure from the design for open aesthetics'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The height was specifically increased to 0.5, matching the requirement for improved enclosure and aesthetic value.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height adjustment is a clear and direct requirement as mentioned in the design objective.'
+    )
+  ]
+)

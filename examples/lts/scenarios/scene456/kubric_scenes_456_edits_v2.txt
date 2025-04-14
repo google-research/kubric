@@ -1,0 +1,76 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Hey, could you switch from that rectangle to something more like an 'L' when arranging the area around those bins?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (0.5, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.4,
+            right_width = 0.4,
+            right_length = 1.0,
+            right_center = (0.5, 0.0, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure from Rectangular to LShape and adjust dimensions.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The transformation to an LShape follows the specific instructions outlined in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure from Rectangular to SemiRing.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The choice is not directly linked to specified instructions, hence medium difficulty.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure from Rectangular to TriWedge.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The choice is not directly linked to specified instructions, hence medium difficulty.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure from Rectangular to QuarterWedge.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The choice is not directly linked to specified instructions, hence medium difficulty.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.6
+          ),
+          edit_description = 'Transform the structure from Rectangular to Circular.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The choice is not directly linked to specified instructions, hence medium difficulty.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design transformation aligns perfectly with the scene prompt, converting the given rectangular structure into the specified L-shape structure.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The transformation to an LShape follows the specific instructions outlined in the prompt.'
+    )
+  ]
+)

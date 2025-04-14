@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging objects in a specific order to create a protective loop, which involves spatial reasoning to ensure proper placement and room for movement.'
+      explanation = 'The prompt requires setting up a protective loop around items, which involves spatial reasoning. The scene description emphasizes constructing a semi-ring structure to create a protective barrier, necessitating an understanding of spatial relationships to avoid collisions.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

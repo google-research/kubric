@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires creating a wave barrier that aligns with and wraps around existing objects (birdhouse and trashcan) in the scene. This involves spatial reasoning to ensure that the barrier is harmoniously arranged around these objects.'
+    0 : Semantic(
+      explanation = "The prompt 'Create an artistic wave barrier to wrap around these curiosities' \n                   requires understanding the artistic and functional aspect of the wave barrier, as well \n                   as the purpose and meaning of visually harmonizing with objects like 'birdhouse' and 'trashcan'."
+    ),
+    1 : Spatial(
+      explanation = 'The task involves spatial reasoning to align the wave-like barrier around the birdhouse \n                   and trashcan in a visually appealing way, considering their relative positions.'
     )
   ],
   confidence = 4

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a semi-ring structure around the birdhouse, which requires spatial reasoning to position the structure correctly relative to the birdhouse.'
+    )
+  ],
+  confidence = 4
+)

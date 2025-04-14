@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests establishing a boundary using spatial reasoning to separate the greenery and rocky terrain in an aesthetically pleasing manner. The focus is on the spatial organization and relative positions of the garden objects.'
+    )
+  ],
+  confidence = 4
+)

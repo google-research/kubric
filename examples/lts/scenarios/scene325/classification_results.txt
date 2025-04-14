@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt focuses on using the QuarterWedge to create a visual order and boundary that wraps around the trashcans, which involves spatial positioning and arrangement relative to the trashcans.'
+    ),
+    1 : Semantic(
+      explanation = "The requirement of forming an 'engaging garden setup' and 'elegantly envelopes' involves an understanding of the meaning and functionality of the scene components, which leans towards semantic interpretation."
+    )
+  ],
+  confidence = 4
+)

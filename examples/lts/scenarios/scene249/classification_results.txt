@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt requests the design of a 'curvy path' that connects birdhouses, which involves spatial reasoning for arranging and positioning the path in a specific, flowing manner."
-    ),
-    1 : Semantic(
-      explanation = "The prompt uses terms like 'graceful connection', 'fluidity', and 'visual engagement' which require an understanding of the overall meaning and function of the scene, beyond precise spatial measurements."
+      explanation = 'The prompt requires designing a curvy path, which involves spatial reasoning for creating a fluid, unobstructed connection between birdhouses.'
     )
   ],
   confidence = 4

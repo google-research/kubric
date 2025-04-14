@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging tables to form a semicircular seating area, which requires spatial reasoning to understand the spatial relationships and ensure cohesive pattern formation.'
-    ),
-    1 : Numeric(
-      explanation = 'The task involves adhering to geometric constraints like radius and orientation, which relate to numeric reasoning in terms of distances and angles.'
+      explanation = 'The prompt asks for arranging tables in a semicircular pattern, which requires spatial reasoning to understand the layout and relative positions of the tables.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

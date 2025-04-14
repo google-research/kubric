@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = 'The prompt focuses on the design objective of creating a cozy seating area with openness and accessibility, which is a matter of understanding the function and meaning of the space rather than specific spatial or numerical constraints.'
+    )
+  ],
+  confidence = 4
+)

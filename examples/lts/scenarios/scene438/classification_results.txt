@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a structure that spatially relates to the existing objects (table and rock) in a specific configuration (semi-circular ring). This requires consideration of the spatial arrangement and relationships between these objects.'
+    )
+  ],
+  confidence = 5
+)

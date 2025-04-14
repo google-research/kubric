@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt and description involve understanding spatial relationships and positioning objects relative to each other without collisions. The task focuses on arranging objects spatially (the circular boundary around trees and in relation to the chair) while maintaining a specific design layout.'
+    )
+  ],
+  confidence = 4
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning to highlight rocks using triangular design elements, requiring an understanding of relative positions and the spatial layout to maintain openness and accessibility.'
+    )
+  ],
+  confidence = 4
+)

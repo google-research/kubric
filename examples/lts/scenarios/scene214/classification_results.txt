@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to correctly position the planter to demarcate the table area from the trashcan and to ensure the arrangement is convenient for standing individuals. This involves understanding spatial relationships and object alignment.'
+      explanation = 'The prompt involves spatial reasoning as it requires positioning objects like the planter, table, and trashcan to define areas and ensure that interactions remain convenient for standing individuals. This involves understanding and optimizing spatial relationships and constraints.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

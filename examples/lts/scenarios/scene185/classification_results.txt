@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging structures in the plaza to demarcate functional areas, which requires spatial reasoning to ensure accessibility and an orderly layout.'
+      explanation = 'The prompt involves understanding spatial relationships to organize seating and waste disposal areas within the plaza, ensuring the structures do not hinder accessibility.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

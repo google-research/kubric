@@ -1,0 +1,162 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Let's swap out that big circle with something more open for each spot to sit. What shape does the guide suggest?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 14.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure type from Circular to TriWedge for each bench to maintain openness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead of a circular overlap.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'No change to the structure type from Circular at this stage.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt does not explicitly suggest keeping the circular structure.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiRing(
+            center = (-1.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the structure type from Circular to SemiRing for each bench to maintain openness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead of a semi-ring overlap.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the structure type from Circular to SemiCircular for each bench to maintain openness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the structure type from Circular to QuarterWedge for each bench to maintain openness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead of a circular overlap.'
+        )
+      },
+      correct_answer = 'E',
+      explanation_of_correctness = 'The prompt clearly specifies using quarter-wedge structures to maintain openness, making option E the correct modification.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The suggestion of using quarter-wedge structures is explicitly mentioned in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = "Oh, let's add something neat around that second seat to provide a comfy nook. Which shape suits the purpose?",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_structure_2 = TriWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 11.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge for the second bench to create a semi-enclosed space that is open and accessible.',
+          target_parameter = 'quarterwedge_structure_2',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Although the suggestion seems plausible, the scene description emphasizes the use of quarter-wedge.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_structure_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a Circular for the second bench to create a semi-enclosed space that is open and accessible.',
+          target_parameter = 'quarterwedge_structure_2',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly requires quarter-wedge structures for this scenario.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_structure_2 = SemiRing(
+                center = (1.0, 0.0, 0.0),
+                outer_radius = 1.0,
+                inner_radius = 0.9,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a SemiRing for the second bench to create a semi-enclosed space that is open and accessible.',
+          target_parameter = 'quarterwedge_structure_2',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly suggests using quarter-wedge structures instead.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_structure_2 = QuarterWedge(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 70.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a second quarter-wedge for the second bench to create a semi-enclosed space that is open and accessible.',
+          target_parameter = 'quarterwedge_structure_2',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The scene description clearly states the goal of placing quarter-wedge structures around each bench.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_structure_2 = SemiCircular(
+                center = (1.0, 0.0, 0.0),
+                radius = 1.0,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a SemiCircular structure for the second bench to create a semi-enclosed space that is open and accessible.',
+          target_parameter = 'quarterwedge_structure_2',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt emphasizes the requirement for quarter-wedge structures.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = 'The correct action as per the scene description is to add a quarter-wedge structure around each bench.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The goal of adding quarter-wedge structures for achieving a semi-enclosed space is clear from the prompt.'
+    )
+  ]
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning as it involves the arrangement and positioning of rocks in relation to a triangular garden structure, focusing on the spatial relationships and flow within the garden space.'
+    )
+  ],
+  confidence = 4
+)

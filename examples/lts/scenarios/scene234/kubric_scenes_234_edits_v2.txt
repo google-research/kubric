@@ -1,0 +1,162 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Okay, now, can we get a circular piece to snuggle around the second bin just like its twin?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_trashcan_2 = Circular(
+                center = (1.5, -0.5, 0.0),
+                radius = 0.7,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add another circular structure for Trashcan 2, matching the radius and height of the structure for Trashcan 1.',
+          target_parameter = 'circular_structure_trashcan_2'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_all = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add one big circular structure that encompasses all objects to unify the scene with a single overarching structure.',
+          target_parameter = 'circular_structure_all'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarter_wedge_structure = QuarterWedge(
+                center = (1.5, -0.5, 0.0),
+                radius = 0.7,
+                gap_degrees = 10.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a quarter-wedge structure for Trashcan 2 with a suitable gap.',
+          target_parameter = 'quarter_wedge_structure'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              triwedge_structure = TriWedge(
+                center = (1.5, -0.5, 0.0),
+                radius = 0.7,
+                gap_degrees = 14.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a triwedge structure for Trashcan 2 with a narrow gap.',
+          target_parameter = 'triwedge_structure'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_circular_structure = SemiCircular(
+                center = (1.5, -0.5, 0.0),
+                radius = 0.7,
+                orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a semicircular structure for Trashcan 2 to enhance front visibility.',
+          target_parameter = 'semi_circular_structure'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A matches the correct edit requirements by adding a circular structure with the same radius and height as Trashcan 1, as specified in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The addition of a similar structure for Trashcan 2 is straightforward based on the symmetry in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = "How about wrapping a nice round cover over the stone that's by itself?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_structure_rock = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.6,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Place a third circular structure around the rock, maintaining thematic coherence with adjusted radius for proper fit.',
+          target_parameter = 'circular_structure_rock'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_path_structure_rock = CurvyPath(
+                far_curve_leftmost_point = (-0.5, 1.0, 0.0),
+                close_curve_leftmost_point = (0.5, 1.0, 0.0),
+                amplitude = 0.1,
+                wavelength = 1.0,
+                phase = 0.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Create a curvy path around the rock for landscape variety.',
+          target_parameter = 'curvy_path_structure_rock'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              triwedge_structure = TriWedge(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 12.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a triwedge structure around the rock with a suitable gap.',
+          target_parameter = 'triwedge_structure'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarter_wedge_structure = QuarterWedge(
+                center = (0.0, 1.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 8.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a quarter-wedge structure around the rock with an appropriate gap.',
+          target_parameter = 'quarter_wedge_structure'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_ring_structure = SemiRing(
+                center = (0.0, 1.0, 0.0),
+                outer_radius = 0.6,
+                inner_radius = 0.5,
+                orientation = 'convex',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Create a semi-ring around the rock with concentric arcs.',
+          target_parameter = 'semi_ring_structure'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A provides the correct edit by adding a circular structure with a radius and height that fit the design around the rock, fulfilling the prompt requirement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the inclusion of a structure around the rock, making it an intuitive addition.'
+    )
+  ]
+)

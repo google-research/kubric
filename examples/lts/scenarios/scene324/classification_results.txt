@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the creation of a circular sitting area, which involves understanding of spatial relationships, primarily the arrangement around the birdhouse. This includes concepts like center and radius, which are spatial in nature.'
+    )
+  ],
+  confidence = 5
+)

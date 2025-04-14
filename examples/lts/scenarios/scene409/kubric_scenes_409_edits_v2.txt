@@ -1,0 +1,129 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you make the simple path between the bins more like a gentle curve that dances across the garden?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear path into a serpentine profile to develop organic curves and enhance visual interest.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Translating a linear path into a serpentine shape requires understanding the spatial constraints and design intent for visual aesthetics and flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 0.75,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path to a curvy form to introduce complexity and natural flow.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            gap_degrees = 9.0,
+            height = 0.15
+          ),
+          edit_description = 'Convert the path into a quarter wedge to create a unique perspective.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Linear(
+            center = (0.1, 0.0, 0.0),
+            length = 0.8,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Slightly rotate and shorten the linear path.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.4,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Transform the existing path into a semicircular shape for a softer transition.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit correctly transforms the linear path into a serpentine pattern with specified curves, aligning with the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Translating a linear path into a serpentine shape requires understanding the spatial constraints and design intent for visual aesthetics and flow.'
+    ),
+    1 : EditMCQA(
+      question = 'Once a wavy element replaces the direct route, how should we clear the previous shape?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Convert the path into a circular shape to enhance the central focus.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          edit_description = 'Remove the initial linear path structure as it is replaced by the serpentine path in the design goal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Removing the redundant initial linear path is straightforward once it is replaced by a more complex structure.'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              new_path = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.7,
+                gap_degrees = 14.5,
+                height = 0.15
+              )
+            }
+          ),
+          edit_description = 'Introduce a triangular wedge as a supplemental path feature.',
+          target_parameter = 'structures'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.6,
+            inner_radius = 0.3,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Form the linear path into a semi-ring for greater depth in the layout.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = LShape(
+            left_center = (-0.25, 0.0, 0.0),
+            left_length = 0.5,
+            left_width = 0.1,
+            right_width = 0.2,
+            right_length = 0.3,
+            right_center = (0.25, 0.0, 0.0),
+            height = 0.1
+          ),
+          edit_description = 'Transform into an L-shaped design to create structural variety.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'This edit correctly deletes the initial linear path structure, aligning with the design goal to replace it with a serpentine path.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Removing the redundant initial linear path is straightforward once it is replaced by a more complex structure.'
+    )
+  ]
+)

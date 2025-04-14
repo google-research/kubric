@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests arranging objects (garden feature, circular structure) in a specific geometric way.'
-    ),
-    1 : Semantic(
-      explanation = 'The prompt requires understanding the function and meaning of a central garden feature.'
+    0 : Semantic(
+      explanation = 'The prompt is focused on forming a central garden feature and highlighting it with a circular structure, which involves understanding the meaning and function of the objects rather than specific quantities or spatial positioning.'
     )
   ],
   confidence = 4

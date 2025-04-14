@@ -1,0 +1,224 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Can you help get rid of the structure in the middle that doesn't play well with the rocks?",
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          edit_description = "Remove the lone SemiCircular structure that's not incorporating individual rocks.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt requires separate enclosures around each rock, contrasting with the single structure currently there.'
+        ),
+        B = DeleteStructureEditWithDifficulty(
+          design_id = 'semicircular_1',
+          edit_description = 'Eliminate the SemiCircular structure blocking view.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Identifying the blockage needs further observation as the prompt doesn't clarify current obstruction directly."
+        ),
+        C = DeleteStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          edit_description = "Get rid of the Circular structure that's not accounted for.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Circular structures aren't present, whereas semicircular ones are, requiring careful discernment."
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          edit_description = 'Remove a TriWedge structure that disrupts open composition.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Without TriWedge structures present initially, the answer requires awareness of absent designs.'
+        ),
+        E = DeleteStructureEditWithDifficulty(
+          design_id = 'semicircular_2',
+          edit_description = 'Forget about the secondary SemiCircular structure to enhance visibility by the second rock.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Understanding that 'semicircular_2' is not part of the initial setup is necessary, but the option is exploratory."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The original semicircular structure is not individualized per the design goals demanding separation.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The single structure clearly contradicts the design guidelines requesting distinct configurations.'
+    ),
+    1 : EditMCQA(
+      question = "What's a great idea to make the first rock the center of attention?",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semicircular_1 = SemiCircular(
+                center = (-1.25, 0.0, 0.0),
+                radius = 1.0,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Introduce a SemiCircular structure around Rock 1 with a convex layout.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The specific convex orientation aligns with a cohesive goal but needs insightful interpretation.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (-1.25, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 8.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Install a QuarterWedge for an exclusive aesthetic blend.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The disallowed gap value disqualifies it, requiring fundamental parameter comprehension.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (-1.25, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Wrap a Serpentine structure softly around Rock 1.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Defying the semicircular pathway, it requires analysis beyond recognized shapes to evaluate.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              triwedge_1 = TriWedge(
+                center = (-1.25, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 12.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Embrace Rock 1 in a TriWedge contour for distinct outlining.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This form does not align with semicircular goals, which are supposed to produce cohesive settings.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semicircular_1 = SemiCircular(
+                center = (-1.25, 0.0, 0.0),
+                radius = 1.5,
+                orientation = 'concave',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Position a concave semicircular structure radiating around Rock 1.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Concave properties and sizing stray from the desired unity-focused setup.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The installation of a convex semicircular shape around Rock 1 perfectly meets holistic design goals, offering enclosure yet open perspectives.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing the right orientation demands practical spatial knowledge although semicircular geometry is specified.'
+    ),
+    2 : EditMCQA(
+      question = 'How can we add just the right touch around Rock 2 to keep it open?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semicircular_2 = SemiCircular(
+                center = (1.25, 0.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = "Integrate a SemiCircular formace encircling Rock 2 that's concaved outwards.",
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "The engaging concave attribute establishes visual variance to balance Rock 2's spatial equation."
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semicircular_2 = SemiCircular(
+                center = (1.25, 0.0, 0.0),
+                radius = 0.75,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Impose a slender SemiCircular feature on Rock 2 using a convex schema.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Smaller radius in a convex frame brings surprising changes improbable to maintain needed openness.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              lshape_1 = LShape(
+                left_center = (1.25, 0.0, 0.0),
+                left_length = 0.5,
+                left_width = 0.5,
+                right_width = 0.75,
+                right_length = 0.25,
+                right_center = (1.45, 0.0, 0.0),
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Launch an LShape close-knit around Rock 2 to play with the dynamics.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'L-shapes thwart applicable semicircular motifs essential for core design cohesion combined with openness.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_2 = Serpentine(
+                left_arc_center = (1.25, 0.0, 0.0),
+                radius = 1.0,
+                left_arc_orientation = 'concave',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Create a flowing Serpentine form mimicking Rock 2.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Serpentine outlays don't obey semicircular prototype etching needed for open harmonious surroundings."
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_2 = QuarterWedge(
+                center = (1.25, 0.0, 0.0),
+                radius = 1.0,
+                gap_degrees = 11.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Set a QuarterWedge enclosing Rock 2 in radial fashion.',
+          target_parameter = 'structures',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Although imaginary within angle capabilities, a quarterwedge antagonizes described semicircular harmonization.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Accomplishing a fitting concave semicircular curation focuses on complementing nuanced openness while securing Vitale unity by Rock 2.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Deducing a concave design scrambles to uncover recognized balance whilst intertwining Rock 2's cohesive foundations."
+    )
+  ]
+)

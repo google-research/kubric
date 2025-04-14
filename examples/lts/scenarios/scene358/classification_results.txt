@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to determine how to position the quarter-wedge structures around the rocks while maintaining an open garden ambiance. The emphasis is on the relative arrangement of these elements to enhance the aesthetic appeal without occupying the space of the rocks.'
+    )
+  ],
+  confidence = 4
+)

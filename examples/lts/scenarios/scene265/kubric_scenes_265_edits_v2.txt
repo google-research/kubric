@@ -1,0 +1,68 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Imagine you are setting up a garden and want to switch the round centerpiece into something that slices through its space while offering a stylish flair. What change would achieve this transformation?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform the Circular profile to a QuarterWedge to introduce angular alignment and an artistic flair.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit is straightforward as the prompt specifically mentions using a QuarterWedge profile with specified parameters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the Circular profile to a TriWedge for a dynamic, angular design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Replace the Circular profile with a Serpentine structure for a wavy pattern.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Substitute the Circular profile for a SemiRing to create an elegant ringed feature.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.5
+          ),
+          edit_description = 'Redesign the Circular profile as a CurvyPath to add a flowing path to the scene.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly implements the transformation of the Circular profile to a QuarterWedge with specified parameters, as explicitly guided by the prompt for creating an inviting area with an artistic flair.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The specific instructions and parameters detailed in the prompt make this transformation clear and easy to execute.'
+    )
+  ]
+)

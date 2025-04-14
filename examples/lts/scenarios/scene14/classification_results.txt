@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a protected space around the rock and ensuring a path to the tree, which requires spatial reasoning to arrange and position elements effectively.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt uses the term 'protected space' and requires understanding of the functional purpose and meaning of the arrangement, indicating a need for semantic interpretation."
+      explanation = 'The prompt involves spatial reasoning, such as creating a protected space around the rock and ensuring a path leads to the tree, which requires understanding and manipulating the spatial relationships between these objects.'
     )
   ],
   confidence = 4

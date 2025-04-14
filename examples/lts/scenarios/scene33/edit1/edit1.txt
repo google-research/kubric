@@ -57,7 +57,7 @@ Scene(
         ),
         edit_description = 'Change the structure to a SemiRing with distinct inner and outer radii, orientation concave.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Expanding a semicircular shape to a semi-ring is a straightforward transition inspired by the prompt to increase openness and enclose slightly.'
+        explanation_of_difficulty = 'Expanding a semicircular shape to a semi-ring is a straightforward transition inspired by the prompt to increase openness and enclose slightly.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -70,7 +70,7 @@ Scene(
         ),
         edit_description = 'Adjust the height to 0.5 meters for better presence.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt suggests the semi-enclosed nature, making the height adjustment notably clear to ensure presence.'
+        explanation_of_difficulty = 'The prompt suggests the semi-enclosed nature, making the height adjustment notably clear to ensure presence.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -83,7 +83,7 @@ Scene(
         ),
         edit_description = 'Orient the structure as the convex to emphasize the open view.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "Reorienting to the convex aligns with the prompt's intent for openness."
+        explanation_of_difficulty = "Reorienting to the convex aligns with the prompt's intent for openness."
       )
     ]
   )

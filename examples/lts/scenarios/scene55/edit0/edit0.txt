@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the profile to a curvy path with specified dimensions.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The change involves understanding the spatial requirement to replace a linear path with a curvy one, capturing the essence of the design intent.'
+        explanation_of_difficulty = 'The change involves understanding the spatial requirement to replace a linear path with a curvy one, capturing the essence of the design intent.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'curvy_path_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Adjust the amplitude and wavelength to reflect a smoother flow.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'The adjustment requires precise understanding of how changes to amplitude and wavelength affect the curvy design to achieve a smoother visual flow.'
+        explanation_of_difficulty = 'The adjustment requires precise understanding of how changes to amplitude and wavelength affect the curvy design to achieve a smoother visual flow.'
       )
     ]
   )

@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves constructing a linear border, which requires spatial reasoning to properly frame the two pots while ensuring accessibility. This task focuses on understanding the arrangement and positioning of objects relative to each other in the scene.'
+      explanation = 'The prompt involves spatial reasoning as it requires understanding and designing the linear border to frame the pots without obstructing the area, focusing on spatial relationships and geometric properties.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

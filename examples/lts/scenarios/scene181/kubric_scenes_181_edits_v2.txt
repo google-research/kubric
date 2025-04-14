@@ -1,0 +1,252 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How would you switch the design setup from straight to winding?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 0.5, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from a Linear to a CurvyPath.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = "Extend the Linear design structure's length."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the design to a Circular design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change the design to a SemiCircular design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Convert the design into a Serpentine path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A describes changing the design profile to a CurvyPath with specified leftmost points, amplitude, and other parameters to replace the Linear path.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The transition from linear to curvy requires understanding the new spatial flow intended.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you tweak the path to weave gracefully through these objects?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.7, -0.35, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the close curve’s leftmost point to ensure an elegant path connecting through the chair and to the right rock.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, -0.25, 0.0),
+            amplitude = 0.3,
+            wavelength = 3.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the wavelength for a smoother path.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.5,
+            height = 0.1
+          ),
+          edit_description = 'Apply a QuarterWedge design to modify the path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Introduce a TriWedge structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change the design to a SemiRing for enhancing the design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly modifies the close curve’s leftmost point to ensure the path connects the objects elegantly.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting the path's specific connection point is straightforward given its alignment to physical objects."
+    ),
+    2 : EditMCQA(
+      question = 'How would you finesse the layout for a softer passage?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, -0.25, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Ensure the amplitude at 0.3 allows a gentle, engaging flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shorten the Linear path for simplicity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Convert design to a less complex Circular shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Implement a Serpentine path to allow more fluid movement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.75,
+            right_width = 1.0,
+            right_length = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.1
+          ),
+          edit_description = 'Introduce an LShape structure for creative design flows.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A specifies adjusting the amplitude to ensure a smooth wave pattern in the curvy path design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The adjustment solely requires modifying the wave pattern's height, which is quite clear."
+    ),
+    3 : EditMCQA(
+      question = "What's the best tweak to finish the path with flair?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, -0.25, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Finalize the path for a more dynamic journey.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 11.0,
+            height = 0.1
+          ),
+          edit_description = 'Finalize the design with QuarterWedge offering continuity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Close the design lifeline with a SemiCircular structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Use the Rectangular structure to solidify the pathway.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Seal the design continuity with a Serpentine feature.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A finalizes the path using specified points and curvature for a dynamic journey.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Finalizing requires consolidating insights from all prior adjustments to optimize design.'
+    )
+  ]
+)

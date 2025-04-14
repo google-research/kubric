@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging features to create a wavy structure and ensuring there is ample space for beauty to shine, which requires spatial reasoning to determine the layout and positioning of the elements.'
-    ),
-    1 : Numeric(
-      explanation = 'The prompt also references geometric properties such as radius and angular gaps, suggesting that numerical consideration is involved in achieving the desired structural look.'
+    0 : Numeric(
+      explanation = 'The prompt involves designing a structure with specific geometric properties such as radius, angular gap, and height, indicating the need for understanding of numerical quantities and geometric symmetries.'
     )
   ],
   confidence = 4

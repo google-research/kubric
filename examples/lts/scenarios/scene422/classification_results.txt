@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a semi-circular seating arrangement around a central chair, which requires spatial reasoning regarding the layout.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt is also focused on enhancing the presence of the chair and inviting relaxation, which involves understanding the purpose and meaning of the seating arrangement.'
+    )
+  ],
+  confidence = 4
+)

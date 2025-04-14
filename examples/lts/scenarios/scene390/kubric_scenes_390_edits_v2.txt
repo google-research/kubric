@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Oh, could you expand our little arch to the right a bit, without taking away too much open space?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.9,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the outer reach slightly to 0.9 for a balanced look.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Expand the outer curve to 1.0 to create more open feel.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.1,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Stretch the outer edge to 1.1 for a grander frame.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.8,
+            inner_radius = 0.7,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Create a narrower arc by adjusting the inner extent to 0.7.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.8,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Maintain the arch with outer and inner radii equal.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B matches the required modification of increasing the outer boundary to 1.0 while retaining sufficient openness in the design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task distinctly outlines the parameter change, ensuring clarity in implementing the described alteration.'
+    ),
+    1 : EditMCQA(
+      question = "Let's raise the edge a bit for a more striking effect, shall we?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.45
+          ),
+          edit_description = 'Lift the profile to 0.45 to slightly accentuate its presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Preserve the stature at 0.4 to stay harmonized with the surroundings.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Elevate the height to 0.5 for a more pronounced statement in the layout.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Shift the curve inward to a concave style without lifting it.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_ring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Lower the edge to 0.3 for a subtler integration into the environment.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly specifies the increase in height to 0.5, aligning with the requisite enhancement of appearance.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The instructions clearly delineate the parameter to be amended and the end target, facilitating straightforward execution.'
+    )
+  ]
+)

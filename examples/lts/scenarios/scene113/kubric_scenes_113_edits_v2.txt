@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, if we want the seating area to embrace the tree and still hug the rock just right, how should we spin and size the arc?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Slightly enlarge the arc to embrace the tree better and keep it concave.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Swivel it to be convex and snug it closer to the rock.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Hold the curve at the same size but turn it concave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Widen it out and keep its convexity for more space around the rock.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Stick to a concave shape with the same snug fit.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct modification makes the structure convex to align the open side of the semicircle towards the tree as per the prompt. It also adjusts the radius to ensure a snug fit around the rock.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing orientation is straightforward but finding the correct radius requires understanding the prompt's balancing aesthetic and practicality aspects."
+    ),
+    1 : EditMCQA(
+      question = 'Thinking of getting cozy on these seats, how high should we elevate them to not just meet but exceed relaxation?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Slide the seating up to a comfortable height for unmatched relaxation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Settle the height mid-way for decent relaxation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Dim down the seating height for a subtle presence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.35
+          ),
+          edit_description = 'Raise it just a notch for improved comfort without being overwhelming.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Switch to a concave setup and boost height for premium lounging.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Increasing the height to 0.4 meters directly enhances seating comfort, which is a straightforward interpretation of the prompt's requirement.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height adjustment requires straightforward interpretation of seating comfort from the prompt.'
+    )
+  ]
+)

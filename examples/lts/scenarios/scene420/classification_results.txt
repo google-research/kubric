@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves spatial reasoning to arrange stones with emphasis while allowing for foot traffic and visual enjoyment.'
+    )
+  ],
+  confidence = 4
+)

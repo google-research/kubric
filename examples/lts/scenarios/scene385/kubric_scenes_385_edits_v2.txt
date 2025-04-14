@@ -1,0 +1,162 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Why don't we set up a cozy structure for a comfy chair that's just a hop and a skip up front, with the back end close to the corner?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, 1.5, 0.0),
+                length = 0.3,
+                width = 0.5,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular structure for Chair 2.',
+          target_parameter = 'rect_2'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, 1.5, 0.0),
+                length = 0.4,
+                width = 0.6,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a slightly larger rectangular structure for Chair 2.',
+          target_parameter = 'rect_2'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, 1.6, 0.0),
+                length = 0.2,
+                width = 0.4,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a taller rectangular structure slightly shifted for Chair 2.',
+          target_parameter = 'rect_2'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, 1.4, 0.0),
+                length = 0.3,
+                width = 0.5,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular structure shifted down for Chair 2.',
+          target_parameter = 'rect_2'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_2 = Rectangular(
+                center = (0.0, 1.5, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a wider rectangular structure for Chair 2.',
+          target_parameter = 'rect_2'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit for Chair 2 is to add a rectangular structure with a center just up the field, length all snug up front, and width beside the cozy chair, as per the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Adding a symmetrical structure for different chairs requires understanding the prompt's implication on organized arrangement."
+    ),
+    1 : EditMCQA(
+      question = "Shouldn't we tuck in a nice structure alongside the seat that's hanging out near the lower corner?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (1.5, -1.0, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular structure for Chair 3.',
+          target_parameter = 'rect_3'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (1.5, -1.0, 0.0),
+                length = 0.4,
+                width = 0.6,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a slightly larger rectangular structure for Chair 3.',
+          target_parameter = 'rect_3'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (1.6, -1.0, 0.0),
+                length = 0.2,
+                width = 0.4,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a taller rectangular structure slightly shifted for Chair 3.',
+          target_parameter = 'rect_3'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (1.4, -1.0, 0.0),
+                length = 0.3,
+                width = 0.5,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a rectangular structure shifted to the left for Chair 3.',
+          target_parameter = 'rect_3'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              rect_3 = Rectangular(
+                center = (1.5, -1.1, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a lower rectangular structure slightly downward for Chair 3.',
+          target_parameter = 'rect_3'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit for Chair 3 is to add a rectangular structure nestled in the lower spot, perfectly arranged according to the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Placement and sizing to fit within defined space constraints while maintaining symmetry is moderately complex.'
+    )
+  ]
+)

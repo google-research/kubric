@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Why not make the serpentine path curve outward, maybe belly out a bit?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Modify the serpentine path to become convex for outward curvature.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing orientation from concave to convex is straightforward based on prompt instructions.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Keep the orientation concave while changing the radius to ensure better flow between the trees.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the radius slightly to add a subtle outward bow with a convex orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Modify height to 0.2 by expanding upward with a convex orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.1, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Shift slightly right while adjusting height to 0.15 meters, maintaining convex orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit makes the serpentine path convex as explicitly described in the edit instruction.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The modification is easily derived from the edit description and prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'How about expanding the path outward a bit, so it arches between the trees without more height?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius to extend between the trees elegantly, enhancing its visual prominence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adjusting the radius requires spatial consideration to ensure aesthetic alignment between the trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Slightly increase the radius to improve the graceful curve.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Alter orientation back to concave with a pronounced radius stretch.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Maintain a quaint profile while curving inward with expanded radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.2, 0.0, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Edge the arc center leftward while extending to 0.8 meters for a gentle wave.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option specifically details the required radius increase, maintaining the convex orientation and supporting the scene’s design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the appropriate radius increase involves consideration of spatial aesthetics between the trees.'
+    )
+  ]
+)

@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires understanding spatial relationships and arranging objects in a geometric pattern to create a dynamic flow around the collection.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt is somewhat vague about what 'dynamic flow' and 'lively and open' precisely mean, requiring interpretation of scene function and aesthetic elements."
+    0 : Semantic(
+      explanation = "The prompt is vague and uses subjective terms like 'lively' and 'open'. It requires interpreting the meaning behind these terms to understand the desired scene effect without specific spatial or numerical criteria."
     )
   ],
   confidence = 4

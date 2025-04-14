@@ -1,0 +1,140 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about transforming that straight path into a lovely round one that hugs between the trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to serpentine.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not serpentine.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.5, 0.0),
+            close_curve_leftmost_point = (0.0, -0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to a curvy path style.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not curvy path.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to a quarter wedge.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not a quarter wedge.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to circular to wrap gracefully between the trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The transition from a linear to a circular path is straightforward as the prompt explicitly requires a circular design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the path design from linear to a tri wedge.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies a circular design, not a tri wedge.'
+        )
+      },
+      correct_answer = 'D',
+      explanation_of_correctness = "The edit aligns with the scene's requirement for a circular design to navigate between the trees, making option D the correct choice.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly indicates the need for a circular path, making this transition straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Why not raise the height above the trees slightly for a bit more visibility?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the height to 0.3 meters for improved visibility, maintaining unity in the garden space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The modification is a simple change in height as described clearly in the edit details.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height to 0.4 meters for improved visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the height to 0.4 meters is not what was specified; the prompt specifies 0.3 meters for continuity.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the height to 0.2 meters as originally designed.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This reverts to the original height, not the desired enhanced visibility.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a quarter wedge and adjust height to 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This describes a new structure rather than adjusting the existing circular design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to a tri wedge and adjust height to 0.3 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Again, this describes switching to a different structure rather than a height adjustment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Adjusting the circular structure's height to 0.3 meters aligns exactly with the given edit description.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height adjustment is straightforward given the explicit mention in the desired design goal.'
+    )
+  ]
+)

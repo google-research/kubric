@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing a pathway that connects the trashcans, which involves spatial reasoning concerning the layout and flow in the garden context.'
+    )
+  ],
+  confidence = 5
+)

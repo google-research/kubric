@@ -24,6 +24,7 @@ Scene(
         left_width = 1.5,
         right_width = 0.2,
         right_length = 2.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.3
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 1.5,
         right_width = 0.2,
         right_length = 2.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.3
       )
     }
@@ -50,11 +52,12 @@ Scene(
           left_width = 1.5,
           right_width = 0.2,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.3
         ),
         edit_description = 'Change the design profile from linear to L-shape.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The difficulty lies in inferring the correct dimensions and alignment of the L-shape.'
+        explanation_of_difficulty = 'The difficulty lies in inferring the correct dimensions and alignment of the L-shape.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'LShape_1',
@@ -64,11 +67,12 @@ Scene(
           left_width = 1.5,
           right_width = 0.2,
           right_length = 2.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.3
         ),
         edit_description = 'Modify the right segment of the L-shape centered at (0.5, 0.5) with a width of 0.2 meters and align with the left segment.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Aligning the right segment with the left and ensuring dimensions are accurate is moderately challenging.'
+        explanation_of_difficulty = 'Aligning the right segment with the left and ensuring dimensions are accurate is moderately challenging.'
       )
     ]
   )

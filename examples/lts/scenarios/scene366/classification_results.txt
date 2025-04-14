@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests establishing a linear boundary, which involves spatial reasoning regarding the layout and separation of areas in the garden.'
+    )
+  ],
+  confidence = 4
+)

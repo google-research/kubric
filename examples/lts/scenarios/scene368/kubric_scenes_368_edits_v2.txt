@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could you shift the center to fit the pathway better?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjusting the radius to accommodate path clearance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Expanding the radius significantly, altering the arc span.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Reducing both radius and gap degrees for compact design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 100.0,
+            height = 0.3
+          ),
+          edit_description = 'Increasing gap degrees for wider arc coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Height increase to raise visual prominence.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The choice to reduce the radius ensures the design fits within given boundaries.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding spatial configuration adjustments with radius change can be intricate.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we make the structure stand out a bit more in terms of height?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Lift the height to enhance prominence and visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.7
+          ),
+          edit_description = 'Pushing height to a new maximum for better standout.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintaining the current height for subtle aesthetic.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Reducing height for a more grounded appearance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'tri_wedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Enhancing height slightly beyond the current limit.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Raising it to 0.5 meters adequately improves visibility without overstepping design constraints.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This straightforward design change aligns well with aesthetic enhancement goals and spatial allowances.'
+    )
+  ]
+)

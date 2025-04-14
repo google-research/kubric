@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = 'The prompt requires an understanding of the concept of harmony and the aesthetic purpose of a semi-circular garden enclosure, which are semantic considerations.'
+    )
+  ],
+  confidence = 4
+)

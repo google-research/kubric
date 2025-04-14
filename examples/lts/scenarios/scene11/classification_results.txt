@@ -1,8 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt involves creating an 'L-shaped' structure around the seating area, which requires understanding spatial organization and alignment."
+      explanation = 'The prompt requires building an L-shaped structure around a seating area, which involves understanding spatial relationships and positioning of objects within the scene.'
+    ),
+    1 : Semantic(
+      explanation = 'The task involves understanding the purpose of the L-shaped border, which is to segment the seating area from the rest of the garden.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

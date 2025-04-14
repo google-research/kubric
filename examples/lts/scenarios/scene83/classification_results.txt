@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a specific spatial arrangement, a half-moon layout, around the tree, requiring spatial reasoning.'
+      explanation = 'The prompt requests a half-moon layout around the tree, which requires understanding the spatial arrangement and positioning of objects relative to the tree.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

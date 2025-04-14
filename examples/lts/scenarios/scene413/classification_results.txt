@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires positioning the TriWedge structure in relation to the pot and table to create a visually engaging focal point, which involves spatial understanding of how to integrate objects into the scene dynamically and unobtrusively.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt is underspecified as it uses terms like 'visually engaging' and 'dynamic yet unobtrusive design,' which require an understanding of aesthetic and functional purposes."
+    )
+  ],
+  confidence = 4
+)

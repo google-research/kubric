@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'So, how would you position the rectangle to align it with the tables?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Shift the center here and reduce its size to snugly fit the garden space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Move towards a left corner to make the arrangement asymmetric and unique.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.3
+          ),
+          edit_description = "Align the rectangle's center between both tables for symmetry."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Nudge it forward and widen for more breathing room around the setup.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Stably position in the center with an increased breadth for additional elements.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Re-positioning to center aligns with how the space is organized as per the scene and prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Details from the prompt directly guide the alignment of the rectangle's center amidst the tables."
+    ),
+    1 : EditMCQA(
+      question = 'Could you tell me how to extend the rectangle to encompass the setup neatly?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Make it large enough to dramatically encircle both tables and provide extra boundary scope.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Stretch the rectangle just right for enveloping the tables, forming a complete area.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Make slight increments to wrap the tables closely, yet fittingly.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Retain the current size but modify height to create a layered aesthetic.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.2,
+            height = 0.5
+          ),
+          edit_description = 'Widen more than necessary creating more space around the tables for complete flexibility.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Correct dimensions achieved with intentional spacing ensures capturing the prompt's aims.",
+      difficulty = 'medium',
+      explanation_of_difficulty = "Inferring from the scene relies on precise dimension estimation reflecting the prompt's theme."
+    )
+  ]
+)

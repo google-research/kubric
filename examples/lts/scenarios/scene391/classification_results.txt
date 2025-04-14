@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests spatial reasoning to frame the placements of the birdhouse and trashcan with an angular boundary, which involves understanding their relative positions.'
+    )
+  ],
+  confidence = 4
+)

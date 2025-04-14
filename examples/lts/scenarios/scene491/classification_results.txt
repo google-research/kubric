@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt involves spatial reasoning to create a 'lively triangular design around the tables' which requires understanding and manipulating relative positions in the scene."
+    ),
+    1 : Semantic(
+      explanation = "The prompt involves understanding the purpose of the triangular design to 'enhance the garden’s layout with a unique flair' which requires interpreting the functional and aesthetic role of the scene elements."
+    )
+  ],
+  confidence = 4
+)

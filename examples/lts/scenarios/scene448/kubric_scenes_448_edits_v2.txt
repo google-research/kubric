@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about pushing everything up and a bit wider to snugly fit both bins?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Extend the rectangular coverage to enfold both bins by increasing length and width, and elevate it slightly.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            width = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Moderately expand enclosure by stretching the boundaries slightly and raising the height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Extend length fully while keeping width moderately wide to fit bins neatly.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Add a bit more breadth and slight extension to length for optimal placement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.6,
+            height = 0.4
+          ),
+          edit_description = 'Balance by length extension and a slight drop in height to keep it compact.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The indicated enhancement maximizes spatial allocation within constraints, encasing bins\n             comprehensively following the suggestion of increased size.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The design suggestions match direct interpretive enhancement requirements, making them uncomplicated to adopt.'
+    )
+  ]
+)

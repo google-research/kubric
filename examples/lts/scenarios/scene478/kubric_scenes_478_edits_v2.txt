@@ -1,0 +1,146 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Nudge that distant curve start further out, just beyond the left pot.',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.75, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Adjusted the far curve leftmost point to (-1.0, 0.0, 0.0) to ensure the path flows perfectly between the pots.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the position of start points is straightforward from the prompt information.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.75, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Changed the close curve leftmost point to (0.5, 0.0, 0.0) for aesthetic purposes.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.75, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Extended the far curve leftmost point further out past its starting location.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.75, 0.0, 0.0),
+            amplitude = 0.05,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Reduced the amplitude to increase path stiffness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.95, 0.0, 0.0),
+            close_curve_leftmost_point = (0.75, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.05
+          ),
+          edit_description = 'Shortened wavelength for a quicker curve.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit matches the change described in the scene description and edit sequence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change was straightforward as per the given description.'
+    ),
+    1 : EditMCQA(
+      question = 'Increase the flow along the path so it softly cradles both pots.',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased the amplitude to 0.2 and adjusted close curve leftmost point to (1.0, 0, 0) for more pronounced curvature.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The complete adjustment aligns with both the positional and aesthetic directives from the prompt.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.15,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjusted the path without changing the amplitude for a smoother feel.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.75, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased the curvature by adjusting amplitude but used an incorrect close point.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Matched the positions but did not achieve the desired wavelength for ideal flow.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increased the curvature and length which did not align with the exact path goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustment aligns perfectly with the edit described in the scene description, accommodating both the positional and amplitude adjustments for a pronounced curvature.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change involved amplitude and positional adjustments which were explicitly outlined in both the prompt and description.'
+    )
+  ]
+)

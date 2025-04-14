@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Okay, I'm thinking let's make the left planter hug the pot a bit more. What do you think happened?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.75,
+            height = 0.1
+          ),
+          edit_description = 'Increase the radius of the circular planter around pot1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit is straightforward as it directly increases the radius of the existing circular planter from the initial design to match the design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.65,
+            height = 0.1
+          ),
+          edit_description = 'Slightly increase the radius of the circular planter around pot1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit is direct, just increasing the radius slightly.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.85,
+            height = 0.1
+          ),
+          edit_description = 'Greatly increase the radius of the circular planter around pot1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The edit assumes a much larger design, deviating from the goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.1
+          ),
+          edit_description = 'Moderately increase the radius of the circular planter around pot1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The radius is increased more than slightly but not as much as the target design goal.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Increase the radius of the circular planter around pot1 to maximum.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This change is clear but exceeds the target design goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit directly matches the design goal for the radius increment around pot1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task only required increasing the radius to match a predefined goal.'
+    ),
+    1 : EditMCQA(
+      question = 'Imagine adding another ring on the right side, similar in size and style. What was adjusted?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              design_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.75,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a similar circular planter around pot2.',
+          target_parameter = 'circular planter at pot2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adding a new circular design that complements the existing one requires interpreting the symmetry and equal design aesthetics intended in the scene.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              design_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.55,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a smaller circular planter around pot2.',
+          target_parameter = 'circular planter at pot2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The design involves symmetry, thus a smaller radius does not achieve the purpose.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              design_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.95,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a larger circular planter around pot2.',
+          target_parameter = 'circular planter at pot2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This creates a dominant pattern that affects the intended complementary design.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              design_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.65,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a circular planter around pot2 moderately larger than the initial suggestion.',
+          target_parameter = 'circular planter at pot2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Moderating size still deviates from achieving symmetry with pot1.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              design_2 = Circular(
+                center = (1.0, 0.0, 0.0),
+                radius = 0.8,
+                height = 0.1
+              )
+            }
+          ),
+          edit_description = 'Add a slightly larger circular planter around pot2 for balance.',
+          target_parameter = 'circular planter at pot2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Balance is attempted, but deviation from symmetry is present.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This is the correct addition of the circular planter with correct radius to mirror the arrangement around pot1.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Interpreting symmetry and coordination with existing designs challenges a straightforward answer.'
+    )
+  ]
+)

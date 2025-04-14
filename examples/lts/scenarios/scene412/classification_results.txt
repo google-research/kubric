@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires organizing space efficiently and ensuring access to trashcans, which involves spatial reasoning and relative positioning of the objects within the rectangular structure.'
+    )
+  ],
+  confidence = 4
+)

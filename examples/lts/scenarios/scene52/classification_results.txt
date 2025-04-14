@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a labyrinth-like hedge around a birdhouse, which involves spatial reasoning to create the layout, ensure there are paths for entering and exiting, and manage spatial relationships such as geometric properties, radius, and gap sizes.'
+      explanation = 'The prompt involves creating a labyrinth-like structure around the birdhouse which requires spatial reasoning to ensure proper layout and access points.'
     )
   ],
   confidence = 4

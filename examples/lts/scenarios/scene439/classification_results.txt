@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning, as it requires arranging quarter-wedge structures to maintain a balance between defined structure and open space around the rocks.'
+    ),
+    1 : Numeric(
+      explanation = 'The task involves interpreting geometric properties such as center, radius, and angular gap, which requires numerical precision to ensure harmony in the layout.'
+    )
+  ],
+  confidence = 4
+)

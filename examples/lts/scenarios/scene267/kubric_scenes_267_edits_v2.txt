@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we make the rectangular edge hug both trees closely along their base, while keeping it flat?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.4,
+            height = 0.5
+          ),
+          edit_description = "Shift the rectangular structure's center to the middle point between the trees, broaden the length to span both trees evenly, and slightly widen it to ensure an elegant embrace."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Position the rectangular structure diagonally above the ground, maintaining its original dimensions and offset it to the right and towards the top corner.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Align the rectangular structure symmetrically between the trees, preserving its initial dimensions for a minimalistic look.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Slide the rectangular structure slightly upwards and to the right, extending it for maximum tree coverage and enhancing width for a bolder appearance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -0.5, 0.0),
+            length = 2.2,
+            width = 0.35,
+            height = 0.4
+          ),
+          edit_description = 'Reposition the rectangular structure a bit downward and leftward, adjusting its size for a snug fit around the trees with modest expansion in length and width.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly implements all the changes specified in the scene description: center position, length, and width adjustments ensuring the planter borders the trees symmetrically.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The changes are explicitly laid out in the prompt, making them straightforward to implement.'
+    )
+  ]
+)

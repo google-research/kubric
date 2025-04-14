@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Numeric(
+      explanation = "The prompt involves creating a 'well-defined rectangular space,' which requires understanding geometric and spatial measurements to ensure the proportions and dimensions are exact and suitable for integrating both elements, i.e., the tree and the rock."
+    ),
+    1 : Spatial(
+      explanation = 'The prompt requires reasoning about the positioning of elements (tree and rock) within the defined rectangular space, ensuring they are integrated without overwhelming the area.'
+    )
+  ],
+  confidence = 4
+)

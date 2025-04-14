@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging the pots in a spatial configuration to form a triangle, which requires spatial reasoning to position the third plot in front of the other two.'
+      explanation = 'The scene prompt and description involve understanding spatial relationships to properly position the planters forming a triangle in front of the other two pots.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt requires an understanding of scene function, namely protecting pots from deer, and involves resolving ambiguities such as ensuring correct triangle formation.'
     )
   ],
   confidence = 4

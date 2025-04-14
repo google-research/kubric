@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Numeric(
+      explanation = 'The prompt requests the creation of features to promote symmetry, suggesting a focus on exact quantities and symmetries in the arrangement of circular structures around the rocks.'
+    )
+  ],
+  confidence = 4
+)

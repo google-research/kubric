@@ -1,0 +1,135 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could we add some movement between those avian sanctuaries by altering the path?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'LinearPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+            close_curve_leftmost_point = (0.75, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a CurvyPath to integrate the desired wave-like motion.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'LinearPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -0.5, 0.0),
+            close_curve_leftmost_point = (0.5, 0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 3.0,
+            phase = 1.0,
+            height = 0.15
+          ),
+          edit_description = 'Transform the linear path into a CurvyPath with altered amplitude and wavelength.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'LinearPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.8, -0.5, 0.0),
+            close_curve_leftmost_point = (0.8, 0.5, 0.0),
+            amplitude = 0.35,
+            wavelength = 2.5,
+            phase = 0.2,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a CurvyPath with slightly adjusted parameters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'LinearPath',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Extend the linear path and change its orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'LinearPath',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.2,
+            height = 0.1
+          ),
+          edit_description = 'Convert the path to a rectangular shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct transformation involved changing the LinearPath into a CurvyPath with specific sinusoidal parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The curvature parameters such as amplitude and wavelength involve medium complexity to deduce from the scene design goal.'
+    ),
+    1 : EditMCQA(
+      question = "What subtle tweak do we need to make on the path's ripples for a wave transition?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+            close_curve_leftmost_point = (0.75, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the phase to 0.0 to change the horizontal wave position.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.8, -0.5, 0.0),
+            close_curve_leftmost_point = (0.8, 0.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 1.8,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude and wavelength for a minor path alteration.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.75, -0.5, 0.0),
+            close_curve_leftmost_point = (0.75, 0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.5,
+            phase = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the phase to create a more pronounced wave shift.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'CurvyPath',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Modify the path to form a semi-circle facing inward.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'CurvyPath',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 0.75,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a semi-circular ring.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the phase to 0.0 was the key modification to the CurvyPath, altering its horizontal wave position.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the phase of the wave is relatively straightforward given initial hints in the prompt.'
+    )
+  ]
+)

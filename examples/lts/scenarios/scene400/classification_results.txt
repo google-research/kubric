@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves arranging semi-ring structures around trees to create a natural enclosure. This requires spatial reasoning related to positioning and arrangement in relation to the trees and the open elements of the garden.'
+    )
+  ],
+  confidence = 4
+)

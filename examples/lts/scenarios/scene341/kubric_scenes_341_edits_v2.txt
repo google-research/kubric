@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Imagine the path suddenly asks you to adjust its curve outwardly; what might you change?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Give the path a wider radius and curve it outward.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Curving outward and increasing the radius requires adjustments to the garden integration.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Keep the current width but turn the curve outward.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Widen the path but keep the curve inward.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Slightly widen the path, maintaining an inward curve.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.3, -0.3, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Shrink the height and slightly move the center inward without altering the curve.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A describes widening the radius and changing the curve outward as described.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The alteration impacts how the path weaves through the garden, demanding a thoughtful approach to design.'
+    ),
+    1 : EditMCQA(
+      question = 'The height calls out, asking to loom higher; what should you do?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Raise the structure to stand more visibly.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height increase makes the path more prominent and aligns with inviting design intents.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Leave the height as is, focusing elsewhere instead.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change the curve inward while elevating the height.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Reduce the arc width but maintain a higher profile.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Restore the structure to its initial design while not addressing the height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Elevating the height directly enhances the path's visibility and aligns with the design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "Raising the height is a straightforward modification directly influencing the path's aesthetic presence."
+    )
+  ]
+)

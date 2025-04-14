@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the design of a serpentine path that meanders alongside the benches. This involves spatial reasoning in terms of positioning the path relatively to the benches, requiring an understanding of spatial relationships within the garden.'
+    )
+  ],
+  confidence = 4
+)

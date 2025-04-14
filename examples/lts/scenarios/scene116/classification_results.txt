@@ -1,10 +1,13 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The scene involves spatial reasoning to determine the arrangement of a curved protective barrier around benches, focusing on positioning and geometric properties like radius and arc length.'
+    0 : Numeric(
+      explanation = 'The prompt involves numeric concepts like geometric properties, such as radius and arc length, which are necessary to position the curved protective structure accurately around the benches.'
     ),
-    1 : Semantic(
-      explanation = "There is a need to interpret the vague prompt, such as what constitutes a 'cozy nook' and the specific placement of curves."
+    1 : Spatial(
+      explanation = 'The task requires spatial reasoning to properly arrange the curved protective structure around the benches to form a cozy nook without fully enclosing the space.'
+    ),
+    2 : Semantic(
+      explanation = "There is an element of semantic reasoning needed to interpret vague instructions, such as understanding what constitutes a 'cozy nook' and resolving ambiguities about the protective arrangement."
     )
   ],
   confidence = 3

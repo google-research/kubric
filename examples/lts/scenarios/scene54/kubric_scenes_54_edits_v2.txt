@@ -1,0 +1,124 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How can we get that snaking pattern to gracefully match the flow between the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Transform the design from a linear path to a serpentine shape to enhance flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Switch the design profile to a triwedge to change the visual dynamic.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter the design to a quarterwedge to introduce a crisp arc shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Change to a rectangular shape to provide a solid, defined edge.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.5, 0.0),
+            close_curve_leftmost_point = (-1.0, 1.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Redesign into a curvy path to emphasize a serpentine movement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit ensures a serpentine structure that fulfills the flowing edge requirement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Understanding a serpentine curve's nature and adapting the design requires spatial insight."
+    ),
+    1 : EditMCQA(
+      question = 'Can we make that curve more prominent and lift it slightly?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Tweak the curve and raise its height to ensure a more distinct presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Shift to a circular form without height modification.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Transform to a semicircular outline.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Revert back to a linear format.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.5, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Modify to a semi circular ring with controlled radii.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustment enhances the height which is necessary for better definition.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Altering height is a straightforward task in detailed design.'
+    )
+  ]
+)

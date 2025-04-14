@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Do you think the circular boundary could be adjusted to be more inclusive of the central area?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Push out the boundary to make the space feel more inviting and ensure the central area fits neatly inside.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The request for an open design suggests an expansion is the correct direction.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Bring the edges in to create a sense of coziness and enclosure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This goes against the open and expansive layout implied by the prompt.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Allow a gentle expansion to balance openness with intimacy.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While this partially follows the prompt, it might not be sufficient for full openness.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Keep everything as is to maintain consistency with the initial setup.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Keeps the design unchanged which is not what the prompt or goal suggests.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.2,
+            height = 0.3
+          ),
+          edit_description = 'Make a sweeping adjustment to ensure there’s plenty of room and an ultra-spacious feel.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Surpasses the design goal and could disrupt balance with its oversized modification.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Expanding to the specified radius seamlessly aligns with the goal for a larger, inclusive design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly calls for an open and inclusive design, making this choice straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'What tweak could make the structure stand out more?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Make the circular boundary wider to reveal more of its form.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This focuses on expanding for size rather than height for prominence.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Raise the circular boundary higher to highlight its presence and create a definitive border.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Raising the height was not specified but improves the structure's visual strength."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = "Boost the boundary's elevation modestly for extra visibility.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Increases visual prominence to some extent but doesn't achieve the highest boundary impact."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain existing boundary height to keep the setting unchanged.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Leaves the appearance unaltered, conflicting with the idea of enhanced prominence.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.6
+          ),
+          edit_description = 'Elevate the boundary to its maximum for a strong statement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Risk of overwhelming other elements in the scene by exceeding intended design proportions.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "Raising the height to 0.5 ensures the structure is evident and enhances the visual boundary's fortitude.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While not specified, increasing height supports the grander visibility aspect of the design target.'
+    )
+  ]
+)

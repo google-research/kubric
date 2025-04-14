@@ -1,0 +1,126 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you nudge the center so it sits comfortably between the pot and the rock?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Move the Linear Structure: Adjust the center position to (0, 0, 0) for balanced placement between the pot and rock.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The task specifies 'centered between the pot and rock', making the position straightforward."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the Linear Structure: Adjust the center position to (1, 0, 0) to favor placement towards the rock.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the Linear Structure: Adjust the center position to (-1, 0, 0) to favor placement towards the pot.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Lift the Linear Structure: Adjust vertical center position to (0, 0.5, 0) to create elevation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Offset the Linear Structure: Shift the center position to (0.5, 0, 0) for asymmetrical alignment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The center position adjustment to (0, 0, 0) aligns the linear structure perfectly between the pot and rock, which aligns with the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The task specifies 'centered between the pot and rock', making the position straightforward."
+    ),
+    1 : EditMCQA(
+      question = 'How about making the boundary stand out a bit more with an extended reach and height?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the Length and Height: Extend the length to 1.5 meters and raise the height to 0.3 meters for a more prominent boundary.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt implies a larger, more pronounced structure but requires interpretation of specific dimensions.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase only the Height: Raise the height to 0.3 meters to enhance vertical presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase only the Length: Extend the length to 2.0 meters for a longer boundary span.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Moderately Increase Dimensions: Extend the length to 1.2 meters and height to 0.25 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase Length Only: Extend the length to 1.5 meters while keeping height the same.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit specifies increasing both the length and height of the linear structure, which directly addresses the goal of creating a more prominent boundary.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt implies a larger, more pronounced structure but requires interpretation of specific dimensions.'
+    )
+  ]
+)

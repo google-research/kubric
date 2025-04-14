@@ -1,0 +1,196 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Let's take away that first part, shall we?",
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'quarterwedge_1',
+          edit_description = 'Delete the initial QuarterWedge structure to prepare for a new layered design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt implies a modification to create symmetry, which involves changing the initial singular structure.'
+        ),
+        B = DeleteStructureEdit(
+          design_id = 'quarterwedge_1',
+          edit_description = 'Delete a QuarterWedge structure with incorrect radius.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              triwedge_1 = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.5,
+                gap_degrees = 11.0,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Add a TriWedge structure to the scene with specific dimensions.',
+          target_parameter = 'radius, gap_degrees, height',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This action introduces a different structure, not aligning with the scene’s QuarterWedge requirement.'
+        ),
+        D = ModifyObjectEdit(
+          object_id = 'rock_1',
+          new_object = SceneObject(
+            extent = (0.2, 0.2, 0.2),
+            center = (0.0, 0.0, 0.0),
+            theta = 0.0,
+            semantic_label = 'rock'
+          ),
+          edit_description = 'Modify the rock to alter its size.'
+        ),
+        E = AddObjectEdit(
+          object = SceneObject(
+            extent = (0.3, 0.3, 0.3),
+            center = (0.0, 0.0, 0.0),
+            theta = 0.0,
+            semantic_label = 'tree'
+          ),
+          object_id = 'tree_1',
+          edit_description = 'Add a new tree object at the center.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Deleting the initial QuarterWedge is necessary to allow for the addition of new structures that meet the scene’s symmetrical design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit straightforwardly adheres to the design task of preparing for a new symmetrical layout.'
+    ),
+    1 : EditMCQA(
+      question = 'What about adding a piece on the periphery?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.0,
+                gap_degrees = 10.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add the first of two new QuarterWedge structures to form the outer layer of the pattern.',
+          target_parameter = 'radius, gap_degrees, height',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding the concept of layering objects symmetrically around a central point with specific radii and height.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarterwedge_3 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.5,
+                gap_degrees = 12.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add a QuarterWedge structure to form part of the pattern.',
+          target_parameter = 'radius, gap_degrees, height'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarterwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 13.0,
+            height = 0.5
+          ),
+          edit_description = 'Modify the existing QuarterWedge into a TriWedge.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This would involve significant alteration against the symmetry requirement defined by the prompt.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (0.0, 0.0, 0.0),
+                radius = 2.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add a circular structure to replace one of the wedges.',
+          target_parameter = 'radius, height'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'quarterwedge_2',
+          edit_description = 'Delete an incorrect structural component.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adding the specified QuarterWedge forms the outer layer due to its largest radius and proper gap, meeting the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The creation of an outer layer requires consideration of proper position and dimension adherence to the scene’s symmetry.'
+    ),
+    2 : EditMCQA(
+      question = 'And how about a closer layer? Add something small and central.',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              quarterwedge_2 = QuarterWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                gap_degrees = 10.0,
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Add the second QuarterWedge structure to form the inner layer of the pattern.',
+          target_parameter = 'radius, gap_degrees, height',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires deducing a more compact radius while maintaining symmetry, requiring spatial reasoning.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              semi_circular_1 = SemiCircular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.5,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a SemiCircular structure to mimic the pattern instead of using quarter wedges.',
+          target_parameter = 'radius, orientation, height'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'quarterwedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.7,
+            gap_degrees = 11.0,
+            height = 0.5
+          ),
+          edit_description = 'Alter the outer QuarterWedge to create inner layer.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This requires incorrect manipulation of an outer layer, conflicting with correct spatial layout.'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (0.0, 0.0, 0.0),
+                length = 1.5,
+                height = 0.4,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Incorporate a linear path instead of a wedge.',
+          target_parameter = 'length, height, orientation'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'quarterwedge_1',
+          edit_description = 'Remove a structural feature to balance design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The addition of this QuarterWedge completes the inner structure layer given its appropriate radius, gap, and height.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'An accurate inner layer addition requires careful balance of symmetrical arrangement and dimension control.'
+    )
+  ]
+)

@@ -1,0 +1,74 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about giving the path a graceful twist, making it snake elegantly around where it sits?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Altered the design from a straight path to a serpentine shape, weaving gracefully to draw attention.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The adjustment to serpentine conveys a flowing, organic style, aligning with the natural path intention, requiring insight into design goals.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.1, 0.1, 0.1),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.2,
+            height = 0.3
+          ),
+          edit_description = 'Adjusted the path to a sinuous form with wave-like features to boost visual allure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Although the curves create visual intrigue, the continuous flow aspect implied in a serpentine path isn't fully achieved."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Substituted the straightforward path with a triangular wedge to impart sharp directional variance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The swap to a triangular wedge contrasts with the intention of creating a gentle, flowing passage.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Converted to a quarter-circle section to add a radial twist to the path.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While a quarter-circle suggests spatial deviation, it lacks the elongated undulating form of a serpentine route.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Transformed the existing path into a round outline to emphasize connectivity.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A round path forms a continuous circuit, distinct from the directed open-ended serpentine configuration.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A precisely transforms the linear aspect into a serpentine variant, matching the design aims to foster smooth, intriguing movement between benches.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the serpentine shift necessitates grasp of design objectives related to facilitating unbroken, engaging flow, beyond mere alterations in structural outline.'
+    )
+  ]
+)

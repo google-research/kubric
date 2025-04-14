@@ -18,6 +18,7 @@ Scene(
         left_width = 1.0,
         right_width = 0.5,
         right_length = 3.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -30,6 +31,7 @@ Scene(
         left_width = 1.0,
         right_width = 1.5,
         right_length = 3.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -44,11 +46,12 @@ Scene(
           left_width = 1.0,
           right_width = 0.5,
           right_length = 3.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Change the design profile to LShape',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The change from a rectangular shape to an LShape with specified dimensions involves both adding and altering the design, which requires spatial reasoning and alignment understanding.'
+        explanation_of_difficulty = 'The change from a rectangular shape to an LShape with specified dimensions involves both adding and altering the design, which requires spatial reasoning and alignment understanding.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
@@ -58,11 +61,12 @@ Scene(
           left_width = 1.0,
           right_width = 0.5,
           right_length = 3.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Adjust the left section to be centered at (-1.5, 0) with longer sides',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Adjusting the left side requires understanding the positional shift and size increase, a task needing dimensional awareness.'
+        explanation_of_difficulty = 'Adjusting the left side requires understanding the positional shift and size increase, a task needing dimensional awareness.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
@@ -72,11 +76,12 @@ Scene(
           left_width = 1.0,
           right_width = 1.5,
           right_length = 3.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Change right width to 1.5 and align with the left section',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the right width requires simple width adjustment and alignment understanding, making it relatively straightforward.'
+        explanation_of_difficulty = 'Increasing the right width requires simple width adjustment and alignment understanding, making it relatively straightforward.'
       )
     ]
   )

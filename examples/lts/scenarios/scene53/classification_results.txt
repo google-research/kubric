@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves creating a serpentine pathway that requires spatial reasoning to weave between chairs and ensuring it flows with the garden environment. Understanding spatial relationships and geometric properties like arc radius and orientation is key to arranging the path.'
+      explanation = 'The scene prompt involves creating a serpentine pathway around chairs, which requires understanding and considering spatial relationships to ensure the path weaves naturally and complements the garden environment.'
     )
   ],
   confidence = 5

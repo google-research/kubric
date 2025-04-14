@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging rectangular seating areas near trees, which requires spatial reasoning to ensure proper placement and clear pathways.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt implies a functional aspect of the scene, as seating areas are meant for comfort near trees, which involves understanding the scene's purpose."
+      explanation = 'The scene prompt involves arranging seating areas near trees, requiring spatial reasoning to place these areas correctly in relation to each tree while maintaining clear pathways.'
     )
   ],
   confidence = 4

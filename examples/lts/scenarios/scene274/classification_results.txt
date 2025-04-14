@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging rocks into an L-shaped configuration, which involves understanding and utilizing spatial relationships.'
+    )
+  ],
+  confidence = 4
+)

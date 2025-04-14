@@ -1,0 +1,226 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about nudging the left side of the L-shape just a bit closer towards the trashcan?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Move the L-shape to center its left part at (1.25, 1)'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.0, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Move the L-shape to center its left part at (1.0, 1)'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.5, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Move the L-shape to center its left part at (1.5, 1)'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.75, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Move the L-shape to center its left part at (1.75, 1)'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (2.0, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 2.0,
+            right_width = 0.5,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Move the L-shape to center its left part at (2.0, 1)'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly places the left center of the L-shape at (1.25, 1.0) as described.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding the positioning of the centers relative to the given scene graph details.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we trim down the short sides of everything to keep the space free?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust the short side of each segment to 0.2 to avoid blocking too much space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.5,
+            left_width = 3.0,
+            right_width = 0.3,
+            right_length = 3.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust dimensions greater than 0.2, blocking more space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 1.0,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust dimensions to different values that alter space'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.6,
+            left_width = 2.0,
+            right_width = 0.6,
+            right_length = 2.6,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust dimensions to larger sizes, blocking more space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 1.5,
+            right_width = 0.2,
+            right_length = 2.5,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adjust some dimensions to 0.2 but not all.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly modifies all short sides to the specified length of 0.2, minimizing space usage.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding of spatial allocation and dimension adjustments is needed.'
+    ),
+    2 : EditMCQA(
+      question = 'What if we make the barrier a little taller to separate the areas more clearly?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Adjust height to 0.5 for effective separation.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Adjust height to 0.3 for moderate separation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.4
+          ),
+          edit_description = 'Adjust height to 0.4 for partial separation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Maintain height at 0.2.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'barrier',
+          NewDesignStructure = LShape(
+            left_center = (1.25, 1.0, 0.0),
+            left_length = 0.2,
+            left_width = 2.0,
+            right_width = 0.2,
+            right_length = 2.2,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.6
+          ),
+          edit_description = 'Adjust height beyond what is necessary for separation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly sets the height to 0.5, achieving the necessary separation effect.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires understanding the impact of height on the separation effect.'
+    )
+  ]
+)

@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Hey, let's introduce a more dynamic path going between the seats—should we perhaps go for something that ebbs and flows?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the design profile from linear to serpentine to introduce a dynamic and flowing path.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the design profile to a curvy path with variable amplitude and wavelength.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 10.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the linear design to a quarter wedge to create a more angular design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Alter the linear design to a triwedge shape, providing a sharp-edged radial look.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Transform the linear design into a circular form to enhance symmetry.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The specified edit involved changing the design from linear to a serpentine structure to create a dynamic path as requested in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly requests to weave a serpentine path between the chairs, which makes it straightforward to deduce the required edit.'
+    )
+  ]
+)

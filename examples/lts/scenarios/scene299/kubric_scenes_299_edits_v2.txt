@@ -1,0 +1,127 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we stretch the middle part to reach both benches more effectively?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Increase the length to span the space better between the benches.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt provides clear direction to increase the length to span the space between the benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.7,
+            width = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Modify both length and width slightly for a subtle expansion.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Increase both length and width to provide more space around the benches.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a circular platform to facilitate a central gathering point.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend with a linear design to maximize usage along a single axis.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly implements the intended span increase between the benches as per the task prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The description clearly directs increasing the length, making it straightforward to identify the correct edit.'
+    ),
+    1 : EditMCQA(
+      question = 'How do we add room to make everything fit just right?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the width to provide additional room and promote a balanced configuration.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies the need to adjust dimensions to maintain spatial balance and organization.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.2,
+            height = 0.2
+          ),
+          edit_description = 'Increase the width to emphasize a broader base area.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the width for a more sleek design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Adopt a circular format to unify the central area.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Adopt an L-shape for a varied layout that fits multiple sitting areas.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A addresses the need to enhance the width to create a balanced configuration as per the prompt instructions.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task prompt is explicit about achieving balance through dimension adjustments, making the correct choice clear.'
+    )
+  ]
+)

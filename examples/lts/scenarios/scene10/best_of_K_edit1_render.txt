@@ -1,0 +1,69 @@
+{
+    "prompt": "Create a single structure to house the objects.",
+    "observation": {
+        "pot_1": {
+            "extent": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "center": [
+                0.0,
+                -0.0,
+                -1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "pot"
+        },
+        "trashcan_1": {
+            "extent": [
+                0.0,
+                -0.0,
+                -0.0
+            ],
+            "center": [
+                1.5,
+                -0.0,
+                -1.5
+            ],
+            "theta": 0.0,
+            "semantic_label": "trashcan"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.25,
+            "keypoints": [
+                [
+                    -0.5,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -0.0
+                ],
+                [
+                    0.5,
+                    -0.0,
+                    -2.0
+                ],
+                [
+                    -0.5,
+                    -0.0,
+                    -2.0
+                ],
+                [
+                    -0.5,
+                    -0.0,
+                    -0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = "Change the orientation to 'convex' for structure 1 and increase the radius to 2 meters.",
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding the direction for the orientation and deciding the correct radius requires interpretation of the geometric requirements for shade.'
+        explanation_of_difficulty = 'Understanding the direction for the orientation and deciding the correct radius requires interpretation of the geometric requirements for shade.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -76,7 +76,7 @@ Scene(
         edit_description = 'Add SemiCircular structure 2 to overlap with the first and complete the sunshade.',
         target_parameter = 'semitircular_2',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Determining the correct position and overlap for optimal shading involves understanding spatial arrangement.'
+        explanation_of_difficulty = 'Determining the correct position and overlap for optimal shading involves understanding spatial arrangement.'
       )
     ]
   )

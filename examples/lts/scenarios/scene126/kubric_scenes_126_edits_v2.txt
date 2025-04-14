@@ -1,0 +1,150 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Let's make a curvy path starting from the bench. What change can spice up 'path_1' for visitors?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile to a CurvyPath with an amplitude of 1 meter and wavelength of 1 meter for a more engaging experience.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change in amplitude and wavelength for a more engaging experience requires understanding the visual and spatial impact of these parameters in a park environment.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design to a smooth path with an amplitude of 0.5 meters and wavelength of 2 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This change represents a smoother flow, easily deduced by basic parameter adjustment.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 3.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Revert the design to a Linear path for straightforwardness.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reverting to a linear design is a simple undo of changes, easily deducible.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.5, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Introduce a new Serpentine path with a smaller radius for tight curves.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This change introduces a whole new path type, requiring deeper conceptual understanding.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = "Shift to a QuarterWedge structure at the path's midpoint.",
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Replacing a path with a wedge shape is a significant change, showing a fundamental grasp of structural redirection.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit increased the amplitude and decreased the wavelength to create a more engaging experience consistent with the scene description.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing the path's form to be engaging based on amplitude and wavelength requires analysis of impact on visitor interaction."
+    ),
+    1 : EditMCQA(
+      question = "Could we soften 'path_2' to flow gently around the trees and blend in with the park's greenery?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path_2',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            amplitude = 1.0,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Alter the path to have an amplitude of 1 meter and wavelength of 1 meter for visual intrigue.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding the impact of higher amplitude and lower wavelength on visitor dynamics is necessary.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'path_2',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (2.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude to 0.5 meters and wavelength to 2 meters for a smoother flow that complements the natural environment.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjusting amplitude and wavelength for a smoother flow is a basic change that requires less interpretive understanding, based mostly on numerical adjustments.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'path_2',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 3.0,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Simplify the path back to a Linear form.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reverting to a simpler design is easy to understand.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'path_2',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Introduce a SemiCircular path for broader visibility.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Switching to a semicircular path requires a more significant reimagining of space usage.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'path_2',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Create a Triangular path change for interesting ground texture design.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Introducing geometric shapes necessitates understanding of planar space alteration.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The given adjustment reduced the amplitude and increased the wavelength for a flow that aligns naturally with the greenery, enhancing smoothness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustment was straightforward, defined by numerical parameter changes easily deduced from the design goal.'
+    )
+  ]
+)

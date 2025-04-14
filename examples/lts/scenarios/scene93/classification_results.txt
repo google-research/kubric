@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires creating a winding path around the bin, which involves understanding and arranging objects in the scene spatially to give a sense of enclosure.'
+      explanation = 'The prompt involves creating a winding path around the bin to provide enclosure, which requires spatial reasoning and understanding of the relative positions of objects in the scene.'
     )
   ],
   confidence = 5

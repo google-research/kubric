@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the design of a structure (quarter-wedge) that gracefully highlights the central gathering of trees and rocks, indicating a need to spatially arrange these elements to create a functional and aesthetic space.'
+    )
+  ],
+  confidence = 4
+)

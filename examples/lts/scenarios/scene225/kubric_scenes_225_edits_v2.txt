@@ -1,0 +1,68 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about moving that circular center to keep everything balanced and within sight from the middle point?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Relocate the circular center here for balanced inclusion between all components.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifically indicates this central location, clearly aligning with provided design goals.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 1.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Try shifting the circle slightly upwards for a change.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While this placement provides a new perspective, it strays from the aim of centrality described in the prompt.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Position the circle more to your right side for a bold layout.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'This setup diverges from the goal of an even, central alignment, suggesting a more right-heavy design.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.5
+          ),
+          edit_description = 'Enhance the radius and move the circle left for an expanded circle taking up more space.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Such a significant alteration demands additional context, as it deviates from both the size and position outlined initially.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Slide the circle upwards towards that birdhouse view for a diverse touch.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Although this introduces varying viewpoints, it doesn't fulfill the scene's call for a centralized and unified design."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option aligns precisely with the circular central theme promoted in the initial and goal design statements.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The clear prompts and visual symmetry all emphasize adherence to the central, inclusive location specified in the instructions.'
+    )
+  ]
+)

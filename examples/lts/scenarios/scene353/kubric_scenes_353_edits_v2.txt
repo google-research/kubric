@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Could you please adjust the layout to enhance the boundary's presence while ensuring it remains balanced and accessible?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = "Moved the linear structure to the center with orientation 'left-right', increased its length, and heightened it for better presence."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Kept the linear structure in the original position with the initial size and height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.5, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Placed the linear structure in a new quadrant, extended its length and height, and oriented it left-right.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Changed height to 0.3 but left other features unchanged.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Moved the boundary to the top right, adjusted length and height, and aligned left-right.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification involved repositioning the linear structure to the center of the scene, extending its length, and height to enhance its presence, as outlined in the edit details.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The task requires understanding of aesthetic spatial adjustments and practical layout constraints.'
+    )
+  ]
+)

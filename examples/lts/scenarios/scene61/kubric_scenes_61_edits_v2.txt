@@ -1,0 +1,164 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we bring the tip of the wedge closer to the birdhouse?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to fit the boundary snugly.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Expand the radius for a more open design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 0.5, 0.0),
+            close_curve_leftmost_point = (0.3, 0.3, 0.0),
+            amplitude = 0.1,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Opt for a CurvyPath design for visual interest.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Remove the QuarterWedge for an open layout.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 60.0,
+            height = 0.3
+          ),
+          edit_description = 'Narrow the gap to adjust for compactness.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer is 'A' since reducing the radius makes the structure fit the area more closely as suggested.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Understanding the size adjustment is straightforward given the compact design requirement.'
+    ),
+    1 : EditMCQA(
+      question = 'Maybe we should tighten the opening of that wedge a bit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Open the gap for more spaciousness.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.3
+          ),
+          edit_description = 'Close the gap to secure a more defined space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Tighten the gap for maximum enclosure.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Eliminate the wedge to address openness.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 50.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap for a balanced closure.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "The correct answer is 'B' as it realizes the intention to reduce the gap to establish a more insulated area.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires some inference about spatial positioning and its implications on design.'
+    ),
+    2 : EditMCQA(
+      question = 'Can we lift the edge of the wedge to make it more noticeable?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.5
+          ),
+          edit_description = 'Raise the height for enhanced boundary perception.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.7
+          ),
+          edit_description = 'Boost the height even further to emphasize borders.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a Circular design for simplicity.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 30.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the height stable to maintain current boundary definitions.'
+        ),
+        E = DeleteStructureEdit(
+          design_id = 'QuarterWedge_1',
+          edit_description = 'Remove the wedge entirely to eliminate boundaries.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer is 'A' because raising the height is a direct approach to improve visibility.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "This modification aligns well with the prompt's language about enhancing visual presence."
+    )
+  ]
+)

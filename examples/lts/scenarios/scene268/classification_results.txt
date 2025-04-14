@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt involves understanding the concept of 'inviting' and 'harmonious', which are subjective terms requiring an interpretation of meaning and function rather than specific spatial or numerical arrangements."
+    )
+  ],
+  confidence = 4
+)

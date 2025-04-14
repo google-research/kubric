@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to create an organized garden layout with specific relative positions, ensuring that the table and birdhouse are placed harmoniously within a defined rectangular setting.'
+    )
+  ],
+  confidence = 4
+)

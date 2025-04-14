@@ -1,0 +1,121 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Shift towards a more triangular outlook for the main structure. What shape have we transformed it into?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a Circular design.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a SemiCircular design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a TriWedge design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a Serpentine design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 11.0,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a QuarterWedge design.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The modification required transforming the shape to a TriWedge, as opposed to maintaining the initial Circular design.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This change involves transforming a circular design into a more complex geometric structure, a TriWedge, which requires spatial reasoning beyond simple shape adjustment.'
+    ),
+    1 : EditMCQA(
+      question = 'Elevate the height of this feature a bit more to enhance its presence. How high did we make it?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the height to 0.3 meters.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height to 0.4 meters to meet the desired vibe criteria.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Adjust the height to 0.25 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.35
+          ),
+          edit_description = 'Adjust the height to 0.35 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the height to 0.2 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The height was adjusted to 0.4 meters to achieve the desired ambiance in accordance with the design criteria.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height adjustment is a straightforward parameter change, aiming to meet the specific ambiance criteria.'
+    )
+  ]
+)

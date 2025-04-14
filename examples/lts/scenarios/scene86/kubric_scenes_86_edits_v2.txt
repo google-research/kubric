@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Imagine shifting the quarter-circle to embrace the pot and tree but not crowd them. What could we do?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Expand the radius while keeping gaps tight'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Bring the radius to a cozy 2.0 while gaps remain narrow'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Maintain the span but tighten the gap to embrace closer'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.5,
+            height = 0.4
+          ),
+          edit_description = 'Significantly shrink both the radius and gap for intimacy'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 20.0,
+            height = 0.4
+          ),
+          edit_description = 'Shrink the radius while opening up the space slightly'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer B corresponds to reducing the radius to 2.0, aligning with the prompt requirements for a snug fit around the objects.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The need to reduce the radius is straightforward due to the requirement for a snug layout.'
+    ),
+    1 : EditMCQA(
+      question = 'How about making the entrance a breeze for anyone coming from either direction?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 30.0,
+            height = 0.4
+          ),
+          edit_description = 'Broaden the doorway to welcome with ease'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 15.0,
+            height = 0.4
+          ),
+          edit_description = 'Retain the gateway but enlarge the embrace'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Narrow the entrance tightly, not for the faint-hearted'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 20.0,
+            height = 0.4
+          ),
+          edit_description = 'Open up just enough while also widening the circle'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circle1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 12.5,
+            height = 0.4
+          ),
+          edit_description = 'A subtle nudge in the entrance opening for accessibility'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer A represents expanding the gap to 30 degrees, thereby easing entrance access as indicated in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Improving access by widening entrance gaps is evident from the requirement for pathways on each side.'
+    )
+  ]
+)

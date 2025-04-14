@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt explicitly requests the design of an L-shaped border that effortlessly integrates with existing trees, focusing on spatial arrangement within the garden space.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt also involves understanding the meaning and function of a 'cozy yet open garden space', which requires semantic interpretation."
+      explanation = 'The prompt requires defining an L-shaped border that integrates with the spatial arrangement of trees to craft the garden space. This involves spatial reasoning to align and position the L-shape correctly.'
     )
   ],
   confidence = 4

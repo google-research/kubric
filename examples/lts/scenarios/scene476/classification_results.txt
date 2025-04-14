@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt emphasizes the need for spatial reasoning to construct a serpentine pattern that flows aesthetically and smoothly around the stately trees without intersecting them. This involves understanding relative positions and spatial relationships to maintain harmony within the natural setting.'
+    )
+  ],
+  confidence = 4
+)

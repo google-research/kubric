@@ -24,6 +24,7 @@ Scene(
         left_width = 2.0,
         right_width = 0.5,
         right_length = 2.2,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.2
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 2.0,
         right_width = 0.2,
         right_length = 2.2,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -50,11 +52,12 @@ Scene(
           left_width = 2.0,
           right_width = 0.5,
           right_length = 2.2,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.2
         ),
         edit_description = 'Move the L-shape to center its left part at (1.25, 1)',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Requires understanding the positioning of the centers relative to the given scene graph details.'
+        explanation_of_difficulty = 'Requires understanding the positioning of the centers relative to the given scene graph details.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'barrier',
@@ -64,11 +67,12 @@ Scene(
           left_width = 2.0,
           right_width = 0.2,
           right_length = 2.2,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.2
         ),
         edit_description = 'Adjust the short side of each segment to 0.2 to avoid blocking too much space.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding of spatial allocation and dimension adjustments is needed.'
+        explanation_of_difficulty = 'Understanding of spatial allocation and dimension adjustments is needed.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'barrier',
@@ -78,11 +82,12 @@ Scene(
           left_width = 2.0,
           right_width = 0.2,
           right_length = 2.2,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Adjust height to 0.5 for effective separation.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Requires understanding the impact of height on the separation effect.'
+        explanation_of_difficulty = 'Requires understanding the impact of height on the separation effect.'
       )
     ]
   )

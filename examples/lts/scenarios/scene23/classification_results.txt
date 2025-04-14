@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires arranging quarter-wedge structures around a tree while keeping access to the picnic table clear.'
-    ),
-    1 : Semantic(
-      explanation = 'The prompt implies an understanding of the purpose and functionality of the seating area, such as maximizing comfort and aesthetics.'
+      explanation = 'The prompt involves spatial reasoning as it requires positioning quarter-wedge structures around a tree to create a shaded seating area while maintaining clear access to the picnic table. This involves understanding the spatial arrangement and relative positioning within the scene.'
     )
   ],
   confidence = 4

@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves arranging chairs in a semi-circle, which requires spatial reasoning to place objects in a specific pattern around a central point.'
+      explanation = 'The prompt requests spatial reasoning as it involves creating a space that provides open views and gentle protection, which requires understanding the relative positions and arrangement of objects such as chairs in a semi-circle.'
     )
   ],
   confidence = 4

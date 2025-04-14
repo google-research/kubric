@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a linear boundary to partition the rock and trashcan area, which relies on understanding the spatial arrangement and context of the scene to achieve the desired outcome.'
+    )
+  ],
+  confidence = 4
+)

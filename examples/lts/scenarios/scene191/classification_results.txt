@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves arranging quarter-wedge structures in relation to the trashcans and ensuring they fit within the space constraints without overlapping. This requires spatial reasoning to understand the geometric properties and spatial relationships between objects.'
+      explanation = 'The prompt involves creating a space with quarter-wedge structures around trashcans, requiring spatial reasoning to manage the layout within the space constraints and ensure no overlap with trashcans.'
     )
   ],
   confidence = 5

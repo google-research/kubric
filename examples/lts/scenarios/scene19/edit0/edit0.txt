@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Increase the radius to 1.5 meters',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the radius requires spatial reasoning to maintain symmetry.'
+        explanation_of_difficulty = 'Changing the radius requires spatial reasoning to maintain symmetry.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_bench_1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the orientation to "concave"',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Orientation change is straightforward as it only involves flipping the structure.'
+        explanation_of_difficulty = 'Orientation change is straightforward as it only involves flipping the structure.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_bench_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing height is a simple vertical adjustment.'
+        explanation_of_difficulty = 'Increasing height is a simple vertical adjustment.'
       )
     ]
   )

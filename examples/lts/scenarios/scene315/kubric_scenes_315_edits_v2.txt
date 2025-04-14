@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about moving the wedge to nest neatly between the two stones?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 75.0,
+            height = 0.4
+          ),
+          edit_description = 'Reposition the structure to be centered between the rocks for symmetry.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.2, 0.0, 0.0),
+            radius = 1.1,
+            gap_degrees = 85.0,
+            height = 0.5
+          ),
+          edit_description = 'Center the structure slightly forward with a moderate radius and wider gap.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.2, 0.0, 0.0),
+            radius = 1.3,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Shift it leftward, enlarging the radius while slightly closing the arc.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.1, -0.1, 0.0),
+            radius = 0.9,
+            gap_degrees = 80.0,
+            height = 0.45
+          ),
+          edit_description = 'Move to a lower left position with a smaller radius and open gap.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 75.0,
+            height = 0.6
+          ),
+          edit_description = 'Place it centrally, slightly elevate the height while maintaining radius and gap.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification positions the wedge to the center between the rocks, directly adhering to the prompt's symmetry requirement.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The repositioning of the quarter-wedge to the center between rocks is directly derived from the prompt's symmetry requirement."
+    ),
+    1 : EditMCQA(
+      question = 'Can we tighten the embrace around the rocks for a snug fit?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 65.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the radius and reduce the gap to create a snug fit around the rocks.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.1, 0.1, 0.0),
+            radius = 1.0,
+            gap_degrees = 80.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase openness by adjusting the position slightly upward and outward.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-0.1, -0.1, 0.0),
+            radius = 1.2,
+            gap_degrees = 70.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase radius and adjust the arc slightly toward the rear to broaden coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.15, 0.0, 0.0),
+            radius = 1.1,
+            gap_degrees = 75.0,
+            height = 0.6
+          ),
+          edit_description = 'Slight height increase with centered adjustment for a balanced setup.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'quarter_wedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.1, 0.0),
+            radius = 0.9,
+            gap_degrees = 85.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the position up a bit for more space and close off the angle slightly.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'These precise adjustments in radius and gap degrees ensure a snug fit around the rocks, as desired.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The adjustment of radius and gap degrees are explicitly specified to meet spatial constraints.'
+    )
+  ]
+)

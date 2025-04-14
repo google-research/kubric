@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a serpentine path that necessitates specific spatial arrangements \n                   and positioning as it needs to wind between the natural stones, which is a spatial reasoning task.'
+      explanation = 'The scene requires designing a path that winds between rocks, which involves understanding and reasoning about spatial relationships and positions.'
     )
   ],
   confidence = 4

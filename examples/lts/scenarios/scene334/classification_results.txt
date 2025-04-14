@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves constructing an architectural element around a seating area, requiring spatial reasoning to effectively position it to enhance order and aesthetics.'
+    )
+  ],
+  confidence = 4
+)

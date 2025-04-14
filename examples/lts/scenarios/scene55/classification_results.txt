@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a pathway with specific spatial relationships between the pathway and the storage units, indicating the need for spatial reasoning.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt involves understanding the function and aesthetic goal of the scene, and resolving any ambiguities in the pathway's purpose and design to ensure it fits the intended garden design."
+      explanation = 'The prompt involves creating a garden design with a pathway that bridges two storage units, requiring spatial reasoning to determine the correct positioning and integration of the pathway within the scene context.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

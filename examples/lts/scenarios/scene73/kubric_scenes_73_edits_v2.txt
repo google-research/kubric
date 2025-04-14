@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we rotate it midway to connect the workspaces?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust the orientation to 'left-right' to connect the tables."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Adjust the orientation to 'front-back'."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Maintain the same orientation but adjust the center.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Align the structure 'left-right' with a different length."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = "Adjust the height while aligning 'left-right'."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct choice changes the orientation to 'left-right' which connects the tables as specified.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires geometric reasoning to align the structure according to the description.'
+    ),
+    1 : EditMCQA(
+      question = 'Stretch it a bit more to meet the distance needs, right?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase the length for expanded workspace.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Decrease the length to 1 meter.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly increase the length.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the length the same, focusing on stability.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Overextend the length.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct choice is to increase the length, providing the needed workspace expansion.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Simple adjustment of length.'
+    ),
+    2 : EditMCQA(
+      question = "Let's give it a little lift for better accessibility?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height for easy access and functionality.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height slightly.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Raise the height exceeding requirements.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Keep the height same focusing on style adjustment.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.45,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slightly increase the height for a new design aesthetic.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct choice raises the height, meeting the design requirements for improved access.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Direct modification of the height based on provided requirements.'
+    )
+  ]
+)

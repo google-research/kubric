@@ -1,0 +1,132 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Enlarge the space around the central point, which change fits right?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the outer radius to provide a broader space around the trashcan.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Reduce the outer radius.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.8,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase the outer radius significantly.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.4,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the orientation without altering radius.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the inner radius slightly.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly modifies the outer radius, allowing for a broader surrounding area.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly indicates an increase in surrounding space is needed.'
+    ),
+    1 : EditMCQA(
+      question = 'Reorient the curve to open outwards, which adjustment matches?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Change orientation to 'convex' to ensure the open side faces outward, enhancing movement."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = "Maintain 'concave' orientation for enclosure."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.9,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Reduce radii and change orientation to 'convex'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = "Change to 'convex' without altering radii."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.6,
+            inner_radius = 1.1,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = "Increase size while maintaining 'concave'."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Choice A reflects the correct change from 'concave' to 'convex', inviting openness.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding of space dynamics is needed to visualize the orientation goal.'
+    )
+  ]
+)

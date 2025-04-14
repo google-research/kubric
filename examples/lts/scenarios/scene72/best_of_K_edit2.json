@@ -1,0 +1,111 @@
+{
+    "prompt": "Design a segmented enclosure with straight lines that gently separates the trees, enhancing the visual experience of this space.",
+    "observation": {
+        "tree_1": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                -1.0,
+                -1.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        },
+        "tree_2": {
+            "extent": [
+                0.15,
+                0.15,
+                2.0
+            ],
+            "center": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "theta": 0.0,
+            "semantic_label": "tree"
+        }
+    },
+    "output": [
+        {
+            "segment": 1,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -0.5,
+                    -1.0,
+                    0.0
+                ],
+                [
+                    -0.49999999999999994,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 2,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    0.49999999999999994,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.5,
+                    1.0,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 3,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -3.061616997868383e-17,
+                    -0.5,
+                    0.0
+                ],
+                [
+                    3.061616997868383e-17,
+                    0.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        },
+        {
+            "segment": 4,
+            "height": 0.5,
+            "keypoints": [
+                [
+                    -3.061616997868383e-17,
+                    -1.5,
+                    0.0
+                ],
+                [
+                    3.061616997868383e-17,
+                    -0.5,
+                    0.0
+                ]
+            ],
+            "elements": [
+                0
+            ]
+        }
+    ]
+}

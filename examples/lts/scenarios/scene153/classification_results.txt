@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging benches in a way that introduces a gentle separation while maintaining movement, which involves spatial reasoning.'
+      explanation = 'The scene involves arranging benches in relation to each other and the central region, requiring understanding of spatial relationships to achieve a natural separation and flow around the benches.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

@@ -24,6 +24,7 @@ Scene(
         left_width = 0.5,
         right_width = 0.5,
         right_length = 4.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 0.5,
         right_width = 0.5,
         right_length = 4.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       ),
       LShape 2 = LShape(
@@ -44,6 +46,7 @@ Scene(
         left_width = 0.5,
         right_width = 0.5,
         right_length = 0.5,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.5
       )
     }
@@ -58,11 +61,12 @@ Scene(
           left_width = 0.5,
           right_width = 0.5,
           right_length = 4.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.5
         ),
         edit_description = 'Adjust the left part of LShape 1 to (2, 1) and right part to (1, 2) to wrap around the tree.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Requires understanding of spatial adjustments to correctly align the structure around the tree.'
+        explanation_of_difficulty = 'Requires understanding of spatial adjustments to correctly align the structure around the tree.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -73,6 +77,7 @@ Scene(
               left_width = 0.5,
               right_width = 0.5,
               right_length = 0.5,
+              right_center = (0.0, 0.0, 0.0),
               height = 0.5
             )
           }
@@ -80,7 +85,7 @@ Scene(
         edit_description = 'Add a second LShape with its left part centered at (-2, 0) and right part at (-1, q), extending towards the bench.',
         target_parameter = 'positions of LShape 2',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Determining the proper positioning of the second LShape requires understanding its extension direction towards the bench correctly.'
+        explanation_of_difficulty = 'Determining the proper positioning of the second LShape requires understanding its extension direction towards the bench correctly.'
       )
     ]
   )

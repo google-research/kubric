@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests the creation of a sinuous path around birdhouses, which involves arranging the path in a spatially organized manner to avoid collisions and maintain aesthetic appeal, requiring spatial reasoning.'
+      explanation = "The prompt involves designing a sinuous path that weaves around the birdhouses, requiring spatial reasoning to manage the path's layout, avoid collisions, and create a visually pleasing arrangement."
     )
   ],
   confidence = 5

@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Relocate the start points to wrap around the existing objects, keep other parameters.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Determining the correct placement for wrapping without overlap is moderately challenging given the spatial constraints and the need to avoid collisions.'
+        explanation_of_difficulty = 'Determining the correct placement for wrapping without overlap is moderately challenging given the spatial constraints and the need to avoid collisions.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'SineWave_1',
@@ -74,7 +74,7 @@ Scene(
         ),
         edit_description = 'Adjust the amplitude from 0.2 to 0.3 and adjust wavelength to 3 for a broader wave effect, keep height the same.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'This edit is straightforward as it involves increasing the amplitude and wavelength based on simple parameters.'
+        explanation_of_difficulty = 'This edit is straightforward as it involves increasing the amplitude and wavelength based on simple parameters.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'SineWave_1',
@@ -88,7 +88,7 @@ Scene(
         ),
         edit_description = 'Increase the height for a more substantial barrier.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the height to make a more prominent barrier is a simple linear adjustment.'
+        explanation_of_difficulty = 'Increasing the height to make a more prominent barrier is a simple linear adjustment.'
       )
     ]
   )

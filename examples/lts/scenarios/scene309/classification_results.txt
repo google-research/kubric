@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the design of a feature that encircles specific items (birdhouses and a table) and ensures aesthetic coherence, which involves considering their relative positions and spatial arrangement within the scene.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt requires an understanding of the aesthetic coherence and dynamic architectural design, which involves interpreting the purpose and meaning behind the objects' arrangement."
+    )
+  ],
+  confidence = 4
+)

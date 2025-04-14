@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves spatial reasoning to position structures precisely around a bench, focusing on geometric properties such as length, height, and alignment to create an aesthetic and functional arrangement.'
-    ),
-    1 : Semantic(
-      explanation = "There is a requirement for understanding the meaning of the objects in the scene, as the prompt specifies 'a cozy garden space' which is somewhat vague and requires interpretation to meet the subjective criteria of coziness."
+      explanation = 'The scene requires understanding spatial relationships to position multiple structures relative to each other, such as placing structures near the bench while ensuring aesthetic alignment. It involves spatial reasoning to arrange the elements in a cohesive way.'
     )
   ],
   confidence = 4

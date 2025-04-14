@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you spin the segment around so it divides the chairs from the trashcan?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the segment into a left-right position while keeping existing dimensions.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly instructs a front-back orientation for the division.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Alter both orientation and length for improper separation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly instructs a front-back orientation for the division.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust orientation to front-back for effective division.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly instructs a front-back orientation for the division.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 1.0, 0.0),
+            length = 1.8,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reposition and orient improperly compared to what the prompt suggests.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly instructs a front-back orientation for the division.'
+        ),
+        F = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.5, 0.0),
+            length = 1.6,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shift the center left and adjust length for minimal effect in creating division as posed in task.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Exact centering and execution are important and require further inference beyond directives.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly sets the orientation to front-back as the prompt guidelines direct, ensuring alignment with the functional objective.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt provides detailed instructions for the required orientation change, making the task simple to interpret.'
+    ),
+    1 : EditMCQA(
+      question = 'Any luck in stretching out that segment and centering it to make things tidy?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, -0.5, 0.0),
+            length = 2.5,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Introduce excessive length with incorrect centering for this maneuver.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires deducing correct central positioning, which is not directly specified.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Re-center the segment at (0, 0, 0) aligning correctly, stretch the length to match goals.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt requires adjusting both the center and length for improved alignment, which can be inferred from the design goals.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, -0.5, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'This choice does not meet the center and length requirements suggested in the task.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Clarity to infer complete positional correctness is insufficient with task data.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Choose inappropriate orientation without proper centering.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Orientation determination with correct centering is nuanced.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'initial_linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.5, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Position the structure for a near-correct alignment yet far from perfection.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Predictive analysis is needed for accurate placement, with less direct instruction.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B optimally centers the wall at (0, 0, 0) and extends to a length of 2.0 meters, effectively meeting the alignment goals aligned with the scene.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'This requires a deeper understanding beyond the initial prompt, signifying the implicit goals like structure dimension and position alignment within broader scene dynamics.'
+    )
+  ]
+)

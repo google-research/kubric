@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Imagine the path bends smoothly from the pot, curving towards the tree. How would you describe this transformation?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (1.5, 1.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 3.0,
+            phase = 0.2,
+            height = 0.1
+          ),
+          edit_description = 'Alter the linear path into a curvy one from the pot to the tree with higher amplitude.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing amplitude affects the aesthetic appeal and engagement factor of the garden path.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a curving one from the pot to the tree.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Designing a curvy path requires adjusting several parameters to ensure it connects the desired elements effectively.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the linear path to a rectangular shape to create a platform.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Rectangular transformations involve more complex spatial adjustments and considerations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the path to a front-back oriented linear shape.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing orientation is straightforward with minimal spatial constraints.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Convert the linear path to a serpentine structure.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A serpentine structure requires understanding of arcs and curves.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B provides a correct transformation into a curving path that logically and spatially connects the elements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires complex understanding of curve parameters and spatial configuration.'
+    ),
+    1 : EditMCQA(
+      question = 'How would you extend the curvy path from the tree to finally reach the rock, while keeping it visually appealing?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, -1.5, 0.0),
+            close_curve_leftmost_point = (1.5, 1.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 3.0,
+            phase = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Make the path more undulating with greater amplitude and phase.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Increases the complexity of path design, requiring spatial intuition.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.0, 0.0),
+            close_curve_leftmost_point = (1.5, 1.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Adjust path to aesthetically extend to the rock.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Extending the path and fine-tuning its wave properties requires an understanding of spacing and visual appeal across the scene.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -0.5, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Narrow down the curve and decrease amplitude for subtle changes.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Less complexity in making subtle changes in a small vicinity.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 90.0,
+            height = 0.1
+          ),
+          edit_description = 'Group path ends to make a quarter wedge at rock placement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Creating wedges involves specific angular understanding.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'curvy_path',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, -0.5, 0.0),
+            radius = 0.4,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Change path into a TriWedge to make it fit better with the rock.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Requires sharp angles and understanding of wedge design.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B maintains continuity and relevance with the visual and spatial goals set by the scene design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in aligning the path extension with visual and functional parameters.'
+    )
+  ]
+)

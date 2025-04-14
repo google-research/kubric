@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging the layout in a semicircular manner, which requires spatial reasoning for proper placement and organization of objects to achieve the desired visual and functional effect.'
+    0 : Semantic(
+      explanation = 'The prompt is focused on the overall function and meaning of the layout to encourage social interaction, which requires an understanding of the semantic aspect of scene design rather than specific spatial or numerical details.'
+    ),
+    1 : Spatial(
+      explanation = 'The prompt requires placing objects in a semicircular layout, which involves spatial reasoning related to their relative positions and arrangement.'
     )
   ],
   confidence = 4

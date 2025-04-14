@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to arrange and position objects (such as a linear structure and bushes) without restricting yard space, emphasizing spatial relationships and positioning.'
+      explanation = "The prompt and description emphasize spatial reasoning and positioning. The goal to 'add some extra privacy' involves determining positions relative to the trees and maintaining yard space, which is inherently a spatial task."
     ),
     1 : Semantic(
-      explanation = 'The goal of adding privacy while preserving yard space is somewhat underspecified, requiring understanding of the purpose and function of objects in the scene, as well as resolving ambiguities related to alignment and dimensions.'
+      explanation = "The prompt has some vagueness or under-specification, particularly in 'without limiting my yard space too much', which might require semantic understanding to interpret and implement the intended scenario effectively."
     )
   ],
   confidence = 4

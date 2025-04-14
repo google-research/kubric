@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires arranging benches and creating a boundary to enhance seating arrangement while maintaining openness and accessibility. This involves spatial reasoning to determine the correct relative positions and alignment of the benches and boundaries to achieve the desired layout.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt involves understanding the meaning and function of the arrangement, such as 'promoting a sense of openness and accessibility,' which requires a semantic understanding of how these concepts can be embodied in the scene."
+    )
+  ],
+  confidence = 4
+)

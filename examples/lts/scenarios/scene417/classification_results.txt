@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning by requesting a semi-circular nook to be designed between trees and around a central table, which requires understanding of relative positions and spatial arrangement.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt also requires knowing the meaning and function of the objects in the context, such as creating a space for leisure and social interaction, which involves interpreting the purpose and use of the scene.'
+    )
+  ],
+  confidence = 4
+)

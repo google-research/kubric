@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the design type to a SineWave.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the design requires understanding the properties of a SineWave and how they translate to the scene.'
+        explanation_of_difficulty = 'Changing the design requires understanding the properties of a SineWave and how they translate to the scene.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.6 to provide adequate shelter.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Adjusting the height of the structure is easy once the initial design is understood.'
+        explanation_of_difficulty = 'Adjusting the height of the structure is easy once the initial design is understood.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -82,7 +82,7 @@ Scene(
         ),
         edit_description = 'Adjust the wave to harmoniously envelop both the birdhouse and trashcan while keeping a pleasant artistic flow.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Ensuring harmonious enveloping requires spatial reasoning and alignment with the artistic purpose.'
+        explanation_of_difficulty = 'Ensuring harmonious enveloping requires spatial reasoning and alignment with the artistic purpose.'
       )
     ]
   )

@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "I need that rectangular outline to stretch out more to the sides and forward. What's the change?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length and width to provide more coverage.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 1.8,
+            width = 1.4,
+            height = 0.3
+          ),
+          edit_description = 'Slight increase in dimensions for expansion.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Only the length was altered for a better reach.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Width was only changed to embrace the trees.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Dimensions were kept as they were.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The dimensions were expanded to better encompass both the trees and the birdhouse.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The request clearly implies enlarging the structure to cover more area.'
+    ),
+    1 : EditMCQA(
+      question = "Let's raise the boundary a bit. What change was done to achieve this?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Height raised for better visibility and effect.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.35
+          ),
+          edit_description = 'Slight height increment for enclosure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Height moderately increased for a visual upgrade.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Height was left unchanged.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Dimensions remained original.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The height was increased to improve both visual appeal and functionality, complying with the design requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The design specifications suggested increasing height, but implementation needs understanding of its impact.'
+    )
+  ]
+)

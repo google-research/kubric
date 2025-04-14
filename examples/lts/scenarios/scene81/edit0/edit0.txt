@@ -57,7 +57,7 @@ Scene(
         ),
         edit_description = 'Shrink the circular planter radius from 2 meters to 1.5 meters.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The adjustment in radius requires understanding of space dynamics and visual-spatial estimation.'
+        explanation_of_difficulty = 'The adjustment in radius requires understanding of space dynamics and visual-spatial estimation.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'Circular_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Adjust the positioning to ensure equal spacing around all objects, maintaining dynamic access and aesthetic appeal.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Ensuring equal spacing involves complex geometric reasoning and precise measurement for uniform access.'
+        explanation_of_difficulty = 'Ensuring equal spacing involves complex geometric reasoning and precise measurement for uniform access.'
       )
     ]
   )

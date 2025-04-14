@@ -1,0 +1,229 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Should Planter 1 be nudged slightly to enhance symmetry and fit?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.0, 0.0),
+            length = 0.5,
+            width = 0.3,
+            height = 0.25
+          ),
+          edit_description = 'Move Planter 1 to the right a bit for enhanced symmetry.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt guides towards arranging planters symmetrically around the rocks.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 0.0, 0.0),
+            length = 0.7,
+            width = 0.2,
+            height = 0.25
+          ),
+          edit_description = 'Change dimensions of Planter 1 to elongate the design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 0.3,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Decrease the width of Planter 1 for a snug fit.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.7, 0.0, 0.0),
+            length = 0.5,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the placement and height of Planter 1.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.5, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Reposition Planter 1 vertically to emphasize levels.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Planter 1 was adjusted to the right for better symmetry with the rest of the elements.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The relocation was straightforward as the task aligns well with achieving symmetrical design.'
+    ),
+    1 : EditMCQA(
+      question = 'Could adding a new planter help in forming a charming border near the most distant rock on the right?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_2 = Rectangular(
+                center = (1.5, 1.0, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Place Planter 2 neatly around Rock 2 without causing obstruction.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The placement ensures no collision and fulfills an artistic need, requiring spatial insight.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              triangular_1 = TriWedge(
+                center = (1.5, 1.0, 0.0),
+                radius = 0.5,
+                gap_degrees = 12.0,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a triangular feature near Rock 2 for a distinct look.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_1 = Linear(
+                center = (1.5, 1.0, 0.0),
+                length = 1.0,
+                height = 0.25,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Introduce a linear feature running parallel to Rock 2.',
+          target_parameter = 'center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              curvy_1 = CurvyPath(
+                far_curve_leftmost_point = (1.5, 1.0, 0.0),
+                close_curve_leftmost_point = (1.5, 1.5, 0.0),
+                amplitude = 0.3,
+                wavelength = 1.0,
+                phase = 0.25,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Position a curvy path adjoining Rock 2 to complement the design.',
+          target_parameter = 'far_curve_leftmost_point'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              circular_1 = Circular(
+                center = (1.5, 1.0, 0.0),
+                radius = 0.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Embed a circular planter around Rock 2 to complete the aesthetic.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Planter 2 was inserted near Rock 2 maintaining the artistic intentions without spatial conflicts.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Ensuring the planter fits harmoniously demands understanding space constraints and flow.'
+    ),
+    2 : EditMCQA(
+      question = 'Does Planter 3 require expansion to enclose the stone partially on the far left?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              rectangular_3 = Rectangular(
+                center = (-1.5, -1.0, 0.0),
+                length = 0.5,
+                width = 0.3,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Incorporate Planter 3 near Rock 3, ensuring an unblocked passage around.',
+          target_parameter = 'center',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The task requires awareness of collision zones and adaptability, as suggested in the brief.'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              quarterwedge_1 = QuarterWedge(
+                center = (-1.5, -1.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 11.5,
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Position a quarter-wedge structure surrounding Rock 3.',
+          target_parameter = 'center'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              serpentine_1 = Serpentine(
+                left_arc_center = (-1.5, -1.0, 0.0),
+                radius = 0.25,
+                left_arc_orientation = 'convex',
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Introduce a serpentine curve for artistic flair near Rock 3.',
+          target_parameter = 'left_arc_center'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semicircular_1 = SemiCircular(
+                center = (-1.5, -1.0, 0.0),
+                radius = 0.4,
+                orientation = 'concave',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Add a semicircular structure to partially embrace Rock 3.',
+          target_parameter = 'center'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semiring_1 = SemiRing(
+                center = (-1.5, -1.0, 0.0),
+                outer_radius = 0.5,
+                inner_radius = 0.3,
+                orientation = 'convex',
+                height = 0.25
+              )
+            }
+          ),
+          edit_description = 'Include a semi-ring fitting closely around Rock 3.',
+          target_parameter = 'center'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'A rectangular planter was installed near Rock 3, considering no overlap with surroundings.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Estimating the space flexibly necessitates analyzing the scene and shaping arrangements accordingly.'
+    )
+  ]
+)

@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene requires spatial reasoning to arrange the L-shaped seating structures around the trees, ensuring proper orientation and avoiding collisions.'
-    ),
-    1 : Numeric(
-      explanation = 'The scene also involves numerical aspects, such as symmetrical positioning of the seating areas around the trees.'
+      explanation = 'The scene prompt involves using L-shaped structures around trees to create a seating area. This requires spatial reasoning to ensure the structures are correctly positioned in relation to the trees, providing comfortable seating and interaction while avoiding collisions.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

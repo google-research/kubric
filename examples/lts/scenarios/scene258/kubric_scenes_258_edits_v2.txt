@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How can we make this path curve and dance around the trees instead of running straight through?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -0.25, 0.0),
+            close_curve_leftmost_point = (1.5, 0.25, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from Linear to CurvyPath to introduce gentle, flowing curves.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a serpentine path with a convex arc.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.0,
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a quarter wedge path.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 15.5,
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a tri wedge path with an over-extended gap degree.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Replace the linear path with a semicircular path with a concave orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit transforms the linear path into a CurvyPath, following the prompt to replace a linear design with gentle, flowing curves.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly calls for a curvy path design profile, replacing the initial linear path.'
+    )
+  ]
+)

@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius to 1.5 meters.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The radius change directly correlates with the design goal.'
+        explanation_of_difficulty = 'The radius change directly correlates with the design goal.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'TriWedge_1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Increase the gap degrees to 40 degrees.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "While it's straightforward, interpreting the gap degrees from prompt context can be challenging."
+        explanation_of_difficulty = "While it's straightforward, interpreting the gap degrees from prompt context can be challenging."
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'TriWedge_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Height increase is explicitly mentioned in the design goal.'
+        explanation_of_difficulty = 'Height increase is explicitly mentioned in the design goal.'
       )
     ]
   )

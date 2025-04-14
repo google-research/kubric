@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = "The prompt requests spatial reasoning to align the boundary behind the birdhouses while maintaining the garden's open feel. It involves understanding relative positions and spatial organization."
+    ),
+    1 : Semantic(
+      explanation = 'The prompt is also slightly vague and requires understanding the meaning and function of a boundary (sleek and order) within a garden setting, implying a need for semantic interpretation.'
+    )
+  ],
+  confidence = 4
+)

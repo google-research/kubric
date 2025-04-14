@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Hey, can you shrink in the ring's hug around the table a little more?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius slightly but maintain the same curvature.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius to snugly wrap around the table without excessive space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius for a tighter fit.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius for better enclosure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Reduce radius to align with table dimensions.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly decreases the radius to 1.0, which snugly wraps the semi-circular structure around the table.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Decreasing the radius is a straightforward adjustment to fit the scene space constraints.'
+    ),
+    1 : EditMCQA(
+      question = 'Could we twist the open side of the curve to face the seats?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Change to concave for a more focused arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the orientation to concave to focus the open side towards the seating arrangement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Alter to convex ensuring clear approach angle.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change to concave for better seating focus.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Maintain convex posture for outer focus.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B correctly changes the orientation to concave to direct the open side toward the seating area.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Changing orientation to concave aligns with the prompt aim of openness toward the seating arrangement.'
+    ),
+    2 : EditMCQA(
+      question = "Let's give it a little more vertical space to stand out than before.",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to create a more defined seating area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Create a raised effect for the seating.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Increase height for prominence in design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Slightly increase height to improve design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust to a taller structure for better appearance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly increases the height to 0.4, enhancing the definition of the seating area.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Increasing the height requires balancing style and function, making it slightly more complex.'
+    )
+  ]
+)

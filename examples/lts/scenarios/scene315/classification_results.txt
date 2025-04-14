@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to arrange the structure around the rocks, ensuring that the layout maintains openness and accessibility while avoiding collisions. The emphasis is on the spatial arrangement to enhance aesthetic appeal and functionality within the environment.'
+    )
+  ],
+  confidence = 4
+)

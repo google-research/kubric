@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requests designing a path that links garden elements. This requires considering the relative positions of each object and creating a continuous flow path.'
+    )
+  ],
+  confidence = 4
+)

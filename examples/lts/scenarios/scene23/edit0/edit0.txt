@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the circular design to a semi-circular structure for better aesthetic integration.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt implies a need for modification to allow better integration, but does not specify exact structural details.'
+        explanation_of_difficulty = 'The prompt implies a need for modification to allow better integration, but does not specify exact structural details.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -70,7 +70,7 @@ Scene(
         edit_description = 'Add a quarter-wedge structure overlapping with the existing design for optimized shading access.',
         target_parameter = 'gap_degrees',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The addition of overlapping structures matches the description's need for optimized shading but requires interpretation of alignment."
+        explanation_of_difficulty = "The addition of overlapping structures matches the description's need for optimized shading but requires interpretation of alignment."
       )
     ]
   )

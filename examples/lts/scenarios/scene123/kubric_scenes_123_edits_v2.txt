@@ -1,0 +1,123 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we shift that straight path over to have a more wavy pattern?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Change linear path to serpentine path to embrace a wavy structure'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 11.0,
+            height = 0.25
+          ),
+          edit_description = 'Modify the linear path to a sharper triangular wedge'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 8.5,
+            height = 0.25
+          ),
+          edit_description = 'Switch the linear path to a quarter-circle arc'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Transform the linear path into a complete circular path'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, -1.5, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Switch to a semicircular path with the curve bulging outward'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is the correct modification as it changes the linear path to the specified serpentine path with the given parameters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The modification from a linear design to a serpentine structure requires understanding the geometric reconfiguration needed for the arc.'
+    ),
+    1 : EditMCQA(
+      question = 'Do we need to lift this arc structure a bit to connect the plant and birdhouse smoothly?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.25
+          ),
+          edit_description = 'Increase height and modify path shape for better connectivity with adjacent items'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 1.5, 0.0),
+            close_curve_leftmost_point = (-1.0, 1.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 0.8,
+            phase = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a double-curve path to maintain flow towards other features'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a sharp-edged triangular wedge with raised contouring'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust to a quarter-circle wedge with increased elevation'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Rectangular(
+            center = (-1.5, 1.5, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Switch to a rectangular block with enhanced height for alignment'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is the correct edit, as it increases the height and modifies the path shape to maintain continuity between the pot and birdhouse.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Ensuring continuity and accommodating all elements while changing the height demands a deeper spatial understanding and reevaluation of path trajectories.'
+    )
+  ]
+)

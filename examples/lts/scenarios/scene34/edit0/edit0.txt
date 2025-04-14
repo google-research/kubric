@@ -48,7 +48,7 @@ Scene(
         ),
         edit_description = 'Change the profile to Tri-Wedge to enhance symmetry.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The change requires understanding of the Tri-Wedge form and its impact on symmetry.'
+        explanation_of_difficulty = 'The change requires understanding of the Tri-Wedge form and its impact on symmetry.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure1',
@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius to maintain proximity to the pots.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "This is an easy deduction as reducing radius doesn't affect understanding of the form."
+        explanation_of_difficulty = "This is an easy deduction as reducing radius doesn't affect understanding of the form."
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'structure1',
@@ -72,7 +72,7 @@ Scene(
         ),
         edit_description = 'Increase the height for a more pronounced appearance.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'This step simply requires an adjustment of height for visual impact.'
+        explanation_of_difficulty = 'This step simply requires an adjustment of height for visual impact.'
       )
     ]
   )

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to design a semi-circular boundary that gracefully encloses the trees. This involves understanding the spatial layout and positions of the trees relative to the boundary and pathways.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt also requires semantic understanding to create a 'harmonious' garden space, which involves interpreting the aesthetic and functional goals of the design."
+    )
+  ],
+  confidence = 4
+)

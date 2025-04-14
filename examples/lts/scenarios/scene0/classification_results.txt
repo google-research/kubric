@@ -1,8 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging a rectangular structure to create a semi-enclosed seating area, which involves spatial reasoning to achieve the correct alignment and dimensions without blocking views.'
+      explanation = 'The prompt involves spatial reasoning to position a rectangular structure in a way that creates a semi-enclosed seating area. This requires understanding the spatial relationships and geometric properties such as alignment and dimensions to ensure separation without blocking views.'
+    ),
+    1 : Numeric(
+      explanation = 'The task also requires attention to numerical details such as symmetry, ensuring that the rectangular structure is aligned correctly with the benches and maintains proper dimensions.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

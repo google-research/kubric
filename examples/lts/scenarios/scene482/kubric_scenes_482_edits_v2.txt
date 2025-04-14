@@ -1,0 +1,196 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Why don't we extend that ring to reach further out and embrace the stones?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Enlarge the outer reach to smoothly wrap around the stones.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Shift the outer curve slightly closer to the stones.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Bring the outer edge back to the current distance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.3,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Push the outer limit forward for a gentle hug.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.4,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Widen the outer arch to nearly complete the enclosure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Only increasing the outer radius to 1.5 fully embraces the described intent.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task clearly describes how far the semi-ring should stretch.'
+    ),
+    1 : EditMCQA(
+      question = 'How about giving it a bit more room inside for the stones to breathe?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Stretch the inner space to keep the stones snug yet unhindered.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.7,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Narrow the inside span to gently hold the stones.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Offer a modest widening inside, keeping things cozy.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.9,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Slight opening inside to better embrace the rocks.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.6,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Keep the embrace tighter inside, almost like a gentle squeeze.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Setting the inner radius to 1.0 perfectly provides space around the rocks.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the inner room is straightforward from the guidance provided.'
+    ),
+    2 : EditMCQA(
+      question = "Let's elevate the edge a bit higher so it's easier to notice. What do you think?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Raise the height of the arc for an impressive presence.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Just a small lift to the structure for added flair.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Keep the height as is for a subtle look around the rocks.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Why not lift even further, giving it significant prominence?'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semiring_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.45
+          ),
+          edit_description = 'Propose a moderate elevation for a balanced visibility.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The raised height of 0.4 meters matches the intended noticeable improvement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height adjustment is explicitly linked with visibility goals.'
+    )
+  ]
+)

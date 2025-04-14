@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Semantic(
-      explanation = "The prompt requires understanding the artistic and inviting nature of the enclosure, which involves the meaning of the terms 'artistic' and 'open and inviting'. This indicates a need for semantic interpretation of these descriptors."
-    ),
-    1 : Spatial(
-      explanation = 'The description details the positioning of a TriWedge structure in relation to a pot and trashcan, involving spatial reasoning to achieve a harmonious arrangement.'
+      explanation = "The prompt requires understanding the function and aesthetic qualities of objects (pot and trashcan), focusing on creating an 'artistic' and 'inviting' enclosure. This involves interpreting the overall meaning and artistic qualities of the scene rather than specific spatial or numeric details."
     )
   ],
   confidence = 4

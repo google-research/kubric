@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt requests creating a 'linear alignment' as a separator between trees, which requires spatial reasoning to arrange the elements in a specific geometric configuration."
+      explanation = 'The prompt requests a neat visual separator in a straight, linear alignment between the trees, which involves spatial reasoning about the arrangement and relative positions of the elements in the scene.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

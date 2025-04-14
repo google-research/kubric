@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to design a semi-ring enclosure around the chairs, ensuring it fits seamlessly and avoids collisions.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt implies understanding the functional and aesthetic requirements of creating an open yet enclosed seating experience.'
+    )
+  ],
+  confidence = 4
+)

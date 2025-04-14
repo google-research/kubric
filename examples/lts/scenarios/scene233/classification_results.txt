@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves designing a path that connects two birdhouses without intersecting them. This requires spatial reasoning to arrange the path with consideration to its geometry and its relation to the birdhouses.'
+      explanation = "The scene involves spatial reasoning to create a winding path that connects the birdhouses. It focuses on the spatial relationships and geometric properties, like the path's shape and orientation, to achieve the desired artistic and functional connection."
     )
   ],
-  confidence = 5
+  confidence = 4
 )

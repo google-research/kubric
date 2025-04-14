@@ -1,0 +1,129 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, how about curving that straight path a little more, maybe like a river weaving around those elements?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Changed the design profile from Linear to CurvyPath for visually dynamic movement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Changed the design to a TriWedge structure for sharper radial design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Introduced a QuarterWedge for a 90-degree segment appearance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Transformed the design into a Circular shape to establish a central focal point.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Altered the structure to a Serpentine for S-curve dynamics.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A accurately reflects the edit where the linear structure is replaced with a CurvyPath, aligning with the question prompt.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change from linear to curvy requires understanding of aesthetic goals described in the prompt.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we make the path sway a bit more, turning it into something of a gentle dance?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.0, 1.5, 0.0),
+            amplitude = 0.6,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Increased amplitude from 0.3 to 0.6 to enhance the path's wave-like appearance."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 2.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (1.0, 0.5, 0.0),
+            height = 0.1
+          ),
+          edit_description = 'Converted the design to an LShape, adding dimensional complexity.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Opted for a SemiCircular design to emphasize a half-circle visual.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Restructured as a SemiRing to create a tiered depth effect.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Design changed to Rectangular for traditional linear containment.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Choice A correctly identifies the modification where the amplitude of the CurvyPath is increased, as stated in the edit details.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "Adjusting amplitude is straightforward given the prompt's focus on aesthetics."
+    )
+  ]
+)

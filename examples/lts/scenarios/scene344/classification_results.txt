@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the creation of a semi-circular setup designed to encourage interaction, which involves spatial reasoning to integrate this setup with the existing trees while maintaining an open feel. The task specifically needs an understanding of spatial relationships to avoid collisions and correctly position the structure in relation to the trees.'
+    )
+  ],
+  confidence = 5
+)

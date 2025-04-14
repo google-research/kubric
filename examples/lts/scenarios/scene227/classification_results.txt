@@ -1,8 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves creating a semi-circular structure that hugs the trees, which requires spatial reasoning for arranging the seating around the trees without causing collisions.'
+      explanation = "The prompt involves designing a semi-circular structure that 'hugs the trees', which requires understanding relative positions and spatial reasoning."
+    ),
+    1 : Semantic(
+      explanation = "The prompt requires an understanding of the meaning and function of a space 'offering a pleasant space for relaxation and connection with nature'."
     )
   ],
-  confidence = 5
+  confidence = 4
 )

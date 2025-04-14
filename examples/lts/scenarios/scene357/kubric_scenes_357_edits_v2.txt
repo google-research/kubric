@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Say, we spread out the garden wedge a bit more, how does it change the sense of space around the rocks?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap angle to 95 degrees for a more open and inviting design.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap angle to 12 degrees for a tighter design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap angle to 85 degrees to maintain a tighter design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap angle to 10 degrees to create an enclosed space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 100.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap angle to 100 degrees for an expansive design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The Design Goal specifies that the gap degree should be increased to 95 degrees.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The increase in gap degrees is directly suggested in the Design Goal.'
+    ),
+    1 : EditMCQA(
+      question = "What if we make the garden wedge stand a bit taller, how would it redefine the area's boundary?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height from 0.3 meters to 0.5 meters for a more pronounced boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters to subtly enhance the boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase the height to 0.6 meters to make the boundary more prominent.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the height at 0.3 meters to keep the original boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.45
+          ),
+          edit_description = 'Raise the height to 0.45 meters for a moderate boundary increase.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The Design Goal clearly indicates that the height should be increased to 0.5 meters.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The increase in height is clearly stated in the Design Goal.'
+    )
+  ]
+)

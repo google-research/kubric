@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt specifies the design of a Circular feature around a birdhouse, which involves spatial reasoning to ensure that the feature creates a visual focus and maintains open access from all sides.'
+      explanation = "The prompt involves spatial reasoning by requesting a 'Circular feature around a birdhouse' which requires understanding of spatial relationships and positioning."
+    ),
+    1 : Semantic(
+      explanation = "The prompt is also concerned with the aesthetic allure and ensuring open access, which requires semantic understanding of the function and meaning of 'open access' and 'aesthetic allure' in the context of the scene."
     )
   ],
   confidence = 4

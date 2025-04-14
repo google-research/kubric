@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create a pathway that links seating arrangements, involving the placement and arrangement of objects.'
+      explanation = 'The task involves linking seating arrangements, which requires reasoning about spatial relationships and positions to create a cohesive pathway.'
     ),
     1 : Semantic(
-      explanation = "The prompt contains vague elements, requiring interpretation to resolve ambiguities regarding the structure's placement and dimensions."
+      explanation = "The prompt is somewhat underspecified and requires understanding the vague instruction of creating a 'seamless' link, which may involve interpreting the function or intended use of the seating arrangement."
     )
   ],
   confidence = 4

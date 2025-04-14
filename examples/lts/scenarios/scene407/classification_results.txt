@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves forming a semi-circular boundary, which requires spatial reasoning to ensure the arrangement of trees in a way that accentuates and enhances the environment in a balanced manner.'
+    )
+  ],
+  confidence = 4
+)

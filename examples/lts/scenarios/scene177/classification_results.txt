@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires the arrangement of pathways around seating objects to promote ease of movement and visual flow, involving spatial reasoning in terms of layout and orientation.'
+      explanation = 'The prompt requests developing a pathway ensuring ease of movement and visual flow, which involves spatial reasoning about the layout and placement of objects to create clear paths.'
     )
   ],
   confidence = 4

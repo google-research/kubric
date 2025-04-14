@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves defining spatial zones around a table and birdhouse, making it a matter of spatial reasoning to create connected yet distinct areas.'
+      explanation = 'The prompt requires spatial reasoning to create distinct but connected zones around the table and birdhouse, which involves understanding their relative positions.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

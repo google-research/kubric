@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt involves understanding the function and meaning of objects in the scene, such as creating an 'inviting corner' and ensuring 'openness for interaction', which are subjective and require semantic understanding."
+    ),
+    1 : Spatial(
+      explanation = "The prompt also involves spatial reasoning with the need to arrange the seating setup using a 'quarter-wedge arrangement' and maintaining openness, which requires understanding of spatial configurations."
+    )
+  ],
+  confidence = 4
+)

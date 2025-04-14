@@ -1,0 +1,141 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Doesn't a shift to a curved shape here help it frame better around the first one?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing a linear structure to a QuarterWedge requires conceptualizing physical space usage and aesthetic design, which is more challenging without explicit geometric instructions.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing a linear structure to a QuarterWedge requires conceptualizing physical space usage and aesthetic design, which is more challenging without explicit geometric instructions.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing a linear structure to a QuarterWedge requires conceptualizing physical space usage and aesthetic design, which is more challenging without explicit geometric instructions.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Modify the linear structure to a semi-circular design for enhancing aesthetic appeal around birdhouse 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A semi-circular structure choice diverges from the intended QuarterWedge which specifically frames birdhouse 1 with angular design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.8,
+            left_arc_orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Introduce a serpentine design to create a dynamic S-curve around birdhouse 1.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Choosing a serpentine design involves understanding complex curve dynamics with no explicit geometric instructions given.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct edit is to replace the Linear_1 structure with a QuarterWedge that has a gap degree of 70.0 and a radius of 0.8 for appropriate framing.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing a linear structure to a QuarterWedge involves nuanced changes in form and purpose that require understanding the aesthetic and spatial goals highlighted in the scene description.'
+    ),
+    1 : EditMCQA(
+      question = "How about making the second one wrap with a slice that's more open?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 11.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 2.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The task involves altering an existing structure to fit an angular design, which requires an understanding of symmetry and design aesthetics not directly specified.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 70.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the linear design to a QuarterWedge structure to add curvature and dynamic framing to birdhouse 2.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The task involves altering an existing structure to fit an angular design, which requires an understanding of symmetry and design aesthetics not directly specified.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_2',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 13.0,
+            height = 0.3
+          ),
+          edit_description = 'Modify the linear design to implement a TriWedge instead, providing sharper edges around birdhouse 2.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While TriWedge provides a similar aesthetic concept, the specific change in structure type can be misleading from the intended QuarterWedge design in the scene.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_2',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.3
+          ),
+          edit_description = 'Introduce a Circular design to create a full encompassing shape around birdhouse 2.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A circular structure focuses on a complete wraparound design, diverging from the framing focus of a QuarterWedge.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_2',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reshape the linear design to a SemiCircular structure, allowing concave framing of birdhouse 2.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "A semi-circular choice veers off the prescribed angular framework provided by QuarterWedge in this scene's layout requirements."
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct edit is to replace the Linear_2 structure with a QuarterWedge matching gap degrees of 70.0 and radius of 0.8 to continue the aesthetic framing as directed.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires interpreting spatial alignment and aesthetic symmetry for the QuarterWedge structure in contrast to the existing linear design, and is non-trivial without spatial guidelines.'
+    )
+  ]
+)

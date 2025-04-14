@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How do we shift the center of the semicircle to create a perfect balance with the trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the center to align equally between the two trees for optimal balance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift the center to the right and forward to create an off-axis distribution.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.5, -0.5, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Move the center to the left and backward to provide an unconventional viewpoint.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Retain the initial center positioning for continuity with the existing layout.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.1, -0.1, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Create a slight displacement to allow for an engaging spatial dynamic.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The choice involves centering the structure precisely between the trees, which is directly addressed in the prompt's instructions.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly states centering between the trees, making it straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'How should the circle be adjusted to ensure it gently cradles both trees?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Extend the radius gently to fully embrace both trees in the scene.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to focus enclosure around one tree more intimately.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.25,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius more substantially for a grand impression around the trees.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Preserve the original radius to maintain current spatial harmony.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Expand the radius significantly for a dramatic and expansive layout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The radius was expanded just enough to include both trees while ensuring a balanced design.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need to adjust the radius is implied through the necessity to encompass both trees.'
+    ),
+    2 : EditMCQA(
+      question = "What's the tweak that adjusts the semicircular orientation for smoother flow and better access?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = "Shift orientation from 'concave' to 'convex' and enhance height to redirect movement flow."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = "Maintain 'concave' orientation but raise height to introduce subtle adjustments."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Transform orientation to 'convex' without altering height to optimize spatial dynamics."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Stick to the original 'concave' setup and existing height to retain familiar appearance."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semicircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Raise height further to 0.5 meters with 'convex' for maximal design effect."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Changing to a 'convex' orientation with elevated height ensures the design opens outward for access and flow.",
+      difficulty = 'hard',
+      explanation_of_difficulty = 'The modification demands an understanding of the abstract concept of spatial directionality and orientation.'
+    )
+  ]
+)

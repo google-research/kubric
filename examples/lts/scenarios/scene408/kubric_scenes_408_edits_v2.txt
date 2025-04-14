@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we slide the center of the circular design to align perfectly with the cozy birdhouse, so it becomes the heart of our charming garden layout?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Move the center of the circular structure to (0, 0, 0) so that the birdhouse is perfectly centered within it.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = "Position the circular structure's center at (0.5, 0.0, 0.0) to have the birdhouse off to the side."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Shift the center of the circular structure to (-0.5, 0.0, 0.0) to place the birdhouse towards one edge.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Nudge the circular center to (0.0, 1.0, 0.0) to offset the birdhouse upwards within the circular boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Move the center of the circular structure to (0.0, -1.0, 0.0) to place the birdhouse closer to the bottom edge.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "To ensure the birdhouse is centered within the circular structure, the center must be moved to (0, 0, 0), aligning with the birdhouse's position.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "Aligning the center of the circular structure with the birdhouse's location is straightforward and directly supports the design goal."
+    ),
+    1 : EditMCQA(
+      question = 'Should we uplift the height of the circular base around the birdhouse to make it standout more substantially in our garden scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = "Increase the height to 0.3 to improve the circular structure's prominence around the birdhouse."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.25
+          ),
+          edit_description = 'Raise the height to 0.25 for a subtle visual enhancement.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Keep the height to 0.2, maintaining the current level of enclosure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.35
+          ),
+          edit_description = 'Increase the height to 0.35 for achieving maximum prominence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_Design',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.15
+          ),
+          edit_description = 'Decrease the height to 0.15 for a more subdued effect around the birdhouse.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Boosting the height to 0.3 met the requirement to enhance visual prominence and enclosure as needed for the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the height is a direct change for visual prominence, aligning with the intended effect described in the design prompt.'
+    )
+  ]
+)

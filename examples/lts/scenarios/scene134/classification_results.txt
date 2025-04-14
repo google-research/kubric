@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The scene involves creating a linear barrier with precise spatial positioning to delineate the birdhouses' space, enhancing their prominence. The task requires spatial reasoning to ensure a well-defined separation and a pleasing visual arrangement in the garden."
+      explanation = "The prompt involves designing a linear barrier with consideration of the spatial arrangement of birdhouses within the garden. It requires understanding the relative positions and spatial layout to effectively delineate and enhance the birdhouses' prominence."
     )
   ],
-  confidence = 5
+  confidence = 4
 )

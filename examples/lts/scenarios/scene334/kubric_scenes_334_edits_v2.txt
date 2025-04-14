@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you switch the center to make that space pop around the tables and bench, forming something more angular and distinct?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the design from a circular to a quarter-wedge to add sharper delineation and style.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The edit directly matches the prompt's specification for a quarter-wedge structure."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Transition to a quarter-wedge with a very narrow gap, emphasizing verticality.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 18.0,
+            height = 0.5
+          ),
+          edit_description = 'Alter the circular design to a triwedge, providing angular momentum.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Maintain the circular form but slightly increase the height, enhancing its presence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.6,
+            inner_radius = 1.4,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Introduce a semi-circular ring to provide a cozy enclosure effect around the seating.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A perfectly encapsulates the intention of the prompt, transforming the initial design into a quarter-wedge, enhancing the garden's unique architectural appeal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change to a quarter-wedge is explicitly requested in the prompt, making it straightforward.'
+    )
+  ]
+)

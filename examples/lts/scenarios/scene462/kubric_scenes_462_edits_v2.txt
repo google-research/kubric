@@ -1,0 +1,120 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you perhaps shift the outer sweep a bit, maybe on the left side of that circular base?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the shape from circular to a QuarterWedge, adjust radius to fit within the garden space, and modify the height to better suit the new arc.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 75.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the shape to a QuarterWedge, making sure the radius suits the space and the opening fits a larger gap.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert shape to a TriWedge, keeping the radius similar, aiming for an acute look with that small opening.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep the shape as a circular design, ensuring the dimensions remain as an absolute fit for the scene.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the shape to a QuarterWedge, refining just the radius slightly and making opening space slightly narrower.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification changed the circular structure to a QuarterWedge, following the specified requirements such as the radius, gap, and height perfectly fitting the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The changes needed were directly stated and straightforward to understand, making it a simple matter to perform the transformations required.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you ensure the next arc swings out widely, keeping everything balanced with the first pot position?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Circular_2',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Alter the circular form to a QuarterWedge to fit the given radius and height, paying attention to having a balanced gap.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Circular_2',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 80.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform the shape into a QuarterWedge, ensuring the radius holds, and providing a bit more room with a greater gap.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Circular_2',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Shift shape to a TriWedge with similar radius, making the space more acute and directed with the small angle.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Circular_2',
+          NewDesignStructure = Circular(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep the original circular form intact, generously accommodating the pot perfectly in this layout.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Circular_2',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 9.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the profile to a QuarterWedge, minor adjustments to radius, allowing for a narrow and dramatized gap.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The adjustment to the QuarterWedge precisely met the given parameters—radius, gap angles, and vertically extending—that were outlined in the goal design.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The instruction left little room for interpretation, making it straightforward to implement the planned modifications with ease.'
+    )
+  ]
+)

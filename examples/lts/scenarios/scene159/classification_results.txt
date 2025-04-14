@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt requests the construction of a semicircular boundary around the rocks, which involves spatial reasoning to arrange objects in a specific shape and order.'
+    0 : Semantic(
+      explanation = 'The prompt emphasizes aesthetic appeal and leaves room for interpretation regarding how to enhance the beauty of the rocks and accommodate visitor space. It involves understanding the meaning of the objects and their function in the scene, which is typical of semantic reasoning.'
     )
   ],
   confidence = 4

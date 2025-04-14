@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it emphasizes the positioning of the table and decorative pots in a way that maintains an aesthetic and functional arrangement, focusing on the relative positions of these objects.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt also contains semantic elements, as it requires understanding the functional and aesthetic meaning of the objects in the scene, such as the 'central table' and 'decorative pots', and how they should be incorporated into the layout."
+    )
+  ],
+  confidence = 4
+)

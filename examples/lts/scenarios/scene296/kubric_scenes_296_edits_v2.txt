@@ -1,0 +1,192 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "What's been done to introduce sharper angles in the space where the circle used to be?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design from Circular to TriWedge to introduce distinct angles.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Changing from a Circular to a TriWedge profile aligns with the prompt's goal of introducing sharper angles."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the design from Circular to QuarterWedge to enhance coherence with the existing layout.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_2',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Create a new TriWedge with different radius specifications.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Transform the circular design into a convex SemiRing for a layered appearance.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "While a SemiRing fits the space, it doesn't align with angular introduction."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_3',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.5,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the circular design to a CurvyPath to add dynamism to the layout.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification was to change from a Circular to a TriWedge design to introduce sharper angles in alignment with the prompt requirement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The change aligns clearly with the prompt's goal to introduce distinct angles."
+    ),
+    1 : EditMCQA(
+      question = 'How was the wedge altered so it fits better in the space near the middle area?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius to 1 meter for optimal fitting within the designated space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The optimal fitting requirement can be interpreted from the prompt to fit within existing objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 85.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the gap degrees to better frame the central objects.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 80.0,
+            height = 0.35
+          ),
+          edit_description = 'Decrease the gap and slightly increase height for a balanced composition.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 90.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce radius to 0.8 meters for a more compact design.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.25,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase both radius and gap to enhance spatial coherence.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The radius adjustment to 1 meter was intended to optimize fitting within the design space as per the goal requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The need for optimal fitting is implied in the prompt but requires spatial analysis to deduce.'
+    ),
+    2 : EditMCQA(
+      question = 'Which alteration was made to make the wedge have a stronger presence?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase the height to 0.45 meters to form a semi-prominent boundary.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to create a more pronounced boundary.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Height adjustment is mentioned in the design goal for a pronounced boundary.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 85.0,
+            height = 0.5
+          ),
+          edit_description = 'Slightly reduce the gap for tighter boundary definition.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase the height to 0.4 meters to maintain a moderate boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'triwedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 87.5,
+            height = 0.35
+          ),
+          edit_description = 'Increase the height slightly to 0.35 meters for boundary distinction.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The height increase to 0.5 meters enhances visibility and boundary prominence, key requirements from the design goals.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The requirement for a more pronounced boundary is present in the goal but needs contextual understanding.'
+    )
+  ]
+)

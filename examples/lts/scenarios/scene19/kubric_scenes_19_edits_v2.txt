@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "How should the seating's outer edge be adjusted to create more space?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Expand the outer edge further',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing the radius requires spatial reasoning to maintain symmetry.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Raise the height for a taller appearance'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift the center slightly forward'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reverse the direction for an inward curve'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Simultaneously curve inward and raise height'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves increasing the radius to ensure a wider seating arc around the table, which matches the prompt requirement for a larger cozy seating area.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Changing the radius requires spatial reasoning to maintain symmetry and align with the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'If the seating arrangement should curve inward, what do we do?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, -0.5),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius and elevate the center'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Flip the direction of the curve',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Orientation change is straightforward as it only involves flipping the structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.5, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Relocate the center closer'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Extend upwards for more height'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, -0.5, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the entire bench to a lower position'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The correct answer changes the bench orientation to concave, which matches the design goal for the seating arrangement.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Changing orientation is an intuitive modification that requires minimal spatial adjustment.'
+    ),
+    2 : EditMCQA(
+      question = "To enhance the seating's height, what should we aim for?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Switch the curve inward'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.5, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Move the center point outward'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the vertical extent',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing height is a simple vertical adjustment.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Lift the seating's top edge higher"
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_bench_1',
+          NewDesignStructure = SemiCircular(
+            center = (2.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Broaden and heighten while maintaining an outward curve'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The correct answer involves increasing the height to 0.5 meters, matching the final design goal parameter for height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height is a straightforward, singular adjustment with visual clarity in implementation.'
+    )
+  ]
+)

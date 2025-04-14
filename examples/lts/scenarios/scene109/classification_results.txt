@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires understanding spatial relationships to arrange the seating area and birdhouse appropriately, ensuring they are well-aligned and optimally positioned.'
+      explanation = 'The scene prompt involves spatial reasoning, as it requires arranging seating and a birdhouse in a way that provides a cozy and functional space for viewing. The description indicates careful consideration of positioning and alignment, which is key to spatial reasoning.'
     )
   ],
   confidence = 4

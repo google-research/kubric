@@ -51,7 +51,7 @@ Scene(
         ),
         edit_description = 'Move the circular structure to the center at (0, 0) to create a gathering space.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The edit is straightforward; the prompt explicitly states to center the structure.'
+        explanation_of_difficulty = 'The edit is straightforward; the prompt explicitly states to center the structure.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'circular_structure_1',
@@ -62,7 +62,7 @@ Scene(
         ),
         edit_description = 'Increase the radius to 0.75 and height to 0.4 to enhance the central feature.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'While the prompt implies enhancing the gathering feature, specifics on the dimensions are not directly given, requiring interpretation.'
+        explanation_of_difficulty = 'While the prompt implies enhancing the gathering feature, specifics on the dimensions are not directly given, requiring interpretation.'
       )
     ]
   )

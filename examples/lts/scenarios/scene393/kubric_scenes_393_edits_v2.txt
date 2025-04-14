@@ -1,0 +1,76 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'It seems like we need to create a comfy corner space by the trees. How should we adjust the rectangular piece that sits nearby?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_box_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.5, 0.5, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Transform the rectangular box into an LShape structure by adjusting the design profile. Shift the center and extend the dimensions to form the L-shape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The transformation from a rectangular box to an LShape structure requires understanding of spatial alignment and dimensions, which is not explicitly described in detail in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_box_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.5, 0.0),
+            radius = 0.4,
+            height = 0.5
+          ),
+          edit_description = 'Change the rectangular box into a circular structure with a similar center point and dimensions to mirror its original proportions.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Shifting from a rectangular to a circular structure maintains simplicity but requires imagination to fit into the source design.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_box_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.5, 0.0),
+            radius = 0.7,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Transform the rectangular box into a semi-circular structure, concave in orientation, expanding towards the right.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'This transformation demands conceptual flexibility, turning an angular form into a rounded, directional shape not strongly suggested by the prompt.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_box_1',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.5, 0.0),
+            radius = 0.5,
+            gap_degrees = 12.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the rectangular box into a triangular wedge structure with a sharp angular extension aligned with the original center.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Converting to a wedge form with specific angular constraints while maintaining spatial coherence presents intricate design challenges.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_box_1',
+          NewDesignStructure = SemiRing(
+            center = (-1.0, 0.5, 0.0),
+            outer_radius = 0.8,
+            inner_radius = 0.6,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Reinterpret the rectangular box as a convex semi-ring structure expanding outwards with distinct inner and outer radii.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Reimagining a simple rectangular box as a semi-ring 'convex' necessitates considering indirect spatial implications beyond surface cues in the prompt."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct transformation involves adjusting the rectangular box into the specified LShape structure, aligning with the design goal to create an L-shaped seating area that integrates naturally into the garden setting.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in interpreting the spatial and design changes needed for the LShape from the information provided.'
+    )
+  ]
+)

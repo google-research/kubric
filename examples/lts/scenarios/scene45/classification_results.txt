@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging elements in a spiral-like enclosure, which involves spatial reasoning to organize the objects in a flowing, wave-like pattern.'
+      explanation = 'The prompt involves designing a spiral-like enclosure, which requires spatial reasoning to achieve the desired aesthetic and functional layout. This includes arranging objects to form a specific pattern without overlap.'
     )
   ],
   confidence = 4

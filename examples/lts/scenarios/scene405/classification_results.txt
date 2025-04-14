@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to arrange the L-shaped layout in a way that merges the birdhouses and maintains the tree as a focal point within a given space.'
+    )
+  ],
+  confidence = 4
+)

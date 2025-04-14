@@ -1,0 +1,163 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about we try turning the direct line into something that snakes between the tables and the rock for more interest?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the path profile from linear to serpentine to introduce dynamic curves and visual interest.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding the transition from a linear to a serpentine path requires knowledge of path dynamics and spatial arrangement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the path orientation from left-right to front-back.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This involves only an orientation change, with limited spatial adjustments required.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the path shape to a circular design to enhance symmetry.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Circular designs may not align with serpentine dynamics without specific situational considerations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 8.0,
+            height = 0.5
+          ),
+          edit_description = 'Transform the path into a quarter-wedge with a narrow angular span to suggest pointed transitions.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A wedge transformation significantly alters path continuity, contrary to serpentine objectives.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_path',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the path to a semicircular shape for incremental curvature.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Semicircles may offer partial curvature but do not approximate a smooth serpentine design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Switching to a serpentine structure introduces the necessary curves and dynamic pathing distinct from the initial linear path, as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The modification requires understanding both geometric and aesthetic changes involved in transitioning from linear to serpentine.'
+    ),
+    1 : EditMCQA(
+      question = "Why don't we give the curves more sway and height? How would that play out?",
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_path = Serpentine(
+                left_arc_center = (0.0, 0.0, 0.0),
+                radius = 0.7,
+                left_arc_orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Increase the radius to 0.7 meters and the height to 0.5 meters for a more pronounced and graceful curve.',
+          target_parameter = 'serpentine_path',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The scene description explicitly suggests these parameter adjustments to enhance the design.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              serpentine_path = Serpentine(
+                left_arc_center = (0.0, 0.0, 0.0),
+                radius = 0.5,
+                left_arc_orientation = 'concave',
+                height = 0.4
+              )
+            }
+          ),
+          edit_description = 'Introduce a concave element with reduced dimensions to affect the path’s contour.',
+          target_parameter = 'serpentine_path',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Concave choices require careful integration without compromising the meandering plan.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              triwedge = TriWedge(
+                center = (0.0, 0.0, 0.0),
+                radius = 0.6,
+                gap_degrees = 12.0,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add a triwedge with appropriate gap degrees to segment distinct path portions.',
+          target_parameter = 'triwedge',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The triwedge’s angular properties fundamentally differ from serpentine form aspects.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              curvy_shape = CurvyPath(
+                far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+                close_curve_leftmost_point = (0.3, 0.0, 0.0),
+                amplitude = 0.6,
+                wavelength = 1.2,
+                phase = 0.2,
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Incorporate a curvy path with sinusoidal parameters imitating serpentine aesthetics.',
+          target_parameter = 'curvy_shape',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Deriving exact sinusoidal likeness to complements serpentine attributes demands precision.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              semicircle = SemiCircular(
+                center = (0.0, 0.0, 0.0),
+                radius = 1.0,
+                orientation = 'convex',
+                height = 0.5
+              )
+            }
+          ),
+          edit_description = 'Add semicircular elements to capitalize on broad sweeping areas for focal points.',
+          target_parameter = 'semicircle',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Broad sweeping elements should not overshadow actual path circulation needs.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting radius and height as described meets the design goal by enlarging and refining the serpentine flow.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The directives are clearly outlined in the scene’s goals, simplifying the solution identification.'
+    )
+  ]
+)

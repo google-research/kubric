@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requests the creation of a boundary between the birdhouse and the rock, indicating a relative position requirement to design distinct yet connected sections in the garden.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,217 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we replace this round form with something that links the trees better?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.7,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the design from Circular to SemiRing for better integration with the tree arrangement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change to a SemiRing structure requires adding an inner radius while maintaining the existing dimensions.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.4
+          ),
+          edit_description = 'Switch the design to a CurvyPath to create a winding feature between the trees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires imagining a serpentine pattern that complements the tree positioning.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 11.0,
+            height = 0.4
+          ),
+          edit_description = 'Change to a QuarterWedge to form a segmented circle that wraps around parts of the trees.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Conceptualizing the partial circle enclosing the gaps of tree placement.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform to a Linear structure representing a straight path across the space.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Directly placing a linear path is more straightforward but less integrated.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Circular_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Adopt a Serpentine structure for a curve-rich path enhancing the natural flow.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Complex curvature requires careful design adjustments to fit.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The SemiRing design provides partial enclosures around individual elements of the scene, ensuring a more harmonized integration.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The challenge lies in adjusting existing values to better suit a SemiRing.'
+    ),
+    1 : EditMCQA(
+      question = 'Shall we stretch or shrink the ring to fit nicely between these trees?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.7,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Define distinct outer and inner radii for the SemiRing to achieve a balanced loop around the trees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Determining appropriate radii to ensure the loop equally balances between the trees.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Switch to QuarterWedge for a 90-degree segment enclosing tree gaps tightly.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Evaluating the visual and practical impact of partial circularity.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.4
+          ),
+          edit_description = 'Explore a sharp TriWedge design for pointed edge feature incorporation.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Introducing sharp angles into otherwise smooth flow needs careful implementation.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.7,
+            height = 0.4
+          ),
+          edit_description = 'Use a Rectangular design to contrast the natural curvature with straight edges.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Clear distinction between geometrical shapes simplifies decisions.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Revert to Circular design for continued curved elegance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The symmetrical nature of circles handles structural adjustments gracefully.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The defined SemiRing with clear radii supports the prompt’s goal for balanced tree encirclement.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Finding matching radii with scene constraints is non-trivial but achievable.'
+    ),
+    2 : EditMCQA(
+      question = "Would changing the structure's top edges make it stand out more?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.7,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters, enhancing the visual prominence while preserving open access around the trees.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The height adjustment is a straightforward modification to increase visual impact.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Adjust to a slightly taller Circular for height emphasis.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Circulars accept height attribute control naturally, making adjustment easy.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.7,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Update to LShape providing dual-level engagement front and back.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The combined approach requires deciding elements for the L’s optimal use.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Elevate a Linear design for streamlined vertical stance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Linear’s elongation simplifies height changes without further constraints.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Raise a Serpentine design by increasing the overall height for prominence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While height adjustment is clear, serpentine complexity can add unexpected results.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The increased height in the existing SemiRing enhances prominence and aligns with visual goals effectively.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height enhancement directly suits goals without intimidating intervening features.'
+    )
+  ]
+)

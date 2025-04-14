@@ -45,7 +45,7 @@ Scene(
         ),
         edit_description = 'Change the shape to Circular',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt suggests a calming circular shape, but interpreting the linear design specifics to circular requires some inference.'
+        explanation_of_difficulty = 'The prompt suggests a calming circular shape, but interpreting the linear design specifics to circular requires some inference.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'circular_structure_1',
@@ -56,7 +56,7 @@ Scene(
         ),
         edit_description = 'Increase the height to 0.5 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The height increase is specified clearly, making it a straightforward edit to implement.'
+        explanation_of_difficulty = 'The height increase is specified clearly, making it a straightforward edit to implement.'
       )
     ]
   )

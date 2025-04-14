@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires constructing a curved enclosing for the seating area, which involves understanding the spatial arrangement and geometry of the scene, including arranging structures and maintaining walkways.'
+      explanation = 'The prompt requires understanding and interpreting spatial arrangement such as how to build a curved enclosing around a seating area while maintaining pathways, which is inherently about spatial relations.'
     ),
     1 : Numeric(
-      explanation = 'The task requires understanding and managing numeric properties such as radius, height, and angular gaps of the structure while adjusting the design dimensions like reducing radius and increasing gap size.'
+      explanation = 'Tasks involve adjustments like reducing radius and increasing gap size, pointing towards a requirement for understanding quantities and their impacts on scene layout.'
     )
   ],
   confidence = 4

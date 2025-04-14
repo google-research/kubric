@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene requires spatial reasoning to design a meandering path that weaves between the rocks, emphasizing the flow and placement in relation to the garden context.'
+    )
+  ],
+  confidence = 4
+)

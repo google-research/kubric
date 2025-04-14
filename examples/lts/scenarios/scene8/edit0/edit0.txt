@@ -45,7 +45,7 @@ Scene(
         ),
         edit_description = 'Move the planter to (1, 2) to keep the isosceles pattern.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The challenge is in interpreting the spatial relationships necessary to maintain an isosceles configuration with the given structures.'
+        explanation_of_difficulty = 'The challenge is in interpreting the spatial relationships necessary to maintain an isosceles configuration with the given structures.'
       )
     ]
   )

@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to arrange the seating area using a quarter-wedge structure while maintaining a clear view and access around the trashcan.'
+      explanation = 'The prompt involves ensuring a clear view and access around the trashcan while maintaining a harmonious and functional arrangement. This requires spatial reasoning to position the quarter-wedge seating and other elements appropriately.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about centering it right in the middle to balance things out?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = "Shift the structure's center to the middle for better symmetry and alignment."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = "Move the structure's center towards the top-right for a diagonal balance."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Relocate the center to the top-right corner to emphasize this quadrant.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, -0.5, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the center towards the bottom-left for a lower positioning.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, -0.5, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Set the center above the benches for improved seating access.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification centers the structure to ensure symmetry with all surrounding objects.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Centering the structure in the middle is a straightforward realignment to balance objects equally.'
+    ),
+    1 : EditMCQA(
+      question = "Let's grow the borders a bit more to make sure everything is covered, shall we?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.3
+          ),
+          edit_description = 'Expand dimensions to enclose all elements adequately.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 3.0,
+            height = 0.3
+          ),
+          edit_description = 'Adjust dimensions for partial enclosure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 2.5,
+            height = 0.3
+          ),
+          edit_description = 'Set smaller dimensions for limited coverage.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 4.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase dimensions for extensive coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.2,
+            width = 3.2,
+            height = 0.3
+          ),
+          edit_description = 'Broaden slightly for near-complete coverage.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Expanding to 3.5 in each direction aligns with the aim to encompass all objects and allow interaction.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining adequate space for functional and aesthetic guidelines requires moderate spatial analysis.'
+    ),
+    2 : EditMCQA(
+      question = 'What do you think about raising this a bit to stand out more?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase height to provide a more prominent boundary.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.5
+          ),
+          edit_description = 'Raise to make the boundary even more noticeable.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep height low for minimalist approach.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.6
+          ),
+          edit_description = 'Enhance height for a commanding boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 3.5,
+            height = 0.35
+          ),
+          edit_description = 'Slight increase for moderate boundary visibility.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the height to 0.4 meters creates the intended boundary definition as per the design brief.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'A height increase for more definition remains an uncomplicated task following spatial goal confirmation.'
+    )
+  ]
+)

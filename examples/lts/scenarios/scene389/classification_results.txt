@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning within the scene context by focusing on the arrangement of central table and chairs in a circular setting.'
+    )
+  ],
+  confidence = 4
+)

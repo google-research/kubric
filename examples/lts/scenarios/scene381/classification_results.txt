@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = 'The prompt emphasizes an artistic flair and aesthetic appeal, which requires understanding the meaning and purpose of the arrangement rather than specific spatial or numerical constraints.'
+    ),
+    1 : Spatial(
+      explanation = 'There is a need to maintain ample space for viewing and ensure no collisions, which involves spatial reasoning in terms of positioning the structure relative to the birdhouse.'
+    )
+  ],
+  confidence = 4
+)

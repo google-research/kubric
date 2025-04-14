@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt requires understanding of the meaning and function of objects in the scene, specifically creating an 'artistic enclosure' which is subjective and under-specified."
+    )
+  ],
+  confidence = 5
+)

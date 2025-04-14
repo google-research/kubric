@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requests a semi-circular ring that frames the rock, which involves understanding the spatial relationships and positions around the rock.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt has a semantic aspect as it involves understanding the meaning of enhancing natural beauty and ensuring accessibility, which requires comprehension beyond mere geometric arrangement.'
+    )
+  ],
+  confidence = 4
+)

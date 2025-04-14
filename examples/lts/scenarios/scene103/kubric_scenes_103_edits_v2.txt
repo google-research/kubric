@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Shift the linear arrangement so it symmetrically encloses the avian abode. What's the best way to adjust its orientation?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Center the linear form at (0.5, 0.5, 0) with an orientation modification to left-right for visual balance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt details the precise centering and orientation required.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Relocate the linear form to (0.5, 0.5, 0) and orient it left-right for a neat border.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Explicit instructions in the prompt guide this edit.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.5, 0.0),
+            length = 1.5,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Bring the linear element to (0.0, 0.5, 0) and adjust its orientation to create a focus with 1.5m length.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The prompt only indirectly hints at the positioning and dimensions.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Position the linear structure at (0.5, 0.0, 0) and orient it left-right for visual cohesion.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partial alignment with the prompt, but positioning is somewhat inferred.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.3, 0.3, 0.0),
+            length = 1.8,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift the line structure to a slightly off-center position and elongate it to enhance presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While hinting at design objectives, this choice diverges in dimensions and exact placement.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = "This approach follows the prompt by centering the linear structure at (0.5, 0.5, 0) and adjusting orientation to 'left-right.'",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The question derives directly from key prompt details.'
+    ),
+    1 : EditMCQA(
+      question = 'Enhance the outline to stand out. How should it be modified for the birdhouse boundary?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Maximize boundary impact by increasing length to 2.0m and height to 0.3m around the center point.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Prompt explicitly states enhancements to both parameters.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Keep the original linear setup as it was initialized, without adaptations.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Maintaining the original form goes against the design goal of enhancement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 1.5,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reposition center at (0.5, 0.0, 0) with a larger scale to reflect moderate enhancement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Challenging due to its moderate position shift and incomplete alterations.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 1.0,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transition to (0.5, 0.5, 0) for simple repositioning and maintain original dimensions.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This option fails to tackle improvements needed for emphasis.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.5, 0.0),
+            length = 2.5,
+            height = 0.35,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Exaggerate dimensions beyond envisioned specs for marked structural expression.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Exceeds the prompt details but aligns conceptually with enhancement need.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This adjustment aligns with prompt instructions to reinforce the boundary through dimension augmentation.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Explicit changes were itemized in the prompt for unparalleled definition.'
+    )
+  ]
+)

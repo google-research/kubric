@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests spatial reasoning by specifying a linear pathway that separates two seating areas, which involves understanding relative positions.'
+    )
+  ],
+  confidence = 4
+)

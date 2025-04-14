@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires creating a pathway that connects different objects (bench and trees) while ensuring a smooth and natural arrangement, which involves spatial reasoning.'
+      explanation = 'The prompt involves creating a path that considers the spatial relationship between the bench and the trees, ensuring a natural flow and proximity to these objects.'
+    ),
+    1 : Numeric(
+      explanation = 'The design involves geometric properties and relies on exact quantities like curve amplitude and wavelength to create the desired path pattern.'
     )
   ],
   confidence = 4

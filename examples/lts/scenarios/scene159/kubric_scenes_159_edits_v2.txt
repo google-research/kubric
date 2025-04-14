@@ -1,0 +1,63 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you make the semicircle hug the rocks closely at the center while having more room around the edges?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = "Move the semicircular structure to center at the origin, increase the radius to 1.0 meters, change the orientation to 'concave', and raise the height to 0.5 meters."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.3, 0.0, 0.0),
+            radius = 0.8,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = "Increase the radius to 0.8 meters, keep the center at (0.3, 0.0, 0.0) with 'convex' orientation, and height of 0.4 meters."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = "Move the semicircular structure to center at the origin, increase the radius to 0.9 meters, keep the 'convex' orientation, and raise the height to 0.5 meters."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.2, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.45
+          ),
+          edit_description = "Slightly move the center to (0.2, 0.0, 0.0), increase the radius to 1.0 meters, change the orientation to 'concave', and adjust the height to 0.45 meters."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.5, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = "Move the center to (0.5, 0.0, 0.0), keep the radius at 1.0 meters, change the orientation to 'concave', and increase the height to 0.6 meters."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly describes all the changes needed to achieve the design goal, as outlined in the edit's description: center at the origin, radius of 1.0 meters, 'concave' orientation, and height of 0.5 meters.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly outlines a goal to create a semicircular structure that emphasizes the rocks while maintaining open space, aligning with the specified parameters of the design goal.'
+    )
+  ]
+)

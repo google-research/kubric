@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves the spatial arrangement of objects, specifically the placement of benches and a birdhouse, ensuring no collisions while adhering to a spatial constraint of 3 x 3 meters.'
+      explanation = 'The prompt involves arranging a rectangular structure to complement the natural setting and accommodate gatherings while ensuring the proper placement of objects relative to each other.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

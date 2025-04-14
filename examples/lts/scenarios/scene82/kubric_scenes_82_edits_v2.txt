@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you adjust the direction of the stretch for the border sitting near the two pots?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Change the orientation to 'front-back'."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 5.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Increase the length to 5.0 and maintain orientation as 'left-right'."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (3.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Shift the center to (3.0, 0.0, 0.0) with orientation 'front-back'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (1.5, 0.5, 0.0),
+            length = 4.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Move the center slightly upwards and orient 'front-back'."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = "Change the height to 0.4 with orientation 'front-back'."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit involves changing the orientation to 'front-back' as specified in the edit.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The prompt clearly specifies the desired orientation as 'front-back', making this easy to deduce."
+    ),
+    1 : EditMCQA(
+      question = 'Shift the centerpiece near the pots closer to their midpoint.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (1.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Move the center to (1, 0, 0) to align the border between the pots.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Position the center at (0.5, 0.0, 0.0) with 'left-right'."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (1.5, -0.5, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Shift to (1.5, -0.5, 0.0) keeping 'front-back'."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (2.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'No change: keep center at (2.0, 0.0, 0.0).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_border_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 1.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = "Position the center at (0.5, 1.0, 0.0) keeping 'front-back'."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit specifies moving the center to (1, 0, 0) to align properly between the pots.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The center alignment and location are straightforwardly deduced from the spatial layout and prompt.'
+    )
+  ]
+)

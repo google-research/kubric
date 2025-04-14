@@ -1,0 +1,195 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, why didn’t we switch the curvy structure that wraps around the birdhouse?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 0.35
+          ),
+          edit_description = 'Change the design from SemiCircular to convex SemiCircular.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Changing the orientation without clear prompt indicators requires understanding various possible orientations.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.35
+          ),
+          edit_description = 'Change the design from SemiCircular to TriWedge to surround the birdhouse.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Understanding the transformation from a SemiCircular structure to a TriWedge based on the seating configuration requires spatial reasoning and knowledge of geometric design.'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              Linear_1 = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 3.0,
+                height = 0.35,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a Linear structure aimed at providing side seating.',
+          target_parameter = 'orientation'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'SemiCircular_1',
+          edit_description = 'Remove the SemiCircular structure entirely for an open space design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.5,
+            height = 0.35
+          ),
+          edit_description = 'Modify the structure into a QuarterWedge to fit a tighter design space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The understanding of transitioning into a QuarterWedge while fitting a specific gap range requires precise geometric calculation.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Edit B correctly captures the change from SemiCircular to TriWedge as indicated in the edit description.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The complexity arises from understanding the spatial reasoning required to transition between different geometric structures.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we allow a bit more space for the round seating near the birdhouse?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 10.0,
+            height = 0.35
+          ),
+          edit_description = 'Increase the radius to offer more space for seating and connectivity.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increasing the radius is straightforward and directly aligns with the prompt to offer more space for seating.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            orientation = 'concave',
+            height = 0.35
+          ),
+          edit_description = 'Change the structure back to SemiCircular for a classic design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Changing back to a previously identified form requires understanding why the original form was not suitable.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 10.0,
+            height = 0.35
+          ),
+          edit_description = 'Change the design to QuarterWedge for more angular seating.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Switching to a more angular design demands awareness of the geometric shift involved.'
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          edit_description = 'Delete the TriWedge structure to experiment with a more open concept.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Determining the reasons for complete removal when the prompt specifies its presence poses a strategic challenge.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.35
+          ),
+          edit_description = 'Slightly reduce the radius to enhance the cozy atmosphere.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'A subtle change in radius requires understanding of user comfort balanced with space constraints.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Edit A correctly identifies the increase in radius for more seating space, aligning with the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is straightforward as it involves adjusting a single design parameter readily interpretable from the prompt.'
+    ),
+    2 : EditMCQA(
+      question = 'How about making the gap wider in the pointy seating area?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 15.0,
+            height = 0.35
+          ),
+          edit_description = 'Adjust the gap degree to 15 degrees, optimizing access.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Setting a specific gap is a clear requirement from the prompt and involves basic adjustment of the design specifications.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.5,
+            height = 0.35
+          ),
+          edit_description = 'Transform the gap by shifting to a Rectangular layout for definitive entry points.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              CurvyPath_1 = CurvyPath(
+                far_curve_leftmost_point = (1.0, 0.0, 0.0),
+                close_curve_leftmost_point = (0.5, 0.0, 0.0),
+                amplitude = 0.5,
+                wavelength = 1.0,
+                phase = 0.0,
+                height = 0.35
+              )
+            }
+          ),
+          edit_description = 'Integrate a Curvy Path to diversify entryways into the seating arrangement.',
+          target_parameter = 'amplitude',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Including a dynamic path requires understanding of its interaction with the angular structure of the TriWedge.'
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'TriWedge_1',
+          edit_description = 'Remove the TriWedge arrangement to expand the open space available.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.5,
+            gap_degrees = 7.5,
+            height = 0.35
+          ),
+          edit_description = 'Decrease the gap to optimize the use of available space in compact areas.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Finding the balance in reduced gap usage while maintaining comfort requires detailed attention to design logic.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Edit A properly addresses adjusting the gap degree to 15 degrees as specified in the final design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task pertains directly to altering a single numeric value as directed by clear instructions in the prompt.'
+    )
+  ]
+)

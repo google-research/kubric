@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing an L-shaped barrier, which involves spatial reasoning to correctly arrange the trees and pot to form the intended shape and provide a distinct boundary without visual obstruction.'
+      explanation = 'The prompt and description involve spatial reasoning to position the L-shaped barrier around the trees and pot in a way that enhances visual appeal and provides a defined boundary. This requires understanding of spatial relationships to ensure the structure does not obstruct the view or encroach on the elements it surrounds.'
     )
   ],
   confidence = 4

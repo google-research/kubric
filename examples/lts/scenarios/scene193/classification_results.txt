@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires the creation of an L-shaped structure that complements the objects, which involves spatial reasoning to arrange the boundary and objects in a specific geometric layout.'
+      explanation = 'The prompt requests the creation of an L-shaped boundary that complements the objects in the scene, which involves spatial reasoning about positioning and geometric properties.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

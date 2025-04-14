@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves designing a path that winds through the forest, which requires an understanding of spatial concepts such as relative positions and layout to connect trees. This involves spatial reasoning to determine how the path should flow between the trees.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt requires understanding the overall purpose and aesthetic of the scene, including the immersive journey and connection between objects, which involves interpreting the meaning and function of the path within the scene.'
+    )
+  ],
+  confidence = 4
+)

@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the profile to serpentine.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the profile from a curvy path to a serpentine path requires understanding the concept of a serpentine design, which might not be immediately obvious from the prompt.'
+        explanation_of_difficulty = 'Changing the profile from a curvy path to a serpentine path requires understanding the concept of a serpentine design, which might not be immediately obvious from the prompt.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Adjust the left arc center to (0.0, 0.0) to form a graceful curve around the chairs.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Adjusting the center requires precise placement to ensure it forms a graceful curve, which can be challenging without visual or geometrical intuition. This increases the difficulty as it transitions from conceptual understanding to spatial execution.'
+        explanation_of_difficulty = 'Adjusting the center requires precise placement to ensure it forms a graceful curve, which can be challenging without visual or geometrical intuition. This increases the difficulty as it transitions from conceptual understanding to spatial execution.'
       )
     ]
   )

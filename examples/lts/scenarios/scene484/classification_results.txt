@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt focuses on maintaining openness in relation to the position and integration of trashcans with architectural elements.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt requires understanding the purpose and function of highlighting trashcans in an open environment without clear numerical or spatial constraints provided.'
+    )
+  ],
+  confidence = 3
+)

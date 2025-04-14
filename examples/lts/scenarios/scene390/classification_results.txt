@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the construction of a semi-ring that frames a central formation, which involves spatial reasoning to position the semi-ring in relation to the central rock.'
+    )
+  ],
+  confidence = 4
+)

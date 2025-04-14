@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the design profile to a Curvy path for more dynamic movement.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
+        explanation_of_difficulty = "The prompt asks for an 'interesting path that meanders', suggesting a non-linear shape which requires interpreting the abstract idea of 'exploration' into specific geometrical terms."
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'curvyPath_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Set the amplitude to 0.5 meters to ensure a noticeable but gentle wave.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
+        explanation_of_difficulty = 'Deciding on an amplitude ensures a wavy path, a common feature in meandering walks.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'curvyPath_1',
@@ -82,7 +82,7 @@ Scene(
         ),
         edit_description = 'Adjust the wavelength to 2.5 meters to balance curve frequency with overall length.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
+        explanation_of_difficulty = 'The decision on wavelength affects how often the path curves within the space, impacting the visual flow of design; thus, it requires some interpretation.'
       ),
       3 : ModifyStructureEditWithDifficulty(
         design_id = 'curvyPath_1',
@@ -96,7 +96,7 @@ Scene(
         ),
         edit_description = 'Set the height to 0.2 meters to subtly rise above the grass, blending with the park’s natural terrain.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
+        explanation_of_difficulty = "The height determines the path's prominence and is straightforward as it's suited to blend with the park's natural features."
       )
     ]
   )

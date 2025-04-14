@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging a path that meanders between the trees, which involves spatial reasoning to ensure the path flows smoothly and does not collide with the trees.'
+      explanation = 'The prompt requests the creation of a path that meanders between the trees, which involves spatial reasoning regarding the arrangement and positioning of the path relative to the trees.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

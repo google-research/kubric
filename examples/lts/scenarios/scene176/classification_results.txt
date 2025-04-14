@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt requires an understanding of spatial relationships to create enclosures that thread around the rocks while maintaining a balance between cohesion and openness.'
+      explanation = 'The prompt requires the understanding of spatial relationships to create enclosures that integrate with the rocks, maintaining a balance between enclosure and openness.'
     )
   ],
   confidence = 5

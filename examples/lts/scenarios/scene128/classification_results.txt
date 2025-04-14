@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt asks for creating a meandering path which involves spatial reasoning to arrange it in relation to other objects. This includes understanding geometric transformations like amplitude and wavelength.'
-    ),
-    1 : Numeric(
-      explanation = 'The prompt involves geometric transformations and maintaining harmony, which may require numeric reasoning for exact adjustments and distances to avoid collisions and maintain aesthetic balance.'
+      explanation = "The prompt mentions linking objects with a 'meandering path' and involves spatial reasoning to connect these objects in a garden theme. The description indicates spatial aspects such as geometric transformations, and positioning to avoid collisions."
     )
   ],
   confidence = 4

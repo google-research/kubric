@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Change the design from a single circular wall to four quarter-wedge sections to allow pathways.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'It requires understanding the need for pathways and subdividing the structure.'
+        explanation_of_difficulty = 'It requires understanding the need for pathways and subdividing the structure.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
@@ -78,7 +78,7 @@ Scene(
         ),
         edit_description = 'Increase the height from 0.25 meters to 0.4 meters for better protection.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Simple change in the height attribute is directly suggested.'
+        explanation_of_difficulty = 'Simple change in the height attribute is directly suggested.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
@@ -90,7 +90,7 @@ Scene(
         ),
         edit_description = 'Adjust gap size to 10 degrees to enhance accessibility from different angles.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "Requires abstract understanding of the scene's accessibility needs."
+        explanation_of_difficulty = "Requires abstract understanding of the scene's accessibility needs."
       )
     ]
   )

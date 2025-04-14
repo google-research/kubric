@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Could you nudge the border to better wrap around those trees and the pot, making sure everything's harmoniously covered?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Shift the rectangular center more inwards to achieve a snug fit around all elements in the scene.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The necessary positioning adjustment is clearly indicated by the scene requirement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.75, 0.75, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep the center somewhat off the mark, perhaps not quite wrapping the intended area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This placement does not align with the request to center the structure over the elements.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Overextend the boundary, extending beyond the clustering of objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This misplacement deviates from the intended central alignment.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.25, 0.25, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Undershoot the central point, resulting in a misalignment from the goal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The placement lacks precision, falling short of target alignment.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.6, 0.6, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Slightly adjust the center but not enough to meet the exact requirement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This attempt remains misaligned with the specific central requirement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A positions the center correctly according to the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The move corresponds directly with the explicit prompt details.'
+    ),
+    1 : EditMCQA(
+      question = 'How about we stretch a bit around, giving everything enough room while tracing around that lot?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Retain the current size, only centering without resizing.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Lacks the size increase required, ignoring goal details.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 2.0,
+            width = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase all dimensions for a roomier and well-defined boundary around objects.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Correct dimension improvements require comprehension of the goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 2.5,
+            width = 2.0,
+            height = 0.3
+          ),
+          edit_description = 'Overextend dimensions, producing too large a boundary.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Excess exceeds specified requirements, leading to over-coverage.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.0,
+            width = 0.75,
+            height = 0.2
+          ),
+          edit_description = 'Reduce all size metrics, leading to insufficient boundary coverage.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Lastly diverges from needed parameters for proper coverage.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.75,
+            width = 1.25,
+            height = 0.35
+          ),
+          edit_description = 'Increase dimensions slightly but miss hitting all needed specifics.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partial enhancements fail to meet complete specified criteria.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Selection B steps up dimensionally, fulfilling targeted coverage aspiration.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires interpretive reading to discern increased bounds from the description.'
+    )
+  ]
+)

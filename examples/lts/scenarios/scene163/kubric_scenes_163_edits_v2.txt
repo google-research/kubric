@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you make the straight path between the trees curve more, giving it a softer and more scenic feel?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the profile to serpentine to introduce a fluid, natural curvature.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.0, -1.0),
+            close_curve_leftmost_point = (0.0, 0.0, 1.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Convert the straight path to a curvy path by defining far and close leftmost points.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 9.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform into a quarter wedge with a 9-degree angular gap for sharp turns.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 14.0,
+            height = 0.1
+          ),
+          edit_description = 'Change into a narrow tri-wedge forming angular paths.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.1
+          ),
+          edit_description = 'Redesign as a circular path to create a circular journey.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The linear path was replaced by a Serpentine structure that consists of a left convex arc with a radius of 0.7, creating the necessary fluid movement in the path.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The edit requires deducing how to convert a straight path into a serpentine one that enhances the scenic experience, which involves understanding of structure and paths.'
+    )
+  ]
+)

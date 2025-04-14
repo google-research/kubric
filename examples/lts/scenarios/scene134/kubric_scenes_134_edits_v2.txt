@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'What change should we make to have the straight barrier sit right at the base point of both birdhouses?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Relocate the straight barrier to position centrally between both birdhouses.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.5, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the straight barrier slightly, placing it closer to one birdhouse.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.5, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Slide the straight barrier to the side, shifting it down.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-0.5, 0.0, 0.0),
+            length = 3.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Position the straight barrier to align partially towards the lower end.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend the straight barrier length slightly more.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct change explicitly positions the linear structure centrally, effectively aligning it with both birdhouses as required.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The re-positioning task is clearly outlined, making the required adjustments easy to determine from the description given.'
+    ),
+    1 : EditMCQA(
+      question = 'What adjustment should ensure the barrier only covers the desired space near the birdhouses?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shorten the length to a span that just encloses the area around the birdhouses.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Minor reduction in length to achieve a neat border.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Significant cutback for a closer confined space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Expand the reach to somewhat buffer outside the boundary.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Change the only height for creating a more visible wall.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Adjusting the linear structure to 2 meters is ideal for effectively bordering the birdhouses, according to design requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Here, understanding of spatial layout is needed to make an informed decision on the required alteration of length.'
+    )
+  ]
+)

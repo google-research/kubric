@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create a flowing path that connects the seating area with the tables, and involves arranging elements in a specific geometric order.'
-    ),
-    1 : Numeric(
-      explanation = 'Designing the path involves understanding geometrical properties like amplitude and wavelength, which requires numeric reasoning to ensure proper spacing and coherence of the path design.'
+      explanation = 'The prompt describes designing a path that involves spatial relationships, such as connecting different areas (the seating area and tables) with a meandering path. This requires understanding spatial reasoning and relative positions in the scene context.'
     )
   ],
   confidence = 4

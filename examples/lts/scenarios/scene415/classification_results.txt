@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requires the design of a path with respect to the arrangement of the trees. The focus is on elegantly traversing the space, which entails understanding and utilizing spatial relationships between the path and the trees.'
+    )
+  ],
+  confidence = 4
+)

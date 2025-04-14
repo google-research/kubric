@@ -1,0 +1,119 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "You'll want the straight line between the trees to become more rounded. What's the best way to add some curves?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Change the shape to a Circular'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Modify to a SemiCircular shape'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.2
+          ),
+          edit_description = 'Change to a TriWedge structure'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Transform into a Rectangular structure'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Convert to an LShape structure'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit is to change the linear structure to a circular shape to provide the desired comforting curvature.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests a calming circular shape, but interpreting the linear design specifics to circular requires some inference.'
+    ),
+    1 : EditMCQA(
+      question = 'Hey, can you lift the circular structure under the trees a bit without letting it get too tall?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to match the desired level'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the height to a lesser level'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.2
+          ),
+          edit_description = 'Keep the height as is'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.7
+          ),
+          edit_description = 'Increase the height too far'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            height = 0.4
+          ),
+          edit_description = 'Lift the height but not quite enough'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification is to increase the height of the circular structure to the goal height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height increase is clearly indicated in the goal, making this a simple implementation.'
+    )
+  ]
+)

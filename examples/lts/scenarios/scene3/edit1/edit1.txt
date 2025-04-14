@@ -45,7 +45,7 @@ Scene(
         ),
         edit_description = 'Change the profile to semi-ring',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt specifies a crescent shape; switching to a semi-ring for protection involves understanding this profile better meets the design goal.'
+        explanation_of_difficulty = 'The prompt specifies a crescent shape; switching to a semi-ring for protection involves understanding this profile better meets the design goal.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -58,7 +58,7 @@ Scene(
         ),
         edit_description = 'Increase the height from 0.3 to 0.75 meters',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "The height increase is explicitly stated in the 'edits' instructions."
+        explanation_of_difficulty = "The height increase is explicitly stated in the 'edits' instructions."
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -71,7 +71,7 @@ Scene(
         ),
         edit_description = 'Change the orientation to top_half to match the wind direction',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Changing the orientation is prompted by the need to match wind protection, directly aligning with the edits instructions.'
+        explanation_of_difficulty = 'Changing the orientation is prompted by the need to match wind protection, directly aligning with the edits instructions.'
       )
     ]
   )

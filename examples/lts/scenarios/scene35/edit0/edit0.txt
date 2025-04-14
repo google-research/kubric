@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the structure profile to SineWave',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding the exact geometric modifications needed to switch to a SineWave profile from a Serpentine structure and adjusting the amplitude is moderately complex.'
+        explanation_of_difficulty = 'Understanding the exact geometric modifications needed to switch to a SineWave profile from a Serpentine structure and adjusting the amplitude is moderately complex.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'sinewave_0',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Adjust the far starting point to (0,0) and close starting point to (0.5, 0.5), shift to align better with the pot and chair.',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Aligned repositioning requires consideration of both existing features and intended structure aesthetics, posing a significant challenge.'
+        explanation_of_difficulty = 'Aligned repositioning requires consideration of both existing features and intended structure aesthetics, posing a significant challenge.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'sinewave_0',
@@ -82,7 +82,7 @@ Scene(
         ),
         edit_description = 'Modify amplitude and height for visibility and style.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The adjustment of amplitude and height is straightforward as it directly pertains to visual and design goals.'
+        explanation_of_difficulty = 'The adjustment of amplitude and height is straightforward as it directly pertains to visual and design goals.'
       )
     ]
   )

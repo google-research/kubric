@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey there, should we make this box reach from one tree straight to the other one?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Decrease the length to make it shorter.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = "Extend the length so that it's able to span from one tree to another."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = "Extend it slightly so it's longer than before."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Make it half as long so it only reaches halfway across.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase even more than needed to go well past the trees.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The adjustment made the length align perfectly between both trees as intended.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Matching the length to span the trees is direct from what we want in this context.'
+    ),
+    1 : EditMCQA(
+      question = 'Shall we broaden this setup so it looks nicer and feels more open?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep dimensions as they are for a compact layout.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 2.0,
+            height = 0.7
+          ),
+          edit_description = 'Make it extra wide and quite tall to maximize presence.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = "Widen and raise so it's more appealing and the space stays open."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Make it slightly wider with elevated sides.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.7,
+            height = 0.4
+          ),
+          edit_description = 'Adjust dimensions to give subtle emphasis without too much height.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Enhanced width and height meet the design goal of beautifying and maintaining openness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adapting size for visual improvement and openness correlates with our layout aim.'
+    )
+  ]
+)

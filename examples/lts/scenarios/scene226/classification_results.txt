@@ -1,11 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves creating a rectangular setup around tables, which requires spatial reasoning to arrange objects properly without collisions and maintaining accessibility.'
+      explanation = 'The prompt involves arranging structures around tables which requires an understanding of spatial arrangement and relative positioning to enhance accessibility and shared space.'
     ),
     1 : Numeric(
-      explanation = 'The task involves interpreting geometric properties like center, length, width, and height to ensure the setup fits the area constraints, suggesting a need for understanding exact measurements and distances.'
+      explanation = 'The description specifies geometric properties such as the length, width, and height of the rectangular setup around the tables, which involves precise numerical matching.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

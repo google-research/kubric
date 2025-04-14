@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The task involves arranging seating in a semi-circular design around a table, which requires spatial reasoning to ensure correct positioning and orientation to maintain accessibility and comfort.'
+      explanation = 'The scene prompt and description emphasize the spatial arrangement of seating around a table, focusing on geometric properties and orientation to create a harmonious and accessible design.'
     )
   ],
   confidence = 4

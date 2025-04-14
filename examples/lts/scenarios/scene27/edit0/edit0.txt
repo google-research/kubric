@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Change the line of tables to a semicircular arrangement.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt directly specifies the arrangement to be a semicircular pattern with a 1.0-meter radius.'
+        explanation_of_difficulty = 'The prompt directly specifies the arrangement to be a semicircular pattern with a 1.0-meter radius.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = "Adjust orientation to 'convex' so that the open side faces the camera for visibility.",
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "Determining the 'convex' orientation requires understanding the camera's position and intended seating direction."
+        explanation_of_difficulty = "Determining the 'convex' orientation requires understanding the camera's position and intended seating direction."
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'semi_circular_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Ensure height remains consistent at 0.8 meters to match the design goal.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The height parameter was already specified in the initial and desired designs.'
+        explanation_of_difficulty = 'The height parameter was already specified in the initial and desired designs.'
       )
     ]
   )

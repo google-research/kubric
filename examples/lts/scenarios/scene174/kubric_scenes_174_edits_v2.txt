@@ -1,0 +1,75 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about twisting that straight stretch into something more wavy and intricate?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the path type from linear to a CurvyPath for enhanced visual appeal.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The transition from a linear path to a curvy path is straightforward given the prompt's emphasis on creating an engaging flow through the garden space."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.25, 0.0),
+            length = 1.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reorient the linear path from left-right to front-back for variation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Changing the orientation while keeping the path linear can be less obvious from the prompt's flow-focused context."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 8.0,
+            height = 0.1
+          ),
+          edit_description = 'Transform the path into a QuarterWedge structure for a more contained layout.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Switching to a more complex structure like QuarterWedge isn't directly inferred from the prompt's emphasis on fluidity."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 95.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the path to form a TriWedge design for a sharp angular look.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Transitioning to a TriWedge configuration isn't immediately apparent given the curvilinear flow desired by the prompt."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, 0.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Shift the path to a Serpentine with a subtle concave arc for complexity.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The serpentine arc introduces specific directionality not clearly derived from the prompt encouraging smooth movement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Transforming the path from Linear to CurvyPath directly aligns with the prompt's focus on creating an engaging visual flow.",
+      difficulty = 'easy',
+      explanation_of_difficulty = "The needed transition from Linear to CurvyPath is directly inferred from the prompt's emphasis on path curvature for visual effectiveness."
+    )
+  ]
+)

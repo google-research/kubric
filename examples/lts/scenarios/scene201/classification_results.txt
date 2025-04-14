@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging elements in a spatial layout to create a design that highlights the rocks and maintains openness, indicating a need for spatial reasoning.'
+      explanation = 'The prompt involves spatial reasoning as it requests designing a quarter-wedge to encircle rocks, which requires understanding their positions and the spatial arrangement within the garden.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

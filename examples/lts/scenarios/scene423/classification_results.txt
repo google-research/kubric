@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a path that connects the seating arrangements, which requires spatial reasoning to determine the best way to position the path relative to the benches.'
+    )
+  ],
+  confidence = 4
+)

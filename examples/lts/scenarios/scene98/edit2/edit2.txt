@@ -42,7 +42,7 @@ Scene(
         ),
         edit_description = 'Move the serpentine path to start near the birdhouse at (-1, 1)',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "Moving the path closer to the birdhouse aligns with the scene's goal of guiding visitors around it."
+        explanation_of_difficulty = "Moving the path closer to the birdhouse aligns with the scene's goal of guiding visitors around it."
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_1',
@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Adjust the orientation to convex for the second half',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the orientation is a bit more complex but necessary for the design to affect visitor perception.'
+        explanation_of_difficulty = 'Changing the orientation is a bit more complex but necessary for the design to affect visitor perception.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Extend the path to increase the length',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Extending the path requires a careful balance to maintain the serpentine nature while achieving the goal.'
+        explanation_of_difficulty = 'Extending the path requires a careful balance to maintain the serpentine nature while achieving the goal.'
       )
     ]
   )

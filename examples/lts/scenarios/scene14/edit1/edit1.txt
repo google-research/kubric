@@ -61,7 +61,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius of the Circular enclosure to 1 meter and increase the height to 0.5 meters.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The reduction of radius and height adjustment is straightforward with clear measurement instructions.'
+        explanation_of_difficulty = 'The reduction of radius and height adjustment is straightforward with clear measurement instructions.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -79,7 +79,7 @@ Scene(
         edit_description = 'Design a SineWave path with the specified parameters, ensuring it leads to the tree.',
         target_parameter = 'curvy_path_0',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The path involves a specific geometric configuration with parameters that must be derived and applied accurately.'
+        explanation_of_difficulty = 'The path involves a specific geometric configuration with parameters that must be derived and applied accurately.'
       )
     ]
   )

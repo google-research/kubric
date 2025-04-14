@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning, as it requires positioning an L-shaped barrier to separate the table area from the trashcan without blocking too much open space. This involves understanding geometric properties and arranging objects to maintain accessibility.'
+      explanation = 'The prompt involves spatial reasoning as it requires creating a barrier that separates the trashcan from the table area without blocking too much open space. This requires understanding the relative positions and orientations of objects in the scene.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging a semi-circular bench around a birdhouse, which requires spatial reasoning to ensure the structure is both functional and allows movement.'
+      explanation = 'The prompt involves spatial reasoning to arrange the bench around the birdhouse with consideration of access and balance.'
     )
   ],
   confidence = 4

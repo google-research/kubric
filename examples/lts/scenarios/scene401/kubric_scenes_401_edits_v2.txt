@@ -1,0 +1,202 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about we expand the circle a bit to let people breathe more freely?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to better accommodate the trees and enhance the open feeling.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt suggests an ample semi-circular space to enhance the atmosphere.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_2',
+          NewDesignStructure = SemiCircular(
+            center = (0.6, 0.6, 0.0),
+            radius = 1.3,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the radius slightly for a subtle broadening effect.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change might not be immediately tied to providing ample space around the trees.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Keep the compact design for minimal intervention.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The existing compact radius contrasts with the need for spaciousness.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_3',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.3, 0.0),
+            radius = 1.4,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Slightly modify the curvature for visual symmetry.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Aesthetic adjustments aren't linked directly to space orientation."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_4',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Opt for a full-circle approach for symmetry.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'A full circle redirects from the intended semi-circular concept.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the radius as described fits the need for expansive surroundings for the trees.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt clearly specifies the need for increased spatial allocation with semicircular emphasis.'
+    ),
+    1 : EditMCQA(
+      question = 'What if the arch faced inward, so people feel summoned?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Turn the structure concave so its curve is opening toward the interior space.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adjusting the orientation implies a welcoming formation, not directly stated but inferred from the goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Remain as convex to maintain a centralized aesthetic.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Convex orientation maintains a central rather than inviting gaze.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_2',
+          NewDesignStructure = SemiCircular(
+            center = (0.1, -0.1, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'A slight tweak to the left with inward opening.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Minor alterations don't strongly advocate for invitation like a pivot to concave."
+        ),
+        D = DeleteStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          edit_description = 'Remove the installation to reveal the trees uninterrupted.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The removal contradicts the prompted need for structured openness.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Complete the circle for an enclosing perspective.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This challenges the original semi-circle notion by forcing enclosure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Altering to a concave structure aligns within goals using an inviting pathway.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Orientation implies invitation toward the center, coherently altering visitor perception.'
+    ),
+    2 : EditMCQA(
+      question = 'Could we add a bit of height to make our presence stand out?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Raise the height to emphasize significant visual presence while blending into nature.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "The height modification means to visually elevate the structure's existence while fostering tranquility."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Retain the current altitude to sustain the modesty of design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Continuing current height falls short of emphasizing presence.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_2',
+          NewDesignStructure = SemiCircular(
+            center = (-0.1, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.6
+          ),
+          edit_description = 'Adjust maneuver upwards for heightened visual mastery.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Leaves simplicity excluded favoring dominant expression, diverging from tranquility.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = "Compress the structure's elevation to conjoin with garden elements.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Lessen impact by declining height whose aim contradicts intended prominence.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'semi_circular_3',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.7,
+            height = 0.5
+          ),
+          edit_description = 'Uplift and converge circular design by raising structure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Despite height gain, it veers away from prompted semi-circular motifs.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Elevation in height bolsters distinct features, in line with aspirations of scenic importance.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Augmenting height boosts appearance yet syncs harmoniously with native elements for assumed serenity.'
+    )
+  ]
+)

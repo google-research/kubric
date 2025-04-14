@@ -1,10 +1,13 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to develop a protective loop around the trees, ensuring the arrangement forms a smooth curve that integrates with the garden feature.'
+    0 : Semantic(
+      explanation = 'The prompt requests the creation of a garden feature with smooth, curving lines around the trees, focusing on an aesthetically pleasing design. This involves understanding the meaning and function of the garden feature and its harmony with the natural elements.'
     ),
-    1 : Numeric(
-      explanation = 'The design involves geometric properties such as radius and height to create the desired structure around the trees, indicating a need for numerical precision.'
+    1 : Spatial(
+      explanation = "The prompt involves arranging a 'protective loop' around the trees, which requires consideration of their relative positions and spatial context."
+    ),
+    2 : Numeric(
+      explanation = 'The description specifies the use of geometric properties like radius and height, suggesting a need for numerical consideration in the design.'
     )
   ],
   confidence = 4

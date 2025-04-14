@@ -48,7 +48,7 @@ Scene(
         ),
         edit_description = 'Move the first rectangle to (-2, 1)',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt clearly states to position rectangular structures behind the bench, making this modification straightforward.'
+        explanation_of_difficulty = 'The prompt clearly states to position rectangular structures behind the bench, making this modification straightforward.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'rect_structure_1',
@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Reduce the height',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The depicted height needs deduction based on the design goal to achieve a two-layer structure height requirement.'
+        explanation_of_difficulty = 'The depicted height needs deduction based on the design goal to achieve a two-layer structure height requirement.'
       ),
       2 : AddStructureEditWithDifficulty(
         design = Design(
@@ -76,7 +76,7 @@ Scene(
         edit_description = 'Add another rectangle to (-2, -1) at the desired height',
         target_parameter = 'height',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Addition of the second layer involves aligning the new structure beneath the height threshold specified.'
+        explanation_of_difficulty = 'Addition of the second layer involves aligning the new structure beneath the height threshold specified.'
       )
     ]
   )

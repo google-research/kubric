@@ -48,7 +48,7 @@ Scene(
         ),
         edit_description = 'Change the design profile to a serpentine structure to achieve a flowing edge.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = "Understanding the curve's nature and changing the path's profile involves spatial insight."
+        explanation_of_difficulty = "Understanding the curve's nature and changing the path's profile involves spatial insight."
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_1',
@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Adjust the curvature and increase the height from 0.1 to 0.2 meters for better structural definition.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Height is a straightforward adjustment for intricate design.'
+        explanation_of_difficulty = 'Height is a straightforward adjustment for intricate design.'
       )
     ]
   )

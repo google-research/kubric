@@ -1,0 +1,68 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could we make the round border reach more widely and stand a bit taller?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            height = 0.5
+          ),
+          edit_description = 'Warm up the boundary by stretching it slightly and keeping the tall form.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'It needs to gain just a bit more to fully circle the chairs.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Boost both the reach and stature to encircle the chairs powerfully.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Touches upon adjusting both outward reach and upward build.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Extend the circular bridge but keep its height slightly modest.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Not as strong in height; more focus on wrapping reach.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.5
+          ),
+          edit_description = 'Hold on to the current closeness but lift it upward higher.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'More focus on the vertical rise; neglects the expansion.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.1,
+            height = 0.5
+          ),
+          edit_description = 'Expand the grip beyond both chairs, matched by height.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Exceeds the spanning requirements, impacting tight design.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B beautifully bridges over both seats while upgrading the display.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Perfect balance required in growing reach and lifting for vibrant focus.'
+    )
+  ]
+)

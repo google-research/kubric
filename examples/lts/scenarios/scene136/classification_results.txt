@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The task requires arranging objects in a specific spatial configuration, specifically creating a circular enclosure around the trashcan without obscuring the view toward the tables.'
-    ),
-    1 : Numeric(
-      explanation = 'The scene involves symmetry and geometric aspects such as radius, which falls under numeric reasoning as it involves precise distances and proportions.'
+    0 : Numeric(
+      explanation = 'The prompt explicitly requires symmetry (circular enclosure) and considerations of exact geometric attributes such as the radius around the trashcan, which involves numeric reasoning.'
     )
   ],
   confidence = 4

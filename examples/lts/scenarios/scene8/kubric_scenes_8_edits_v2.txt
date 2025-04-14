@@ -1,0 +1,68 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about shifting the circular planter away from the corner, more to the front-left of the arrangement so everything balances out?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (1.0, 2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Shift the planter to the front-left corner to form an isosceles layout.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The challenge is in interpreting the spatial relationships necessary to maintain an isosceles configuration with the given structures.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (3.0, 2.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the planter further to the right, disrupting the balance.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The alignment fails the isosceles arrangement with this position.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (0.5, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Place the planter too close to balance everything out incorrectly.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Unexpected location lacking proper isosceles symmetry.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.5, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Move the planter close to the center, not achieving an isosceles arrangement.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'This position does not yield an isosceles triangle with the other elements.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_planter_0',
+          NewDesignStructure = Circular(
+            center = (1.5, 0.5, 0.0),
+            radius = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Reposition the planter almost directly in line with existing objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Fails to maintain the isosceles pattern as required by design goals.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct position maintains an isosceles triangle pattern with the bench at the far left and the pot slightly to the right.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the spatial relationship dynamics involved is not straightforward.'
+    )
+  ]
+)

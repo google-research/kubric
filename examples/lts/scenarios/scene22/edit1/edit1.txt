@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Change from a circular wall to quarter-wedge structures for varied aesthetics.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The transition from a circular wall to a quarter-wedge structure given the description and prompt is straightforward, requiring simple interpretation of provided spatial requirements.'
+        explanation_of_difficulty = 'The transition from a circular wall to a quarter-wedge structure given the description and prompt is straightforward, requiring simple interpretation of provided spatial requirements.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -82,7 +82,7 @@ Scene(
         edit_description = 'Adjust the radii and gaps to ensure comfort and flow within the space.',
         target_parameter = 'radius',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'This requires knowledge of spatial design and functionality, which involves interpretation beyond basic geometric changes.'
+        explanation_of_difficulty = 'This requires knowledge of spatial design and functionality, which involves interpretation beyond basic geometric changes.'
       )
     ]
   )

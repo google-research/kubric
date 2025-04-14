@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can we make this rectangular profile a bit longer towards each end and also widen the sides just a touch?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend both ends to cover more area and widen for better separation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The suggested change directly matches the design requirement to cover both trashcans.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.8,
+            width = 0.4,
+            height = 0.3
+          ),
+          edit_description = 'Slightly increase length and width to find a middle ground.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "This partially meets the goal but doesn't fully address the need to enhance access."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.3,
+            height = 0.3
+          ),
+          edit_description = 'Extend length while maintaining current width.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Increases length but misses the additional width increase necessity.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Keep length unchanged and only widen the structure.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Fails to achieve the needed length extension in the design prompt.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Extend more than required and increase width for maximum coverage.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Exceeds the specified design length, leading to potential misalignment with goals.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A ensures both length and width adjustments align with the design objective.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjustments directly adhere to the prompts provided, making it straightforward.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we lift this part higher for a more visible boundary all around?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Raise the boundary for enhanced visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The height increase is a clear step taken from design goals.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Partially raise to add subtle visibility.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Only partially meets the design height requirement.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain current height while adjusting other dimensions.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Doesn't fulfill the intended height increase implementation."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.6
+          ),
+          edit_description = 'Increase height beyond necessary to ensure prominence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height increase extends beyond the design goal specification.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Lower height to provide a downscaled boundary view.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Contradictory to the design goal by reducing the boundary's height."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A directly complies with the height requirement outlined in the design briefing.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Details about the height requirement are explicit in the goal, making correct identification easy.'
+    )
+  ]
+)

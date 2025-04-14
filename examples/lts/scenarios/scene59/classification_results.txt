@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging the area around the table to allow directional access, which involves spatial reasoning to place boundaries and pathways in specific orientations.'
+      explanation = 'The prompt requires understanding the spatial arrangement and reasoning about access pathways around the table, ensuring that there is access only from the left and right. This involves considering the geometric and spatial layout of the scene.'
     )
   ],
   confidence = 4

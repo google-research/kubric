@@ -1,14 +1,11 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by requesting an L-shaped seating arrangement that fits within a designated garden space, ensuring it complements the trees and maintains symmetry and aesthetics.'
+    0 : Numeric(
+      explanation = 'The scene requires interpreting geometric properties such as center, length, width, and height to achieve the design goal. It also involves maintaining symmetry around the trees, which involves precise quantitative spatial relationships.'
     ),
-    1 : Numeric(
-      explanation = 'The prompt requires considerations of geometric properties such as length, width, and symmetry to avoid overwhelming the garden space, indicating a need for numerical precision in dimensions and positioning.'
-    ),
-    2 : Semantic(
-      explanation = 'The prompt necessitates an understanding of the functional aspect of the seating as a gathering space and the aesthetic integration with the existing garden features like trees.'
+    1 : Spatial(
+      explanation = 'The task involves positioning the L-shaped seating relative to existing trees, requiring spatial reasoning about relative positions in the garden space without overwhelming it.'
     )
   ],
-  confidence = 3
+  confidence = 4
 )

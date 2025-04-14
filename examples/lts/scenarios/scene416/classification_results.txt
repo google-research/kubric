@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves a requirement for spatial reasoning to create an enclosure around the birdhouse while maintaining open views. This requires understanding the spatial relationships and arrangement of elements in the scene.'
+    )
+  ],
+  confidence = 5
+)

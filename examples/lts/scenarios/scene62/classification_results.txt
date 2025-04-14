@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging seating elements in a balanced formation around a central round structure, which requires spatial reasoning and understanding of geometric properties such as center, radius, and orientation.'
+      explanation = 'The prompt requires spatial reasoning to create a central round structure and arrange seating in a balanced formation, which involves understanding spatial relationships and geometric properties.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

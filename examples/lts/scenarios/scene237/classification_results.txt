@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves positioning circular structures around trees without interference, which requires spatial reasoning to ensure correct placement and arrangement of the objects.'
+      explanation = 'The prompt involves spatial reasoning by requesting the creation of circular features around each tree, which requires understanding and applying spatial relationships between objects in the scene.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

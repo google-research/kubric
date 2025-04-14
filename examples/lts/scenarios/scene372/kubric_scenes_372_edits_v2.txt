@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Can we shift the SemiRing's heart to embrace the trees and birdhouse better?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust Center: Move the center of the SemiRing to the origin (0, 0, 0) to better encompass the trees and birdhouse.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "The change aligns with the prompt's explicit requirement to center the structure around the origin."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.5, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Redirect focus: Increase radius to include tree_1 position.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The details here are mismatched with the intended design details.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.3, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Nudge the center slightly off origin and twist to concave.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Confusing the orientation and center placement increases difficulty.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, -0.5, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Center closer to tree_1 only.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partial relocation shows only partial adherence to the intended design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (1.0, 0.0, 0.0),
+            outer_radius = 1.2,
+            inner_radius = 0.8,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Extend heart outward from origin.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'It moves the structure away from rather than towards the intended goal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A is correct as it precisely describes the desired edit to align the SemiRing around the origin.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "This edit is straightforward and closely follows the prompt's instructions."
+    ),
+    1 : EditMCQA(
+      question = 'Shall we shift the dimensions and alter its stance for better balance?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = "Increase Dimensions: Expand the outer and inner radii and change to 'concave' for enhanced enclosure and cohesion.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The specific dimensions and orientation require interpretive insight from the description given in the prompt.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Mixed tweaks in dimensions and keeping convex.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Dimension reduction and failure to adjust orientation makes it incorrect.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.7,
+            inner_radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Boost outer radii with no stance change.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Over-extensions and lack of orientation change introduce complexity.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 0.8,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Partial growth in size and shift the stance.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Incomplete adherence to specifications causes confusion.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.0,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Expand significantly and elevate dramatically.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Drastic alterations make deducing intent significantly more challenging.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A matches the modifications needed as per the revised design objectives, enhancing enclosure and cohesion.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Balanced changes; while the directions are clear, they need careful interpretation.'
+    )
+  ]
+)

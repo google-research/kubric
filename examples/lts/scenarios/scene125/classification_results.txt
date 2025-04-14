@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests the design of a snaking path which inherently demands understanding of spatial relationships and curvature alignment to ensure it smoothly connects two distinct areas without consuming too much open space.'
+      explanation = 'The prompt requires creating a path connecting natural and urban areas, which involves spatial reasoning to ensure the path links the environments effectively without consuming too much open space.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

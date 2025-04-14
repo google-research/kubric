@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could you bring one of those wedges to wrap more precisely around that trashcan on the left?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the center to be around the trashcan at (-1, 0), increase the radius to 1.0, and height to 0.5 for better fit and visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.1, -0.1, 0.0),
+            radius = 0.9,
+            gap_degrees = 67.0,
+            height = 0.4
+          ),
+          edit_description = 'Alter the center slightly, reduce the radius slightly below goal, maintain height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.5, -1.5, 0.0),
+            radius = 1.2,
+            gap_degrees = 68.0,
+            height = 0.6
+          ),
+          edit_description = 'Shift the center to an off-target spot at (-1.5, -1.5), with an increased radius and height, slightly altering gap.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Position the center at origin with a slightly increased radius, revert to original gap, and reduce height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_1',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 69.0,
+            height = 0.45
+          ),
+          edit_description = 'Misplace center one unit up, decrement radius and gap slightly, and slightly increase height but not to goal state.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A matches the needed adjustments for center, radius, gap, and height to meet the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt and design goal explicitly describe the necessary adjustments to make this edit.'
+    ),
+    1 : EditMCQA(
+      question = 'Can we center the other wedge more precisely around the trashcan on the right to enhance visibility?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'QuarterWedge_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 70.0,
+            height = 0.5
+          ),
+          edit_description = 'Adjust the center to be around the trashcan at (1, 1), increase the radius to 1.0, and height to 0.5 for better fit and visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'QuarterWedge_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.9,
+            gap_degrees = 68.0,
+            height = 0.4
+          ),
+          edit_description = 'Keep the center targeted accurately but reduce the radius and gap slightly below goal, maintain current height.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'QuarterWedge_2',
+          NewDesignStructure = QuarterWedge(
+            center = (0.5, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 72.0,
+            height = 0.6
+          ),
+          edit_description = 'Misplace center and overshoot adjustments on all parameters beyond the design goal.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'QuarterWedge_2',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            gap_degrees = 65.0,
+            height = 0.3
+          ),
+          edit_description = 'Relocate center out of focus, decrement radius significantly, gap slight margin and lower height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'QuarterWedge_2',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 2.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 69.0,
+            height = 0.4
+          ),
+          edit_description = 'Move center upward and away, reduce radius and gap just under the intended edit, slight height advantage but not reaching desired.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A accurately reflects the modifications needed for center, radius, gap, and height adjustments as per design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task requires straightforward adjustments according to the prompt, making the deduced changes easy to grasp.'
+    )
+  ]
+)

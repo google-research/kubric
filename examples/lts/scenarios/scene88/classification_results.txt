@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to design a curvy pathway that elegantly snakes between the trees, focusing on spatial alignment and organic path creation.'
+      explanation = 'The prompt requires an understanding of the spatial arrangement and the relative positions of the pathway and the trees. Designing a curvy path that elegantly navigates between the trees necessitates spatial reasoning.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

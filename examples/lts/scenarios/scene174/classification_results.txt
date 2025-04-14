@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt involves designing a path that weaves through a garden, connecting specific objects (a rock and a trashcan). This requires spatial reasoning to ensure the path's flow aligns with the given objectives without collisions."
+      explanation = 'The scene involves spatial reasoning by requiring the design of a path that weaves through the garden, specifically maneuvering between the rock and the trashcan. This necessitates understanding the relative positions of these objects to ensure the path is navigable and integrated into the garden space without collision.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires the construction of a path that flows between the pots, which involves spatial reasoning to ensure the path positions correctly relative to the pots.'
+    ),
+    1 : Numeric(
+      explanation = 'The prompt also involves understanding geometric properties such as amplitude and wavelength, which are numerical considerations necessary for creating the curvy path.'
+    )
+  ],
+  confidence = 4
+)

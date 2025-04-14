@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you lengthen the divider to reach both those benches?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Increase length to extend fully between the benches for clear walkway.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt clearly suggests an extension to define the partition between benches.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Extend partially to cover somewhat between benches.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Partial extension may achieve some definition, but lacks full clarity.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, -0.1, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Shift orientation and fully extend, not meeting initial arrangement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Orientation shift misaligns with the described left-right setup.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'High extension might obscure view, despite completing separation.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Excessive height may hinder accessibility while extending length.'
+        ),
+        F = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = "Retain original, doesn't extend partition as intended.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No adjustment leaves partition unchanged from initial state.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A meets extension requirements explicitly stated in the description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Direct and simple action as per prompt guidance.'
+    ),
+    1 : EditMCQA(
+      question = 'Could the height of that partition go a bit taller, please?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Heighten from 0.3 to 0.4 units for enhanced prominence.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Alignment with prompt hints for prominence while maintaining usage.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.3,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Height remains unchanged, lacks prominence upgrade.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Doesn't follow enhancement instructions for height alteration."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Heighten to mid-level for increased visibility.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Could overly enhance height, limiting balance with prominence and accessibility.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.2,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Lower height, contrary to prominence directives.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Lowers visibility and opposes design goal.'
+        ),
+        F = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.8,
+            height = 0.6,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Reduce visibility due to excessive height, despite better prominence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Increased height meets prominence but could visually obstruct.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A optimally raises the height while respecting functional limits.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Highlighting increased height aligns perfectly with guidance demands.'
+    )
+  ]
+)

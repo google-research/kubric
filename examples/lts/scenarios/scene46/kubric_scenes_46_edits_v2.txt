@@ -1,0 +1,64 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about bending our path slightly to the left to get those swirling vibes?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.5, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the path profile to a serpentine to introduce a curve.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.5, 0.0),
+            radius = 0.75,
+            height = 0.2
+          ),
+          edit_description = 'Change the path profile to a circular shape.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.5, 0.0),
+            radius = 0.75,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Change the path profile to a semi-circular shape.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.5, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the path profile to a quarter wedge to introduce a sharp turn.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 1.0, 0.0),
+            amplitude = 0.3,
+            wavelength = 0.5,
+            phase = 0.0,
+            height = 0.3
+          ),
+          edit_description = 'Change the path profile to a curvy path for a fluid movement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit changes the linear path to a serpentine path, which introduces curves and swirls, aligning with the goal of adding motion vibes as described in the scene.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding how a serpentine structure enhances motion vibes requires geometric comprehension and visualization skills.'
+    )
+  ]
+)

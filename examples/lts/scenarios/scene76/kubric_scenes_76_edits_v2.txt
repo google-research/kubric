@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can you make the straight path bend left, creating a nice little twist?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.15,
+            wavelength = 2.0,
+            phase = 0.4,
+            height = 0.1
+          ),
+          edit_description = 'Change the path profile to a curvy path with specified attributes.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.6,
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path into a curvier profile, enhancing the visual appeal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.1,
+            wavelength = 1.5,
+            phase = 0.3,
+            height = 0.1
+          ),
+          edit_description = 'Alter the path trajectory slightly to introduce minimal curvature.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Adjust path orientation and curvature for improved integration.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.18,
+            wavelength = 1.8,
+            phase = 0.4,
+            height = 0.1
+          ),
+          edit_description = 'Introduce asymmetric changes to the path for a unique shape.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification 'A' matches the specified attributes for creating a more dynamic entryway, including a curvy path with the proper amplitude, wavelength, phase, and height.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The question requires understanding of geometric transformation to shift from a linear to a curvy path and adjusting path properties to fit the design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you make the curve less sharp and more inviting?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'CurvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.5,
+            height = 0.1
+          ),
+          edit_description = "Refine the curve's amplitude and phase for a subtler and more appealing configuration."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'CurvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, -1.5, 0.0),
+            close_curve_leftmost_point = (0.5, -1.0, 0.0),
+            amplitude = 0.25,
+            wavelength = 2.5,
+            phase = 0.6,
+            height = 0.1
+          ),
+          edit_description = "Broaden the curve's reach by adjusting far points and enhancing curvature."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'CurvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.6, -0.4, 0.0),
+            amplitude = 0.18,
+            wavelength = 1.8,
+            phase = 0.45,
+            height = 0.1
+          ),
+          edit_description = "Tweak the close curve's position and marginally alter amplitude and wavelength."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'CurvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, -1.0, 0.0),
+            close_curve_leftmost_point = (0.4, -0.4, 0.0),
+            amplitude = 0.15,
+            wavelength = 2.2,
+            phase = 0.4,
+            height = 0.1
+          ),
+          edit_description = 'Change the path length and phase for a balanced visual flow.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'CurvyPath_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, -1.0, 0.0),
+            close_curve_leftmost_point = (0.5, -0.5, 0.0),
+            amplitude = 0.22,
+            wavelength = 2.1,
+            phase = 0.55,
+            height = 0.1
+          ),
+          edit_description = "Slightly adjust existing curve properties to maintain harmony with the garden's aesthetics."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer 'A' directly translates the requirement to refine the path's attributes for a gentler and inviting curve, aligning with the design goal.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The difficulty lies in the fine-tuning of geometrical properties to balance visual aesthetics while ensuring structural integrity as specified.'
+    )
+  ]
+)

@@ -48,7 +48,7 @@ Scene(
         ),
         edit_description = 'Reduce the size of the circle to better match the prompt',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The prompt specifies a circular structure around both objects, so reducing the radius is a straightforward deduction.'
+        explanation_of_difficulty = 'The prompt specifies a circular structure around both objects, so reducing the radius is a straightforward deduction.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'circle1',
@@ -60,7 +60,7 @@ Scene(
         ),
         edit_description = 'Widen the entrance gaps to 30 degrees for better access',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Widening the entrance gaps is evident from the need for better access, as emphasized in the prompt.'
+        explanation_of_difficulty = 'Widening the entrance gaps is evident from the need for better access, as emphasized in the prompt.'
       )
     ]
   )

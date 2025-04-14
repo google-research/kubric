@@ -1,0 +1,75 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'If the linear stretch is too rigid, how do we snake through the clearing gracefully?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Change the design profile from linear to Serpentine to introduce a more natural flow.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt specifies the need for a winding, serpentine path instead of the linear one.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-0.5, 0.0, 0.0),
+            close_curve_leftmost_point = (-0.3, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 1.2,
+            phase = 0.1,
+            height = 0.4
+          ),
+          edit_description = 'Transform the design from linear to a curvy path with two distinct curves.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Requires understanding multiple curves which is not directly suggested by the prompt.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 9.0,
+            height = 0.4
+          ),
+          edit_description = 'Convert to a radial design using a quarter-circle wedge with a narrow gap.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'The concept of a quarter-circle wedge with this specific gap is quite abstract and may not align with the scene needs.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the design to a semi-circular arrangement for pathway enhancement.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Transformation into a semi-circle deviates from the defined serpentine flow which could confuse the evaluator.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'linear_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            gap_degrees = 13.0,
+            height = 0.4
+          ),
+          edit_description = 'Switch from linear to a sharp-edged triangular wedge shape for artistic allure.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A triangular wedge is not described in the prompt, making it a poor match for the desired serpentine path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A correctly describes changing the linear path to a serpentine form fitting the prompt's description.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt makes it clear that a winding, serpentine path is needed instead of a linear one.'
+    )
+  ]
+)

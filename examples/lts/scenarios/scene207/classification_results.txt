@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by requiring the construction of a serpentine barrier between two physical objects (the tree and the birdhouse) to enhance aesthetics without obstructing the view. This requires understanding spatial relationships and arrangement.'
+      explanation = 'The prompt involves constructing a serpentine barrier between specific objects (tree and birdhouse), requiring understanding of their spatial relationships to enhance aesthetics without blocking the view.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

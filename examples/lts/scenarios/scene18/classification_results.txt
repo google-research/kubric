@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves spatial reasoning to arrange two semicircular structures in an overlapping manner to provide shade. It requires understanding geometric properties such as radius, height, and orientation to achieve the design goal.'
+      explanation = 'The prompt requires spatial reasoning to determine the placement and orientation of the semicircular structures in relation to the seating area for effective shading from the east and west.'
     ),
-    1 : Semantic(
-      explanation = "The scene involves resolving ambiguities and understanding the function of the semicircular structures to create shade effectively. This requires interpreting the meaning of objects' placement and dimensions."
+    1 : Numeric(
+      explanation = 'The prompt involves understanding geometric properties such as radius and height, which are numerical elements critical to achieving the design objective.'
     )
   ],
   confidence = 4

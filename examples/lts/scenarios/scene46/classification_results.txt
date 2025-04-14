@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a swirling pattern which requires spatial reasoning to arrange objects in a particular way to generate a visual effect. Additionally, ensuring access to the bench comfortably involves spatial considerations of object placement.'
+      explanation = 'The prompt involves creating a swirling effect around a central object while also ensuring accessibility to the bench. This requires spatial reasoning regarding the layout and positioning of objects.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt includes vague aspects such as 'motion vibes' and a 'swirl,' which rely on semantic understanding of the scene's function and intended atmosphere."
     )
   ],
   confidence = 4

@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging tables and chairs in a specific geometric relationship and ensuring that there is space for accessibility. This involves spatial reasoning to position objects in a way that embraces the scene.'
+      explanation = 'The scene involves spatial reasoning important for the arrangement of tables and chairs to ensure accessibility and to create an embracing structure around them. The positioning of the objects and the geometric structure requires understanding of spatial relations and how the elements are positioned relative to one another.'
     ),
     1 : Numeric(
-      explanation = 'The task requires understanding geometric properties such as center, radius, and angular gap, which are numerical elements necessary to achieve the design goal.'
+      explanation = 'The description involves geometric properties such as center, radius, and angular gap, indicating that precise numerical values are necessary to construct the required structure and maintain balance.'
     )
   ],
   confidence = 4

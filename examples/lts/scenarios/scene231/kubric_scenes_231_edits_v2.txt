@@ -1,0 +1,211 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could we curve it outward to hug the stone more closely and align with the seating spots?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = "Adjust the orientation from 'concave' to 'convex' to better enclose the rock and engage with the benches.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Changing orientation from concave to convex based on the scene's requirement for better enclosure."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = "Leave the orientation as 'concave' for an open arrangement.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No change required; existing orientation allows for open interaction.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = "Change orientation to 'convex' and increase height for enhanced enclosure and separation.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Improving enclosure with orientation change and adding height for visibility.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase height while keeping orientation concave for better view and openness.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Height increase aids visibility but maintains open design.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Adjust both radius and orientation for optimal seating arrangement.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Altering radius and orientation for comprehensive redesign.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A reflects the required adjustment of changing orientation from concave to convex to better engage with the benches, aligning with the scene's goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Determining the need for orientation change is a straightforward deduction from the scene description.'
+    ),
+    1 : EditMCQA(
+      question = 'Could we pull the seating circle in a bit so folks are closer when they gather around?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to 0.75 meters to keep the benches within comfortable reach of the rock.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adjusting radius to improve seating proximity requires spatial reasoning based on object placement.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Retain the original radius for a spacious arrangement around the rock.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'No change in radius requires minimal reasoning as distance permits space.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to ensure benches are very close to the rock.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Such a drastic reduction impacts seating comfort and requires thorough analysis.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.9,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Slightly reduce the radius for a balanced proximity.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Finding an optimal radius involves some evaluation of the scene layout.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Increase the radius for a more open seating layout.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Increasing the radius is counterintuitive to achieving close seating.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies the design change needed for seating proximity by reducing the radius.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The decision requires spatial analysis to see how radius affects the spatial layout of the benches.'
+    ),
+    2 : EditMCQA(
+      question = 'Make it a bit taller, maybe? A little more height might make it stand out.',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the height for a more pronounced delineation around the sitting area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height increase is straightforward to enhance the visibility and structure separation.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.2
+          ),
+          edit_description = 'Maintain the existing height for an unobtrusive seating area.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Keeping current height requires no additional considerations.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height significantly for strong presence in the design.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Substantial height increase impacts design visibility significantly.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.15
+          ),
+          edit_description = 'Decrease the height slightly for a more grounded appearance.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Lowering height requires care to avoid losing visual impact.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SemiCircular_0',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Moderately increase the height for better delineation.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Moderate increase offers heightened separation and visibility.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly identifies that increasing height enhances visibility and separation effectively, meeting the scene’s requirements.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The task is straightforward as height adjustments are basic and visible changes that align well with the scene description.'
+    )
+  ]
+)

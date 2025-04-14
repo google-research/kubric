@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires designing a garden with partial enclosures around a seating area using abstract shapes, which involves spatial reasoning for arranging and positioning the abstract shapes correctly.'
+      explanation = 'The prompt specifies the use of partial enclosures around a seating area, which involves spatial reasoning regarding the relative positions and arrangement of the abstract shapes around the seating area.'
+    ),
+    1 : Semantic(
+      explanation = "The requirement to use abstract shapes to promote relaxation requires an understanding of the scene's function and the psychological impact of shapes, which calls for semantic interpretation."
     )
   ],
   confidence = 4

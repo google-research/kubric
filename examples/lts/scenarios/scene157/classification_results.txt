@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt and description focus on the arrangement and placement of circular structures around tables, ensuring clear pathways and maintaining spatial harmony. This requires spatial reasoning to achieve the specified layout.'
-    ),
-    1 : Numeric(
-      explanation = 'The design must consider distances and orientation relative to each table to maintain spatial harmony, which involves understanding and applying numerical relationships.'
+      explanation = 'The prompt involves spatial reasoning to integrate circular structures in a manner that promotes interaction and accessibility around tables, considering relative positions and ensuring sufficient space for pathways.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

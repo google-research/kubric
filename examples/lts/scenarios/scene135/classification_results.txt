@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves organizing the scene through linear structures that define spatial divisions. It emphasizes spatial reasoning to achieve a layout that protects and highlights the objects by considering spatial relationships, positions, and geometric properties such as position, length, and height.'
+      explanation = 'The prompt focuses on spatial reasoning by requesting a layout that involves organizing linear structures to protect and highlight specific objects, namely a birdhouse and a trashcan. The emphasis is on spatial relationships, such as position and separation, to ensure proper organization within the scene.'
     )
   ],
   confidence = 5

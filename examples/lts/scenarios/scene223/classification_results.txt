@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging benches in a circular configuration to create a harmonious seating area, which requires spatial reasoning to position objects correctly.'
+      explanation = 'The prompt involves arranging benches in a circular manner to create a harmonious seating circle. This requires understanding the spatial relationship and positioning of the benches to ensure they form a coherent circle, which is a spatial reasoning task.'
     )
   ],
   confidence = 4

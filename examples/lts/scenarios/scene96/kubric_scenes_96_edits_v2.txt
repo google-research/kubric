@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should we transform this straight piece near that left tree to offer a perfect nook?',
+      answers = {
+        a = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear',
+          NewDesignStructure = LShape(
+            left_center = (-1.2, 0.8, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.8,
+            right_center = (-1.2, 1.1, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Change design from Linear to LShape to accommodate seating around Tree 1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly requires a switch to LShapes for seating around trees.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to Circular around Tree 1.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to SemiCircular outward around Tree 1.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = QuarterWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 9.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to QuarterWedge around Tree 1 with gap out of range.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = TriWedge(
+            center = (-1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 8.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to TriWedge around Tree 1 with gap out of range.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = "The correct edit changes the design from Linear to LShape to specifically accommodate seating around Tree 1, which matches the scene's design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly requires a switch to LShapes for seating around trees.'
+    ),
+    1 : EditMCQA(
+      question = 'Use a curved nook for that right-side tree. What style fits best?',
+      answers = {
+        a = ModifyStructureEditWithDifficulty(
+          design_id = 'Linear',
+          NewDesignStructure = LShape(
+            left_center = (0.8, 0.8, 0.0),
+            left_length = 1.0,
+            left_width = 0.3,
+            right_width = 0.3,
+            right_length = 0.8,
+            right_center = (0.8, 1.1, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Change design from Linear to LShape to accommodate seating around Tree 2.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt explicitly requires a switch to LShapes for seating around trees.'
+        ),
+        b = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = Circular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to Circular around Tree 2.'
+        ),
+        c = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to SemiCircular outward around Tree 2.'
+        ),
+        d = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = QuarterWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to QuarterWedge around Tree 2 within valid range.'
+        ),
+        e = ModifyStructureEdit(
+          design_id = 'Linear',
+          NewDesignStructure = TriWedge(
+            center = (1.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 11.0,
+            height = 0.3
+          ),
+          edit_description = 'Change design from Linear to TriWedge around Tree 2 within valid range.'
+        )
+      },
+      correct_answer = 'a',
+      explanation_of_correctness = "The correct edit changes the design from Linear to LShape to specifically accommodate seating around Tree 2, which matches the scene's design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly requires a switch to LShapes for seating around trees.'
+    )
+  ]
+)

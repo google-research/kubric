@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires planning a path that meanders gracefully through the forest, which involves understanding spatial relationships and arranging the path in a curvy design around the trees.'
+      explanation = 'The prompt involves spatial reasoning as it requires the creation of a path that integrates naturally with the existing trees, taking into account the spatial relationships and geometric properties such as amplitude and wavelength.'
     )
   ],
   confidence = 4

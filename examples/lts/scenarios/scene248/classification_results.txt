@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging a path to connect the birdhouse, rock, and tree, which involves spatial reasoning as it deals with placement and the flow of the path between objects.'
-    ),
-    1 : Semantic(
-      explanation = "The prompt uses terms like 'graceful', 'dynamic', and 'harmonious', which require understanding beyond just physical arrangement and involve the aesthetic and functional interpretation of the scene."
+      explanation = "The prompt involves designing a path that connects specific objects (birdhouse, rock, tree) within the garden, which requires spatial reasoning to ensure the path weaves between these objects effectively and enhances the garden's aesthetic appeal."
     )
   ],
   confidence = 4

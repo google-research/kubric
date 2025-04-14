@@ -1,0 +1,65 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about shifting that center to hug the left bench a bit tighter?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = LShape(
+            left_center = (-0.75, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 0.7,
+            right_center = (0.275, 0.5, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Transform the rectangular design into an LShape to optimize the spatial arrangement with benches.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (-0.5, 0.0, 0.0),
+            length = 1.2,
+            width = 0.4,
+            height = 0.3
+          ),
+          edit_description = 'Modify the rectangular shape to increase width, maintaining a linear design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = TriWedge(
+            center = (-0.5, 0.5, 0.0),
+            radius = 0.4,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Convert the rectangular shape to a TriWedge for a sharp-edged design.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.5, 0.0),
+            radius = 0.6,
+            gap_degrees = 10.0,
+            height = 0.5
+          ),
+          edit_description = 'Change the rectangular shape to a QuarterWedge for a radial seating arrangement.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Circular(
+            center = (-0.5, 0.0, 0.0),
+            radius = 0.35,
+            height = 0.3
+          ),
+          edit_description = 'Redesign the rectangular structure to a Circular design for even spacing.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The rectangular design was transformed into an LShape as it directly fulfills the requirement for a welcoming L-shaped seating area around the benches.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "The transformation from a rectangle to an LShape directly addresses the prompt's requirement for an L-shaped area, making it a straightforward edit."
+    )
+  ]
+)

@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Could you tweak that linear piece 'linear_1' a bit to improve separation?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Adjust the length of the initial structure to better suit the space and increase height to redefine the area clearly.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (-1.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Make the structure stretch longer to cover more space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            height = 0.3,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Switch the direction to front-back for a distinct separation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Try elongating it a bit to test another configuration.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Bring in a varied length and height for potential balance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct design change involved adjusting 'linear_1' with the specified length and height to improve separation.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly suggests the change for better division.'
+    ),
+    1 : EditMCQA(
+      question = 'Can you introduce something to balance the setup around the table?',
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 2.0,
+                height = 0.5,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a counterpart on the opposite side with matching size and orientation to balance the look.',
+          target_parameter = 'structures'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (1.5, 0.0, 0.0),
+                length = 1.5,
+                height = 0.6,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Add a smaller segment to serve as a unique side feature.',
+          target_parameter = 'structures'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (0.5, 0.0, 0.0),
+                length = 3.0,
+                height = 0.4,
+                orientation = 'front-back'
+              )
+            }
+          ),
+          edit_description = 'Introduce a cross-orientation piece for varied spatial interaction.',
+          target_parameter = 'structures'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 2.5,
+                height = 0.5,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Attach a slightly extended piece for additional symmetry.',
+          target_parameter = 'structures'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              linear_2 = Linear(
+                center = (1.0, 0.0, 0.0),
+                length = 2.0,
+                height = 0.3,
+                orientation = 'left-right'
+              )
+            }
+          ),
+          edit_description = 'Go for a reduced vertical extension to impact visual flow minimally.',
+          target_parameter = 'structures'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The addition of 'linear_2' mirrors 'linear_1' for symmetry.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt hints but requires understanding of table symmetry needs.'
+    )
+  ]
+)

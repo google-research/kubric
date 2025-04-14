@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Shrink the radius to 2 meters',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Reducing the radius while considering spatial constraints requires moderate reasoning.'
+        explanation_of_difficulty = 'Reducing the radius while considering spatial constraints requires moderate reasoning.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'quarter_wedge_1',
@@ -78,7 +78,7 @@ Scene(
         ),
         edit_description = 'Widen the gaps to 12.5 degrees',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Adjusting the gap size is straightforward once the radius is set.'
+        explanation_of_difficulty = 'Adjusting the gap size is straightforward once the radius is set.'
       )
     ]
   )

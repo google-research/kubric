@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a linear path that forms a boundary around key elements, which requires spatial reasoning to ensure clear routes and no obstructions.'
+      explanation = 'The prompt requires the design of a path that forms a boundary and ensures clear, unobstructed routes to each key element. This involves spatial reasoning to accurately position paths relative to objects like the birdhouse and table.'
     )
   ],
   confidence = 4

@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = "The prompt requires arranging the seating area around the birdhouse in a specific 'TriWedge' design, which is a spatial arrangement task."
-    ),
-    1 : Numeric(
-      explanation = 'The description mentions understanding geometric properties like radius, gap, and height, which involves numerical reasoning.'
+    0 : Semantic(
+      explanation = "The prompt generally describes creating a welcoming seating area using a 'TriWedge' design without specific requirements. The exact understanding of terms like 'TriWedge' relates to the function and meaning of the arrangement around the birdhouse."
     )
   ],
   confidence = 4

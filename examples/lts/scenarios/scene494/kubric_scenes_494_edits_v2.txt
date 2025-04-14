@@ -1,0 +1,125 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can you tweak that structure in the center to give it a more harmonious arc, like a semi-circle, to fit the garden theme?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Replace the Rectangular structure with a SemiRing to enhance aesthetic appeal and functionality.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Increase the length of the Rectangular structure for better accommodation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            height = 0.3
+          ),
+          edit_description = 'Replace the Rectangular structure with a Circular structure for a different aesthetic.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Replace the Rectangular with a SemiCircular structure for visual interest.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'Rectangular_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 1.0,
+            height = 0.4,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Transform the Rectangular structure into a Linear form for streamlined design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt explicitly mentions replacing the rectangular structure with a SemiRing.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt explicitly mentions replacing the rectangular structure with a SemiRing.'
+    ),
+    1 : EditMCQA(
+      question = 'Could you elevate that arc slightly to make the boundary more defined?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.25),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height of the SemiRing to 0.5 meters to create a more defined boundary without overwhelming the bound objects.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust the height slightly to change spatial dynamics.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.75,
+            inner_radius = 1.25,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Modify the dimensions to enlarge the SemiRing structure.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 1.5,
+            inner_radius = 1.0,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the orientation of the SemiRing structure to convex while adjusting height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiRing_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            height = 0.5
+          ),
+          edit_description = 'Replace the SemiRing with a Circular design retaining the height.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit involves increasing the height of the SemiRing for boundary definition.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The prompt suggests height adjustment but leaves the exact parameter to interpret.'
+    )
+  ]
+)

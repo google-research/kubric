@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires spatial reasoning to design an L-shaped seating arrangement around the birdhouse, ensuring there is enough space for easy access to the chairs.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt involves understanding the purpose of the seating space, which is to encourage gatherings and enhance the garden's ambiance."
+    )
+  ],
+  confidence = 4
+)

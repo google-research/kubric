@@ -1,8 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The task involves arranging and structuring the objects (birdhouse, table, and seating area) in a specific geometric formation (L-shape) and ensuring accessibility, which requires spatial reasoning and understanding of the layout.'
+      explanation = 'The prompt requires designing an L-shaped structure around given objects, considering their spatial arrangement and ensuring accessibility from the open side.'
+    ),
+    1 : Semantic(
+      explanation = 'The task involves understanding the purpose and function of the scene, such as creating a comfortable seating area and maintaining aesthetic appeal.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

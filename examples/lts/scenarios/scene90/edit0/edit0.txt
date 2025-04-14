@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = "Shift the serpentine's left arc center to (0.5, 0.5, 0) for a tighter path.",
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Position adjustments are straightforward as the spatial aspect is clear.'
+        explanation_of_difficulty = 'Position adjustments are straightforward as the spatial aspect is clear.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_2',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Reduce the radius to 1.0 for a more compact winding.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Redefining the curve while maintaining path liveliness calls for some analytical thought.'
+        explanation_of_difficulty = 'Redefining the curve while maintaining path liveliness calls for some analytical thought.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'serpentine_3',
@@ -78,7 +78,7 @@ Scene(
         ),
         edit_description = 'Decrease the height to 0.05 to ensure the pathway subtly blends with the landscape.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Simple adjustment of height for better blending with the environment.'
+        explanation_of_difficulty = 'Simple adjustment of height for better blending with the environment.'
       )
     ]
   )

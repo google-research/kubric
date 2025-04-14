@@ -1,11 +1,11 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene prompt involves constructing a quarter-wedge border around the birdhouse to create a defined area without blocking access, which requires spatial reasoning to arrange structures around an object.'
+      explanation = 'The prompt involves constructing a quarter-wedge border around the birdhouse, focusing on spatial arrangement and creating a defined area without blocking access, which requires spatial reasoning involving the scene context.'
     ),
     1 : Numeric(
-      explanation = 'The scene description focuses on achieving spatial symmetry, which implies a need for numeric precision and exact quantities in the design.'
+      explanation = "The prompt mentions 'quarter-wedge' which could imply a specific angle or proportion, involving numeric reasoning regarding the exact shape and distances to maintain accessibility."
     )
   ],
-  confidence = 4
+  confidence = 3
 )

@@ -45,7 +45,7 @@ Scene(
         ),
         edit_description = 'Change the structure to a semi-ring',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The prompt specifies a half-moon layout which suggests a semi-ring, but it requires some interpretation.'
+        explanation_of_difficulty = 'The prompt specifies a half-moon layout which suggests a semi-ring, but it requires some interpretation.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'semiring_1',
@@ -58,7 +58,7 @@ Scene(
         ),
         edit_description = 'Adjust the inner and outer radii to ensure a crescent shape',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Crescent shape implies a difference between inner and outer radii, which is straightforward from the initial specifications.'
+        explanation_of_difficulty = 'Crescent shape implies a difference between inner and outer radii, which is straightforward from the initial specifications.'
       ),
       2 : ModifyStructureEditWithDifficulty(
         design_id = 'semiring_1',
@@ -71,7 +71,7 @@ Scene(
         ),
         edit_description = 'Increase the height to add more prominence to the feature',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Increasing the height serves the goal of adding prominence, which is straightforward given the design goal.'
+        explanation_of_difficulty = 'Increasing the height serves the goal of adding prominence, which is straightforward given the design goal.'
       )
     ]
   )

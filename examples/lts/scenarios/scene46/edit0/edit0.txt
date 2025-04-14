@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the path profile to a serpentine to introduce a curve.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Understanding how a serpentine enhances motion vibes requires geometric comprehension.'
+        explanation_of_difficulty = 'Understanding how a serpentine enhances motion vibes requires geometric comprehension.'
       )
     ]
   )

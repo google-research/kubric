@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The scene involves arranging circular structures around the birdhouse with a focus on spatial relationships such as spacing, orientation, and geometric properties.'
-    ),
-    1 : Semantic(
-      explanation = 'The scene also requires an understanding of the visual dynamics and aesthetic balance, which are semantically rich and potentially abstract.'
+      explanation = 'The prompt involves creating a rotating circular pattern around the birdhouse, which requires understanding of spatial relationships, such as relative positions and orientations of the geometric patterns.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

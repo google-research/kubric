@@ -1,0 +1,62 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you place a barrier that runs straight and sits midway between the tables, please?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.75, 0.0),
+            length = 2.0,
+            height = 0.4,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Change the design profile to Linear, positioning it halfway between the tables.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 1.0, 0.0),
+            length = 2.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Attempt to use a slightly adjusted Rectangular design instead of a Linear design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.75, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Introduce a Serpentine design that is convex in orientation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Use a Circular design as a barrier, centering it between the tables.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'design_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.4
+          ),
+          edit_description = 'Use a TriWedge design with a suitable gap and positioning between tables.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct modification follows the prompt's requirement to use a Linear design for dividing the tables without obstructing pathways or views, aligning directly with the design goal.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Directly follows from prompt requirement to separate tables with a linear barrier without obstructing views or paths.'
+    )
+  ]
+)

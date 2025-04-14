@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "I'm trying to get the planter in a spot that naturally divides up the space; where should I scoot it?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.5, 1.5, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Shift the rectangular planter so its center is at (1.5, 1.5, 0.0) to define areas more clearly.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.2, 1.2, 0.0),
+            length = 1.8,
+            width = 0.4,
+            height = 0.3
+          ),
+          edit_description = 'Reposition the rectangular planter to (1.2, 1.2, 0.0) to enhance spatial flow.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the rectangular planter to the heart of the space at (1.0, 1.0, 0.0) for better zone demarcation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.8, 0.8, 0.0),
+            length = 2.0,
+            width = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Place the rectangular planter at (0.8, 0.8, 0.0) to maintain section balance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.3, 1.3, 0.0),
+            length = 1.4,
+            width = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Set the rectangular planter to (1.3, 1.3, 0.0) to enhance spatial interaction.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Answer C places the rectangular planter at the desired new center (1.0, 1.0, 0.0) with adjusted dimensions as per the design goal.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the optimal position for the planter is challenging since it requires interpreting relationships between spatial zones in the scene.'
+    ),
+    1 : EditMCQA(
+      question = 'To help the planter stand out more without overwhelming, how would you raise it?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.5
+          ),
+          edit_description = 'Raise the planter height to 0.5 for added visibility.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.4
+          ),
+          edit_description = 'Increase the planter height to 0.4 for better visibility and ease.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the planter height to 0.3 for convenience.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Maintain the planter height at 0.2.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (1.0, 1.0, 0.0),
+            length = 1.5,
+            width = 0.5,
+            height = 0.45
+          ),
+          edit_description = 'Boost the planter height to 0.45 for improved standing comfort.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Answer B adjusts the planter height to 0.4, which coincides with the design goal aimed at enhancing interaction for standing individuals.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Adjusting the planter height is a straightforward modification to enhance its visibility and convenience.'
+    )
+  ]
+)

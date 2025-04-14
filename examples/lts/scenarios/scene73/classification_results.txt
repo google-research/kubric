@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = "The prompt requires creating a 'continuous workspace' which involves spatial reasoning to arrange the tables in a manner that allows 'easy flow of activities'. This requires understanding how to spatially align the tables and potentially other elements in the workspace."
-    ),
-    1 : Semantic(
-      explanation = "The scene also involves resolving ambiguities, such as determining the proper alignment and dimensions of the structure between the tables. This implies a need for semantic understanding of what constitutes a 'continuous workspace' and 'easy flow of activities'."
+      explanation = 'The prompt requests the construction of a continuous workspace between tables, which involves spatial reasoning to ensure easy flow of activities. This requires understanding the relative positions and arrangement of the tables.'
     )
   ],
   confidence = 4

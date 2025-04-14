@@ -78,7 +78,7 @@ Scene(
         ),
         edit_description = 'Change the design profile to linear',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Interpreting the change from a flat rectangular shape to a linear design requires an understanding of spatial geometry and how such a change aligns with the existing structures in the scene.'
+        explanation_of_difficulty = 'Interpreting the change from a flat rectangular shape to a linear design requires an understanding of spatial geometry and how such a change aligns with the existing structures in the scene.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'linear_1',
@@ -90,7 +90,7 @@ Scene(
         ),
         edit_description = 'Make it taller and longer',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Determining how much taller and longer to make the structure involves measurement interpretation and understanding of spatial relations with nearby objects such as the trees.'
+        explanation_of_difficulty = 'Determining how much taller and longer to make the structure involves measurement interpretation and understanding of spatial relations with nearby objects such as the trees.'
       )
     ]
   )

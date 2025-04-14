@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The design of a barrier that sways like a river involves spatial reasoning, as it requires careful consideration of positioning and orientation around the objects to protect them against wind. The requirement to interpret geometric properties like radius and height further emphasizes the spatial aspect.'
+      explanation = 'The prompt involves designing a barrier that curves around items, which requires understanding spatial relationships such as positioning and orientation. It involves spatial reasoning to determine how the barrier should be positioned relative to the items to effectively shield against the wind.'
     )
   ],
   confidence = 5

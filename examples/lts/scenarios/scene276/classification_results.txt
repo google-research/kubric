@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt involves understanding the formal aesthetic arrangement of trees, which falls under understanding the meaning and function of the objects in the scene. The request to give the trees a 'formal arrangement' is vague and requires semantic reasoning."
+    ),
+    1 : Spatial(
+      explanation = "The prompt requests creating a 'rectangular seating area' that 'compliments the trees'. This requires spatial reasoning to assess relative positions and layout, as the seating area needs to align aesthetically and spatially with the trees."
+    )
+  ],
+  confidence = 4
+)

@@ -1,10 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt explicitly requires creating a circular boundary that does not obstruct access to the bench and table. This involves spatial reasoning to arrange the garden elements and define spatial limits without hindering usability.'
+      explanation = "The prompt requires spatial reasoning to create a circular boundary that doesn't block access to the bench and table. This involves understanding the relative positions of objects and geometric properties like the center and radius."
     ),
     1 : Numeric(
-      explanation = 'The scene description involves interpreting geometric properties like radius, which are numerical aspects required to determine the circular boundary.'
+      explanation = 'The task involves interpreting numeric properties such as radius, which relates to creating a circular design, and potentially distances to ensure access is not blocked.'
     )
   ],
   confidence = 4

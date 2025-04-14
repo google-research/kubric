@@ -1,0 +1,112 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you shift the middle area towards the spot where everyone can gather round?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the circular structure to the center at (0, 0) to create a gathering space.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (1.0, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Keep the circular structure at (1, 1).'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the circular structure to (-1, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.5, 0.5, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the circular structure to (0.5, 0.5).'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, -1.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Move the circular structure to (0, -1).'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit centers the circular structure at (0, 0), as explicitly described in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The edit is straightforward; the prompt explicitly states to center the structure.'
+    ),
+    1 : EditMCQA(
+      question = 'Could you make the circle feature stand out more?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.75,
+            height = 0.4
+          ),
+          edit_description = 'Increase the radius to 0.75 and height to 0.4 to enhance the central feature.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.6,
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 0.6 and height to 0.3.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            height = 0.35
+          ),
+          edit_description = 'Increase the radius to 0.7 and height to 0.35.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.65,
+            height = 0.25
+          ),
+          edit_description = 'Increase the radius to 0.65 and height to 0.25.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'circular_structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            height = 0.45
+          ),
+          edit_description = 'Increase the radius to 0.8 and height to 0.45.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct answer matches the design goal with a radius of 0.75 and a height of 0.4.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt implies enhancing the gathering feature, specifics on the dimensions are not directly given, requiring interpretation.'
+    )
+  ]
+)

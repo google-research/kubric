@@ -1,0 +1,142 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you bring the triangle closer to wrap it more snugly around the group of birdhouses and the table?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 90.0,
+            height = 0.2
+          ),
+          edit_description = "Expand the triangle's radius for a looser fit around the birdhouses and table.",
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Expanding the radius contradicts the desired snug fit.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Adjust the radius for a moderate fit around the objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Moderate radius adjustment does not accomplish the snug fit goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Reduce the radius to provide a snug fit around the scene elements.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Reducing the radius fulfills the snug fit goal as derived from the prompt.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 95.0,
+            height = 0.2
+          ),
+          edit_description = 'Decrease the radius further for an excessively tight fit around the structures.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Excessive tightening under-utilizes space and deviates from the design intention.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 110.0,
+            height = 0.2
+          ),
+          edit_description = 'Widen the gap slightly to increase spatial access around the objects.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Changing the gap does not directly address the snug fit requirement.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C accurately aligns with the snug fit requirement laid out in the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The desired radius adjustment for a snug fit is explicitly stated, simplifying deduction.'
+    ),
+    1 : EditMCQA(
+      question = 'How about raising the triangle to stand more prominently beside the table and birdhouses?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 90.0,
+            height = 0.25
+          ),
+          edit_description = 'Set the height for a moderate increase in visual presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The impact of a moderate height change on visual presence is subjective.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Greatly increase the height for a significant visual impact.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'While visually impactful, such a height change alters functional dynamics.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the height moderately to enhance visual presence fitting within the goal.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The appropriate height for desired visual impact is subjective and needs aesthetic consideration.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.15
+          ),
+          edit_description = 'Lower the height for a less intrusive appearance, counteracting visual presence.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Lowering the height does not align with enhancing visual presence.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 95.0,
+            height = 0.1
+          ),
+          edit_description = 'Minimize the height to emphasize openness instead.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Prioritizing openness by reducing height withdraws attention from visual presence.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C aligns the height modification with the goal of improving visual presence in context.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Choosing the right height for aesthetic and visual impact requires subjective judgment.'
+    )
+  ]
+)

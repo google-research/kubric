@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Should we expand that curve slightly larger to give more room?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius slightly for more room.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Expand slightly larger to open up the space.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.1,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'A small increase could work to enhance the space.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Alter layout to be a bit more spacious and turn inward.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Expand outward while adjusting height upwards.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A enlarges the radius precisely to the intended dimension, maintaining the desired structure.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The instruction about expansion is rather direct about radius adjustment.'
+    ),
+    1 : EditMCQA(
+      question = 'Maybe turn the opening around to face the elements?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Ensure the size accommodates better flow.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reorient to concave for better alignment.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift towards an expanded, open formation.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Reorient and subtly increase height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Resize without realignment.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B accurately rotates the design to become concave, fulfilling the prompt objective.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Implied by the need to create open visual flow, despite lack of explicit direction.'
+    ),
+    2 : EditMCQA(
+      question = 'How about lifting it just a tad for more visibility?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjusts space with enhanced radius.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Enhances openness with reorientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Heightens presence for visual importance.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Makes extensive adjustments upward.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'SemiCircular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Turns direction and raises height significantly.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = "Option C enhances the structure's height, thus increasing its prominence.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Height adjustment contributes visually but requires deeper spatial understanding.'
+    )
+  ]
+)

@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning, as it focuses on the arrangement and structure of the garden alcove to accentuate the trees and invites visitor movement. The design is spatial due to its emphasis on positioning and alignment.'
+    )
+  ],
+  confidence = 4
+)

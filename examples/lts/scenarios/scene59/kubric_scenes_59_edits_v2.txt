@@ -1,0 +1,187 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How about shrinking the wedge a bit toward the middle?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Reduce the radius to 1.5 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The radius change directly correlates with the design goal.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Use original radius of 2.0 meters.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 1.8 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.6,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 1.6 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.2,
+            gap_degrees = 15.0,
+            height = 0.3
+          ),
+          edit_description = 'Change radius to 2.2 meters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A represents the correct change in radius to 1.5 meters as per the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The radius change directly correlates with the design goal.'
+    ),
+    1 : EditMCQA(
+      question = "Let's widen the angle a bit more to allow better passage?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 45.0,
+            height = 0.3
+          ),
+          edit_description = 'Change gap degrees to 45 degrees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 35.0,
+            height = 0.3
+          ),
+          edit_description = 'Change gap degrees to 35 degrees.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.3
+          ),
+          edit_description = 'Increase the gap degrees to 40 degrees.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "While it's straightforward, interpreting the gap degrees from prompt context can be challenging."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 50.0,
+            height = 0.3
+          ),
+          edit_description = 'Change gap degrees to 50 degrees.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Change gap degrees to 10 degrees.'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'Option C correctly represents the increase of gap degrees to 40 degrees.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "While it's straightforward, interpreting the gap degrees from prompt context can be challenging."
+    ),
+    2 : EditMCQA(
+      question = 'What if we make the structure a bit taller?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.6
+          ),
+          edit_description = 'Increase height to 0.6 meters.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Height increase is explicitly mentioned in the design goal.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.4
+          ),
+          edit_description = 'Increase height to 0.4 meters.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.35
+          ),
+          edit_description = 'Increase height to 0.35 meters.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'TriWedge_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 40.0,
+            height = 0.45
+          ),
+          edit_description = 'Increase height to 0.45 meters.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B indicates the correct increase in height to 0.5 meters as stated in the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Height increase is explicitly mentioned in the design goal.'
+    )
+  ]
+)

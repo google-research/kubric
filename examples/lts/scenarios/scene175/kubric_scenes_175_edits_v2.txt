@@ -1,0 +1,181 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Shouldn't we turn the half-circle towards the benches to get that snug enclosure feeling?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = "Change the orientation to 'concave' to face inward towards the benches, creating a sense of enclosure."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.2, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Slightly shift the center to move the structure to one side.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-0.1, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Adjust the center to move the structure a bit off from its original position.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.4
+          ),
+          edit_description = 'Increase the height for a more prominent presence.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = "Change the orientation to 'concave' and slightly increase the height."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct answer modifies the orientation to 'concave', aligning with the goal of facing the benches for a sense of enclosure.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the orientation change requires spatial interpretation and understanding of enclosure.'
+    ),
+    1 : EditMCQA(
+      question = 'Do we pull the curve further outwards to make space for a cozier seating?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.5 meters to provide more space around the seating area.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.1, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Shift the center to subtly alter the structure’s position.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Expand the radius slightly to add some room.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.3,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Increase the radius to 1.3 meters for moderate additional space.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change both the radius and orientation for more space and openness.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The increase in radius to 1.5 meters effectively provides more space, aligning perfectly with the given design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the radius is relatively straightforward to deduce as it directly relates to providing space.'
+    ),
+    2 : EditMCQA(
+      question = 'Maybe we should raise the barrier a bit without losing that airy vibe, don’t you think?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Increase the height to 0.5 meters to enhance privacy while maintaining openness.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, -0.1, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Adjust both the center and height for a slight reposition and taller structure.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.6
+          ),
+          edit_description = 'Further increase the height for more privacy than openness.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Opt for a different orientation while maintaining the current height.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.4
+          ),
+          edit_description = 'Slightly increase the height for moderate privacy enhancement.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Increasing the height to 0.5 meters enhances privacy as described in the design goal, achieving a balance between privacy and openness.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Increasing the height for privacy is intuitive given the goal of balancing privacy and openness.'
+    )
+  ]
+)

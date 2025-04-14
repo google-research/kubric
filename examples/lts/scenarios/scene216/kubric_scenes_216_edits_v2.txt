@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Isn't it better to move the center so the arc hugs both sides of the trees equally?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the center of the semi-circular structure to (0, 1, 0) aligning it with the cluster of trees.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (-1.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Change the center of the structure to (-1, 1, 0) aligning it with one specific tree.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (1.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Reorient the structure to concave and center it to (1, 1, 0).'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 2.0, 0.0),
+            radius = 1.5,
+            orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Change the center to (0, 2, 0) with a radius of 1.5 for extended coverage.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Center the structure at origin with a concave orientation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The edit specified in 'A' aligns the semi-circular structure's center at (0, 1, 0), which aligns it directly with the average position of the targeted tree cluster, as indicated in the edit.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies the need to align the structure with the trees, making it straightforward to deduce.'
+    ),
+    1 : EditMCQA(
+      question = 'What adjustment provides a more soothing and encompassing seating arrangement?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Adjust the radius to 1.5 meters and height to 0.5 meters for a better enclosure of trees and practical seating.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Retain the initial size and orientation with improved material for durability.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change orientation to concave while keeping the same dimensions.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 9.5,
+            height = 0.5
+          ),
+          edit_description = 'Transform to a QuarterWedge with radius 1.5 and improper gap for tree enclosure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semi_circular_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 11.0,
+            height = 0.5
+          ),
+          edit_description = 'Switch to a TriWedge with sharp angular shape to optimize tree enclosure.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The modification in 'A' expands the radius from 1.0 to 1.5 meters and changes the height to 0.5 meters, which improves the structural capability to enclose the trees and provide useful seating, aligning with the goal.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'While the prompt suggests a peaceful retreat with ample space, specifics on dimension require analysis of space and function.'
+    )
+  ]
+)

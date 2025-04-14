@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests a semi-circular embrace around the trees, which involves spatial reasoning to position the structure correctly in relation to the trees.'
+    ),
+    1 : Semantic(
+      explanation = 'The prompt involves understanding the purpose and meaning of the scene, which is to highlight the beauty of the trees and allow for contemplation and interaction.'
+    )
+  ],
+  confidence = 4
+)

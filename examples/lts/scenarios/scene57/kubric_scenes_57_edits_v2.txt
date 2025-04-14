@@ -1,0 +1,134 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Why not extend the arm reaching for the table?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Transform the design from Rectangular to LShape.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The transformation requires comprehensive understanding of the structure changes.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Rectangular(
+            center = (0.5, 0.5, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.3
+          ),
+          edit_description = 'Shrink the Rectangular to a more compact size.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 14.0,
+            height = 0.3
+          ),
+          edit_description = 'Redesign it as a TriWedge with specific angles.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Pivot to a QuarterWedge form using its angle.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_structure',
+          NewDesignStructure = Circular(
+            center = (0.0, 1.0, 0.0),
+            radius = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Opt for a Circular layout over Rectangular.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The task is to transition from Rectangular towards an LShape.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'It involves a holistic change in understanding the new L-shaped layout.'
+    ),
+    1 : EditMCQA(
+      question = 'Are we going up with the height for a cozy dwell?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'l_shape_structure',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = "Bring down the LShape's stature to emphasize simplicity."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'l_shape_structure',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 1.0, 0.0),
+            left_length = 1.5,
+            left_width = 0.5,
+            right_width = 1.5,
+            right_length = 0.5,
+            right_center = (1.0, 0.0, 0.0),
+            height = 0.5
+          ),
+          edit_description = 'Boost the height of the LShape for added solace.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Simplistic height adjustment without altering its footprint.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'l_shape_structure',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 1.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'convex',
+            height = 0.5
+          ),
+          edit_description = 'Convert the LShape into a Serpentine arc.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'l_shape_structure',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.5, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Rework the LShape into an inward-seated SemiCircular.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'l_shape_structure',
+          NewDesignStructure = Linear(
+            center = (0.0, 1.0, 0.0),
+            length = 3.0,
+            height = 0.5,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Shift from LShape to an extended Linear form.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The needed adjustment is a straightforward hike in the LShape’s height.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This alteration is predominantly a numerical escalation focusing solely on its height.'
+    )
+  ]
+)

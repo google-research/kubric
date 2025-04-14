@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires the creation of a serpentine separation, which involves spatial reasoning to arrange the separation in relation to the trees and benches.'
+      explanation = 'The scene involves spatial reasoning, requiring the understanding of spatial relationships, such as the positioning of a serpentine separation around trees and benches. This includes geometric properties and alignment with the layout.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

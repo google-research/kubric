@@ -1,0 +1,253 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we make the straight path twist a bit around the seats?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.0, 0.0, 0.0),
+            amplitude = 0.0,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from linear to curvy'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Adjust the linear path to run front-back instead of left-right'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 1.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Change the design from linear to serpentine'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.25,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the design from linear to circular path'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'linear_path_1',
+          NewDesignStructure = LShape(
+            left_center = (-1.0, 0.0, 0.0),
+            left_length = 2.5,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, -0.5, 0.0),
+            height = 0.1
+          ),
+          edit_description = 'Transform the linear path to an L-shaped design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit changes the design profile from a linear path to a curvy path as specified.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "Changing profile types requires understanding sinusoids' geometrical representation."
+    ),
+    1 : EditMCQA(
+      question = 'How about we reposition the start points of the wavy track?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.0,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the far curve leftmost point to (-1.5, 0, 0) and close curve leftmost point to (0.5, 0, 0)'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, 0.0, 0.0),
+            close_curve_leftmost_point = (1.0, 0.0, 0.0),
+            amplitude = 0.0,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Correct the curve points to new positions further apart'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Replace the curvy path with a serpentine design'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the curvy path to a quarter-wedge structure'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Switch the curvy path with a circular design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This answer correctly describes the position changes of the curve points as per the edit description.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Positions are straightforward adjustments to specified points.'
+    ),
+    2 : EditMCQA(
+      question = 'Could the waves rise a little more dramatically this time?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.5,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Modify the amplitude to 0.4 for a more pronounced curve'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increase both amplitude and wavelength to adjust the path curve'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Shift to a serpentine structure with specific arc adjustments'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 0.4,
+            height = 0.1
+          ),
+          edit_description = 'Convert curvy path to a basic rectangular design'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.4,
+            height = 0.1
+          ),
+          edit_description = 'Replace curvy path with a smaller circular design'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct modification involves adjusting the amplitude to 0.4, as stated in the edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Amplitude changes are simple magnitude adjustments to the sinusoidal wave.'
+    ),
+    3 : EditMCQA(
+      question = 'Could the path have shorter loops that start at a slant?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.7853975,
+            height = 0.1
+          ),
+          edit_description = 'Set the wavelength to 2.0 and the phase to π/4 to ensure the path weaves harmoniously through the scene.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.0, 0.0),
+            close_curve_leftmost_point = (0.5, 0.0, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.5,
+            phase = 1.5708,
+            height = 0.1
+          ),
+          edit_description = 'Adjust to a longer wavelength and phase of π/2'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.5, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Adapt the path to a convex serpentine with changes in arc radius'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.8,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Replace curvy path with a TriWedge structure with structured gap.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'curvy_path_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Adopt a circular design instead of the curvy path.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The wavelength and phase were changed to 2.0 and π/4 respectively in the correct answer.',
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Requires understanding of how wavelength and phase affect sinusoidal path weaving.'
+    )
+  ]
+)

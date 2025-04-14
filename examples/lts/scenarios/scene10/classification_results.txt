@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves creating a structure to house two objects in an L-shaped pattern, which involves spatial reasoning to arrange the objects in a certain configuration.'
+      explanation = 'The prompt involves constructing a single structure to house objects in the scene, which requires spatial reasoning to determine how to create and position the L-shaped pattern effectively around the objects.'
     )
   ],
-  confidence = 3
+  confidence = 4
 )

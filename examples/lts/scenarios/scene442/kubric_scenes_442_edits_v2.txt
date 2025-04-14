@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Can you bring the benches closer together by reducing the rectangular centerpiece's length?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Shorten Length: Adjust the length to fit snugly between the benches without extending.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Keep Length: Retain the longer length, maintaining a prominent centerpiece.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Trim Length: Reduce more to allow spacious pathways on either side.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 0.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = "Drastically Shorten: Limit the structure's span dramatically, barely meeting one bench."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 4.0,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Extend Length: Maximize the length to fully occupy and emphasize the central area.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The modification decreases the length to accommodate the benches, as outlined in the prompt.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The change in length was directly specified to achieve balance with the benches.'
+    ),
+    1 : EditMCQA(
+      question = 'Raise up the garden feature a bit for a more pronounced look, would you?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.3
+          ),
+          edit_description = 'Maintain Height: Stick with the original height, keeping it subtly positioned.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase Height: Boost the height for greater prominence and visibility in the garden setting.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.8
+          ),
+          edit_description = 'Make It Tower: Elevate even further, potentially overshadowing surrounding elements.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Lower Significantly: Drop down to create a very low-profile feature.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            width = 1.0,
+            height = 0.4
+          ),
+          edit_description = 'Slight Height Increase: Adjust slightly to gain enhanced visibility without being too imposing.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Increasing the height to 0.5 meters aligns with the goal of enhancing visual and aesthetic presence.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The height enhancement was clearly defined for aesthetic improvement.'
+    )
+  ]
+)

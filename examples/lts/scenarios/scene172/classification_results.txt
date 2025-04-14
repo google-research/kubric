@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires interpreting spatial relationships, arranging objects in specific patterns, and ensuring the design fits within spatial constraints.'
+      explanation = 'The scene prompt involves creating a vivid garden space using a specific shape to enhance aesthetics. The emphasis is on the spatial arrangement of the TriWedge structure among seating arrangements without causing spatial conflicts, which requires spatial reasoning and understanding of relative positions and spatial context.'
     )
   ],
   confidence = 5

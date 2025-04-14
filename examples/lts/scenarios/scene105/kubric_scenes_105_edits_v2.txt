@@ -1,0 +1,220 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "Should the path's sway change from a simple swish to more of a meander between the old timber stands?",
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'SerpentinePath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+            close_curve_leftmost_point = (1.5, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from serpentine to a curvy path.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "The transition requires interpreting the desired aesthetic from the vagueness of 'curvy' versus 'serpentine'."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'SerpentinePath',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from serpentine to a triwedge shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Triwedge shapes are not mentioned as a suitable path solution.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'SerpentinePath',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.2,
+            gap_degrees = 8.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from serpentine to a quarterwedge shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Quarterwedge shapes are not related to the original task of creating curvy paths.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'SerpentinePath',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from serpentine to a circular shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "A circular path doesn't relate to the serpentine or curvy path objectives."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'SerpentinePath',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.4,
+            orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Change the design profile from serpentine to a semicircular shape.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'A semicircular structure doesn’t appropriately match the design goal between the two trees.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option precisely changes the path from a serpentine to the described curvy design matching the requirements.',
+      difficulty = 'medium',
+      explanation_of_difficulty = "The shift from serpentine to curvy is moderately challenging due to interpreting the design's vagueness."
+    ),
+    1 : EditMCQA(
+      question = 'If you stretch out the path, can it span the gap from one big trunk to the other?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+            close_curve_leftmost_point = (2.0, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = "Extend the path's length to accommodate the space between the trees.",
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = "Determining a suitable length from the prompt wasn't directly specified."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.0, 0.5, 0.0),
+            close_curve_leftmost_point = (1.0, 0.5, 0.0),
+            amplitude = 0.3,
+            wavelength = 1.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Shrink the path’s length, misinterpreting the fit between the trees.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "This edit wrongly shortens the path's length, not accommodating the space."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 0.7,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Revert to a serpentine style with a similar orientation.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Reverting doesn't align with the design goal for path extension."
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Form a circular path between trees instead of extending it.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "A circular design doesn't fit the path expansion directive."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 2.5,
+            height = 0.1,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Construct a linear path that misaligns with the initial design intention.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Linear paths don't harmonize with the curvy path requirement."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The extension to 2.0 accommodates the spacing between trees without veering from the path's objective.",
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The difficulty lies in translating the natural scenes correctly with spacing considerations.'
+    ),
+    2 : EditMCQA(
+      question = 'Can you smooth out the bends in the path to create a softer trail?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+            close_curve_leftmost_point = (2.0, 0.5, 0.0),
+            amplitude = 0.2,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Adjust the amplitude for a gentler winding effect.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = "Reducing amplitude follows naturally from creating a 'gentler' effect."
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-2.0, 0.5, 0.0),
+            close_curve_leftmost_point = (2.5, 0.5, 0.0),
+            amplitude = 0.1,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Over-adjust the amplitude for a nearly straight alignment.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Such a drastic reduction doesn't align with 'gentle winding'."
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (-1.5, 0.5, 0.0),
+            close_curve_leftmost_point = (2.0, 0.5, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.1
+          ),
+          edit_description = 'Increase amplitude for more dramatic curves.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = 'Increasing the amplitude contrasts the request for gentleness.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            height = 0.1
+          ),
+          edit_description = 'Misinterpret the edit by replacing it with a circular form.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Circular paths don't apply to the requirement to adjust amplitude."
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'CurvyPath',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.1
+          ),
+          edit_description = 'Make an unrelated shape change to a rectangle.',
+          difficult_to_deduce_from_prompt = 'hard',
+          explanation_of_difficulty = "Creating a rectangular design doesn't refer to amplitude adjustments."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "By reducing amplitude, it achieves the intended 'gentler winding effect' mentioned in the edit.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The reduction is straightforward from contextual clues for gentler integration.'
+    )
+  ]
+)

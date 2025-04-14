@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = "The task involves creating a symmetrical structure and arranging objects to complement existing objects and enhance the scene's arrangement, which requires spatial reasoning."
-    ),
-    1 : Numeric(
-      explanation = 'The focus on symmetry and possible precise placement of objects implies a need for accurate numerical matching or understanding of distances and dimensions.'
+    0 : Numeric(
+      explanation = 'The scene description mentions creating a symmetrical structure and adjusting the design profile, which suggests a focus on numerical matching and symmetry in the arrangement of objects.'
     )
   ],
   confidence = 4

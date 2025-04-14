@@ -1,7 +1,10 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging objects spatially to create a flowing barrier that separates seating areas without enclosing them completely. This requires spatial reasoning for the arrangement and integration of objects to form the desired pattern.'
+      explanation = 'The scene prompt involves creating a flowing barrier to distinguish seating spaces, which involves spatial reasoning to understand the relative positions and design integration without enclosing the spaces completely.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt uses terms like 'flowing barrier' and 'moderate height', which may be subject to interpretation. Understanding the functional intent behind these terms requires semantic understanding."
     )
   ],
   confidence = 4

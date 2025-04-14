@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves creating a linear boundary to separate the area between a birdhouse and a rock, which requires spatial reasoning about their relative positions.'
+    )
+  ],
+  confidence = 4
+)

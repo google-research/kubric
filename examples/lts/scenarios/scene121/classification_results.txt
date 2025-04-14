@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging chairs around a central area while ensuring ease of access and exit, which requires spatial reasoning.'
+      explanation = 'The task of arranging chairs around a central area while leaving space for people to enter and exit involves spatial reasoning. It requires understanding the relative positioning of the chairs and ensuring there is adequate space between them for accessibility.'
     )
   ],
   confidence = 5

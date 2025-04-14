@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning involving the scene context by requesting a boundary to delineate the seating area. This requires understanding how objects are positioned relative to each other.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt requires understanding the meaning of 'a subtle boundary' and 'organized layout,' indicating that the design should be functional and aesthetically pleasing without overwhelming the space."
+    )
+  ],
+  confidence = 4
+)

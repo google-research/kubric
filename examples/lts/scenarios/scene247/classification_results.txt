@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requires arranging a quarter-wedge garden structure specifically around benches, highlighting spatial reasoning to ensure the benches are enclosed and highlighted with an open entrance.'
+      explanation = 'The scene prompt involves spatial reasoning by requesting that a garden structure encloses and highlights the benches while maintaining an open entrance. This involves understanding the spatial relationship between the benches and the garden structure, focusing on their relative positions to achieve the desired enclosure with access.'
     )
   ],
   confidence = 4

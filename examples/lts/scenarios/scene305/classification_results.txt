@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning as it requires creating a path that connects objects while ensuring fluid movement and visual appeal, which relies on understanding the relative positions and arrangements in the scene.'
+    )
+  ],
+  confidence = 4
+)

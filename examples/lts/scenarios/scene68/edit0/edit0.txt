@@ -62,7 +62,7 @@ Scene(
         ),
         edit_description = 'Change the design profile from serpentine to curvy path.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'This requires understanding the transformation from a single serpentine shape to a wavy curvy path, which is a mid-level task.'
+        explanation_of_difficulty = 'This requires understanding the transformation from a single serpentine shape to a wavy curvy path, which is a mid-level task.'
       ),
       1 : AddStructureEditWithDifficulty(
         design = Design(
@@ -80,7 +80,7 @@ Scene(
         edit_description = 'Add the second curvy path to create a complete wave appearance between the trees.',
         target_parameter = 'structure addition',
         difficult_to_deduce_from_prompt = 'hard',
-        exaplanation_of_diffuculty = 'Adding a second path that mirrors the first to achieve a wave-like design requires complex spatial reasoning and geometric spatial awareness.'
+        explanation_of_difficulty = 'Adding a second path that mirrors the first to achieve a wave-like design requires complex spatial reasoning and geometric spatial awareness.'
       )
     ]
   )

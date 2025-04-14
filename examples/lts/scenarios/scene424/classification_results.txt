@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt involves designing a boundary that organizes garden elements, which requires spatial reasoning to ensure proper arrangement and separation of the elements while maintaining fluid motion. The spatial constraints are crucial to prevent collisions with the objects present in the scene.'
+    )
+  ],
+  confidence = 5
+)

@@ -1,0 +1,152 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Could you shift Circular Planter 1 closer to the big trunk nearby?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.8,
+            height = 0.3
+          ),
+          edit_description = 'Adjust the position and size of Circular Planter 1 to properly encircle Tree 1 with a larger radius and increased height.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The prompt provides specifically where the first planter needs to be relocated and resized, aligning with the design goal.'
+        ),
+        B = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.0, 1.0, 0.0),
+            radius = 0.8,
+            height = 0.2
+          ),
+          edit_description = 'Relocate Circular Planter 1 towards its original spot but with a chunkier radius.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Given alteration does not meet the design goal.'
+        ),
+        C = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.5, 1.0, 0.0),
+            radius = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Lower Circular Planter 1 slightly but keep its original size.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The positional adjustment alone without resizing does not meet the goal.'
+        ),
+        D = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.5, 1.5, 0.0),
+            radius = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Maintain the initial radius but increase the height for better elevation.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'The radius must be changed as per the goal alignment, not just the height.'
+        ),
+        E = ModifyStructureEditWithDifficulty(
+          design_id = 'circular_1',
+          NewDesignStructure = Circular(
+            center = (-1.2, 1.2, 0.0),
+            radius = 0.9,
+            height = 0.3
+          ),
+          edit_description = 'Tilt the center incrementally closer while expanding the radius around Tree 1.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Adjustments here do not match the design goal parameters.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This modification directly matches the new target position, size, and height for Circular Planter 1.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt provides a clear direction for what needs to be done with specific parameters.'
+    ),
+    1 : EditMCQA(
+      question = 'How can we create a twin Circle Planter around the second tree for balance?',
+      answers = {
+        A = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.5, -1.5, 0.0),
+                radius = 0.8,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Add Circular Planter 2 centered around Tree 2 with matching parameters to achieve garden symmetry.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Adding a new design structure requires interpreting the scene layout and goal, but parameters are mirrored from Circular Planter 1.'
+        ),
+        B = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.5, -1.0, 0.0),
+                radius = 0.5,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Position Circular Planter 2 nearer to Tree 2 with altered dimensions for a different look.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The scene calls for symmetry, so a matching design is required.'
+        ),
+        C = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.5, -1.5, 0.0),
+                radius = 1.0,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Install a large Circular Planter 2 to make Tree 2 standout compared to Tree 1.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The design goal specifies creating symmetry, so parameters must match Circular Planter 1.'
+        ),
+        D = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.0, -1.5, 0.0),
+                radius = 0.8,
+                height = 0.2
+              )
+            }
+          ),
+          edit_description = 'Offset Circular Planter 2 slightly towards the middle with decreased height.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Non-matching height or off-centered positioning fails to meet the need for symmetry.'
+        ),
+        E = AddStructureEditWithDifficulty(
+          design = Design(
+            structures = {
+              circular_2 = Circular(
+                center = (1.5, -1.5, 0.0),
+                radius = 0.7,
+                height = 0.3
+              )
+            }
+          ),
+          edit_description = 'Set a modestly sized Circular Planter 2 around Tree 2 for a varying dimension.',
+          target_parameter = 'circular_2',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'Size variation contradicts the goal of mirroring the first planter for symmetry.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This option mirrors the positioning and dimensions of Circular Planter 1 to achieve the required symmetry.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The requirement for symmetry can be inferred from the alignment goal but needs to be deduced through layout interpretation.'
+    )
+  ]
+)

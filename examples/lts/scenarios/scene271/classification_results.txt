@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves spatial reasoning to ensure the combination of natural and artificial elements in the garden space is highlighted in an open and inviting manner. The description mentions spatial harmony and the arrangement of objects like the rock, trashcan, and birdhouse within a designated area, which involves understanding their relative positions.'
+    )
+  ],
+  confidence = 5
+)

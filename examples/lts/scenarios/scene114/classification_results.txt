@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The task involves arranging a meandering path in relation to existing objects such as the birdhouse and trees, emphasizing spatial reasoning to ensure the path is visually engaging and functional without obstruction.'
+      explanation = 'The prompt requests spatial reasoning to create a pathway that flows near the birdhouse without obstructing the surrounding trees. This requires understanding the relative positions and spatial properties of the pathway in relation to the birdhouse and trees.'
     )
   ],
   confidence = 5

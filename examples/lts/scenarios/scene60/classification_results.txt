@@ -1,10 +1,7 @@
 SceneClassification(
   categories = [
     0 : Semantic(
-      explanation = 'The prompt requests the enhancement of the natural ambiance using abstract designs, which requires an understanding of the meaning of objects and their use in creating a specific ambiance. The prompt is also somewhat vague and indirect in its requirement.'
-    ),
-    1 : Spatial(
-      explanation = 'The prompt involves arranging a semi-enclosed garden seating area, which implies spatial reasoning to determine the placement of seating and the enclosing structures.'
+      explanation = "The prompt requires understanding the meaning and design of a 'semi-enclosed garden seating area' and 'enhancing the natural ambiance' which relies on abstract and subjective concepts."
     )
   ],
   confidence = 4

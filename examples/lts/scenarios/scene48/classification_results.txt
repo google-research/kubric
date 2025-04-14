@@ -1,11 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt primarily requires spatial reasoning to create a design that swirls and flows around the garden setup, considering the positioning and arrangement of the scene objects (pots and rock).'
-    ),
-    1 : Semantic(
-      explanation = 'The prompt also involves a semantic understanding to interpret the artistic and functional nature of the scene, as it describes creating a calming, serpent-like flow.'
+      explanation = 'The prompt requires spatial reasoning to interpret and design a layout that swirls around the garden setup, with a need to consider the flow between pots and a rock, indicating the importance of spatial positioning and relationships.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

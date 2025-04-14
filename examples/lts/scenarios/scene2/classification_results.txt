@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Semantic(
-      explanation = "The prompt requires understanding the meaning of 'leafy things' and its association with trees. Additionally, the instruction is vague and under-specified as it does not clearly define what 'short structure' entails or how many trees are involved."
+      explanation = "The prompt involves semantic understanding, as 'leafy things' is a vague term requiring interpretation to refer to trees. Additionally, it lacks specific details regarding the number or arrangement of 'leafy things,' leading to semantic uncertainty."
     )
   ],
-  confidence = 5
+  confidence = 4
 )

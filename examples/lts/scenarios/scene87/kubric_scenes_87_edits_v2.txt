@@ -1,0 +1,130 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'So, if we move our new L-shape right to the edge of the pot, how does that change this layout?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.75, 0.0),
+            left_length = 1.5,
+            left_width = 0.7,
+            right_width = 0.7,
+            right_length = 1.0,
+            right_center = (0.5, 0.75, 0.0),
+            height = 0.2
+          ),
+          edit_description = 'Change shape to LShape aligned with the center of the pot.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.75, 0.0),
+            length = 2.0,
+            width = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Change back to a rectangular layout with center aligned with the pot.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = CurvyPath(
+            far_curve_leftmost_point = (0.0, 0.75, 0.0),
+            close_curve_leftmost_point = (0.5, 0.75, 0.0),
+            amplitude = 0.4,
+            wavelength = 2.0,
+            phase = 0.0,
+            height = 0.2
+          ),
+          edit_description = "Transform into a CurvyPath with aligned endpoints at the pot's center."
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.75, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.2
+          ),
+          edit_description = 'Modify to a Serpentine structure with left arc at the pot center.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.0,
+            height = 0.2
+          ),
+          edit_description = 'Redesign as a Circular structure aligning with the pot center.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The edit aligns the LShape with the pot center, as required by the design goal.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt directly instructs to align the shape with the pot center and provides measurements.'
+    ),
+    1 : EditMCQA(
+      question = "Do we raise it up a bit to improve the garden feel, and if so, what's our structure now?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.75, 0.0),
+            left_length = 1.5,
+            left_width = 0.7,
+            right_width = 0.7,
+            right_length = 1.0,
+            right_center = (0.5, 0.75, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Increase the height to 0.3 meters for an integrated garden aesthetic.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.0,
+            orientation = 'concave',
+            height = 0.3
+          ),
+          edit_description = 'Change to a SemiCircular with increased height for garden aesthetic.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.75, 0.0),
+            outer_radius = 1.0,
+            inner_radius = 0.5,
+            orientation = 'convex',
+            height = 0.3
+          ),
+          edit_description = 'Switch to a SemiRing with added height, ensuring the aesthetic goal.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.0,
+            gap_degrees = 12.0,
+            height = 0.3
+          ),
+          edit_description = 'Change to a TriWedge structure, retaining height focus.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.75, 0.0),
+            radius = 1.0,
+            gap_degrees = 10.0,
+            height = 0.3
+          ),
+          edit_description = 'Transform to a QuarterWedge with increased height for the potential aesthetic.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The prompt specifies increasing the height to 0.3 meters for aesthetic integration.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The prompt specifies the height of the structure.'
+    )
+  ]
+)

@@ -1,0 +1,11 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The scene prompt requires spatial reasoning to design a circular arrangement that complements the surrounding environment, focusing on the arrangement and positioning of garden elements around a central table.'
+    ),
+    1 : Semantic(
+      explanation = "The prompt involves a degree of semantic understanding to ensure that the garden layout complements the atmosphere and achieves an 'open design,' which requires interpreting the intended aesthetic and functional aspects."
+    )
+  ],
+  confidence = 4
+)

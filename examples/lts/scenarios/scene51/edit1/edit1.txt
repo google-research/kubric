@@ -24,6 +24,7 @@ Scene(
         left_width = 1.0,
         right_width = 1.5,
         right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.75
       )
     }
@@ -36,6 +37,7 @@ Scene(
         left_width = 1.0,
         right_width = 1.5,
         right_length = 1.0,
+        right_center = (0.0, 0.0, 0.0),
         height = 0.75
       )
     }
@@ -50,11 +52,12 @@ Scene(
           left_width = 1.0,
           right_width = 1.5,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.25
         ),
         edit_description = 'Change the shape to L-shape to define dual areas.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'Changing the shape from a rectangle to an L-shape requires understanding of how to split the space into connected zones.'
+        explanation_of_difficulty = 'Changing the shape from a rectangle to an L-shape requires understanding of how to split the space into connected zones.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'lshape_1',
@@ -64,11 +67,12 @@ Scene(
           left_width = 1.0,
           right_width = 1.5,
           right_length = 1.0,
+          right_center = (0.0, 0.0, 0.0),
           height = 0.75
         ),
         edit_description = 'Increase the overall height to make the partition more prominent.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'Simply increasing the height of the structure is straightforward and directly stated in the prompt.'
+        explanation_of_difficulty = 'Simply increasing the height of the structure is straightforward and directly stated in the prompt.'
       )
     ]
   )

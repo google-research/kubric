@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves arranging seating in a semi-circular fashion around a table, which requires spatial reasoning to achieve the desired setup and ensure proper pathways.'
+      explanation = 'The prompt involves arranging a semi-circular seating area and pathways, which requires an understanding of spatial relationships and positioning around a central table.'
     )
   ],
-  confidence = 5
+  confidence = 4
 )

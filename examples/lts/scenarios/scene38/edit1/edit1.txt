@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the profile to a SineWave',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
+        explanation_of_difficulty = 'The task requires understanding how to convert a serpentine structure into a sine wave, which involves altering geometric properties like amplitude and wavelength.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'sinewave_1',
@@ -68,7 +68,7 @@ Scene(
         ),
         edit_description = 'Adjust the amplitude and wavelength to align more harmoniously with the natural elements',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony."
+        explanation_of_difficulty = "Making finer adjustments to amplitude and wavelength requires a perceptive understanding of the scene's natural harmony."
       )
     ]
   )

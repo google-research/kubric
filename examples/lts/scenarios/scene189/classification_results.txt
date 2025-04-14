@@ -1,8 +1,8 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt requests the creation of a serpentine path that weaves between tables and a rock, highlighting the importance of spatial reasoning in placing and navigating around these objects.'
+      explanation = 'The prompt requires creating a serpentine path that winds between tables and a rock, emphasizing spatial arrangement and positioning while avoiding collisions.'
     )
   ],
-  confidence = 4
+  confidence = 5
 )

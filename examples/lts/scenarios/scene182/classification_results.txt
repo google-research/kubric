@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires establishing a clear boundary line that divides the space between the rock and the pot. This task involves understanding and arranging objects in a specific order to create a defined path.'
+      explanation = 'The scene prompt requires understanding and manipulating spatial relationships to establish a boundary between objects like the pot and the rock, indicating spatial reasoning is involved.'
     )
   ],
   confidence = 5

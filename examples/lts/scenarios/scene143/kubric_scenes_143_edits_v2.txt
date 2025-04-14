@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, can we try adjusting the left side of the path so the curve hugs the rock a bit more closely?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.5, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Move and reshape the path to make the initial adjustment by changing the left_arc_center to (-1, -1.5, 0) and increasing the radius to 0.75.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.5, -0.5, 0.0),
+            radius = 0.3,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Move the path to offset its position slightly with a smaller radius and maintain convex orientation.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -1.0, 0.0),
+            radius = 1.0,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Keep the path central but widen the radius with a shift in orientation to concave.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, 0.0, 0.0),
+            radius = 0.5,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Adjust the design to lower elevation and implement a concave orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.0, 0.0),
+            radius = 0.4,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = 'Move the path up slightly while keeping the radius smaller and orientation convex.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'Option A correctly addresses the design needs by moving and reshaping the path to the specified left arc center and radius without changing orientation.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Requires spatial adjustments to avoid collisions and form the intended aesthetic.'
+    ),
+    1 : EditMCQA(
+      question = "Let's see if changing the path's curve direction might fit better with our seating layout?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.0, -1.5, 0.0),
+            radius = 0.75,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Alter the orientation to concave so that the path elegantly integrates with the seating arrangement.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.7, -1.2, 0.0),
+            radius = 0.6,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Change the path's position and radius while keeping a convex orientation."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, -1.5, 0.0),
+            radius = 0.9,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Widen the radius and adjust the orientation to concave for better integration.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-0.8, -1.8, 0.0),
+            radius = 0.55,
+            left_arc_orientation = 'convex',
+            height = 0.1
+          ),
+          edit_description = "Modify path's position and radius to ensure a cohesive layout with a convex orientation."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'serpentine_1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (-1.3, -1.5, 0.0),
+            radius = 0.45,
+            left_arc_orientation = 'concave',
+            height = 0.1
+          ),
+          edit_description = 'Shift the path to a new position with a reduced radius and concave orientation for aesthetic appeal.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "Option A corrects the path's orientation to concave, which is essential for integrating the path with the seating area, as desired.",
+      difficulty = 'hard',
+      explanation_of_difficulty = 'Understanding concave orientation is necessary for achieving the final goal design, requiring a clear interpretation of spatial relationships.'
+    )
+  ]
+)

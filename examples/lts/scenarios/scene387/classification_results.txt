@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt 'Construct a semi-ring boundary around my trees that brings focus and elegance to the garden space' is vague and underspecified, as it requires an understanding of aesthetic concepts such as 'focus' and 'elegance' in the context of a garden design. The meaning and function of a semi-ring boundary are not clearly defined, relying on the designer's interpretation of how to achieve elegance and focus."
+    )
+  ],
+  confidence = 5
+)

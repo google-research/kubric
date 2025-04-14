@@ -1,0 +1,116 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Can we switch the circular thingy to something with edges and maybe a bit of a twist?',
+      answers = {
+        A = ModifyStructureEditWithDifficulty(
+          design_id = 'structure_circular',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 95.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the structure from Circular to TriWedge for a dynamic, angular appearance and adjust its parameters.',
+          difficult_to_deduce_from_prompt = 'medium',
+          explanation_of_difficulty = 'The change from a Circular structure to a TriWedge is moderately complex due to the need to satisfy both aesthetic and functional space requirements.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure_circular',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            gap_degrees = 80.0,
+            height = 0.5
+          ),
+          edit_description = 'Convert the structure from Circular to QuarterWedge, specifying a different gap degree.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure_circular',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.8,
+            height = 0.5
+          ),
+          edit_description = 'Modify the structure to a slightly larger Circular shape maintaining the same height.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure_circular',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.5
+          ),
+          edit_description = 'Change the structure to SemiCircular with a concave orientation.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_circular',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 1.5,
+            height = 0.5
+          ),
+          edit_description = 'Convert the structure to a Rectangular shape to create a more robust appearance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The correct edit changes the structure to a TriWedge with gap degrees suitable for its aesthetic and functional goals.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The modification requires consideration of gap degrees that ensure a valid and aesthetically pleasing design.'
+    ),
+    1 : EditMCQA(
+      question = "What's the best way to deal with the old round shape now? Should it be gone?",
+      answers = {
+        A = DeleteStructureEditWithDifficulty(
+          design_id = 'structure_circular',
+          edit_description = 'Remove the initial Circular structure as it is replaced by the TriWedge design.',
+          difficult_to_deduce_from_prompt = 'easy',
+          explanation_of_difficulty = 'Removing a redundant structure is straightforward once its purpose is served by the new design.'
+        ),
+        B = AddObjectEdit(
+          object = SceneObject(
+            extent = (0.5, 0.5, 0.5),
+            center = (0.0, 0.0, 0.0),
+            theta = 45.0,
+            semantic_label = 'decorative_item'
+          ),
+          object_id = 'new_structure',
+          edit_description = 'Add a new decorative structure to the scene.'
+        ),
+        C = ModifyObjectEdit(
+          object_id = 'table_1',
+          new_object = SceneObject(
+            extent = (0.3, 0.3, 0.3),
+            center = (0.0, 1.0, 0.0),
+            theta = 0.0,
+            semantic_label = 'table'
+          ),
+          edit_description = "Modify the first table's size slightly larger."
+        ),
+        D = DeleteStructureEdit(
+          design_id = 'non_existent_structure',
+          edit_description = 'Attempt to delete a non-existent structure.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure_circular',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.5,
+            left_width = 1.0,
+            right_width = 1.0,
+            right_length = 1.0,
+            right_center = (0.5, 0.0, 0.0),
+            height = 0.3
+          ),
+          edit_description = 'Change the structure to an LShape design to provide more path differentiation.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The Circular structure was removed because it is replaced by the TriWedge design, making it redundant.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'Identifying and removing a redundant structure is straightforward when its function is no longer needed.'
+    )
+  ]
+)

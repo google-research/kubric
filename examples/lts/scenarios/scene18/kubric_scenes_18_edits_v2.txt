@@ -1,0 +1,141 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'How should we change the first semicircle to match the design target?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'convex',
+            height = 1.0
+          ),
+          edit_description = "Change the orientation to 'convex' for structure 1 and increase the radius for better coverage."
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.0,
+            orientation = 'convex',
+            height = 1.0
+          ),
+          edit_description = "Change the orientation to 'convex' for structure 1 and reduce the radius significantly."
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 1.5,
+            orientation = 'concave',
+            height = 0.8
+          ),
+          edit_description = 'Keep the original structure unchanged.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 1.0
+          ),
+          edit_description = "Switch to a 'Circular' design and expand it significantly."
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'semitircular_1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            orientation = 'concave',
+            height = 0.8
+          ),
+          edit_description = "Increase the radius to provide more shade while keeping the 'concave' orientation."
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'The design goal specifies that the first semicircular structure should have a convex orientation and a radius of 2 meters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Understanding the direction for the orientation and deciding the correct radius requires interpretation of the geometric requirements for shade.'
+    ),
+    1 : EditMCQA(
+      question = "What's needed to finalize the sunshade design?",
+      answers = {
+        A = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = SemiCircular(
+                center = (1.0, 1.0, 0.0),
+                radius = 2.0,
+                orientation = 'convex',
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = "Add SemiCircular structure 2 at a new position with 'convex' outlook.",
+          target_parameter = 'semitircular_2'
+        ),
+        B = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = SemiCircular(
+                center = (0.0, 1.0, 0.0),
+                radius = 1.0,
+                orientation = 'concave',
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = "Integrate SemiCircular structure 2 with reduced radius and 'concave' form.",
+          target_parameter = 'semitircular_2'
+        ),
+        C = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = SemiCircular(
+                center = (0.0, 1.0, 0.0),
+                radius = 2.0,
+                orientation = 'concave',
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = 'Add SemiCircular structure 2 to overlap with the first and complete the sunshade.',
+          target_parameter = 'semitircular_2'
+        ),
+        D = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = Circular(
+                center = (0.0, 1.0, 0.0),
+                radius = 2.0,
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = 'Choose a Circular design for the secondary structure.',
+          target_parameter = 'semitircular_2'
+        ),
+        E = AddStructureEdit(
+          design = Design(
+            structures = {
+              semitircular_2 = SemiRing(
+                center = (0.0, 1.0, 0.0),
+                outer_radius = 2.0,
+                inner_radius = 1.5,
+                orientation = 'concave',
+                height = 1.0
+              )
+            }
+          ),
+          edit_description = 'Introduce a SemiRing structure with layered radii for robustness.',
+          target_parameter = 'semitircular_2'
+        )
+      },
+      correct_answer = 'C',
+      explanation_of_correctness = 'The design goal specifies the addition of a second semicircular structure at (0.0, 1.0, 0.0) with a concave orientation and radius of 2 meters.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'Determining the correct position and overlap for optimal shading involves understanding spatial arrangement.'
+    )
+  ]
+)

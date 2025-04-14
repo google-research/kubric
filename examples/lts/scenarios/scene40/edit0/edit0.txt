@@ -54,7 +54,7 @@ Scene(
         ),
         edit_description = 'Change the shape to a TriWedge design.',
         difficult_to_deduce_from_prompt = 'medium',
-        exaplanation_of_diffuculty = 'This change involves transforming a circular design into a more complex geometric structure, a TriWedge, which requires spatial reasoning beyond simple shape adjustment.'
+        explanation_of_difficulty = 'This change involves transforming a circular design into a more complex geometric structure, a TriWedge, which requires spatial reasoning beyond simple shape adjustment.'
       ),
       1 : ModifyStructureEditWithDifficulty(
         design_id = 'structure_1',
@@ -66,7 +66,7 @@ Scene(
         ),
         edit_description = 'Adjust the height to 0.4 meters to meet the desired vibe criteria.',
         difficult_to_deduce_from_prompt = 'easy',
-        exaplanation_of_diffuculty = 'The height adjustment is a straightforward parameter change, aiming to meet the specific ambiance criteria.'
+        explanation_of_difficulty = 'The height adjustment is a straightforward parameter change, aiming to meet the specific ambiance criteria.'
       )
     ]
   )

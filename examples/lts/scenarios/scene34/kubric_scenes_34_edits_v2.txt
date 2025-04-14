@@ -1,0 +1,184 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = 'Hey, could you make the shape more triangular for better symmetry?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = QuarterWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 10.0,
+            height = 0.25
+          ),
+          edit_description = 'Use Quarter-Wedge with existing dimensions for simplicity.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Change the profile to Tri-Wedge to enhance symmetry.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Use Tri-Wedge with reduced radius for proximity.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = SemiCircular(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Use SemiCircular for a distinctive appearance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.25,
+            orientation = 'left-right'
+          ),
+          edit_description = 'Use Linear structure for straightforward design.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'The edit changes the profile to a Tri-Wedge which enhances symmetry by using a three-sided shape.',
+      difficulty = 'medium',
+      explanation_of_difficulty = 'The change requires understanding of the Tri-Wedge form and its impact on symmetry.'
+    ),
+    1 : EditMCQA(
+      question = 'Adjust the setup so everything feels close, right here.',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Reduce the radius to maintain proximity to the pots.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 3.0,
+            gap_degrees = 15.0,
+            height = 0.25
+          ),
+          edit_description = 'Increase the radius for more coverage.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Circular(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            height = 0.25
+          ),
+          edit_description = 'Use Circular shape to match existing dimensions.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = LShape(
+            left_center = (0.0, 0.0, 0.0),
+            left_length = 1.0,
+            left_width = 0.5,
+            right_width = 0.5,
+            right_length = 1.0,
+            right_center = (0.0, 0.0, 0.0),
+            height = 0.25
+          ),
+          edit_description = 'Use LShape for aesthetic variety.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = SemiRing(
+            center = (0.0, 0.0, 0.0),
+            outer_radius = 2.5,
+            inner_radius = 2.0,
+            orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Apply SemiRing for layered design.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = 'This edit opts for a smaller radius to maintain proximity between the structure and the pots.',
+      difficulty = 'easy',
+      explanation_of_difficulty = "This is an easy deduction as reducing radius doesn't affect understanding of the form."
+    ),
+    2 : EditMCQA(
+      question = 'Can we elevate it a bit so it really stands out?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 15.0,
+            height = 0.5
+          ),
+          edit_description = 'Increase the height for a more pronounced appearance.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = TriWedge(
+            center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            gap_degrees = 10.0,
+            height = 0.25
+          ),
+          edit_description = 'Decrease the gap for compact design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Linear(
+            center = (0.0, 0.0, 0.0),
+            length = 3.0,
+            height = 0.1,
+            orientation = 'front-back'
+          ),
+          edit_description = 'Reduce height for subtler effect.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 2.0,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Retain height and adjust geometry to rectangular.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'structure1',
+          NewDesignStructure = Serpentine(
+            left_arc_center = (0.0, 0.0, 0.0),
+            radius = 2.0,
+            left_arc_orientation = 'convex',
+            height = 0.25
+          ),
+          edit_description = 'Introduce Serpentine form for elegance.'
+        )
+      },
+      correct_answer = 'A',
+      explanation_of_correctness = "The correct edit involves increasing the structure's height to achieve a more pronounced appearance in the design.",
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This step simply requires an adjustment of height for visual impact.'
+    )
+  ]
+)

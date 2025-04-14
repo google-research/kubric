@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires constructing a linear border around the birdhouse, ensuring it highlights the area without obstructing paths. This requires understanding geometric properties and spatial arrangement to create the desired visual effect.'
+      explanation = 'The prompt requires the creation of a linear border around the birdhouse without obstructing any paths. This involves spatial reasoning to ensure that the border is positioned correctly in relation to the birdhouse and surrounding paths.'
     )
   ],
   confidence = 4

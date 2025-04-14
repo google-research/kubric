@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The task involves determining the path of a winding pathway that does not disturb trees, requiring spatial reasoning to understand the placement and flow of the path relative to the trees.'
+      explanation = "The prompt requires understanding spatial relationships to design a pathway around existing trees without disturbing them. This involves spatial reasoning to determine the appropriate path and flow that respects the trees' positions."
     )
   ],
   confidence = 5

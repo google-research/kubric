@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requests the creation of a wavy path that weaves through a garden setup, linking elements while avoiding collisions, which involves spatial reasoning.'
+    )
+  ],
+  confidence = 4
+)

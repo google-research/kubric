@@ -1,13 +1,7 @@
 SceneClassification(
   categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging the rocks in a specific way to create a serene garden setup, emphasizing a maintained symmetry and harmonious flow.'
-    ),
-    1 : Numeric(
-      explanation = 'The use of circular designs and symmetry suggests numerical reasoning to enhance the arrangement.'
-    ),
-    2 : Semantic(
-      explanation = "The prompt requires understanding the meaning of 'gentle enclosure' and 'natural beauty,' which are subjective and under-specified concepts."
+    0 : Numeric(
+      explanation = 'The prompt and the description focus on maintaining symmetry and harmony, which involves numerical matching and dealing with quantities, such as ensuring circular designs and symmetrical arrangements around the rocks.'
     )
   ],
   confidence = 4

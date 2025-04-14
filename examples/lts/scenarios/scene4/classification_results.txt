@@ -1,7 +1,7 @@
 SceneClassification(
   categories = [
     0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires constructing a wall to hide another object, which involves arranging the wall in a way that obstructs the view of the object in the background.'
+      explanation = "The prompt requires spatial reasoning to determine how to position the wall to effectively hide the 'thing' in the background. It involves understanding the relative positions and alignments within the scene."
     )
   ],
   confidence = 4

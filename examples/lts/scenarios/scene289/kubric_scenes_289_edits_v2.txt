@@ -1,0 +1,122 @@
+CounterFactualMCQASequence(
+  mcqa_questions = [
+    0 : EditMCQA(
+      question = "If we're incorporating the planter in the garden, how about extending its reach to the right side to seamlessly blend with the setting?",
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.4,
+            height = 0.2
+          ),
+          edit_description = 'Change the length to extend toward the right, while slightly shifting the width.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Increase both the length and width to emphasize lateral integration with the garden.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.2,
+            width = 0.5,
+            height = 0.2
+          ),
+          edit_description = 'Extend the length a little, and leave the width substantial.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.5,
+            width = 0.45,
+            height = 0.2
+          ),
+          edit_description = 'Amp up the length and subtly increase width to maintain balance.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.3,
+            height = 0.2
+          ),
+          edit_description = 'Push the length further, but keep the width intact.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B is correct as it matches exactly what is described in the original edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'This choice is straightforward because it directly follows the initial design goal.'
+    ),
+    1 : EditMCQA(
+      question = 'How should we elevate the planter for better prominence without overshadowing the scene?',
+      answers = {
+        A = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.25
+          ),
+          edit_description = 'Add a bit more height for increasing visibility while maintaining subtlety.'
+        ),
+        B = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.3
+          ),
+          edit_description = 'Elevate the height to ensure it stands out but stays cohesive in design.'
+        ),
+        C = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.35
+          ),
+          edit_description = 'Increase height more for an even bolder presence.'
+        ),
+        D = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.28
+          ),
+          edit_description = 'Lift the height for a slightly noticeable change.'
+        ),
+        E = ModifyStructureEdit(
+          design_id = 'rectangular_planter',
+          NewDesignStructure = Rectangular(
+            center = (0.0, 0.0, 0.0),
+            length = 1.6,
+            width = 0.5,
+            height = 0.32
+          ),
+          edit_description = 'Extend the height a little more to emphasize structure.'
+        )
+      },
+      correct_answer = 'B',
+      explanation_of_correctness = 'Option B perfectly matches the height change intended in the second edit.',
+      difficulty = 'easy',
+      explanation_of_difficulty = 'The description provides clear guidance on how to achieve the desired prominence.'
+    )
+  ]
+)

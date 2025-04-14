@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt involves arranging a TriWedge structure around a central gathering, emphasizing spatial relationships in the scene to ensure aesthetic and functional coherence.'
+    )
+  ],
+  confidence = 4
+)

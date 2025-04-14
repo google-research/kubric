@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Spatial(
+      explanation = 'The prompt requires designing a garden feature around trees, involving spatial reasoning to wrap around the trees while keeping the area defined and open.'
+    )
+  ],
+  confidence = 4
+)

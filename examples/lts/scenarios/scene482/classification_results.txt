@@ -1,0 +1,8 @@
+SceneClassification(
+  categories = [
+    0 : Semantic(
+      explanation = "The prompt requires an understanding of the meaning and aesthetic purpose of creating a semi-ring feature around the rocks. The focus is on enhancing the rocks' natural aesthetics and ensuring a serene garden setup, which involves semantics of design and function."
+    )
+  ],
+  confidence = 4
+)
