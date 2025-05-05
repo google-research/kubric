@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt emphasizes creating a 'subtle division while maintaining openness' and aims for a design that 'elegantly frames the tables'. This focuses on the intention behind the design and relies on understanding abstract concepts like subtlety and elegance rather than explicit spatial arrangements or numerical specifications."
-    )
-  ],
-  confidence = 4
-)

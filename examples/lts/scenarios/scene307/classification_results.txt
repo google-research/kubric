@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves the arrangement of chairs in a semicircular spatial configuration to promote community interaction.'
-    )
-  ],
-  confidence = 4
-)

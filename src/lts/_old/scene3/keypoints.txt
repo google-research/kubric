@@ -1,0 +1,81 @@
+{
+  "prompt": "Construct a linear, single-segment barrier behind the pot to delineate the area for planting flowers.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -1.5,
+        -0.5
+      ],
+      "center": [
+        1.5,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 1.0,
+      "keypoints": [
+        [
+          -0.5,
+          -0.0,
+          -1.5
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.5
+        ]
+      ]
+    }
+  ],
+  "description": "This scene tests the model's ability to interpret 'in front' and 'behind' based on x-values. The pot is placed at x=1, and a single linear segment is built immediately behind it (x>1).",
+  "category": "Spatial"
+}

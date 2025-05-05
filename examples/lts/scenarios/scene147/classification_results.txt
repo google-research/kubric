@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves spatial reasoning to navigate through the trees with a serpentine path, which requires understanding the relative positions and orientation of the path and trees.'
-    )
-  ],
-  confidence = 5
-)

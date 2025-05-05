@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt requires spatial reasoning to organize the seating arrangement using a 'quarter-wedge' to form an open social space, which involves understanding relative positions and spatial organization."
-    )
-  ],
-  confidence = 4
-)

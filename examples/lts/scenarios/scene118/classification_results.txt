@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to navigate the relationships between the chairs and the birdhouse, ensuring that the path loops around the birdhouse and connects the two chairs in a visually appealing manner.'
-    )
-  ],
-  confidence = 4
-)

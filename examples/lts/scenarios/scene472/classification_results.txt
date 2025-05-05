@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a minimalist divider to distinguish pots from tables while preserving open paths. This requires spatial reasoning to ensure proper layout and alignment without spatial interference between objects.'
-    )
-  ],
-  confidence = 4
-)

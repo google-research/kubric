@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires constructing a rectangular border around a rock, which involves understanding and applying spatial reasoning to ensure there is enough space around the object.'
-    )
-  ],
-  confidence = 5
-)

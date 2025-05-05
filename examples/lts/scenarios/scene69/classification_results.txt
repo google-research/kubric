@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires optimizing the space for the birdhouse by adjusting its position and size, which focuses on spatial reasoning and the arrangement of structure components without leaving gaps.'
-    )
-  ],
-  confidence = 4
-)

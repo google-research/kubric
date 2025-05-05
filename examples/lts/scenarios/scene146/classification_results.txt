@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The scene prompt requires designing a symmetrical landscape pattern, which involves understanding and applying geometric properties such as radius, orientation, and spacing. This indicates a focus on exact quantities and symmetries to achieve the desired pattern.'
-    )
-  ],
-  confidence = 4
-)

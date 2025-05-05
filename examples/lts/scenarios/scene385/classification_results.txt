@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves creating a seating arrangement by understanding spatial relationships and geometric properties, particularly the use of rectangular structures to create an organized area. This requires spatial reasoning to ensure the design is both inviting and adheres to spatial constraints.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves interpreting spatial relationships, particularly focusing on forming a flowing line or contour surrounding the birdhouse, which requires spatial reasoning to achieve a harmonious and functional design.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires the understanding of spatial relationships to create enclosures that integrate with the rocks, maintaining a balance between enclosure and openness.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a circular arrangement, which requires spatial reasoning to design a harmonious and inviting seating area. The focus is on the arrangement's shape and how it frames and integrates bench and table positions."
-    )
-  ],
-  confidence = 4
-)

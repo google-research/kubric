@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests developing a pathway ensuring ease of movement and visual flow, which involves spatial reasoning about the layout and placement of objects to create clear paths.'
-    )
-  ],
-  confidence = 4
-)

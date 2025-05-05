@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves understanding spatial relationships to ensure\n                     the seating is symmetrically positioned and properly oriented around\n                     the table, which directly relates to spatial reasoning.'
-    )
-  ],
-  confidence = 5
-)

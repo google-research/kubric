@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene requires understanding spatial relationships to create a serpentine seating arrangement without colliding with chairs, and to maintain a cohesive design.'
-    )
-  ],
-  confidence = 4
-)

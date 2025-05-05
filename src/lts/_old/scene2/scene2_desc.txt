@@ -1,0 +1,9 @@
+{
+  "category": "Uncertainty",
+  "objects": "['table', 'pot', 'trashcan', 'bench']",
+  "description": "This scene involves reasoning about semantic ambiguity due to multiple objects with similar functions or shapes. The instruction is unclear which of the round objects should serve as the center for the circular design requested. The initial design uses the pot as the center, but they want it around the table instead.",
+  "prompt": "Create a circular seating area around one of the round objects.",
+  "scene": "There is a table located at (1, -1), a pot at (-1, 1), a trashcan at (1, 1), and a bench at (-1, -1).",
+  "full solution": "The circular seating area is a single segment with a circular profile of radius 1.5, centered at (1, -1). It's composed of a continuous band of bricks.",
+  "initial solution": "The initial design involves a circular seating area with a single segment of radius 1, centered at (-1, 1)."
+}

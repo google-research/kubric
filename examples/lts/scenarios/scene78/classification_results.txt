@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt requires understanding the meaning of 'cozy atmosphere' and 'without blocking views', which are semantic judgments. These involve the function and aesthetic of the scene rather than specific spatial reasoning or numeric constraints."
-    )
-  ],
-  confidence = 4
-)

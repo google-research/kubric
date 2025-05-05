@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to define spaces around the waste bins, emphasizing tidy boundaries and ensuring access without obstruction.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,0 +1,133 @@
+{
+  "prompt": "Construct an L-shape with two segments near the bench behind the birdhouse so that it can provide seating in that corner.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.3,
+        -1.0,
+        -0.3
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "2": {
+      "extent": [
+        0.8,
+        -0.5,
+        -0.8
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    }
+  },
+  "output": [
+    {
+      "interpretation": "Use bench at [0.0, 1.0, 0.0]",
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          -1.5
+        ]
+      ]
+    },
+    {
+      "interpretation": "Use bench at [0.0, 1.0, 0.0]",
+      "segment": 2,
+      "height": 0.5,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -1.5
+        ],
+        [
+          2.5,
+          -0.0,
+          -1.5
+        ]
+      ]
+    },
+    {
+      "interpretation": "Use bench at [1.0, 1.0, 0.0]",
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -1.0
+        ],
+        [
+          1.0,
+          -0.0,
+          -2.5
+        ]
+      ]
+    },
+    {
+      "interpretation": "Use bench at [1.0, 1.0, 0.0]",
+      "segment": 2,
+      "height": 0.5,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -2.5
+        ],
+        [
+          2.5,
+          -0.0,
+          -2.5
+        ]
+      ]
+    }
+  ],
+  "description": "There are two benches placed behind the birdhouse along the x-axis, creating ambiguity about the intended bench. The L-shaped seating design could be positioned around either bench at (0,1) or (1,1), each requiring two 1.5m segments.",
+  "category": "Uncertainty"
+}

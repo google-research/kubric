@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requests a partial ring structure that encloses the birdhouse and table while ensuring open viewing and interaction. This requires understanding the spatial arrangement and relative positions of objects in the scene.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires creating a QuarterWedge structure to enclose and organize elements such as trees and a trashcan, maintaining open access and managing spatial arrangements within the area.'
-    )
-  ],
-  confidence = 4
-)

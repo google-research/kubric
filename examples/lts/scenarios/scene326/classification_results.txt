@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating an environment with spatial relationships between the objects such as the quarter-wedge, birdhouses, and chair. The task involves understanding the spatial arrangement to create a harmonious and inviting scene.'
-    )
-  ],
-  confidence = 4
-)

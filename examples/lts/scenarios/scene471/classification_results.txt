@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt 'Establish a decorative apex using a TriWedge to gently encompass the birdhouse' focuses on an aesthetic purpose and providing protection, which requires understanding the meaning and function of the scene's elements. It is not specific about positions or quantities, relying on conceptual understanding."
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning as it involves designing a path that flows between trees and seating, ensuring seamless integration with the garden. This involves understanding and planning the relative positions and flow within the scene.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests spatial reasoning as it involves developing a path that weaves between trees and a bench, which requires understanding of relative positions.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires the design of a path that forms a boundary and ensures clear, unobstructed routes to each key element. This involves spatial reasoning to accurately position paths relative to objects like the birdhouse and table.'
-    )
-  ],
-  confidence = 4
-)

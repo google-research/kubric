@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requests creating a path that weaves between specific structures (chairs and birdhouse), which involves understanding their relative positions and how to connect them in a visually appealing way.'
-    )
-  ],
-  confidence = 4
-)

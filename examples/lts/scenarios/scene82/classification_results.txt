@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires understanding and designing the linear border to frame the pots without obstructing the area, focusing on spatial relationships and geometric properties.'
-    )
-  ],
-  confidence = 4
-)

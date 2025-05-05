@@ -16,3 +16,8 @@ shapenet2kubric/shapenet2kubric.log
 examples/KuBasic/Cone/*
 Dockerfile
 output_tmp/*
+src/lts/all_objects
+src/lts/assets
+src/lts/runtime
+src/lts/scenarios
+src/lts/test_jobs

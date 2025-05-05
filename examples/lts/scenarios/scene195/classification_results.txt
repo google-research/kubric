@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt requires understanding the function and aesthetic qualities of objects (pot and trashcan), focusing on creating an 'artistic' and 'inviting' enclosure. This involves interpreting the overall meaning and artistic qualities of the scene rather than specific spatial or numeric details."
-    )
-  ],
-  confidence = 4
-)

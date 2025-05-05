@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests establishing a linear boundary which involves spatial reasoning to determine where this boundary should be placed relative to existing objects like trees.'
-    )
-  ],
-  confidence = 4
-)

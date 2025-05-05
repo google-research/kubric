@@ -1,0 +1,100 @@
+{
+  "prompt": "Construct a two-segment L-shaped barrier that starts behind the table to divide it from the rock in front, then bends right toward the bench to keep the area around the table open. Ensure both segments connect neatly, forming an L.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.6
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -0.4,
+        -0.0,
+        -1.8
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -1.5
+      ],
+      "center": [
+        1.5,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "5": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.5,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.8,
+      "keypoints": [
+        [
+          -0.2,
+          -0.0,
+          -2.0
+        ],
+        [
+          0.8,
+          -0.0,
+          -2.0
+        ],
+        [
+          0.8,
+          -0.0,
+          -1.4
+        ]
+      ]
+    }
+  ],
+  "description": "This scene requires an L-shaped barrier placed such that the table is behind it, separating it from the rock in front, and bending right toward the bench. The positions reflect 'in front' as smaller x-values and 'right' as higher y-values.",
+  "category": "semantic"
+}

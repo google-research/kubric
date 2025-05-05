@@ -1,0 +1,134 @@
+{
+  "prompt": "Construct an L-shaped structure around the pot that is closest to the rock in order to shield it from the wind.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.8,
+        -0.0,
+        0.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.2,
+        -0.0,
+        -0.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.2,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.3,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "5": {
+      "extent": [
+        1.0,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "6": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.8,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.4,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -0.2
+        ],
+        [
+          1.0,
+          -0.0,
+          -1.0
+        ],
+        [
+          1.4,
+          -0.0,
+          -1.0
+        ],
+        [
+          1.4,
+          -0.0,
+          -0.6
+        ],
+        [
+          1.2,
+          -0.0,
+          -0.6
+        ],
+        [
+          1.2,
+          -0.0,
+          -0.2
+        ],
+        [
+          1.0,
+          -0.0,
+          -0.2
+        ]
+      ]
+    }
+  ],
+  "description": "This scene demonstrates semantic uncertainty about which pot is \u2018the pot near the rock,\u2019 because two pots (at (0.5, 1.2) and (1.5, 1.2)) are placed roughly the same distance from the rock. We construct an L-shaped structure around pot #1 for demonstration, with two 1-meter segments joined at a 90-degree corner near (0.5, 1.2), at a height of 0.4 m. If the intended target were pot #2, a similar L-shape could be placed around (1.5, 1.2).",
+  "category": "Uncertainty"
+}

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to place a semi-circular design around central elements, ensuring integration with surrounding trees and a pot. This requires understanding of relative positions and arrangement in space to achieve the intended flow and unity.'
-    )
-  ],
-  confidence = 5
-)

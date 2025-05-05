@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires the creation of a path that integrates naturally with the existing trees, taking into account the spatial relationships and geometric properties such as amplitude and wavelength.'
-    )
-  ],
-  confidence = 4
-)

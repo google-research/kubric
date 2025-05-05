@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves constructing a seating area around the birdhouse with specific spatial relationships, such as the positioning of the seating relative to the birdhouse to ensure a cozy atmosphere.'
-    )
-  ],
-  confidence = 5
-)

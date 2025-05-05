@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires designing a pathway that connects objects (table and chairs) with spatial reasoning needed to ensure cohesion and aesthetic flow, without collisions. This involves understanding the spatial layout and relationships between the furniture.'
-    )
-  ],
-  confidence = 4
-)

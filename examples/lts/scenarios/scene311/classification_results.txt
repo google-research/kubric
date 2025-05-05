@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves constructing a linear path to guide movement across the garden, which requires spatial reasoning related to the positioning of the path in relation to the garden elements.'
-    )
-  ],
-  confidence = 4
-)

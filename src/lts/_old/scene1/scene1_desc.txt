@@ -1,0 +1,9 @@
+{
+  "category": "Uncertainty",
+  "objects": "['rock', 'bench', 'trashcan', 'tree', 'table']",
+  "description": "This scene presents the challenge of semantic ambiguity as the model must choose a central position for the circular design among multiple similar options. With the vague instruction of placing the structure near either a tree or a bench, the model needs guidance to refine this. The initial design is placed near a tree, but feedback indicates a preference for being closer to the bench with a specific emphasis on a circular symmetry.",
+  "prompt": "Create a circular seating area around either a tree or a bench.",
+  "scene": "There is a tree at (0, 1, 0) and a bench at (1, 0, 0), with a rock at (-1, -1, 0), a trashcan at (2, 2, 0), and a table at (-2, 2, 0).",
+  "full solution": "The circular seating area has a single segment and is centered at (1, 0, 0) with a 2-meter diameter. The seating height is 0.5 meters.",
+  "initial solution": "The initial design is a circular seating area centered at (0, 1, 0) with a 1.5-meter diameter. The seating height is 0.4 meters."
+}

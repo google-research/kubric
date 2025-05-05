@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The scene prompt emphasizes spatial reasoning by describing how the semi-ring should 'gently embrace' the birdhouse, suggesting a focus on the spatial arrangement and relationship between the semi-ring and the birdhouse."
-    )
-  ],
-  confidence = 4
-)

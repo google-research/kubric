@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires creating a path that connects various objects (benches and trashcan) in an organized flow, emphasizing the spatial arrangement and relative positions of these objects.'
-    )
-  ],
-  confidence = 5
-)

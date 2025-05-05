@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires the creation of a linear border around the birdhouse without obstructing any paths. This involves spatial reasoning to ensure that the border is positioned correctly in relation to the birdhouse and surrounding paths.'
-    )
-  ],
-  confidence = 4
-)

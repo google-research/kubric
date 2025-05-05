@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves understanding spatial relationships as it requests a functional garden nook that integrates seating and natural elements using an L-shaped structure. It requires spatial reasoning to determine how to place the seating and natural elements in relation to each other.'
-    )
-  ],
-  confidence = 5
-)

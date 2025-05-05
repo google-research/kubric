@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt involves semantic understanding, as 'leafy things' is a vague term requiring interpretation to refer to trees. Additionally, it lacks specific details regarding the number or arrangement of 'leafy things,' leading to semantic uncertainty."
-    )
-  ],
-  confidence = 4
-)

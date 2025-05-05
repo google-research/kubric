@@ -1,0 +1,102 @@
+{
+  "prompt": "Construct a circular arrangement around the pot so that it encloses it near the bench; however, the instructions do not specify which pot must be enclosed, so you must decide or remain uncertain.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.1,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -1.5
+        ],
+        [
+          1.3536,
+          -0.0,
+          -1.3536
+        ],
+        [
+          1.5,
+          -0.0,
+          -1.0
+        ],
+        [
+          1.3536,
+          -0.0,
+          -0.6464
+        ],
+        [
+          1.0,
+          -0.0,
+          -0.5
+        ],
+        [
+          0.6464,
+          -0.0,
+          -0.6464
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.0
+        ],
+        [
+          0.6464,
+          -0.0,
+          -1.3536
+        ],
+        [
+          1.0,
+          -0.0,
+          -1.5
+        ]
+      ]
+    }
+  ],
+  "description": "This scene showcases semantic ambiguity: two pots are present but the instruction refers ambiguously to 'the pot.' The builder does not know which pot is intended. A single bench is also nearby. Because the instruction is unclear, the circular structure is centered to plausibly enclose either pot.",
+  "category": "Uncertainty"
+}

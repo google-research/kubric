@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the construction of a continuous workspace between tables, which involves spatial reasoning to ensure easy flow of activities. This requires understanding the relative positions and arrangement of the tables.'
-    )
-  ],
-  confidence = 4
-)

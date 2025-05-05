@@ -1,0 +1,129 @@
+{
+  "prompt": "Construct a single-segment serpentine brick structure behind the bench next to the table so that it encloses the birdhouse.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -2.0,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "3": {
+      "extent": [
+        1.0,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -1.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "5": {
+      "extent": [
+        0.5,
+        -0.5,
+        -1.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "6": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.6,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -0.8
+        ],
+        [
+          1.5,
+          -0.0,
+          -0.6
+        ],
+        [
+          1.8,
+          -0.0,
+          -0.5
+        ],
+        [
+          2.0,
+          -0.0,
+          -0.3
+        ],
+        [
+          2.2,
+          -0.0,
+          -0.3
+        ],
+        [
+          2.2,
+          -0.0,
+          -0.8
+        ]
+      ]
+    }
+  ],
+  "description": "There is an ambiguity about which bench is referred to by \u2018the bench next to the table,\u2019 as both benches are similarly placed. One possible resolution is to construct the serpentine structure behind the bench at (1, 1), curving around the birdhouse at (0, 2) and leaving an open access from the west. Another valid interpretation places the structure behind the bench at (1, -1), reflecting the inherent uncertainty.",
+  "category": "Uncertainty"
+}

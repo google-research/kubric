@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires designing a meandering path that intertwines between the table and birdhouses, which involves understanding and working with the spatial arrangement and relative positions of these objects in the scene.'
-    )
-  ],
-  confidence = 5
-)

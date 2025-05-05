@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires creating a path connecting natural and urban areas, which involves spatial reasoning to ensure the path links the environments effectively without consuming too much open space.'
-    )
-  ],
-  confidence = 5
-)

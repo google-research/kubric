@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a 'semi-circular structure around the seating area'. This requires spatial reasoning to determine the arrangement and relative positioning of elements to achieve the semi-circular form."
-    )
-  ],
-  confidence = 4
-)

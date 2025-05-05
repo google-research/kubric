@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests creating a path through a grove of trees, requiring an understanding of spatial relationships and the geometric arrangement of the path relative to the trees.'
-    )
-  ],
-  confidence = 5
-)

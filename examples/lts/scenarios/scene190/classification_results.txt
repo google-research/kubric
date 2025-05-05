@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires defining an L-shaped border that integrates with the spatial arrangement of trees to craft the garden space. This involves spatial reasoning to align and position the L-shape correctly.'
-    )
-  ],
-  confidence = 4
-)

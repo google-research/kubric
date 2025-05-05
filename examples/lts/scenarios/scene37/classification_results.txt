@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The scene involves requirements for symmetrical patterns and numerical spacing, such as radius and orientation, to maintain symmetry.'
-    )
-  ],
-  confidence = 4
-)

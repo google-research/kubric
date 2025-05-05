@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires the creation of a path that intertwines between a tree and a rock, which involves spatial reasoning regarding the relative positions and interactions of these elements in the scene.'
-    )
-  ],
-  confidence = 4
-)

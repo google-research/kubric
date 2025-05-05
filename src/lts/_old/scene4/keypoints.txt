@@ -1,0 +1,124 @@
+{
+  "prompt": "Construct a semi-circular seat area behind the birdhouse so visitors can rest.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -3.0,
+        -1.0
+      ],
+      "center": [
+        -2.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "5": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "6": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          -2.0,
+          -0.0,
+          -2.0
+        ],
+        [
+          -1.2929,
+          -0.0,
+          -1.7071
+        ],
+        [
+          -1.0,
+          -0.0,
+          -1.0
+        ],
+        [
+          -1.2929,
+          -0.0,
+          -0.2929
+        ],
+        [
+          -2.0,
+          -0.0,
+          -0.0
+        ]
+      ]
+    }
+  ],
+  "description": "This scene introduces semantic ambiguity by having two birdhouses in different locations, yet the instruction only refers to 'the birdhouse' without clarifying which one. The robot needs to decide which birdhouse is intended.",
+  "category": "Uncertainty"
+}

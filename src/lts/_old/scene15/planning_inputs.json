@@ -1,0 +1,82 @@
+{
+  "prompt": "Build a rectangular structure in front of it to enhance the view.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          0.75,
+          -0.0,
+          2.25
+        ],
+        [
+          1.25,
+          -0.0,
+          2.25
+        ],
+        [
+          1.25,
+          -0.0,
+          0.75
+        ],
+        [
+          0.75,
+          -0.0,
+          0.75
+        ],
+        [
+          0.75,
+          -0.0,
+          2.25
+        ]
+      ]
+    }
+  ],
+  "description": "This scene involves reasoning about syntactic uncertainty. The instruction uses 'it' without specifying which object is being referred to. We assume 'it' refers to the rock and place a rectangular structure in front of it, centered at (-1.5, 1), measuring 1.5m by 0.5m, with a height of 0.5m.",
+  "category": "Uncertainty"
+}

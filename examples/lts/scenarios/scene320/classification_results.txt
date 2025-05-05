@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the design of a serpentine path that winds between trees, which involves spatial reasoning to navigate around obstacles and maintain an inviting walkway.'
-    )
-  ],
-  confidence = 5
-)

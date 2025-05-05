@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves weaving a path that requires understanding of spatial relationships and positioning of the path relative to the chairs to avoid obstruction, which is a spatial reasoning task.'
-    )
-  ],
-  confidence = 5
-)

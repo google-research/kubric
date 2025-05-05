@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating an L-shaped boundary, which requires spatial reasoning to arrange the structure around the trashcans effectively within the scene context.'
-    )
-  ],
-  confidence = 4
-)

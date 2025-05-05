@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requests an intertwining path between two birdhouses, requiring an understanding of their relative positions and maintaining spatial harmony in the garden.'
-    )
-  ],
-  confidence = 4
-)

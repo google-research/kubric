@@ -1,0 +1,69 @@
+{
+  "prompt": "Construct a two-segment L-shaped structure behind the pot and near the birdhouse. Each segment should be 1 meter long and 0.3 meters wide, with a height of 0.5 meters.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          -1.0,
+          -0.0,
+          -0.5
+        ],
+        [
+          -1.0,
+          -0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "segment": 2,
+      "height": 0.5,
+      "keypoints": [
+        [
+          -1.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          -0.0
+        ]
+      ]
+    }
+  ],
+  "description": "This scene focuses on interpreting the notion of 'behind' (negative x-direction) and 'next to' (close in the plane) as semantic relationships. The pot is placed at (1, -1) and the birdhouse at (0, 1). An L-shaped, two-segment structure is constructed immediately behind the pot, from (0.5, -1) to (0, -1), then angled up toward (0, 0), bringing it closer to the birdhouse.",
+  "category": "semantic"
+}

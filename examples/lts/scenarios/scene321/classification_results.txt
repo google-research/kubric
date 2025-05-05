@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt requests the creation of a circular arrangement, which involves spatial reasoning to ensure that the arrangement encircles the seating area appropriately. The focus is on understanding spatial relationships to achieve a cohesive design.'
-    )
-  ],
-  confidence = 5
-)

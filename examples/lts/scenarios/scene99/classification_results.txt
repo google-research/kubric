@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging an L-shaped seating arrangement, which requires understanding and application of spatial reasoning to ensure the seating is symmetrically positioned around a central area, offering comfort and accessibility.'
-    )
-  ],
-  confidence = 5
-)

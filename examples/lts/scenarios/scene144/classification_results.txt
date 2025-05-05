@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a path that 'connects' specific scene elements like pots, rock, and tree, which requires spatial reasoning regarding their relative positions."
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging objects using circular designs around specific garden objects, which requires an understanding of their spatial relationships and positions.'
-    )
-  ],
-  confidence = 4
-)

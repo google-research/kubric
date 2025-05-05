@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires arranging a structure (encircle the seating arrangement) with attention to spatial relationships (leaving space for entry and exit) without obstructing flow, which involves spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

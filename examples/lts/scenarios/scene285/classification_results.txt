@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging chairs in a serpentine shape, which requires spatial reasoning to ensure a cohesive and fluid seating arrangement.'
-    )
-  ],
-  confidence = 4
-)

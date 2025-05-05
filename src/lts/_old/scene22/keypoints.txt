@@ -1,0 +1,116 @@
+{
+  "prompt": "Construct a single circular boundary in front of the table that encloses the pot, forming a small flower ring.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -0.8,
+        -1.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.5,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.8,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "4": {
+      "extent": [
+        0.6,
+        -1.0,
+        -0.6
+      ],
+      "center": [
+        -1.8,
+        -0.0,
+        1.8
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.4,
+      "keypoints": [
+        [
+          0.5,
+          -0.0,
+          -0.4
+        ],
+        [
+          0.783,
+          -0.0,
+          -0.283
+        ],
+        [
+          0.9,
+          -0.0,
+          -0.0
+        ],
+        [
+          0.783,
+          -0.0,
+          0.283
+        ],
+        [
+          0.5,
+          -0.0,
+          0.4
+        ],
+        [
+          0.217,
+          -0.0,
+          0.283
+        ],
+        [
+          0.1,
+          -0.0,
+          -0.0
+        ],
+        [
+          0.217,
+          -0.0,
+          -0.283
+        ],
+        [
+          0.5,
+          -0.0,
+          -0.4
+        ]
+      ]
+    }
+  ],
+  "description": "This scene demonstrates a single-segment circular arrangement in front of the table (lower x-value indicates 'in front') to enclose the pot. Each object\u2019s position is kept within \u00b12 units of the origin.",
+  "category": "Spatial"
+}

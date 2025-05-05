@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires arranging the seating area in relation to the tree and pots, ensuring that spatial relationships, such as the direction the open side of the seating faces and the centrality of the chair, are emphasized.'
-    )
-  ],
-  confidence = 5
-)

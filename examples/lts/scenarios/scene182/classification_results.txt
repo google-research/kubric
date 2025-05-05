@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt requires understanding and manipulating spatial relationships to establish a boundary between objects like the pot and the rock, indicating spatial reasoning is involved.'
-    )
-  ],
-  confidence = 5
-)

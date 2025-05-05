@@ -1,0 +1,150 @@
+{
+  "prompt": "Construct a circular brick enclosure behind the tree from the perspective of the pot so visitors can sit there and enjoy the birdhouse view.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.5,
+        -0.0,
+        1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.2,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "3": {
+      "extent": [
+        1.0,
+        -3.0,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.2
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "5": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        -0.8,
+        -0.0,
+        1.8
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.4,
+      "keypoints": [
+        [
+          0.0,
+          -0.0,
+          -1.8
+        ],
+        [
+          0.4,
+          -0.0,
+          -1.6928
+        ],
+        [
+          0.6928,
+          -0.0,
+          -1.4
+        ],
+        [
+          0.8,
+          -0.0,
+          -1.0
+        ],
+        [
+          0.6928,
+          -0.0,
+          -0.6
+        ],
+        [
+          0.4,
+          -0.0,
+          -0.3072
+        ],
+        [
+          0.0,
+          -0.0,
+          -0.2
+        ],
+        [
+          -0.4,
+          -0.0,
+          -0.3072
+        ],
+        [
+          -0.6928,
+          -0.0,
+          -0.6
+        ],
+        [
+          -0.8,
+          -0.0,
+          -1.0
+        ],
+        [
+          -0.6928,
+          -0.0,
+          -1.4
+        ],
+        [
+          -0.4,
+          -0.0,
+          -1.6928
+        ],
+        [
+          0.0,
+          -0.0,
+          -1.8
+        ]
+      ]
+    }
+  ],
+  "description": "This scene includes a pot, birdhouse, tree, chair, and trashcan. A single-segment circular brick structure is built behind the tree from the pot's perspective (i.e., at a higher x-value relative to the pot), providing a seating area to enjoy the birdhouse view.",
+  "category": "Semantic"
+}

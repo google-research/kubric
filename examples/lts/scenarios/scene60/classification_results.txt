@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt requires understanding the meaning and design of a 'semi-enclosed garden seating area' and 'enhancing the natural ambiance' which relies on abstract and subjective concepts."
-    )
-  ],
-  confidence = 4
-)

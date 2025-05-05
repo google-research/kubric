@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires understanding of spatial relationships to position L-shaped structures around a tree and a bench according to specified geometric properties.'
-    )
-  ],
-  confidence = 4
-)

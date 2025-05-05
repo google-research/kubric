@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt and description emphasize spatial reasoning, such as interpreting spatial relationships, geometric properties, and ensuring no collisions, which involves understanding the spatial context of the scene.'
-    )
-  ],
-  confidence = 5
-)

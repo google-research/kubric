@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by asking for a linear element that defines the area between seating, which requires consideration of relative positions in the scene.'
-    )
-  ],
-  confidence = 4
-)

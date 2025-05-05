@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires designing a pathway that winds around the birdhouse, considering the arrangement and relative positions of objects in the scene.'
-    )
-  ],
-  confidence = 5
-)

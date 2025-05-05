@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves the arrangement of garden elements, specifically using a semi-ring to encircle natural stones and a seating area. This task requires spatial reasoning to determine the correct placement and orientation of the semi-ring in relation to the rocks and chair to create a functional and aesthetically pleasing space.'
-    )
-  ],
-  confidence = 5
-)

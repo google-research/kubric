@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests spatial reasoning to create a semi-circular seating arrangement around tables. The spatial layout and positioning are crucial to maintain an inviting and open atmosphere.'
-    )
-  ],
-  confidence = 4
-)

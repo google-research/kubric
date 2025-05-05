@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires arranging spaces to demarcate dining, focusing on the spatial layout and positioning relative to other objects.'
-    )
-  ],
-  confidence = 4
-)

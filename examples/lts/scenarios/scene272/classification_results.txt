@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a route that is defined spatially as a 'linear pathway between the trees'. This requires spatial reasoning to ensure the path is accessible and aesthetically enhances the garden by accounting for the relative positions of the trees."
-    )
-  ],
-  confidence = 4
-)

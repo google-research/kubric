@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires creating a spatial division to separate the seating area from the utility zone, involving spatial reasoning about the relative positions of the objects.'
-    )
-  ],
-  confidence = 4
-)

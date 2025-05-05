@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a barrier that curves around items, which requires understanding spatial relationships such as positioning and orientation. It involves spatial reasoning to determine how the barrier should be positioned relative to the items to effectively shield against the wind.'
-    )
-  ],
-  confidence = 5
-)

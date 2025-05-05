@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt involves designing a structure with specific geometric properties such as radius, angular gap, and height, indicating the need for understanding of numerical quantities and geometric symmetries.'
-    )
-  ],
-  confidence = 4
-)

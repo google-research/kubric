@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt emphasizes the arrangement of linear structures to frame a garden around the table, which requires spatial reasoning to ensure clear pathways and aesthetic cohesion.'
-    )
-  ],
-  confidence = 4
-)

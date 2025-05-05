@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves spatial reasoning as it requires understanding of the orientation and positioning of the serpentine paths relative to the central rock, ensuring they swirl around without colliding.'
-    )
-  ],
-  confidence = 4
-)

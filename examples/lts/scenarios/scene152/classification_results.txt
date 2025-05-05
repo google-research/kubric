@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt emphasizes the function and aesthetic of the design (accentuating the gathering space and maintaining openness) without specific instructions on spatial layout or numeric precision beyond symmetry.'
-    )
-  ],
-  confidence = 4
-)

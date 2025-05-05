@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by requesting the creation of circular features around each tree, which requires understanding and applying spatial relationships between objects in the scene.'
-    )
-  ],
-  confidence = 5
-)

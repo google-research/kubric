@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt uses qualitative terms like 'circular pattern,' 'coherent charm,' and 'open accessibility,' which require an understanding of the design's purpose and the relationships between elements, without specifying exact numerical details or positions. The focus is on the aesthetic and functional meaning of the arrangement rather than precise spatial or numerical reasoning."
-    )
-  ],
-  confidence = 4
-)

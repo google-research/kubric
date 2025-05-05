@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt requires designing a boundary that is concealed yet open, which involves understanding the conceptual function and aesthetic harmony of the garden. This requires semantic reasoning to understand the meaning and purpose of the 'concealed yet open' description."
-    )
-  ],
-  confidence = 5
-)

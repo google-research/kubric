@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves arranging objects with respect to each other's positions. Specifically, the seating area needs to be oriented spatially around the rock with an open side facing the tree for accessibility and aesthetic balance."
-    )
-  ],
-  confidence = 5
-)

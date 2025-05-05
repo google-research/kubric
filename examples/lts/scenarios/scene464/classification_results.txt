@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt focuses on the spatial arrangement, requiring a semi-circular ring to embrace and unify the birdhouses, enhancing the spatial relationship and providing a defined yet open boundary.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt and description involve spatial reasoning, such as arranging a quarter-wedge design around a rock and table while maintaining accessibility.'
-    )
-  ],
-  confidence = 4
-)

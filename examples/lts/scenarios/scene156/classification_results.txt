@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging planters around rocks while ensuring ease of movement, which requires spatial reasoning to manage the positions and spacing between objects.'
-    )
-  ],
-  confidence = 5
-)

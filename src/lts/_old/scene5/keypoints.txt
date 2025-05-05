@@ -1,0 +1,99 @@
+{
+  "prompt": "Construct a two-segment L-shaped structure behind the birdhouse so that the rock remains on its left side. Use 'in front' as lower x-values and 'behind' as higher x-values.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.4,
+      "keypoints": [
+        [
+          -0.5,
+          -0.0,
+          -1.2
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.2
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.4
+        ],
+        [
+          -0.5,
+          -0.0,
+          -1.4
+        ],
+        [
+          -0.5,
+          -0.0,
+          -1.2
+        ]
+      ]
+    },
+    {
+      "segment": 2,
+      "height": 0.4,
+      "keypoints": [
+        [
+          0.5,
+          -0.0,
+          -1.2
+        ],
+        [
+          0.7,
+          -0.0,
+          -1.2
+        ],
+        [
+          0.7,
+          -0.0,
+          -1.8
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.8
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.2
+        ]
+      ]
+    }
+  ],
+  "description": "This scene emphasizes the semantic notion of 'behind', interpreted such that an object with a greater x-value is behind one with a smaller x-value. The L-shaped structure is placed behind the birdhouse while keeping the rock to its left.",
+  "category": "Semantic"
+}

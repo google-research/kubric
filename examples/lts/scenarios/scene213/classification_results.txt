@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a path that encircles the pots and requires understanding spatial relationships and geometric properties to achieve a functional and aesthetic outcome.'
-    )
-  ],
-  confidence = 5
-)

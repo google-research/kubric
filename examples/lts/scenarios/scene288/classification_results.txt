@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The scene prompt involves spatial reasoning to provide visual separation between the trashcans, focusing on their relative positions to enhance the garden's layout."
-    )
-  ],
-  confidence = 4
-)

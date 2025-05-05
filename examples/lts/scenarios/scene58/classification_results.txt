@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires understanding spatial relationships in the scene to enclose both the tree and the birdhouse while leaving paths open at the corners.'
-    )
-  ],
-  confidence = 5
-)

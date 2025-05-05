@@ -1,0 +1,9 @@
+{
+  "category": "Uncertainty",
+  "objects": "['bench', 'birdhouse']",
+  "description": "This scene involves reasoning about semantic ambiguity. There is some uncertainty about which birdhouse is the target because both objects have similar spatial placements, thus creating ambiguity. Additionally, the design instructions were not entirely clear, prompting further clarification. The initial design is to be placed left of the bench, but it has been revised to be to the right of the birdhouse.",
+  "prompt": "Construct an L-shaped structure between the bench and one of the birdhouses.",
+  "scene": "A bench is positioned at (0, 2, 0), and birdhouses are located at (0, -2, 0) and (-1, -2, 0).",
+  "full solution": "The L-shaped structure is composed of two segments; one is vertically aligned, and one is horizontally aligned, originating at the center (1, -1, 0). Each segment is 1 unit in length, forming a right angle. This revision places the structure to the right of the birdhouse at (0, -2, 0).",
+  "initial solution": "The initial design has two segments: a vertically aligned one and a horizontally aligned one, forming a right angle with the origin at (-1, 1, 0), left of the bench."
+}

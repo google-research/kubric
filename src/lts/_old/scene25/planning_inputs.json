@@ -1,0 +1,106 @@
+{
+  "prompt": "Construct an L-shaped enclosure around the pot behind the table, so that the pot is framed nicely for a small garden display.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -2.0,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.7,
+      "keypoints": [
+        [
+          -1.5,
+          -0.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          -0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          -0.0,
+          -1.7
+        ],
+        [
+          -1.2,
+          -0.0,
+          -1.7
+        ],
+        [
+          -1.2,
+          -0.0,
+          -0.5
+        ],
+        [
+          -1.5,
+          -0.0,
+          -0.5
+        ]
+      ]
+    }
+  ],
+  "description": "This scene sets up an ambiguity about which pot is 'behind' the table. Since there are two pots located roughly behind the table, it\u2019s unclear which one the user wants us to build around. This is a contextual/semantic ambiguity scenario.",
+  "category": "Uncertainty"
+}

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires designing an outdoor space using quarter-wedge structures to incorporate rocks into the seating arrangement while ensuring openness and ease of access. The instructions focus on the positioning and arrangement of elements in the scene to achieve accessibility and interaction.'
-    )
-  ],
-  confidence = 4
-)

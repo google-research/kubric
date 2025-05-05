@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests arranging the trees in an L-shaped border, which involves understanding relative positions and shapes within the scene.'
-    )
-  ],
-  confidence = 4
-)

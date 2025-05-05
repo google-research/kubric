@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to establish a clear yet unobtrusive pathway between areas, which requires considering the relative positions of the sitting area and natural elements.'
-    )
-  ],
-  confidence = 4
-)

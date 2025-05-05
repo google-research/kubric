@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene involves spatial reasoning as the task requires arranging a serpentine path and seating area around a rock, with attention to spatial relationships and creating an aesthetically pleasing layout without collisions.'
-    )
-  ],
-  confidence = 4
-)

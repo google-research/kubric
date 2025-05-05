@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a spatial arrangement around each trashcan, focusing on the placement and accessibility which involves spatial reasoning about the scene context.'
-    )
-  ],
-  confidence = 5
-)

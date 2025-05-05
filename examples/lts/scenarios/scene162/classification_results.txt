@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests an L-shaped border to frame the setup, which involves understanding spatial relations in terms of organizing structures and creating distinct areas for items.'
-    )
-  ],
-  confidence = 5
-)

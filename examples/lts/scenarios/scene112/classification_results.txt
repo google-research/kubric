@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene requires spatial reasoning to construct an L-shaped structure surrounding birdhouses without encroaching on their immediate vicinity. This involves understanding spatial relationships for appropriate placement and alignment.'
-    )
-  ],
-  confidence = 5
-)

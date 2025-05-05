@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt describes creating a harmonious garden feature that blends with natural elements. This requires understanding of the meaning and function of the objects within the scene, as well as an overall conceptualization of harmony, which is not specified explicitly in terms of spatial or numerical details.'
-    )
-  ],
-  confidence = 4
-)

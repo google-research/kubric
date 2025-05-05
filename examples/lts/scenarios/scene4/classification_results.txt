@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt requires spatial reasoning to determine how to position the wall to effectively hide the 'thing' in the background. It involves understanding the relative positions and alignments within the scene."
-    )
-  ],
-  confidence = 4
-)

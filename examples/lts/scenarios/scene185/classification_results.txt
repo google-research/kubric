@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves understanding spatial relationships to organize seating and waste disposal areas within the plaza, ensuring the structures do not hinder accessibility.'
-    )
-  ],
-  confidence = 4
-)

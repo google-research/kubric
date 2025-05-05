@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves the arrangement of a circular setup around the trees, which requires spatial reasoning to understand and design the relative positioning of the circular structure in relation to the trees.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a structure that elegantly frames the rocks, which requires understanding spatial relationships and ensuring the border is unobtrusive. This indicates a need for spatial reasoning about the relative positions and spatial arrangement of objects in the scene.'
-    )
-  ],
-  confidence = 4
-)

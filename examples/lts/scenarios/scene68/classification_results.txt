@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt involves creating a wavy walkway, which requires understanding geometric transformations such as wavelength and amplitude. These concepts involve precise numerical reasoning to ensure the paths are properly spaced and maintain aesthetic symmetry between the trees.'
-    )
-  ],
-  confidence = 4
-)

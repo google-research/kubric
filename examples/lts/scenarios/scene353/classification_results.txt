@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to develop a boundary that balances aesthetics and accessibility while considering the spatial relationship between the rock and the trashcan.'
-    )
-  ],
-  confidence = 4
-)

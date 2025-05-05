@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves designing a path that connects specific objects (birdhouse, rock, tree) within the garden, which requires spatial reasoning to ensure the path weaves between these objects effectively and enhances the garden's aesthetic appeal."
-    )
-  ],
-  confidence = 4
-)

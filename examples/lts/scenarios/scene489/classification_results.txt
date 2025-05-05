@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to understand the arrangement of the garden nook around the trees, specifically creating a semi-ring formation that envelops them.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging a rectangular structure to complement the natural setting and accommodate gatherings while ensuring the proper placement of objects relative to each other.'
-    )
-  ],
-  confidence = 4
-)

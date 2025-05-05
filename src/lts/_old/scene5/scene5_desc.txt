@@ -1,0 +1,7 @@
+{
+  "category": "Uncertainty",
+  "objects": "['trashcan', 'chair']",
+  "description": "This scene involves reasoning about semantic ambiguity, where ambiguity arises from having two identical chairs in the scene. The task requires decision-making on which side of either chair the semi-circular structure should be constructed, without further guidance.",
+  "prompt": "Build a semi-circular brick structure in front of one of the chairs without specifying which one.",
+  "solution": "There are chairs at coordinates (1, 1) and (1, -1), and there is a trashcan at (0, 0). The semi-circular structure has a single segment with a radius of 1 unit, opposite one of the chairs. The curved part of the semi-circle faces outward, towards positive x, with the straight edge aligning with the chair. If choosing the chair at (1, 1), the center of the straight segment of the semi-circle is at (2, 1). If choosing the chair at (1, -1), the center of the straight segment of the semi-circle is at (2, -1). The height of the structure is 0.5 meters."
+}

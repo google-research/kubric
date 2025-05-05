@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a garden path that 'flows around' a birdhouse. This requires understanding the spatial relationship between the path and the birdhouse, focusing on their relative positions and the geometry of the garden layout."
-    )
-  ],
-  confidence = 4
-)

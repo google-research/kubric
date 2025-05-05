@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene primarily involves designing a barrier around objects with specific spatial arrangements, ensuring that pathways can be made from each side. This focuses on spatial reasoning and geometric properties such as positioning of objects, radius, and allowing for entrances.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt and description emphasize the spatial arrangement of seating around a table, focusing on geometric properties and orientation to create a harmonious and accessible design.'
-    )
-  ],
-  confidence = 4
-)

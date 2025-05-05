@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires arranging quarter-wedge structures around tables, involving spatial reasoning about their relative positions to create an open and inviting area while maintaining access.'
-    )
-  ],
-  confidence = 4
-)

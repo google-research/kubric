@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt requests the design of a seating area that 'softly encloses the trees,' which involves understanding relative positions and creating a spatial arrangement around the trees."
-    )
-  ],
-  confidence = 4
-)

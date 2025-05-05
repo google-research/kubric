@@ -1,0 +1,110 @@
+{
+  "prompt": "Construct a single-segment, semi-circular brick arrangement behind the chair so that the pot is enclosed within. However, there is no indication of which chair to build behind because there are two chairs in the scene.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        1.5,
+        -0.0,
+        1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -5.0,
+        -0.5
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "5": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        -2.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.6,
+      "keypoints": [
+        [
+          -0.25,
+          -0.0,
+          -2.0
+        ],
+        [
+          -0.47,
+          -0.0,
+          -1.47
+        ],
+        [
+          -1.0,
+          -0.0,
+          -1.25
+        ],
+        [
+          -1.53,
+          -0.0,
+          -1.47
+        ],
+        [
+          -1.75,
+          -0.0,
+          -2.0
+        ]
+      ]
+    }
+  ],
+  "description": "Positions for the objects are as follows: the pot is at (1.5, \u22121.0), the bench at (\u22121.5, 1.5), the tree at (0, 2.0), and two chairs at (1.0, \u22121.0) and (1.0, \u22122.0). Ambiguity arises because it is unclear which chair is meant; we choose the first chair. Interpreting 'behind' as having a larger x-coordinate, we place the center of the semi-circular structure at (2.0, \u22121.0) with a 0.75 m radius, open to the negative x-axis, enclosing the pot. The single segment has a height of 0.6 m, fulfilling the request.",
+  "category": "Uncertainty"
+}

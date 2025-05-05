@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt requires spatial reasoning by asking to arrange quarter-wedge structures around specific objects, such as the tree and trashcan, and considers the garden's overall layout. This involves understanding and maintaining relative positions and spatial relationships."
-    )
-  ],
-  confidence = 4
-)

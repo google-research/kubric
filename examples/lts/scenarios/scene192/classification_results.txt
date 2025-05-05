@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt requires precise geometric arrangements in a circle around each tree, which involves understanding and applying geometric properties such as center and radius for formal garden aesthetics.'
-    )
-  ],
-  confidence = 4
-)

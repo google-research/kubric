@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a serpentine path that must navigate between existing objects (a birdhouse and a trashcan) without colliding with them. This requires understanding the spatial relationships and the positions of these objects within the scene.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves creating a serpentine pathway around chairs, which requires understanding and considering spatial relationships to ensure the path weaves naturally and complements the garden environment.'
-    )
-  ],
-  confidence = 5
-)

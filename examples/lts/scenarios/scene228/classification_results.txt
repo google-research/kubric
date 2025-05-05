@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene requires designing a path that winds between rocks, which involves understanding and reasoning about spatial relationships and positions.'
-    )
-  ],
-  confidence = 4
-)

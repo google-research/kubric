@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt emphasizes maintaining balance and symmetry, which involves precise numerical arrangements and symmetrical designs.'
-    )
-  ],
-  confidence = 4
-)

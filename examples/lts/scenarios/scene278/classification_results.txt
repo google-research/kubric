@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt focuses on spatial reasoning, requiring the construction of a linear feature that defines a seating area by considering relative positions and movement without obstruction.'
-    )
-  ],
-  confidence = 4
-)

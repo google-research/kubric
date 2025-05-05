@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a boundary to partition the table and rock and requires understanding the spatial relationships and positioning of these objects.'
-    )
-  ],
-  confidence = 4
-)

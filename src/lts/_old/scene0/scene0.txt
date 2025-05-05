@@ -1,0 +1,32 @@
+{
+  "prompt": "Construct a linear structure starting from the trashcan extending towards the table.",
+  "observation": {
+    "1": {
+      "extent": [0.5, 0.5, 1.0],
+      "center": [-2.0, 0.0, 0.0],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    },
+    "2": {
+      "extent": [2.0, 1.0, 0.8],
+      "center": [2.0, 0.0, 0.0],
+      "theta": 0.0,
+      "semantic_label": "table"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.2,
+      "keypoints": [
+        [-2.0, -0.25, 0.00],
+        [2.0, -0.25, 0.00],
+        [2.0, 0.25, 0.00],
+        [-2.0, 0.25, 0.00],
+        [-2.0, -0.25, 0.00]
+      ]
+    }
+  ],
+  "description": "This scene requires constructing a linear structure spanning between two objects, a trashcan and a table, for a structured arrangement of bricks.",
+  "category": "Spatial"
+}

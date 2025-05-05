@@ -1,0 +1,130 @@
+{
+  "prompt": "Construct a single-segment circular boundary around the pot and table. Ensure the arrangement is symmetrical, with the pot positioned in front of the table and the birdhouse in front of the tree.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "3": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "5": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        -1.5,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.6,
+      "keypoints": [
+        [
+          0.0,
+          -0.0,
+          -1.8
+        ],
+        [
+          1.2728,
+          -0.0,
+          -1.2728
+        ],
+        [
+          1.8,
+          -0.0,
+          -0.0
+        ],
+        [
+          1.2728,
+          -0.0,
+          1.2728
+        ],
+        [
+          0.0,
+          -0.0,
+          1.8
+        ],
+        [
+          -1.2728,
+          -0.0,
+          1.2728
+        ],
+        [
+          -1.8,
+          -0.0,
+          -0.0
+        ],
+        [
+          -1.2728,
+          -0.0,
+          -1.2728
+        ],
+        [
+          0.0,
+          -0.0,
+          -1.8
+        ]
+      ]
+    }
+  ],
+  "description": "In this scene, the pot is arranged in front of the table (smaller x-value), and the tree is behind the birdhouse (larger x-value). A single-segment circular structure is built to symmetrically enclose the pot and table at the center.",
+  "category": "Semantic"
+}

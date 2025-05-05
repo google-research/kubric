@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene involves interpreting spatial relationships to create an L-shaped garden structure that complements the rock. The prompt requires spatial reasoning to ensure correct alignment and placement of the structure around the existing rock formation.'
-    )
-  ],
-  confidence = 5
-)

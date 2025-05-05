@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a serpentine path that connects centerpieces and ensures movement flow through the garden. This requires spatial reasoning to determine the relative positions and arrangement of the path in relation to the objects.'
-    )
-  ],
-  confidence = 4
-)

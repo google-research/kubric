@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging seating in a semi-circle around a table, which requires spatial reasoning to ensure the seating adheres to the geometric constraints of a semi-circle.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves ensuring a clear view and access around the trashcan while maintaining a harmonious and functional arrangement. This requires spatial reasoning to position the quarter-wedge seating and other elements appropriately.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,0 +1,55 @@
+initial_generation: The initial design involves a circular seating area with a single segment of radius 1, centered at (-1, 1).
+
+initial_feedback: 
+1. "Please center the design around the table."
+2. "I want the radius to be bigger."
+3. "The current location is off by a meter."
+4. "Centering is vague; is there an object you prefer as the focal point?"
+5. "Can you confirm the height of the seating area?"
+
+edit_multiple_choice:
+1. {"Object Centering options": 
+    [
+      "Table [correct]",
+      "Pot",
+      "Bench",
+      "Trashcan",
+      "None of the above"
+    ]
+  },
+2. {"Sizing options": 
+    [
+      "Increase radius to 1.5 meters [correct]",
+      "Increase radius to 1.2 meters",
+      "Decrease radius to 0.8 meters",
+      "Keep the radius the same",
+      "None of the above"
+    ]
+  },
+3. {"Location Adjustment options": 
+    [
+      "Move one meter right",
+      "Move one meter left",
+      "Move one meter down",
+      "Move one meter up [correct]",
+      "Do not relocate"
+    ]
+  },
+4. {"Centering Preference options":
+    [
+      "Is the table the desired focal point? [correct]",
+      "Is the pot the desired focal point?",
+      "Is the trashcan the desired focal point?",
+      "Is the bench the desired focal point?",
+      "None of the above"
+    ]
+  },
+5. {"Height Confirmation options": 
+    [
+      "The height is 0.5 meters. Is that correct?",
+      "The height is 0.3 meters. Is that correct? [correct]",
+      "The height is 0.7 meters. Is that correct?",
+      "Specify the desired height",
+      "None of the above"
+    ] 
+  }

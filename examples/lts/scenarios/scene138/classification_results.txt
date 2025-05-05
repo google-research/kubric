@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The scene involves positioning something 'visually fluid' to connect trees in order to provide shade without blocking access, which requires reasoning about spatial relationships and arrangements."
-    )
-  ],
-  confidence = 4
-)

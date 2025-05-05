@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create distinct but connected zones around the table and birdhouse, which involves understanding their relative positions.'
-    )
-  ],
-  confidence = 4
-)

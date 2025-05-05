@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create an L-shaped barrier around the seating area while maintaining access to the trashcan. This involves understanding spatial relationships and positioning.'
-    )
-  ],
-  confidence = 5
-)

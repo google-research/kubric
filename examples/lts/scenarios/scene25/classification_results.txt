@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene requires understanding spatial relationships to position multiple structures relative to each other, such as placing structures near the bench while ensuring aesthetic alignment. It involves spatial reasoning to arrange the elements in a cohesive way.'
-    )
-  ],
-  confidence = 4
-)

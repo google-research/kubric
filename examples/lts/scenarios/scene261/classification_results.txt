@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves enhancing the spatial arrangement with a quarter-wedge design, which requires understanding and manipulation of spatial relationships in the scene, particularly around the trees.'
-    )
-  ],
-  confidence = 4
-)

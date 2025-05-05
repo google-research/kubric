@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The scene prompt requests an understanding of how to blend a wavy pattern with the surroundings in a way that is visually protective. This requires understanding the meaning and function of objects, as well as vague or underspecified elements that go beyond spatial or numeric specifications.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt and the description focus on maintaining symmetry and harmony, which involves numerical matching and dealing with quantities, such as ensuring circular designs and symmetrical arrangements around the rocks.'
-    )
-  ],
-  confidence = 4
-)

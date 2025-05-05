@@ -1,0 +1,97 @@
+{
+  "prompt": "Construct a two-segment L-shaped partition around 'the seat,' enclosing it from behind and partially along the side. The front must remain open for access. Ensure the table is in front of the seat and the birdhouse behind the seat. Disambiguate whether 'the seat' is the bench or the chair, and indicate your chosen object in the final layout.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "4": {
+      "extent": [
+        0.2,
+        -1.0,
+        -0.2
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.8,
+      "keypoints": [
+        [
+          -0.5,
+          -0.0,
+          0.5
+        ],
+        [
+          0.5,
+          -0.0,
+          0.5
+        ]
+      ]
+    },
+    {
+      "segment": 2,
+      "height": 0.8,
+      "keypoints": [
+        [
+          0.5,
+          -0.0,
+          0.5
+        ],
+        [
+          0.5,
+          -0.0,
+          -0.0
+        ]
+      ]
+    }
+  ],
+  "description": "This scene resolves the semantic ambiguity by choosing the bench as 'the seat.' The bench is enclosed from behind by a vertical partition (x = -0.5) and partially from the side by a horizontal partition (y = 0.5), both 0.8 m tall. The table is placed in front (at y=1), and the birdhouse behind (at y=-1), clarifying that the intended seat is the bench.",
+  "category": "semantic"
+}

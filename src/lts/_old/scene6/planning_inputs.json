@@ -1,0 +1,53 @@
+{
+  "prompt": "Construct a linear barrier behind the chair so that it shields the rock from any negative vibes that might come from the chair.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    },
+    "2": {
+      "extent": [
+        0.8,
+        -0.5,
+        -0.8
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          -1.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          -0.0
+        ]
+      ]
+    }
+  ],
+  "description": "This scene uses figurative language about 'shielding negativity' to place a linear barrier behind a chair and protect the rock from negative vibes.",
+  "category": "semantic"
+}

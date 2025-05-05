@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt is centered around promoting social interaction and the concept of having a 'coherent layout.' These tasks require an understanding of the function and social context of the scene, which is more about the meaning and purpose rather than specific spatial or numerical properties."
-    )
-  ],
-  confidence = 4
-)

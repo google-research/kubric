@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt emphasizes the placement of quarter-circle structures to achieve aesthetic appeal while maintaining open paths to the birdhouses. This requires spatial reasoning to ensure the correct arrangement and positioning of structures around the birdhouses.'
-    )
-  ],
-  confidence = 4
-)

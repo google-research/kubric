@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The scene description mentions creating a symmetrical structure and adjusting the design profile, which suggests a focus on numerical matching and symmetry in the arrangement of objects.'
-    )
-  ],
-  confidence = 4
-)

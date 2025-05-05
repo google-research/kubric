@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt and scene description involve spatial reasoning with respect to arranging the pathway in relation to the benches. It requires understanding the spatial relations between these objects to create an organized seating area.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,5 +1,0 @@
-{
-    "prompt": "",
-    "observation": {},
-    "output": []
-}

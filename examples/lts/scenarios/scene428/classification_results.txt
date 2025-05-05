@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning, as it requests positioning a TriWedge structure to enclose seating and natural elements, which requires understanding the relative positions of objects.'
-    )
-  ],
-  confidence = 4
-)

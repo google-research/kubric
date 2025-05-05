@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt is focused on forming a central garden feature and highlighting it with a circular structure, which involves understanding the meaning and function of the objects rather than specific quantities or spatial positioning.'
-    )
-  ],
-  confidence = 4
-)

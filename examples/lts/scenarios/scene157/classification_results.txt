@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to integrate circular structures in a manner that promotes interaction and accessibility around tables, considering relative positions and ensuring sufficient space for pathways.'
-    )
-  ],
-  confidence = 5
-)

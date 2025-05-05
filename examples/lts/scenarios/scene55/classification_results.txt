@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a garden design with a pathway that bridges two storage units, requiring spatial reasoning to determine the correct positioning and integration of the pathway within the scene context.'
-    )
-  ],
-  confidence = 5
-)

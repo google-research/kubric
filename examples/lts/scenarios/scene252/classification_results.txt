@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt involves understanding the abstract concept of enhancing a visual narrative and maintaining accessibility, which requires a semantic understanding of the scene's function."
-    )
-  ],
-  confidence = 4
-)

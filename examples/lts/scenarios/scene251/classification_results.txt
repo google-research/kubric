@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt emphasizes symmetry, which involves numeric reasoning to ensure the semi-ring structure is symmetric around the birdhouses.'
-    )
-  ],
-  confidence = 4
-)

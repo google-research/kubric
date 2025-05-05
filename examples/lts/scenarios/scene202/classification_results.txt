@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves understanding spatial relationships such as the positioning of the tri-wedge border around the tables and access from the corners, which requires spatial reasoning.'
-    )
-  ],
-  confidence = 5
-)

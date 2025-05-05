@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a half-moon layout around the tree, which requires understanding the spatial arrangement and positioning of objects relative to the tree.'
-    )
-  ],
-  confidence = 4
-)

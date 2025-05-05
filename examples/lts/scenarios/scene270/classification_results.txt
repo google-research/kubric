@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a circular arrangement that provides a gentle embrace, which involves spatial reasoning about the positioning of elements relative to each other to highlight their presence and ensure space for interaction and observation.'
-    )
-  ],
-  confidence = 4
-)

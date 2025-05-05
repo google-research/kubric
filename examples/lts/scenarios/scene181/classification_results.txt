@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests spatial reasoning involving the scene context by asking to connect the rocky outcrops with the central seat, ensuring a smooth and flowing journey between each.'
-    )
-  ],
-  confidence = 4
-)

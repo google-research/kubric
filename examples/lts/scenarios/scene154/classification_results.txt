@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt requires designing a pathway that 'weaves smoothly between the two seating arrangements', which demands an understanding of spatial relationships and the relative positions of the seating in the scene."
-    )
-  ],
-  confidence = 4
-)

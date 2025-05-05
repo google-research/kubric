@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires designing a curvy path, which involves spatial reasoning for creating a fluid, unobstructed connection between birdhouses.'
-    )
-  ],
-  confidence = 4
-)

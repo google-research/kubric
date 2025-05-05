@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The scene description emphasizes geometric properties, symmetry, and specific dimensions like center positioning, length, width, and height, which align with numerical aspects of scene design.'
-    )
-  ],
-  confidence = 4
-)

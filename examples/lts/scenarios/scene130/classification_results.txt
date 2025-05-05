@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning to ensure that the semi-circular seating area is arranged correctly around the rock, with the open side facing away for access. This requires understanding the relative positions and orientations in the scene.'
-    )
-  ],
-  confidence = 4
-)

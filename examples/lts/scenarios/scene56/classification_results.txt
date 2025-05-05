@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a boundary that encloses tables without hindering access, which requires understanding and reasoning about the spatial relationship and relative positions of the tables and the boundary.'
-    )
-  ],
-  confidence = 5
-)

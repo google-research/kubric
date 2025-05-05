@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt requires understanding of the aesthetic and artistic aspects of the scene, \n                   which involves interpreting the meaning and function of the objects in the scene \n                   such as the trees and table, without specifying exact spatial arrangements or numeric \n                   criteria.'
-    )
-  ],
-  confidence = 4
-)

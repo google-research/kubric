@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a specific arrangement, 'L-shaped seating around trees,' which requires understanding spatial relationships and organization within the scene."
-    )
-  ],
-  confidence = 5
-)

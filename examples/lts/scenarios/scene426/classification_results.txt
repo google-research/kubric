@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning by requesting the integration of an L-shaped structure with birdhouses in a garden. It focuses on the arrangement and positioning of the structure relative to the birdhouses to create an engaging and aesthetically pleasing garden space.'
-    )
-  ],
-  confidence = 4
-)

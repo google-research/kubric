@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves creating a 'square border around the benches and trees,' which requires understanding of spatial positioning and ensuring there is space for easy access and social interactions. The focus is on relative positions and alignment within the scene."
-    )
-  ],
-  confidence = 4
-)

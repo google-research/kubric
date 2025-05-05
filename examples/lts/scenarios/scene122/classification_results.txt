@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt involves creating a zigzag pattern which requires understanding of geometric properties such as symmetry, amplitude, and wavelength. These are numerical and mathematical concepts.'
-    )
-  ],
-  confidence = 5
-)

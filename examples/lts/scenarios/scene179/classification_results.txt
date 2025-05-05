@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires constructing circular features around the pots, considering relative positions and accessibility.'
-    )
-  ],
-  confidence = 4
-)

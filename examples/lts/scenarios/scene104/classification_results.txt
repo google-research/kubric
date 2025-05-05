@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to ensure the barrier is properly positioned and aligned with the tables without obstructing views or paths.'
-    )
-  ],
-  confidence = 4
-)

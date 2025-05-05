@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt generally describes creating a welcoming seating area using a 'TriWedge' design without specific requirements. The exact understanding of terms like 'TriWedge' relates to the function and meaning of the arrangement around the birdhouse."
-    )
-  ],
-  confidence = 4
-)

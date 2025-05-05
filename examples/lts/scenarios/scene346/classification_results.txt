@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a path that winds through a seating arrangement, which requires spatial reasoning to navigate around the chairs while maintaining a natural flow.'
-    )
-  ],
-  confidence = 5
-)

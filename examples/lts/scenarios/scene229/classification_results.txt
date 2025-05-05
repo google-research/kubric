@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the creation of a path that meanders between the trees, which involves spatial reasoning regarding the arrangement and positioning of the path relative to the trees.'
-    )
-  ],
-  confidence = 5
-)

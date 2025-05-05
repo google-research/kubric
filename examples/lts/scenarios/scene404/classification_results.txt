@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt specifies creating a semicircular garden to enhance the scene and allow for open interaction. It requires understanding the function and aesthetic of the garden within the scene context, which involves semantic reasoning.'
-    )
-  ],
-  confidence = 4
-)

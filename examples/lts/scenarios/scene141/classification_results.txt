@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a circular lounge area and ensuring spatial relationships and geometric properties are maintained for balance and accessibility, indicating a need for spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

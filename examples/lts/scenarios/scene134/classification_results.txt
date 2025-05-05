@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves designing a linear barrier with consideration of the spatial arrangement of birdhouses within the garden. It requires understanding the relative positions and spatial layout to effectively delineate and enhance the birdhouses' prominence."
-    )
-  ],
-  confidence = 4
-)

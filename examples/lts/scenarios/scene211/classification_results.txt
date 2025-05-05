@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves understanding the spatial relationship between the two stones in order to add a linear barrier, indicating a need for spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

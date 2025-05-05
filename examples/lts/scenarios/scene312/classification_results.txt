@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the creation of an artistic nook using quarter-wedges to accentuate natural formations, which involves spatial reasoning regarding the placement of structures relative to the rocks. The described scene emphasizes maintaining a balance between enclosure and openness, and avoiding collisions, which are spatial concerns.'
-    )
-  ],
-  confidence = 4
-)

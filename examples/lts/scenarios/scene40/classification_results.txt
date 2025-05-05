@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves constructing a unique enclosure pattern around a seating arrangement, requiring interpreting complex spatial relationships and geometric structures to ensure the enclosure provides sufficient open space while maintaining a soothing vibe.'
-    )
-  ],
-  confidence = 5
-)

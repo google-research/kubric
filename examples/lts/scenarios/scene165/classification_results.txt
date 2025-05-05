@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires designing a semi-circular wall that partially surrounds the seating area while maintaining open views outwards. This involves understanding and planning the relative positioning and layout within the scene to achieve the specified spatial characteristics.'
-    )
-  ],
-  confidence = 4
-)

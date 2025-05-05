@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene involves spatial reasoning, requiring the understanding of spatial relationships, such as the positioning of a serpentine separation around trees and benches. This includes geometric properties and alignment with the layout.'
-    )
-  ],
-  confidence = 5
-)

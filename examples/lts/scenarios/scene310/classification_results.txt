@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging the garden space in a semi-circular design that embraces the birdhouse. This requires spatial reasoning to manage relative positions and layout while maintaining the desired aesthetic and accessibility.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests spatial reasoning as it involves creating a space that provides open views and gentle protection, which requires understanding the relative positions and arrangement of objects such as chairs in a semi-circle.'
-    )
-  ],
-  confidence = 4
-)

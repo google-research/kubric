@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves enhancing spatial arrangement with the TriWedge structure around centrally positioned rocks, ensuring all elements coexist without collision, indicating spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

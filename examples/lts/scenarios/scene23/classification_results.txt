@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requires positioning quarter-wedge structures around a tree to create a shaded seating area while maintaining clear access to the picnic table. This involves understanding the spatial arrangement and relative positioning within the scene.'
-    )
-  ],
-  confidence = 4
-)

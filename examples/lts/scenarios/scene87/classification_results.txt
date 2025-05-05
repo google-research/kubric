@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it focuses on arranging structures to form a coherent space around the tables and pot without blocking the tabletop area. This requires consideration of the relative positions and spatial harmony of the objects.'
-    )
-  ],
-  confidence = 5
-)

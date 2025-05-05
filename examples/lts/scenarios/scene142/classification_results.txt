@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt is focused on the aesthetic and creative aspect of designing an 'artistic pathway' that 'flows like a gentle river', which lacks specific details or quantities and relies more on an understanding of the metaphorical concept."
-    )
-  ],
-  confidence = 4
-)

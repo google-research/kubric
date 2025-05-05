@@ -1,0 +1,106 @@
+{
+  "prompt": "Construct an L-shaped structure behind it, making sure it is close to the table and not too close to the rock. It should be a comfortable seating area, placed in the shade of the tree.",
+  "observation": {
+    "1": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        1.2,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "3": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        0.8,
+        -0.0,
+        -0.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        -1.5,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          -0.5,
+          -0.0,
+          -0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          -0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          -0.5
+        ],
+        [
+          0.0,
+          -0.0,
+          -0.5
+        ],
+        [
+          0.0,
+          -0.0,
+          -1.5
+        ],
+        [
+          -0.5,
+          -0.0,
+          -1.5
+        ],
+        [
+          -0.5,
+          -0.0,
+          -0.0
+        ]
+      ]
+    }
+  ],
+  "description": "This scene contains a syntactic/pronoun ambiguity\u2014 'it' could refer to the table or the bench, causing uncertainty about which object the L-shaped structure should be placed behind. We also have to decide which direction is truly 'behind' given only a partial definition of front/back in terms of the x-axis.",
+  "category": "Uncertainty"
+}

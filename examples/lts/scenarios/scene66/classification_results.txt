@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning since it requires integrating a circular structure around birdhouses, focusing on their relative positions to ensure visual continuity and a defined space while maintaining accessibility.'
-    )
-  ],
-  confidence = 5
-)

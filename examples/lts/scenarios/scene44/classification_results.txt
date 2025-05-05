@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt is vague and uses subjective terms like 'lively' and 'open'. It requires interpreting the meaning behind these terms to understand the desired scene effect without specific spatial or numerical criteria."
-    )
-  ],
-  confidence = 4
-)

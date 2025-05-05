@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a pathway that winds between the benches, which requires spatial reasoning to understand the layout and positioning of the pathway relative to the benches.'
-    )
-  ],
-  confidence = 4
-)

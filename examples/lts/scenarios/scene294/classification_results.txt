@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt and scene description focus on spatial reasoning, as it involves positioning pots and a TriWedge structure within a defined area to achieve harmony and prevent collisions.'
-    )
-  ],
-  confidence = 4
-)

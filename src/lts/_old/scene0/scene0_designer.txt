@@ -1,0 +1,45 @@
+initial_generation: The initial design is a straight line segment that starts at (-2, 0) and extends to the point (0, 0). The segment is 0.5 meters wide and 0.2 meters high.
+
+initial_feedback: 
+1. The line should extend to the table on the right.
+2. The height of the structure is fine.
+3. Can you make the design symmetrical between the trashcan and table?
+4. Is there a set distance from the line to each object?
+5. Can the line be adjusted to better follow the midpoint between the objects?
+
+edit_multiple_choice: 
+
+1. Extension options:
+   - Extend the line to the table at (2, 0) [correct]
+   - Extend the line to the table at (3, 0)
+   - Extend the line to the table at (1, 0)
+   - Do not extend the line
+   - None of the above
+
+2. Symmetry clarification:
+   - Ask the human if they want both objects equidistant from the ends of the line [correct]
+   - Ask the human if they want the line centered exactly between the objects
+   - Do not change position
+   - Make the line end at (-1, 1)
+   - Make the line end at (0, 1)
+
+3. Midpoint adjustment:
+   - Ensure the line is exactly at the midpoint between objects
+   - Move the line closer to the trashcan
+   - Move the line closer to the table
+   - Do not change the line's middle position [correct]
+   - None of the above
+
+4. Distance information:
+   - Ask the human for a specific distance from the line to each object [correct]
+   - Place the line 1 meter from one object
+   - Place the line 1 meter from both objects
+   - Do not consider additional distance
+   - None of the above
+   
+5. Complete alignment adjustment:
+   - Adjust the entire line to better follow the midpoint between the objects
+   - Tilt the line slightly towards the trashcan
+   - Tilt the line slightly towards the table
+   - Maintain current alignment but widen the line
+   - None of the above [correct]

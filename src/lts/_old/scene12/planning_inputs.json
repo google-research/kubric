@@ -1,0 +1,136 @@
+{
+  "prompt": "Construct a single-segment circular enclosure around the chair so that it comfortably surrounds the chair without interfering with any other objects.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -1.5,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        0.3,
+        -1.2,
+        -0.3
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "birdhouse"
+    },
+    "3": {
+      "extent": [
+        0.8,
+        -0.5,
+        -0.8
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "4": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "chair"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          0.0,
+          -0.0,
+          -3.0
+        ],
+        [
+          0.5,
+          -0.0,
+          -2.866
+        ],
+        [
+          0.866,
+          -0.0,
+          -2.5
+        ],
+        [
+          1.0,
+          -0.0,
+          -2.0
+        ],
+        [
+          0.866,
+          -0.0,
+          -1.5
+        ],
+        [
+          0.5,
+          -0.0,
+          -1.1339
+        ],
+        [
+          0.0,
+          -0.0,
+          -1.0
+        ],
+        [
+          -0.5,
+          -0.0,
+          -1.1339
+        ],
+        [
+          -0.866,
+          -0.0,
+          -1.5
+        ],
+        [
+          -1.0,
+          -0.0,
+          -2.0
+        ],
+        [
+          -0.866,
+          -0.0,
+          -2.5
+        ],
+        [
+          -0.5,
+          -0.0,
+          -2.866
+        ],
+        [
+          0.0,
+          -0.0,
+          -3.0
+        ]
+      ]
+    }
+  ],
+  "description": "The objects are placed as follows: the tree at (-1, 1), the birdhouse at (1, 1), the rock at (0, -1), and the chair at (2, 0). The circular structure has one segment, centered at (2, 0) with a radius of 1.0 meter and a height of 0.5 meters. This enclosure provides enough space around the chair and remains clear of the other objects.",
+  "category": "Spatial"
+}

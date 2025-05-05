@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a pathway that needs to consider the spatial relationship between the chairs and the pathway. It emphasizes the flow, elegance, and positioning of the pathway around the seating arrangement, which requires spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

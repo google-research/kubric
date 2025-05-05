@@ -1,0 +1,82 @@
+{
+  "prompt": "Construct a single-segment serpentine barrier behind the bench to create separation between the trashcan and the table.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -1.0,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -2.0
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "bench"
+    },
+    "3": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.6,
+      "keypoints": [
+        [
+          -1.2,
+          -0.0,
+          -1.2
+        ],
+        [
+          -1.05,
+          -0.0,
+          -1.0
+        ],
+        [
+          -0.9,
+          -0.0,
+          -1.4
+        ],
+        [
+          -0.75,
+          -0.0,
+          -1.0
+        ],
+        [
+          -0.6,
+          -0.0,
+          -1.2
+        ]
+      ]
+    }
+  ],
+  "description": "This scene requires understanding of the 'behind' relationship, with the convention that 'in front' means smaller x-values. The single-segment serpentine structure should be placed behind the bench to serve as a partial divider between the trashcan and the table.",
+  "category": "Semantic"
+}

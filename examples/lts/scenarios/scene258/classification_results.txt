@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves creating a garden path that weaves around existing objects like trees and a birdhouse, requiring an understanding of spatial relationships and positions.'
-    )
-  ],
-  confidence = 4
-)

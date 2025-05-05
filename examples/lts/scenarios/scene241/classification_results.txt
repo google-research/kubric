@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves organizing a scene with a linear divider to create a clear separation between two bins. This requires an understanding of spatial arrangement and positioning to maintain organization and functionality.'
-    )
-  ],
-  confidence = 4
-)

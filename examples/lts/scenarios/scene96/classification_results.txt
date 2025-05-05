@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves using L-shaped structures around trees to create a seating area. This requires spatial reasoning to ensure the structures are correctly positioned in relation to the trees, providing comfortable seating and interaction while avoiding collisions.'
-    )
-  ],
-  confidence = 5
-)

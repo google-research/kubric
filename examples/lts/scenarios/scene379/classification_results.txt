@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The prompt requires understanding the meaning of objects in the scene, particularly the aesthetic and functional aspects of creating a cozy and harmonious garden space. The request is vague and relies on qualitative judgment.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging rectangular boundaries around each chair, requiring spatial reasoning to maintain balanced layout and open access while defining the seating area boundaries.'
-    )
-  ],
-  confidence = 5
-)

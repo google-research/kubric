@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires constructing a linear structure that involves spatial reasoning to create distinct seating zones and provide a boundary for the birdhouse.'
-    )
-  ],
-  confidence = 5
-)

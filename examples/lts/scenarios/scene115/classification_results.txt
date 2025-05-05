@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves arranging seating areas near trees, requiring spatial reasoning to place these areas correctly in relation to each tree while maintaining clear pathways.'
-    )
-  ],
-  confidence = 4
-)

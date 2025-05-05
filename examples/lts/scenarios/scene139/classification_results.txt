@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a rotating circular pattern around the birdhouse, which requires understanding of spatial relationships, such as relative positions and orientations of the geometric patterns.'
-    )
-  ],
-  confidence = 5
-)

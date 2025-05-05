@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt emphasizes creating a semicircular enclosure that balances seclusion and accessibility, which involves considerations of the spatial arrangement of the pots and the semicircular structure.'
-    )
-  ],
-  confidence = 5
-)

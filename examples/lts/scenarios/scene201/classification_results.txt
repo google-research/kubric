@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves spatial reasoning as it requests designing a quarter-wedge to encircle rocks, which requires understanding their positions and the spatial arrangement within the garden.'
-    )
-  ],
-  confidence = 5
-)

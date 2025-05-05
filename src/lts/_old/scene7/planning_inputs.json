@@ -1,0 +1,53 @@
+{
+  "prompt": "Construct a single straight (linear) brick wall behind the pot, parallel to the y-axis, so that it spans approximately 1 meter in length and is easily accessible from the table.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        1.0,
+        -0.7,
+        -1.0
+      ],
+      "center": [
+        0.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.6,
+      "keypoints": [
+        [
+          -0.5,
+          -0.0,
+          0.3
+        ],
+        [
+          0.5,
+          -0.0,
+          0.3
+        ]
+      ]
+    }
+  ],
+  "description": "In this scene, we have a pot and a table on opposite sides of the origin, with a linear segment of bricks placed at x = -0.3 (behind the pot) spanning from y = -0.5 to y = 0.5.",
+  "category": "Spatial"
+}

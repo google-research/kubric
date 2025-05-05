@@ -1,0 +1,9 @@
+{
+  "category": "Spatial",
+  "objects": "['trashcan', 'table']",
+  "description": "This scene involves multiple objects placed to create a line. The trashcan is situated to the left of the origin while the table is on the opposite side. The instructed structure will align with these objects in a linear fashion.",
+  "prompt": "Construct a linear structure starting from the trashcan extending towards the table.",
+  "scene": "The trashcan is located at (-2, 0) and the table is placed at (2, 0).",
+  "initial solution": "The initial design is a straight line segment that starts at (-2, 0) and extends to the point (0, 0). The segment is 0.5 meters wide and 0.2 meters high.",
+  "full solution": "The linear structure consists of one segment beginning at (-2, 0) and extending to (2, 0), perfectly aligned with the objects. It is 0.5 meters wide and 0.2 meters high."
+}

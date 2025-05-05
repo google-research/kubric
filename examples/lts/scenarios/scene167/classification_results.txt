@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The scene description requires analyzing geometric properties like center, radius, and gap degrees to achieve the desired design outcome. This level of detail and specificity in terms of geometric and spatial measurements places the classification squarely in the numeric domain.'
-    )
-  ],
-  confidence = 4
-)

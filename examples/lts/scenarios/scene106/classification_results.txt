@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves arranging elements in space to create a visual separation and attraction without overcrowding. This requires understanding the spatial relationships between the arc and the trees.'
-    )
-  ],
-  confidence = 5
-)

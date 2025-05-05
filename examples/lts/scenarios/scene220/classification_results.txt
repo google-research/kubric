@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests the design of an L-shaped garden space, which involves spatial reasoning for positioning the L-shaped structures and organizing the scene to ensure the birdhouses are featured prominently and remain accessible and visible.'
-    )
-  ],
-  confidence = 4
-)

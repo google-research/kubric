@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a serpentine wave that flows between the chairs and complements the birdhouse, which requires spatial reasoning in terms of positioning and movement between objects.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a boundary around the trashcan, which requires spatial reasoning to ensure the boundary is secure and accessible without obstructing other areas. This involves understanding the spatial relationships between the trashcan, the boundary, and the surrounding context.'
-    )
-  ],
-  confidence = 4
-)

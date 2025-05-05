@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves constructing a serpentine barrier between specific objects (tree and birdhouse), requiring understanding of their spatial relationships to enhance aesthetics without blocking the view.'
-    )
-  ],
-  confidence = 5
-)

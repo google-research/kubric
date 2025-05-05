@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves the spatial arrangement of elements in the scene, specifically the formation of a semicircular ring around the trashcan, which requires understanding relative positions and spatial reasoning.'
-    )
-  ],
-  confidence = 4
-)

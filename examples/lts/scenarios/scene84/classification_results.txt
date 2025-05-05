@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Numeric(
-      explanation = 'The prompt requires organizing structures with equal gaps and symmetry around the birdhouse, indicating a need for precise spatial measurements and numerical balance.'
-    )
-  ],
-  confidence = 4
-)

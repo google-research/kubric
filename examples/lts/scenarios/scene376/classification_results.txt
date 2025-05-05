@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt 'Design a triangular enclosure that accentuates the rocky outposts, giving the space a distinct character and allowing for a natural landscape.' requires understanding the meaning of 'accentuates', 'distinct character', and 'natural landscape', which are semantically rich and involve comprehension of aesthetic value and intent."
-    )
-  ],
-  confidence = 4
-)

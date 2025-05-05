@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a labyrinth-like structure around the birdhouse which requires spatial reasoning to ensure proper layout and access points.'
-    )
-  ],
-  confidence = 4
-)

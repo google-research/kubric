@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging L-shaped structures around chairs to create a specific layout. This requires understanding the spatial relationships and positions of objects to ensure proper access and arrangement, classifying it under spatial reasoning.'
-    )
-  ],
-  confidence = 5
-)

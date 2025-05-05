@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = "The prompt requires understanding the meaning and purpose of creating a 'relaxing garden area' with 'artistic quarter-wedge structures around the benches', focusing on comfort and accessibility, which is inherently vague and depends on subjective interpretation."
-    )
-  ],
-  confidence = 4
-)

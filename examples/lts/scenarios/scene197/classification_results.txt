@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The scene prompt involves creating a path that winds between two trees, which requires understanding spatial relationships and positions of the path relative to the trees.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires enclosing a cozy corner with consideration for spatial relationships and paths, indicating a need to understand relative positions and existing spatial context.'
-    )
-  ],
-  confidence = 4
-)

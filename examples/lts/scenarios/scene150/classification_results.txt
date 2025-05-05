@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The task involves positioning circular structures around benches, requiring spatial reasoning to align and fit them symmetrically around existing objects. Additionally, ensuring the seating arrangement allows access and movement without obstructions is a spatial concern.'
-    )
-  ],
-  confidence = 4
-)

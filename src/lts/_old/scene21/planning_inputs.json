@@ -1,0 +1,116 @@
+{
+  "prompt": "Build a single circular enclosure around the pot so it does not roll away, but do not disrupt the table area.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        -1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "pot"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -2.0,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "4": {
+      "extent": [
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "center": [
+        2.0,
+        -0.0,
+        -2.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "table"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.4,
+      "keypoints": [
+        [
+          -1.0,
+          -0.0,
+          0.2
+        ],
+        [
+          -0.4343,
+          -0.0,
+          0.4343
+        ],
+        [
+          -0.2,
+          -0.0,
+          1.0
+        ],
+        [
+          -0.4343,
+          -0.0,
+          1.5657
+        ],
+        [
+          -1.0,
+          -0.0,
+          1.8
+        ],
+        [
+          -1.5657,
+          -0.0,
+          1.5657
+        ],
+        [
+          -1.8,
+          -0.0,
+          1.0
+        ],
+        [
+          -1.5657,
+          -0.0,
+          0.4343
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.2
+        ]
+      ]
+    }
+  ],
+  "description": "This scene introduces semantic ambiguity by having two identical pots. We ask the robot to build a single-segment circular structure around 'the pot' without specifying which one, creating uncertainty about which pot is intended.",
+  "category": "Uncertainty"
+}

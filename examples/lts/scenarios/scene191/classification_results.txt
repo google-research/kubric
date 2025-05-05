@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a space with quarter-wedge structures around trashcans, requiring spatial reasoning to manage the layout within the space constraints and ensure no overlap with trashcans.'
-    )
-  ],
-  confidence = 5
-)

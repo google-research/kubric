@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a scene that involves creating a path which gracefully connects two objects (the table and the birdhouse) with consideration of spatial reasoning. This involves understanding the layout of the garden environment and the relative positions of these objects to design a pathway that navigates around existing objects while maintaining a harmonious aesthetic.'
-    )
-  ],
-  confidence = 4
-)

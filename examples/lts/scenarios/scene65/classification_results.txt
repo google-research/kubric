@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Semantic(
-      explanation = 'The scene prompt requires understanding the meaning of creating a magical, wavy path that guides explorers, which is a vague and under-specified task focusing on an aesthetic and experiential quality rather than precise spatial or numerical details.'
-    )
-  ],
-  confidence = 4
-)

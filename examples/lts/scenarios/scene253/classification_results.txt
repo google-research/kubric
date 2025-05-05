@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The prompt involves spatial reasoning as it requires the understanding of how circular features 'encompass' the trashcans, emphasizing the importance of balance and accessibility within the spatial layout."
-    )
-  ],
-  confidence = 4
-)

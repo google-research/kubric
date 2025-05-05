@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves integrating a serpentine pattern that connects standalone features. This requires spatial reasoning to determine how the serpentine pattern navigates and interacts with the existing features, ensuring both functionality and aesthetic appeal.'
-    )
-  ],
-  confidence = 4
-)

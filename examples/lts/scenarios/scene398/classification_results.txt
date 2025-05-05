@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves creating a serpentine path that flows between objects (seating and disposals), which requires understanding of the spatial relationships and positions between these objects. The task emphasizes spatial reasoning to ensure there is an elegant flow without collisions.'
-    )
-  ],
-  confidence = 5
-)

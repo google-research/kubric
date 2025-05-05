@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves constructing a shield that partially encloses the pots and allows entry from one side, which requires spatial reasoning about relative positions and the spatial configuration of the shield and pots.'
-    )
-  ],
-  confidence = 5
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to interpret and design a layout that swirls around the garden setup, with a need to consider the flow between pots and a rock, indicating the importance of spatial positioning and relationships.'
-    )
-  ],
-  confidence = 5
-)

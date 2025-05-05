@@ -1,0 +1,67 @@
+{
+  "prompt": "Construct a single linear row of bricks behind the tree, running horizontally from x=1.2 to x=1.8 at y=1, with a height of 0.5 meters. Ensure it is clearly behind the tree relative to the x-axis orientation.",
+  "observation": {
+    "1": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "tree"
+    },
+    "2": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.0,
+        -0.0,
+        1.0
+      ],
+      "theta": 0.0,
+      "semantic_label": "rock"
+    },
+    "3": {
+      "extent": [
+        0.5,
+        -0.5,
+        -0.5
+      ],
+      "center": [
+        -1.5,
+        -0.0,
+        -1.5
+      ],
+      "theta": 0.0,
+      "semantic_label": "trashcan"
+    }
+  },
+  "output": [
+    {
+      "segment": 1,
+      "height": 0.5,
+      "keypoints": [
+        [
+          1.0,
+          -0.0,
+          -1.2
+        ],
+        [
+          1.0,
+          -0.0,
+          -1.8
+        ]
+      ]
+    }
+  ],
+  "description": "This scene focuses on building a single-segment linear structure behind the tree (higher x-value), while also positioning a trashcan and a rock within \u00b12 units of the origin.",
+  "category": "Spatial"
+}

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires an understanding of spatial relationships and geometric properties to create an L-shaped structure that wraps around the trees. This involves considering relative positions and the physical layout of the scene to ensure the design fits harmoniously.'
-    )
-  ],
-  confidence = 5
-)

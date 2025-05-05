@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create a semi-circular seating arrangement around the birdhouse, ensuring easy access to the seating, which involves understanding spatial relationships.'
-    )
-  ],
-  confidence = 5
-)

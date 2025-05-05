@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to create a central round structure and arrange seating in a balanced formation, which involves understanding spatial relationships and geometric properties.'
-    )
-  ],
-  confidence = 4
-)

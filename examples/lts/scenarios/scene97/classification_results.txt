@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires spatial reasoning to ensure circular planters are arranged around the trees while considering visitor accessibility, highlighting the importance of spatial relationships and layout within the garden.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves using a rectangular border to complement the area and enhance the layout around natural features. This requires spatial reasoning regarding the positioning and arrangement to maintain openness for interaction.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves understanding the spatial relationships between the pot and the rock to create an elegant boundary.'
-    )
-  ],
-  confidence = 4
-)

@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requires understanding spatial relationships to create a semi-circular arrangement around benches, balancing openness and privacy without blocking access. This involves spatial reasoning about positions and orientation to achieve the desired enclosure effect.'
-    )
-  ],
-  confidence = 4
-)

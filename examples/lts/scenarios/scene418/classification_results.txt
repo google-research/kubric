@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves designing a circular garden setting around chairs, which necessitates spatial reasoning involving the scene context, such as the relative positions of the chairs and their circular arrangement.'
-    )
-  ],
-  confidence = 4
-)

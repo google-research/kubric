@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves arranging objects (rocks and trashcans) in a semi-circular layout, which requires understanding the relative positions of objects.'
-    )
-  ],
-  confidence = 4
-)

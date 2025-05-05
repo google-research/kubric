@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt involves constructing an L-shaped boundary around trees, which requires spatial reasoning to determine the placement and shape of the boundary relative to the trees to enhance their presence while ensuring openness and accessibility.'
-    )
-  ],
-  confidence = 4
-)

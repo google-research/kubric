@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = 'The prompt requests a neat visual separator in a straight, linear alignment between the trees, which involves spatial reasoning about the arrangement and relative positions of the elements in the scene.'
-    )
-  ],
-  confidence = 4
-)

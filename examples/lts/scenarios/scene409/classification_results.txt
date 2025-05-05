@@ -1,8 +1,0 @@
-SceneClassification(
-  categories = [
-    0 : Spatial(
-      explanation = "The scene involves spatial reasoning due to the requirement of a 'graceful serpentine path that meanders through the space,' which indicates the need to consider the relative spatial context between the path and the objects (trashcans) it navigates around."
-    )
-  ],
-  confidence = 4
-)
