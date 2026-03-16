@@ -1,4 +1,4 @@
-# Copyright 2024 The Kubric Authors.
+# Copyright 2026 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -262,11 +262,11 @@ def get_render_layers_from_exr(filename) -> Dict[str, np.ndarray]:
     # with RG being the first layer and BA being the second
     # So the R and B channels are uint32 and the G and A channels are float32.
     crypto_layers = [n for n in layer_names if n.startswith("CryptoObject")]
-    index_channels = [n + "." + c for n in crypto_layers for c in "RB"]
+    index_channels = [n + "." + c for n in crypto_layers for c in "rb"]
     idxs = read_channels_from_exr(exr, index_channels)
     idxs.dtype = np.uint32
     output["segmentation_indices"] = idxs
-    alpha_channels = [n + "." + c for n in crypto_layers for c in "GA"]
+    alpha_channels = [n + "." + c for n in crypto_layers for c in "ga"]
     alphas = read_channels_from_exr(exr, alpha_channels)
     output["segmentation_alphas"] = alphas
   if "ObjectCoordinates" in layer_names:

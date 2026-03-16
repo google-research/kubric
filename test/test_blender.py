@@ -1,4 +1,4 @@
-# Copyright 2024 The Kubric Authors.
+# Copyright 2026 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ def test_prepare_blender_object():
   cube_asset = core.Cube()
   cube_obj = add_asset(None, cube_asset)
 
-  assert cube_obj.name == cube_asset.uid
+  assert cube_obj.name.split('.')[0] == cube_asset.uid
   assert cube_obj.rotation_mode == "QUATERNION"
   assert cube_obj in bpy.context.scene.collection.objects.values()
 

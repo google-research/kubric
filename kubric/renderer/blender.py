@@ -1,4 +1,4 @@
-# Copyright 2024 The Kubric Authors.
+# Copyright 2026 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -426,7 +426,7 @@ class Blender(core.View):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
           if extension == "obj":
-            bpy.ops.import_scene.obj(filepath=obj.render_filename,
+            bpy.ops.wm.obj_import(filepath=obj.render_filename,
                                      use_split_objects=False,
                                      **obj.render_import_kwargs)
           elif extension in ["glb", "gltf"]:
@@ -632,8 +632,8 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular",
+    obj.observe(AttributeSetter(bsdf_node.inputs["Specular IOR Level"], "default_value"), "specular")
+    obj.observe(KeyframeSetter(bsdf_node.inputs["Specular IOR Level"], "default_value"), "specular",
                 type="keyframe")
     obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"],
                                 "default_value"), "specular_tint")
@@ -642,15 +642,11 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior")
     obj.observe(KeyframeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission",
+    obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Weight"], "default_value"), "transmission")
+    obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Weight"], "default_value"), "transmission",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
-                "transmission_roughness")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
-                "transmission_roughness", type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission",
+    obj.observe(AttributeSetter(bsdf_node.inputs["Emission Color"], "default_value"), "emission")
+    obj.observe(KeyframeSetter(bsdf_node.inputs["Emission Color"], "default_value"), "emission",
                 type="keyframe")
     return mat
 
