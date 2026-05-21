@@ -1,4 +1,4 @@
-# Copyright 2024 The Kubric Authors.
+# Copyright 2026 The Kubric Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -105,6 +105,9 @@ class Blender(core.View):
 
     # the ray-tracing engine is set here because it affects the availability of some features
     bpy.context.scene.render.engine = "CYCLES"
+    bpy.context.scene.view_settings.view_transform = "Filmic"
+    bpy.context.scene.view_settings.look = "None"
+
     self.use_gpu = os.getenv("KUBRIC_USE_GPU", "False").lower() in ("true", "1", "t")
 
     blender_utils.activate_render_passes(normal=True, optical_flow=True, segmentation=True, uv=True)
@@ -426,9 +429,11 @@ class Blender(core.View):
       with io.StringIO() as fstdout:  # < scratch stdout buffer
         with redirect_stdout(fstdout):  # < also suppresses python stdout
           if extension == "obj":
-            bpy.ops.import_scene.obj(filepath=obj.render_filename,
-                                     use_split_objects=False,
-                                     **obj.render_import_kwargs)
+            bpy.ops.wm.obj_import(
+                filepath=obj.render_filename,
+                use_split_objects=False,
+                **obj.render_import_kwargs,
+            )
           elif extension in ["glb", "gltf"]:
             bpy.ops.import_scene.gltf(filepath=obj.render_filename,
                                       **obj.render_import_kwargs)
@@ -632,9 +637,17 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Metallic"], "default_value"), "metallic",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Specular"], "default_value"), "specular",
-                type="keyframe")
+    obj.observe(
+        AttributeSetter(
+            bsdf_node.inputs["Specular IOR Level"], "default_value"
+        ),
+        "specular",
+    )
+    obj.observe(
+        KeyframeSetter(bsdf_node.inputs["Specular IOR Level"], "default_value"),
+        "specular",
+        type="keyframe",
+    )
     obj.observe(AttributeSetter(bsdf_node.inputs["Specular Tint"],
                                 "default_value"), "specular_tint")
     obj.observe(KeyframeSetter(bsdf_node.inputs["Specular Tint"], "default_value"), "specular_tint",
@@ -642,16 +655,28 @@ class Blender(core.View):
     obj.observe(AttributeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior")
     obj.observe(KeyframeSetter(bsdf_node.inputs["IOR"], "default_value"), "ior",
                 type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission"], "default_value"), "transmission",
-                type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
-                "transmission_roughness")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Transmission Roughness"], "default_value"),
-                "transmission_roughness", type="keyframe")
-    obj.observe(AttributeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission")
-    obj.observe(KeyframeSetter(bsdf_node.inputs["Emission"], "default_value"), "emission",
-                type="keyframe")
+    obj.observe(
+        AttributeSetter(
+            bsdf_node.inputs["Transmission Weight"], "default_value"
+        ),
+        "transmission",
+    )
+    obj.observe(
+        KeyframeSetter(
+            bsdf_node.inputs["Transmission Weight"], "default_value"
+        ),
+        "transmission",
+        type="keyframe",
+    )
+    obj.observe(
+        AttributeSetter(bsdf_node.inputs["Emission Color"], "default_value"),
+        "emission",
+    )
+    obj.observe(
+        KeyframeSetter(bsdf_node.inputs["Emission Color"], "default_value"),
+        "emission",
+        type="keyframe",
+    )
     return mat
 
   @add_asset.register(core.FlatMaterial)
