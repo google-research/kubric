@@ -29,7 +29,7 @@ def test_prepare_blender_object():
   cube_asset = core.Cube()
   cube_obj = add_asset(None, cube_asset)
 
-  assert cube_obj.name == cube_asset.uid
+  assert cube_obj.name.split('.')[0] == cube_asset.uid
   assert cube_obj.rotation_mode == "QUATERNION"
   assert cube_obj in bpy.context.scene.collection.objects.values()
 

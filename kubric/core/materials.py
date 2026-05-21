@@ -33,7 +33,7 @@ class PrincipledBSDFMaterial(Material):
   color = ktl.RGBA(default_value=core_color.get_color("white"))
   metallic = tl.Float(0.)
   specular = tl.Float(0.5)
-  specular_tint = tl.Float(0.)
+  specular_tint = ktl.RGBA(default_value=core_color.get_color("white"))
   roughness = tl.Float(0.4)
   ior = tl.Float(1.45)
   transmission = tl.Float(0)
