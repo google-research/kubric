@@ -30,7 +30,7 @@ CLEVR_COLORS = {
     "green": color.Color(29/255, 105/255, 20/255),
     "purple": color.Color(129/255, 38/255, 192/255),
     "red": color.Color(173/255, 35/255, 35/255),
-    "yellow": color.Color(255/255, 238/255, 5/255),
+    "yellow": color.Color(255/255, 238/255, 51/255),
 }
 
 
