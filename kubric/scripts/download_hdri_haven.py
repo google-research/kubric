@@ -31,6 +31,20 @@ from kubric import file_io
 from kubric.kubric_typing import PathLike
 
 
+def _str_to_bool(value):
+  if isinstance(value, bool):
+    return value
+
+  normalized_value = value.lower()
+  if normalized_value in ("true", "t", "1", "yes", "y"):
+    return True
+  if normalized_value in ("false", "f", "0", "no", "n"):
+    return False
+
+  raise argparse.ArgumentTypeError(
+      "expected one of: true, false, 1, 0, yes, no")
+
+
 def collect_list_of_available_assets(
     catalogue_path="hdri_haven_catalogue.json"):
   catalogue_path = file_io.as_path(catalogue_path)
@@ -157,7 +171,7 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument("--download_dir", type=str, default="HDRI_haven_raw")
   parser.add_argument("--target_dir", type=str, default="HDRI_haven")
-  parser.add_argument("--keep_raw_assets", type=bool, default=False)
+  parser.add_argument("--keep_raw_assets", type=_str_to_bool, default=False)
   FLAGS, unused = parser.parse_known_args()
   main(download_dir=FLAGS.download_dir, target_dir=FLAGS.target_dir,
        keep_raw_assets=FLAGS.keep_raw_assets)
