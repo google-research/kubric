@@ -181,7 +181,7 @@ def read_png(filename: PathLike, rescale_range=None) -> np.ndarray:
   pngdata = np.vstack(list(map(dtype, pngdata)))
   if rescale_range is not None:
     minv, maxv = rescale_range
-    pngdata = pngdata / 2**bitdepth * (maxv - minv) + minv
+    pngdata = pngdata / (2**bitdepth - 1) * (maxv - minv) + minv
 
   return pngdata.reshape((height, width, plane_count))
 
