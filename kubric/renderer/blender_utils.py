@@ -141,6 +141,11 @@ def add_coordinate_material():
   tex_coordinates = mat.node_tree.nodes.new(type="ShaderNodeTexCoord")
   aov_out_node = mat.node_tree.nodes.new(type="ShaderNodeOutputAOV")
   aov_out_node.name = "ObjectCoordinates"
+  # Blender versions that expose `aov_name` (e.g. 4.3) bind the AOV by it and
+  # treat `name` as the node label only; without this the ObjectCoordinates
+  # pass renders as all zeros. Older versions bind by `name`.
+  if hasattr(aov_out_node, "aov_name"):
+    aov_out_node.aov_name = "ObjectCoordinates"
   unused_mat_out_node = mat.node_tree.nodes.new(type="ShaderNodeOutputMaterial")
 
   mat.node_tree.links.new(tex_coordinates.outputs.get("Generated"),

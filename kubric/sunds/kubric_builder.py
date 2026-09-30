@@ -57,7 +57,7 @@ class SceneConfig:
   frame_rate: int = 24
   step_rate: int = 240
 
-  scratch_dir: Optional[epath.Path] = edc.field(
+  scratch_dir: Optional[epath.Path] = edc.field(  # pyrefly: ignore[bad-assignment]
       validate=lambda p: p if p is None else epath.Path(p),
       default=None,  # pytype: disable=annotation-type-mismatch
   )
