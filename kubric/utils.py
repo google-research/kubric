@@ -93,7 +93,7 @@ def setup(flags):
   setup_logging(flags.logging_level)
   log_my_flags(flags)
 
-  seed = flags.seed if flags.seed else np.random.randint(0, 2147483647)
+  seed = np.random.randint(0, 2147483647) if flags.seed is None else flags.seed
   rng = np.random.RandomState(seed=seed)
   scene = kubric_scene.Scene.from_flags(flags)
   scene.metadata["seed"] = seed
